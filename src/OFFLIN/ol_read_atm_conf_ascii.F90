@@ -1,0 +1,304 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     #########
+SUBROUTINE OL_READ_ATM_CONF_ASCII (DTCO, U, HSURF_FILETYPE, HFORCING_FILETYPE,  &
+                                   PDURATION, PTSTEP_FORC, KNI, &
+                                   KYEAR, KMONTH, KDAY, PTIME,  &
+                                   PLAT, PLON, PZS,             &
+                                   PZREF, PUREF                 )  
+!
+!==================================================================
+!!****  *OL_READ_ATM_CONF* - Initialization routine
+!!
+!!    PURPOSE
+!!    -------
+!!
+!!**  METHOD
+!!    ------
+!!
+!!    EXTERNAL
+!!    --------
+!!
+!!
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!    REFERENCE
+!!    ---------
+!!
+!!
+!!    AUTHOR
+!!    ------
+!!      F. Habets   *Meteo France*
+!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original    01/2004
+!!      Modified by P. Le Moigne (04/2005): cleaning and checking
+!!      Modified by P. Le Moigne (04/2006): init_io_surf for nature
+!!                  with GTMSK to read dimensions.
+!==================================================================
+!
+USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
+USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
+!
+USE MODD_TYPE_DATE_SURF
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, XTIME_COMM_READ, XTIME_NPIO_READ
+!
+USE MODD_ARCH, ONLY : LITTLE_ENDIAN_ARCH
+USE MODD_IO_SURF_ASC, ONLY : NNI_FORC
+!
+USE MODI_GET_LUOUT
+USE MODI_INIT_IO_SURF_n
+USE MODI_READ_SURF
+USE MODI_END_IO_SURF_n
+USE MODI_GET_SIZE_FULL_n
+USE MODI_READ_AND_SEND_MPI
+USE MODI_ABOR1_SFX
+!
+USE MODI_SET_SURFEX_FILEIN
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE 'mpif.h'
+#endif
+!
+!
+TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
+TYPE(SURF_ATM_t), INTENT(INOUT) :: U
+!
+ CHARACTER(LEN=6), INTENT(IN)  :: HSURF_FILETYPE
+ CHARACTER(LEN=6), INTENT(IN)  :: HFORCING_FILETYPE
+INTEGER,          INTENT(OUT) :: KNI
+INTEGER,          INTENT(OUT) :: KYEAR, KMONTH, KDAY
+REAL,             INTENT(OUT) :: PDURATION,PTSTEP_FORC
+REAL,             INTENT(OUT) :: PTIME
+REAL, DIMENSION(:),  POINTER  :: PLAT, PLON
+REAL, DIMENSION(:),  POINTER  :: PZS 
+REAL, DIMENSION(:),  POINTER  :: PZREF, PUREF
+!
+REAL, DIMENSION(:), ALLOCATABLE :: ZWORK
+REAL                          :: ZWORK0
+REAL                          :: ZTIME
+ CHARACTER(LEN=1)              :: YSWAP
+TYPE (DATE_TIME)              :: TTIME
+INTEGER                       :: INI, IDIM_FULL
+INTEGER                       :: IYEAR, IMONTH, IDAY
+INTEGER                       :: ILUOUT
+INTEGER                       :: IRET, INB_FORC
+INTEGER                       :: INFOMPI
+DOUBLE PRECISION   :: XTIME0
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+!==================================================================
+!
+IF (LHOOK) CALL DR_HOOK('OL_READ_ATM_CONF_ASCII',0,ZHOOK_HANDLE)
+!
+IF (NRANK==NPIO) THEN
+  !
+  CALL GET_LUOUT(HSURF_FILETYPE,ILUOUT) 
+  !
+#ifdef SFX_MPI
+  XTIME0 = MPI_WTIME()
+#endif
+  !
+  !*      1.    Define configuration parameters
+  !
+  YSWAP='N'
+  IF (HFORCING_FILETYPE == 'BINARY') READ(21,*) YSWAP
+  IF (YSWAP.EQ.'Y') THEN 
+    LITTLE_ENDIAN_ARCH=.NOT.LITTLE_ENDIAN_ARCH
+    WRITE(ILUOUT,*) '*******************************************************************'
+    WRITE(ILUOUT,*) 'Architecture of the machine needs to swap LITTLE_ENDIAN_ARCH to ', &
+                    LITTLE_ENDIAN_ARCH  
+    WRITE(ILUOUT,*) '*******************************************************************'
+  ENDIF
+  !
+  READ(21,*) INI
+  NNI_FORC = INI
+  !
+  READ(21,*) INB_FORC
+  READ(21,*) PTSTEP_FORC
+  PDURATION = ( INB_FORC - 1 ) * PTSTEP_FORC
+  !
+  READ(21,*) IYEAR
+  READ(21,*) IMONTH
+  READ(21,*) IDAY
+  READ(21,*) ZTIME
+  !
+#ifdef SFX_MPI
+  XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+  !
+ENDIF
+!
+IF (NPROC>1) THEN
+#ifdef SFX_MPI
+  XTIME0 = MPI_WTIME()
+  CALL MPI_BCAST(PTSTEP_FORC,KIND(PTSTEP_FORC)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+  CALL MPI_BCAST(PDURATION,KIND(PDURATION)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+  XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
+#endif
+ENDIF
+!
+!*      2.    Read full grid dimension and date
+!
+ CALL SET_SURFEX_FILEIN(HSURF_FILETYPE,'PREP')
+CALL INIT_IO_SURF_n(DTCO, U, HSURF_FILETYPE,'FULL  ','SURF  ','READ ') 
+!
+ CALL READ_SURF(HSURF_FILETYPE,'DIM_FULL',IDIM_FULL,IRET)
+ CALL READ_SURF(HSURF_FILETYPE,'DTCUR',TTIME,IRET)
+!
+ CALL END_IO_SURF_n(HSURF_FILETYPE)
+!
+KYEAR  = TTIME%TDATE%YEAR
+KMONTH = TTIME%TDATE%MONTH
+KDAY   = TTIME%TDATE%DAY
+PTIME  = TTIME%TIME
+!
+!*      4.    Geographical initialization
+!
+ CALL GET_SIZE_FULL_n('OFFLIN ',IDIM_FULL,U%NSIZE_FULL,KNI) 
+!
+ALLOCATE(PLON (KNI))
+ALLOCATE(PLAT (KNI))
+ALLOCATE(PZS  (KNI))
+ALLOCATE(PZREF(KNI))
+ALLOCATE(PUREF(KNI))
+!
+IF (NRANK==NPIO) THEN
+  ALLOCATE(ZWORK(IDIM_FULL))
+ELSE
+  ALLOCATE(ZWORK(0))
+ENDIF
+!
+IF (NRANK==NPIO) THEN
+  !
+#ifdef SFX_MPI
+  XTIME0 = MPI_WTIME()
+#endif
+  !
+  IF (INI==1) THEN
+    READ(UNIT=21,FMT='(F15.8)') ZWORK0
+    ZWORK(:) = ZWORK0
+  ELSE
+    READ(UNIT=21,FMT='(50(F15.8))') ZWORK
+  END IF
+  !
+#ifdef SFX_MPI
+  XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+ENDIF
+ CALL READ_AND_SEND_MPI(ZWORK,PLON)
+!
+IF (NRANK==NPIO) THEN
+  !
+#ifdef SFX_MPI
+  XTIME0 = MPI_WTIME()
+#endif
+  !
+  IF (INI==1) THEN
+    READ(UNIT=21,FMT='(F15.8)') ZWORK0
+    ZWORK(:) = ZWORK0
+  ELSE
+    READ(UNIT=21,FMT='(50(F15.8))') ZWORK
+  END IF
+  !
+#ifdef SFX_MPI
+  XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+ENDIF
+ CALL READ_AND_SEND_MPI(ZWORK,PLAT)
+!
+IF (NRANK==NPIO) THEN
+  !
+#ifdef SFX_MPI
+  XTIME0 = MPI_WTIME()
+#endif
+  !
+  IF (INI==1) THEN
+    READ(UNIT=21,FMT='(F15.8)') ZWORK0
+    ZWORK(:) = ZWORK0
+  ELSE
+    READ(UNIT=21,FMT='(50(F15.8))') ZWORK
+  END IF
+  !
+#ifdef SFX_MPI
+  XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+ENDIF
+ CALL READ_AND_SEND_MPI(ZWORK,PZS)
+!
+IF (NRANK==NPIO) THEN
+  !
+#ifdef SFX_MPI
+  XTIME0 = MPI_WTIME() 
+#endif
+  !
+  IF (INI==1) THEN
+    READ(UNIT=21,FMT='(F15.8)') ZWORK0
+    ZWORK(:) = ZWORK0
+  ELSE
+    READ(UNIT=21,FMT='(50(F15.8))') ZWORK
+  END IF
+  !
+#ifdef SFX_MPI
+  XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+ENDIF
+ CALL READ_AND_SEND_MPI(ZWORK,PZREF)
+!
+IF (NRANK==NPIO) THEN
+  !
+#ifdef SFX_MPI
+  XTIME0 = MPI_WTIME()
+#endif
+  !
+  IF (INI==1) THEN
+    READ(UNIT=21,FMT='(F15.8)') ZWORK0
+    ZWORK(:) = ZWORK0
+  ELSE
+    READ(UNIT=21,FMT='(50(F15.8))') ZWORK
+  END IF
+  !
+#ifdef SFX_MPI
+  XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+ENDIF
+ CALL READ_AND_SEND_MPI(ZWORK,PUREF)
+!
+DEALLOCATE(ZWORK)
+!
+!*      3.    Check the consistency
+!
+IF (NRANK==NPIO) THEN
+  !
+  IF (IDIM_FULL /= INI .AND. INI/=1) THEN
+    WRITE(ILUOUT,*)' NUMBER OF GRID POINTS INCONSISTENCY: ',KNI,'/',INI
+    CALL ABOR1_SFX('OL_READ_ATM_CONF_ASCII: NUMBER OF GRID POINTS INCONSISTENCY')
+  ENDIF
+  !
+  !  check date and time
+  !
+  IF ( (KYEAR /= IYEAR) .OR. (KMONTH /= IMONTH) .OR. (KDAY /= IDAY) ) THEN
+    WRITE(ILUOUT,*)' DATE INCONSISTANCY: ',KYEAR,KMONTH,KDAY,'/',IYEAR,IMONTH,IDAY
+    CALL ABOR1_SFX('OL_READ_ATM_CONF_ASCII: DATE INCONSISTENCY')
+  ENDIF
+  !
+  IF ( PTIME /= ZTIME ) THEN
+    WRITE(ILUOUT,*)' TIME INCONSISTANCY: ',PTIME,'/',ZTIME
+    CALL ABOR1_SFX('OL_READ_ATM_CONF_ASCII: TIME INCONSISTENCY')
+  ENDIF
+  !
+ENDIF
+!
+IF (LHOOK) CALL DR_HOOK('OL_READ_ATM_CONF_ASCII',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE OL_READ_ATM_CONF_ASCII

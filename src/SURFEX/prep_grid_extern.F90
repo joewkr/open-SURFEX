@@ -1,0 +1,208 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     #########
+      SUBROUTINE PREP_GRID_EXTERN (GCP,HFILETYPE,KLUOUT,HGRIDTYPE,HINTERP_TYPE,KNI)
+!     ##########################################################################
+!
+!!****  *PREP_GRID_EXTERN* - reads EXTERNALIZED Surface grid.
+!!
+!!    PURPOSE
+!!    -------
+!!
+!!**  METHOD
+!!    ------
+!!
+!!    EXTERNAL
+!!    --------
+!!
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!
+!!    REFERENCE
+!!    ---------
+!!
+!!
+!!    AUTHOR
+!!    ------
+!!
+!!      V. Masson
+!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original   06/2003
+!-------------------------------------------------------------------------------
+!
+!*      0. DECLARATIONS
+!          ------------
+!
+USE MODD_GRID_CONF_PROJ_n, ONLY : GRID_CONF_PROJ_t, XX, XY, XXI, XYI, XCX, XCY, NCIJ
+!
+USE MODD_SURFEX_MPI, ONLY : WLOG_MPI, NRANK, NPIO, NPROC, NCOMM
+USE MODD_HORIBL, ONLY : LGLOBLON, LGLOBS, LGLOBN, XILO1H, XILO2H, NINLOH, &
+                        XLA, XOLA, XOLO, NP, XLOPH, NO
+USE MODD_PREP,       ONLY : XLAT_OUT, XLON_OUT, LINTERP, XX_OUT, XY_OUT
+!
+USE MODD_GRID_GAUSS, ONLY : XILA1, XILO1, XILA2, XILO2, NINLA, NINLO, NILEN, LROTPOLE, &
+                            XLAP, XLOP, XCOEF, XLAT, XLON        
+USE MODD_GRID_LATLONREGUL, ONLY : XILAT1,XILON1,XILAT2,XILON2,NINLAT,NINLON,NILENGTH,XILATARRAY  
+USE MODD_GRID_CARTESIAN, ONLY : XX_ca=>XX, XY_ca=>XY, NCIJ_ca=>NCIJ, XCX_ca=>XCX, XCY_ca=>XCY
+!
+USE MODE_GRIDTYPE_CONF_PROJ
+USE MODI_BILIN_COEF
+USE MODI_READ_SURF
+USE MODI_PREP_GRID_CONF_PROJ
+USE MODI_PREP_GRID_CARTESIAN
+USE MODI_PREP_GRID_GAUSS
+USE MODI_PREP_GRID_LONLAT_REG
+USE MODI_HORIBL_SURF_INIT
+USE MODI_HORIBL_SURF_COEF
+USE MODI_ARPEGE_STRETCH_A
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+USE MODI_ABOR1_SFX
+!
+IMPLICIT NONE
+!
+!* 0.1. Declaration of arguments
+!       ------------------------
+!
+TYPE(GRID_CONF_PROJ_t),INTENT(INOUT) :: GCP
+!
+ CHARACTER(LEN=6),  INTENT(IN)    :: HFILETYPE    ! file type
+INTEGER,           INTENT(IN)    :: KLUOUT       ! logical unit of output listing
+ CHARACTER(LEN=10),  INTENT(OUT)  :: HGRIDTYPE    ! Grid type
+ CHARACTER(LEN=6),  INTENT(OUT)   :: HINTERP_TYPE ! Grid type
+INTEGER,           INTENT(OUT)   :: KNI          ! number of points
+!
+!* 0.2 Declaration of local variables
+!      ------------------------------
+!
+INTEGER :: IINLA, INO
+INTEGER :: IRESP
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+!-----------------------------------------------------------------------
+!
+!*   1 Type of grid
+!      ------------
+!
+IF (LHOOK) CALL DR_HOOK('PREP_GRID_EXTERN',0,ZHOOK_HANDLE)
+ CALL READ_SURF(HFILETYPE,'GRID_TYPE',HGRIDTYPE,IRESP,HDIR='-')
+!
+!-----------------------------------------------------------------------
+!
+!*   2 Reading of grid
+!      ---------------
+!
+IF (HGRIDTYPE=='CONF PROJ ') THEN
+  CALL PREP_GRID_CONF_PROJ(GCP,HFILETYPE,HINTERP_TYPE,KNI)
+ELSE IF (HGRIDTYPE=='CARTESIAN ') THEN
+  CALL PREP_GRID_CARTESIAN(HFILETYPE,HINTERP_TYPE,KNI)
+ELSE IF (HGRIDTYPE=='GAUSS     ') THEN
+  CALL PREP_GRID_GAUSS(HFILETYPE,HINTERP_TYPE,KNI)
+ELSE IF (HGRIDTYPE=='LONLAT REG') THEN
+  HGRIDTYPE = 'LATLON    '
+  CALL PREP_GRID_LONLAT_REG(HFILETYPE,HINTERP_TYPE,KNI)
+ELSE
+  WRITE(KLUOUT,*) 'GRIDTYPE "',HGRIDTYPE,'" NOT ACCEPTED AS INPUT FILE FOR FIELD PREPARATION'
+  CALL ABOR1_SFX('GRIDTYPE NOT ACCEPTED AS INPUT FILE FOR FIELD PREPARATION, '//HGRIDTYPE)
+END IF
+!
+IF (ALLOCATED(XLAT_OUT)) THEN
+  !
+  INO = SIZE(XLAT_OUT)
+  !
+  IF (HGRIDTYPE=='GAUSS     ' .OR. HGRIDTYPE=='LATLON    ') THEN
+    !
+    IF (HGRIDTYPE=='GAUSS     ') THEN
+      IF (ALLOCATED(XLAT)) DEALLOCATE(XLAT)
+      IF (ALLOCATED(XLON)) DEALLOCATE(XLON)
+      ALLOCATE(XLAT    (INO))
+      ALLOCATE(XLON    (INO))          
+      IF (LROTPOLE) THEN
+!* transformation of output latitudes, longitudes into rotated coordinates
+        CALL ARPEGE_STRETCH_A(INO,XLAP,XLOP,XCOEF,XLAT_OUT,XLON_OUT,XLAT,XLON)
+      ELSE
+        XLAT = XLAT_OUT 
+        XLON = XLON_OUT 
+      END IF
+    ENDIF
+!
+    IF (ALLOCATED(NO)) DEALLOCATE(NO)
+    IF (ALLOCATED(XLA)) DEALLOCATE(XLA)
+    IF (ALLOCATED(XOLA)) DEALLOCATE(XOLA)
+    IF (ALLOCATED(XOLO)) DEALLOCATE(XOLO)
+    IF (ALLOCATED(NINLOH)) DEALLOCATE(NINLOH)
+
+    ALLOCATE(NO(INO,4))
+    ALLOCATE(XOLA(INO),XOLO(INO))
+    ALLOCATE(XLA(INO,4))
+    !
+    IF (HGRIDTYPE=='GAUSS     ') THEN
+      IINLA = NINLA
+      ALLOCATE(NINLOH(IINLA+4))
+      CALL HORIBL_SURF_INIT(XILA1,XILO1,XILA2,XILO2,NINLA,NINLO,INO,XLON,XLAT, &
+                            LINTERP,LGLOBLON,LGLOBN,LGLOBS,NO, &
+                            NINLOH,XOLA,XOLO,XILO1H,XILO2H,XLA)
+    ELSEIF (HGRIDTYPE=='LATLON    ') THEN
+      IINLA = NINLAT
+      ALLOCATE(NINLOH(IINLA+4))
+      CALL HORIBL_SURF_INIT(XILAT1,XILON1,XILAT2,XILON2,NINLAT,NINLON, &
+                            INO,XLON_OUT,XLAT_OUT,LINTERP,LGLOBLON,&
+                            LGLOBN,LGLOBS,NO,NINLOH,XOLA,XOLO,XILO1H,&
+                            XILO2H,XLA,XILATARRAY)
+  
+    ENDIF
+    !
+    IF (ALLOCATED(NP)) DEALLOCATE(NP)
+    IF (ALLOCATED(XLOPH)) DEALLOCATE(XLOPH)
+    ALLOCATE(NP(INO,12))
+    ALLOCATE(XLOPH(INO,12))
+  
+    IF (LGLOBS) IINLA = IINLA + 2
+    IF (LGLOBN) IINLA = IINLA + 2
+    CALL HORIBL_SURF_COEF(INO,LINTERP,LGLOBLON,XILO1H,XILO2H,XOLO,&
+                          NO,NINLOH(1:IINLA),NP,XLOPH)
+    !
+  ELSEIF (HGRIDTYPE=='CONF PROJ ') THEN
+    !
+    IF (ALLOCATED(XXI)) DEALLOCATE(XXI)
+    IF (ALLOCATED(XYI)) DEALLOCATE(XYI)
+    IF (ALLOCATED(XCX)) DEALLOCATE(XCX)
+    IF (ALLOCATED(XCY)) DEALLOCATE(XCY)
+    IF (ALLOCATED(NCIJ)) DEALLOCATE(NCIJ)
+    ALLOCATE(XXI (INO),XYI(INO))
+    ALLOCATE(XCX(INO,3),XCY(INO,3),NCIJ(INO,2))
+    !
+    !*      2.    Transformation of latitudes/longitudes into metric coordinates of output grid
+    !
+     CALL XY_CONF_PROJ(GCP%XLAT0,GCP%XLON0,GCP%XRPK,GCP%XBETA,GCP%XLATORI,GCP%XLONORI, &
+                        XXI(1:INO),XYI(1:INO),XLAT_OUT,XLON_OUT )
+    !
+    !*      3.    Put input field on its squared grid
+    !    
+    CALL BILIN_COEF(KLUOUT,XX,XY,XXI,XYI,XCX,XCY,NCIJ(:,1),NCIJ(:,2))
+    !
+  ELSEIF (HGRIDTYPE=='CARTESIAN ') THEN
+    !
+    IF (ALLOCATED(XCX_ca)) DEALLOCATE(XCX_ca)
+    IF (ALLOCATED(XCY_ca)) DEALLOCATE(XCY_ca)
+    IF (ALLOCATED(NCIJ_ca)) DEALLOCATE(NCIJ_ca)    
+    ALLOCATE(XCX_ca(INO,3),XCY_ca(INO,3),NCIJ_ca(INO,2))
+    !
+    CALL BILIN_COEF(KLUOUT,XX_ca,XY_ca,XX_OUT,XY_OUT,XCX_ca,XCY_ca,NCIJ_ca(:,1),NCIJ_ca(:,2))
+    !
+  ENDIF
+  !
+ENDIF
+!
+IF (LHOOK) CALL DR_HOOK('PREP_GRID_EXTERN',1,ZHOOK_HANDLE)
+!
+!-----------------------------------------------------------------------
+!
+END SUBROUTINE PREP_GRID_EXTERN

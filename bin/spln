@@ -1,0 +1,45 @@
+#!/bin/sh
+#SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+#SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC for details. version 1.
+if [ $# -ne 2 ]
+then
+echo ERROR USAGE :: spln NSOURCE file
+exit 1
+fi
+NSOURCE=$1
+file=$2
+
+if [ "$(grep -l '^[^\!]*\$n' $file)" = "" ]
+then
+cat "$file"
+else
+
+TMP=/tmp/split.${USER}.$$
+trap '[ -d "$TMP" ] && rm -rf "$TMP"' 0
+mkdir "$TMP"
+
+cp "$file" "$TMP/fichier_a_split.f90"
+( cd "$TMP"
+spl fichier_a_split.f90  > liste_file
+rm -f fichier_a_split.f90 
+
+for sfile in $(cat liste_file)
+do 
+    if [ "$(grep -l '^[^\!]*\$n' $sfile)" != "" ]
+    then 
+        iloop=0
+        while [ "$iloop" -lt "$NSOURCE" ]
+        do 
+            iloop=$((iloop=iloop+1))
+            sed -e "s/$n/$iloop/g" "$sfile"
+        done 
+    else
+    cat "$sfile"
+    fi
+done )
+
+rm -fr "$TMP"
+fi
+

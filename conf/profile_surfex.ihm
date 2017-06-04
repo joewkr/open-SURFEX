@@ -1,0 +1,148 @@
+#!/bin/sh
+#SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+#SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC for details. version 1.
+##########################################################
+#                                                        #
+# ENVIRONEMMENT CONFIGURATION FOR MESONH                 #
+#                                                        #
+##########################################################
+if [ "\$SRC_SURFEX" != "" ] 
+then
+##########################################################
+#                                                        #
+# ENVIRONEMENT MESONH ALLREADY SET                       #
+#                                                        #
+##########################################################
+echo 
+echo '--->' WARNING :: "profile_surfex"
+echo '--->' environment variable already initialized:  '\$SRC_SURFEX'
+echo '--->' '\$SRC_SURFEX="'\$SRC_SURFEX'"'
+echo '--->' 'check your environnment profile_surfex or do export SRC_SURFEX="" !!!! '
+echo 
+fi
+##########################################################
+#                                                        #
+# SOME SETTING FOR MESONH                                #
+#                                                        #
+##########################################################
+#
+# SRC_SURFEX : default path to mesonh sources 
+#              MUST BE SET TO YOUR OWN MESONH PATH
+#
+export SRC_SURFEX="${LOCAL}"   
+#
+#  Version MESONH PACKAGE :: PACK-${VERSION_XYZ} : ${VERSION_DATE}
+#
+export VERSION_XYZ=${VERSION_XYZ}
+#
+#  Target Architecture/compiler Machine 
+#
+#export ARCH=LXg95,LXifort,LXNAGf95,SX8,AIX
+#
+export ARCH=${ARCH}
+#
+#  Version of MPI
+#
+#export VER_MPI=MPIVIDE,LAMMPI,MPIAUTO,OMPI122G95
+#
+export VER_MPI=${VER_MPI}
+#
+#  Version of OMP
+#
+export VER_OMP=${VER_OMP}
+#
+# OPTIMIZATION LEVEL
+#
+#export OPTLEVEL=DEBUG,O2
+#
+export OPTLEVEL=${OPTLEVEL}
+#
+#  USER VERSION
+#
+export VER_USER=${VER_USER}
+#
+# 'Scandollar' Post Processing default variables
+#
+export CONF_DOLLAR=${CONF_DOLLAR}
+#
+# Version of NETCDF
+#
+export VER_CDF=${VER_CDF}
+export VERSION_CURL=${VERSION_CURL}
+export VERSION_ZLIB=${VERSION_ZLIB}
+export VERSION_SZIP=${VERSION_SZIP}
+export VERSION_HDF5=${VERSION_HDF5}
+export VERSION_CDF=${VERSION_CDF}
+export VERSION_CDFF=${VERSION_CDFF}
+#
+# Version of GRIBAPI
+#
+export VER_GRIBAPI=${VER_GRIBAPI}
+export VERSION_GRIBAPI=${VERSION_GRIBAPI}
+export GRIB_DEFINITION_PATH=\${SRC_SURFEX}"/src/LIB/grib_api-1.17.0-Source/definitions"
+#
+# Version of OASIS
+#
+export VER_OASIS=${VER_OASIS}
+export VERSION_OASIS=${VERSION_OASIS}
+#
+# Version of XIOS
+#
+export VER_XIOS=${VER_XIOS}
+export VERSION_XIOS=${VERSION_XIOS}
+#
+# Version of DR_HOOK
+#
+export VER_DRHOOK=${VER_DRHOOK}
+#
+# Version of Def integer
+#
+export MNH_INT=${MNH_INT}
+#
+#
+export OMP_NUM_THREADS=1
+#
+##########################################################
+##########################################################
+##########################################################
+#                                                        #
+#    DONT MODIFY LINES AFTER THIS  !!!!!!!!!!!!!         #         
+#                                                        #
+##########################################################
+##########################################################
+##########################################################
+#
+export XYZ="-\${ARCH}\${MNH_INT}-\${VERSION_XYZ}-\${VER_MPI}-\${VER_OMP}-\${OPTLEVEL}-X\${VER_XIOS}\${VER_USER:+-\${VER_USER}}"
+#[ "x\${VER_USER}" != "x" ] && export XYZ="\${XYZ}-\${VER_USER}"
+# PATH to find tools like "makegen, etc ..."
+export BIN_TOOLS=${BIN_TOOLS}
+export PATH=.:\$SRC_SURFEX/bin:\$SRC_SURFEX/exe:\$SRC_SURFEX/bin_tools/\${BIN_TOOLS}:\$PATH
+#
+export LD_LIBRARY_PATH=${LIB_PATH}:${LD_LIBRARY_PATH}
+#
+# NCARG_ROOT : for use of graphic tools : diaprog 
+# 
+#  The "lib" and "bin" directory version 
+#  are include in this package
+#  ( and also the full pacakge , source etc... 
+#    to be compiled for other plateforms )
+#
+export NCARG_ROOT=\${NCARG_ROOT:-\$SRC_SURFEX/pub/ncl_ncarg-5.2.1.Linux_x86_64}
+export PATH=\$PATH:\$NCARG_ROOT/bin
+# WARNING : NCARG Man not installed in that version
+export MANPATH=\$MANPATH:\$NCARG_ROOT/man  
+#
+# VARTTY : for graphic tty console identification
+#
+export VARTTY=\`tty\`
+#
+# Variable depending on \$ARCH 
+#
+[ -f \${SRC_SURFEX}/conf/conf_\${ARCH} ] && . \${SRC_SURFEX}/conf/conf_\${ARCH}
+
+#
+# Optional Environnement variable/Module  Env
+#
+${MNHENV}

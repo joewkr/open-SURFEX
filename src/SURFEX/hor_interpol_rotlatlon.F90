@@ -1,0 +1,334 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     #########
+SUBROUTINE HOR_INTERPOL_ROTLATLON(KLUOUT,PFIELDIN,PFIELDOUT)
+!     #################################################################################
+!
+!!****  *HOR_INTERPOL_ROTLATLON * - Interpolation from a rotated lat/lon grid
+!!
+!!    PURPOSE
+!!    -------
+!!
+!!**  METHOD
+!!    ------
+!!
+!!    REFERENCE
+!!    ---------
+!!      
+!!
+!!    AUTHOR
+!!    ------
+!!     U. Andrae
+!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original    10/2007
+!!------------------------------------------------------------------
+!
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, IDX_I
+USE MODD_PREP,       ONLY : XLAT_OUT, XLON_OUT
+USE MODD_GRID_ROTLATLON
+USE MODD_SURF_PAR,   ONLY : XUNDEF
+USE MODD_GRID_GRIB,  ONLY : NNI
+
+!
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+!*      0.1    declarations of arguments
+!
+INTEGER,              INTENT(IN)  :: KLUOUT    ! logical unit of output listing
+REAL, DIMENSION(:,:), INTENT(IN)  :: PFIELDIN  ! field to interpolate horizontally
+REAL, DIMENSION(:,:), INTENT(OUT) :: PFIELDOUT ! interpolated field
+!
+!*      0.2    declarations of local variables
+!
+#ifdef SFX_MPI
+INTEGER, DIMENSION(MPI_STATUS_SIZE) :: ISTATUS
+#endif
+REAL, DIMENSION(:,:,:), ALLOCATABLE :: ZW, ZFIELDIN,ZFGET
+INTEGER, DIMENSION(:,:,:), ALLOCATABLE :: IJD,IJGET
+REAL, DIMENSION(:), ALLOCATABLE :: XLAT_IND, XLON_IND, XRAT_OUT, XRON_OUT
+!
+INTEGER :: INFOMPI
+INTEGER :: J, I, JI, INO, JL, INL, ILON, ILAT, ISIZE
+REAL    :: ZWX, ZWY, ZWSUM
+!
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+!-------------------------------------------------------------------------------------
+IF (LHOOK) CALL DR_HOOK('HOR_INTERPOL_ROTLATLON',0,ZHOOK_HANDLE)
+!
+WRITE(KLUOUT,'(A)')' | Running rotated latlon interpolation'
+!
+INO = SIZE(XLAT_OUT)
+INL = SIZE(PFIELDOUT,2)
+!
+!
+!*      1.    Allocations
+!
+ALLOCATE(XRAT_OUT(INO),XRON_OUT(INO),XLAT_IND(INO),XLON_IND(INO),IJD(INO,INL,4),ZW(INO,INL,4))  
+!
+!*  Transformation of latitudes/longitudes into rotated coordinates
+!
+ CALL REGROT(XLON_OUT,XLAT_OUT,XRON_OUT,XRAT_OUT,XRLOP,XRLAP,1)  
+!
+DO J=1,INO
+  XLAT_IND(J) = ( XRAT_OUT(J) - XRILA1) / XRDY + 1.
+  XLON_IND(J) = ( XRON_OUT(J) - XRILO1) / XRDX + 1.
+ENDDO
+!
+PFIELDOUT(:,:) = XUNDEF
+!
+ZW(:,:,:) = 0.
+DO JL=1,INL
+  !
+  DO JI=1,INO
+    !
+    ILON = INT(XLON_IND(JI))
+    ILAT = INT(XLAT_IND(JI))
+    !
+    ZWX = XLON_IND(JI) - FLOAT(ILON)
+    ZWY = XLAT_IND(JI) - FLOAT(ILAT)
+    !
+    ZW(JI,JL,1) = (1.-ZWX)*(1.-ZWY)
+    ZW(JI,JL,2) = (1.-ZWX)*    ZWY
+    ZW(JI,JL,3) =     ZWX *(1.-ZWY)
+    ZW(JI,JL,4) =     ZWX *    ZWY
+    !
+    IJD(JI,JL,1) = ILON   + NRX*(ILAT   -1)
+    IJD(JI,JL,2) = ILON   + NRX*(ILAT+1 -1)
+    IJD(JI,JL,3) = ILON+1 + NRX*(ILAT   -1)
+    IJD(JI,JL,4) = ILON+1 + NRX*(ILAT+1 -1)    
+    !
+  ENDDO
+  !
+ENDDO
+!
+ALLOCATE(ZFIELDIN(INO,INL,4))
+!
+IF (NRANK/=NPIO) THEN
+  !
+  IDX_I = IDX_I + 1
+#ifdef SFX_MPI  
+  CALL MPI_SEND(INO,KIND(INO)/4,MPI_INTEGER,NPIO,IDX_I,NCOMM,INFOMPI)
+#endif
+  !
+  IDX_I = IDX_I + 1
+#ifdef SFX_MPI  
+  CALL MPI_SEND(IJD,SIZE(IJD)*KIND(IJD)/4,MPI_INTEGER,NPIO,IDX_I,NCOMM,INFOMPI)
+#endif  
+  !
+  IDX_I = IDX_I + 1
+#ifdef SFX_MPI  
+  CALL MPI_RECV(ZFIELDIN,SIZE(ZFIELDIN)*KIND(ZFIELDIN)/4,MPI_REAL,NPIO,IDX_I,NCOMM,ISTATUS,INFOMPI)
+#endif  
+  !
+ELSE
+  !
+  DO J=0,NPROC-1
+    !
+    IF (J/=NPIO) THEN
+#ifdef SFX_MPI            
+      CALL MPI_RECV(ISIZE,KIND(ISIZE)/4,MPI_INTEGER,J,IDX_I+1,NCOMM,ISTATUS,INFOMPI)
+#endif      
+      ALLOCATE(IJGET(ISIZE,INL,4))
+#ifdef SFX_MPI      
+      CALL MPI_RECV(IJGET,SIZE(IJGET)*KIND(IJGET)/4,MPI_INTEGER,J,IDX_I+2,NCOMM,ISTATUS,INFOMPI)
+#endif      
+    ELSE
+      ISIZE = INO
+      ALLOCATE(IJGET(ISIZE,INL,4))
+      IJGET(:,:,:) = IJD(:,:,:)
+    ENDIF
+    !
+    ALLOCATE(ZFGET(ISIZE,INL,4))
+    !
+    ZFGET(:,:,:) = 0.
+    DO JL = 1,INL
+      DO JI = 1,ISIZE
+        DO I = 1,4
+          ZFGET(JI,JL,I) = PFIELDIN(IJGET(JI,JL,I),JL)
+        ENDDO
+      ENDDO
+    ENDDO
+    !
+    IF (J/=NPIO) THEN
+#ifdef SFX_MPI            
+      CALL MPI_SEND(ZFGET,SIZE(ZFGET)*KIND(ZFGET)/4,MPI_REAL,J,IDX_I+3,NCOMM,INFOMPI)
+#endif      
+    ELSE
+      ZFIELDIN(:,:,:) = ZFGET(:,:,:)
+    ENDIF
+    !
+    DEALLOCATE(IJGET,ZFGET)
+    !
+  ENDDO
+  !
+  IDX_I = IDX_I + 3
+  !
+ENDIF 
+!
+DO JL = 1,INL
+  DO JI = 1,INO
+    !
+    DO I = 1,4
+      IF (ABS(ZFIELDIN(JI,JL,I)-XUNDEF)<1.E-6) ZW(JI,JL,I) = 0.
+    ENDDO
+    !
+    ZWSUM = ZW(JI,JL,1) + ZW(JI,JL,2) + ZW(JI,JL,3) + ZW(JI,JL,4)
+    !
+    IF ( ABS(ZWSUM)<1.E-6 ) THEN
+      ZW(JI,JL,1) = 1.
+    ELSE
+      DO I = 1,4
+        ZW(JI,JL,I) = ZW(JI,JL,I)/ZWSUM
+      ENDDO
+    ENDIF
+    !
+    PFIELDOUT(JI,JL) = ZW(JI,JL,1)*ZFIELDIN(JI,JL,1) + ZW(JI,JL,2)*ZFIELDIN(JI,JL,2) + &
+                       ZW(JI,JL,3)*ZFIELDIN(JI,JL,3) + ZW(JI,JL,4)*ZFIELDIN(JI,JL,4)
+    !
+  ENDDO
+ENDDO
+!
+!*      5.    Deallocations
+DEALLOCATE(XRAT_OUT,XRON_OUT,XLAT_IND,XLON_IND,IJD,ZFIELDIN)  
+!
+IF (LHOOK) CALL DR_HOOK('HOR_INTERPOL_ROTLATLON',1,ZHOOK_HANDLE)
+!
+CONTAINS
+!
+SUBROUTINE REGROT(PXREG,PYREG,PXROT,PYROT,PXCEN,PYCEN,KCALL)  
+!
+USE MODD_CSTS, ONLY : XPI
+!
+USE MODI_ABOR1_SFX
+!
+IMPLICIT NONE
+!
+!-----------------------------------------------------------------------
+!
+!*    CONVERSION BETWEEN REGULAR AND ROTATED SPHERICAL COORDINATES.
+!*
+!*    PXREG     LONGITUDES OF THE REGULAR COORDINATES
+!*    PYREG     LATITUDES OF THE REGULAR COORDINATES
+!*    PXROT     LONGITUDES OF THE ROTATED COORDINATES
+!*    PYROT     LATITUDES OF THE ROTATED COORDINATES
+!*              ALL COORDINATES GIVEN IN DEGREES N (NEGATIVE FOR S)
+!*              AND DEGREES E (NEGATIVE VALUES FOR W)
+!*    KXDIM     DIMENSION OF THE GRIDPOINT FIELDS IN THE X-DIRECTION
+!*    KYDIM     DIMENSION OF THE GRIDPOINT FIELDS IN THE Y-DIRECTION
+!*    KX        NUMBER OF GRIDPOINT IN THE X-DIRECTION
+!*    KY        NUMBER OF GRIDPOINTS IN THE Y-DIRECTION
+!*    PXCEN     REGULAR LONGITUDE OF THE SOUTH POLE OF THE ROTATED GRID
+!*    PYCEN     REGULAR LATITUDE OF THE SOUTH POLE OF THE ROTATED GRID
+!*
+!*    KCALL=-1: FIND REGULAR AS FUNCTIONS OF ROTATED COORDINATES.
+!*    KCALL= 1: FIND ROTATED AS FUNCTIONS OF REGULAR COORDINATES.
+!*
+!*    J.E. HAUGEN   HIRLAM   JUNE -92
+!
+!-----------------------------------------------------------------------
+!
+INTEGER, INTENT(IN) :: KCALL
+REAL, INTENT(IN) :: PXCEN,PYCEN 
+REAL, DIMENSION(:), INTENT(INOUT) :: PXREG, PYREG
+REAL, DIMENSION(:), INTENT(INOUT) :: PXROT, PYROT         
+!
+!-----------------------------------------------------------------------
+!
+REAL :: ZRAD,ZSYCEN,ZCYCEN,ZXMXC,ZSXMXC,ZCXMXC,ZSYREG,ZCYREG, &
+        ZSYROT,ZCYROT,ZCXROT,ZSXROT,ZRADI  
+INTEGER :: JI, ISIZE
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+!-----------------------------------------------------------------------
+!
+IF (LHOOK) CALL DR_HOOK('REGROT',0,ZHOOK_HANDLE)
+!
+ISIZE = SIZE(PXREG)
+!
+ZRAD = XPI/180.
+ZRADI = 1./ZRAD
+ZSYCEN = SIN(ZRAD*(PYCEN+90.))
+ZCYCEN = COS(ZRAD*(PYCEN+90.))
+!
+IF (KCALL.EQ.1) THEN
+  !
+  DO JI = 1,ISIZE
+    !
+    ZXMXC  = ZRAD*(PXREG(JI) - PXCEN)
+    ZSXMXC = SIN(ZXMXC)
+    ZCXMXC = COS(ZXMXC)
+    !
+    ZSYREG = SIN(ZRAD*PYREG(JI))
+    ZCYREG = COS(ZRAD*PYREG(JI))
+    !
+    ZSYROT = ZCYCEN*ZSYREG - ZSYCEN*ZCYREG*ZCXMXC
+    ZSYROT = MIN(MAX(ZSYROT,-1.0),+1.0)
+    !
+    PYROT(JI) = ASIN(ZSYROT)*ZRADI
+    !
+    ZCYROT = COS(ZRAD*PYROT(JI))
+    ZCXROT = (ZCYCEN*ZCYREG*ZCXMXC + ZSYCEN*ZSYREG)/ZCYROT  
+    ZCXROT = MIN(MAX(ZCXROT,-1.0),+1.0)
+    ZSXROT = ZCYREG*ZSXMXC/ZCYROT
+    !
+    PXROT(JI) = ACOS(ZCXROT)*ZRADI
+    !
+    IF (ZSXROT.LT.0.0) PXROT(JI) = -PXROT(JI)
+    !
+  ENDDO
+  !
+ELSEIF (KCALL.EQ.-1) THEN
+  !
+  DO JI = 1,ISIZE
+    !
+    ZSXROT = SIN(ZRAD*PXROT(JI))
+    ZCXROT = COS(ZRAD*PXROT(JI))
+    ZSYROT = SIN(ZRAD*PYROT(JI))
+    ZCYROT = COS(ZRAD*PYROT(JI))
+    !
+    ZSYREG = ZCYCEN*ZSYROT + ZSYCEN*ZCYROT*ZCXROT
+    ZSYREG = MAX(ZSYREG,-1.0)
+    ZSYREG = MIN(ZSYREG,+1.0)
+    !
+    PYREG(JI) = ASIN(ZSYREG)*ZRADI
+    !
+    ZCYREG = COS(PYREG(JI)*ZRAD)
+    !
+    ZCXMXC = (ZCYCEN*ZCYROT*ZCXROT - ZSYCEN*ZSYROT)/ZCYREG  
+    ZCXMXC = MAX(ZCXMXC,-1.0)
+    ZCXMXC = MIN(ZCXMXC,+1.0)
+    ZSXMXC = ZCYROT*ZSXROT/ZCYREG
+    ZXMXC  = ACOS(ZCXMXC)*ZRADI
+    IF (ZSXMXC.LT.0.0) ZXMXC = -ZXMXC
+    !
+    PXREG(JI) = ZXMXC + PXCEN
+    !
+  ENDDO
+  !
+ELSE
+  !
+  WRITE(6,'(1X,''INVALID KCALL IN REGROT'')')
+  CALL ABOR1_SFX('HOR_INTERPOL_ROTLATON:REGROT:KCALL MUST BE 1 OR -1')
+  !
+ENDIF
+!   
+IF (LHOOK) CALL DR_HOOK('REGROT',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE REGROT
+!
+!-------------------------------------------------------------------------------------
+END SUBROUTINE HOR_INTERPOL_ROTLATLON

@@ -1,0 +1,148 @@
+#!/bin/sh
+#SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+#SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC for details. version 1.
+##########################################################
+#                                                        #
+# ENVIRONEMMENT CONFIGURATION FOR MESONH                 #
+#                                                        #
+##########################################################
+if [ "$SRC_SURFEX" != "" ] 
+then
+##########################################################
+#                                                        #
+# ENVIRONEMENT MESONH ALLREADY SET                       #
+#                                                        #
+##########################################################
+echo 
+echo '--->' WARNING :: "profile_surfex"
+echo '--->' environment variable already initialized:  '$SRC_SURFEX'
+echo '--->' '$SRC_SURFEX="'$SRC_SURFEX'"'
+echo '--->' 'check your environnment profile_surfex or do export SRC_SURFEX="" !!!! '
+echo 
+fi
+##########################################################
+#                                                        #
+# SOME SETTING FOR MESONH                                #
+#                                                        #
+##########################################################
+#
+# SRC_SURFEX : default path to mesonh sources 
+#              MUST BE SET TO YOUR OWN MESONH PATH
+#
+export SRC_SURFEX="/home/faroux/SVN/surfex/open_SURFEX_V8_0"   
+#
+#  Version MESONH PACKAGE :: PACK-SFX-V8-1-1 : 27/03/2012
+#
+export VERSION_XYZ=SFX-V8-1-1
+#
+#  Target Architecture/compiler Machine 
+#
+#export ARCH=LXg95,LXifort,LXNAGf95,SX8,AIX
+#
+export ARCH=LXgfortran
+#
+#  Version of MPI
+#
+#export VER_MPI=MPIVIDE,LAMMPI,MPIAUTO,OMPI122G95
+#
+export VER_MPI=MPIAUTO
+#
+#  Version of OMP
+#
+export VER_OMP=OMP
+#
+# OPTIMIZATION LEVEL
+#
+#export OPTLEVEL=DEBUG,O2
+#
+export OPTLEVEL=O2
+#
+#  USER VERSION
+#
+export VER_USER=FORC
+#
+# 'Scandollar' Post Processing default variables
+#
+export CONF_DOLLAR=/home/faroux/SVN/surfex/open_SURFEX_V8_0/conf/post/confdollar_cnrmpc_default
+#
+# Version of NETCDF
+#
+export VER_CDF=CDFCTI
+export VERSION_CURL=7.50.1
+export VERSION_ZLIB=1.2.8
+export VERSION_SZIP=2.1
+export VERSION_HDF5=1.8.17
+export VERSION_CDF=4.4.1
+export VERSION_CDFF=4.4.4
+#
+# Version of GRIBAPI
+#
+export VER_GRIBAPI=GRIBAPI_AUTO
+export VERSION_GRIBAPI=1.17.0
+export GRIB_DEFINITION_PATH=${SRC_SURFEX}"/src/LIB/grib_api-1.17.0-Source/definitions"
+#
+# Version of OASIS
+#
+export VER_OASIS=NOmct
+export VERSION_OASIS=3-mct
+#
+# Version of XIOS
+#
+export VER_XIOS=2
+export VERSION_XIOS=trunk-1078
+#
+# Version of DR_HOOK
+#
+export VER_DRHOOK=BYPASS
+#
+# Version of Def integer
+#
+export MNH_INT=
+#
+#
+export OMP_NUM_THREADS=1
+#
+##########################################################
+##########################################################
+##########################################################
+#                                                        #
+#    DONT MODIFY LINES AFTER THIS  !!!!!!!!!!!!!         #         
+#                                                        #
+##########################################################
+##########################################################
+##########################################################
+#
+export XYZ="-${ARCH}${MNH_INT}-${VERSION_XYZ}-${VER_MPI}-${VER_OMP}-${OPTLEVEL}-X${VER_XIOS}${VER_USER:+-${VER_USER}}"
+#[ "x${VER_USER}" != "x" ] && export XYZ="${XYZ}-${VER_USER}"
+# PATH to find tools like "makegen, etc ..."
+export BIN_TOOLS=NO
+export PATH=.:$SRC_SURFEX/bin:$SRC_SURFEX/exe:$SRC_SURFEX/bin_tools/${BIN_TOOLS}:$PATH
+#
+export LD_LIBRARY_PATH=::/opt/gfortran/lib64
+#
+# NCARG_ROOT : for use of graphic tools : diaprog 
+# 
+#  The "lib" and "bin" directory version 
+#  are include in this package
+#  ( and also the full pacakge , source etc... 
+#    to be compiled for other plateforms )
+#
+export NCARG_ROOT=${NCARG_ROOT:-$SRC_SURFEX/pub/ncl_ncarg-5.2.1.Linux_x86_64}
+export PATH=$PATH:$NCARG_ROOT/bin
+# WARNING : NCARG Man not installed in that version
+export MANPATH=$MANPATH:$NCARG_ROOT/man  
+#
+# VARTTY : for graphic tty console identification
+#
+export VARTTY=`tty`
+#
+# Variable depending on $ARCH 
+#
+[ -f ${SRC_SURFEX}/conf/conf_${ARCH} ] && . ${SRC_SURFEX}/conf/conf_${ARCH}
+
+#
+# Optional Environnement variable/Module  Env
+#
+

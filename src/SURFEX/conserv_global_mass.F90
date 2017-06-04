@@ -1,0 +1,187 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+      SUBROUTINE CONSERV_GLOBAL_MASS (DTCO, U, NP, NPE, PMESH_SIZE, KPATCH, &
+                                      ILUOUT, PZDG, PZDG_OLD, HNAME, PFIELD_OLD)
+!!
+!!****  *CONSERV_GLOBAL_MASS* - routine to conserve global 3D mass (LAND USE case)
+!!
+!!    PURPOSE
+!!    -------
+!!
+!!    METHOD
+!!    ------ 
+!!
+!!    EXTERNAL
+!!    --------
+!!
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!    REFERENCE
+!!    ---------
+!!
+!!    AUTHOR
+!!    ------
+!!
+!!    R. Alkama        Meteo-France
+!!
+!!    MODIFICATION
+!!    ------------
+!!    Original    07/2011
+!!
+!!
+!!*    0.     DECLARATION
+!            -----------
+!
+!
+!
+USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
+USE MODD_SFX_GRID_n, ONLY : GRID_t
+USE MODD_ISBA_n, ONLY : ISBA_NP_t, ISBA_NPE_t, ISBA_P_t
+USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
+!
+USE MODD_SURF_PAR,        ONLY : XUNDEF
+!
+USE MODI_PACK_SAME_RANK
+USE MODI_GET_SURF_MASK_n
+!
+USE MODD_SURFEX_MPI, ONLY : NPROC, NRANK, NPIO, NCOMM
+USE MODI_GATHER_AND_WRITE_MPI
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+!*    0.1    Declaration of arguments
+!            ------------------------
+!
+!
+TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
+TYPE(SURF_ATM_t), INTENT(INOUT) :: U
+TYPE(ISBA_NP_t), INTENT(INOUT) :: NP
+TYPE(ISBA_NPE_t), INTENT(INOUT) :: NPE
+REAL, DIMENSION(:), INTENT(IN) :: PMESH_SIZE
+INTEGER, INTENT(IN) :: KPATCH
+!
+INTEGER,                        INTENT(IN   ) :: ILUOUT
+REAL, DIMENSION(:,:,:),         INTENT(IN   ) :: PFIELD_OLD,PZDG,PZDG_OLD
+ CHARACTER(LEN=3), INTENT(IN) :: HNAME
+!
+!*    0.2    Declaration of local variables
+!            ------------------------------
+!
+TYPE(ISBA_P_t), POINTER :: PK
+!
+REAL, DIMENSION(U%NSIZE_NATURE,SIZE(NPE%AL(1)%XWG,2),KPATCH) :: ZFIELD0
+REAL,    DIMENSION(U%NSIZE_NATURE) :: ZFIELD,ZFIELD_OLD, ZFRAC_NAT
+INTEGER, DIMENSION(SIZE(U%XNATURE))  :: IMASK  ! mask for packing from complete field to nature field
+INTEGER                            :: INI, IPATCH, IFULL, ILEV
+INTEGER                            :: JLEV, JP, JJ  ! loop counter 
+REAL                               :: ZRATIO_TOT, ZWORK1,ZWORK2
+!
+REAL, DIMENSION(:), ALLOCATABLE :: ZFIELD_TOT, ZFIELD_OLD_TOT, ZFRAC_NAT_TOT
+INTEGER :: INFOMPI
+!
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+!-------------------------------------------------------------------------------
+!
+IF (LHOOK) CALL DR_HOOK('CONSERV_GLOBAL_MASS',0,ZHOOK_HANDLE)
+!
+IF (TRIM(HNAME)=="WG") THEN
+  DO JP = 1,KPATCH
+    ZFIELD0(:,:,JP) = NPE%AL(JP)%XWG(:,:)
+  ENDDO
+ELSEIF (TRIM(HNAME)=="WGI") THEN
+  DO JP = 1,KPATCH
+    ZFIELD0(:,:,JP) = NPE%AL(JP)%XWGI(:,:)
+  ENDDO        
+ENDIF
+!
+INI   = SIZE(PZDG,1)
+ILEV  = SIZE(PZDG,2)
+IFULL = SIZE(U%XNATURE )
+!
+ZFRAC_NAT = 1.
+ CALL GET_SURF_MASK_n(DTCO, U, 'NATURE',IFULL,IMASK,U%NSIZE_FULL,ILUOUT)
+ CALL PACK_SAME_RANK(IMASK,U%XNATURE,ZFRAC_NAT)  
+ZFRAC_NAT(:)=ZFRAC_NAT(:)*PMESH_SIZE(:)
+!
+ZFIELD(:)    =0.0
+ZFIELD_OLD(:)=0.0
+DO JP=1,KPATCH
+  PK => NP%AL(JP)
+  DO JLEV=1,ILEV
+     DO JJ=1,PK%NSIZE_P
+       IMASK = PK%NR_P(JJ)
+       !
+       ZFIELD(IMASK)    = ZFIELD(IMASK)     + ZFIELD0(JJ,JLEV,JP)*PZDG(JJ,JLEV,JP)*PK%XPATCH(JJ)
+       ZFIELD_OLD(IMASK)= ZFIELD_OLD(IMASK) + PFIELD_OLD(JJ,JLEV,JP)*PZDG_OLD(JJ,JLEV,JP)*PK%XPATCH_OLD(JJ)
+       !
+     ENDDO
+  ENDDO
+ENDDO
+!
+ZWORK1=0.0
+ZWORK2=0.0
+ZRATIO_TOT = 1.0
+!
+IF (NPROC==1) THEN
+  DO JJ=1,INI
+    ZWORK1=ZWORK1+ZFIELD    (JJ)*ZFRAC_NAT(JJ)
+    ZWORK2=ZWORK2+ZFIELD_OLD(JJ)*ZFRAC_NAT(JJ)
+  ENDDO
+ELSE
+  IF (NRANK==NPIO) THEN
+    ALLOCATE(ZFIELD_TOT(U%NDIM_FULL),ZFIELD_OLD_TOT(U%NDIM_FULL),ZFRAC_NAT_TOT(U%NDIM_FULL))
+  ELSE
+    ALLOCATE(ZFIELD_TOT(0),ZFIELD_OLD_TOT(0),ZFRAC_NAT_TOT(0))
+  ENDIF
+  CALL GATHER_AND_WRITE_MPI(ZFIELD,ZFIELD_TOT,U%NR_NATURE)
+  CALL GATHER_AND_WRITE_MPI(ZFIELD_OLD,ZFIELD_OLD_TOT,U%NR_NATURE)
+  CALL GATHER_AND_WRITE_MPI(ZFRAC_NAT,ZFRAC_NAT_TOT,U%NR_NATURE)
+  IF (NRANK==NPIO) THEN
+    DO JJ=1,U%NDIM_FULL
+      IF (ZFIELD_TOT(JJ)/=XUNDEF) THEN
+        ZWORK1=ZWORK1+ZFIELD_TOT    (JJ)*ZFRAC_NAT_TOT(JJ)
+        ZWORK2=ZWORK2+ZFIELD_OLD_TOT(JJ)*ZFRAC_NAT_TOT(JJ)
+      ENDIF
+    ENDDO
+  ENDIF
+#ifdef SFX_MPI
+  CALL MPI_BCAST(ZWORK1,KIND(ZWORK1)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+  CALL MPI_BCAST(ZWORK2,KIND(ZWORK2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+#endif
+ DEALLOCATE(ZFIELD_TOT,ZFIELD_OLD_TOT,ZFRAC_NAT_TOT)        
+ENDIF
+!
+IF(ZWORK2/= 0.)THEN
+   ZRATIO_TOT = ZWORK1/ZWORK2
+ENDIF
+!
+WHERE(ZFIELD0(:,:,:)/=XUNDEF) ZFIELD0(:,:,:)= ZFIELD0(:,:,:) * ZRATIO_TOT
+!
+IF (TRIM(HNAME)=="WG") THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XWG(:,:) = ZFIELD0(:,:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=="WGI") THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XWGI(:,:) = ZFIELD0(:,:,JP)
+  ENDDO        
+ENDIF
+!
+!-------------------------------------------------------------------------------
+!
+IF (LHOOK) CALL DR_HOOK('CONSERV_GLOBAL_MASS',1,ZHOOK_HANDLE)
+!
+!-------------------------------------------------------------------------------
+!
+END SUBROUTINE CONSERV_GLOBAL_MASS

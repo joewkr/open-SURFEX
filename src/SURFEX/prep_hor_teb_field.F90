@@ -1,0 +1,390 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     #########
+SUBROUTINE PREP_HOR_TEB_FIELD (B, BOP, DTCO, U, GCP, G, T, TOP, &
+                               HPROGRAM,HSURF,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,KPATCH,YDCTL)
+!     #################################################################################
+!
+!
+!!****  *PREP_HOR_TEB_FIELD* - reads, interpolates and prepares a TEB field
+!!
+!!    PURPOSE
+!!    -------
+!
+!!**  METHOD
+!!    ------
+!!
+!!    REFERENCE
+!!    ---------
+!!      
+!!
+!!    AUTHOR
+!!    ------
+!!     V. Masson 
+!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original    01/2004
+!!      P. Le Moigne 10/2005, Phasage Arome
+!!      P. Marguinaud10/2014, Support for a 2-part PREP
+!!------------------------------------------------------------------
+!
+USE MODD_BEM_n, ONLY : BEM_t
+USE MODD_BEM_OPTION_n, ONLY : BEM_OPTIONS_t
+USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
+USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
+USE MODD_GRID_CONF_PROJ_n, ONLY : GRID_CONF_PROJ_t
+USE MODD_SFX_GRID_n, ONLY : GRID_t
+USE MODD_TEB_n, ONLY : TEB_t
+USE MODD_TEB_OPTION_n, ONLY : TEB_OPTIONS_t
+!
+USE MODD_TYPE_SNOW
+USE MODD_TYPE_DATE_SURF, ONLY : DATE_TIME
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC
+USE MODD_GRID_GRIB, ONLY : CINMODEL
+USE MODD_PREP,     ONLY : CINGRID_TYPE, CINTERP_TYPE, XZS_LS, XLAT_OUT, XLON_OUT, &
+                          XX_OUT, XY_OUT, CMASK
+USE MODD_PREP_TEB, ONLY : XGRID_ROOF, XGRID_ROAD, XGRID_WALL, XGRID_FLOOR, LSNOW_IDEAL_TEB, &
+                          XWSNOW_ROOF, XRSNOW_ROOF, XTSNOW_ROOF, XLWCSNOW_ROOF, XASNOW_ROOF, &
+                          XWSNOW_ROAD, XRSNOW_ROAD, XTSNOW_ROAD, XLWCSNOW_ROAD, XASNOW_ROAD, &
+                          XHUI_BLD, XHUI_BLD_DEF
+!
+USE MODD_CSTS, ONLY: XG, XP00
+USE MODD_SURF_PAR, ONLY: XUNDEF
+!
+USE MODE_PREP_CTL, ONLY : PREP_CTL, PREP_CTL_INT_PART2, PREP_CTL_INT_PART4
+!
+USE MODE_THERMOS
+!
+USE MODI_PREP_GRIB_GRID
+USE MODI_READ_PREP_TEB_CONF
+USE MODI_READ_PREP_TEB_SNOW
+USE MODI_PREP_TEB_GRIB
+USE MODI_PREP_TEB_UNIF
+USE MODI_PREP_TEB_BUFFER
+USE MODI_HOR_INTERPOL
+USE MODI_PREP_HOR_SNOW_FIELDS
+USE MODI_GET_LUOUT
+USE MODI_PREP_TEB_EXTERN
+USE MODI_ALLOCATE_GR_SNOW
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+USE MODI_ABOR1_SFX
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+!*      0.1    declarations of arguments
+!
+!
+TYPE(BEM_t), INTENT(INOUT) :: B
+TYPE(BEM_OPTIONS_t), INTENT(INOUT) :: BOP
+TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
+TYPE(SURF_ATM_t), INTENT(INOUT) :: U
+TYPE(GRID_CONF_PROJ_t),INTENT(INOUT) :: GCP
+TYPE(GRID_t), INTENT(INOUT) :: G
+TYPE(TEB_t), INTENT(INOUT) :: T
+TYPE(TEB_OPTIONS_t), INTENT(INOUT) :: TOP
+TYPE (PREP_CTL),    INTENT(INOUT) :: YDCTL
+!
+ CHARACTER(LEN=6),   INTENT(IN)  :: HPROGRAM  ! program calling surf. schemes
+ CHARACTER(LEN=7),   INTENT(IN)  :: HSURF     ! type of field
+ CHARACTER(LEN=28),  INTENT(IN)  :: HATMFILE    ! name of the Atmospheric file
+ CHARACTER(LEN=6),   INTENT(IN)  :: HATMFILETYPE! type of the Atmospheric file
+ CHARACTER(LEN=28),  INTENT(IN)  :: HPGDFILE    ! name of the Atmospheric file
+ CHARACTER(LEN=6),   INTENT(IN)  :: HPGDFILETYPE! type of the Atmospheric file
+!
+INTEGER,            INTENT(IN)  :: KPATCH
+!
+!*      0.2    declarations of local variables
+!
+TYPE(NSURF_SNOW) :: TNPSNOW
+!
+ CHARACTER(LEN=6)              :: YFILETYPE ! type of input file
+ CHARACTER(LEN=28)             :: YFILE     ! name of file
+ CHARACTER(LEN=6)              :: YFILEPGDTYPE ! type of input file
+ CHARACTER(LEN=28)             :: YFILEPGD     ! name of file
+REAL, DIMENSION(:), ALLOCATABLE :: ZSG1SNOW, ZSG2SNOW, ZHISTSNOW, ZAGESNOW
+REAL, POINTER, DIMENSION(:,:) :: ZFIELDIN  ! field to interpolate horizontally
+REAL, POINTER, DIMENSION(:,:) :: ZFIELDOUT ! field interpolated   horizontally
+REAL, ALLOCATABLE, DIMENSION(:) :: ZPS !surface pressure
+REAL, PARAMETER               :: ZRHOA=1.19 ! volumic mass of air at 20C and 1000hPa
+INTEGER                       :: ILUOUT    ! output listing logical unit
+INTEGER :: INFOMPI, INL
+!
+TYPE (DATE_TIME)                :: TZTIME_GRIB    ! current date and time
+LOGICAL             :: GUNIF     ! flag for prescribed uniform field
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!-------------------------------------------------------------------------------------
+!
+!
+!*      1.     Reading of input file name and type
+!
+IF (LHOOK) CALL DR_HOOK('PREP_HOR_TEB_FIELD',0,ZHOOK_HANDLE)
+ CALL GET_LUOUT(HPROGRAM,ILUOUT)
+!
+ CALL READ_PREP_TEB_CONF(HPROGRAM,HSURF,YFILE,YFILETYPE,YFILEPGD,YFILEPGDTYPE,&
+                        HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,ILUOUT,GUNIF)
+!
+CMASK = 'TOWN'
+!
+!-------------------------------------------------------------------------------------
+!
+!*      2.     Snow variables case?
+!
+IF (HSURF=='SN_ROOF') THEN
+  CALL READ_PREP_TEB_SNOW(HPROGRAM,T%TSNOW_ROOF%SCHEME,T%TSNOW_ROOF%NLAYER,&
+                                   T%TSNOW_ROAD%SCHEME,T%TSNOW_ROAD%NLAYER,&
+                                   YFILE,YFILETYPE,YFILEPGD,YFILEPGDTYPE)
+  IF (LEN_TRIM(YFILE)>0 .AND. LEN_TRIM(YFILETYPE)>0) GUNIF = .FALSE.                                   
+  ALLOCATE(ZSG1SNOW(SIZE(XWSNOW_ROOF)))
+  ALLOCATE(ZSG2SNOW(SIZE(XWSNOW_ROOF)))
+  ALLOCATE(ZHISTSNOW(SIZE(XWSNOW_ROOF)))
+  ALLOCATE(ZAGESNOW(SIZE(XWSNOW_ROOF)))
+  ALLOCATE(TNPSNOW%AL(1))
+  TNPSNOW%AL(1)%SCHEME = T%TSNOW_ROOF%SCHEME
+  TNPSNOW%AL(1)%NLAYER = T%TSNOW_ROOF%NLAYER
+  CALL PREP_HOR_SNOW_FIELDS(DTCO, G, U, GCP, &
+                            HPROGRAM,HSURF,              &
+                            YFILE,YFILETYPE,             &
+                            YFILEPGD, YFILEPGDTYPE,      &
+                            ILUOUT,GUNIF,1,KPATCH,       &
+                            SIZE(G%XLAT),TNPSNOW, TOP%TTIME,&
+                            XWSNOW_ROOF, XRSNOW_ROOF,    &
+                            XTSNOW_ROOF, XLWCSNOW_ROOF,  &
+                            XASNOW_ROOF,                 &
+                            LSNOW_IDEAL_TEB, ZSG1SNOW,   &
+                            ZSG2SNOW, ZHISTSNOW, ZAGESNOW, YDCTL)
+
+  CALL ALLOCATE_GR_SNOW(T%TSNOW_ROOF,SIZE(G%XLAT))
+  T%TSNOW_ROOF%WSNOW = TNPSNOW%AL(1)%WSNOW
+  T%TSNOW_ROOF%RHO   = TNPSNOW%AL(1)%RHO
+  T%TSNOW_ROOF%ALB   = TNPSNOW%AL(1)%ALB
+  T%TSNOW_ROOF%T     = TNPSNOW%AL(1)%T
+  T%TSNOW_ROOF%HEAT = TNPSNOW%AL(1)%HEAT
+  !
+  CALL TYPE_SNOW_INIT(TNPSNOW%AL(1))
+  DEALLOCATE(TNPSNOW%AL)
+
+  DEALLOCATE(ZSG1SNOW)
+  DEALLOCATE(ZSG2SNOW)
+  DEALLOCATE(ZHISTSNOW)
+  DEALLOCATE(ZAGESNOW)                            
+  IF (LHOOK) CALL DR_HOOK('PREP_HOR_TEB_FIELD',1,ZHOOK_HANDLE)
+  RETURN
+ELSE IF (HSURF=='SN_ROAD') THEN
+  CALL READ_PREP_TEB_SNOW(HPROGRAM,T%TSNOW_ROOF%SCHEME,T%TSNOW_ROOF%NLAYER,&
+                                   T%TSNOW_ROAD%SCHEME,T%TSNOW_ROAD%NLAYER,&
+                                   YFILE,YFILETYPE,YFILEPGD,YFILEPGDTYPE)
+  IF (LEN_TRIM(YFILE)>0 .AND. LEN_TRIM(YFILETYPE)>0) GUNIF = .FALSE.                                   
+  ALLOCATE(ZSG1SNOW(SIZE(XWSNOW_ROAD)))
+  ALLOCATE(ZSG2SNOW(SIZE(XWSNOW_ROAD)))
+  ALLOCATE(ZHISTSNOW(SIZE(XWSNOW_ROAD)))
+  ALLOCATE(ZAGESNOW(SIZE(XWSNOW_ROAD)))    
+  ALLOCATE(TNPSNOW%AL(1))
+  TNPSNOW%AL(1)%SCHEME = T%TSNOW_ROAD%SCHEME
+  TNPSNOW%AL(1)%NLAYER = T%TSNOW_ROAD%NLAYER
+  CALL PREP_HOR_SNOW_FIELDS(DTCO, G, U, GCP, &
+                            HPROGRAM,HSURF,              &
+                            YFILE,YFILETYPE,             &
+                            YFILEPGD, YFILEPGDTYPE,      &                            
+                            ILUOUT,GUNIF,1,KPATCH,       &
+                            SIZE(G%XLAT),TNPSNOW, TOP%TTIME,&
+                            XWSNOW_ROAD, XRSNOW_ROAD,    &
+                            XTSNOW_ROAD, XLWCSNOW_ROAD,  &
+                            XASNOW_ROAD,                 &
+                            LSNOW_IDEAL_TEB, ZSG1SNOW,   &
+                            ZSG2SNOW, ZHISTSNOW, ZAGESNOW, YDCTL)
+
+  CALL ALLOCATE_GR_SNOW(T%TSNOW_ROAD,SIZE(G%XLAT))
+  T%TSNOW_ROAD%WSNOW = TNPSNOW%AL(1)%WSNOW
+  T%TSNOW_ROAD%RHO   = TNPSNOW%AL(1)%RHO
+  T%TSNOW_ROAD%ALB   = TNPSNOW%AL(1)%ALB
+  T%TSNOW_ROAD%T     = TNPSNOW%AL(1)%T
+  T%TSNOW_ROAD%HEAT = TNPSNOW%AL(1)%HEAT
+  !
+  CALL TYPE_SNOW_INIT(TNPSNOW%AL(1))
+  DEALLOCATE(TNPSNOW%AL)
+                    
+  DEALLOCATE(ZSG1SNOW)
+  DEALLOCATE(ZSG2SNOW)
+  DEALLOCATE(ZHISTSNOW)
+  DEALLOCATE(ZAGESNOW)                               
+  IF (LHOOK) CALL DR_HOOK('PREP_HOR_TEB_FIELD',1,ZHOOK_HANDLE)
+  RETURN
+END IF
+!
+!
+!*      4.     Reading of input  configuration (Grid and interpolation type)
+!
+NULLIFY (ZFIELDIN, ZFIELDOUT)
+!
+IF (YDCTL%LPART1) THEN
+!
+  IF (GUNIF) THEN
+    CALL PREP_TEB_UNIF(ILUOUT,HSURF,ZFIELDIN)
+  ELSE IF (YFILETYPE=='GRIB  ') THEN
+    CALL PREP_GRIB_GRID(YFILE,ILUOUT,CINMODEL,CINGRID_TYPE,CINTERP_TYPE,TZTIME_GRIB) 
+    IF (NRANK==NPIO)CALL PREP_TEB_GRIB(HPROGRAM,HSURF,YFILE,ILUOUT,ZFIELDIN)        
+  ELSE IF (YFILETYPE=='MESONH' .OR.YFILETYPE=='ASCII ' .OR.YFILETYPE=='LFI   '.OR.YFILETYPE=='FA    '.OR.YFILETYPE=='AROME ') THEN
+    CALL PREP_TEB_EXTERN(DTCO, GCP, HPROGRAM,HSURF,YFILE,YFILETYPE,YFILEPGD,YFILEPGDTYPE,ILUOUT,KPATCH,ZFIELDIN)
+  ELSE IF (YFILETYPE=='BUFFER') THEN
+    CALL PREP_TEB_BUFFER(HPROGRAM,HSURF,ILUOUT,ZFIELDIN)
+  ELSE
+    CALL ABOR1_SFX('PREP_HOR_TEB_FIELD: data file type not supported : '//YFILETYPE)
+  END IF
+!
+ENDIF
+!
+!*      5.     Horizontal interpolation
+!
+CALL PREP_CTL_INT_PART2 (YDCTL, HSURF, CMASK, 'TOWN', ZFIELDIN)
+!
+IF (YDCTL%LPART3) THEN
+!
+  IF (NRANK==NPIO) THEN
+    INL = SIZE(ZFIELDIN,2)
+  ELSEIF (.NOT.ASSOCIATED(ZFIELDIN)) THEN
+    ALLOCATE(ZFIELDIN(0,0))
+  ENDIF
+  !
+  IF (NPROC>1) THEN
+#ifdef SFX_MPI
+    CALL MPI_BCAST(INL,KIND(INL)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+#endif
+  ENDIF
+  ALLOCATE(ZFIELDOUT(SIZE(G%XLAT),INL))
+  !
+  CALL HOR_INTERPOL(DTCO, U, GCP, ILUOUT,ZFIELDIN,ZFIELDOUT)
+  !
+  DEALLOCATE(ZFIELDIN )
+  !
+ENDIF
+!
+CALL PREP_CTL_INT_PART4 (YDCTL, HSURF, 'TOWN', CMASK, ZFIELDIN, ZFIELDOUT)
+
+IF (YDCTL%LPART5) THEN
+!
+!*      6.     Return to historical variable
+!
+  SELECT CASE (HSURF)
+    CASE('ZS     ') 
+      ALLOCATE(XZS_LS(SIZE(ZFIELDOUT,1)))
+      XZS_LS(:) = ZFIELDOUT(:,1)
+    CASE('WS_ROOF') 
+      ALLOCATE(T%XWS_ROOF(SIZE(ZFIELDOUT,1)))
+      T%XWS_ROOF(:) = ZFIELDOUT(:,1)
+    CASE('WS_ROAD')
+      ALLOCATE(T%XWS_ROAD(SIZE(ZFIELDOUT,1)))
+      T%XWS_ROAD(:) = ZFIELDOUT(:,1)
+    CASE('TI_ROAD') 
+      ALLOCATE(T%XTI_ROAD(SIZE(ZFIELDOUT,1)))
+      T%XTI_ROAD(:) = ZFIELDOUT(:,1)
+    CASE('TI_BLD ') 
+      ALLOCATE(B%XTI_BLD (SIZE(ZFIELDOUT,1)))
+      B%XTI_BLD (:) = ZFIELDOUT(:,1)
+    CASE('QI_BLD ') 
+      ALLOCATE(B%XQI_BLD (SIZE(ZFIELDOUT,1)))
+      IF (ALL(ZFIELDOUT .GE. XUNDEF-1.E+5 .AND. ZFIELDOUT .LE. XUNDEF+1.E+5)) THEN
+        ALLOCATE(ZPS(SIZE(ZFIELDOUT,1)))
+        ZPS = XP00 - ZRHOA * XG * XZS_LS
+        IF (XHUI_BLD==XUNDEF) THEN
+          ZFIELDOUT(:,1) = XHUI_BLD_DEF * QSAT(B%XTI_BLD, ZPS)
+        ELSE
+          ZFIELDOUT(:,1) = XHUI_BLD * QSAT(B%XTI_BLD, ZPS)
+        ENDIF
+        DEALLOCATE(ZPS)
+      ENDIF
+      B%XQI_BLD (:) = ZFIELDOUT(:,1)
+    CASE('T_WIN1 ') 
+      ALLOCATE(B%XT_WIN1 (SIZE(ZFIELDOUT,1)))
+      B%XT_WIN1 (:) = ZFIELDOUT(:,1)
+    CASE('T_WIN2 ') 
+      ALLOCATE(B%XT_WIN2 (SIZE(ZFIELDOUT,1)))
+      B%XT_WIN2 (:) = ZFIELDOUT(:,1)
+    CASE('T_FLOOR')
+      ALLOCATE(B%XT_FLOOR(SIZE(ZFIELDOUT,1),BOP%NFLOOR_LAYER))
+      CALL INIT_FROM_REF_GRID(XGRID_FLOOR,ZFIELDOUT,B%XD_FLOOR,B%XT_FLOOR)
+    CASE('T_MASS')
+      ALLOCATE(B%XT_MASS(SIZE(ZFIELDOUT,1),BOP%NFLOOR_LAYER))
+      CALL INIT_FROM_REF_GRID(XGRID_FLOOR,ZFIELDOUT,B%XD_FLOOR,B%XT_MASS)    
+    CASE('T_ROAD ') 
+      ALLOCATE(T%XT_ROAD(SIZE(ZFIELDOUT,1),TOP%NROAD_LAYER))
+      CALL INIT_FROM_REF_GRID(XGRID_ROAD,ZFIELDOUT,T%XD_ROAD,T%XT_ROAD)
+    CASE('T_WALLA')
+      ALLOCATE(T%XT_WALL_A(SIZE(ZFIELDOUT,1),TOP%NWALL_LAYER))
+      CALL INIT_FROM_REF_GRID(XGRID_WALL,ZFIELDOUT,T%XD_WALL,T%XT_WALL_A)
+    CASE('T_WALLB')
+      ALLOCATE(T%XT_WALL_B(SIZE(ZFIELDOUT,1),TOP%NWALL_LAYER))
+      IF (TOP%CWALL_OPT=='UNIF') THEN
+        T%XT_WALL_B = T%XT_WALL_A
+      ELSE
+        CALL INIT_FROM_REF_GRID(XGRID_WALL,ZFIELDOUT,T%XD_WALL,T%XT_WALL_B)
+      END IF  
+    CASE('T_ROOF ') 
+      ALLOCATE(T%XT_ROOF(SIZE(ZFIELDOUT,1),TOP%NROOF_LAYER))
+      CALL INIT_FROM_REF_GRID(XGRID_ROOF,ZFIELDOUT,T%XD_ROOF,T%XT_ROOF)
+    CASE('T_CAN  ') 
+      ALLOCATE(T%XT_CANYON(SIZE(ZFIELDOUT,1)))
+      T%XT_CANYON (:) = ZFIELDOUT(:,1)
+    CASE('Q_CAN  ') 
+      ALLOCATE(T%XQ_CANYON(SIZE(ZFIELDOUT,1)))
+      T%XQ_CANYON (:) = ZFIELDOUT(:,1)
+  END SELECT
+!
+ENDIF
+!-------------------------------------------------------------------------------------
+!
+!*      7.     Deallocations
+!
+IF (ASSOCIATED (ZFIELDOUT)) DEALLOCATE(ZFIELDOUT)
+IF (LHOOK) CALL DR_HOOK('PREP_HOR_TEB_FIELD',1,ZHOOK_HANDLE)
+!
+!-------------------------------------------------------------------------------------
+!-------------------------------------------------------------------------------------
+!
+CONTAINS
+!
+!-------------------------------------------------------------------------------------
+!-------------------------------------------------------------------------------------
+SUBROUTINE INIT_FROM_REF_GRID(PGRID1,PT1,PD2,PT2)
+!
+USE MODI_INTERP_GRID
+!
+REAL, DIMENSION(:,:), INTENT(IN)  :: PT1    ! temperature profile
+REAL, DIMENSION(:),   INTENT(IN)  :: PGRID1 ! normalized grid
+REAL, DIMENSION(:,:), INTENT(IN)  :: PD2    ! output layer thickness
+REAL, DIMENSION(:,:), INTENT(OUT) :: PT2    ! temperature profile
+!
+INTEGER                                  :: JL  ! loop counter
+REAL, DIMENSION(SIZE(PT1,1),SIZE(PT1,2)) :: ZD1 ! input grid
+REAL, DIMENSION(SIZE(PD2,1),SIZE(PD2,2)) :: ZD2 ! output grid
+REAL, DIMENSION(SIZE(PD2,1))             :: ZD  ! output total thickness
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('INIT_FROM_REF_GRID',0,ZHOOK_HANDLE)
+ZD2(:,:) = 0.
+ZD (:)   = 0.
+!
+DO JL=1,SIZE(ZD2,2)
+  ZD2(:,JL) = ZD(:) + PD2(:,JL)/2.
+  ZD (:)    = ZD(:) + PD2(:,JL)
+END DO
+!
+DO JL=1,SIZE(PT1,2)
+  ZD1(:,JL) = PGRID1(JL) * ZD(:)
+END DO
+!
+ CALL INTERP_GRID(ZD1,PT1,ZD2,PT2)
+IF (LHOOK) CALL DR_HOOK('INIT_FROM_REF_GRID',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE INIT_FROM_REF_GRID
+!-------------------------------------------------------------------------------------
+!
+END SUBROUTINE PREP_HOR_TEB_FIELD

@@ -1,0 +1,15 @@
+#!/bin/ksh
+#MNH_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+#MNH_LIC This is part of the Meso-NH software governed by the CeCILL-C licence
+#MNH_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#MNH_LIC for details. version 1.
+set -x
+NARGS=$#
+let "N_1=${NARGS} - 1"
+export N_1
+CMD=`echo $* | cut -d" " -f 1-${N_1}`
+EXE=`echo $* | cut -d" " -f ${NARGS} `
+EXEBIN=$(ls -l `which ${EXE}` | awk '{ print $NF}' )
+mpirun ${CMD} ${EXEBIN}
+#echo CMD=$CMD
+#echo EXE=$EXE

@@ -1,0 +1,1233 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+MODULE MODE_READ_SURF_LFI
+!
+#ifdef SFX_LFI
+!
+!!    PURPOSE
+!!    -------
+!
+!       The purpose of READ_SURF_LFI is
+!
+!!**  METHOD
+!!    ------
+!!
+!!    EXTERNAL
+!!    --------
+!!
+!!     
+!!
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!
+!!    REFERENCE
+!!    ---------
+!!
+!!
+!!    AUTHOR
+!!    ------
+!!
+!!      S.Malardel      *METEO-FRANCE*
+!!
+!!    MODIFICATIONS
+!!    -------------
+!!
+!!      original                                                     01/08/03
+!----------------------------------------------------------------------------
+!
+INTERFACE READ_SURF0_LFI
+        MODULE PROCEDURE READ_SURFX0_LFI
+        MODULE PROCEDURE READ_SURFN0_LFI
+        MODULE PROCEDURE READ_SURFL0_LFI
+        MODULE PROCEDURE READ_SURFC0_LFI
+END INTERFACE
+INTERFACE READ_SURFN_LFI
+        MODULE PROCEDURE READ_SURFX1_LFI
+        MODULE PROCEDURE READ_SURFN1_LFI
+        MODULE PROCEDURE READ_SURFL1_LFI
+        MODULE PROCEDURE READ_SURFX2_LFI
+END INTERFACE
+INTERFACE READ_SURFT_LFI
+        MODULE PROCEDURE READ_SURFT0_LFI
+        MODULE PROCEDURE READ_SURFT1_LFI
+        MODULE PROCEDURE READ_SURFT2_LFI
+END INTERFACE
+!
+CONTAINS
+!
+!     #############################################################
+      SUBROUTINE READ_SURFX0_LFI(HREC,PFIELD,KRESP,HCOMMENT)
+!     #############################################################
+!
+USE MODD_IO_SURF_LFI,        ONLY : CFILE_LFI, CLUOUT_LFI
+!
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*), INTENT(IN)  :: HREC     ! name of the article to be read
+REAL,              INTENT(OUT) :: PFIELD   ! the real scalar to be read
+INTEGER,           INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100),INTENT(OUT) :: HCOMMENT ! comment
+!
+!*      0.2   Declarations of local variables
+!
+INTEGER          :: IGRID   ! position of data on grid
+INTEGER          :: ILENCH  ! length of comment string
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX0_LFI',0,ZHOOK_HANDLE)
+!
+KRESP=0
+!
+ CALL FMREADX0(CFILE_LFI,HREC,CLUOUT_LFI,1,PFIELD,IGRID,ILENCH,HCOMMENT,KRESP)
+!
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX0_LFI',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFX0_LFI
+!
+!     #############################################################
+      SUBROUTINE READ_SURFX1_LFI(HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!!****  *READX1* - routine to fill a real 1D array for the externalised surface 
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ, NREQ
+!
+USE MODD_IO_SURF_LFI, ONLY : CFILE_LFI, CLUOUT_LFI, NMASK, NFULL, &
+                             LMNH_COMPATIBLE  
+!
+USE MODI_PACK_SAME_RANK
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+USE MODI_READ_AND_SEND_MPI
+USE MODI_GET_SURF_UNDEF
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),   INTENT(IN)  :: HREC     ! name of the article to be read
+REAL, DIMENSION(:),  INTENT(OUT) :: PFIELD   ! array containing the data field
+INTEGER,             INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100),  INTENT(OUT) :: HCOMMENT ! comment
+ CHARACTER(LEN=1),    INTENT(IN)  :: HDIR     ! type of field :
+                                             ! 'H' : field with
+                                             !       horizontal spatial dim.
+                                             ! '-' : no horizontal dim.
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=18) :: YREC
+REAL              :: ZUNDEF  ! default value
+INTEGER           :: IGRID   ! position of data on grid
+INTEGER           :: ILENCH  ! length of comment string
+INTEGER           :: IVERSION, IBUGFIX
+INTEGER           :: IL1, INFOMPI, JJ
+!
+REAL, DIMENSION(:), ALLOCATABLE :: ZWORK
+#ifdef SFX_MPI
+INTEGER, DIMENSION(MPI_STATUS_SIZE) :: ISTATUS
+#endif
+DOUBLE PRECISION   :: XTIME0
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI',0,ZHOOK_HANDLE)
+!
+IL1 = SIZE(PFIELD)
+!
+KRESP=0
+!
+#ifdef SFX_MPI
+XTIME0 = MPI_WTIME()
+#endif
+!
+IF (HDIR=='-') THEN
+  ALLOCATE(ZWORK(IL1))
+ENDIF
+!
+IF (NRANK==NPIO) THEN
+  !
+  IF (HDIR=='A') THEN
+    ALLOCATE(ZWORK(IL1))
+  ELSEIF (HDIR/='-') THEN
+    ALLOCATE(ZWORK(NFULL))
+  ENDIF
+  !
+  YREC = HREC
+  !
+  !---------------------------------------------------------------------------
+  !* patch to read some test files done before version 3.5
+  !  this should be removed once all tests with reading lfi files done with 923
+  !  configuration (with these early versions) are finished.
+  !
+  IF (HREC(1:2)=='D_') THEN
+    CALL FMREADN0(CFILE_LFI,'VERSION',CLUOUT_LFI,1,IVERSION,IGRID,ILENCH,HCOMMENT,KRESP)
+    CALL FMREADN0(CFILE_LFI,'BUG',CLUOUT_LFI,1,IBUGFIX,IGRID,ILENCH,HCOMMENT,KRESP)
+    IF (IVERSION<=2 .OR. (IVERSION==3 .AND. IBUGFIX<=5)) YREC = 'DATA_'//HREC(3:12)
+  END IF
+  !---------------------------------------------------------------------------
+  !
+  IF (HDIR=='H' .OR. HDIR=='A' .OR. HDIR=='E' .OR. &
+      HREC=='XX' .OR. HREC=='YY'.OR. HREC=='DX' .OR. HREC=='DY') THEN  
+    IF (.NOT. LMNH_COMPATIBLE) THEN
+      CALL FMREADX1(CFILE_LFI,YREC,CLUOUT_LFI,NFULL,ZWORK,IGRID,ILENCH,HCOMMENT,KRESP)
+    ELSE
+      CALL READ_IN_LFI_X1_FOR_MNH(YREC,ZWORK,KRESP,HCOMMENT,HDIR)
+    END IF
+  ELSE
+    CALL FMREADX1(CFILE_LFI,YREC,CLUOUT_LFI,IL1,ZWORK,IGRID,ILENCH,HCOMMENT,KRESP)
+  END IF
+  CALL ERROR_READ_SURF_LFI(YREC,KRESP)
+  !
+ELSEIF (HDIR/='-') THEN
+  ALLOCATE(ZWORK(0))
+ENDIF
+!
+#ifdef SFX_MPI
+XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+!
+IF (HDIR=='E') THEN
+  IF ( NRANK==NPIO ) THEN
+    CALL PACK_SAME_RANK(NMASK,ZWORK(:),PFIELD(:))
+  ENDIF
+ELSEIF (HDIR=='A') THEN  ! no distribution on other tasks
+  IF ( NRANK==NPIO ) THEN
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+#endif
+    PFIELD(:) = ZWORK(1:IL1)
+#ifdef SFX_MPI
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
+#endif
+  ENDIF
+ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
+  IF (NPROC>1) THEN
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+    CALL MPI_BCAST(ZWORK,IL1*KIND(ZWORK)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
+#endif
+  ENDIF
+  PFIELD(:) = ZWORK(:)
+ELSE
+  CALL READ_AND_SEND_MPI(ZWORK,PFIELD,NMASK)
+  !IF (NRANK==NPIO) THEN
+  !  CALL MPI_WAITALL(NPROC-1,NREQ,ISTATUS,INFOMPI)
+  !ENDIF  
+ENDIF
+!
+DEALLOCATE(ZWORK)
+!
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI',1,ZHOOK_HANDLE)
+!
+CONTAINS
+!
+!     #############################################################
+      SUBROUTINE READ_IN_LFI_X1_FOR_MNH(HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!!****  * - routine to fill a read 2D array for the externalised surface 
+!
+USE MODD_IO_SURF_LFI,        ONLY : CFILE_LFI, CLUOUT_LFI, &
+                                    NIU, NIB, NIE, NJU, NJB, NJE
+!
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),        INTENT(IN) :: HREC     ! name of the article to be read
+REAL, DIMENSION(:),     INTENT(OUT):: PFIELD   ! array containing the data field
+INTEGER,                  INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100),       INTENT(OUT):: HCOMMENT ! comment string
+ CHARACTER(LEN=1),         INTENT(IN) :: HDIR     ! type of field :
+                                                 ! 'H' : field with
+                                                 !       horizontal spatial dim.
+                                                 ! '-' : no horizontal dim.
+!
+!*      0.2   Declarations of local variables
+! 
+ CHARACTER(LEN=4)   :: YREC1D
+INTEGER :: JI, JJ
+INTEGER :: ILEN
+INTEGER :: IGRID, ILENCH
+REAL :: ZVAL
+REAL, DIMENSION(:),   ALLOCATABLE :: ZWORK1D! 1D work array read in the file
+REAL, DIMENSION(NIU,NJU) :: ZWORK2D ! work array read in a MNH file
+REAL(KIND=JPRB) :: ZHOOK_HANDLE, ZHOOK_HANDLE_OMP
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_1',0,ZHOOK_HANDLE)
+!
+ZWORK2D(:,:) = 999.
+!
+IF (HREC=='XX                 ' .OR. HREC=='DX                 ') THEN
+  ALLOCATE(ZWORK1D(NIU))
+  YREC1D = 'XHAT'
+  ILEN   = NIU
+ELSEIF (HREC=='YY                 ' .OR. HREC=='DY                 ') THEN
+  ALLOCATE(ZWORK1D(NJU))
+  YREC1D = 'YHAT'
+  ILEN   = NJU
+ELSEIF (NJB==NJE) THEN
+  ALLOCATE(ZWORK1D(NIU))
+  ZWORK1D(:) = 999.
+ELSEIF (NIB==NIE) THEN
+  ALLOCATE(ZWORK1D(NJU))
+  ZWORK1D(:) = 999. 
+ENDIF
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_1',1,ZHOOK_HANDLE)
+!
+IF (HREC=='XX' .OR. HREC=='YY'.OR. HREC=='DX' .OR. HREC=='DY') THEN
+  !
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_2',0,ZHOOK_HANDLE)
+  CALL FMREADX1(CFILE_LFI,YREC1D,CLUOUT_LFI,ILEN,ZWORK1D,IGRID,ILENCH,HCOMMENT,KRESP)
+  CALL ERROR_READ_SURF_LFI(YREC1D,KRESP)
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_2',1,ZHOOK_HANDLE)
+  !
+  SELECT CASE(HREC)
+    CASE('XX                  ')
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP) 
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_31',0,ZHOOK_HANDLE_OMP)
+!$OMP DO PRIVATE(JI)    
+      DO JI = NIB,NIE
+        ZWORK2D(JI,:) = 0.5 * ZWORK1D(JI) + 0.5 * ZWORK1D(JI+1)
+      ENDDO
+!$OMP END DO
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_31',1,ZHOOK_HANDLE_OMP)
+!$OMP END PARALLEL
+    CASE('DX                  ')
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_32',0,ZHOOK_HANDLE_OMP)
+!$OMP DO PRIVATE(JI)   
+      DO JI = NIB,NIE
+        ZWORK2D(JI,:) = - ZWORK1D(JI) + ZWORK1D(JI+1)
+      ENDDO
+!$OMP END DO 
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_32',1,ZHOOK_HANDLE_OMP)
+!$OMP END PARALLEL
+    CASE('YY                  ')
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP) 
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_33',0,ZHOOK_HANDLE_OMP)
+!$OMP DO PRIVATE(JI)       
+      DO JJ = NJB,NJE
+        ZWORK2D(:,JJ) = 0.5 * ZWORK1D(JJ) + 0.5 * ZWORK1D(JJ+1)
+      ENDDO
+!$OMP END DO
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_33',1,ZHOOK_HANDLE_OMP)
+!$OMP END PARALLEL
+    CASE('DY                  ')
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP) 
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_34',0,ZHOOK_HANDLE_OMP)
+!$OMP DO PRIVATE(JI)   
+      DO JJ = NJB,NJE
+        ZWORK2D(:,JJ) = - ZWORK1D(JJ) + ZWORK1D(JJ+1)
+      ENDDO
+!$OMP END DO 
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_34',1,ZHOOK_HANDLE_OMP)
+!$OMP END PARALLEL
+  END SELECT
+!
+  DEALLOCATE(ZWORK1D)
+!
+ELSEIF (NJB==NJE) THEN
+  !
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_41',0,ZHOOK_HANDLE)
+  CALL FMREADX1(CFILE_LFI,YREC,CLUOUT_LFI,SIZE(ZWORK1D),ZWORK1D,IGRID,ILENCH,HCOMMENT,KRESP)
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_41',1,ZHOOK_HANDLE)
+  !
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP) 
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_42',0,ZHOOK_HANDLE_OMP)
+!$OMP DO PRIVATE(JI)  
+  DO JJ = 1,SIZE(ZWORK2D,2)
+    ZWORK2D(NIB:NIE,JJ) = ZWORK1D(NIB:NIE)
+  END DO
+!$OMP END DO
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_42',1,ZHOOK_HANDLE_OMP)
+!$OMP END PARALLEL
+  !
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_43',0,ZHOOK_HANDLE)
+  DEALLOCATE(ZWORK1D) 
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_43',1,ZHOOK_HANDLE)
+  !
+ELSEIF (NIB==NIE) THEN
+  !
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_51',0,ZHOOK_HANDLE)
+  CALL FMREADX1(CFILE_LFI,YREC,CLUOUT_LFI,SIZE(ZWORK1D),ZWORK1D,IGRID,ILENCH,HCOMMENT,KRESP) 
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_51',1,ZHOOK_HANDLE)
+  !
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_52',0,ZHOOK_HANDLE_OMP)
+!$OMP DO PRIVATE(JI)  
+  DO JI = 1,SIZE(ZWORK2D,1)
+    ZWORK2D(JI,NJB:NJE) = ZWORK1D(NJB:NJE)
+  END DO
+!$OMP END DO
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_52',1,ZHOOK_HANDLE_OMP)
+!$OMP END PARALLEL
+!
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_53',0,ZHOOK_HANDLE)
+  DEALLOCATE(ZWORK1D)
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_53',1,ZHOOK_HANDLE)
+!
+ELSE
+  !
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_6',0,ZHOOK_HANDLE)
+  CALL FMREADX2(CFILE_LFI,HREC,CLUOUT_LFI,SIZE(ZWORK2D),ZWORK2D,IGRID,ILENCH,HCOMMENT,KRESP)
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_6',1,ZHOOK_HANDLE)
+  !
+ENDIF
+!
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP) 
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_7',0,ZHOOK_HANDLE_OMP)
+!$OMP DO PRIVATE(JJ,JI)
+DO JJ=1,NJE-NJB+1
+  DO JI=1,NIE-NIB+1
+    PFIELD(JI+(NIE-NIB+1)*(JJ-1)) = ZWORK2D(NIB+JI-1,NJB+JJ-1) 
+  END DO
+END DO
+!$OMP END DO
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_7',1,ZHOOK_HANDLE_OMP)
+!$OMP END PARALLEL
+!  
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_8',0,ZHOOK_HANDLE)
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX1_LFI:READ_IN_LFI_X1_FOR_MNH_8',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_IN_LFI_X1_FOR_MNH
+!
+END SUBROUTINE READ_SURFX1_LFI
+!
+!     #############################################################
+      SUBROUTINE READ_SURFX2_LFI(HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!!****  *READX2* - routine to fill a real 2D array for the externalised surface 
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ, NREQ
+!
+USE MODD_IO_SURF_LFI, ONLY : CFILE_LFI, CLUOUT_LFI, NMASK, NFULL, &
+                             LMNH_COMPATIBLE  
+!
+USE MODI_PACK_SAME_RANK
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+USE MODI_READ_AND_SEND_MPI
+USE MODI_GET_SURF_UNDEF
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),        INTENT(IN)  :: HREC     ! name of the article to be read
+REAL, DIMENSION(:,:),     INTENT(OUT) :: PFIELD   ! array containing the data field
+INTEGER,                  INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100),       INTENT(OUT) :: HCOMMENT ! comment
+ CHARACTER(LEN=1),         INTENT(IN)  :: HDIR     ! type of field :
+                                                  ! 'H' : field with
+                                                  !       horizontal spatial dim.
+                                                  ! '-' : no horizontal dim.
+!*      0.2   Declarations of local variables
+! 
+ CHARACTER(LEN=16) :: YREC
+REAL              :: ZUNDEF  ! default value
+INTEGER           :: IGRID   ! position of data on grid
+INTEGER           :: ILENCH  ! length of comment string
+INTEGER           :: IVERSION, IBUGFIX
+INTEGER           :: IL1, IL2, INFOMPI, JJ
+!
+REAL, DIMENSION(:,:), ALLOCATABLE :: ZWORK2
+#ifdef SFX_MPI
+INTEGER, DIMENSION(MPI_STATUS_SIZE,NPROC-1) :: ISTATUS
+#endif
+DOUBLE PRECISION   :: XTIME0
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI',0,ZHOOK_HANDLE)
+!
+!
+IL1 = SIZE(PFIELD,1)
+IL2 = SIZE(PFIELD,2)
+!
+KRESP=0
+!
+#ifdef SFX_MPI
+XTIME0 = MPI_WTIME()
+#endif
+!
+IF (HDIR=='-') THEN
+  ALLOCATE(ZWORK2(IL1,IL2))
+ENDIF
+!
+IF (NRANK==NPIO) THEN
+  !
+  IF (HDIR=='A') THEN
+    ALLOCATE(ZWORK2(IL1,IL2))
+  ELSEIF (HDIR/='-') THEN
+    ALLOCATE(ZWORK2(NFULL,IL2))
+  ENDIF
+  !
+  YREC = HREC
+  !
+  !---------------------------------------------------------------------------
+  !* patch to read some test files done before version 3.5
+  !  this should be removed once all tests with reading lfi files done with 923
+  !  configuration (with these early versions) are finished.
+  !
+  IF (HREC(1:2)=='D_') THEN
+    CALL FMREADN0(CFILE_LFI,'VERSION',CLUOUT_LFI,1,IVERSION,IGRID,ILENCH,HCOMMENT,KRESP)
+    CALL FMREADN0(CFILE_LFI,'BUG',CLUOUT_LFI,1,IBUGFIX,IGRID,ILENCH,HCOMMENT,KRESP)
+    IF (IVERSION<=2 .OR. (IVERSION==3 .AND. IBUGFIX<=5)) YREC = 'DATA_'//HREC(3:12)
+    IF (YREC(13:15)=='SOI') YREC=YREC(1:15)//'L'
+    IF (YREC(12:14)=='SOI') YREC=YREC(1:14)//'L'
+  END IF
+  !---------------------------------------------------------------------------
+  !
+  IF (HDIR=='H' .OR. HDIR=='A' .OR. HDIR=='E') THEN
+    IF (.NOT. LMNH_COMPATIBLE) THEN
+      CALL FMREADX2(CFILE_LFI,YREC,CLUOUT_LFI,SIZE(ZWORK2),ZWORK2(:,:),IGRID,ILENCH,HCOMMENT,KRESP)
+     ELSE
+      CALL READ_IN_LFI_X2_FOR_MNH(YREC,ZWORK2,KRESP,HCOMMENT,HDIR)
+    END IF
+  ELSE
+    CALL FMREADX2(CFILE_LFI,YREC,CLUOUT_LFI,IL1*IL2,ZWORK2(:,:),IGRID,ILENCH,HCOMMENT,KRESP)
+  END IF
+  CALL ERROR_READ_SURF_LFI(YREC,KRESP)
+  !
+ELSEIF (HDIR/='-') THEN
+  ALLOCATE(ZWORK2(0,0))
+ENDIF
+!
+#ifdef SFX_MPI
+XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+!
+IF (HDIR=='E') THEN
+  IF ( NRANK==NPIO ) THEN
+    CALL PACK_SAME_RANK(NMASK,ZWORK2(:,:),PFIELD(:,:))
+  ENDIF
+ELSEIF (HDIR=='A') THEN  ! no distribution on other tasks
+  IF ( NRANK==NPIO ) THEN    
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+#endif
+    PFIELD(:,:) = ZWORK2(1:IL1,:)
+#ifdef SFX_MPI
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
+#endif
+  ENDIF
+ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
+  IF (NPROC>1) THEN
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+    CALL MPI_BCAST(ZWORK2,IL1*IL2*KIND(ZWORK2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
+#endif
+  ENDIF
+  PFIELD(:,:) = ZWORK2(1:IL1,:)  
+ELSE
+  CALL READ_AND_SEND_MPI(ZWORK2,PFIELD,NMASK)
+  !IF (NRANK==NPIO) THEN
+  !  CALL MPI_WAITALL(NPROC-1,NREQ,ISTATUS,INFOMPI)
+  !ENDIF  
+ENDIF
+!
+DEALLOCATE(ZWORK2)
+!
+IF (HDIR=='H' .OR. HDIR=='A') THEN
+  CALL GET_SURF_UNDEF(ZUNDEF)
+  WHERE(PFIELD==999.) PFIELD=ZUNDEF
+ENDIF
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI',1,ZHOOK_HANDLE)
+!
+CONTAINS
+!
+!     #############################################################
+      SUBROUTINE READ_IN_LFI_X2_FOR_MNH(HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!!****  * - routine to fill a read 2D array for the externalised surface 
+!
+USE MODD_IO_SURF_LFI,        ONLY : CFILE_LFI, CLUOUT_LFI, &
+                                    NIU, NIB, NIE, NJU, NJB, NJE
+!
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),        INTENT(IN) :: HREC     ! name of the article to be read
+REAL, DIMENSION(:,:), INTENT(OUT):: PFIELD   ! array containing the data field
+INTEGER,                  INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100),       INTENT(OUT):: HCOMMENT ! comment string
+ CHARACTER(LEN=1),         INTENT(IN) :: HDIR     ! type of field :
+                                                 ! 'H' : field with
+                                                 !       horizontal spatial dim.
+                                                 ! '-' : no horizontal dim.
+!*      0.2   Declarations of local variables
+! 
+INTEGER :: JI, JJ
+INTEGER :: IGRID, ILENCH
+REAL, DIMENSION(NIU,NJU,SIZE(PFIELD,2)):: ZWORK3D ! work array read in a MNH file
+REAL, DIMENSION(:,:), ALLOCATABLE :: ZWORK2D
+REAL(KIND=JPRB) :: ZHOOK_HANDLE, ZHOOK_HANDLE_OMP
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_1',0,ZHOOK_HANDLE)
+!
+ZWORK3D(:,:,:) = 999.
+!
+IF (NJB==NJE) THEN
+  ALLOCATE(ZWORK2D(NIU,SIZE(PFIELD,2)))
+  ZWORK2D(:,:) = 999.
+ELSEIF (NIB==NIE) THEN
+  ALLOCATE(ZWORK2D(NJU,SIZE(PFIELD,2)))
+  ZWORK2D(:,:) = 999. 
+ENDIF
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_1',1,ZHOOK_HANDLE)
+!
+IF (NJB==NJE) THEN
+  !
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_21',0,ZHOOK_HANDLE)
+  CALL FMREADX2(CFILE_LFI,YREC,CLUOUT_LFI,SIZE(ZWORK2D),ZWORK2D,IGRID,ILENCH,HCOMMENT,KRESP)
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_21',1,ZHOOK_HANDLE)
+  !
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_22',0,ZHOOK_HANDLE_OMP)
+!$OMP DO PRIVATE(JJ)  
+  DO JJ = 1,SIZE(ZWORK3D,2)
+    ZWORK3D(NIB:NIE,JJ,:) = ZWORK2D(NIB:NIE,:)
+  END DO
+!$OMP END DO
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_22',1,ZHOOK_HANDLE_OMP)
+!$OMP END PARALLEL
+  !
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_23',0,ZHOOK_HANDLE)
+  DEALLOCATE(ZWORK2D) 
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_23',1,ZHOOK_HANDLE)
+  !
+ELSEIF (NIB==NIE) THEN
+  !
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_31',0,ZHOOK_HANDLE)
+  CALL FMREADX2(CFILE_LFI,YREC,CLUOUT_LFI,SIZE(ZWORK2D),ZWORK2D,IGRID,ILENCH,HCOMMENT,KRESP)
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_31',1,ZHOOK_HANDLE)
+  !
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_32',0,ZHOOK_HANDLE_OMP)
+!$OMP DO PRIVATE(JI)  
+  DO JI = 1,SIZE(ZWORK3D,1)
+    ZWORK3D(JI,NJB:NJE,:) = ZWORK2D(NJB:NJE,:)
+  END DO
+!$OMP END DO  
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_32',1,ZHOOK_HANDLE_OMP)
+!$OMP END PARALLEL
+  !
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_33',0,ZHOOK_HANDLE)
+  DEALLOCATE(ZWORK2D)
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_33',1,ZHOOK_HANDLE)
+!
+ELSE
+  !
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_4',0,ZHOOK_HANDLE)
+  CALL FMREADX3(CFILE_LFI,HREC,CLUOUT_LFI,SIZE(ZWORK3D),ZWORK3D,IGRID,ILENCH,HCOMMENT,KRESP)
+  IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_4',1,ZHOOK_HANDLE)
+  !
+ENDIF
+!
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_5',0,ZHOOK_HANDLE_OMP)
+!$OMP DO PRIVATE(JJ,JI)
+DO JJ=1,NJE-NJB+1
+  DO JI=1,NIE-NIB+1
+    PFIELD(JI+(NIE-NIB+1)*(JJ-1),:) = ZWORK3D(NIB+JI-1,NJB+JJ-1,:) 
+  END DO
+END DO
+!$OMP END DO
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_5',1,ZHOOK_HANDLE_OMP)
+!$OMP END PARALLEL
+!  
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_6',0,ZHOOK_HANDLE)
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFX2_LFI:READ_IN_LFI_X2_FOR_MNH_6',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_IN_LFI_X2_FOR_MNH
+!
+END SUBROUTINE READ_SURFX2_LFI
+!
+!     #############################################################
+      SUBROUTINE READ_SURFN0_LFI(HREC,KFIELD,KRESP,HCOMMENT)
+!     #############################################################
+!
+!!****  *READN0* - routine to read an integer
+!!      B. Decharme 07/2011 : Grdid dimension only read in pgd file
+!
+USE MODD_IO_SURF_LFI, ONLY : CFILE_LFI, CLUOUT_LFI, CFILEPGD_LFI, &
+                             LMNH_COMPATIBLE, NIU, NIB, NIE, NJU, NJB, NJE
+!
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),  INTENT(IN)  :: HREC     ! name of the article to be read
+INTEGER,            INTENT(OUT) :: KFIELD   ! the integer to be read
+INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100), INTENT(OUT) :: HCOMMENT ! comment
+!
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=40) :: YGRID
+INTEGER           :: IGRID   ! position of data on grid
+INTEGER           :: ILENCH  ! length of comment string
+INTEGER           :: IIMAX, IJMAX
+INTEGER           :: INB ! number of articles in the file
+INTEGER           :: IRESP
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFN0_LFI',0,ZHOOK_HANDLE)
+!
+KRESP=0
+!
+ CALL FMREADN0(CFILE_LFI,HREC,CLUOUT_LFI,1,KFIELD,IGRID,ILENCH,HCOMMENT,KRESP)
+!
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+!* tests compatibility with MesoNH files
+!
+IF (HREC/='DIM_FULL' .AND. LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFN0_LFI',1,ZHOOK_HANDLE)
+IF (HREC/='DIM_FULL') RETURN
+!
+!-----------------------------------------------------------------------------------------------------
+! READ PGD FILE
+!-----------------------------------------------------------------------------------------------------
+!
+!IF (CFILE_LFI/=CFILEPGD_LFI) THEN
+!  CALL FMOPEN(CFILEPGD_LFI,'OLD',CLUOUT_LFI,0,1,1,INB,IRESP)
+!ENDIF
+!
+ CALL FMREADC0(CFILE_LFI,'GRID_TYPE ',CLUOUT_LFI,1,YGRID,IGRID,ILENCH,HCOMMENT,KRESP)
+ CALL ERROR_READ_SURF_LFI('GRID_TYPE ',KRESP)
+LMNH_COMPATIBLE = (YGRID=="CARTESIAN " .OR. YGRID=="CONF PROJ ")
+!
+IF (LMNH_COMPATIBLE) THEN
+  CALL FMREADN0(CFILE_LFI,'IMAX',CLUOUT_LFI,1,IIMAX,IGRID,ILENCH,HCOMMENT,KRESP)
+  CALL ERROR_READ_SURF_LFI('IMAX',KRESP)
+  NIU = IIMAX+2
+  NIB = 2
+  NIE = IIMAX+1
+  CALL FMREADN0(CFILE_LFI,'JMAX',CLUOUT_LFI,1,IJMAX,IGRID,ILENCH,HCOMMENT,KRESP)
+  CALL ERROR_READ_SURF_LFI('JMAX',KRESP)
+  NJU = IJMAX+2
+  NJB = 2
+  NJE = IJMAX+1
+END IF
+!
+!IF(CFILE_LFI/=CFILEPGD_LFI)THEN
+!  CALL FMCLOS(CFILEPGD_LFI,'KEEP',CLUOUT_LFI,IRESP)
+!ENDIF
+!
+!-----------------------------------------------------------------------------------------------------
+! END READ PGD FILE
+!-----------------------------------------------------------------------------------------------------
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFN0_LFI',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFN0_LFI
+!
+!     #############################################################
+      SUBROUTINE READ_SURFN1_LFI(HREC,KFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!!****  *READN0* - routine to read an integer
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ, NREQ
+!
+USE MODD_IO_SURF_LFI,        ONLY : CFILE_LFI, CLUOUT_LFI, NMASK, NFULL
+!
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+USE MODI_READ_AND_SEND_MPI
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),      INTENT(IN)  :: HREC     ! name of the article to be read
+INTEGER, DIMENSION(:),  INTENT(OUT) :: KFIELD   ! the integer to be read
+INTEGER,                INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100),     INTENT(OUT) :: HCOMMENT ! comment
+ CHARACTER(LEN=1),       INTENT(IN)  :: HDIR     ! type of field :
+                                                ! 'H' : field with
+                                                !       horizontal spatial dim.
+                                                ! '-' : no horizontal dim.
+!*      0.2   Declarations of local variables
+!
+INTEGER          :: IGRID   ! position of data on grid
+INTEGER          :: ILENCH  ! length of comment string
+INTEGER          :: IL1, INFOMPI, JJ
+!
+INTEGER, DIMENSION(:), ALLOCATABLE :: IWORK
+#ifdef SFX_MPI
+INTEGER, DIMENSION(MPI_STATUS_SIZE,NPROC-1) :: ISTATUS
+#endif
+DOUBLE PRECISION   :: XTIME0
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFN1_LFI',0,ZHOOK_HANDLE)
+!
+IL1 = SIZE(KFIELD)
+!
+KRESP=0
+!
+#ifdef SFX_MPI
+XTIME0 = MPI_WTIME()
+#endif
+!
+IF (HDIR=='-') THEN
+  ALLOCATE(IWORK(IL1))
+ENDIF
+!
+IF (NRANK==NPIO) THEN
+  !
+  IF (HDIR=='A') THEN
+    ALLOCATE(IWORK(IL1))
+  ELSEIF (HDIR/='-') THEN
+    ALLOCATE(IWORK(NFULL))
+  ENDIF 
+  !  
+  IF (HDIR=='H')  THEN
+    CALL FMREADN1(CFILE_LFI,HREC,CLUOUT_LFI,NFULL,IWORK,IGRID,ILENCH,HCOMMENT,KRESP)
+  ELSE
+    CALL FMREADN1(CFILE_LFI,HREC,CLUOUT_LFI,IL1,IWORK(:),IGRID,ILENCH,HCOMMENT,KRESP)
+  END IF
+  !
+  CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+  !
+ENDIF
+!
+#ifdef SFX_MPI
+XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+!
+IF (HDIR=='A') THEN  ! no distribution on other tasks
+  IF ( NRANK==NPIO ) THEN
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+#endif
+    KFIELD(:) = IWORK(1:IL1)
+#ifdef SFX_MPI
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
+#endif
+  ENDIF
+ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
+  IF (NPROC>1) THEN
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+    CALL MPI_BCAST(IWORK,IL1*KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
+#endif
+  ENDIF
+  KFIELD(:) = IWORK(1:IL1)   
+ELSE
+  CALL READ_AND_SEND_MPI(IWORK,KFIELD,NMASK)
+  !IF (NRANK==NPIO) THEN
+  !  CALL MPI_WAITALL(NPROC-1,NREQ,ISTATUS,INFOMPI)
+  !ENDIF  
+ENDIF
+!
+DEALLOCATE(IWORK)
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFN1_LFI',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFN1_LFI
+!
+!     #############################################################
+      SUBROUTINE READ_SURFC0_LFI(HREC,HFIELD,KRESP,HCOMMENT)
+!     #############################################################
+!
+!!****  *READC0* - routine to read a character
+!
+USE MODD_IO_SURF_LFI,        ONLY : CFILE_LFI, CLUOUT_LFI
+!
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),  INTENT(IN)  :: HREC      ! name of the article to be read
+ CHARACTER(LEN=40),  INTENT(OUT) :: HFIELD    ! the integer to be read
+INTEGER,            INTENT(OUT) :: KRESP     ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100), INTENT(OUT) :: HCOMMENT  ! comment
+!
+!*      0.2   Declarations of local variables
+!
+INTEGER          :: IGRID   ! position of data on grid
+INTEGER          :: ILENCH  ! length of comment string
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFC0_LFI',0,ZHOOK_HANDLE)
+!
+KRESP=0
+!
+ CALL FMREADC0(CFILE_LFI,HREC,CLUOUT_LFI,1,HFIELD,IGRID,ILENCH,HCOMMENT,KRESP)
+!
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFC0_LFI',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFC0_LFI
+!
+!     #############################################################
+      SUBROUTINE READ_SURFL0_LFI(HREC,OFIELD,KRESP,HCOMMENT)
+!     #############################################################
+!
+!!****  *READL0* - routine to read a logical
+!
+USE MODD_IO_SURF_LFI,        ONLY : CFILE_LFI, CLUOUT_LFI
+!
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),  INTENT(IN)  :: HREC     ! name of the article to be read
+LOGICAL,            INTENT(OUT) :: OFIELD   ! array containing the data field
+INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100), INTENT(OUT) :: HCOMMENT ! comment
+!
+!*      0.2   Declarations of local variables
+!
+INTEGER          :: IGRID   ! position of data on grid
+INTEGER          :: ILENCH  ! length of comment string
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFL0_LFI',0,ZHOOK_HANDLE)
+!
+KRESP=0
+!
+ CALL FMREADL0(CFILE_LFI,HREC,CLUOUT_LFI,1,OFIELD,IGRID,ILENCH,HCOMMENT,KRESP)
+!
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFL0_LFI',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFL0_LFI
+!
+!     #############################################################
+      SUBROUTINE READ_SURFL1_LFI(HREC,OFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!!****  *READL1* - routine to read a logical array
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ
+!
+USE MODD_IO_SURF_LFI,        ONLY : CFILE_LFI, CLUOUT_LFI
+!
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+USE MODI_ABOR1_SFX
+USE MODI_GET_LUOUT
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),      INTENT(IN)  :: HREC     ! name of the article to be read
+LOGICAL, DIMENSION(:), INTENT(OUT) :: OFIELD   ! array containing the data field
+INTEGER,                INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100),     INTENT(OUT) :: HCOMMENT ! comment
+ CHARACTER(LEN=1),       INTENT(IN)  :: HDIR     ! type of field :
+                                                ! 'H' : field with
+                                                !       horizontal spatial dim.
+                                                ! '-' : no horizontal dim.
+!*      0.2   Declarations of local variables
+!
+INTEGER :: ILUOUT
+INTEGER :: IGRID   ! position of data on grid
+INTEGER :: ILENCH  ! length of comment string
+INTEGER :: IL1, INFOMPI
+DOUBLE PRECISION   :: XTIME0
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFL1_LFI',0,ZHOOK_HANDLE)
+!
+IL1 = SIZE(OFIELD)
+!
+#ifdef SFX_MPI
+XTIME0 = MPI_WTIME()
+#endif
+!
+KRESP=0
+!
+IF (NRANK==NPIO) THEN
+  !
+  IF (HDIR=='H') THEN
+    CALL GET_LUOUT('LFI   ',ILUOUT)
+    WRITE(ILUOUT,*) 'Error: 1D logical vector for reading on an horizontal grid:'
+    WRITE(ILUOUT,*) 'this option is not coded in READ_SURFL1_LFI'
+    CALL ABOR1_SFX('MODE_READ_SURF_LFI: 1D LOGICAL VECTOR FOR READING NOT CODED IN READ_SURFL1_LFI')
+  END IF
+  !
+  CALL FMREADL1(CFILE_LFI,HREC,CLUOUT_LFI,IL1,OFIELD,IGRID,ILENCH,HCOMMENT,KRESP)
+  !
+  CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+  !
+ENDIF
+!
+#ifdef SFX_MPI
+XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+!
+IF (NPROC>1 .AND. HDIR/='A') THEN
+#ifdef SFX_MPI
+  XTIME0 = MPI_WTIME()
+  CALL MPI_BCAST(OFIELD,IL1,MPI_LOGICAL,NPIO,NCOMM,INFOMPI)
+  XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0) 
+#endif
+ENDIF
+!
+OFIELD = OFIELD  
+! 
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFL1_LFI',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFL1_LFI
+!
+!     #############################################################
+      SUBROUTINE READ_SURFT0_LFI(HREC,KYEAR,KMONTH,KDAY,PTIME,KRESP,HCOMMENT)
+!     #############################################################
+!
+!!****  *READT0* - routine to read a date
+!
+USE MODD_IO_SURF_LFI,  ONLY : CFILE_LFI, CLUOUT_LFI  
+!
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),  INTENT(IN)  :: HREC     ! name of the article to be read
+INTEGER,            INTENT(OUT) :: KYEAR    ! year
+INTEGER,            INTENT(OUT) :: KMONTH   ! month
+INTEGER,            INTENT(OUT) :: KDAY     ! day
+REAL,               INTENT(OUT) :: PTIME    ! year
+INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100), INTENT(OUT) :: HCOMMENT ! comment
+
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=12)     :: YREC     ! Name of the article to be read
+INTEGER, DIMENSION(3) :: ITDATE
+!
+INTEGER          :: IGRID   ! position of data on grid
+INTEGER          :: ILENCH  ! length of comment string
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFT0_LFI',0,ZHOOK_HANDLE)
+!
+KRESP=0
+!
+YREC=TRIM(HREC)//'%TDATE'
+ CALL FMREADN1(CFILE_LFI,YREC,CLUOUT_LFI,3,ITDATE,IGRID,ILENCH,HCOMMENT,KRESP)
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+YREC=TRIM(HREC)//'%TIME'
+ CALL FMREADX0(CFILE_LFI,YREC,CLUOUT_LFI,1,PTIME,IGRID,ILENCH,HCOMMENT,KRESP)
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+KYEAR  = ITDATE(1)
+KMONTH = ITDATE(2)
+KDAY   = ITDATE(3)
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFT0_LFI',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFT0_LFI
+!
+!     #############################################################
+      SUBROUTINE READ_SURFT1_LFI(HREC,KYEAR,KMONTH,KDAY,PTIME,KRESP,HCOMMENT)
+!     #############################################################
+!
+!!****  *READT0* - routine to read a date
+!
+USE MODD_IO_SURF_LFI,        ONLY : CFILE_LFI, CLUOUT_LFI  
+!
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),     INTENT(IN)  :: HREC     ! name of the article to be read
+INTEGER, DIMENSION(:), INTENT(OUT) :: KYEAR    ! year
+INTEGER, DIMENSION(:), INTENT(OUT) :: KMONTH   ! month
+INTEGER, DIMENSION(:), INTENT(OUT) :: KDAY     ! day
+REAL,    DIMENSION(:), INTENT(OUT) :: PTIME    ! year
+INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100), INTENT(OUT) :: HCOMMENT ! comment
+
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=12)     :: YREC     ! Name of the article to be read
+INTEGER          :: ILUOUT
+INTEGER          :: IGRID   ! position of data on grid
+INTEGER          :: ILENCH  ! length of comment string
+INTEGER, DIMENSION(3,SIZE(KYEAR)) :: ITDATE
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFT1_LFI',0,ZHOOK_HANDLE)
+!
+KRESP=0
+!
+YREC=TRIM(HREC)//'%TDATE'
+ CALL FMREADN2(CFILE_LFI,YREC,CLUOUT_LFI,SIZE(ITDATE),ITDATE,IGRID,ILENCH,HCOMMENT,KRESP)
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+YREC=TRIM(HREC)//'%TIME'
+ CALL FMREADX1(CFILE_LFI,YREC,CLUOUT_LFI,SIZE(PTIME),PTIME,IGRID,ILENCH,HCOMMENT,KRESP)
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+KYEAR (:) = ITDATE(1,:)
+KMONTH(:) = ITDATE(2,:)
+KDAY  (:) = ITDATE(3,:)
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFT1_LFI',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFT1_LFI
+!
+!     #############################################################
+      SUBROUTINE READ_SURFT2_LFI(HREC,KYEAR,KMONTH,KDAY,PTIME,KRESP,HCOMMENT)
+!     #############################################################
+!
+!!****  *READT0* - routine to read a date
+!
+USE MODD_IO_SURF_LFI,        ONLY : CFILE_LFI, CLUOUT_LFI  
+!
+USE MODI_FMREAD
+USE MODI_ERROR_READ_SURF_LFI
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=*),     INTENT(IN)  :: HREC     ! name of the article to be read
+INTEGER, DIMENSION(:,:), INTENT(OUT) :: KYEAR    ! year
+INTEGER, DIMENSION(:,:), INTENT(OUT) :: KMONTH   ! month
+INTEGER, DIMENSION(:,:), INTENT(OUT) :: KDAY     ! day
+REAL,    DIMENSION(:,:), INTENT(OUT) :: PTIME    ! year
+INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=100), INTENT(OUT) :: HCOMMENT ! comment
+
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=12)     :: YREC     ! Name of the article to be read
+INTEGER          :: ILUOUT
+INTEGER          :: IGRID   ! position of data on grid
+INTEGER          :: ILENCH  ! length of comment string
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFT2_LFI',0,ZHOOK_HANDLE)
+!
+KRESP=0
+!
+YREC=TRIM(HREC)//'%YEAR'
+ CALL FMREADN2(CFILE_LFI,YREC,CLUOUT_LFI,SIZE(KYEAR),KYEAR,IGRID,ILENCH,HCOMMENT,KRESP)
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+YREC=TRIM(HREC)//'%MONTH'
+ CALL FMREADN2(CFILE_LFI,YREC,CLUOUT_LFI,SIZE(KMONTH),KMONTH,IGRID,ILENCH,HCOMMENT,KRESP)
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+YREC=TRIM(HREC)//'%DAY'
+ CALL FMREADN2(CFILE_LFI,YREC,CLUOUT_LFI,SIZE(KDAY),KDAY,IGRID,ILENCH,HCOMMENT,KRESP)
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+YREC=TRIM(HREC)//'%TIME'
+ CALL FMREADX2(CFILE_LFI,YREC,CLUOUT_LFI,SIZE(PTIME),PTIME,IGRID,ILENCH,HCOMMENT,KRESP)
+ CALL ERROR_READ_SURF_LFI(HREC,KRESP)
+!
+IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_LFI:READ_SURFT2_LFI',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFT2_LFI
+!
+#endif
+!
+END MODULE MODE_READ_SURF_LFI

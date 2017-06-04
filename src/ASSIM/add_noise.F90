@@ -1,0 +1,37 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+SUBROUTINE ADD_NOISE(PADDTIMECORR,PASSIM_WINH,PWHITE_NOISE,PRED_NOISE)
+!
+USE YOMHOOK,            ONLY : LHOOK,DR_HOOK
+USE PARKIND1,           ONLY : JPRB
+!
+IMPLICIT NONE
+!
+REAL, INTENT(IN) ::  PADDTIMECORR
+REAL, INTENT(IN) ::  PWHITE_NOISE
+REAL, INTENT(IN) :: PASSIM_WINH
+REAL, INTENT(INOUT) :: PRED_NOISE
+!
+REAL :: ZALPHA, ZMU
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('ADD_NOISE',0,ZHOOK_HANDLE)
+!
+! Define parameters for model error
+!
+! ZTAU   = 3.*86400.         ! temporal correlation (sec)
+!ZSIGMA = 1.E-3/86400.      ! standard deviation of error (m3/m3/s)
+
+ZALPHA = 1./(1. + ((PASSIM_WINH/24.0)/PADDTIMECORR))
+!
+ZMU = SQRT(1. - ZALPHA**2)*PWHITE_NOISE
+!
+PRED_NOISE = ZALPHA*PRED_NOISE + ZMU
+!
+ !WGN = WGN + ZBETA*WGN_n*DT
+!
+IF (LHOOK) CALL DR_HOOK('ADD_NOISE',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE ADD_NOISE

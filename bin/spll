@@ -1,0 +1,173 @@
+#!/bin/sh
+#SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+#SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC for details. version 1.
+#set -x
+if [ $# -ne 2 ]
+then
+echo ERROR USAGE :: spll NSOURCE file
+exit 1
+fi
+NSOURCE=$1
+file=$2
+
+#RJ: list of module names not to include in dependencies, avoid spaces! \<(${EXTERNAL})\>
+EXTERNAL="PROCEDURE|IFCORE|GRIB_API|NETCDF|HDF5|MPI|MPI_F08"
+EXTERNAL="${EXTERNAL}|ISO_FORTRAN_ENV|OMP_LIB|OMP_LIB_KINDS"
+EXTERNAL="${EXTERNAL}|IEEE_EXCEPTIONS|IEEE_ARITHMETIC|IEEE_FEATURES"
+EXTERNAL="${EXTERNAL}|ISO_C_BINDING"
+
+DIRNAME=$(dirname "$file")
+BASENAME=$(basename "$file")
+SUF=$(echo "$BASENAME" | awk -F'.' '{print$2}')
+BASENAME2=$(basename "$BASENAME" ".$SUF")
+##LOCAL=$PWD
+TOCASE=${TOCASE-"tolower"}
+#
+export PERL5LIB=$SRC_SURFEX/bin
+export FILE_WITHOUT_INTERFACE_NEDEED=""
+#
+
+if [ "$SUF" = "fx" ]
+then
+
+#echo "!depfile:$BASENAME2.D" > "$DIRNAME/spll_$BASENAME"
+cat "$file"                   > "$DIRNAME/spll_$BASENAME"
+echo "#" "$file" > "$DIRNAME/$BASENAME2.D"
+
+else
+
+TMP="/tmp/split.${USER}.$$"
+mkdir "$TMP"
+trap "[ -d $TMP ] && rm -rf $TMP" 0
+
+export LOC_INTFBDIR=$TMP
+export INTFBDIR=$TMP
+
+#cp $file $TMP/fichier_a_split.f90
+cp  "$file" "$TMP/$BASENAME"
+echo DIRNAME="$DIRNAME" BASENAME="$BASENAME"
+
+#
+# Split des sources  
+#
+( 
+cd "$TMP"
+spl "${BASENAME}" > liste_file
+cat liste_file
+)
+#
+#generation de l'interface
+#
+(
+cd "$TMP"
+if [ "$(ls  modi_* 2>/dev/null)" = ""  ]
+then
+if ! echo $BASENAME | egrep  -i $FILE_WITHOUT_INTERFACE_NEDEED > /dev/null 2>/dev/null
+then
+    while read sfile
+    do 
+        if [ "$SUF" = "f90" ]
+        then
+            make_intfbl_f90.pl "$sfile" >/dev/null
+            #f90aib_modi < $TMP/$BASENAME > $TMP/modi_$BASENAME
+            #[ -s $TMP/modi_$BASENAME ] || rm -f $TMP/modi_$BASENAME
+        elif [ "$SUF" = "f" ]
+        then
+            make_intfbl_f77.pl "$sfile"
+        fi
+    done < liste_file
+fi
+fi
+ls -1 "$TMP" > liste_file
+egrep -v "liste_file"  liste_file > liste_file2
+)
+#
+# generation des dependances
+#
+( 
+cd "$TMP"
+echo "#===========  $BASENAME2.$SUF dependence ==========================" > "$DIRNAME/$BASENAME2.D"
+
+cat liste_file2 |while read sfile
+do 
+#
+# preparation of splitted file 
+#
+base=$(echo "$sfile" | awk -F'.' '{print$1}')
+spllbase="spll_$base"
+spllfile="$spllbase.$SUF"
+echo "#---------------------- splitted $spllfile dependence -----------" >> "$DIRNAME/$BASENAME2.D"
+#
+#echo "!depfile:$BASENAME2.D" > $spllfile
+#
+    tcheck=$(grep -l '^[^\!]*\$n' "$sfile")
+    if [ "$tcheck" != "" ]
+    then 
+#   clonage of "$n" file 
+        iloop=0
+        while [ "$iloop" -lt "$NSOURCE" ]
+        do 
+            iloop=$((iloop+1))
+            sed -e 's/$n/'"$iloop"'/g' "$sfile" >> "$spllfile"
+        done 
+    else
+    cat "$sfile" >> "$spllfile"
+    fi 
+#
+# if splitted file differente of old one, update ...
+# 
+
+tcheck=$(diff "$spllfile" "$DIRNAME/$spllfile" 2>&1)
+if [ "$tcheck" != "" ]
+then
+  cp "$spllfile" "$DIRNAME/$spllfile"
+  touch "$DIRNAME/$BASENAME2.D"
+fi
+#RJ: expanding dep removal list
+EXTERNAL=$(echo ${EXTERNAL-PROCEDURE} |sed -e "s/[, .\t\n]//g")
+#RJ: avoid problems with locales - grep outputs "Binary file matches" if extended ascii characters are present - file.mod for spll_modd_diag_ocean.f90
+#dep=$(egrep -a -i "^[[:space:]]*use"    "$spllfile" | sed -e 's/,/ /g' | awk '{ print '"${TOCASE}"'($2)".mod"}' | sort -u |tr "\n" " " )
+dep=$(egrep -a -i "^[[:space:]]*use"    "$spllfile" | sed -e 's/,/ /g' | awk '{ print '"${TOCASE}"'($2)".mod"}' | sort -u | egrep -iv "\<(${EXTERNAL})\>" |tr "\n" " " )
+mod=$(egrep -a -i "^[[:space:]]*module" "$spllfile" | sed -e 's/,/ /g' | awk '{ print '"${TOCASE}"'($2)".mod"}' | sort -u | grep -iv procedure |tr "\n" " " )
+
+if [ -n "$mod" ]
+then
+echo "$mod"        : "$spllbase.o"    >> "$DIRNAME/$BASENAME2.D"
+fi
+echo "$spllbase.o" : "$spllfile" "$dep" >> "$DIRNAME/$BASENAME2.D"
+
+#RJ: disabling, often still breaks parallel builds, now handled by $(MODOUT) and .NOTPARALLEL
+if [ 0 = 1 ]; then
+if [ "$SUF" = "f90" ]
+then
+printf '\t%s\n' ' $(F90) -I$(OBJDIR)/MOD  $(INC) -c $(F90FLAGS) $<' >> "$DIRNAME/$BASENAME2.D"
+else
+if [ "$SUF" = "fx90" ]
+then
+printf '\t%s\n' ' cp $< $(OBJDIR)/$(*F).f ' >> "$DIRNAME/$BASENAME2.D"
+fi
+printf '\t%s\n' ' $(FX90) -I$(OBJDIR)/MOD $(INC) -c $(FX90FLAGS) $(OBJDIR)/$(*F).f ' >> "$DIRNAME/$BASENAME2.D"
+if [ "$SUF" = "fx90" ]
+then
+printf '\t%s\n' ' @rm $(OBJDIR)/$(*F).f '    >> "$DIRNAME/$BASENAME2.D"
+fi
+fi
+printf '\t%s%s%s\n' " -@mv  $spllbase.o"' $(OBJDIR)/. || '"echo OK $spllbase.o " >> "$DIRNAME/$BASENAME2.D"
+for filemod in $mod
+do
+printf '\t%s%s%s\n' " -@mv  $filemod "' $(OBJDIR)/MOD/. || '"echo OK $filemod " >> "$DIRNAME/$BASENAME2.D"
+done
+fi
+
+unset dep mod
+
+done
+touch "$DIRNAME/$BASENAME2.D"
+
+)
+rm -fr "$TMP"
+
+fi
+

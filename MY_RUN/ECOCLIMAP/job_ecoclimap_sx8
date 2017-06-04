@@ -1,0 +1,28 @@
+#PBS -N ecoclimap
+#PBS -l memsz_job=500mb
+#PBS -l elapstim_req=00:05:00
+#PBS -l cputim_job=00:05:00
+#PBS -l cpunum_job=1
+#PBS -b 1
+#PBS -j o
+#
+export F_RECLUNIT=BYTE   # taille des records en BYTE (et non en WORD)
+export F_SETBUF=10240    # unformatted I/O optimisation
+export F_FTRACE=yes
+export F_FILEINF=yes     # or detail  # I/O measurement
+#
+#=========================================================================
+#
+cd $tmpdir
+pwd
+#
+cp $HOME/EXPORT_v7_2_PAR/trunk/MY_RUN/ECOCLIMAP/a.out .
+cp $HOME/EXPORT_v7_2_PAR/trunk/MY_RUN/ECOCLIMAP/*.dat .
+#
+./a.out
+#
+ls -l
+#
+mv *.bin $HOME/EXPORT_v7_2_PAR/trunk/MY_RUN/ECOCLIMAP
+#
+/usr/local/bin/ja

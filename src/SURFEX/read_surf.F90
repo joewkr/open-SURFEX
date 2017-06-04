@@ -1,0 +1,1840 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!##################
+MODULE MODI_READ_SURF
+!##################
+!
+!!****  *READX0* - routine to read a real scalar
+!!
+!!    PURPOSE
+!!    -------
+!
+!       The purpose of READX0 is
+!
+!!**  METHOD
+!!    ------
+!!
+!!    EXTERNAL
+!!    --------
+!!
+!!     
+!!
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!
+!!    REFERENCE
+!!    ---------
+!!
+!!
+!!    AUTHOR
+!!    ------
+!!
+!!      S.Malardel      *METEO-FRANCE*
+!!
+!!    MODIFICATIONS
+!!    -------------
+!!
+!!      original                                                     01/08/03
+!!      J.Escobar      10/06/2013: replace DOUBLE PRECISION by REAL to handle problem for promotion of real on IBM SP
+!----------------------------------------------------------------------------
+!
+  INTERFACE READ_SURF
+!
+     SUBROUTINE READ_SURFX0 (&
+                             HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
+REAL, INTENT(OUT) :: PFIELD            ! real scalar to be read
+INTEGER,INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears 
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT  ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+END SUBROUTINE READ_SURFX0
+!
+     SUBROUTINE READ_SURFX1 (&
+                             HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
+REAL, DIMENSION(:), INTENT(OUT) ::PFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR       ! type of field :
+!                                                   ! 'H' : field with
+!                                                   !       horizontal spatial dim.
+!                                                   ! '-' : no horizontal dim.
+END SUBROUTINE READ_SURFX1
+!
+     SUBROUTINE READ_SURFX2 (&
+                             HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM    ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC        ! name of the article to be read
+REAL, DIMENSION(:,:), INTENT(OUT) :: PFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP               ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
+!                                                   ! 'H' : field with
+!                                                   !       horizontal spatial dim.
+!                                                   ! '-' : no horizontal dim.
+END SUBROUTINE READ_SURFX2
+!
+!RJ: interface to READ_SURFX2COV moved out
+!
+     SUBROUTINE READ_SURFX3 (&
+                             HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM      ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC          ! name of the article to be read
+REAL, DIMENSION(:,:,:), INTENT(OUT) :: PFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP                 ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
+!                                                   ! 'H' : field with
+!                                                   !       horizontal spatial dim.
+!                                                   ! '-' : no horizontal dim.
+END SUBROUTINE READ_SURFX3
+!
+     SUBROUTINE READ_SURFN0 (&
+                             HPROGRAM,HREC,KFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
+INTEGER, INTENT(OUT) :: KFIELD           ! integer to be read  
+INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+END SUBROUTINE READ_SURFN0
+!
+     SUBROUTINE READ_SURFN1 (&
+                             HPROGRAM,HREC,KFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC         ! name of the article to be read
+INTEGER, DIMENSION(:), INTENT(OUT) :: KFIELD ! integer to be read  
+INTEGER, INTENT(OUT) :: KRESP                ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
+!                                                   ! 'H' : field with
+!                                                   !       horizontal spatial dim.
+!                                                   ! '-' : no horizontal dim.
+END SUBROUTINE READ_SURFN1
+!
+     SUBROUTINE READ_SURFC0 (&
+                             HPROGRAM,HREC,HFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM   ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC       ! name of the article to be read
+ CHARACTER(LEN=*), INTENT(OUT) :: HFIELD    ! caracter to be read  
+INTEGER, INTENT(OUT) :: KRESP              ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+END SUBROUTINE READ_SURFC0
+!
+      SUBROUTINE READ_SURFL0 (&
+                              HPROGRAM,HREC,OFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
+LOGICAL, INTENT(OUT)         :: OFIELD   ! array containing the data field
+INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+END SUBROUTINE READ_SURFL0
+!
+      SUBROUTINE READ_SURFL1 (&
+                              HPROGRAM,HREC,OFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC         ! name of the article to be read
+LOGICAL, DIMENSION(:), INTENT(OUT) :: OFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP                ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
+!                                                   ! 'H' : field with
+!                                                   !       horizontal spatial dim.
+!                                                   ! '-' : no horizontal dim.
+END SUBROUTINE READ_SURFL1
+!
+      SUBROUTINE READ_SURFT0 (&
+                              HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+USE MODD_TYPE_DATE_SURF
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM  ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC      ! name of the article to be read
+TYPE(DATE_TIME), INTENT(INOUT) ::TFIELD   ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+END SUBROUTINE READ_SURFT0
+!
+      SUBROUTINE READ_SURFT1 (&
+                              HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+USE MODD_TYPE_DATE_SURF
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
+TYPE (DATE_TIME), DIMENSION(:), INTENT(INOUT) :: TFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+END SUBROUTINE READ_SURFT1
+!
+      SUBROUTINE READ_SURFT2 (&
+                              HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT,HDIR)
+!
+!
+USE MODD_TYPE_DATE_SURF
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN) ::HREC      ! name of the article to be read
+TYPE (DATE_TIME), DIMENSION(:,:), INTENT(INOUT)::TFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+END SUBROUTINE READ_SURFT2
+!
+END INTERFACE
+!
+END MODULE MODI_READ_SURF
+!
+!     #############################################################
+      SUBROUTINE READ_SURFX0 (&
+                             HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, XTIME_NPIO_READ, XTIME_COMM_READ
+!
+#ifdef SFX_OL
+USE MODE_READ_SURF_OL, ONLY: READ_SURF0_OL
+#endif
+#ifdef SFX_LFI
+USE MODE_READ_SURF_LFI, ONLY: READ_SURF0_LFI
+#endif
+#ifdef SFX_NC
+USE MODE_READ_SURF_NC, ONLY: READ_SURF0_NC
+#endif
+#ifdef SFX_ASC
+USE MODE_READ_SURF_ASC, ONLY: READ_SURF0_ASC
+#endif
+#ifdef SFX_FA
+USE MODE_READ_SURF_FA, ONLY: READ_SURF0_FA
+#endif
+#ifdef SFX_MNH
+USE MODI_READ_SURFX0_MNH
+#endif
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+#ifdef SFX_ARO
+#include "read_surfx0_aro.h"
+#endif
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN)  :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN)  :: HREC     ! name of the article to be read
+REAL, INTENT(OUT) :: PFIELD               ! the real scalar to be read  
+INTEGER, INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=100) :: YCOMMENT
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+REAL   :: XTIME0
+INTEGER            :: INFOMPI
+REAL               :: ZWORK
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFX0',0,ZHOOK_HANDLE)
+!
+KRESP = 0
+YCOMMENT = ""
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+IF (HPROGRAM=='MESONH') THEN
+#ifdef SFX_MNH
+  CALL READ_SURFX0_MNH(YREC,PFIELD,KRESP,YCOMMENT)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='AROME ') THEN
+#ifdef SFX_ARO
+  CALL READ_SURFX0_ARO(YREC,PFIELD,KRESP,YCOMMENT)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
+    HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
+    HPROGRAM=='NC    ') THEN 
+  !
+  IF (NRANK==NPIO) THEN
+    !
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+#endif
+    !
+    IF (HPROGRAM=='OFFLIN') THEN
+#ifdef SFX_OL
+      CALL READ_SURF0_OL(YREC,PFIELD,KRESP,YCOMMENT)
+#endif
+    ELSEIF (HPROGRAM=='LFI   ') THEN
+#ifdef SFX_LFI
+      CALL READ_SURF0_LFI(YREC,PFIELD,KRESP,YCOMMENT)
+#endif
+    ELSEIF (HPROGRAM=='ASCII ') THEN
+#ifdef SFX_ASC
+      CALL READ_SURF0_ASC(&
+                          YREC,PFIELD,KRESP,YCOMMENT)
+#endif
+    ELSEIF (HPROGRAM=='FA    ') THEN
+#ifdef SFX_FA
+      CALL READ_SURF0_FA(&
+                         YREC,PFIELD,KRESP,YCOMMENT)
+#endif
+    ELSEIF (HPROGRAM=='NC    ') THEN
+#ifdef SFX_NC
+      CALL READ_SURF0_NC(YREC,PFIELD,KRESP,YCOMMENT)
+#endif
+    ENDIF
+    !
+#ifdef SFX_MPI
+    XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+    !
+  ENDIF
+  !
+#ifdef SFX_MPI
+  IF (YDIR/='A' .AND. NPROC>1) THEN
+    XTIME0 = MPI_WTIME()
+    CALL MPI_BCAST(PFIELD,KIND(PFIELD)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
+  ENDIF
+#endif
+  !
+ENDIF
+!    
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFX0',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFX0
+!
+!     #############################################################
+      SUBROUTINE READ_SURFX1 (HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+USE MODD_SURF_PAR, ONLY : XUNDEF
+USE MODD_ASSIM, ONLY : LASSIM, LREAD_ALL, CASSIM_ISBA
+!
+#ifdef SFX_OL
+USE MODE_READ_SURF_OL, ONLY: READ_SURFX1N1_OL
+#endif
+#ifdef SFX_LFI
+USE MODE_READ_SURF_LFI, ONLY: READ_SURFN_LFI
+#endif
+#ifdef SFX_NC
+USE MODE_READ_SURF_NC, ONLY: READ_SURFN_NC
+#endif
+#ifdef SFX_ASC
+USE MODE_READ_SURF_ASC, ONLY: READ_SURFN_ASC
+#endif
+#ifdef SFX_FA
+USE MODE_READ_SURF_FA, ONLY: READ_SURFX_FA
+#endif
+#ifdef SFX_MNH
+USE MODI_READ_SURFX1_MNH
+#endif
+!
+USE MODI_GET_IOK_ASSIM
+!
+IMPLICIT NONE
+!
+#ifdef SFX_ARO
+#include "read_surfx1_aro.h"
+#endif
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM  ! calling program
+!
+!
+ CHARACTER(LEN=*), INTENT(IN) :: HREC      ! name of the article to be read
+REAL, DIMENSION(:), INTENT(OUT) :: PFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
+!                                                   ! 'H' : field with
+!                                                   !       horizontal spatial dim.
+!                                                   ! '-' : no horizontal dim.
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=100) :: YCOMMENT
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+INTEGER            :: IL, IOK
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFX1',0,ZHOOK_HANDLE)
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+IL = SIZE(PFIELD)
+!
+IF (LASSIM .AND. CASSIM_ISBA/="OI   " .AND. .NOT.LREAD_ALL) THEN
+  !
+  CALL GET_IOK_ASSIM(YREC,IOK)
+  !
+  IF (IOK==0) THEN
+    PFIELD(:) = XUNDEF
+    IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFX1',1,ZHOOK_HANDLE)
+    RETURN
+  ENDIF
+  !
+ENDIF
+!
+IF (HPROGRAM=='MESONH') THEN
+#ifdef SFX_MNH
+  CALL READ_SURFX1_MNH(YREC,IL,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='AROME ') THEN
+#ifdef SFX_ARO
+  CALL READ_SURFX1_ARO(YREC,IL,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='OFFLIN') THEN
+#ifdef SFX_OL
+  CALL READ_SURFX1N1_OL(YREC,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='LFI   ') THEN
+#ifdef SFX_LFI
+  CALL READ_SURFN_LFI(YREC,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='NC    ') THEN
+#ifdef SFX_NC
+  CALL READ_SURFN_NC(YREC,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='ASCII ') THEN
+#ifdef SFX_ASC
+  CALL READ_SURFN_ASC(&
+                      YREC,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='FA    ') THEN
+#ifdef SFX_FA
+  CALL READ_SURFX_FA(YREC,IL,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFX1',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFX1
+!
+!     #############################################################
+      SUBROUTINE READ_SURFX2 (HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+USE MODD_SURF_PAR, ONLY : XUNDEF
+USE MODD_ASSIM, ONLY : LASSIM, LREAD_ALL, CASSIM_ISBA
+!
+#ifdef SFX_OL
+USE MODE_READ_SURF_OL, ONLY: READ_SURFL1X2_OL
+#endif
+#ifdef SFX_LFI
+USE MODE_READ_SURF_LFI, ONLY: READ_SURFN_LFI
+#endif
+#ifdef SFX_NC
+USE MODE_READ_SURF_NC, ONLY: READ_SURFN_NC
+#endif
+#ifdef SFX_ASC
+USE MODE_READ_SURF_ASC, ONLY: READ_SURFN_ASC
+#endif
+#ifdef SFX_FA
+USE MODE_READ_SURF_FA, ONLY: READ_SURFX_FA
+#endif
+#ifdef SFX_MNH
+USE MODI_READ_SURFX2_MNH
+#endif
+!
+USE MODI_GET_IOK_ASSIM
+!
+IMPLICIT NONE
+!
+#ifdef SFX_ARO
+#include "read_surfx2_aro.h"
+#endif
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM    ! calling program
+!
+!
+ CHARACTER(LEN=*), INTENT(IN) :: HREC        ! name of the article to be read
+REAL, DIMENSION(:,:), INTENT(OUT) :: PFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP               ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
+!                                                   ! 'H' : field with
+!                                                   !       horizontal spatial dim.
+!                                                   ! '-' : no horizontal dim.
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=100) :: YCOMMENT
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+INTEGER            :: IL1, IL2, IOK
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFX2',0,ZHOOK_HANDLE)
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+IL1 = SIZE(PFIELD,1)
+IL2 = SIZE(PFIELD,2)
+!
+IF (LASSIM .AND. CASSIM_ISBA/="OI   "  .AND. .NOT.LREAD_ALL) THEN
+  !
+  CALL GET_IOK_ASSIM(YREC,IOK)
+  !
+  IF (IOK==0) THEN
+    PFIELD(:,:) = XUNDEF
+    IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFX2',1,ZHOOK_HANDLE)
+    RETURN
+  ENDIF
+  !
+ENDIF
+!
+IF (HPROGRAM=='MESONH') THEN
+#ifdef SFX_MNH
+  CALL READ_SURFX2_MNH(YREC,IL1,IL2,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='AROME ') THEN
+#ifdef SFX_ARO
+  CALL READ_SURFX2_ARO(YREC,IL1,IL2,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='OFFLIN') THEN
+#ifdef SFX_OL
+  CALL READ_SURFL1X2_OL(YREC,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='LFI   ') THEN
+#ifdef SFX_LFI
+  CALL READ_SURFN_LFI(YREC,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='NC    ') THEN
+#ifdef SFX_NC
+  CALL READ_SURFN_NC(YREC,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='ASCII ') THEN
+#ifdef SFX_ASC
+  CALL READ_SURFN_ASC(YREC,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='FA    ') THEN
+#ifdef SFX_FA
+  CALL READ_SURFX_FA(YREC,IL1,IL2,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFX2',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFX2
+!
+!     #############################################################
+      SUBROUTINE READ_SURFX3 (&
+                             HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+#ifdef SFX_OL
+USE MODE_READ_SURF_OL, ONLY: READ_SURFL1X2_OL
+#endif
+!
+IMPLICIT NONE
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM      ! calling program
+!
+!
+ CHARACTER(LEN=*), INTENT(IN) :: HREC          ! name of the article to be read
+REAL, DIMENSION(:,:,:), INTENT(OUT) :: PFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP                 ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
+!                                                   ! 'H' : field with
+!                                                   !       horizontal spatial dim.
+!                                                   ! '-' : no horizontal dim.
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=100) :: YCOMMENT
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+INTEGER            :: IL1, IL2, IL3
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFX3',0,ZHOOK_HANDLE)
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+IL1 = SIZE(PFIELD,1)
+IL2 = SIZE(PFIELD,2)
+IL3 = SIZE(PFIELD,3)
+!
+!plmIF (HPROGRAM=='MESONH') THEN
+!plm  CALL READ_SURFX3_MNH(YREC,IL1,IL2,PFIELD,KRESP,YCOMMENT,YDIR)
+!plmENDIF
+!
+IF (HPROGRAM=='OFFLIN') THEN
+#ifdef SFX_OL
+  CALL READ_SURFL1X2_OL(YREC,PFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+!plmIF (HPROGRAM=='ASCII ') THEN
+!plm  CALL READ_SURFX3_ASC(YREC,IL1,IL2,PFIELD,KRESP,YCOMMENT,YDIR)
+!plmENDIF
+!
+!plmIF (HPROGRAM=='AROME ') THEN
+!plm  CALL READ_SURFX3_ARO(YREC,IL1,IL2,PFIELD,KRESP,YCOMMENT,YDIR)
+!plmENDIF
+!
+!plmIF (HPROGRAM=='FA    ') THEN
+!plm  CALL READ_SURFX3_FA(YREC,IL1,IL2,PFIELD,KRESP,YCOMMENT,YDIR)
+!plmENDIF
+!
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFX3',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFX3
+!
+!     #############################################################
+      SUBROUTINE READ_SURFN0 (&
+                             HPROGRAM,HREC,KFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, XTIME_NPIO_READ, XTIME_COMM_READ
+!
+#ifdef SFX_OL
+USE MODE_READ_SURF_OL, ONLY: READ_SURF0_OL
+#endif
+#ifdef SFX_LFI
+USE MODD_IO_SURF_LFI, ONLY : LMNH_COMPATIBLE, NIU,NIB,NIE,NJU,NJB,NJE
+USE MODE_READ_SURF_LFI, ONLY: READ_SURF0_LFI
+#endif
+#ifdef SFX_NC
+USE MODE_READ_SURF_NC, ONLY: READ_SURF0_NC
+#endif
+#ifdef SFX_ASC
+USE MODE_READ_SURF_ASC, ONLY: READ_SURF0_ASC
+#endif
+#ifdef SFX_FA
+USE MODE_READ_SURF_FA, ONLY: READ_SURF0_FA
+#endif
+#ifdef SFX_MNH
+USE MODI_READ_SURFN0_MNH
+#endif
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+#ifdef SFX_ARO
+#include "read_surfn0_aro.h"
+#endif
+!
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
+INTEGER, INTENT(OUT) :: KFIELD           ! the integer to be read  
+INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=100) :: YCOMMENT
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+REAL   :: XTIME0
+INTEGER, DIMENSION(6) :: IDIMS
+INTEGER            :: INFOMPI
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFN0',0,ZHOOK_HANDLE)
+!
+KRESP = 0
+YCOMMENT = ""
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+IF (HPROGRAM=='MESONH') THEN
+#ifdef SFX_MNH
+  CALL READ_SURFN0_MNH(YREC,KFIELD,KRESP,YCOMMENT)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='AROME ') THEN
+#ifdef SFX_ARO
+  CALL READ_SURFN0_ARO(YREC,KFIELD,KRESP,YCOMMENT)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
+    HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
+    HPROGRAM=='NC    ' ) THEN 
+  !
+  IF (NRANK==NPIO) THEN
+    !
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+#endif
+    !
+    IF (HPROGRAM=='OFFLIN') THEN
+#ifdef SFX_OL
+      CALL READ_SURF0_OL(YREC,KFIELD,KRESP,YCOMMENT)
+#endif
+    ENDIF
+    !
+    IF (HPROGRAM=='LFI   ') THEN
+#ifdef SFX_LFI
+      CALL READ_SURF0_LFI(YREC,KFIELD,KRESP,YCOMMENT)
+#endif
+    ENDIF
+    !
+    IF (HPROGRAM=='NC    ') THEN
+#ifdef SFX_NC
+      CALL READ_SURF0_NC(YREC,KFIELD,KRESP,YCOMMENT)
+#endif
+    ENDIF    
+    !
+    IF (HPROGRAM=='ASCII ') THEN
+#ifdef SFX_ASC
+      CALL READ_SURF0_ASC(&
+                          YREC,KFIELD,KRESP,YCOMMENT)
+#endif
+    ENDIF
+    !
+    IF (HPROGRAM=='FA    ') THEN
+#ifdef SFX_FA
+      CALL READ_SURF0_FA(&
+                         YREC,KFIELD,KRESP,YCOMMENT)
+#endif
+    ENDIF
+    !
+#ifdef SFX_MPI
+    XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+    !
+  ENDIF
+  !
+#ifdef SFX_MPI
+  IF (YDIR/='A' .AND. NPROC>1) THEN          
+    XTIME0 = MPI_WTIME()  
+    CALL MPI_BCAST(KFIELD,KIND(KFIELD)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+#ifdef SFX_LFI
+    IF (HPROGRAM=='LFI   '.AND.TRIM(HREC)=="DIM_FULL") THEN
+      CALL MPI_BCAST(LMNH_COMPATIBLE,1,MPI_LOGICAL,NPIO,NCOMM,INFOMPI)
+      IF (NRANK==NPIO) THEN
+        IDIMS(1) = NIU
+        IDIMS(2) = NIB
+        IDIMS(3) = NIE
+        IDIMS(4) = NJU
+        IDIMS(5) = NJB
+        IDIMS(6) = NJE
+      ENDIF
+      CALL MPI_BCAST(IDIMS,SIZE(IDIMS)*KIND(IDIMS)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+      IF (NRANK/=NPIO) THEN
+        NIU = IDIMS(1)
+        NIB = IDIMS(2)
+        NIE = IDIMS(3)
+        NJU = IDIMS(4)
+        NJB = IDIMS(5)
+        NJE = IDIMS(6)
+      ENDIF
+    ENDIF
+#endif    
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)    
+  ENDIF    
+#endif
+  !
+ENDIF
+!
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+!
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFN0',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFN0
+!
+!     #############################################################
+      SUBROUTINE READ_SURFN1 (&
+                             HPROGRAM,HREC,KFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+#ifdef SFX_OL
+USE MODE_READ_SURF_OL, ONLY: READ_SURFX1N1_OL
+#endif
+#ifdef SFX_LFI
+USE MODE_READ_SURF_LFI, ONLY: READ_SURFN_LFI
+#endif
+#ifdef SFX_NC
+USE MODE_READ_SURF_NC, ONLY: READ_SURFN_NC
+#endif
+#ifdef SFX_ASC
+USE MODE_READ_SURF_ASC, ONLY: READ_SURFN_ASC
+#endif
+#ifdef SFX_FA
+USE MODE_READ_SURF_FA, ONLY: READ_SURFN_FA
+#endif
+#ifdef SFX_MNH
+USE MODI_READ_SURFN1_MNH
+#endif
+!
+IMPLICIT NONE
+!
+#ifdef SFX_ARO
+#include "read_surfn1_aro.h"
+#endif
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     ! calling program
+!
+!
+ CHARACTER(LEN=*), INTENT(IN) :: HREC         ! name of the article to be read
+INTEGER, DIMENSION(:), INTENT(OUT) :: KFIELD ! the integer to be read  
+INTEGER, INTENT(OUT) :: KRESP                ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
+!                                                   ! 'H' : field with
+!                                                   !       horizontal spatial dim.
+!                                                   ! '-' : no horizontal dim.
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=100) :: YCOMMENT
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+INTEGER            :: IL
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFN1',0,ZHOOK_HANDLE)
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+IL = SIZE(KFIELD,1)
+!
+IF (HPROGRAM=='MESONH') THEN
+#ifdef SFX_MNH
+  CALL READ_SURFN1_MNH(YREC,IL,KFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='AROME ') THEN
+#ifdef SFX_ARO
+  CALL READ_SURFN1_ARO(YREC,IL,KFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='OFFLIN') THEN
+#ifdef SFX_OL
+  CALL READ_SURFX1N1_OL(YREC,KFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='LFI   ') THEN
+#ifdef SFX_LFI
+  CALL READ_SURFN_LFI(YREC,KFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='NC    ') THEN
+#ifdef SFX_NC
+  CALL READ_SURFN_NC(YREC,KFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='ASCII ') THEN
+#ifdef SFX_ASC
+  CALL READ_SURFN_ASC(&
+                      YREC,KFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (HPROGRAM=='FA    ') THEN
+#ifdef SFX_FA
+  CALL READ_SURFN_FA(&
+                     YREC,IL,KFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFN1',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFN1
+
+!     #############################################################
+      SUBROUTINE READ_SURFC0 (&
+                             HPROGRAM,HREC,HFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, XTIME_NPIO_READ, XTIME_COMM_READ
+!
+#ifdef SFX_OL
+USE MODE_READ_SURF_OL, ONLY: READ_SURF0_OL
+#endif
+#ifdef SFX_LFI
+USE MODE_READ_SURF_LFI, ONLY: READ_SURF0_LFI
+#endif
+#ifdef SFX_NC
+USE MODE_READ_SURF_NC, ONLY: READ_SURF0_NC
+#endif
+#ifdef SFX_ASC
+USE MODE_READ_SURF_ASC, ONLY: READ_SURF0_ASC
+#endif
+#ifdef SFX_FA
+USE MODE_READ_SURF_FA, ONLY: READ_SURF0_FA
+#endif
+#ifdef SFX_MNH
+USE MODI_READ_SURFC0_MNH
+#endif
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+#ifdef SFX_ARO
+#include "read_surfc0_aro.h"
+#endif
+!
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN)  :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN)  :: HREC     ! name of the article to be read
+ CHARACTER(LEN=*), INTENT(OUT) :: HFIELD   ! the integer to be read  
+INTEGER, INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL,INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL,INTENT(IN)  :: HDIR
+!
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=40) :: YFIELD
+ CHARACTER(LEN=100) :: YCOMMENT
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+REAL   :: XTIME0
+INTEGER            :: INFOMPI
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFC0',0,ZHOOK_HANDLE)
+!
+KRESP = 0
+YCOMMENT = ""
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+IF (HPROGRAM=='MESONH') THEN
+#ifdef SFX_MNH
+  CALL READ_SURFC0_MNH(YREC,YFIELD,KRESP,YCOMMENT)
+  HFIELD = YFIELD
+#endif
+ELSE IF (HPROGRAM=='AROME ') THEN
+#ifdef SFX_ARO
+  CALL READ_SURFC0_ARO(YREC,YFIELD,KRESP,YCOMMENT)
+  HFIELD = YFIELD
+#endif
+ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
+    HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
+    HPROGRAM=='NC    ' ) THEN 
+  !
+  IF (NRANK==NPIO) THEN
+    !
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+#endif
+    !  
+    IF (HPROGRAM=='OFFLIN') THEN
+#ifdef SFX_OL
+      CALL READ_SURF0_OL(YREC,YFIELD,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='LFI   ') THEN
+#ifdef SFX_LFI
+      CALL READ_SURF0_LFI(YREC,YFIELD,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='NC    ') THEN
+#ifdef SFX_NC
+      CALL READ_SURF0_NC(YREC,YFIELD,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='ASCII ') THEN
+#ifdef SFX_ASC
+      CALL READ_SURF0_ASC(&
+                          YREC,YFIELD,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='FA    ') THEN
+#ifdef SFX_FA
+      CALL READ_SURF0_FA(&
+                         YREC,YFIELD,KRESP,YCOMMENT)
+#endif
+    ENDIF
+    !  
+#ifdef SFX_MPI
+    XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)  
+#endif
+    !
+  ENDIF
+  !
+#ifdef SFX_MPI
+  IF (YDIR/='A' .AND. NPROC>1) THEN
+    XTIME0 = MPI_WTIME()
+    CALL MPI_BCAST(YFIELD,40,MPI_CHARACTER,NPIO,NCOMM,INFOMPI)
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
+  ENDIF
+#endif
+  !
+  HFIELD = YFIELD(1:LEN(HFIELD))
+  !
+ENDIF
+!
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFC0',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFC0
+!
+!     #############################################################
+      SUBROUTINE READ_SURFL0 (&
+                              HPROGRAM,HREC,OFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, XTIME_NPIO_READ, XTIME_COMM_READ
+!
+#ifdef SFX_OL
+USE MODE_READ_SURF_OL, ONLY: READ_SURF0_OL
+#endif
+#ifdef SFX_LFI
+USE MODE_READ_SURF_LFI, ONLY: READ_SURF0_LFI
+#endif
+#ifdef SFX_NC
+USE MODE_READ_SURF_NC, ONLY: READ_SURF0_NC
+#endif
+#ifdef SFX_ASC
+USE MODE_READ_SURF_ASC, ONLY: READ_SURF0_ASC
+#endif
+#ifdef SFX_FA
+USE MODE_READ_SURF_FA, ONLY: READ_SURF0_FA
+#endif
+#ifdef SFX_MNH
+USE MODI_READ_SURFL0_MNH
+#endif
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+#ifdef SFX_ARO
+#include "read_surfl0_aro.h"
+#endif
+!
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
+LOGICAL, INTENT(OUT) :: OFIELD           ! array containing the data field
+INTEGER, INTENT(OUT) :: KRESP           ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT  ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=100) :: YCOMMENT
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+REAL   :: XTIME0
+INTEGER            :: INFOMPI
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFL0',0,ZHOOK_HANDLE)
+!
+KRESP = 0
+YCOMMENT = ""
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+IF (HPROGRAM=='MESONH') THEN
+#ifdef SFX_MNH
+  CALL READ_SURFL0_MNH(YREC,OFIELD,KRESP,YCOMMENT)
+#endif
+ELSE IF (HPROGRAM=='AROME ') THEN
+#ifdef SFX_ARO
+  CALL READ_SURFL0_ARO(YREC,OFIELD,KRESP,YCOMMENT)
+#endif
+ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
+    HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
+    HPROGRAM=='NC    ' ) THEN 
+  !  
+  IF (NRANK==NPIO) THEN
+    !
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+#endif
+    ! 
+    IF (HPROGRAM=='OFFLIN') THEN
+#ifdef SFX_OL
+      CALL READ_SURF0_OL(YREC,OFIELD,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='LFI   ') THEN
+#ifdef SFX_LFI
+      CALL READ_SURF0_LFI(YREC,OFIELD,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='NC    ') THEN
+#ifdef SFX_NC
+      CALL READ_SURF0_NC(YREC,OFIELD,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='ASCII ') THEN
+#ifdef SFX_ASC
+      CALL READ_SURF0_ASC(&
+                          YREC,OFIELD,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='FA    ') THEN
+#ifdef SFX_FA
+      CALL READ_SURF0_FA(&
+                         YREC,OFIELD,KRESP,YCOMMENT)
+#endif
+    ENDIF
+    !
+#ifdef SFX_MPI
+    XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+    !
+  ENDIF
+  !
+#ifdef SFX_MPI
+  IF (YDIR/='A' .AND. NPROC>1) THEN
+    XTIME0 = MPI_WTIME()
+    CALL MPI_BCAST(OFIELD,1,MPI_LOGICAL,NPIO,NCOMM,INFOMPI)
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)    
+  ENDIF
+#endif
+  !
+ENDIF
+!
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFL0',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFL0
+!
+!     #############################################################
+      SUBROUTINE READ_SURFL1 (HPROGRAM,HREC,OFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+#ifdef SFX_OL
+USE MODE_READ_SURF_OL, ONLY: READ_SURFL1X2_OL
+#endif
+#ifdef SFX_LFI
+USE MODE_READ_SURF_LFI, ONLY: READ_SURFN_LFI
+#endif
+#ifdef SFX_NC
+USE MODE_READ_SURF_NC, ONLY: READ_SURFN_NC
+#endif
+#ifdef SFX_ASC
+USE MODE_READ_SURF_ASC, ONLY: READ_SURFN_ASC
+#endif
+#ifdef SFX_FA
+USE MODE_READ_SURF_FA, ONLY: READ_SURFN_FA
+#endif
+#ifdef SFX_MNH
+USE MODI_READ_SURFL1_MNH
+#endif
+!
+IMPLICIT NONE
+!
+#ifdef SFX_ARO
+#include "read_surfl1_aro.h"
+#endif
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     ! calling program
+!
+!
+ CHARACTER(LEN=*), INTENT(IN) :: HREC         ! name of the article to be read
+LOGICAL, DIMENSION(:), INTENT(OUT) :: OFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP                ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
+!                                                   ! 'H' : field with
+!                                                   !       horizontal spatial dim.
+!                                                   ! '-' : no horizontal dim.
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=100) :: YCOMMENT
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+INTEGER            :: IL
+LOGICAL :: GDATA
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFL1',0,ZHOOK_HANDLE)
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+IL = SIZE(OFIELD)
+!
+IF (HPROGRAM=='MESONH') THEN
+#ifdef SFX_MNH
+  CALL READ_SURFL1_MNH(YREC,IL,OFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ELSE IF (HPROGRAM=='AROME ') THEN
+#ifdef SFX_ARO
+  ! ascendant reproducibility
+  IF (YREC(1:2)=="L_".AND.IL==1) THEN
+    CALL READ_SURFL0_ARO(YREC,GDATA,KRESP,YCOMMENT)
+    OFIELD = GDATA
+  ELSE
+    CALL READ_SURFL1_ARO(YREC,IL,OFIELD,KRESP,YCOMMENT,YDIR)
+  ENDIF
+#endif
+ELSE IF (HPROGRAM=='OFFLIN') THEN
+#ifdef SFX_OL
+  CALL READ_SURFL1X2_OL(YREC,OFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ELSE IF (HPROGRAM=='LFI   ') THEN
+#ifdef SFX_LFI
+  CALL READ_SURFN_LFI(YREC,OFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ELSE IF (HPROGRAM=='NC    ') THEN
+#ifdef SFX_NC
+  CALL READ_SURFN_NC(YREC,OFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ELSE IF (HPROGRAM=='ASCII ') THEN
+#ifdef SFX_ASC
+  CALL READ_SURFN_ASC(&
+                      YREC,OFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ELSE IF (HPROGRAM=='FA    ') THEN
+#ifdef SFX_FA
+  CALL READ_SURFN_FA(&
+                     YREC,IL,OFIELD,KRESP,YCOMMENT,YDIR)
+#endif
+ENDIF
+!
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFL1',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFL1
+!
+!     #############################################################
+      SUBROUTINE READ_SURFT0 (&
+                              HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+USE MODD_TYPE_DATE_SURF
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, XTIME_NPIO_READ, XTIME_COMM_READ
+!
+#ifdef SFX_OL
+USE MODE_READ_SURF_OL, ONLY: READ_SURFT_OL
+#endif
+#ifdef SFX_LFI
+USE MODE_READ_SURF_LFI, ONLY: READ_SURFT_LFI
+#endif
+#ifdef SFX_NC
+USE MODE_READ_SURF_NC, ONLY: READ_SURFT_NC
+#endif
+#ifdef SFX_ASC
+USE MODE_READ_SURF_ASC, ONLY: READ_SURFT_ASC
+#endif
+#ifdef SFX_FA
+USE MODE_READ_SURF_FA, ONLY: READ_SURFT_FA
+#endif
+#ifdef SFX_MNH
+USE MODI_READ_SURFT0_MNH
+#endif
+!
+USE MODI_GET_LUOUT
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+#ifdef SFX_ARO
+#include "read_surft0_aro.h"
+#endif
+!
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
+!RJ: to match actual interface used above, can silently not update values in TFIELD
+!RJ TYPE(DATE_TIME), INTENT(OUT) :: TFIELD   ! array containing the data field
+TYPE(DATE_TIME), INTENT(INOUT) :: TFIELD   ! array containing the data field
+INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+!*      0.2   Declarations of local variables
+!
+ CHARACTER(LEN=100) :: YCOMMENT
+REAL :: ZWORK
+ INTEGER, DIMENSION(3) :: IWORK
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+!
+REAL   :: XTIME0
+INTEGER :: ILUOUT
+INTEGER :: INFOMPI
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFT0',0,ZHOOK_HANDLE)
+!
+KRESP = 0
+YCOMMENT = ""
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+IF (HPROGRAM=='MESONH') THEN
+#ifdef SFX_MNH
+  CALL READ_SURFT0_MNH(YREC,IWORK(1),IWORK(2),IWORK(3),ZWORK,KRESP,YCOMMENT)
+#endif
+ELSE IF (HPROGRAM=='AROME ') THEN
+#ifdef SFX_ARO
+  CALL READ_SURFT0_ARO(YREC,IWORK(1),IWORK(2),IWORK(3),ZWORK,KRESP,YCOMMENT)
+#endif
+ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
+    HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
+    HPROGRAM=='NC    ' ) THEN 
+  !  
+  IF (NRANK==NPIO) THEN
+    !
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+#endif
+    !
+    IF (HPROGRAM=='OFFLIN') THEN
+#ifdef SFX_OL
+      CALL READ_SURFT_OL(YREC,IWORK(1),IWORK(2),IWORK(3),ZWORK,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='LFI   ') THEN
+#ifdef SFX_LFI
+      CALL READ_SURFT_LFI(YREC,IWORK(1),IWORK(2),IWORK(3),ZWORK,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='NC    ') THEN
+#ifdef SFX_NC
+      CALL READ_SURFT_NC(YREC,IWORK(1),IWORK(2),IWORK(3),ZWORK,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='ASCII ') THEN
+#ifdef SFX_ASC
+      CALL READ_SURFT_ASC(&
+                          YREC,IWORK(1),IWORK(2),IWORK(3),ZWORK,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='FA    ') THEN
+#ifdef SFX_FA
+      CALL READ_SURFT_FA(&
+                         YREC,IWORK(1),IWORK(2),IWORK(3),ZWORK,KRESP,YCOMMENT)
+#endif
+    ENDIF
+    !
+#ifdef SFX_MPI
+    XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+    !
+  ENDIF
+  !
+#ifdef SFX_MPI
+  IF (YDIR/='A' .AND. NPROC>1) THEN
+    XTIME0 = MPI_WTIME() 
+    CALL MPI_BCAST(IWORK(1),KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+    CALL MPI_BCAST(IWORK(2),KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+    CALL MPI_BCAST(IWORK(3),KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+    CALL MPI_BCAST(ZWORK,KIND(ZWORK)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)    
+  ENDIF
+#endif
+  !
+ENDIF
+!
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+!
+IF (KRESP==-2) THEN
+  CALL GET_LUOUT(HPROGRAM,ILUOUT)
+  WRITE(ILUOUT,*) '-------'
+  WRITE(ILUOUT,*) 'WARNING'
+  WRITE(ILUOUT,*) '-------'
+  WRITE(ILUOUT,*) ' '
+  WRITE(ILUOUT,*) 'Date is not present file'
+  WRITE(ILUOUT,*) 'Forcing value is kept'
+  WRITE(ILUOUT,*) ' '
+ELSE
+  TFIELD%TDATE%YEAR = IWORK(1)
+  TFIELD%TDATE%MONTH = IWORK(2)
+  TFIELD%TDATE%DAY = IWORK(3)
+  TFIELD%TIME = ZWORK
+END IF
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFT0',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFT0
+!
+!     #############################################################
+      SUBROUTINE READ_SURFT1 (&
+                              HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+USE MODD_TYPE_DATE_SURF
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, XTIME_NPIO_READ, XTIME_COMM_READ
+!
+#ifdef SFX_ASC
+USE MODE_READ_SURF_ASC, ONLY: READ_SURFT_ASC
+#endif
+#ifdef SFX_LFI
+USE MODE_READ_SURF_LFI, ONLY: READ_SURFT_LFI
+#endif
+#ifdef SFX_NC
+USE MODE_READ_SURF_NC, ONLY: READ_SURFT_NC
+#endif
+#ifdef SFX_MNH
+USE MODI_READ_SURFT1_MNH
+#endif
+!
+USE MODI_ABOR1_SFX
+USE MODI_GET_LUOUT
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+#ifdef SFX_ARO
+#include "read_surft1_aro.h"
+#endif
+!
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM   ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC       ! name of the article to be read
+TYPE(DATE_TIME), DIMENSION(:), INTENT(INOUT)::TFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP              ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+!*      0.2   Declarations of local variables
+!
+INTEGER, DIMENSION(:,:), ALLOCATABLE :: IWORK2
+REAL, DIMENSION(:), ALLOCATABLE :: ZWORK2
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+INTEGER            :: ILUOUT
+INTEGER            :: INFOMPI
+!
+ CHARACTER(LEN=100) :: YCOMMENT
+REAL   :: XTIME0
+INTEGER :: IL1
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFT1',0,ZHOOK_HANDLE)
+!
+IL1 = SIZE(TFIELD,1)
+KRESP = 0
+YCOMMENT = ""
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+ALLOCATE(IWORK2(IL1,3))
+ALLOCATE(ZWORK2(IL1))
+!
+IF (HPROGRAM=='MESONH') THEN
+#ifdef SFX_MNH
+  CALL READ_SURFT1_MNH(YREC,IL1,IWORK2(:,1),IWORK2(:,2),IWORK2(:,3),ZWORK2,KRESP,YCOMMENT)
+#endif
+ELSE IF (HPROGRAM=='AROME ') THEN
+#ifdef SFX_ARO
+  CALL READ_SURFT1_ARO(YREC,IL1,IWORK2(:,1),IWORK2(:,2),IWORK2(:,3),ZWORK2,KRESP,YCOMMENT)
+#endif
+ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
+    HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
+    HPROGRAM=='NC    ') THEN 
+  !
+  IF (NRANK==NPIO) THEN
+    !
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+#endif
+    !
+    IF (HPROGRAM=='OFFLIN') THEN
+      CALL ABOR1_SFX('READ_SURFT1: NOT AVAILABLE FOR OFFLIN')
+    ELSE IF (HPROGRAM=='FA    ') THEN
+      CALL ABOR1_SFX('READ_SURFT1: NOT AVAILABLE FOR FA')      
+    ELSE IF (HPROGRAM=='ASCII ') THEN
+#ifdef SFX_ASC
+      CALL READ_SURFT_ASC(&
+                          YREC,IWORK2(:,1),IWORK2(:,2),IWORK2(:,3),ZWORK2,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='LFI   ') THEN
+#ifdef SFX_LFI
+      CALL READ_SURFT_LFI(YREC,IWORK2(:,1),IWORK2(:,2),IWORK2(:,3),ZWORK2,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='NC    ') THEN
+#ifdef SFX_NC
+      CALL READ_SURFT_NC(YREC,IWORK2(:,1),IWORK2(:,2),IWORK2(:,3),ZWORK2,KRESP,YCOMMENT)
+#endif
+    ENDIF
+    !
+#ifdef SFX_MPI
+    XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+    !
+  ENDIF
+  !
+#ifdef SFX_MPI
+  IF (YDIR/='A' .AND. NPROC>1) THEN
+    XTIME0 = MPI_WTIME()         
+    CALL MPI_BCAST(IWORK2(:,1),IL1*KIND(IWORK2)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+    CALL MPI_BCAST(IWORK2(:,2),IL1*KIND(IWORK2)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+    CALL MPI_BCAST(IWORK2(:,3),IL1*KIND(IWORK2)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+    CALL MPI_BCAST(ZWORK2,IL1*KIND(ZWORK2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)    
+  ENDIF
+#endif
+  !
+ENDIF  
+! 
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+!
+IF (KRESP==-2) THEN
+  CALL GET_LUOUT(HPROGRAM,ILUOUT)
+  WRITE(ILUOUT,*) '-------'
+  WRITE(ILUOUT,*) 'WARNING'
+  WRITE(ILUOUT,*) '-------'
+  WRITE(ILUOUT,*) ' '
+  WRITE(ILUOUT,*) 'Date is not present file'
+  WRITE(ILUOUT,*) 'Forcing value is kept'
+  WRITE(ILUOUT,*) ' '
+ELSE
+  TFIELD(:)%TDATE%YEAR  = IWORK2(:,1)
+  TFIELD(:)%TDATE%MONTH = IWORK2(:,2)
+  TFIELD(:)%TDATE%DAY   = IWORK2(:,3)
+  TFIELD(:)%TIME        = ZWORK2(:)
+END IF
+!
+DEALLOCATE(IWORK2)
+DEALLOCATE(ZWORK2)
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFT1',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFT1
+!
+!     #############################################################
+      SUBROUTINE READ_SURFT2 (&
+                              HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT,HDIR)
+!     #############################################################
+!
+!
+!
+!
+USE YOMHOOK ,ONLY : LHOOK, DR_HOOK
+USE PARKIND1 ,ONLY : JPRB
+!
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, XTIME_NPIO_READ, XTIME_COMM_READ
+!
+USE MODD_TYPE_DATE_SURF
+!
+USE MODI_ABOR1_SFX
+USE MODI_GET_LUOUT
+!
+#ifdef SFX_ASC
+USE MODE_READ_SURF_ASC, ONLY: READ_SURFT_ASC
+#endif
+#ifdef SFX_FA
+USE MODE_READ_SURF_FA, ONLY: READ_SURFT_FA
+#endif
+#ifdef SFX_NC
+USE MODE_READ_SURF_NC, ONLY: READ_SURFT_NC
+#endif
+#ifdef SFX_LFI
+USE MODE_READ_SURF_LFI, ONLY: READ_SURFT_LFI
+#endif
+!
+IMPLICIT NONE
+!
+#ifdef SFX_MPI
+INCLUDE "mpif.h"
+#endif
+!
+!*      0.1   Declarations of arguments
+!
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
+ CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
+TYPE(DATE_TIME), DIMENSION(:,:), INTENT(INOUT) :: TFIELD ! array containing the data field  
+INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
+ CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
+ CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
+!
+!*      0.2   Declarations of local variables
+!
+INTEGER, DIMENSION(:,:,:), ALLOCATABLE :: IWORK3
+REAL, DIMENSION(:,:), ALLOCATABLE :: ZWORK3
+ CHARACTER(LEN=16)  :: YREC
+ CHARACTER(LEN=1)   :: YDIR
+INTEGER            :: ILUOUT
+INTEGER            :: INFOMPI
+!
+ CHARACTER(LEN=100) :: YCOMMENT
+INTEGER :: IL1, IL2
+REAL   :: XTIME0
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFT2',0,ZHOOK_HANDLE)
+!
+KRESP = 0
+YCOMMENT = ""
+!
+YREC = HREC
+YDIR = 'H'
+IF (PRESENT(HDIR)) YDIR = HDIR
+!
+IL1 = SIZE(TFIELD,1)
+IL2 = SIZE(TFIELD,2)
+!
+ALLOCATE(ZWORK3(IL1,IL2))
+ALLOCATE(IWORK3(IL1,IL2,3))
+!
+IF (HPROGRAM=='MESONH') THEN
+  CALL ABOR1_SFX('READ_SURFT2: NOT AVAILABLE FOR MESONH')
+ELSE IF (HPROGRAM=='AROME ') THEN
+  CALL ABOR1_SFX('READ_SURFT2: NOT AVAILABLE FOR AROME')  
+ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
+    HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' ) THEN 
+  !  
+  IF (NRANK==NPIO) THEN
+    !
+#ifdef SFX_MPI
+    XTIME0 = MPI_WTIME()
+#endif
+    !
+    IF (HPROGRAM=='OFFLIN') THEN
+      CALL ABOR1_SFX('READ_SURFT2: NOT AVAILABLE FOR OFFLIN')
+    ELSE IF (HPROGRAM=='LFI   ') THEN
+#ifdef SFX_LFI
+      CALL READ_SURFT_LFI(YREC,IWORK3(:,:,1),IWORK3(:,:,2),IWORK3(:,:,3),&
+        ZWORK3,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='ASCII ') THEN
+#ifdef SFX_ASC
+      CALL READ_SURFT_ASC(&
+                          YREC,IWORK3(:,:,1),IWORK3(:,:,2),IWORK3(:,:,3),&
+        ZWORK3,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='FA    ') THEN
+#ifdef SFX_FA
+      CALL READ_SURFT_FA(&
+                         YREC,IL1,IL2,IWORK3(:,:,1),IWORK3(:,:,2),IWORK3(:,:,3),&
+        ZWORK3,KRESP,YCOMMENT)
+#endif
+    ELSE IF (HPROGRAM=='NC    ') THEN
+#ifdef SFX_NC
+      CALL READ_SURFT_NC(YREC,IWORK3(:,:,1),IWORK3(:,:,2),IWORK3(:,:,3),&
+        ZWORK3,KRESP,YCOMMENT)
+#endif
+    ENDIF
+    !
+#ifdef SFX_MPI
+    XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
+#endif
+    !    
+  ENDIF
+  !
+#ifdef SFX_MPI
+  IF (YDIR/='A' .AND. NPROC>1) THEN
+    XTIME0 = MPI_WTIME()   
+    CALL MPI_BCAST(IWORK3(:,:,1),IL1*IL2*KIND(IWORK3)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+    CALL MPI_BCAST(IWORK3(:,:,2),IL1*IL2*KIND(IWORK3)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+    CALL MPI_BCAST(IWORK3(:,:,3),IL1*IL2*KIND(IWORK3)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
+    CALL MPI_BCAST(ZWORK3,IL1*IL2*KIND(ZWORK3)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
+  ENDIF
+#endif
+  !
+ENDIF
+!
+IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
+!
+IF (KRESP==-2) THEN
+  CALL GET_LUOUT(HPROGRAM,ILUOUT)
+  WRITE(ILUOUT,*) '-------'
+  WRITE(ILUOUT,*) 'WARNING'
+  WRITE(ILUOUT,*) '-------'
+  WRITE(ILUOUT,*) ' '
+  WRITE(ILUOUT,*) 'Date is not present file'
+  WRITE(ILUOUT,*) 'Forcing value is kept'
+  WRITE(ILUOUT,*) ' '
+ELSE
+  TFIELD(:,:)%TDATE%YEAR  = IWORK3(:,:,1)
+  TFIELD(:,:)%TDATE%MONTH = IWORK3(:,:,2)
+  TFIELD(:,:)%TDATE%DAY   = IWORK3(:,:,3)
+  TFIELD(:,:)%TIME        = ZWORK3(:,:) 
+END IF
+!
+DEALLOCATE(IWORK3)
+DEALLOCATE(ZWORK3)
+!
+IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFT2',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE READ_SURFT2

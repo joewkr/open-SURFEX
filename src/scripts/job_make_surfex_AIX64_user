@@ -1,0 +1,33 @@
+# Classe : ns np
+# @ class       = np
+# @ core_limit  = 0   
+# @ total_tasks = 1
+# @ job_type         = parallel
+# Temps CPU max. en seconde (d'un processus)
+# @ cpu_limit        = 12000
+# @ wall_clock_limit = 12000
+# Memoire max. utilisee (ici 2 Go)
+# @ resources        = ConsumableCpus(8) ConsumableMemory(10gb)
+# Temps CPU max. en seconde (d'un processus)
+# @ wall_clock_limit  = 12000
+## Memoire max. utilisee (ici 11 Go)
+##  data_limit = 3gb
+# Nom du travail LoadLeveler
+# @ job_name   = Sortie   
+# Fichier de sortie standard du travail       
+# @ output     = $(job_name).$(jobid)
+# Fichier de sortie d'erreur du travail
+# @ error      =  $(job_name).$(jobid)
+# @ queue                   
+
+# Pour avoir l'echo des commandes
+set -x
+cd $SRC_SURFEX/src
+
+.  ../conf/profile_surfex-AIX64-SFX-V7-2-0-MYSRC-MPIAUTO-O2
+
+time gmake user -r -j8
+time gmake installuser
+#time gmake -r -j8 user
+#time gmake installuser
+

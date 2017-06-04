@@ -1,0 +1,7 @@
+&NAM_MY_PARAM  YEXPERIMENT_NAME   = 'HAPEX       '  ,
+               NUMBER_GRID_CELLS  = 1               ,
+               NUMBER_OF_TIME_STEPS_INPUT  = 17521  ,
+               NUMBER_OF_TIME_STEPS_FINAL  = 17521  ,
+               ZATM_FORC_STEP     = 1800.           ,
+               YFORCING_FILETYPE  = 'NETCDF'
+/

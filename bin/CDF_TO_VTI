@@ -1,0 +1,114 @@
+#MNH_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+#MNH_LIC This is part of the Meso-NH software governed by the CeCILL-C licence
+#MNH_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#MNH_LIC for details. version 1.
+
+VAR=$1
+shift
+FILE_LISTE=$*
+NBF=`ls -1 ${FILE_LISTE} | wc -l `
+file1=$1
+
+echo VAR=${VAR}
+echo file1=${file1}
+export FILE=${file1}
+export FILE_BASE1=${FILE%%.Z???.nc} ; echo FILE_BASE1=${FILE_BASE1}
+export SEG=${FILE_BASE1//*.} ; echo SEG=${SEG}
+export FILE_ORIG1=${FILE_BASE1//.${SEG}} ; echo FILE_ORIG1=${FILE_ORIG1}
+
+#exit 
+
+#rm ${FILE_BASE1}.pvti
+mkdir -p  ${FILE_ORIG1}
+#rm ${FILE_BASE1}/*.vti
+
+
+echo VAR=$VAR
+echo FILE_LISTE=${FILE_LISTE} 
+
+ncdump -h  ${file1} | egrep -w "DIMX =|DIMY =|DIMZ =" | tr -d " \t"  > DIM.$VAR
+
+. DIM.$VAR
+
+export DIMZ=$NBF
+
+
+
+# 
+
+cat > ${FILE_ORIG1}.${VAR}.pvti <<EOF
+<?xml version="1.0"?>
+<VTKFile type="PImageData" version="0.1" >
+ <PImageData WholeExtent="1 ${DIMX} 1 ${DIMY} 1 ${DIMZ}" Origin="0 0 0 " Spacing = "1 1 1" GhostLevel="0">
+  <PPointData Scalars="scalars">	
+   <PDataArray type="Float64" Name="${VAR}_P"/>
+  </PPointData>
+EOF
+
+#exit
+
+for file in ${FILE_LISTE}
+do 
+
+shift
+file2=$1
+echo file2=$file2
+
+VAR_LEVEL=`ncdump -h  $file | grep "double ${VAR}?*" | awk -F '[ (]' '{print $2}' ` 
+
+echo $VAR_LEVEL=${VAR_LEVEL}
+
+export LEVEL=${VAR_LEVEL##${VAR}}
+
+#echo VAR_G=${VAR_G}
+
+echo LEVEL=${LEVEL}
+#export LEVEL=1
+
+
+export L1=`echo ${LEVEL} | bc `
+
+#exit 
+
+#NB_VAR=` echo "${DIMX} * ${DIMY} * ${DIMZ}" | bc `
+#echo NB_VAR=$NB_VAR
+
+export EXTX=`echo ${DIMX} -1 | bc `
+export EXTY=`echo ${DIMY} -1 | bc `
+export EXTZ=`echo ${DIMZ} -1 | bc `
+
+export L2=`echo ${LEVEL} +1  | bc `
+[ $L2 -gt $DIMZ ] && L2=$DIMZ
+
+export LEVEL2=`printf "%4.4d\n" ${L2} `
+
+cat > ${FILE_ORIG1}/$file.$VAR.vti <<EOF
+<?xml version="1.0"?>
+<VTKFile type="ImageData" version="0.1" >
+<ImageData WholeExtent="1 ${DIMX} 1 ${DIMY} 1 ${DIMZ}"  Origin="0 0 0" Spacing="1 1 1">
+<Piece Extent="1 ${DIMX} 1 ${DIMY} ${L1} ${L2} ">
+<PointData Scalars="scalars">
+<DataArray type="Float64" Name="${VAR}" format="ascii">
+EOF
+
+ncks -s '%f\n' -H -v ${VAR}${LEVEL} $file  >> ${FILE_ORIG1}/$file.$VAR.vti
+[ "${file2}x" != "x" ] && ncks -s '%f\n' -H -v ${VAR}${LEVEL2} ${file2}  >> ${FILE_ORIG1}/$file.$VAR.vti
+
+cat >> ${FILE_ORIG1}/$file.$VAR.vti <<EOF
+</DataArray>
+</PointData>
+</Piece>
+</ImageData>
+</VTKFile>
+EOF
+
+cat >>  ${FILE_ORIG1}.${VAR}.pvti <<EOF
+  <Piece Extent="1 ${DIMX} 1 ${DIMY} ${L1} ${L2} " Source="${FILE_ORIG1}/$file.$VAR.vti"/>
+EOF
+
+done
+
+cat >> ${FILE_ORIG1}.${VAR}.pvti <<EOF
+ </PImageData>
+</VTKFile>
+EOF

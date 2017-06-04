@@ -1,0 +1,436 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+      SUBROUTINE INI_VAR_FROM_PATCH (DTCO, UG, U, NP, NPE, KPATCH,& 
+                           HPROGRAM,KLUOUT,HNAME,KPTS,KLAYER,KLAYER2,PDEF)
+!!
+!!    PURPOSE
+!!    -------
+!!
+!!      (1) KPTS=n  interpol field with n pts
+!!      (2) KPTS=0  conserve cells mass  
+!!   Case 2 : simple extrapolation based on the inside cell informations.
+!!             this is donne before conserving cell or global mass
+!!
+!!    METHOD
+!!    ------ 
+!!
+!!    EXTERNAL
+!!    --------
+!!
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!    REFERENCE
+!!    ---------
+!!
+!!    AUTHOR
+!!    ------
+!!
+!!    R. Alkama        Meteo-France
+!!
+!!    MODIFICATION
+!!    ------------
+!!    Original    12/2010
+!!
+!----------------------------------------------------------------------------
+!!*    0.     DECLARATION
+!            -----------
+!
+USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
+USE MODD_SURF_ATM_GRID_n, ONLY : SURF_ATM_GRID_t
+USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
+!
+USE MODD_ISBA_n, ONLY : ISBA_NP_t, ISBA_NPE_t, ISBA_P_t, ISBA_PE_t
+!
+USE MODD_SURF_PAR,        ONLY : XUNDEF
+!
+USE MODI_GET_SURF_MASK_n
+USE MODI_INTERPOL_FIELD
+USE MODI_UNPACK_SAME_RANK
+USE MODI_PACK_SAME_RANK
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*    0.1    Declaration of arguments
+!            ------------------------
+!
+!
+TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
+TYPE(SURF_ATM_GRID_t), INTENT(INOUT) :: UG
+TYPE(SURF_ATM_t), INTENT(INOUT) :: U
+!
+TYPE(ISBA_NP_t), INTENT(INOUT) :: NP
+TYPE(ISBA_NPE_t), INTENT(INOUT) :: NPE
+!
+INTEGER, INTENT(IN) :: KPATCH
+!
+ CHARACTER(LEN=6),            INTENT(IN) :: HPROGRAM  ! host model
+INTEGER,                      INTENT(IN) :: KLUOUT
+INTEGER,                      INTENT(IN) :: KPTS
+ CHARACTER(LEN=*),            INTENT(IN) :: HNAME
+!
+INTEGER, INTENT(IN), OPTIONAL :: KLAYER
+INTEGER, INTENT(IN), OPTIONAL :: KLAYER2
+!
+REAL, DIMENSION(:), OPTIONAL, INTENT(IN) :: PDEF 
+!
+!*    0.2    Declaration of local variables
+!            ------------------------------
+!
+TYPE(ISBA_P_t), POINTER :: PK
+TYPE(ISBA_PE_t), POINTER :: PEK
+LOGICAL, DIMENSION(U%NSIZE_NATURE,KPATCH) :: GVEG
+REAL,    DIMENSION(U%NSIZE_NATURE) :: ZFIELD1_TOT, ZFIELD2_TOT
+INTEGER, DIMENSION(U%NSIZE_NATURE) :: IMASK  ! mask for packing from complete field to nature field
+INTEGER, DIMENSION(U%NSIZE_NATURE) :: NSIZE
+INTEGER, DIMENSION(U%NSIZE_NATURE) :: NSIZE_NAT
+INTEGER, DIMENSION(U%NSIZE_FULL)     :: NSIZE_TOT
+REAL,    DIMENSION(U%NSIZE_FULL)     :: ZFIELD_TOT
+REAL, DIMENSION(U%NSIZE_NATURE) :: ZFIELD_NAT
+REAL, DIMENSION(U%NSIZE_NATURE,KPATCH) :: ZFIELD
+INTEGER                            :: INI, IPATCH, IFULL, INPTS, JI
+INTEGER                            :: JP, IMASK0  ! loop counter on patch
+REAL                               :: ZRATIO_TOT
+!
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+!-------------------------------------------------------------------------------
+! (1) & (2) INTERPOL FILED
+!-------------------------
+!
+IF (LHOOK) CALL DR_HOOK('INI_VAR_FROM_PATCH',0,ZHOOK_HANDLE)
+!
+INI=U%NSIZE_NATURE
+!
+IF (TRIM(HNAME)=='WR') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XWR(:)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='ICE_STO') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XICE_STO(:)
+  ENDDO   
+ELSEIF (TRIM(HNAME)=='TEMP GRO') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XTG(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='ALBSNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%ALB(:)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='EMISSNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%EMIS(:)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='TSSNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%TS(:)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='WSNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%WSNOW(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='TEMPSNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%TEMP(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='HEATSNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%HEAT(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='AGESNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%AGE(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='TSNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%T(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='GR1SNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%GRAN1(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='GR2SNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%GRAN2(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='HISTSNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%HIST(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='WG') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XWG(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='WGI') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XWGI(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='RESA') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XRESA(:)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='RHOSNOW') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%TSNOW%RHO(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='AN') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XAN(:)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='ANDAY') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XANDAY(:)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='ANFM') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XANFM(:)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='LE') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XLE(:)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='RESPBIOM') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XRESP_BIOMASS(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='BIOMASS') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XBIOMASS(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='LIGNINST') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XLIGNIN_STRUC(:,KLAYER)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='LITTER') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XLITTER(:,KLAYER,KLAYER2)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='SOILCARB') THEN
+  DO JP = 1,KPATCH
+    ZFIELD(:,JP) = NPE%AL(JP)%XSOILCARB(:,KLAYER)
+  ENDDO  
+ENDIF
+
+IF (KPTS>0)THEN
+  !
+  CALL GET_SURF_MASK_n(DTCO, U, 'NATURE',INI,IMASK,U%NSIZE_FULL,KLUOUT)
+  !
+  DO JP=1,KPATCH
+    !
+    NSIZE(:)=0
+    WHERE (ZFIELD(:,JP).NE.XUNDEF) NSIZE(:)=1
+    WHERE (NP%AL(JP)%XPATCH(:)==0.) NSIZE(:)=-1
+    !
+    CALL UNPACK_SAME_RANK(NP%AL(JP)%NR_P,NSIZE,NSIZE_NAT,-1)
+    CALL UNPACK_SAME_RANK(IMASK,NSIZE_NAT,NSIZE_TOT,-1)
+    !
+    CALL UNPACK_SAME_RANK(NP%AL(JP)%NR_P,ZFIELD(:,JP),ZFIELD_NAT)
+    CALL UNPACK_SAME_RANK(IMASK,ZFIELD_NAT,ZFIELD_TOT)
+    !
+    IF(PRESENT(PDEF))THEN
+      CALL INTERPOL_FIELD(UG, U, &
+                          HPROGRAM,KLUOUT,NSIZE_TOT,ZFIELD_TOT,HNAME,PDEF=PDEF(JP),KNPTS=KPTS)
+    ELSE
+      CALL INTERPOL_FIELD(UG, U, HPROGRAM,KLUOUT,NSIZE_TOT,ZFIELD_TOT,HNAME,KNPTS=KPTS)
+    ENDIF
+    !
+    CALL PACK_SAME_RANK(IMASK,ZFIELD_TOT,ZFIELD_NAT)
+    CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZFIELD_NAT,ZFIELD(:,JP))
+    !  
+  ENDDO
+  !
+ELSE
+!
+!-------------------------------------------------------------------------------
+! (3) Cell mass conservative + simple interpolation based on global cell
+!     informations
+!----------------------------
+!                 
+  !
+  ZFIELD1_TOT(:)=0.
+  ZFIELD2_TOT(:)=0.
+  !
+  GVEG(:,:)=.TRUE.
+  !
+  IF (TRIM(HNAME)=='WR')THEN
+    !no interception over soil(1), roc(2) and glaciers(3)
+    DO JP=1,KPATCH
+      PK => NP%AL(JP)
+      PEK => NPE%AL(JP)
+
+      WHERE(PK%XPATCH(:) /=0. .AND. PK%XPATCH_OLD(:) ==0..AND.PEK%XLAI(:)==0.)
+          ZFIELD(:,JP) = 0.  
+          GVEG  (:,JP) = .FALSE.
+      ENDWHERE
+    END DO
+  END IF
+  !
+  !quantity of water before restart in each grid point
+  ZFIELD1_TOT(:) = 0.0
+  DO JP = 1,KPATCH 
+    PK => NP%AL(JP)
+    DO JI = 1,PK%NSIZE_P
+      IMASK0 = PK%NR_P(JI)
+      ZFIELD1_TOT(IMASK0)=ZFIELD1_TOT(IMASK0)+ PK%XPATCH_OLD(JI) * ZFIELD(JI,JP)
+    ENDDO
+  END DO
+  !
+  ZFIELD2_TOT(:) = 0.0
+  DO JP=1,KPATCH
+    PK => NP%AL(JP)
+    DO JI = 1,PK%NSIZE_P
+      IMASK0 = PK%NR_P(JI)  
+      !if a patch appears in a grid point, it takes the quantity of water in the
+      !whole grid point before
+      IF(PK%XPATCH(JI) /=0. .AND. PK%XPATCH_OLD(JI)==0. .AND. GVEG  (JI,JP)) THEN
+        ZFIELD(JI,JP)=ZFIELD1_TOT(IMASK0)
+      ENDIF
+      !quantity of water after restart and landuse in each grid point 
+      ZFIELD2_TOT(IMASK0)=ZFIELD2_TOT(IMASK0)+ PK%XPATCH(JI)*ZFIELD(JI,JP)
+    ENDDO      
+  END DO
+  !
+  ! Conserve cell mass if not WG and WGI
+  ! If WG or WGI conserve global mass via CONSERV_GLOBAL_MASS routine
+  !    is recomanded 
+  !
+  IF (TRIM(HNAME)/='WG' .AND. TRIM(HNAME)/='WGI') THEN
+    DO JP=1,KPATCH
+      PK => NP%AL(JP)
+      DO JI = 1,PK%NSIZE_P
+        IMASK0 = PK%NR_P(JI)  
+        IF (ZFIELD2_TOT(IMASK0) > 1.E-12) THEN
+          ZFIELD(JI,JP)=(ZFIELD1_TOT(IMASK0)/ZFIELD2_TOT(IMASK0))*ZFIELD(JI,JP)
+        ENDIF
+      END DO
+    END DO
+  ENDIF
+  !
+  DO JP = 1,KPATCH
+    WHERE(NP%AL(JP)%XPATCH(:) ==0.)ZFIELD(:,JP)=XUNDEF
+  ENDDO
+  !
+ENDIF
+!
+IF (TRIM(HNAME)=='WR') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XWR(:) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='ICE_STO') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XICE_STO(:) = ZFIELD(:,JP)
+  ENDDO   
+ELSEIF (TRIM(HNAME)=='TEMP GRO') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XTG(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='ALBSNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%ALB(:) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='EMISSNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%EMIS(:) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='TSSNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%TS(:) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='WSNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%WSNOW(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='TEMPSNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%TEMP(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='HEATSNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%HEAT(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='AGESNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%AGE(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='TSNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%T(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='GR1SNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%GRAN1(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='GR2SNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%GRAN2(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='HISTSNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%HIST(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='WG') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XWG(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='WGI') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XWGI(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='RESA') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XRESA(:) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='RHOSNOW') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%TSNOW%RHO(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='AN') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XAN(:) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='ANDAY') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XANDAY(:) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='ANFM') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XANFM(:) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='LE') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XLE(:) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='RESPBIOM') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XRESP_BIOMASS(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='BIOMASS') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XBIOMASS(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='LIGNINST') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XLIGNIN_STRUC(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='LITTER') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XLITTER(:,KLAYER,KLAYER2) = ZFIELD(:,JP)
+  ENDDO
+ELSEIF (TRIM(HNAME)=='SOILCARB') THEN
+  DO JP = 1,KPATCH
+    NPE%AL(JP)%XSOILCARB(:,KLAYER) = ZFIELD(:,JP)
+  ENDDO  
+ENDIF
+!-------------------------------------------------------------------------------
+!
+IF (LHOOK) CALL DR_HOOK('INI_VAR_FROM_PATCH',1,ZHOOK_HANDLE)
+!
+!-------------------------------------------------------------------------------
+!
+END SUBROUTINE INI_VAR_FROM_PATCH

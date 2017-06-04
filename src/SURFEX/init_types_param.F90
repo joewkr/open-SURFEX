@@ -1,0 +1,172 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     ############################
+      SUBROUTINE INIT_TYPES_PARAM
+!     ############################
+!
+!!**** *INIT_TYPES_PARAM* initializes cover-field correspondance arrays
+!!
+!!    PURPOSE
+!!    -------
+!!
+!!    METHOD
+!!    ------
+!!
+!!
+!!    EXTERNAL
+!!    --------
+!!
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!    REFERENCE
+!!    ---------
+!!
+!!    AUTHOR
+!!    ------
+!!
+!!    S.Faroux        Meteo-France
+!!
+!!    MODIFICATION
+!!    ------------
+!!
+!!    Original    23/03/11
+!!
+!!    R. Alkama    05/2012 : read 19 vegtypes rather than 12
+!     10/2014 : add status='old' for ecoclimap.bin files E. Martin
+!----------------------------------------------------------------------------
+!
+!*    0.     DECLARATION
+!            -----------
+
+USE MODD_TYPE_DATE_SURF
+!
+USE MODD_DATA_COVER,     ONLY : XDATA_TOWN, XDATA_NATURE, XDATA_SEA, XDATA_WATER,   &
+                                XDATA_VEGTYPE, XDATA_GARDEN, XDATA_Z0_TOWN, &
+                                XDATA_BLD, XDATA_BLD_HEIGHT, XDATA_WALL_O_HOR
+!
+USE MODD_DATA_COVER_PAR, ONLY : NTYPE, NUT_CPHR, NUT_CPMR, NUT_CPLR, NUT_OPHR, &
+                                NUT_OPMR, NUT_OPLR, NUT_LWLR, NUT_LALR, NUT_SPAR, &
+                                NUT_INDU, NVT_NO, NVT_TEBD, NVT_BOBD, NVT_GRAS
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*    0.1    Declaration of arguments
+!            ------------------------
+!
+!*    0.2    Declaration of local variables
+!            ------------------------------
+!
+INTEGER               :: JTYPE
+!
+!*    0.3    Declaration of namelists
+!            ------------------------
+!
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!-------------------------------------------------------------------------------
+IF (LHOOK) CALL DR_HOOK('INIT_TYPES_PARAM',0,ZHOOK_HANDLE)
+!
+! SEA
+!
+XDATA_SEA(1:NTYPE(1)) = 1.
+!
+! WATER
+!
+XDATA_WATER(NTYPE(1)+1:SUM(NTYPE(1:2))) = 1.
+!
+! NATURE
+!
+DO JTYPE = 1,NTYPE(3)-SUM(NTYPE(1:2))
+  XDATA_NATURE (SUM(NTYPE(1:2))+JTYPE) = 1.
+  XDATA_VEGTYPE(SUM(NTYPE(1:2))+JTYPE,JTYPE) = 1.
+ENDDO
+!
+! TOWN
+!
+XDATA_TOWN(SUM(NTYPE(1:3))+1:SUM(NTYPE(1:4))) = 1.
+!
+XDATA_GARDEN(NUT_CPHR) = 0.10     
+XDATA_GARDEN(NUT_CPMR) = 0.10
+XDATA_GARDEN(NUT_CPLR) = 0.10
+XDATA_GARDEN(NUT_OPHR) = 0.30     
+XDATA_GARDEN(NUT_OPMR) = 0.30
+XDATA_GARDEN(NUT_OPLR) = 0.30
+XDATA_GARDEN(NUT_LWLR) = 0.10
+XDATA_GARDEN(NUT_LALR) = 0.10
+XDATA_GARDEN(NUT_SPAR) = 0.50
+XDATA_GARDEN(NUT_INDU) = 0.10
+!
+XDATA_Z0_TOWN(NUT_CPHR) = 5.
+XDATA_Z0_TOWN(NUT_CPMR) = 2.
+XDATA_Z0_TOWN(NUT_CPLR) = 1.
+XDATA_Z0_TOWN(NUT_OPHR) = 5.
+XDATA_Z0_TOWN(NUT_OPMR) = 2.
+XDATA_Z0_TOWN(NUT_OPLR) = 1.
+XDATA_Z0_TOWN(NUT_LWLR) = 1.
+XDATA_Z0_TOWN(NUT_LALR) = 1.
+XDATA_Z0_TOWN(NUT_SPAR) = 1.
+XDATA_Z0_TOWN(NUT_INDU) = 2.
+!
+XDATA_BLD(NUT_CPHR) = 0.7
+XDATA_BLD(NUT_CPMR) = 0.7
+XDATA_BLD(NUT_CPLR) = 0.7
+XDATA_BLD(NUT_OPHR) = 0.5
+XDATA_BLD(NUT_OPMR) = 0.5
+XDATA_BLD(NUT_OPLR) = 0.5
+XDATA_BLD(NUT_LWLR) = 0.7
+XDATA_BLD(NUT_LALR) = 0.1
+XDATA_BLD(NUT_SPAR) = 0.5
+XDATA_BLD(NUT_INDU) = 0.1
+!
+XDATA_BLD_HEIGHT(NUT_CPHR) = 50.
+XDATA_BLD_HEIGHT(NUT_CPMR) = 20.
+XDATA_BLD_HEIGHT(NUT_CPLR) = 10.
+XDATA_BLD_HEIGHT(NUT_OPHR) = 50.  
+XDATA_BLD_HEIGHT(NUT_OPMR) = 20.
+XDATA_BLD_HEIGHT(NUT_OPLR) = 10.
+XDATA_BLD_HEIGHT(NUT_LWLR) = 10.
+XDATA_BLD_HEIGHT(NUT_LALR) = 10.
+XDATA_BLD_HEIGHT(NUT_SPAR) = 10.
+XDATA_BLD_HEIGHT(NUT_INDU) = 20.
+!
+XDATA_WALL_O_HOR(NUT_CPHR) = 0.9    
+XDATA_WALL_O_HOR(NUT_CPMR) = 0.9
+XDATA_WALL_O_HOR(NUT_CPLR) = 0.9
+XDATA_WALL_O_HOR(NUT_OPHR) = 0.3  
+XDATA_WALL_O_HOR(NUT_OPMR) = 0.3
+XDATA_WALL_O_HOR(NUT_OPLR) = 0.3
+XDATA_WALL_O_HOR(NUT_LWLR) = 0.9
+XDATA_WALL_O_HOR(NUT_LALR) = 0.45
+XDATA_WALL_O_HOR(NUT_SPAR) = 0.3
+XDATA_WALL_O_HOR(NUT_INDU) = 0.1
+!
+XDATA_VEGTYPE(NUT_CPHR,NVT_GRAS) = 0.5     
+XDATA_VEGTYPE(NUT_CPMR,NVT_GRAS) = 0.5
+XDATA_VEGTYPE(NUT_CPLR,NVT_GRAS) = 0.5 
+XDATA_VEGTYPE(NUT_OPHR,NVT_GRAS) = 0.5  
+XDATA_VEGTYPE(NUT_OPMR,NVT_GRAS) = 0.5
+XDATA_VEGTYPE(NUT_OPLR,NVT_GRAS) = 0.5
+XDATA_VEGTYPE(NUT_LWLR,NVT_GRAS) = 0.5
+XDATA_VEGTYPE(NUT_LALR,NVT_GRAS) = 0.5
+XDATA_VEGTYPE(NUT_SPAR,NVT_GRAS) = 0.5
+!
+XDATA_VEGTYPE(NUT_INDU,NVT_NO  ) = 1.
+!
+XDATA_VEGTYPE(NUT_CPHR,NVT_TEBD) = 0.5 
+XDATA_VEGTYPE(NUT_CPMR,NVT_TEBD) = 0.5
+XDATA_VEGTYPE(NUT_CPLR,NVT_TEBD) = 0.5
+XDATA_VEGTYPE(NUT_OPHR,NVT_TEBD) = 0.5  
+XDATA_VEGTYPE(NUT_OPMR,NVT_TEBD) = 0.5
+XDATA_VEGTYPE(NUT_OPLR,NVT_TEBD) = 0.5
+XDATA_VEGTYPE(NUT_LWLR,NVT_TEBD) = 0.5
+XDATA_VEGTYPE(NUT_LALR,NVT_TEBD) = 0.5
+XDATA_VEGTYPE(NUT_SPAR,NVT_TEBD) = 0.5
+!
+IF (LHOOK) CALL DR_HOOK('INIT_TYPES_PARAM',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE INIT_TYPES_PARAM

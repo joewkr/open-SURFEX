@@ -1,0 +1,592 @@
+#!/bin/sh
+#set -e
+if [ "x$XYZ" = "x" ] 
+then
+#
+export VERSION_MASTER=${VERSION_MASTER:-SFX-V8-1}
+export VERSION_BUG=${VERSION_BUG:-1}
+export VERSION_XYZ=${VERSION_MASTER}-${VERSION_BUG}
+export VERSION_DATE=${VERSION_DATE:-"27/03/2012"}
+export VERSION_CURL=${VERSION_CURL:-"7.50.1"}
+export VERSION_ZLIB=${VERSION_ZLIB:-"1.2.8"}
+export VERSION_SZIP=${VERSION_SZIP:-"2.1"}
+export VERSION_HDF5=${VERSION_HDF5:-"1.8.17"}
+export VERSION_CDF=${VERSION_CDF:-"4.4.1"}
+export VERSION_CDFF=${VERSION_CDFF:-"4.4.4"}
+export VERSION_GRIBAPI=${VERSION_GRIBAPI:-"1.17.0"}
+export VERSION_OASIS=${VERSION_OASIS-"3-mct"}
+export VERSION_XIOS=${VERSION_XIOS:-"trunk-1078"}
+export SFX_INT=${SFX_INT-"I4"}
+#
+export NEED_TOOLS=NO
+#
+export LOCAL=${PWD%/src}
+RACINE=$(basename "$LOCAL" )
+#
+cd "${LOCAL}/conf"
+#
+TARG=$(uname -s -n)
+#
+#RJ: if arch is provided as argument configure directly
+if [ $# -ne 0 ]
+then
+  case "$1" in
+  'bgfortran'*)
+    export ARCH=${ARCH:-bgfortran}
+    export VER_MPI=${VER_MPI:-NOMPI}
+    export VER_OMP=${VER_OMP:-NOOMP}
+    export  VER_XIOS=${VER_XIOS:-0}
+    export OPTLEVEL=${OPTLEVEL:-O2}
+    export VER_CDF=${VER_CDF:-CDFEXT}
+    export VER_GRIBAPI=${VER_GRIBAPI:-GRIBAPI_EXT}
+    export VER_DRHOOK=${VER_DRHOOK:-BYPASS}
+    export NEED_NCARG=${NEED_NCARG:-NO}
+    export MVWORK=${MVWORK:-NO}
+    export MNHENV=${MNHENV:-"
+#start new subshell
+bash --norc
+#sh
+"}
+  ;;
+  'zgfortran'*)
+    export ARCH=${ARCH:-zgfortran}
+    export VER_MPI=${VER_MPI:-MPIAUTO}
+    export VER_OMP=${VER_OMP:-NOOMP}
+    export  VER_XIOS=${VER_XIOS:-0}
+    export OPTLEVEL=${OPTLEVEL:-O2}
+    export VER_CDF=${VER_CDF:-CDFAUTO}
+    export VER_GRIBAPI=${VER_GRIBAPI:-GRIBAPI_AUTO}
+    export VER_DRHOOK=${VER_DRHOOK:-BYPASS}
+    export NEED_NCARG=${NEED_NCARG:-NO}
+    export MVWORK=${MVWORK:-NO}
+    export MNHENV=${MNHENV:-"
+#start new subshell
+bash --norc
+#sh
+"}
+  ;;
+  'zifort'*)
+    export ARCH=${ARCH:-zifort}
+    export VER_MPI=${VER_MPI:-NOMPI}
+    export VER_OMP=${VER_OMP:-OMP}
+    export  VER_XIOS=${VER_XIOS:-0}
+    export OPTLEVEL=${OPTLEVEL:-O2}
+    export VER_CDF=${VER_CDF:-CDFEXT}
+    export VER_GRIBAPI=${VER_GRIBAPI:-GRIBAPI_EXT}
+    export VER_DRHOOK=${VER_DRHOOK:-BYPASS}
+    export NEED_NCARG=${NEED_NCARG:-NO}
+    export MVWORK=${MVWORK:-NO}
+    export MNHENV=${MNHENV:-"
+#start new subshell
+bash --norc
+#sh
+"}
+  ;;
+  *)
+    echo "WARNING ; system not declared"
+    exit 1
+  ;;
+  esac
+else
+#RJ: continue on guessing
+case "$TARG" in
+'Linux service'*) 
+                export     ARCH=${ARCH:-LXifort} 
+		export  VER_MPI=${VER_MPI:-MPIICE}
+		export  VER_XIOS=${VER_XIOS:-0}
+                export NEED_NCARG=${NEED_NCARG:-YES}
+                export MVWORK=${MVWORK:-NO}
+                domain=$(grep .fr /etc/hosts | head -1 )
+                case "${domain}" in
+*cines*) # jade
+                export OPTLEVEL=${OPTLEVEL:-O2} 
+                export MVWORK=${MVWORK:-NO}
+                export VER_CDF=${VER_CDF:-CDFICE}
+                export NEED_NCARG=${NEED_NCARG:-YES}
+                export MNHENV=${MNHENV:-"
+module rm netcdf ; module load netcdf/4.0
+module rm MPT    ; module load MPT/2.02
+module rm intel  ; module load intel/12.0.13
+"}
+;;
+*cict*)  # hyperion
+                export OPTLEVEL=${OPTLEVEL:-DEBUG} 
+                export VER_CDF=${VER_CDF:-CDFAUTO}
+                export MNHENV=${MNHENV:-"
+module purge    
+module load intel-fc-10/10.1.017
+module load sgi-mpt/1.26
+"}
+              ;;
+                esac
+              ;;
+'Linux platine'*|'Linux titane'*|'Linux curie'*) 
+                export     ARCH=${ARCH:-LXifort} 
+                export  VER_MPI=${VER_MPI:-MPIAUTO} 
+		export  VER_XIOS=${VER_XIOS:-0}
+                export OPTLEVEL=${OPTLEVEL:-O2} 
+                export MVWORK=${MVWORK:-NO}
+                export VER_CDF=${VER_CDF:-CDFAUTO}
+              ;;
+'Linux brodie'*|'Linux mercure'*) 
+                export     ARCH=${ARCH:-SX8} 
+                export  VER_MPI=${VER_MPI:-MPIAUTO} 
+		export  VER_XIOS=${VER_XIOS:-0}
+                export OPTLEVEL=${OPTLEVEL:-O4} 
+                export MVWORK=${MVWORK:-YES}
+                export VER_CDF=${VER_CDF:-CDFSX}
+                export MNHENV=${MNHENV:-"
+module rm sxf90  ; module load sxf90/400 ;
+module rm sxmpi  ; module load sxmpi/8.0.10 ;
+module rm netcdf ; module load netcdf/3.6.3
+"}
+              ;;
+'Linux tori'*|'Linux yuki'*)
+                export     ARCH=${ARCH:-SX8}
+                export  VER_MPI=${VER_MPI:-MPIAUTO}
+		export  VER_XIOS=${VER_XIOS:-0}
+                export OPTLEVEL=${OPTLEVEL:-O2}
+                export MVWORK=${MVWORK:-NO}
+                export VER_CDF=${VER_CDF:-CDFMFSX}
+                export NEED_NCARG=${NEED_NCARG:-NO}
+                export VERSION_GRIBAPI="1.9.9"
+              ;;
+'Linux babel'*) 
+                export     ARCH=${ARCH:-BG} 
+                export  VER_MPI=${VER_MPI:-MPIAUTO} 
+	        export  VER_XIOS=${VER_XIOS:-0}
+                export OPTLEVEL=${OPTLEVEL:-O2} 
+                export MVWORK=${MVWORK:-YES}
+              ;;
+AIX*) 
+                export MNH_ARCH=$(echo $ARCH | grep AIX)
+                export     ARCH=${MNH_ARCH:-AIX64} 
+                export  VER_MPI=${VER_MPI:-MPIAUTO}   
+		export  VER_XIOS=${VER_XIOS:-0}
+                export OPTLEVEL=${OPTLEVEL:-O2} 
+                export MVWORK=${MVWORK:-NO}
+                export VER_CDF=${VER_CDF:-CDFAIX}
+                case "$(hostname)" in
+                      vargas*)
+                      export MNHENV=${MNHENV:-"
+module rm fortran ; module load fortran/13.1.0.7
+module rm netcdf  ; module load netcdf/3.6.3
+"}
+                      ;;
+                      c1a*)
+                      export VERSION_GRIBAPI="1.9.9"
+                      export MNHENV=${MNHENV:-"
+. /usr/local/apps/module/init/sh.in 
+module rm fortran ; module load fortran/xlf/13.1.0.7
+module rm netcdf  ; module load netcdf/3.6.3
+export CDF_PATH=/usr/local/apps/netcdf/3.6.3/LP64
+export GRIBAPI_PATH=/usr/local/lib/metaps/lib/grib_api/${VERSION_GRIBAPI}
+export LIB_GRIBAPI='${GRIB_API_LIB}'
+"}
+                      ;;
+                 esac
+              ;;
+'Linux sxmnh1'*) #CNRM ifort sur sxmnh1 (diff mandriva)
+                export    OMPI_FC=ifort
+                export       ARCH=${ARCH:-LXifort}
+                export    VER_MPI=${VER_MPI:-OMPICNRM}
+		export  VER_XIOS=${VER_XIOS:-0}
+                export   OPTLEVEL=${OPTLEVEL:-DEBUG}
+                export     MVWORK=${MVWORK:-NO}
+                export    VER_CDF=${VER_CDF:-CDFCTI}
+                export NEED_NCARG=${NEED_NCARG:-NO}
+                export NEED_TOOLS=NO
+              ;;
+'Linux lx'*|'Linux sx'*|'Linux px'*) #CNRM
+
+                export     ARCH=${ARCH:-LXgfortran}
+                export  VER_MPI=${VER_MPI:-MPIAUTO}
+		export  VER_XIOS=${VER_XIOS:-2}
+                export OPTLEVEL=${OPTLEVEL:-O2}
+                export MVWORK=${MVWORK:-NO}
+                export VER_CDF=${VER_CDF:-CDFCTI}
+                export NEED_NCARG=${NEED_NCARG:-NO}
+                export NEED_TOOLS=NO
+              ;;
+'Darwin mc'*) #CNRM
+
+                export     ARCH=${ARCH:-MCgfortran}
+                export  VER_MPI=${VER_MPI:-MPIAUTO}
+		export  VER_XIOS=${VER_XIOS:-2}
+                export OPTLEVEL=${OPTLEVEL:-O2}
+                export MVWORK=${MVWORK:-NO}
+                export VER_CDF=${VER_CDF:-CDFMAC}
+                export NEED_NCARG=${NEED_NCARG:-NO}
+                export NEED_TOOLS=NO
+              ;;
+
+'Linux beaufixlogin'*) #BEAUFIX
+
+                export     ARCH=${ARCH:-LXifort}
+                export  VER_MPI=${VER_MPI:-MPIAUTO}
+		export  VER_XIOS=${VER_XIOS:-0}
+                export OPTLEVEL=${OPTLEVEL:-O2}
+                export MVWORK=${MVWORK:-NO}
+                export VER_CDF=${VER_CDF:-CDFBOFXPARALL}
+                export NEED_NCARG=${NEED_NCARG:-NO}
+                export NEED_TOOLS=NO
+              ;;
+'Linux prolixlogin'*) #PROLIX
+
+                export     ARCH=${ARCH:-LXifort}
+                export  VER_MPI=${VER_MPI:-MPIAUTO}
+		export  VER_XIOS=${VER_XIOS:-0}
+                export OPTLEVEL=${OPTLEVEL:-O2}
+                export MVWORK=${MVWORK:-NO}
+                export VER_CDF=${VER_CDF:-CDFPROLXPARALL}
+                export NEED_NCARG=${NEED_NCARG:-NO}
+                export NEED_TOOLS=NO
+              ;;
+'Linux nuwa'*)      
+                export     ARCH=${ARCH:-LXifort} 
+                export  VER_MPI=${VER_MPI:-MPIAUTO} 
+		export  VER_XIOS=${VER_XIOS:-0}
+                export OPTLEVEL=${OPTLEVEL:-DEBUG}  
+                export MVWORK=${MVWORK:-NO}
+                export VER_CDF=${VER_CDF:-CDFAUTO}
+                export NEED_NCARG=${NEED_NCARG:-YES}
+                export MNHENV=${MNHENV:-"
+. /opt/intel/fce/10.1.021/bin/ifortvars.sh
+export MPI_ROOT=/usr/local/open-mpi-142-ifort
+export PATH=\$MPI_ROOT/bin:\$PATH
+export LD_LIBRARY_PATH=\$MPI_ROOT/lib:\$LD_LIBRARY_PATH
+export MANPATH=\$MPI_ROOT/share/man:\$MANPATH
+"}
+              ;;
+'Linux krypton') #SMHI krypton@NSC
+                export ARCH=${ARCH:-LXgfortran}
+                export VER_MPI=${VER_MPI:-NOMPI}
+		export  VER_XIOS=${VER_XIOS:-0}
+                export OPTLEVEL=${OPTLEVEL:-O2}
+                export MVWORK=${MVWORK:-NO}
+                export VER_CDF=${VER_CDF:-CDFAUTO}
+                export NEED_NCARG=${NEED_NCARG:-NO}
+                export NEED_TOOLS=NO
+
+                export SURFEX_BUILD_KRYPTON='/nobackup/rossby17/sm_psamu/SURFEX_BUILD_KRYPTON'
+                ln -s $SURFEX_BUILD_KRYPTON/* $LOCAL/src/LIB/.
+                if [[ $SURFEX_OBJROOT == "" ]]; then
+                  echo "*************************************************************"
+                  echo "You have to define environment variable SURFEX_OBJROOT which"
+                  echo "points to a nobackup root directory where your compiled code"
+                  echo "will end up!"
+                  echo "*************************************************************"
+                  exit
+                fi
+                LOCALBASE=`basename $LOCAL`
+                export OBJDIR_PATH=$SURFEX_OBJROOT/$LOCALBASE
+                mkdir -p $OBJDIR_PATH
+                echo "********************************"
+                echo "Your compiled code ends up here:"
+                echo $OBJDIR_PATH
+                echo "********************************"
+              ;;
+Linux*)      
+                export     ARCH=${ARCH:-LXgfortran} 
+                export  VER_MPI=${VER_MPI:-MPIAUTO} 
+		export  VER_XIOS=${VER_XIOS:-0}
+                export OPTLEVEL=${OPTLEVEL:-O2}  
+                export MVWORK=${MVWORK:-NO}
+                #export VER_CDF=${VER_CDF:-CDFGFOR}
+                export VER_CDF=${VER_CDF:-CDFAUTO}
+                export NEED_NCARG=${NEED_NCARG:-NO}
+              ;;
+*) 
+                echo "WARNING ; system not yet tested " 
+                echo "WARNING ; edit profile_surfex & set correct variables ARCH , VER_MPI & OPTLEVEL " 
+
+                export     ARCH=${ARCH} 
+                export  VER_MPI=${VER_MPI:-MPIVIDE} 
+		export  VER_XIOS=${VER_XIOS:-0}
+                export OPTLEVEL=${OPTLEVEL:-DEBUG}
+              ;;
+esac
+fi
+##
+## Environnement for scandollar 
+##
+
+if [ "x${CONF_DOLLAR}" = "x" ] ; then
+# set default value for CONF_DOLLAR file
+case "$(hostname)" in
+  tori*|yuki*)
+        export POSTCONF=confdollar_dsinec_default
+        ;;
+
+  lx*|px*|sx*)
+        export POSTCONF=confdollar_cnrmpc_default
+        ;;
+
+  aeropc*)
+        export POSTCONF=confdollar_aeropc_default
+
+        ;;
+
+  brodie*)
+        export POSTCONF=confdollar_brodie_default
+
+        ;;
+
+  vargas*)
+        export POSTCONF=confdollar_vargas_default
+        ;;
+
+  c1a*)
+        export POSTCONF=confdollar_c1a_default
+        ;;
+
+  service*)
+        export POSTCONF=confdollar_jade_default
+        ;;
+
+  babel*)
+        export POSTCONF=confdollar_babel_default
+        ;;
+
+  titane*|curie*)
+        export POSTCONF=confdollar_titane_default
+        ;;
+
+  *)
+        export POSTCONF=confdollar_aeropc_default
+        ;;
+esac
+
+export CONF_DOLLAR=${LOCAL}/conf/post/${POSTCONF}
+
+fi
+
+#
+#  Install 32/64 mesonh tools
+#
+if [ "x${NEED_TOOLS}" = "xYES" ] ; then
+  case "$(uname -m)" in 
+    'x86_64')
+        export BIN_TOOLS=${BIN_TOOLS:-X86_64}
+    ;;
+    'x86'|'i'*'86')
+        export BIN_TOOLS=${BIN_TOOLS:-X86}
+    ;;
+  esac
+fi
+
+#
+# Prepare defaults, if not provided
+#
+# Compile non MPI version of surfex by default
+if [ -z  "${VER_MPI}" ]
+then
+  export VER_MPI="NOMPI"
+fi
+#
+# Compile OpenMP version of surfex by default, long story..
+if [ -z  "${VER_OMP}" ]
+then
+  export VER_OMP="OMP"
+fi
+#
+# NETCDF library
+if [ -z  "${VER_CDF}" ]
+then
+  export VER_CDF=CDFAUTO
+fi
+#
+# GRIBAPI library
+if [ -z  "${VER_GRIBAPI}" ]
+then
+  export VER_GRIBAPI=GRIBAPI_AUTO
+fi
+#
+# DRHOOK library
+if [ -z  "${VER_DRHOOK}" ]
+then
+  export VER_DRHOOK=BYPASS
+fi
+#
+# OASIS coupler
+#RJ: provide default to NOmct, to avoid hard dependency on mpi
+if [ -z ${VER_OASIS} ] ; then
+  export VER_OASIS=NOmct
+fi
+#
+# BIN_TOOLS
+if [ -z ${BIN_TOOLS} ] ; then
+  export BIN_TOOLS=NO
+fi
+#
+if [ "x${VER_MPI}" = "xNOMPI" ] ; then
+  export VER_DRHOOK=BYPASS
+fi
+#
+LIB_PATH= 
+#
+if [ "x${VER_CDF}" = "xCDFAUTO" ] ; then
+  export LIB_PATH=$LOCAL/src/LIB/netcdf4/netcdf-fortran-${VERSION_CDFF}-${ARCH}-${VER_MPI}/lib:$LOCAL/src/LIB/netcdf4/netcdf-${VERSION_CDF}-${ARCH}-${VER_MPI}/lib:$LOCAL/src/LIB/netcdf4/hdf5-${VERSION_HDF5}-${ARCH}-${VER_MPI}/lib:$LOCAL/src/LIB/netcdf4/szip-${VERSION_SZIP}-${ARCH}-${VER_MPI}/lib:$LOCAL/src/LIB/netcdf4/zlib-${VERSION_ZLIB}-${ARCH}-${VER_MPI}/lib:$LOCAL/src/LIB/netcdf4/curl-${VERSION_CURL}-${ARCH}-${VER_MPI}/lib
+#
+fi
+#
+# Generate profile_surfex
+#
+"${LOCAL}/bin/eval_dollar"  profile_surfex.ihm > profile_surfex
+chmod +x profile_surfex
+XYZ=${ARCH}${MNH_INT}-${VERSION_XYZ}${VER_USER:+-${VER_USER}}${VER_MPI:+-${VER_MPI}}${VER_OMP:+-${VER_OMP}}-${OPTLEVEL}-X${VER_XIOS}
+cp profile_surfex "profile_surfex-${XYZ}"
+#
+#  Do some post-install stuff
+#
+if [ "${MVWORK}" = "YES" ] ; then
+   if [ "x${WORKDIR}" = "x" ] ; then
+     echo "CAUTION :: configure !!!!!"
+     echo
+     echo '  ---> variable $WORKDIR is not initialized ' 
+     echo '  ---> where binaries and test cases will be stored '
+     echo '  ---> initialize it et launch again "./configure"' 
+     exit 1
+   fi 
+   if [ -d "$WORKDIR" ] && [ "${LOCAL}" = "${LOCAL##/work}" ] ; then
+#  if we are not allready in the workdir --> move stuff
+      WORK="$WORKDIR/${RACINE}_WORKDIR"
+      mkdir -p "${WORK}"
+      for dir in MY_RUN exe pub
+      do
+         [ -d "$LOCAL/${dir}" ] && [ ! -L "$LOCAL/${dir}" ] \
+          && mv "$LOCAL/${dir}" "${WORK}"/. \
+          && ln -s "${WORK}/${dir}" "$LOCAL"/.
+      done
+   fi
+fi
+if [ "x${NEED_NCARG}" != "xNO" ] ; then
+( cd "$LOCAL/pub" ; [ ! -d ncl_ncarg-5.2.1.Linux_x86_64 ] && tar xvfz ncl_ncarg-5.2.1.Linux_x86_64.tar.gz )
+fi
+
+#
+#  Install CDF if VER_CDF=CDFAUTO
+#
+if [ "x${VER_CDF}" = "xCDFAUTO" ] ; then
+if [ ! -d "$LOCAL/src/LIB/netcdf4"/"curl-${VERSION_CURL}" ] ; then
+  ( cd "$LOCAL/src/LIB/netcdf4" ; tar xvfz curl-${VERSION_CURL}.tar.gz )
+fi
+if [ ! -d "$LOCAL/src/LIB/netcdf4"/"zlib-${VERSION_ZLIB}" ] ; then
+  ( cd "$LOCAL/src/LIB/netcdf4" ; tar xvfz zlib-${VERSION_ZLIB}.tar.gz )
+fi
+if [ ! -d "$LOCAL/src/LIB/netcdf4"/"szip-${VERSION_SZIP}" ] ; then
+  ( cd "$LOCAL/src/LIB/netcdf4" ; tar xvfz szip-${VERSION_SZIP}.tar.gz )
+fi
+if [ ! -d "$LOCAL/src/LIB/netcdf4"/"hdf5-${VERSION_HDF5}" ] ; then
+  ( cd "$LOCAL/src/LIB/netcdf4" ; tar xvfz hdf5-${VERSION_HDF5}.tar.gz )
+fi
+if [ ! -d "$LOCAL/src/LIB/netcdf4"/"netcdf-${VERSION_CDF}" ] ; then
+  ( cd "$LOCAL/src/LIB/netcdf4" ; tar xvfz netcdf-${VERSION_CDF}.tar.gz )
+fi
+if [ ! -d "$LOCAL/src/LIB/netcdf4"/"netcdf-fortran-${VERSION_CDFF}" ] ; then
+  ( cd "$LOCAL/src/LIB/netcdf4" ; tar xvfz netcdf-fortran-${VERSION_CDFF}.tar.gz )
+fi
+fi
+#
+#  Install GRIBAPI if VER_GRIBAPI=GRIBAPI_AUTO
+#
+if [ "x${VER_GRIBAPI}" = "xGRIBAPI_AUTO" ] ; then
+if [ ! -d "$LOCAL/src/LIB"/"grib_api-${VERSION_GRIBAPI}-Source" ] ; then
+  ( cd "$LOCAL/src/LIB" ; tar xvfz grib_api-${VERSION_GRIBAPI}-Source.tar.gz )
+  export LIB_PATH=$LOCAL/src/LIB/grib_api-${VERSION_GRIBAPI}-Source-${ARCH}/lib
+fi
+fi
+#
+#  Install OASIS
+#
+if [ "x${VER_OASIS}" = "xmct" ] ; then
+if [ "x${VER_MPI}" = "xNOMPI" ] ; then
+  echo '!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+  echo 'OASIS can not be compiled without mpi'
+  echo 'SURFEX-TRIP coupling will not be able to run'
+  echo 'OASIS building DISABLED'
+  echo '!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+else
+  if [ ! -d "$LOCAL/src/LIB"/oasis"${VERSION_OASIS}" ]; then
+    cd "$LOCAL/src/LIB"
+    tar xvfz oasis"${VERSION_OASIS}".tar.gz
+    cp -f oasis_sfx_make.inc oasis"${VERSION_OASIS}"/util/make_dir/make.inc
+  fi
+fi
+fi
+#
+#  Install XIOS
+#
+set -x
+if [ x"${VER_XIOS}" == x2 ] ; then
+    if [ "x${VER_MPI}" = "xNOMPI" ] ; then
+	echo '!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+	echo 'XIOS can not be compiled without mpi'
+	echo 'SURFEX will not be able to run using it'
+	echo 'XIOS build DISABLED'
+	echo '!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    else
+	cd $LOCAL/src/LIB
+	base=XIOS-${VERSION_XIOS}
+	if [ ! -d $base-$ARCH ]; then 
+	    tarball=$base.tar
+	    if [ -f $tarball ] ; then 
+		tar -xf $tarball 
+		mv $base $base-$ARCH
+	    else
+		echo '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+		echo 'Cannot find XIOS tarball $tarball'
+		echo '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+		exit
+	    fi
+	fi
+    fi
+fi
+#
+##########################################################
+#                                                        #
+#      RESUME                                            #
+#                                                        #
+##########################################################
+
+echo  "ARCH=${ARCH}"
+echo  "VER_MPI=${VER_MPI}"
+echo  "VER_OMP=${VER_OMP}"
+echo  "VER_USER=${VER_USER-' pas de version user ...'}"
+echo  "OPTLEVEL=${OPTLEVEL}"
+echo  "CONF_DOLLAR=${CONF_DOLLAR}"
+echo  "VER_CDF=${VER_CDF}"
+echo  "VER_GRIBAPI=${VER_GRIBAPI}"
+echo  "VER_DRHOOK=${VER_DRHOOK}"
+echo  "BIN_TOOLS=${BIN_TOOLS}"
+echo  "VER_OASIS=${VER_OASIS}"
+echo  "VER_XIOS=${VER_XIOS}"
+echo 
+echo  "---> XYZ=${XYZ}"
+echo
+echo "creation of file -->  ../conf/profile_surfex-${XYZ}"
+echo 
+##########################################################
+#                                                        #
+# ENVIRONEMENT MESONH ALLREADY SET                       #
+#                                                        #
+##########################################################
+else
+clear
+echo 
+echo "CAUTION :: configure !!!!!"
+echo
+echo '  ---> your SURFEX environment is already initialized on this version'
+echo '  ---> $XYZ="'"$XYZ"'"'
+echo 
+echo "Verify your file '.profile'" or "'.bash_profile'"  !!!
+echo 
+echo "  ---> you can..."
+echo " -----> comment the line '. ../profile_surfex...' "
+echo " -----> do export XYZ=\"\" to reinitialize this variable "
+echo " -----> open another terminal and launch again ./configure "
+echo 
+echo "File 'profile_surfex' not modified !!! "
+echo 
+exit 1
+fi 

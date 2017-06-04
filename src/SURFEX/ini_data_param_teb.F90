@@ -1,0 +1,462 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     #########################
+      SUBROUTINE INI_DATA_PARAM_TEB (BDD, &
+                                     KTYPE,                                          &
+                                PZ0_TOWN, PALB_ROOF, PALB_ROAD, PALB_WALL,          &
+                                PEMIS_ROOF, PEMIS_ROAD, PEMIS_WALL, PHC_ROOF,       &
+                                PHC_ROAD, PHC_WALL, PTC_ROOF, PTC_ROAD, PTC_WALL,   &
+                                PD_ROOF, PD_ROAD, PD_WALL, PBLD_HEIGHT,             &
+                                PWALL_O_HOR, PBLD, PCAN_HW_RATIO, PH_TRAFFIC,       & 
+                                PLE_TRAFFIC, PH_INDUSTRY, PLE_INDUSTRY,             & 
+                                PGARDEN, OGARDEN, PHC_FLOOR,                        &
+                                PTC_FLOOR, PD_FLOOR, PTCOOL_TARGET, PTHEAT_TARGET,  &
+                                PF_WASTE_CAN, PEFF_HEAT, PQIN, PQIN_FRAD, PSHGC,    &
+                                PU_WIN, PGR, PSHGC_SH, PFLOOR_HEIGHT, PINF,         &
+                                PF_WATER_COND, PQIN_FLAT, PHR_TARGET, PV_VENT,      &
+                                PCAP_SYS_HEAT, PCAP_SYS_RAT, PT_ADP, PM_SYS_RAT,    &
+                                PCOP_RAT, PT_SIZE_MAX, PT_SIZE_MIN, PSHADE,         &
+                                PNATVENT, PROUGH_ROOF, PROUGH_WALL, PGREENROOF,     &
+                                PRESIDENTIAL,                                       &
+                                PEMIS_PANEL, PALB_PANEL, PEFF_PANEL, PFRAC_PANEL    )
+
+!     #########################
+!
+!!
+!!    PURPOSE
+!!    -------
+!!
+!!    METHOD
+!!    ------
+!!
+!!
+!!    EXTERNAL
+!!    --------
+!!
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!    REFERENCE
+!!    ---------
+!!
+!!    AUTHOR
+!!    ------
+!!
+!!    S. Faroux & V. Masson        Meteo-France
+!!
+!!    MODIFICATION
+!!    ------------
+!!
+!!    Original    05/2012 from INI_DATA_PARAM_TEB, separates urban parameters
+!!    modified    08/2012 add PROUGH_ROOF, PROUGH_WALL
+!!     V. Masson  08/2013 add solar panels
+!!     V. Masson  10/2013 add residential use fraction
+!----------------------------------------------------------------------------
+!
+!*    0.     DECLARATION
+!            -----------
+!
+!
+!
+USE MODD_BLD_DESCRIPTION_n, ONLY : BLD_DESC_t
+!
+USE MODI_ABOR1_SFX
+!
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*    0.1    Declaration of arguments
+!            ------------------------
+!
+!
+TYPE(BLD_DESC_t), INTENT(INOUT) :: BDD
+!
+INTEGER, DIMENSION(:), INTENT(IN) :: KTYPE
+!
+!            town parameters
+!            ---------------
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PZ0_TOWN
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PALB_ROOF
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PALB_ROAD
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PALB_WALL
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PEMIS_ROOF
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PEMIS_ROAD
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PEMIS_WALL
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PHC_ROOF
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PHC_ROAD
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PHC_WALL
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PTC_ROOF
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PTC_ROAD
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PTC_WALL
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PD_ROOF
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PD_ROAD
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PD_WALL
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PBLD_HEIGHT
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PWALL_O_HOR
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PBLD
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PCAN_HW_RATIO
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PH_TRAFFIC
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PLE_TRAFFIC
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PH_INDUSTRY
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PLE_INDUSTRY
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PGARDEN
+LOGICAL,            INTENT(IN),  OPTIONAL :: OGARDEN
+!
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PHC_FLOOR
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PTC_FLOOR
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PD_FLOOR
+!
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PTCOOL_TARGET
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PTHEAT_TARGET
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PF_WASTE_CAN
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PEFF_HEAT
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PQIN
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PQIN_FRAD
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PSHGC
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PU_WIN
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PGR
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PSHGC_SH
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PFLOOR_HEIGHT
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PINF
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PF_WATER_COND
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PQIN_FLAT
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PHR_TARGET
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PV_VENT
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PCAP_SYS_HEAT
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PCAP_SYS_RAT
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PT_ADP
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PM_SYS_RAT
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PCOP_RAT
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PT_SIZE_MAX
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PT_SIZE_MIN
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PSHADE
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PNATVENT
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PROUGH_ROOF
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PROUGH_WALL
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PRESIDENTIAL
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PGREENROOF
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PEMIS_PANEL
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PALB_PANEL
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PEFF_PANEL
+REAL, DIMENSION(:),   INTENT(OUT), OPTIONAL   :: PFRAC_PANEL
+!
+!*    0.2    Declaration of local variables
+!      ------------------------------
+!
+INTEGER, DIMENSION(:), ALLOCATABLE :: ILIST ! link between urban types and indices
+REAL, DIMENSION(SIZE(KTYPE)) :: ZGARDEN
+INTEGER            :: JLOOP        ! spatial loop counter
+INTEGER            :: JLIST        ! loop counter on urban types
+INTEGER            :: IINDEX       ! index of type for each point
+!
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+!-------------------------------------------------------------------------------
+!-------------------------------------------------------------------------------
+!
+IF (LHOOK) CALL DR_HOOK('INI_DATA_PARAM_TEB',0,ZHOOK_HANDLE)
+!
+!-------------------------------------------------------------------------------
+!
+!*    1.     Builds the list of indices corresponding to the "type" field
+!      ------------------------------------------------------------------
+!
+!
+ALLOCATE(ILIST(MAXVAL(BDD%NDESC_CODE_LIST)))
+ILIST(:) = 0
+DO JLIST=1,BDD%NDESC_CODE
+  ILIST(BDD%NDESC_CODE_LIST(JLIST)) = JLIST
+END DO
+!
+IINDEX = 0
+!
+!-------------------------------------------------------------------------------
+DO JLOOP=1,SIZE(KTYPE)
+!-------------------------------------------------------------------------------
+!
+!*    1.     town parameters depending on urban characteristics
+!      --------------------------------------------------------
+!
+    IF (KTYPE(JLOOP)<=SIZE(ILIST) .AND. KTYPE(JLOOP)>0) IINDEX = ILIST(KTYPE(JLOOP))
+
+    IF (PRESENT(PZ0_TOWN)) THEN
+      PZ0_TOWN(JLOOP)=1.   
+    ENDIF
+    IF (PRESENT(PBLD_HEIGHT)) THEN
+      PBLD_HEIGHT(JLOOP)=10.
+    ENDIF
+
+    ZGARDEN(JLOOP)=0.
+    IF (PRESENT(OGARDEN)) THEN
+      IF (.NOT. OGARDEN) ZGARDEN(JLOOP) = 0.
+    ENDIF
+    IF (PRESENT(PGARDEN)) THEN
+      PGARDEN(JLOOP)=ZGARDEN(JLOOP)
+    ENDIF
+
+    IF (PRESENT(PBLD)) THEN
+      PBLD(JLOOP)=0.5        
+      PBLD(JLOOP) = PBLD(JLOOP) / (1. - ZGARDEN(JLOOP))
+    ENDIF
+
+    IF (PRESENT(PWALL_O_HOR)) THEN
+      PWALL_O_HOR(JLOOP)=0.5
+      PWALL_O_HOR(JLOOP) = PWALL_O_HOR(JLOOP) / (1. - ZGARDEN(JLOOP))
+    ENDIF
+
+    IF (PRESENT(PCAN_HW_RATIO) .AND. PRESENT(PBLD) .AND. PRESENT(PWALL_O_HOR)) THEN
+      PCAN_HW_RATIO(JLOOP)= 0.5 * PWALL_O_HOR(JLOOP) / (1.-PBLD(JLOOP))
+    ELSEIF (PRESENT(PCAN_HW_RATIO) .AND. &
+            (.NOT.PRESENT(PBLD) .OR. .NOT.PRESENT(PWALL_O_HOR)) ) THEN
+      CALL ABOR1_SFX("INI_DATA_PARAM_TEB: WHEN CALLING WITH CAN_HW_RATIO, BLD AND "// &
+        "WALL_O_HOR MUST ALSO BE IN ARGUMENTS")
+    ENDIF
+
+    IF (PRESENT(PH_TRAFFIC)) THEN
+      PH_TRAFFIC(JLOOP)= 10.
+    ENDIF
+
+    IF (PRESENT(PLE_TRAFFIC)) THEN
+     PLE_TRAFFIC(JLOOP)= 0.
+    ENDIF
+
+    IF (PRESENT(PH_INDUSTRY)) THEN
+      PH_INDUSTRY(JLOOP)= 5.
+    ENDIF
+
+    IF (PRESENT(PLE_INDUSTRY)) THEN
+     PLE_INDUSTRY(JLOOP)= 0.
+    ENDIF
+
+    IF (PRESENT(PALB_ROAD)) THEN
+      PALB_ROAD(JLOOP)=BDD%XDESC_ALB_ROAD(IINDEX)
+    ENDIF
+    IF (PRESENT(PEMIS_ROAD)) THEN
+      PEMIS_ROAD(JLOOP)=BDD%XDESC_EMIS_ROAD(IINDEX)
+    ENDIF
+    IF (PRESENT(PHC_ROAD)) THEN
+      PHC_ROAD(JLOOP,:)= BDD%XDESC_HC_ROAD(IINDEX,:)
+    ENDIF
+    IF (PRESENT(PTC_ROAD)) THEN
+      PTC_ROAD(JLOOP,:)= BDD%XDESC_TC_ROAD(IINDEX,:)
+    ENDIF
+    IF (PRESENT(PD_ROAD)) THEN
+      PD_ROAD(JLOOP,:)= BDD%XDESC_D_ROAD(IINDEX,:)
+    ENDIF
+!
+!-------------------------------------------------------------------------------
+!
+!*    2.     town parameters depending on building descriptions
+!      --------------------------------------------------------
+!
+    IF (KTYPE(JLOOP)<=SIZE(ILIST) .AND. KTYPE(JLOOP)>0) IINDEX = ILIST(KTYPE(JLOOP))
+!
+    IF (PRESENT(PALB_ROOF)) THEN
+      PALB_ROOF(JLOOP)=BDD%XDESC_ALB_ROOF(IINDEX)
+    ENDIF
+    IF (PRESENT(PALB_WALL)) THEN
+      PALB_WALL(JLOOP)=BDD%XDESC_ALB_WALL(IINDEX)
+    ENDIF
+
+    IF (PRESENT(PEMIS_ROOF)) THEN
+      PEMIS_ROOF(JLOOP)=BDD%XDESC_EMIS_ROOF(IINDEX)
+    ENDIF
+    IF (PRESENT(PEMIS_WALL)) THEN
+      PEMIS_WALL(JLOOP)=BDD%XDESC_EMIS_WALL(IINDEX)
+    ENDIF
+
+    IF (PRESENT(PHC_ROOF)) THEN
+      PHC_ROOF(JLOOP,:)= BDD%XDESC_HC_ROOF(IINDEX,:)
+    ENDIF
+    IF (PRESENT(PHC_WALL)) THEN
+      PHC_WALL(JLOOP,:)= BDD%XDESC_HC_WALL(IINDEX,:)
+    ENDIF
+ 
+    IF (PRESENT(PTC_ROOF)) THEN
+      PTC_ROOF(JLOOP,:)= BDD%XDESC_TC_ROOF(IINDEX,:)
+    ENDIF
+    IF (PRESENT(PTC_WALL)) THEN
+      PTC_WALL(JLOOP,:)= BDD%XDESC_TC_WALL(IINDEX,:)
+    ENDIF
+
+    IF (PRESENT(PD_ROOF)) THEN
+      PD_ROOF(JLOOP,:)= BDD%XDESC_D_ROOF(IINDEX,:)
+    ENDIF
+    IF (PRESENT(PD_WALL)) THEN
+      PD_WALL(JLOOP,:)= BDD%XDESC_D_WALL(IINDEX,:)
+    ENDIF
+
+
+    IF (PRESENT(PHC_FLOOR)) THEN
+      PHC_FLOOR(JLOOP,:)= BDD%XDESC_HC_FLOOR(IINDEX,:)
+    ENDIF
+
+    IF (PRESENT(PTC_FLOOR)) THEN
+      PTC_FLOOR(JLOOP,:)= BDD%XDESC_TC_FLOOR(IINDEX,:)
+    ENDIF
+
+    IF (PRESENT(PD_FLOOR)) THEN
+      PD_FLOOR(JLOOP,:)= BDD%XDESC_D_FLOOR(IINDEX,:)
+    ENDIF
+!
+    IF (PRESENT(PEFF_HEAT)) THEN
+      PEFF_HEAT(JLOOP) = BDD%XDESC_EFF_HEAT(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PSHGC)) THEN
+      PSHGC(JLOOP) = BDD%XDESC_SHGC(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PU_WIN)) THEN
+      PU_WIN(JLOOP) = BDD%XDESC_U_WIN(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PGR)) THEN
+      PGR(JLOOP) = BDD%XDESC_GR(IINDEX)
+    ENDIF
+
+    IF (PRESENT(PCOP_RAT)) THEN
+      PCOP_RAT(JLOOP) = BDD%XDESC_COP_RAT(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PF_WATER_COND)) THEN
+      PF_WATER_COND(JLOOP) = BDD%XDESC_F_WATER_COND(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PF_WASTE_CAN)) THEN
+      PF_WASTE_CAN(JLOOP) = BDD%XDESC_F_WASTE_CAN(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PINF)) THEN
+      PINF(JLOOP) = BDD%XDESC_INF(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PV_VENT)) THEN
+      PV_VENT(JLOOP) = BDD%XDESC_V_VENT(IINDEX)
+    ENDIF
+    !
+    IF (PRESENT(PGREENROOF)) THEN
+      PGREENROOF(JLOOP) = BDD%XDESC_GREENROOF(IINDEX)
+    ENDIF
+    !
+    IF (PRESENT(PEMIS_PANEL)) THEN
+      PEMIS_PANEL(JLOOP) = BDD%XDESC_EMIS_PANEL(IINDEX)
+    ENDIF
+    !
+    IF (PRESENT(PALB_PANEL)) THEN
+      PALB_PANEL(JLOOP) = BDD%XDESC_ALB_PANEL(IINDEX)
+    ENDIF
+    !
+    IF (PRESENT(PEFF_PANEL)) THEN
+      PEFF_PANEL(JLOOP) = BDD%XDESC_EFF_PANEL(IINDEX)
+    ENDIF
+    !
+    IF (PRESENT(PFRAC_PANEL)) THEN
+      PFRAC_PANEL(JLOOP) = BDD%XDESC_FRAC_PANEL(IINDEX)
+    ENDIF
+!
+!
+!-------------------------------------------------------------------------------
+!
+!*    3.     town parameters depending on building use
+!      -----------------------------------------------
+!
+    IF (KTYPE(JLOOP)<=SIZE(BDD%NDESC_USE_LIST) .AND. KTYPE(JLOOP)>0) &
+    IINDEX = BDD%NDESC_USE_LIST(KTYPE(JLOOP))
+!
+    IF (PRESENT(PTCOOL_TARGET)) THEN
+      PTCOOL_TARGET(JLOOP) = BDD%XDESC_TCOOL_TARGET(IINDEX)
+    ENDIF
+!  
+    IF (PRESENT(PTHEAT_TARGET)) THEN
+      PTHEAT_TARGET(JLOOP) = BDD%XDESC_THEAT_TARGET(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PQIN)) THEN
+      PQIN(JLOOP) = BDD%XDESC_QIN(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PQIN_FLAT)) THEN
+      PQIN_FLAT(JLOOP) = BDD%XDESC_QIN_FLAT(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PSHGC_SH)) THEN
+      PSHGC_SH(JLOOP) = BDD%XDESC_SHGC_SH(IINDEX)
+    ENDIF    
+    !
+    IF (PRESENT(PSHADE)) THEN
+      PSHADE(JLOOP) = BDD%XDESC_SHADE(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PNATVENT)) THEN
+      PNATVENT(JLOOP) = BDD%XDESC_NATVENT(IINDEX)
+    ENDIF
+!
+    IF (PRESENT(PRESIDENTIAL)) THEN
+      PRESIDENTIAL(JLOOP) = BDD%XDESC_RESIDENTIAL(IINDEX)
+    ENDIF
+
+!
+!-------------------------------------------------------------------------------
+!
+!*    4.     town parameters not depending on anything yet
+!      ---------------------------------------------------
+!
+    IF (PRESENT(PCAP_SYS_HEAT)) THEN
+      PCAP_SYS_HEAT(JLOOP) = 100.
+    ENDIF
+!
+    IF (PRESENT(PCAP_SYS_RAT)) THEN
+      PCAP_SYS_RAT(JLOOP) = 90.
+    ENDIF
+!
+    IF (PRESENT(PT_ADP)) THEN
+      PT_ADP(JLOOP) = 285.66
+    ENDIF
+!
+    IF (PRESENT(PM_SYS_RAT)) THEN
+      PM_SYS_RAT(JLOOP) = 0.0067
+    ENDIF
+!
+    IF (PRESENT(PT_SIZE_MAX)) THEN
+      PT_SIZE_MAX(JLOOP) = 301.95
+    ENDIF
+!
+    IF (PRESENT(PT_SIZE_MIN)) THEN
+      PT_SIZE_MIN(JLOOP) = 268.96
+    ENDIF
+!
+    IF (PRESENT(PFLOOR_HEIGHT)) THEN
+      PFLOOR_HEIGHT(JLOOP) = 2.9
+    ENDIF
+!
+    IF (PRESENT(PQIN_FRAD)) THEN
+      PQIN_FRAD(JLOOP) = 0.2
+    ENDIF
+!
+    IF (PRESENT(PHR_TARGET)) THEN
+      PHR_TARGET(JLOOP) = 0.5
+    ENDIF
+!
+    IF (PRESENT(PROUGH_ROOF)) THEN
+      PROUGH_ROOF(JLOOP) = 1.52
+    ENDIF
+!
+    IF (PRESENT(PROUGH_WALL)) THEN
+      PROUGH_WALL(JLOOP) = 1.52
+    ENDIF
+
+!
+END DO
+!
+DEALLOCATE(ILIST)
+!
+IF (LHOOK) CALL DR_HOOK('INI_DATA_PARAM_TEB',1,ZHOOK_HANDLE)
+!-------------------------------------------------------------------------------
+!
+END SUBROUTINE INI_DATA_PARAM_TEB

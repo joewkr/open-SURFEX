@@ -1,0 +1,151 @@
+#@ shell	= /usr/bin/ksh
+#@ class	= ns
+#@ job_name	= offline.sfx
+#@ job_type     = serial
+#@ step_name    = step_1
+#@ node        = 1
+#@ tasks_per_node = 1
+#@ environment    = OMP_NUM_THREADS = 1
+#@ error 	= $(job_name).$(host).$(jobid).step_1.out
+#@ output 	= $(job_name).$(host).$(jobid).step_1.out
+#@ resources	= ConsumableMemory(1gb)
+#@ wall_clock_limit	= 01:00:00
+#@ job_cpu_limit   	= 01:00:00
+#@ queue
+#
+#@ shell	= /usr/bin/ksh
+#@ class	= np
+#@ job_name	= offline.sfx
+#@ job_type     = parallel
+#@ step_name    = step_2
+#@ dependency   = ( step_1 == 0 )
+#@ resources	= ConsumableCpus(2) ConsumableMemory(1gb)
+#@ node        = 2
+#@ tasks_per_node = 2
+#@ environment    = OMP_NUM_THREADS = 2
+#@ node_usage = not_shared
+#@ ec_smt = no
+#@ error 	= $(job_name).$(host).$(jobid).step_2.out
+#@ output 	= $(job_name).$(host).$(jobid).step_2.out
+#@ wall_clock_limit	= 01:00:00
+#@ cpu_limit   	= 03:00:00
+#@ queue
+#
+#@ shell	= /usr/bin/ksh
+#@ class	= ns
+#@ job_name	= offline.sfx
+#@ job_type     = serial
+#@ step_name    = step_3
+#@ dependency   = ( step_2 == 0 )
+#@ node        = 1
+#@ tasks_per_node = 1
+#@ environment    = OMP_NUM_THREADS = 1
+#@ error 	= $(job_name).$(host).$(jobid).step_3.out
+#@ output 	= $(job_name).$(host).$(jobid).step_3.out
+#@ resources	= ConsumableMemory(1gb)
+#@ wall_clock_limit	= 01:00:00
+#@ job_cpu_limit   	= 01:00:00
+#@ queue
+#
+#export F_RECLUNIT=BYTE   # taille des records en BYTE (et non en WORD)
+#export F_SETBUF=10240    # unformatted I/O optimisation
+#export F_FTRACE=yes
+#export F_FILEINF=yes     # or detail  # I/O measurement
+#
+export DR_HOOK=1
+export DR_HOOK_OPT=prof 
+#
+set -x
+pwd
+#
+case $LOADL_STEP_NAME in
+step_1) 
+  cd $TEMP
+  #
+  echo " copie des fichiers ecoclimap "
+  #
+  ecp ec:OUTPUTS/PREP_MPI_LIBO_LIN.lfi PREP.lfi
+  ecp ec:OUTPUTS/PGD_MPI_LIBO_LIN.lfi PGD.lfi
+  #
+  ecp ec:FORCING/ForcCO2.DAT_france_1995_1996 Forc_CO2.bin
+  ecp ec:FORCING/ForcDIR.DAT_francelog0_1995_1996 Forc_DIR.bin
+  ecp ec:FORCING/ForcDIR_SW.DAT_france_1995_1996 Forc_DIR_SW.bin
+  ecp ec:FORCING/ForcLW.DAT_france_1995_1996 Forc_LW.bin
+  ecp ec:FORCING/ForcPS.DAT_france_1995_1996 Forc_PS.bin
+  ecp ec:FORCING/ForcQA.DAT_france_1995_1996 Forc_QA.bin
+  ecp ec:FORCING/ForcRAIN.DAT_france_1995_1996 Forc_RAIN.bin
+  ecp ec:FORCING/ForcSCA_SW.DAT_france_1995_1996 Forc_SCA_SW.bin
+  ecp ec:FORCING/ForcSNOW.DAT_france_1995_1996 Forc_SNOW.bin
+  ecp ec:FORCING/ForcTA.DAT_france_1995_1996 Forc_TA.bin
+  ecp ec:FORCING/ForcWIND.DAT_france_1995_1996 Forc_WIND.bin
+  #
+  ecp ec:PGD/ecoclimapI_covers_param.bin ecoclimapI_covers_param.bin
+  ecp ec:PGD/ecoclimapII_eu_covers_param.bin ecoclimapII_eu_covers_param.bin
+  ecp ec:PGD/ecoclimapII_af_covers_param.bin ecoclimapII_af_covers_param.bin
+  #
+  echo " copie de la namelist"
+  #
+  ecp ec:PGD/OPTIONS.nam_lin_lfi_in_bin_out OPTIONS.nam
+  ecp ec:PGD/Params_config.txt.sav_10j Params_config.txt
+  #
+  echo " copie de l'executable "
+  #
+  #ecp -o ec:LIBRARY/myoffline.7.2.idbl4 offline.exe
+  #
+  ;;
+step_2)
+  cd $TMPDIR
+  #
+  cp -f $TEMP/PREP.lfi .
+  cp -f $TEMP/PGD.lfi .
+  #
+  cp -f $TEMP/Forc_*.bin .
+  #
+  cp -f $TEMP/ecoclimapI*covers_param.bin .
+  #
+  cp -f $TEMP/OPTIONS.nam .
+  #
+  cp -f $TEMP/Params_config.txt .
+  #
+  cp -f $PERM/trunk/exe/OFFLINE-AIX64-SFX-V7-2-0-MYSRC-MPIAUTO-O2 offline.exe
+  #
+  export XLSMPOPTS="parthds=$OMP_NUM_THREADS:stack=358400000"
+  #
+  ./offline.exe
+  #
+  ls -l
+  #
+  cp LISTING_OFFLINE*.txt    $TEMP/LISTING
+  #
+  mv mon.out   $TEMP/PROFILING/offline_mon.out
+  mv gmon.out   $TEMP/PROFILING/offline_gmon.out
+  mv log* $TEMP/PROFILING
+  #
+  for file in drhook.prof.* 
+  do
+  mv $file $TEMP/PROFILING/offline_$file
+  done
+  #
+  mv SURFOUT.lfi $TEMP
+  #
+  for FIC in *.BIN
+  do
+  mv $FIC $TEMP
+  done
+  #
+  ;;
+step_3)
+  cd $TEMP
+  #
+  ecp -o SURFOUT.lfi    ec:OUTPUTS/SURFOUT_SFX72.lfi_1995_1996
+  #
+  for FIC in *.BIN
+  do
+  ecp -o $FIC ec:OUTPUTS/$FIC_1995_1996
+  done
+  #
+  ;;
+esac
+#
+
+

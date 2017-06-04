@@ -1,0 +1,120 @@
+&NAM_FRAC              LECOCLIMAP = T
+/
+&NAM_COVER             YCOVER    = 'ECOCLIMAP_I_GLOBAL',
+                       YCOVERFILETYPE = 'DIRECT'
+/
+&NAM_PGD_GRID          CGRID = 'LONLAT REG' 
+/
+&NAM_LONLAT_REG        XLONMIN = -0.35       , 
+                       XLONMAX = 0.15        , 
+                       XLATMIN = 43.43       , 
+                       XLATMAX = 43.93       , 
+                       NLON    = 1          , 
+                       NLAT    = 1 
+/
+&NAM_PGD_SCHEMES       CNATURE = 'ISBA  '    , 
+                       CSEA    = 'SEAFLX'    , 
+                       CTOWN   = 'TEB   '    , 
+                       CWATER  = 'WATFLX' 
+/
+&NAM_ZS                YZS='gtopo30',
+                       YZSFILETYPE='DIRECT'
+/
+&NAM_ISBA              XUNIF_CLAY    = 0.37          ,
+                       XUNIF_SAND    = 0.37          ,
+	               XUNIF_RUNOFFB = 0.5           ,
+                       CISBA         = '2-L'         ,
+                       CPHOTO        = 'NON'         ,
+                       NPATCH        = 1             ,
+                       NGROUND_LAYER = 2        
+/
+
+&NAM_PREP_SURF_ATM NYEAR  = 2002,
+                   NMONTH = 10,
+                   NDAY   = 1,
+                   XTIME  = 0. 
+/
+&NAM_PREP_SEAFLUX  XSST_UNIF = 285.,
+                   NYEAR  = 2002,
+                   NMONTH = 10,
+                   NDAY   = 1,
+                   XTIME  = 0. 
+/
+&NAM_PREP_WATFLUX  XTS_WATER_UNIF = 285.,
+                   NYEAR  = 2002,
+                   NMONTH = 10,
+                   NDAY   = 1,
+                   XTIME  = 0. 
+/
+&NAM_PREP_TEB      XTI_ROAD= 285.,
+                   XTI_BLD = 285.
+                   XTS_ROAD= 285.
+                   XTS_ROOF= 285.,
+                   XTS_WALL= 285.,
+                   XWS_ROAD= 0.,
+                   XWS_ROOF= 0.,
+                   NYEAR  = 2002,
+                   NMONTH = 10,
+                   NDAY   = 1,
+                   XTIME  = 0.
+/
+&NAM_PREP_ISBA     XHUG_SURF = 1.,
+                   XHUG_ROOT = 1.,
+                   XHUG_DEEP = 1.,
+                   XTG_SURF  = 285.85,
+                   XTG_ROOT  = 285.85,
+                   XTG_DEEP  = 285.85,
+                   NYEAR  = 2002,   
+                   NMONTH = 10,
+                   NDAY   = 1,
+                   XTIME  = 0. 
+/
+&NAM_PREP_ISBA_SNOW    CSNOW = '3-L' 
+/
+
+
+&NAM_IO_OFFLINE        LPRINT  = T                       ,
+                       LSET_FORC_ZS = T, 
+                       CFORCING_FILETYPE =    'ASCII '   ,
+                       CSURF_FILETYPE =       'ASCII '   ,
+                       CTIMESERIES_FILETYPE = 'TEXTE '   ,
+                       XTSTEP_OUTPUT = 86400.
+/
+
+
+
+
+&NAM_DIAG_SURFn        LSURF_BUDGET = T      , 
+                       N2M          = 1      ,
+                       LCOEF        = F      ,
+                       LSURF_VARS   = F      
+/
+&NAM_DIAG_SURF_ATMn    LFRAC        = T 
+/
+&NAM_DIAG_ISBAn        LPGD              = T , 
+                       LSURF_EVAP_BUDGET = T , 
+                       LSURF_MISC_BUDGET = F  
+/
+&NAM_DIAG_TEBn         LSURF_MISC_BUDGET = F 
+/
+&NAM_SGH_ISBAn         CRUNOFF    = "WSAT"
+/
+&NAM_SSOn              CROUGH     = "Z04D"
+/
+&NAM_ISBAn             CSCOND     = "NP89"     ,
+                       CC1DRY     = 'DEF '     ,
+                       CSOILFRZ   = 'DEF'      ,
+                       CDIFSFCOND = 'DEF '     ,
+                       CSNOWRES   = 'DEF'      ,
+                       CCPSURF    = 'DRY' 
+/
+&NAM_CH_ISBAn          CCH_DRY_DEP = "WES89 " 
+/
+&NAM_SEAFLUXn          CSEA_ALB = "TA96" 
+/
+&NAM_CH_SEAFLUXn       CCH_DRY_DEP = "WES89 " 
+/
+&NAM_CH_WATFLUXn       CCH_DRY_DEP = "WES89 " 
+/
+&NAM_CH_TEBn           CCH_DRY_DEP = "WES89 " 
+/

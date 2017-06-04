@@ -1,0 +1,144 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     #################################################################################
+SUBROUTINE REGROT_LONLAT_ROT(PXREG,PYREG,PXROT,PYROT,KXDIM,KYDIM,KX,KY, &
+                         PXCEN,PYCEN,KCALL)  
+!     #################################################################################
+!
+!!    PURPOSE
+!!    -------
+!!
+!!    CONVERSION BETWEEN REGULAR AND ROTATED SPHERICAL COORDINATES.
+!!
+!!    PXREG     LONGITUDES OF THE REGULAR COORDINATES
+!!    PYREG     LATITUDES OF THE REGULAR COORDINATES
+!!    PXROT     LONGITUDES OF THE ROTATED COORDINATES
+!!    PYROT     LATITUDES OF THE ROTATED COORDINATES
+!!              ALL COORDINATES GIVEN IN DEGREES N (NEGATIVE FOR S)
+!!              AND DEGREES E (NEGATIVE VALUES FOR W)
+!!    KXDIM     DIMENSION OF THE GRIDPOINT FIELDS IN THE X-DIRECTION
+!!    KYDIM     DIMENSION OF THE GRIDPOINT FIELDS IN THE Y-DIRECTION
+!!    KX        NUMBER OF GRIDPOINT IN THE X-DIRECTION
+!!    KY        NUMBER OF GRIDPOINTS IN THE Y-DIRECTION
+!!    PXCEN     REGULAR LONGITUDE OF THE SOUTH POLE OF THE ROTATED GRID
+!!    PYCEN     REGULAR LATITUDE OF THE SOUTH POLE OF THE ROTATED GRID
+!!
+!!    KCALL=-1: FIND REGULAR AS FUNCTIONS OF ROTATED COORDINATES.
+!!    KCALL= 1: FIND ROTATED AS FUNCTIONS OF REGULAR COORDINATES.
+!!
+!!
+!!**  METHOD
+!!    ------
+!!
+!!    REFERENCE
+!!    ---------
+!!      
+!!    J.E. HAUGEN   HIRLAM   JUNE -92
+!!
+!!    AUTHOR
+!!    ------
+!!     U. Andrae
+!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original    10/2007
+!!------------------------------------------------------------------
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+IMPLICIT NONE
+
+!
+!-----------------------------------------------------------------------
+!
+INTEGER KXDIM,KYDIM,KX,KY,KCALL
+REAL PXREG(KXDIM,KYDIM),PYREG(KXDIM,KYDIM), &
+            PXROT(KXDIM,KYDIM),PYROT(KXDIM,KYDIM), &
+            PXCEN,PYCEN  
+!
+!-----------------------------------------------------------------------
+!
+REAL PI,ZRAD,ZSYCEN,ZCYCEN,ZXMXC,ZSXMXC,ZCXMXC,ZSYREG,ZCYREG, &
+      ZSYROT,ZCYROT,ZCXROT,ZSXROT,ZRADI  
+INTEGER JY,JX
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+!-----------------------------------------------------------------------
+!
+IF (LHOOK) CALL DR_HOOK('REGROT_LONLAT_ROT',0,ZHOOK_HANDLE)
+PI = 4.*ATAN(1.)
+ZRAD = PI/180.
+ZRADI = 1./ZRAD
+ZSYCEN = SIN(ZRAD*(PYCEN+90.))
+ZCYCEN = COS(ZRAD*(PYCEN+90.))
+!
+IF (KCALL.EQ.1) THEN
+!
+  DO JY = 1,KY
+    DO JX = 1,KX
+!
+      ZXMXC  = ZRAD*(PXREG(JX,JY) - PXCEN)
+      ZSXMXC = SIN(ZXMXC)
+      ZCXMXC = COS(ZXMXC)
+      ZSYREG = SIN(ZRAD*PYREG(JX,JY))
+      ZCYREG = COS(ZRAD*PYREG(JX,JY))
+      ZSYROT = ZCYCEN*ZSYREG - ZSYCEN*ZCYREG*ZCXMXC
+      ZSYROT = MAX(ZSYROT,-1.0)
+      ZSYROT = MIN(ZSYROT,+1.0)
+!
+      PYROT(JX,JY) = ASIN(ZSYROT)*ZRADI
+!
+      ZCYROT = COS(PYROT(JX,JY)*ZRAD)
+      ZCXROT = (ZCYCEN*ZCYREG*ZCXMXC +     &
+                 ZSYCEN*ZSYREG)/ZCYROT  
+      ZCXROT = MAX(ZCXROT,-1.0)
+      ZCXROT = MIN(ZCXROT,+1.0)
+      ZSXROT = ZCYREG*ZSXMXC/ZCYROT
+!
+      PXROT(JX,JY) = ACOS(ZCXROT)*ZRADI
+!
+      IF (ZSXROT.LT.0.0) PXROT(JX,JY) = -PXROT(JX,JY)
+!
+    ENDDO
+  ENDDO
+!
+ELSEIF (KCALL.EQ.-1) THEN
+!
+  DO JY = 1,KY
+    DO JX = 1,KX
+!
+      ZSXROT = SIN(ZRAD*PXROT(JX,JY))
+      ZCXROT = COS(ZRAD*PXROT(JX,JY))
+      ZSYROT = SIN(ZRAD*PYROT(JX,JY))
+      ZCYROT = COS(ZRAD*PYROT(JX,JY))
+      ZSYREG = ZCYCEN*ZSYROT + ZSYCEN*ZCYROT*ZCXROT
+      ZSYREG = MAX(ZSYREG,-1.0)
+      ZSYREG = MIN(ZSYREG,+1.0)
+!
+      PYREG(JX,JY) = ASIN(ZSYREG)*ZRADI
+!
+      ZCYREG = COS(PYREG(JX,JY)*ZRAD)
+      ZCXMXC = (ZCYCEN*ZCYROT*ZCXROT -     &
+                       ZSYCEN*ZSYROT)/ZCYREG  
+      ZCXMXC = MAX(ZCXMXC,-1.0)
+      ZCXMXC = MIN(ZCXMXC,+1.0)
+      ZSXMXC = ZCYROT*ZSXROT/ZCYREG
+      ZXMXC  = ACOS(ZCXMXC)*ZRADI
+      IF (ZSXMXC.LT.0.0) ZXMXC = -ZXMXC
+!
+      PXREG(JX,JY) = ZXMXC + PXCEN
+!
+  ENDDO
+ENDDO
+!
+ELSE
+  WRITE(6,'(1X,''INVALID KCALL IN REGROT_LONLAT_ROT'')')
+  CALL ABORT
+ENDIF
+IF (LHOOK) CALL DR_HOOK('REGROT_LONLAT_ROT',1,ZHOOK_HANDLE)
+!
+!-------------------------------------------------------------------------------------
+END SUBROUTINE REGROT_LONLAT_ROT
+!

@@ -1,0 +1,457 @@
+SUBROUTINE OL_WRITE_PROJ(HSELECT, KFILE_ID, UG)
+!
+USE MODD_SURF_ATM_GRID_n, ONLY : SURF_ATM_GRID_t
+!
+USE MODN_IO_OFFLINE, ONLY : LWRITE_COORD
+!
+USE MODD_CSTS, ONLY : XPI
+!
+USE MODI_DEF_VAR_NETCDF
+USE MODI_ABOR1_SFX
+!
+USE MODE_GRIDTYPE_IGN
+USE MODE_GRIDTYPE_CONF_PROJ
+USE MODE_GRIDTYPE_LONLAT_ROT
+USE MODE_GRIDTYPE_LONLAT_REG
+USE MODE_GRIDTYPE_LONLATVAL
+USE MODE_GRIDTYPE_GAUSS
+USE MODE_GRIDTYPE_CARTESIAN
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+USE NETCDF
+!
+IMPLICIT NONE
+! 
+ CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
+INTEGER,               INTENT(IN) :: KFILE_ID
+TYPE(SURF_ATM_GRID_t), INTENT(INOUT) :: UG
+!
+ CHARACTER(LEN=100), DIMENSION(1) :: YATT_TITLE3
+ CHARACTER(LEN=100), DIMENSION(11) :: YATT_TITLE2
+ CHARACTER(LEN=100), DIMENSION(3) :: YATT_TITLE, YATT
+ CHARACTER(LEN=100) :: YCOMMENT
+REAL, DIMENSION(11) :: ZATT
+REAL, DIMENSION(1,2) :: ZATT2D
+!
+REAL, DIMENSION(:), ALLOCATABLE :: ZLATP, ZLATP2
+REAL, DIMENSION(:), ALLOCATABLE :: ZDX, ZDY, ZX, ZY
+!
+REAL, DIMENSION(2) :: ZLAT2
+REAL, DIMENSION(1) :: ZLAT1, ZLON1, ZX1, ZY1, ZX2, ZY2
+REAL :: ZLAT0, ZLON0, ZX0, ZY0, ZRPK, ZBETA, ZLATOR, ZLONOR, ZSIN, &
+        ZLONCEN, ZLATCEN, ZCODIL, ZRESX, ZRESY, ZLONMIN, ZLONMAX,  &
+        ZLATMIN, ZLATMAX, ZDX0, ZDY0
+!
+INTEGER, DIMENSION(:), ALLOCATABLE :: INLOPA
+INTEGER, DIMENSION(1) :: IDIMID1
+INTEGER, DIMENSION(0) :: IDIMID
+INTEGER :: ILAMBERT, IL, IRESP, IVAR_ID, IIMAX, IJMAX, JJ, INLATI
+INTEGER :: IIL, IIH, IJL, IJH, JRET, ICPT, ISIZE
+!
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+IF (LHOOK) CALL DR_HOOK('OL_WRITE_PROJ',0,ZHOOK_HANDLE)
+!
+YATT_TITLE(1) = "grid_mapping_name"
+!
+SELECT CASE(UG%G%CGRID)
+
+  CASE ("CONF PROJ ")
+
+    CALL GET_GRIDTYPE_CONF_PROJ(UG%XGRID_FULL_PAR,KL=IL,KIMAX=IIMAX,KJMAX=IJMAX)
+    ALLOCATE(ZX (IL),ZY (IL))
+    ALLOCATE(ZDX(IL),ZDY(IL))
+    CALL GET_GRIDTYPE_CONF_PROJ(UG%XGRID_FULL_PAR,ZLAT0,ZLON0,ZRPK,ZBETA,ZLATOR,ZLONOR,&
+                                PX=ZX,PY=ZY,PDX=ZDX,PDY=ZDY)
+
+    ZRESX = ZDX(1)
+    ZRESY = ZDY(1)
+    DEALLOCATE(ZDX,ZDY)
+
+    IF ( ABS(ZRPK)==1 ) THEN
+      YATT(1) = "polar_stereographic"
+    ELSEIF (ZRPK==0) THEN
+      YATT(1) = "mercator"
+    ELSE
+      YATT(1) = "lambert_conformal_conic"
+    ENDIF
+
+    ISIZE = 0
+
+    ! geoid
+    ISIZE = ISIZE + 1
+    YATT_TITLE2(ISIZE) = 'earth_radius'
+    ZATT(ISIZE) = 6371229.
+
+    ISIZE = ISIZE + 1
+    IF ( YATT(1)=="polar_stereographic" ) THEN
+      YATT_TITLE2(ISIZE) = "straight_vertical_longitude_from_pole"
+    ELSE
+      YATT_TITLE2(ISIZE) = "longitude_of_central_meridian"
+    ENDIF
+    ZATT(ISIZE) = ZLON0 
+
+    ISIZE = ISIZE + 1
+    YATT_TITLE2(ISIZE) = "latitude_of_projection_origin"
+    IF (YATT(1)=="mercator") THEN
+      ZATT(ISIZE) = 0.
+    ELSE
+      ZATT(ISIZE) = ZLAT0
+    ENDIF
+
+    ZX1(1) = ZX(1)
+    ZY1(1) = ZY(1)    
+    DEALLOCATE(ZX,ZY)    
+    ZLAT1(1) = ZLAT0
+    ZLON1(1) = ZLON0
+    CALL XY_CONF_PROJ(ZLAT0,ZLON0,ZRPK,0.,ZLATOR,ZLONOR,ZX2,ZY2,ZLAT1,ZLON1)
+    ISIZE = ISIZE + 1
+    YATT_TITLE2(ISIZE) = "false_easting" 
+    ZATT(ISIZE) = NINT((ZX2(1)-ZX1(1))*100.)/100.
+    ISIZE = ISIZE + 1
+    YATT_TITLE2(ISIZE) = "false_northing"
+    ZATT(ISIZE) = NINT((ZY2(1)-ZY1(1))*100.)/100.
+
+    ISIZE = ISIZE + 1
+    YATT_TITLE2(ISIZE) = "rotation"
+    ZATT(ISIZE) = ZBETA
+    
+    IF (ZRESX/=0.) THEN
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "x_resolution"
+      ZATT(ISIZE) = ZRESX
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "y_resolution"
+      ZATT(ISIZE) = ZRESY
+    ENDIF
+    
+    ZSIN = SIN(ZLAT0*(XPI/180.))
+    IF (ABS(ZRPK)==1.OR.ZRPK==0..OR.NINT(ZSIN*100.)==NINT(ZRPK*100.)) THEN
+    
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = 'standard_parallel'
+      ZATT(ISIZE) = ZLAT0
+
+      CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
+            YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:ISIZE),&
+            PATT_FLOAT=ZATT(1:ISIZE))
+      
+    ELSE
+       
+      YATT_TITLE3(1) = "standard_parallel"
+      ZATT2D(1,1) = ASIN(ZRPK)*(180./XPI)
+      ZATT2D(1,2) = 2*ZLAT0-ASIN(ZRPK)*(180./XPI)
+
+      CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
+          YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:ISIZE),&
+          PATT_FLOAT=ZATT(1:ISIZE),HATT_TITLE3=YATT_TITLE3(1:1),PATT_FLOAT2D=ZATT2D(1:1,:))
+        
+    ENDIF
+
+
+  CASE ("GAUSS     ")
+
+    YATT(1) = "gauss_grid"
+
+    CALL GET_GRIDTYPE_GAUSS(UG%XGRID_FULL_PAR,PLAPO=ZLAT0,PLOPO=ZLON0,KL=IL,KNLATI=INLATI)
+    ALLOCATE(INLOPA(INLATI))
+    ALLOCATE(ZLATP (IL))
+    ALLOCATE(ZLATP2(INLATI))
+    CALL GET_GRIDTYPE_GAUSS(UG%XGRID_FULL_PAR,KNLOPA=INLOPA,PCODIL=ZCODIL,PLAT_XY=ZLATP)
+    ZLATP2(1) = ZLATP(1)
+    ICPT = 1
+    DO JJ = 2,IL
+      IF ( ZLATP(JJ)/=ZLATP(JJ-1) ) THEN
+        ICPT = ICPT + 1
+        ZLATP2(ICPT) = ZLATP(JJ)
+      ENDIF
+    ENDDO
+    DEALLOCATE(ZLATP)
+
+    YATT_TITLE(2) = "latitudes"
+    YATT_TITLE(3) = "lon_number_by_lat"
+    YATT(2) = "var: gauss_latitudes"
+    YATT(3) = "var: lon_number_by_lat"
+    
+    ! geoid
+    YATT_TITLE2(1) = 'earth_radius'
+    ZATT(1) = 6371229.
+
+    YATT_TITLE2(2) = "dilatation_coef"
+    ZATT(2) = ZCODIL
+
+    YATT_TITLE2(3) = "pole_lon"
+    YATT_TITLE2(4) = "pole_lat"
+    ZATT(3) = NINT(ZLON0*100.)/100.
+    ZATT(4) = NINT(ZLAT0*100.)/100.
+    
+    CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
+              YATT_TITLE(1:3),YATT(1:3),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:4),&
+              PATT_FLOAT=ZATT(1:4))
+
+    YATT_TITLE(:) = ""
+    YATT(:) = ""
+    JRET = NF90_INQ_DIMID(KFILE_ID,"latitude",IDIMID1(1))
+    CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"gauss_latitudes","",IDIMID1,&
+              YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_DOUBLE)
+    CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"lon_number_by_lat","",IDIMID1,&
+              YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT)
+    JRET = NF90_ENDDEF(KFILE_ID)
+    JRET = NF90_INQ_VARID(KFILE_ID, "gauss_latitudes", IVAR_ID)
+    JRET = NF90_PUT_VAR  (KFILE_ID, IVAR_ID, ZLATP2)
+    JRET = NF90_INQ_VARID(KFILE_ID, "lon_number_by_lat", IVAR_ID)
+    JRET = NF90_PUT_VAR  (KFILE_ID, IVAR_ID, INLOPA)
+    JRET = NF90_REDEF(KFILE_ID)
+
+    DEALLOCATE(ZLATP2,INLOPA)
+
+
+  CASE ("CARTESIAN ")
+
+    YATT(1) = "cartesian"
+
+    CALL GET_GRIDTYPE_CARTESIAN(UG%XGRID_FULL_PAR,KL=IL)
+    ALLOCATE(ZDX(IL),ZDY(IL))
+    CALL GET_GRIDTYPE_CARTESIAN(UG%XGRID_FULL_PAR,PDX=ZDX,PDY=ZDY)    
+    ZRESX = ZDX(1)
+    ZRESY = ZDY(1)
+    DEALLOCATE(ZDX,ZDY)
+
+    ISIZE = 0
+    IF (ZRESX/=0.) THEN
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "x_resolution"
+      ZATT(ISIZE) = ZRESX
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "y_resolution"
+      ZATT(ISIZE) = ZRESY
+    ENDIF
+!
+    CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
+                 YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:ISIZE),&
+                 PATT_FLOAT=ZATT(1:ISIZE))
+
+
+  CASE ("LONLAT REG")
+
+    YATT(1) = "latitude_longitude"
+
+    CALL GET_GRIDTYPE_LONLAT_REG(UG%XGRID_FULL_PAR,KL=IL,PLONMIN=ZLONMIN,&
+                                 PLONMAX=ZLONMAX,PLATMIN=ZLATMIN,PLATMAX=ZLATMAX)
+    ALLOCATE(ZX(IL),ZY(IL))
+    CALL GET_GRIDTYPE_LONLAT_REG(UG%XGRID_FULL_PAR,PLON=ZX,PLAT=ZY)
+
+    IF (IL>1) THEN
+      ZRESX = ABS(ZX(1)-ZX(2))
+      IIMAX = NINT((ZLONMAX-ZLONMIN)/ZRESX)
+      IF (IL>IIMAX) THEN
+        ZRESY = ABS(ZY(1)-ZY(IIMAX+1))
+      ELSE
+        ZRESY = ZLATMAX - ZLATMIN
+      ENDIF
+    ELSE
+      ZRESX = ZLONMAX - ZLONMIN
+      ZRESY = ZLATMAX - ZLATMIN
+    ENDIF
+    DEALLOCATE(ZX,ZY)
+
+    ! geoid
+    YATT_TITLE2(1) = 'earth_radius'
+    ZATT(1) = 6371229.
+    
+    ISIZE = 1
+    IF (ZRESX/=0.) THEN
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "x_resolution"
+      ZATT(ISIZE) = ZRESX
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "y_resolution"
+      ZATT(ISIZE) = ZRESY
+    ENDIF
+    
+    CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
+                 YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:ISIZE),&     
+                 PATT_FLOAT=ZATT(1:ISIZE))
+
+
+  CASE ("LONLAT ROT")
+
+    YATT(1) = "rotated_latitude_longitude"
+
+    CALL GET_GRIDTYPE_LONLAT_ROT(UG%XGRID_FULL_PAR,PPOLON=ZLON0,PPOLAT=ZLAT0,&
+                                 KL=IL,KLON=IIMAX,KLAT=IJMAX,PDLON=ZDX0,PDLAT=ZDY0)
+
+    ! geoid
+    YATT_TITLE2(1) = 'earth_radius'
+    ZATT(1) = 6371229.
+                         
+    YATT_TITLE2(2) = "grid_north_pole_longitude"    
+    YATT_TITLE2(3) = "grid_north_pole_latitude"
+    ZATT(2) = ZLON0
+    ZATT(3) = ZLAT0
+
+    ZRESX = ZDX0
+    ZRESY = ZDY0
+
+    ISIZE = 3
+    IF (ZRESX/=0.) THEN
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "x_resolution"
+      ZATT(ISIZE) = ZRESX
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "y_resolution"
+      ZATT(ISIZE) = ZRESY
+    ENDIF
+ 
+    CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
+                  YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,&
+                  HATT_TITLE2=YATT_TITLE2(1:ISIZE),PATT_FLOAT=ZATT(1:ISIZE))
+        
+
+  CASE ("LONLATVAL ")
+
+    YATT(1) = "latitude_longitude"
+
+    ! geoid
+    YATT_TITLE2(1) = 'earth_radius'
+    ZATT(1) = 6371229.
+    
+    CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
+                        YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,&
+                  HATT_TITLE2=YATT_TITLE2(1:1),PATT_FLOAT=ZATT(1:1))
+
+
+  CASE ("IGN       ")
+
+    CALL GET_GRIDTYPE_IGN(UG%XGRID_FULL_PAR,KLAMBERT=ILAMBERT,KL=IL,&
+                         KDIMX=IIMAX,KDIMY=IJMAX)
+
+    IF ( LWRITE_COORD .AND. IIMAX*IJMAX/=IL ) THEN
+
+      YATT(1) = "latitude_longitude"
+
+      CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
+                 YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT)
+
+    ELSE
+
+      ALLOCATE(ZDX(IL))
+      ALLOCATE(ZDY(IL))
+      ALLOCATE(ZX(IIMAX),ZY(IJMAX))
+      CALL GET_GRIDTYPE_IGN(UG%XGRID_FULL_PAR,PXALL=ZX,PYALL=ZY,PDX=ZDX,PDY=ZDY)
+
+      SELECT CASE(ILAMBERT)
+        CASE(1)
+          ZLAT0 = 49.5
+          ZLAT2(1) = 48.592447
+          ZLAT2(2) = 50.39088033333
+          ZLON0 = 2.33722917
+          ZX0 = 600000.
+          ZY0 = 5657616.674
+            
+        CASE(2)
+          ZLAT0 = 46.8
+          ZLAT2(1) = 45.88935133333
+          ZLAT2(2) = 47.68760866666     
+          ZLON0 = 2.33722917
+          ZX0 = 600000.
+          ZY0 = 6199695.768
+
+        CASE(3)
+          ZLAT0 = 44.1
+          ZLAT2(1) = 43.19290816666
+          ZLAT2(2) = 44.96513966666    
+          ZLON0 = 2.33722917
+          ZX0 = 600000.
+          ZY0 = 6791905.085
+          
+        CASE(4)
+          ZLAT0 = 42.165
+          ZLAT2(1) = 41.55623266666
+          ZLAT2(2) = 42.76726466666      
+          ZLON0 = 2.33722917
+          ZX0 = 234.358
+          ZY0 = 7239161.542
+  
+        CASE(5)
+          ZLAT0 = 46.8
+          ZLAT2(1) = 45.88935133333
+          ZLAT2(2) = 47.68760866666     
+          ZLON0 = 2.33722917
+          ZX0 = 600000.
+          ZY0 = 8199695.768
+  
+        CASE(6)
+          ZLAT0 = 46.5
+          ZLAT2(1) = 44.
+          ZLAT2(2) = 49.         
+          ZLON0 = 3.
+          ZX0 = 700000.
+          ZY0 = 12655612.050
+            
+      END SELECT
+
+      YATT_TITLE(1) = "grid_mapping_name"
+      YATT(1) = "lambert_conformal_conic"
+      YATT_TITLE(2) = "ellipsoid"
+      IF (ILAMBERT==6) THEN
+        YATT(2) = "GRS80"
+      ELSE
+        YATT(2) = "clrk80"
+      ENDIF
+
+      ISIZE = 0
+
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "longitude_of_central_meridian"
+      ZATT(ISIZE) = ZLON0 
+
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "latitude_of_projection_origin"
+      ZATT(ISIZE) = ZLAT0
+
+      ZLAT1(1) = ZLAT0
+      ZLON1(1) = ZLON0
+      CALL XY_IGN(ILAMBERT,ZX2,ZY2,ZLAT1,ZLON1)
+      ZX1(1) = MINVAL(ZX)
+      ZY1(1) = MINVAL(ZY)
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "false_easting" 
+      ZATT(ISIZE) = ZX2(1)-ZX1(1)
+      ISIZE = ISIZE + 1
+      YATT_TITLE2(ISIZE) = "false_northing"
+      ZATT(ISIZE) = ZY2(1)-ZY1(1)
+        
+      YATT_TITLE3(1) = "standard_parallel"
+      ZATT2D(1,:) = ZLAT2(:)
+         
+      IF (ALL(ZDX(2:)==ZDX(1))) THEN
+        ISIZE = ISIZE + 1
+        YATT_TITLE2(ISIZE) = "x_resolution"
+        ZATT(ISIZE) = ZDX(1)
+      ENDIF
+      IF (ALL(ZDY(2:)==ZDY(1))) THEN
+        ISIZE = ISIZE + 1
+        YATT_TITLE2(ISIZE) = "y_resolution"
+        ZATT(ISIZE) = ZDY(1)
+      ENDIF
+
+      CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
+            YATT_TITLE(1:2),YATT(1:2),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:ISIZE),&
+            PATT_FLOAT=ZATT(1:ISIZE),HATT_TITLE3=YATT_TITLE3(1:1),PATT_FLOAT2D=ZATT2D(1:1,:))
+  
+      DEALLOCATE(ZX,ZY,ZDX,ZDY)
+
+   ENDIF
+
+  CASE DEFAULT
+
+    CALL ABOR1_SFX("OL_WRITE_PROJ: PROJECTION "//UG%G%CGRID//" NOT DEFINED")
+
+END SELECT 
+!
+IF (LHOOK) CALL DR_HOOK('OL_WRITE_PROJ',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE OL_WRITE_PROJ

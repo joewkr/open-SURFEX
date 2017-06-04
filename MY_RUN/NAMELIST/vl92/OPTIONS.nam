@@ -1,0 +1,114 @@
+&NAM_DATA_TEB          NPAR_ROOF_LAYER      = 4,
+                       XUNIF_ALB_ROOF   = 0.16,
+                       XUNIF_EMIS_ROOF  = 0.92,
+                       XUNIF_HC_ROOF(1) = 1760000.,
+                       XUNIF_HC_ROOF(2) = 1760000.,
+                       XUNIF_HC_ROOF(3) =   40000.,
+                       XUNIF_HC_ROOF(4) = 2110000.,
+                       XUNIF_TC_ROOF(1) = 1.40,
+                       XUNIF_TC_ROOF(2) = 1.40,
+                       XUNIF_TC_ROOF(3) = 0.03,
+                       XUNIF_TC_ROOF(4) = 1.51,
+                       XUNIF_D_ROOF(1)  = 0.01,
+                       XUNIF_D_ROOF(2)  = 0.02,
+                       XUNIF_D_ROOF(3)  = 0.01,
+                       XUNIF_D_ROOF(4)  = 0.03,
+                       NPAR_ROAD_LAYER      = 4,
+                       XUNIF_ALB_ROAD   = 0.08,
+                       XUNIF_EMIS_ROAD  = 0.95,
+                       XUNIF_HC_ROAD(1) = 1740000.,
+                       XUNIF_HC_ROAD(2) = 1740000.,
+                       XUNIF_HC_ROAD(3) = 2000000.,
+                       XUNIF_HC_ROAD(4) = 1400000.,
+                       XUNIF_TC_ROAD(1) = 0.82,
+                       XUNIF_TC_ROAD(2) = 0.82,
+                       XUNIF_TC_ROAD(3) = 2.10,
+                       XUNIF_TC_ROAD(4) = 0.40,
+                       XUNIF_D_ROAD(1)  = 0.01,
+                       XUNIF_D_ROAD(2)  = 0.04,
+                       XUNIF_D_ROAD(3)  = 0.20,
+                       XUNIF_D_ROAD(4)  = 1.00,
+                       NPAR_WALL_LAYER      = 4,
+                       XUNIF_ALB_WALL   = 0.50,
+                       XUNIF_EMIS_WALL  = 0.90,
+                       XUNIF_HC_WALL(1) = 2110000.,
+                       XUNIF_HC_WALL(2) = 2110000.,
+                       XUNIF_HC_WALL(3) = 1000000.,
+                       XUNIF_HC_WALL(4) = 2110000.,
+                       XUNIF_TC_WALL(1) = 1.51,
+                       XUNIF_TC_WALL(2) = 1.51,
+                       XUNIF_TC_WALL(3) = 0.67,
+                       XUNIF_TC_WALL(4) = 1.51,
+                       XUNIF_D_WALL(1)  = 0.01,
+                       XUNIF_D_WALL(2)  = 0.02,
+                       XUNIF_D_WALL(3)  = 0.14,
+                       XUNIF_D_WALL(4)  = 0.03,
+                       XUNIF_Z0_TOWN    = 0.35,
+                       XUNIF_BLD        = 0.51,
+                       XUNIF_BLD_HEIGHT = 5.8,
+                       XUNIF_WALL_O_HOR = 0.39,
+                       XUNIF_H_TRAFFIC  = 0.,
+                       XUNIF_LE_TRAFFIC = 0.,
+                       XUNIF_H_INDUSTRY = 0.,
+                       XUNIF_LE_INDUSTRY= 0.
+/
+&NAM_FRAC              LECOCLIMAP = F,
+                       XUNIF_SEA    = 0.,
+                       XUNIF_WATER  = 0.,
+                       XUNIF_TOWN   = 1.,
+                       XUNIF_NATURE = 0.
+/
+&NAM_PGD_GRID          CGRID = 'LONLAT REG' 
+/
+&NAM_LONLAT_REG        XLONMIN = -123.2       , 
+                       XLONMAX = -123.2       , 
+                       XLATMIN = 49.25        , 
+                       XLATMAX = 49.25        , 
+                       NLON    = 1            , 
+                       NLAT    = 1 
+/
+&NAM_PGD_SCHEMES       CNATURE = 'ISBA  '    , 
+                       CSEA    = 'SEAFLX'    , 
+                       CTOWN   = 'TEB   '    , 
+                       CWATER  = 'WATFLX' 
+/
+&NAM_ZS                XUNIF_ZS  = 0.
+/
+&NAM_PREP_SURF_ATM NYEAR  = 1992,
+                   NMONTH = 8,
+                   NDAY   = 10,
+                   XTIME  = 48000. 
+/
+&NAM_PREP_TEB      XTI_ROAD= 293.15
+                   XTI_BLD = 296.75
+                   XTS_ROAD= 293.15
+                   XTS_ROOF= 278.15
+                   XTS_WALL= 290.15
+                   XWS_ROAD= 0.
+                   XWS_ROOF= 0.
+/
+
+
+&NAM_IO_OFFLINE        LPRINT  = T                       ,
+                       CFORCING_FILETYPE =    'ASCII '   ,
+                       CSURF_FILETYPE =       'ASCII '   ,
+                       CTIMESERIES_FILETYPE = 'TEXTE '   ,
+                       XTSTEP_OUTPUT = 86400.
+/
+
+
+
+&NAM_DIAG_SURFn        LSURF_BUDGET = T      , 
+                       N2M          = 1      ,
+                       LCOEF        = F      ,
+                       LSURF_VARS   = F      , 
+		       LSURF_BUDGETC = F
+/
+&NAM_DIAG_SURF_ATMn    LFRAC        = F 
+/
+&NAM_DIAG_ISBAn        LPGD              = T , 
+                       LSURF_EVAP_BUDGET = T , 
+                       LSURF_MISC_BUDGET = F  
+/
+&NAM_DIAG_TEBn         LSURF_MISC_BUDGET = T 
+/

@@ -1,0 +1,165 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     #########
+       SUBROUTINE INIT_OUTFN_FLAKE_n (FM, UG, U, HSELECT, HPROGRAM, KLUOUT)
+!     ###############################
+!
+!!****  *INIT_OUTFN_FLAKE_n* -  create output files and defines variables
+!!
+!!    PURPOSE
+!!    -------
+!!
+!!**  METHOD
+!!    ------
+!!
+!!    EXTERNAL
+!!    --------
+!!
+!!
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!    REFERENCE
+!!    ---------
+!!
+!!
+!!    AUTHOR
+!!    ------
+!!      P. LeMoigne   *Meteo France*
+!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original    04-04  P. LeMoigne
+!!      Modified 06-10 by S. Faroux
+!!      Modified 04-13 by P. Le Moigne
+!-------------------------------------------------------------------------------
+!
+!*       0.    DECLARATIONS
+!              ------------
+!
+USE MODD_SURFEX_n, ONLY : FLAKE_MODEL_t
+USE MODD_SURF_ATM_GRID_n, ONLY : SURF_ATM_GRID_t
+USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
+!
+USE MODD_OL_FILEID,    ONLY : XNETCDF_FILEID_OUT, XNETCDF_FILENAME_OUT
+!
+USE MODN_IO_OFFLINE,   ONLY : XTSTEP_OUTPUT
+!
+USE MODI_GET_DIM_FULL_n
+USE MODI_OL_DEFINE_DIM
+USE MODI_GET_DATE_OL
+USE MODI_CREATE_FILE
+USE MODI_DEF_VAR_NETCDF
+USE MODI_OL_WRITE_COORD
+USE MODI_OL_WRITE_PROJ
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+USE NETCDF
+!
+IMPLICIT NONE
+!
+TYPE(FLAKE_MODEL_t), INTENT(IN) :: FM
+TYPE(SURF_ATM_GRID_t), INTENT(INOUT) :: UG
+TYPE(SURF_ATM_t), INTENT(INOUT) :: U
+!
+ CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
+!
+CHARACTER(LEN=6),  INTENT(IN) :: HPROGRAM
+INTEGER,           INTENT(IN) :: KLUOUT
+!
+!*       0.2   Declarations of local variables
+!              -------------------------------
+!
+CHARACTER(LEN=100), DIMENSION(:), POINTER :: YNAME_DIM
+!
+CHARACTER(LEN=40),DIMENSION(1)   :: YDATE
+CHARACTER(LEN=13),DIMENSION(1)   :: YUNIT1, YUNIT2
+CHARACTER(LEN=100)               :: YCOMMENT 
+CHARACTER(LEN=50)                :: YFILE
+CHARACTER(LEN=100), DIMENSION(1) :: YATT_TITLE, YATT
+!
+INTEGER, DIMENSION(:), POINTER   :: IDIMS, IDDIM
+INTEGER                          :: INI
+INTEGER                          :: IDIM1, JFILE
+INTEGER                          :: IFILE_ID, JRET
+!
+REAL,DIMENSION(:), POINTER       :: ZX, ZY
+REAL,DIMENSION(:), POINTER    :: ZLAT,ZLON
+!
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+!-------------------------------------------------------------------------------
+
+! 1. Compute output lenght dimension
+!-----------------------------------
+IF (LHOOK) CALL DR_HOOK('INIT_OUTFN_FLAKE_N',0,ZHOOK_HANDLE)
+ CALL GET_DIM_FULL_n(U%NDIM_FULL, INI)
+!
+ CALL OL_DEFINE_DIM(UG, U%NSIZE_FULL, HPROGRAM, KLUOUT, INI, IDIM1, YUNIT1, YUNIT2, &
+                   ZX, ZY, IDIMS, IDDIM, YNAME_DIM,PLAT=ZLAT,PLON=ZLON)
+ CALL GET_DATE_OL(FM%F%TTIME,XTSTEP_OUTPUT,YDATE(1))
+!
+! 4. Create output file for fluxes values
+!----------------------------------------------------------
+!
+YFILE='FLAKE_DIAGNOSTICS.OUT.nc'
+ CALL CREATE_FILE(YFILE,IDIMS,YNAME_DIM,IFILE_ID,IDDIM)
+JRET=NF90_REDEF(IFILE_ID)
+!
+ CALL OL_WRITE_PROJ(HSELECT,IFILE_ID,UG)
+!
+DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT) 
+  IF (TRIM(YFILE)==TRIM(XNETCDF_FILENAME_OUT(JFILE))) THEN
+    XNETCDF_FILEID_OUT(JFILE) = IFILE_ID
+    EXIT
+  ENDIF
+ENDDO
+!
+ CALL OL_WRITE_COORD(HSELECT,YFILE,IFILE_ID,IDDIM,YATT_TITLE,YNAME_DIM,&
+                     YUNIT1,YUNIT2,IDIM1,YDATE,ZX,ZY,ZLON,ZLAT)
+!
+IF (FM%DFO%LSURF_BUDGETC) THEN
+  !        
+  YFILE='FLAKE_DIAG_CUMUL.OUT.nc'
+  CALL CREATE_FILE(YFILE,IDIMS,YNAME_DIM,IFILE_ID,IDDIM)
+  !
+  CALL OL_WRITE_PROJ(HSELECT,IFILE_ID,UG)
+  !
+  DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT) 
+    IF (TRIM(YFILE)==TRIM(XNETCDF_FILENAME_OUT(JFILE))) THEN
+      XNETCDF_FILEID_OUT(JFILE) = IFILE_ID
+      EXIT
+    ENDIF
+  ENDDO
+  !
+  CALL OL_WRITE_COORD(HSELECT,YFILE,IFILE_ID,IDDIM,YATT_TITLE,YNAME_DIM,&
+                      YUNIT1,YUNIT2,IDIM1,YDATE,ZX,ZY,ZLON,ZLAT)
+  !
+ENDIF
+!
+YFILE='FLAKE_PROGNOSTIC.OUT.nc'
+ CALL CREATE_FILE(YFILE,IDIMS,YNAME_DIM,IFILE_ID,IDDIM)
+JRET=NF90_REDEF(IFILE_ID)
+!
+ CALL OL_WRITE_PROJ(HSELECT,IFILE_ID,UG)
+!
+DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT) 
+  IF (TRIM(YFILE)==TRIM(XNETCDF_FILENAME_OUT(JFILE))) THEN
+    XNETCDF_FILEID_OUT(JFILE) = IFILE_ID
+    EXIT
+  ENDIF
+ENDDO
+!
+ CALL OL_WRITE_COORD(HSELECT,YFILE,IFILE_ID,IDDIM,YATT_TITLE,YNAME_DIM,&
+                     YUNIT1,YUNIT2,IDIM1,YDATE,ZX,ZY,ZLON,ZLAT)
+!
+IF (ASSOCIATED(ZX)) DEALLOCATE(ZX,ZY)
+DEALLOCATE(ZLON,ZLAT)
+!
+IF (LHOOK) CALL DR_HOOK('INIT_OUTFN_FLAKE_N',1,ZHOOK_HANDLE)
+!
+END SUBROUTINE INIT_OUTFN_FLAKE_n

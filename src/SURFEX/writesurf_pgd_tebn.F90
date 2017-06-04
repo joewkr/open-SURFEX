@@ -1,0 +1,252 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     #########
+      SUBROUTINE WRITESURF_PGD_TEB_n (HSELECT, TOP, BOP, G, BDD, DTB, DTT, T, TIR, GDM, GRM, HPROGRAM)
+!     ###############################################
+!
+!!****  *WRITE_PGD_TEB_n* - writes TEB fields
+!!
+!!    PURPOSE
+!!    -------
+!!
+!!**  METHOD
+!!    ------
+!!
+!!    EXTERNAL
+!!    --------
+!!
+!!
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!    REFERENCE
+!!    ---------
+!!
+!!
+!!    AUTHOR
+!!    ------
+!!      V. Masson   *Meteo France*
+!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original    01/2003 
+!!      B. Decharme 07/2011 : delete argument HWRITE
+!!      M. Moge     02/2015 parallelization using WRITE_LCOVER
+!-------------------------------------------------------------------------------
+!
+!*       0.    DECLARATIONS
+!              ------------
+!
+USE MODD_SURFEX_n, ONLY : TEB_GARDEN_MODEL_t, TEB_GREENROOF_MODEL_t
+!
+USE MODD_TEB_OPTION_n, ONLY : TEB_OPTIONS_t
+USE MODD_BEM_OPTION_n, ONLY : BEM_OPTIONS_t
+USE MODD_SFX_GRID_n, ONLY : GRID_t
+USE MODD_BLD_DESCRIPTION_n, ONLY : BLD_DESC_t
+USE MODD_DATA_BEM_n, ONLY : DATA_BEM_t
+USE MODD_DATA_TEB_n, ONLY : DATA_TEB_t
+USE MODD_TEB_IRRIG_n, ONLY : TEB_IRRIG_t
+USE MODD_TEB_n, ONLY : TEB_t
+!
+USE MODD_DATA_COVER_PAR, ONLY : JPCOVER
+!
+USE MODE_WRITE_SURF_COV, ONLY : WRITE_SURF_COV
+!
+USE MODI_WRITE_SURF
+USE MODI_WRITE_GRID
+USE MODI_WRITE_LCOVER
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+USE MODI_WRITESURF_PGD_TEB_PAR_n
+USE MODI_WRITESURF_PGD_TEB_GARDEN_n
+USE MODI_WRITESURF_PGD_TEB_GREENROOF_n
+!
+IMPLICIT NONE
+!
+!*       0.1   Declarations of arguments
+!              -------------------------
+!
+ CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
+TYPE(TEB_OPTIONS_t), INTENT(INOUT) :: TOP
+TYPE(BEM_OPTIONS_t), INTENT(INOUT) :: BOP
+TYPE(GRID_t), INTENT(INOUT) :: G
+TYPE(BLD_DESC_t), INTENT(INOUT) :: BDD
+TYPE(DATA_BEM_t), INTENT(INOUT) :: DTB
+TYPE(DATA_TEB_t), INTENT(INOUT) :: DTT
+TYPE(TEB_IRRIG_t), INTENT(INOUT) :: TIR
+TYPE(TEB_t), INTENT(INOUT) :: T
+!
+TYPE(TEB_GARDEN_MODEL_t), INTENT(INOUT) :: GDM
+TYPE(TEB_GREENROOF_MODEL_t), INTENT(INOUT) :: GRM
+!
+ CHARACTER(LEN=6),  INTENT(IN)  :: HPROGRAM ! program calling
+!
+!*       0.2   Declarations of local variables
+!              -------------------------------
+!
+INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears
+ CHARACTER(LEN=12) :: YRECFM         ! Name of the article to be read
+ CHARACTER(LEN=100):: YCOMMENT       ! Comment string
+!
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+!-------------------------------------------------------------------------------
+IF (LHOOK) CALL DR_HOOK('WRITESURF_PGD_TEB_N',0,ZHOOK_HANDLE)
+!
+!*       1.     Dimension initializations:
+!               -------------------------
+!
+!
+!* number of TEB patches
+!
+YRECFM='TEB_PATCH'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%NTEB_PATCH,IRESP,HCOMMENT=YCOMMENT)
+!
+!* number of roof layers
+!
+YRECFM='ROOF_LAYER'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%NROOF_LAYER,IRESP,HCOMMENT=YCOMMENT)
+!
+!* number of road layers
+!
+YRECFM='ROAD_LAYER'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%NROAD_LAYER,IRESP,HCOMMENT=YCOMMENT)
+!
+!* number of wall layers
+!
+YRECFM='WALL_LAYER'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%NWALL_LAYER,IRESP,HCOMMENT=YCOMMENT)
+!
+!* flag indicating if fields are computed from ecoclimap or not
+!
+YRECFM='ECOCLIMAP'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%LECOCLIMAP,IRESP,HCOMMENT=YCOMMENT)
+!
+!
+!* Type of Building Energy Model
+!
+YRECFM='BEM'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%CBEM,IRESP,HCOMMENT=YCOMMENT) 
+!
+IF (TOP%CBEM=='BEM') THEN
+  YRECFM='COOL_COIL'
+  YCOMMENT=YRECFM
+  CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,BOP%CCOOL_COIL,IRESP,HCOMMENT=YCOMMENT)
+  !
+  YRECFM='HEAT_COIL'
+  YCOMMENT=YRECFM
+  CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,BOP%CHEAT_COIL,IRESP,HCOMMENT=YCOMMENT)
+  !
+  YRECFM='AUTOSIZE'
+  YCOMMENT=YRECFM
+  CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,BOP%LAUTOSIZE,IRESP,HCOMMENT=YCOMMENT)
+END IF
+!
+!* Type of averaging of buildings characteristics
+!
+YRECFM='BLD_ATYPE'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%CBLD_ATYPE,IRESP,HCOMMENT=YCOMMENT)
+!
+!
+!
+!* number of floor layers
+!
+IF (TOP%CBEM=="BEM") THEN
+  YRECFM='FLOOR_LAYER'
+  YCOMMENT=YRECFM
+  CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,BOP%NFLOOR_LAYER,IRESP,HCOMMENT=YCOMMENT)
+ENDIF
+!
+!
+!* Use of solar panels
+!
+YRECFM='SOLAR_PANEL'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%LSOLAR_PANEL,IRESP,HCOMMENT=YCOMMENT)
+!
+!------------------------------------------------------------------------------
+!
+! * ISBA fields for urban green areas
+! 
+IF (TOP%LGARDEN) THEN
+!
+! * Greenroofs and hydrology (only activated if LGARDEN)
+!
+YRECFM='LGREENROOF'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%LGREENROOF,IRESP,HCOMMENT=YCOMMENT) 
+!
+YRECFM='LURBAN_HYDRO'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%LHYDRO,IRESP,HCOMMENT=YCOMMENT) 
+!
+! * General ISBA options for urban vegetation
+!
+! * Pedo-transfert function
+!
+YRECFM='GD_PEDOTF'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,GDM%O%CPEDOTF,IRESP,HCOMMENT=YCOMMENT)
+!
+! * type of photosynthesis
+!
+YRECFM='GD_PHOTO'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,GDM%O%CPHOTO,IRESP,HCOMMENT=YCOMMENT)
+!
+!* new radiative transfert
+!
+YRECFM='GD_TR_ML'
+YCOMMENT=YRECFM
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,GDM%O%LTR_ML,IRESP,HCOMMENT=YCOMMENT)
+!
+! * ISBA fields specific to urban gardens
+!
+ CALL WRITESURF_PGD_TEB_GARDEN_n(HSELECT, TOP, T, GDM%DTV%NTIME, GDM%O, GDM%K, GDM%P, HPROGRAM)
+!
+! * ISBA fields specific to urban greenroofs
+!
+IF (TOP%LGREENROOF) CALL WRITESURF_PGD_TEB_GREENROOF_n(HSELECT, GRM%DTV%NTIME, GRM%O, GRM%K, HPROGRAM)
+!
+ENDIF
+!
+!------------------------------------------------------------------------------
+!
+!*       2.     Physiographic data fields:
+!               -------------------------
+!
+!* cover classes
+!
+YRECFM='COVER_LIST'
+YCOMMENT='(LOGICAL LIST)'
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%LCOVER(:),IRESP,HCOMMENT=YCOMMENT,HDIR='-')
+!
+!* orography
+!
+YRECFM='ZS'
+YCOMMENT='ZS'
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%XZS(:),IRESP,HCOMMENT=YCOMMENT)
+!
+!* latitude, longitude
+!
+ CALL WRITE_GRID(HSELECT,  HPROGRAM,G%CGRID,G%XGRID_PAR,G%XLAT,G%XLON,G%XMESH_SIZE,IRESP)
+!
+!-------------------------------------------------------------------------------
+ CALL WRITESURF_PGD_TEB_PAR_n(BDD, DTB, GDM%DTV, GRM%DTV, DTT, HSELECT, GDM%O, &
+                              GRM%O, GRM%S, GRM%K, TIR, TOP, HPROGRAM)
+!
+IF (LHOOK) CALL DR_HOOK('WRITESURF_PGD_TEB_N',1,ZHOOK_HANDLE)
+!-------------------------------------------------------------------------------
+!
+END SUBROUTINE WRITESURF_PGD_TEB_n

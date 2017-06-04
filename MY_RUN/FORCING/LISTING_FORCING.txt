@@ -1,0 +1,3 @@
+ -- namelist NAM_SURF_CSTS not found: default values used if required
+ -- namelist NAM_SURF_SNOW_CSTS not found: default values used if required
+ -- namelist NAM_REPROD_OPER not found: default values used if required

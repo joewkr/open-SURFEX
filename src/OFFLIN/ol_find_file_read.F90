@@ -1,0 +1,121 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     #########
+        SUBROUTINE OL_FIND_FILE_READ(HNAME,IFILE_ID)
+!     ###############################
+!
+!!****  *OL_FIND_FILE_READ
+!!
+!!    PURPOSE
+!!    -------
+!!
+!!**  METHOD
+!!    ------
+!!
+!!    EXTERNAL
+!!    --------
+!!
+!!
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!    REFERENCE
+!!    ---------
+!!
+!!
+!!    AUTHOR
+!!    ------
+!!      F. Habets   *Meteo France*
+!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original    07-03
+!-------------------------------------------------------------------------------
+!
+!*       0.    DECLARATIONS
+!              ------------
+
+USE MODD_OL_FILEID
+
+
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+USE MODI_ABOR1_SFX
+USE NETCDF
+!
+IMPLICIT NONE
+
+
+! 
+ CHARACTER(LEN=*),   INTENT(IN) :: HNAME
+INTEGER, INTENT(OUT):: IFILE_ID
+
+INTEGER, DIMENSION(:), ALLOCATABLE :: ITEMP
+ CHARACTER(LEN=100), DIMENSION(:), ALLOCATABLE :: HTEMP
+LOGICAL     :: LFIND_VAR
+ CHARACTER(LEN=100)             :: HFILE_PAS,HNAME_PAS
+INTEGER :: JRET
+INTEGER :: JFILE,JVAR,IVAR_ID
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+
+!******************************************
+
+IF (LHOOK) CALL DR_HOOK('OL_FIND_FILE_READ',0,ZHOOK_HANDLE)
+HNAME_PAS=HNAME(:LEN_TRIM(HNAME))
+
+LFIND_VAR=.FALSE.
+IFILE_ID=0
+
+IF (SIZE(XID_VARIN).GT.0) THEN
+  DO JVAR=1,SIZE(XVAR_TO_FILEIN)
+    IF (TRIM(XVAR_TO_FILEIN(JVAR))==HNAME_PAS) THEN
+      IFILE_ID=XID_VARIN(JVAR)
+      LFIND_VAR=.TRUE.
+      EXIT
+    ENDIF
+  ENDDO
+ENDIF
+
+IF (.NOT.LFIND_VAR) THEN
+
+  JFILE=1
+
+  JRET=NF90_NOERR+1
+  DO WHILE  ((JFILE<= SIZE(XID_IN)) .AND. (JRET /= NF90_NOERR))
+       IFILE_ID=XID_IN(JFILE)
+       JRET=NF90_INQ_VARID(IFILE_ID,HNAME_PAS,IVAR_ID)
+       JFILE=JFILE+1
+  ENDDO
+
+  IF (JRET == NF90_NOERR) THEN
+    XIN=XIN+1
+    ALLOCATE(ITEMP(XIN))
+    ALLOCATE(HTEMP(XIN))
+    ITEMP(XIN)=IFILE_ID
+    HTEMP(XIN)=HNAME_PAS
+    IF (XIN.GT.1) THEN
+      ITEMP(1:XIN-1)=XID_VARIN(:)
+      HTEMP(1:XIN-1)=XVAR_TO_FILEIN(:)
+    ENDIF
+    !
+    DEALLOCATE(XID_VARIN)
+    DEALLOCATE(XVAR_TO_FILEIN)
+    ALLOCATE(XID_VARIN(XIN))
+    ALLOCATE(XVAR_TO_FILEIN(XIN))
+    XID_VARIN=ITEMP
+    XVAR_TO_FILEIN=HTEMP
+    DEALLOCATE(ITEMP)
+    DEALLOCATE(HTEMP)
+  ELSE
+    CALL ABOR1_SFX("OL_FIND_FILE_READ: "//HNAME_PAS//" NOT FOUND IN INPUT NC FILES")
+  ENDIF
+
+ENDIF
+IF (LHOOK) CALL DR_HOOK('OL_FIND_FILE_READ',1,ZHOOK_HANDLE)
+
+
+END SUBROUTINE OL_FIND_FILE_READ

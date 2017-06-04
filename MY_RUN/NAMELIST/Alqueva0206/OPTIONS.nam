@@ -1,0 +1,69 @@
+&NAM_DATA_FLAKE        XUNIF_WATER_DEPTH = 27.5 ,
+                       XUNIF_WATER_FETCH = 100000. ,
+		       XUNIF_T_BS        = 285. ,
+		       XUNIF_DEPTH_BS    = 0.5 ,
+		       XUNIF_EXTCOEF_WATER = 3. 
+/
+&NAM_FRAC              LECOCLIMAP = F,
+                       XUNIF_SEA    = 0.,
+                       XUNIF_WATER  = 1.,
+                       XUNIF_TOWN   = 0.,
+                       XUNIF_NATURE = 0.
+/
+&NAM_PGD_GRID          CGRID = 'LONLAT REG' 
+/
+&NAM_LONLAT_REG        XLONMIN = 0.           , 
+                       XLONMAX = 0.           , 
+                       XLATMIN = 0.          , 
+                       XLATMAX = 0.          , 
+                       NLON    = 1            , 
+                       NLAT    = 1 
+/
+&NAM_PGD_SCHEMES       CNATURE = 'ISBA  '    , 
+                       CSEA    = 'SEAFLX'    , 
+                       CTOWN   = 'TEB   '    , 
+                       CWATER  = 'FLAKE ' 
+/
+&NAM_ZS                XUNIF_ZS  = 113.
+/
+
+&NAM_PREP_SURF_ATM NYEAR  = 2002,
+                   NMONTH = 7,
+                   NDAY   = 1,
+                   XTIME  = 0. 
+/
+&NAM_PREP_FLAKE    XTS_UNIF = 298.,
+                   XUNIF_T_SNOW = 273.15,
+                   XUNIF_T_ICE = 273.15,
+                   XUNIF_T_WML = 298.,
+                   XUNIF_T_BOT = 290. ,
+		   XUNIF_T_B1 = 290. ,
+                   XUNIF_CT = 0.5,
+                   XUNIF_H_SNOW = 0.0,
+                   XUNIF_H_ICE = 0.01,
+                   XUNIF_H_ML = 8. ,
+		   XUNIF_H_B1 = 0.1,
+                   NYEAR  = 2002,
+                   NMONTH = 7,
+                   NDAY   = 1,
+                   XTIME  = 0. 
+/
+
+&NAM_IO_OFFLINE        LPRINT  = T                       ,
+                       CFORCING_FILETYPE =    'ASCII '   ,
+                       CSURF_FILETYPE =       'ASCII '   ,
+                       CTIMESERIES_FILETYPE = 'TEXTE '   ,
+                       XTSTEP_OUTPUT = 86400.
+/
+
+
+&NAM_DIAG_SURFn        LSURF_BUDGET = T      , 
+                       N2M          = 0      ,
+                       LCOEF        = F      ,
+                       LSURF_VARS   = F
+/
+&NAM_FLAKEn            LSEDIMENTS = T
+/
+&NAM_CH_WATFLUXn       CCH_DRY_DEP = "WES89 " 
+/
+

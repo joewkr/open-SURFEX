@@ -1,0 +1,68 @@
+#! /bin/sh
+#MNH_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+#MNH_LIC This is part of the Meso-NH software governed by the CeCILL-C licence
+#MNH_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#MNH_LIC for details. version 1.
+# fin de conversion d unfichier format CDL cree par extractdia 
+# vers le format netcdf
+# modif 26/08/2008 pour prise en compte du traitemnt des fichiers de couplage
+# N. Asencio
+FILE=$1
+#
+echo 'Passage du format CDL 2 fichiers -> format netcdf'
+# determine le nom du fichier entete et du fichier data
+entete=$(ls -1 ${FILE}h*)
+data=$(ls -1 ${FILE}d*)
+erreur=0
+if [ ! -f $entete ] ; then
+   echo Ne trouve pas le fichier entete : ${FILE}h*
+   erreur=1
+fi
+if [ ! -f $data ] ; then
+   echo Ne trouve pas le fichier data : ${FILE}d*
+   erreur=1
+fi
+if [ "$erreur" != 0 ] ; then
+   exit
+fi
+echo Fichiers traites:  $entete $data
+case "$entete" in
+${FILE}*Z*) suffixe='Z'
+;;
+${FILE}*P*) suffixe='P'
+;;
+${FILE}*K*) suffixe='K'
+;;
+esac
+#
+#
+# concatenation de l entete et des données
+# 
+cat $entete $data  > ${FILE}${suffixe}cdl
+if [ $? -eq 0 ] ; then
+  rm $entete $data
+else
+ echo Impossible de concatener entete et data
+ echo Verifiez votre espace disque ou l existence des fichiers
+ echo $entete $data
+ exit
+fi
+#
+# outil netcdf : ncgen 
+#
+set -x
+ncgen -b ${FILE}${suffixe}cdl -o ${FILE}${suffixe}CL.nc ; retnc=$?
+set +x
+if [ $retnc -ne 0 ] ; then
+  echo ' ERREUR lors de la conversion en fichier netcdf'
+  echo 'verifiez que le premier groupe demande a les dimensions maximales'
+else
+  echo ''
+  echo le fichier netcdf ${FILE}${suffixe}CL.nc est disponible
+  echo visualisable par " ncview ${FILE}${suffixe}CL.nc"
+  echo ''
+  echo le fichier CDL ${FILE}${suffixe}cdl est disponible
+  echo fichier Ascii editable
+  echo Supprimez ce fichier Ascii pour gagner de la place : ${FILE}${suffixe}cdl
+  echo ''
+fi

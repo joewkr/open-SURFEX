@@ -1,0 +1,152 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     #############################################################
+      SUBROUTINE DEALLOC_DIAG_SURF_ATM_n (D,DC,ND,NDC)
+!     #############################################################
+!
+!!    AUTHOR
+!!    ------
+!!      V. Masson   *Meteo France*
+!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original    01/2004
+!!      Modified    01/2006 : sea flux parameterization.
+!!      B.Decharme  04/2013 : new diags
+!-------------------------------------------------------------------------------
+!
+!*       0.    DECLARATIONS
+!              ------------
+!
+!
+USE MODD_DATA_COVER_PAR, ONLY : NTILESFC
+!
+USE MODD_DIAG_n, ONLY : DIAG_t, DIAG_NP_t
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*       0.1   Declarations of arguments
+!              -------------------------
+!
+!*       0.2   Declarations of local variables
+!              -------------------------------
+!
+!-------------------------------------------------------------------------------
+!
+!
+
+!
+TYPE(DIAG_t), INTENT(INOUT) :: D
+TYPE(DIAG_t), INTENT(INOUT) :: DC
+TYPE(DIAG_NP_t), INTENT(INOUT) :: ND
+TYPE(DIAG_NP_t), INTENT(INOUT) :: NDC
+!
+INTEGER :: JT
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+
+IF (LHOOK) CALL DR_HOOK('DEALLOC_DIAG_SURF_ATM_N',0,ZHOOK_HANDLE)
+DO JT=1,NTILESFC
+  DEALLOCATE(ND%AL(JT)%XRI     )
+  DEALLOCATE(ND%AL(JT)%XCD     )
+  DEALLOCATE(ND%AL(JT)%XCH     )
+  DEALLOCATE(ND%AL(JT)%XCE     )
+  DEALLOCATE(ND%AL(JT)%XQS     )
+  DEALLOCATE(ND%AL(JT)%XZ0     )
+  DEALLOCATE(ND%AL(JT)%XZ0H    )
+  DEALLOCATE(ND%AL(JT)%XRN     )
+  DEALLOCATE(ND%AL(JT)%XH      )
+  DEALLOCATE(ND%AL(JT)%XLE     )
+  DEALLOCATE(ND%AL(JT)%XLEI    )
+  DEALLOCATE(ND%AL(JT)%XGFLUX  )
+  DEALLOCATE(ND%AL(JT)%XEVAP   )
+  DEALLOCATE(ND%AL(JT)%XSUBL   )
+  DEALLOCATE(ND%AL(JT)%XT2M    )
+  DEALLOCATE(ND%AL(JT)%XTS     )
+  DEALLOCATE(ND%AL(JT)%XT2M_MIN)
+  DEALLOCATE(ND%AL(JT)%XT2M_MAX)
+  DEALLOCATE(ND%AL(JT)%XQ2M    )
+  DEALLOCATE(ND%AL(JT)%XHU2M   )
+  DEALLOCATE(ND%AL(JT)%XZON10M )
+  DEALLOCATE(ND%AL(JT)%XMER10M )
+  !
+  DEALLOCATE(ND%AL(JT)%XHU2M_MIN    )
+  DEALLOCATE(ND%AL(JT)%XHU2M_MAX   )
+  DEALLOCATE(ND%AL(JT)%XWIND10M     )
+  DEALLOCATE(ND%AL(JT)%XWIND10M_MAX )
+  !  
+  DEALLOCATE(NDC%AL(JT)%XRN     )
+  DEALLOCATE(NDC%AL(JT)%XH      )
+  DEALLOCATE(NDC%AL(JT)%XLE     )
+  DEALLOCATE(NDC%AL(JT)%XLEI    )
+  DEALLOCATE(NDC%AL(JT)%XGFLUX  )
+  DEALLOCATE(NDC%AL(JT)%XEVAP   )
+  DEALLOCATE(NDC%AL(JT)%XSUBL   )
+  DEALLOCATE(NDC%AL(JT)%XSWD    )
+  DEALLOCATE(NDC%AL(JT)%XSWU    )
+  DEALLOCATE(NDC%AL(JT)%XLWD    )
+  DEALLOCATE(NDC%AL(JT)%XLWU    )
+  DEALLOCATE(NDC%AL(JT)%XFMU    )
+  DEALLOCATE(NDC%AL(JT)%XFMV    )
+  !
+ENDDO
+!
+DEALLOCATE(D%XTRAD   )
+DEALLOCATE(D%XEMIS   )
+!
+DEALLOCATE(D%XRI     )
+DEALLOCATE(D%XCD     )
+DEALLOCATE(D%XCH     )
+DEALLOCATE(D%XCE     )
+DEALLOCATE(D%XZ0     )
+DEALLOCATE(D%XZ0H    )
+DEALLOCATE(D%XRN     )
+DEALLOCATE(D%XH      )
+DEALLOCATE(D%XLE     )
+DEALLOCATE(D%XLEI    )
+DEALLOCATE(D%XGFLUX  )
+DEALLOCATE(D%XEVAP   )
+DEALLOCATE(D%XSUBL   )
+DEALLOCATE(D%XT2M    )
+DEALLOCATE(D%XTS     )
+DEALLOCATE(D%XT2M_MIN)
+DEALLOCATE(D%XT2M_MAX)
+DEALLOCATE(D%XQ2M    )
+DEALLOCATE(D%XHU2M   )
+DEALLOCATE(D%XZON10M )
+DEALLOCATE(D%XMER10M )
+DEALLOCATE(D%XSFCO2  )
+DEALLOCATE(D%XT2M_MIN_ZS    )
+DEALLOCATE(D%XQ2M_MIN_ZS    )
+DEALLOCATE(D%XHU2M_MIN_ZS   )
+DEALLOCATE(D%XPS                )
+DEALLOCATE(D%XRHOA              )
+!
+DEALLOCATE(D%XHU2M_MIN     )
+DEALLOCATE(D%XHU2M_MAX     )
+DEALLOCATE(D%XWIND10M      )
+DEALLOCATE(D%XWIND10M_MAX  )
+!
+DEALLOCATE(DC%XRN     )
+DEALLOCATE(DC%XH      )
+DEALLOCATE(DC%XLE     )
+DEALLOCATE(DC%XLEI    )
+DEALLOCATE(DC%XGFLUX  )
+DEALLOCATE(DC%XEVAP   )
+DEALLOCATE(DC%XSUBL   )
+DEALLOCATE(DC%XSWD    )
+DEALLOCATE(DC%XSWU    )
+DEALLOCATE(DC%XLWD    )
+DEALLOCATE(DC%XLWU    )
+DEALLOCATE(DC%XFMU    )
+DEALLOCATE(DC%XFMV    )
+!
+IF (LHOOK) CALL DR_HOOK('DEALLOC_DIAG_SURF_ATM_N',1,ZHOOK_HANDLE)
+! 
+!-------------------------------------------------------------------------------
+!
+END SUBROUTINE DEALLOC_DIAG_SURF_ATM_n

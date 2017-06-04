@@ -1,0 +1,76 @@
+!SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+!SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC for details. version 1.
+!     #######################
+      SUBROUTINE WRITE_ECOCLIMAP2_DATA (HSELECT, HPROGRAM)
+!     #######################
+!
+!
+!
+USE MODI_WRITE_SURF
+!
+USE MODD_DATA_COVER,     ONLY : TDATA_SEED, TDATA_REAP, XDATA_WATSUP, XDATA_IRRIG,&
+                                  LDATA_IRRIG, XDATA_VEGTYPE, LCLIM_LAI  
+USE MODD_DATA_COVER_PAR, ONLY : JPCOVER, NVT_IRR
+!
+!
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!* dummy arguments
+!  ---------------
+!
+ CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
+ CHARACTER(LEN=6),     INTENT(IN)    :: HPROGRAM  ! program calling surf. schemes
+!
+!
+!* local variables
+!  ---------------
+!
+ CHARACTER(LEN=12) :: YRECFM     ! Name of the article to be read
+ CHARACTER(LEN=100):: YCOMMENT   ! Comment
+INTEGER           :: IRESP      ! reading return code
+!
+INTEGER           :: IVERSION   ! surface version
+INTEGER           :: IBUGFIX    ! surface bugfix
+!
+INTEGER           :: JCOVER     ! loop counter
+!
+REAL, DIMENSION(6) :: ZWORK
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!------------------------------------------------------------------------------
+!
+IF (LHOOK) CALL DR_HOOK('WRITE_ECOCLIMAP2_DATA',0,ZHOOK_HANDLE)
+YRECFM='DATA_IRRIG'
+YCOMMENT='FLAG TO READ USER IRRIGATION DATA FOR ECOCLIMAP2'
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,LDATA_IRRIG,IRESP,YCOMMENT)
+!
+YRECFM='LCLIM_LAI'
+YCOMMENT='FLAG TO USE CLIMATOLOGICAL LAI'
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,LCLIM_LAI,IRESP,YCOMMENT)
+!
+IF (.NOT. LDATA_IRRIG .AND. LHOOK) CALL DR_HOOK('WRITE_ECOCLIMAP2_DATA',1,ZHOOK_HANDLE)
+IF (.NOT. LDATA_IRRIG) RETURN
+!
+DO JCOVER=1,JPCOVER
+  IF (XDATA_VEGTYPE(JCOVER,NVT_IRR)==0.) CYCLE
+  WRITE(YRECFM,FMT='(A6,I3.3)') 'IRRIG_',JCOVER
+  WRITE(YCOMMENT,FMT='(A47,I3.3)') &
+    'SEED MONTH&DAY, REAP MONTH&DAY, WATSUP, IRRIG  ',JCOVER  
+  ZWORK(1) = TDATA_SEED  (JCOVER,NVT_IRR)%TDATE%MONTH
+  ZWORK(2) = TDATA_SEED  (JCOVER,NVT_IRR)%TDATE%DAY
+  ZWORK(3) = TDATA_REAP  (JCOVER,NVT_IRR)%TDATE%MONTH
+  ZWORK(4) = TDATA_REAP  (JCOVER,NVT_IRR)%TDATE%DAY
+  ZWORK(5) = XDATA_WATSUP(JCOVER,NVT_IRR)
+  ZWORK(6) = XDATA_IRRIG (JCOVER,NVT_IRR)
+  CALL WRITE_SURF(HSELECT, &
+                 HPROGRAM,YRECFM,ZWORK,IRESP,YCOMMENT,'-',"Irrig_parameters")
+END DO
+IF (LHOOK) CALL DR_HOOK('WRITE_ECOCLIMAP2_DATA',1,ZHOOK_HANDLE)
+!
+!------------------------------------------------------------------------------
+!
+END SUBROUTINE WRITE_ECOCLIMAP2_DATA

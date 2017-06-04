@@ -1,0 +1,7 @@
+&NAM_MY_PARAM  YEXPERIMENT_NAME   = 'ME93        ',
+               NUMBER_GRID_CELLS  = 1             ,
+               NUMBER_OF_TIME_STEPS_INPUT  = 145  ,
+               NUMBER_OF_TIME_STEPS_FINAL  = 145  ,
+               ZATM_FORC_STEP     = 3600.         ,
+               YFORCING_FILETYPE  = 'ASCII '
+/

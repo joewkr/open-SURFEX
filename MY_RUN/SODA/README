@@ -1,0 +1,17 @@
+Surfex Offline Data Assimilation test-experiment
+
+Directory structure:
+INPUT       (*)
+NAMELISTS
+OUTPUT
+README
+RUN
+run_soda.sh
+TESTS
+
+(*)  Download from http://hirlam.org/index.php?option=com_docman&task=doc_download&gid=1457&Itemid=157
+
+
+Usage: ./run_soda.sh EXP [option]
+EXP:  OI
+     EKF

@@ -1,0 +1,21 @@
+#PBS -q compile                  # obligatoire pour rester sur la frontale TX-7
+#PBS -l cputim_prc="05:00:00,04:55:00"  # temps CPU par processus (défaut 30mn,  max 5h)
+#PBS -l memsz_job="9gb,8gb"             # mémoire par job         
+#PBS -l memsz_prc=4gb                   # mémoire par processus   (défaut 256mb, max 2gb)
+#PBS -j o 
+
+set -x
+# On va lancer la compilation dans le répertoire de lancement du job
+
+[ $PBS_O_WORKDIR ] && cd $PBS_O_WORKDIR
+
+pwd
+
+
+. ../conf/profile_surfex-SX8-SFX-V7-2-0-MYSRC-MPIAUTO-O2
+
+time gmake user -j 4  ########## compile on four processors to speedup the compilation
+time gmake  -j 1 installuser
+#time gmake  -j 1 -r bibmaster
+
+usr/local/bin/ja
