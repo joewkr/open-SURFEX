@@ -100,7 +100,6 @@
 ! N        horizontal dimension
 !
 !
-!RJ #include "surfcon.h"
 !RJ       LOGICAL :: INIT
 !     PHYSICAL CONSTANTS
        REAL,PARAMETER :: CPD      =.100546e+4        ! J K-1 kg-1    ! specific heat of dry air
@@ -301,8 +300,6 @@
    80 CONTINUE
       IF (LHOOK) CALL DR_HOOK('FLXSURF3BX',1,ZHOOK_HANDLE)
       CONTAINS
-!RJ: inlining directly
-!RJ #include "stabfunc2.h"
 !
 !   Internal function FMI
 !   Stability function for momentum in the unstable regime (ilmo<0)
