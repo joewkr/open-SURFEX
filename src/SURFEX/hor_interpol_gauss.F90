@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE HOR_INTERPOL_GAUSS(KLUOUT,PFIELDIN,PFIELDOUT)
@@ -19,7 +19,7 @@ SUBROUTINE HOR_INTERPOL_GAUSS(KLUOUT,PFIELDIN,PFIELDOUT)
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -54,9 +54,9 @@ REAL, DIMENSION(:,:), INTENT(OUT)   :: PFIELDOUT ! interpolated field
 !*      0.2    declarations of local variables
 !
 REAL, DIMENSION(:,:), POINTER :: ZFIELDIN0=>NULL()
-REAL, DIMENSION(:,:,:), ALLOCATABLE :: ZFIELDIN 
+REAL, DIMENSION(:,:,:), ALLOCATABLE :: ZFIELDIN
 !
-INTEGER, DIMENSION(:,:,:), ALLOCATABLE :: ILSMIN  
+INTEGER, DIMENSION(:,:,:), ALLOCATABLE :: ILSMIN
 INTEGER, DIMENSION(:,:), ALLOCATABLE :: IMASKIN  ! input mask
 INTEGER, DIMENSION(:), ALLOCATABLE :: IMASKOUT ! output mask
 INTEGER, DIMENSION(:), POINTER :: IMASK=>NULL()

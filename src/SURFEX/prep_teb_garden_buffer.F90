@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_TEB_GARDEN_BUFFER(HPROGRAM,HSURF,KLUOUT,PFIELD)
@@ -16,11 +16,11 @@ SUBROUTINE PREP_TEB_GARDEN_BUFFER(HPROGRAM,HSURF,KLUOUT,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     S. Malardel 
+!!     S. Malardel
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -90,7 +90,7 @@ SELECT CASE(HSURF)
      CASE('ALADIN')
         CALL READ_BUFFER_TG(KLUOUT,YINMODEL,ZFIELD,ZD)
      END SELECT
-     
+
      CALL SOIL_PROFILE_BUFFER
 
   CASE('WG    ')
@@ -104,7 +104,7 @@ SELECT CASE(HSURF)
 
 !*      3.3    Profile of soil ice content
 
-  CASE('WGI   ')    
+  CASE('WGI   ')
      !* reading of the profile and its depth definition
      SELECT CASE(YINMODEL)
        CASE('ALADIN')

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE TREAT_GLOBAL_LAKE_DEPTH (DTCO, UG, U, USS, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -50,7 +50,7 @@ USE MODD_SSO_n, ONLY : SSO_t
 USE MODD_SURF_PAR,       ONLY : XUNDEF
 USE MODD_PGD_GRID,       ONLY : NL
 USE MODD_PGDWORK,        ONLY : XALL, NSIZE_ALL, XSUMVAL, NSIZE
-USE MODD_DATA_LAKE,      ONLY : CLAKELDB, CSTATUSLDB, NGRADDEPTH_LDB, NGRADSTATUS_LDB 
+USE MODD_DATA_LAKE,      ONLY : CLAKELDB, CSTATUSLDB, NGRADDEPTH_LDB, NGRADSTATUS_LDB
 !
 USE MODI_GET_LUOUT
 USE MODI_TREAT_FIELD
@@ -120,7 +120,7 @@ XALL   (:,:,:) = 0.
 !
  CALL TREAT_FIELD(UG, U, USS, &
                   HPROGRAM,'SURF  ','DIRECT','A_LDBD', CLAKELDB,   &
-                 'water depth         ',ZDEPTH      ) 
+                 'water depth         ',ZDEPTH      )
 !
 DEALLOCATE(XSUMVAL)
 DEALLOCATE(NSIZE)

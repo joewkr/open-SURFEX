@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################################################################
       SUBROUTINE E_BUDGET_MEB(IO, KK, PK, PEK, DK, DEK, DMK,     &
@@ -18,14 +18,14 @@
                               PCHEATN, PLEG_DELTA, PLEGI_DELTA, PHUGI,     &
                               PHVG, PHVN, PFROZEN1, PFLXC_C_A, PFLXC_G_C,  &
                               PFLXC_VG_C, PFLXC_VN_C, PFLXC_N_C, PFLXC_N_A,&
-                              PFLXC_MOM, PTG, PSNOWLIQ, PFLXC_V_C, PHVGS, PHVNS, & 
+                              PFLXC_MOM, PTG, PSNOWLIQ, PFLXC_V_C, PHVGS, PHVNS, &
                               PDQSAT_G, PDQSAT_V, PDQSATI_N, PTA_IC,       &
                               PQA_IC, PUSTAR2_IC, PVMOD, PDELTAT_G,        &
                               PDELTAT_V, PDELTAT_N, PGRNDFLUX, PDEEP_FLUX, &
                               PDELHEATV_SFC, PDELHEATG_SFC, PDELHEATG     )
 !     ##########################################################################
 !
-!!****  *E_BUDGET*  
+!!****  *E_BUDGET*
 !!
 !!    PURPOSE
 !!    -------
@@ -34,14 +34,14 @@
 !     energy budgets (understory vegetation-soil composite, vegetation canopy
 !     and explicit snowpack) and sub-surface soil temperatures. Canopy
 !     air space temperature and specific humidities are also diagnosed.
-!     Fully implicit coupling with the atmosphere allowed. 
+!     Fully implicit coupling with the atmosphere allowed.
 !     Note that a 'test' snow temperature is computed herein which is just
 !     use to compute the surface fluxes. These fluxes are then used within
-!     the snow scheme as an upper boundary condition to compute the snow 
-!     temperatures. In theory, they should be very close, but this method is 
+!     the snow scheme as an upper boundary condition to compute the snow
+!     temperatures. In theory, they should be very close, but this method is
 !     done to ensure a high level of energy conservation.
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -58,27 +58,27 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Noilhan and Planton (1989)
 !!    Belair (1995)
 !!    * to be done * (2011)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
 !!	A. Boone           * CNRM-GAME, Meteo-France *
 !!      P. Samuelsson      * SMHI *
-!!      S. Gollvik         * SMHI * 
+!!      S. Gollvik         * SMHI *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    22/01/11 
+!!      Original    22/01/11
 !!                  10/10/14 (A. Boone) Removed understory vegetation
 !!
 !-------------------------------------------------------------------------------
@@ -153,15 +153,15 @@ REAL, DIMENSION(:,:), INTENT(IN)   :: PTAU_N
 !                                                it is presumed to go into the uppermost soil layer.
 !
 REAL, DIMENSION(:),   INTENT(IN)   :: PLWNET_V_DTV, PLWNET_V_DTG, PLWNET_V_DTN
-!                                     PLWNET_V_DTV, PLWNET_V_DTG, PLWNET_V_DTN = Vegetation canopy net LW radiation 
+!                                     PLWNET_V_DTV, PLWNET_V_DTG, PLWNET_V_DTN = Vegetation canopy net LW radiation
 !                                     derivatives w/r/t surface temperature(s) (W m-2 K-1)
 !
 REAL, DIMENSION(:),   INTENT(IN)   :: PLWNET_G_DTV, PLWNET_G_DTG, PLWNET_G_DTN
-!                                     PLWNET_G_DTV, PLWNET_G_DTG, PLWNET_G_DTN = Understory-ground net LW radiation 
+!                                     PLWNET_G_DTV, PLWNET_G_DTG, PLWNET_G_DTN = Understory-ground net LW radiation
 !                                          derivatives w/r/t surface temperature(s) (W m-2 K-1)
 !
 REAL, DIMENSION(:),   INTENT(IN)   :: PLWNET_N_DTV, PLWNET_N_DTG, PLWNET_N_DTN
-!                                     PLWNET_N_DTV, PLWNET_N_DTG, PLWNET_N_DTN = Ground-based snow net LW radiation 
+!                                     PLWNET_N_DTV, PLWNET_N_DTG, PLWNET_N_DTN = Ground-based snow net LW radiation
 !                                          derivatives w/r/t surface temperature(s) (W m-2 K-1)
 !
 REAL, DIMENSION(:),   INTENT(IN)   :: PTHRMA_TA, PTHRMB_TA, PTHRMA_TC, PTHRMB_TC,                     &
@@ -181,9 +181,9 @@ REAL, DIMENSION(:),   INTENT(IN)   :: PTHRMA_TA, PTHRMB_TA, PTHRMA_TC, PTHRMB_TC
 !
 REAL, DIMENSION(:),   INTENT(IN)   :: PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF,             &
                                       PPEW_A_COEF, PPEW_B_COEF
-!                                     PPEW_A_COEF = wind atmospheric coupling coefficient 
-!                                     PPEW_B_COEF = wind atmospheric coupling coefficient 
-!                                     PPET_A_COEF = A-air temperature atmospheric coupling coefficient 
+!                                     PPEW_A_COEF = wind atmospheric coupling coefficient
+!                                     PPEW_B_COEF = wind atmospheric coupling coefficient
+!                                     PPET_A_COEF = A-air temperature atmospheric coupling coefficient
 !                                     PPET_B_COEF = B-air temperature atmospheric coupling coefficient
 !                                     PPEQ_A_COEF = A-air specific humidity atmospheric coupling coefficient
 !                                     PPEQ_B_COEF = B-air specific humidity atmospheric coupling coefficient
@@ -199,9 +199,9 @@ REAL, DIMENSION(:),   INTENT(IN)   :: PPSNA, PPSNCV
 !                                     PPSNCV   = fraction of vegetation canopy covered by intercepted snow     (-)
 !
 REAL, DIMENSION(:),   INTENT(IN)   :: PLEG_DELTA, PLEGI_DELTA, PHUGI, PHVG, PHVN, PFROZEN1
-!                                     PHUGI       = relative humidity of the frozen surface soil                      (-)                         
-!                                     PHVG        = Halstead coefficient of non-buried (snow) canopy vegetation       (-)                         
-!                                     PHVN        = Halstead coefficient of paritally-buried (snow) canopy vegetation (-)  
+!                                     PHUGI       = relative humidity of the frozen surface soil                      (-)
+!                                     PHVG        = Halstead coefficient of non-buried (snow) canopy vegetation       (-)
+!                                     PHVN        = Halstead coefficient of paritally-buried (snow) canopy vegetation (-)
 !                                     PLEG_DELTA  = soil evaporation delta fn                                         (-)
 !                                     PLEGI_DELTA = soil sublimation delta fn                                         (-)
 !                                     PFROZEN1    = fraction of surface soil layer which is frozen                    (-)
@@ -210,7 +210,7 @@ REAL, DIMENSION(:),   INTENT(IN)   :: PFLXC_C_A, PFLXC_G_C, PFLXC_VG_C, PFLXC_VN
 !                                     PFLXC_C_A  = Flux form heat transfer coefficient: canopy air to atmosphere (kg m-2 s-1)
 !                                     PFLXC_G_C  = As above, but for : ground-understory to canopy air           (kg m-2 s-1)
 !                                     PFLXC_VG_C = As above, but for : non-snow buried canopy to canopy air      (kg m-2 s-1)
-!                                     PFLXC_VN_C = As above, but for : partially snow-buried canopy air to canopy 
+!                                     PFLXC_VN_C = As above, but for : partially snow-buried canopy air to canopy
 !                                                  air                                                           (kg m-2 s-1)
 !                                     PFLXC_N_C  = As above, but for : ground-based snow to atmosphere           (kg m-2 s-1)
 !                                     PFLXC_N_A  = As above, but for : ground-based snow to canopy air           (kg m-2 s-1)
@@ -231,15 +231,15 @@ REAL, DIMENSION(:),   INTENT(OUT)  :: PCHEATV, PCHEATG, PCHEATN
 !                                     PCHEATN = Ground-based snow *effective surface* heat capacity          (J m-2 K-1)
 !
 REAL, DIMENSION(:),   INTENT(OUT)  :: PDQSAT_G, PDQSAT_V, PDQSATI_N
-!                                     PQSAT_G  = saturation specific humidity derivative for understory 
+!                                     PQSAT_G  = saturation specific humidity derivative for understory
 !                                                surface               (kg kg-1 K-1)
-!                                     PQSAT_V  = saturation specific humidity derivative for the vegetation 
+!                                     PQSAT_V  = saturation specific humidity derivative for the vegetation
 !                                                canopy                (kg kg-1 K-1)
-!                                     PQSATI_N = saturation specific humidity derivative over ice for the 
+!                                     PQSATI_N = saturation specific humidity derivative over ice for the
 !                                                ground-based snowpack (kg kg-1 K-1)
 !
 REAL, DIMENSION(:),   INTENT(OUT)  :: PFLXC_V_C, PHVGS, PHVNS
-!                                     PFLXC_V_C = Flux form heat transfer coefficient: total canopy (partially 
+!                                     PFLXC_V_C = Flux form heat transfer coefficient: total canopy (partially
 !                                                 snow-buried and non-buried parts) to canopy air               (kg m-2 s-1)
 !                                     PHVGS     = Dimensionless pseudo humidity factor for computing vapor
 !                                                 fluxes from the non-buried part of the canopy to the canopy air    (-)
@@ -259,7 +259,7 @@ REAL, DIMENSION(:),   INTENT(OUT)  :: PDELTAT_V, PDELTAT_N, PDELTAT_G
 !                                     PDELTAT_N = Time change in snowpack surface temperature  (K)
 !                                     PDELTAT_G = Time change in soil surface temperature      (K)
 !
-REAL, DIMENSION(:),   INTENT(OUT)  :: PGRNDFLUX 
+REAL, DIMENSION(:),   INTENT(OUT)  :: PGRNDFLUX
 !                                     PGRNDFLUX = Flux between snowpack base and ground surface (W m-2)
 !
 REAL, DIMENSION(:),  INTENT(OUT)   :: PDEEP_FLUX ! Heat flux at bottom of ISBA (W/m2)
@@ -339,7 +339,7 @@ JNPTS        = SIZE(PTG,1)
 
 ! sub-surface / surface coupling coefficients:
 
-ZSOIL_COEF_A(:,:) = 0.0 
+ZSOIL_COEF_A(:,:) = 0.0
 ZSOIL_COEF_B(:,:) = 0.0
 ZSNOW_COEF_A(:,:) = 0.0
 ZSNOW_COEF_B(:,:) = 0.0
@@ -371,7 +371,7 @@ PDQSATI_N(:)  = DQSATI(ZTNO(:,1), PPS(:),PQSATI_N(:) )
 !       ALSO, water should include canopy drip etc....but again, conservation
 !       would need to be carefully accounted for. So for now within MEB,
 !       set to 0. But code within MEB and ES can accept this term, so
-!       if this process is added at some point, it would be here. 
+!       if this process is added at some point, it would be here.
 !       Also, it is treated explicitly...this might also have to be changed
 !       to implicit depending how this term is expressed. That would require
 !       modification to this routine and flux routine:  but retain it here for possible
@@ -397,11 +397,11 @@ ZVMOD(:)     = PPEW_A_COEF(:)*ZUSTAR2(:) + PPEW_B_COEF(:)
 !
 PVMOD(:)     = MAX(ZVMOD,0.)
 !
-WHERE (PPEW_A_COEF(:) /= 0.) 
+WHERE (PPEW_A_COEF(:) /= 0.)
      ZUSTAR2(:) = MAX(0., ( PVMOD(:) - PPEW_B_COEF(:) ) / PPEW_A_COEF(:) )
 END WHERE
 !
-PUSTAR2_IC(:)= ZUSTAR2(:) 
+PUSTAR2_IC(:)= ZUSTAR2(:)
 !
 ! NOTE: put in new option HIMPLICIT_WIND=='OLD' or 'NEW' ?
 !
@@ -412,7 +412,7 @@ IF(IO%CISBA == 'DIF')THEN
 !*       2.a    Compute sub-surface soil coupling coefficients: upward sweep
 !               ------------------------------------------------------------
 ! Upward sweep of the tridiagnal matrix using R&M method. Also compute
-! interfacial thermal conductivity to layer thickness ratio (W m-2 K-1) 
+! interfacial thermal conductivity to layer thickness ratio (W m-2 K-1)
 ! These coefficients are used to compute the temperature profile implicitly.
 !
    CALL TRIDIAG_GROUND_RM_COEFS(PTSTEP, PD_G, ZTGO, PSOILHCAPZ, PSOILCONDZ,   &
@@ -422,7 +422,7 @@ IF(IO%CISBA == 'DIF')THEN
 ! Here we repeat this for the snowpack: but note, this is just
 ! to better estimate surface fluxes via the surface-sub surface heat
 ! Flux term (we do not actually solve
-! the snow T profile here since fractional coverage not included). 
+! the snow T profile here since fractional coverage not included).
 ! We start from base of soil up through snow
 ! to surface. This gives coefficients which are fully implicit
 ! from the base of the soil to the snow surface, so numerically it is
@@ -540,10 +540,10 @@ PFLXC_V_C(:)   = MAX(PFLXC_V_C(:), ZERTOL_FLX_C)
 
 ZFFF(:)        = KK%XFF(:)*( (1.0 - KK%XFFROZEN(:))*(XLVTT/PLTT(:)) +      &
                                     KK%XFFROZEN(:) *(XLSTT/PLTT(:)) )
- 
+
 ZHN(:)         = (1.0-PEK%XPSN(:)-KK%XFF(:))*(                                        &
                             PLEG_DELTA (:) *(1.0-PFROZEN1(:))*(XLVTT/PLTT(:))          &
-                 +          PLEGI_DELTA(:)*      PFROZEN1(:) *(XLSTT/PLTT(:)) ) + ZFFF(:)         
+                 +          PLEGI_DELTA(:)*      PFROZEN1(:) *(XLSTT/PLTT(:)) ) + ZFFF(:)
 
 ZHS(:)         = (1.0-PEK%XPSN(:)-KK%XFF(:))*(                                           &
                    DK%XHUG(:)  *PLEG_DELTA (:) *(1.0-PFROZEN1(:)) *(XLVTT/PLTT(:))       &
@@ -566,10 +566,10 @@ PHVNS(:)       = (1.-ZPSNA(:))*PEK%XPSN(:) *        (PFLXC_VN_C(:)/PFLXC_V_C(:))
 ! - total canopy H factor (including intercepted snow)
 
 ZHVS(:)        = (1.-PPSNCV(:))*(XLVTT/PLTT(:))*PHVGS(:) +  &
-                     PPSNCV(:) *(XLSTT/PLTT(:))*PHVNS(:)   
+                     PPSNCV(:) *(XLSTT/PLTT(:))*PHVNS(:)
 
 ! Snow latent heating factor:
-! NOTE, for now we consider only snow sublimation 
+! NOTE, for now we consider only snow sublimation
 !       (not evaporation from snow liquid)
 !
 ZHNS           = (XLSTT/PLTT(:))
@@ -615,7 +615,7 @@ ZWORK(:)     = PFLXC_C_A(:) *(PTHRMA_TC(:)-PTHRMA_TA(:)*ZPET_A_COEF_P(:))*ZPSNAG
                    + PFLXC_G_C(:) *PTHRMA_TC(:)*(1.0-PEK%XPSN(:))                                       &
                    + PFLXC_N_C(:) *PTHRMA_TC(:)*     PEK%XPSN(:) *(1.0-PPSNA(:))
 
-ZCOEFA_TC(:) = (PFLXC_C_A(:) * ZPSNAG(:) *(PTHRMA_TA(:)*ZPET_B_COEF_P(:)-PTHRMB_TC(:)+PTHRMB_TA(:)) &    
+ZCOEFA_TC(:) = (PFLXC_C_A(:) * ZPSNAG(:) *(PTHRMA_TA(:)*ZPET_B_COEF_P(:)-PTHRMB_TC(:)+PTHRMB_TA(:)) &
                    + PFLXC_V_C(:) * (PTHRMB_TV(:)-PTHRMB_TC(:))                                     &
                    + PFLXC_G_C(:) * (PTHRMB_TG(:)-PTHRMB_TC(:))*(1.0-PEK%XPSN(:))                       &
                    + PFLXC_N_C(:) * (PTHRMB_TN(:)-PTHRMB_TC(:))*     PEK%XPSN(:) *(1.0-PPSNA(:))        &
@@ -642,7 +642,7 @@ ZCOEFA_QC(:)   = ( PFLXC_C_A(:) *ZPEQ_B_COEF_P(:)*ZPSNAG(:)                     
                  + PFLXC_G_C(:) *ZHS(:) *(PQSAT_G(:)-PDQSAT_G(:)*ZTGO(:,1))*(1.0-PEK%XPSN(:))      &
                  + PFLXC_N_C(:) *ZHNS(:)*(PQSATI_N(:)-PDQSATI_N(:)*ZTNO(:,1))*                      &
                                                                       PEK%XPSN(:)*(1.0-PPSNA(:))   &
-                                                                                )/ZWORK(:) 
+                                                                                )/ZWORK(:)
 
 ZCOEFB_QC(:)   = PFLXC_V_C(:) *ZHVS(:)*PDQSAT_V(:) /ZWORK(:)
 
@@ -652,7 +652,7 @@ ZCOEFD_QC(:)   = PFLXC_N_C(:) *ZHNS(:)*PDQSATI_N(:)*     PEK%XPSN(:)*(1.0-PPSNA(
 
 !*       6.     Surface Energy Budget(s) coefficients
 !               -------------------------------------
-! Each of the 'N' energy budgets is linearized, so we have 
+! Each of the 'N' energy budgets is linearized, so we have
 ! 'N' linear equations and 'N' unknowns. Here we set up the coefficients.
 ! For computations here, make snow radiative terms relative to snow surface:
 
@@ -668,7 +668,7 @@ ZRNET_N_DTVN(:) = PLWNET_N_DTV(:)            *ZWORK(:)
 
 ZWORK(:)    =   (PCHEATV(:)/PTSTEP) - PLWNET_V_DTV(:)                                               &
               + PFLXC_V_C(:)*(PTHRMA_TV(:) - PTHRMA_TC(:)*ZCOEFB_TC(:)                              &
-              + PLTT(:)*ZHVS(:)*(PDQSAT_V(:) - ZCOEFB_QC(:)) )           
+              + PLTT(:)*ZHVS(:)*(PDQSAT_V(:) - ZCOEFB_QC(:)) )
 
 ZBETA_V(:)  = ( (PCHEATV(:)/PTSTEP)*ZTVO(:) + DEK%XLWNET_V(:) + DEK%XSWNET_V(:)                  &
               - PLWNET_V_DTV(:)*ZTVO(:) - PLWNET_V_DTG(:)*ZTGO(:,1) - PLWNET_V_DTN(:)*ZTNO(:,1)     &
@@ -769,9 +769,9 @@ WHERE(PEK%XPSN(:) > 0.0)
 
    PTG(:,1)      = ZBETA_G(:) + ZALPHA_G(:)*PEK%XTV(:) + ZGAMMA_G(:)*DMK%XSNOWTEMP(:,1)
 
-   PEK%XTC(:)        = ZCOEFA_TC(:) + ZCOEFB_TC(:)*PEK%XTV(:) + ZCOEFC_TC(:)*PTG(:,1) + ZCOEFD_TC(:)*DMK%XSNOWTEMP(:,1) 
+   PEK%XTC(:)        = ZCOEFA_TC(:) + ZCOEFB_TC(:)*PEK%XTV(:) + ZCOEFC_TC(:)*PTG(:,1) + ZCOEFD_TC(:)*DMK%XSNOWTEMP(:,1)
 
-   PEK%XQC(:)        = ZCOEFA_QC(:) + ZCOEFB_QC(:)*PEK%XTV(:) + ZCOEFC_QC(:)*PTG(:,1) + ZCOEFD_QC(:)*DMK%XSNOWTEMP(:,1) 
+   PEK%XQC(:)        = ZCOEFA_QC(:) + ZCOEFB_QC(:)*PEK%XTV(:) + ZCOEFC_QC(:)*PTG(:,1) + ZCOEFD_QC(:)*DMK%XSNOWTEMP(:,1)
 
 ! Lowest atmospheric level air temperature (for this patch):
 
@@ -795,9 +795,9 @@ ELSEWHERE ! snow free canopy-understory case:
 
    PEK%XTV(:)        = ZBETA_V(:) + ZALPHA_V(:)*PTG(:,1)
 
-   PEK%XTC(:)        = ZCOEFA_TC(:) + ZCOEFB_TC(:)*PEK%XTV(:) + ZCOEFC_TC(:)*PTG(:,1) 
+   PEK%XTC(:)        = ZCOEFA_TC(:) + ZCOEFB_TC(:)*PEK%XTV(:) + ZCOEFC_TC(:)*PTG(:,1)
 
-   PEK%XQC(:)        = ZCOEFA_QC(:) + ZCOEFB_QC(:)*PEK%XTV(:) + ZCOEFC_QC(:)*PTG(:,1) 
+   PEK%XQC(:)        = ZCOEFA_QC(:) + ZCOEFB_QC(:)*PEK%XTV(:) + ZCOEFC_QC(:)*PTG(:,1)
 
 ! Lowest atmospheric level air temperature (for this patch):
 
@@ -816,12 +816,12 @@ ELSEWHERE ! snow free canopy-understory case:
 END WHERE
 !
 !
-!*       8.     Solve for sub-surface test snow temperature profile 
+!*       8.     Solve for sub-surface test snow temperature profile
 !               -----------------------------------------------------------------------------
-! Compute test sub-surface snow temperatures: this improves time split estimate of 
+! Compute test sub-surface snow temperatures: this improves time split estimate of
 ! surface to sub-surface flux estimates. Note that the sub-surface
 ! snow temperatures are "test" temperatures, with final "true" values
-! computed within the snow routine. 
+! computed within the snow routine.
 ! But we also include simple hydrology and refreezing since this can have
 ! a significant impact during melt events on the sub-surface test
 ! snow Temperature profile...
@@ -866,7 +866,7 @@ DO JK=2,JNSNOW
          DMK%XSNOWTEMP(JJ,JK) = DMK%XSNOWTEMP(JJ,JK) + PSNOWLIQ(JJ,JK)*(XLMTT*XRHOLW)/ &
                                 (PSNOWHCAPZ(JJ,JK)*MAX(1.E-6,DMK%XSNOWDZ(JJ,JK)))     ! K
          ZWORK(JJ)            = MAX(0., (XTT-DMK%XSNOWTEMP(JJ,JK))*                    &
-                                PSNOWHCAPZ(JJ,JK)*DMK%XSNOWDZ(JJ,JK)/(XLMTT*XRHOLW)) ! m 
+                                PSNOWHCAPZ(JJ,JK)*DMK%XSNOWDZ(JJ,JK)/(XLMTT*XRHOLW)) ! m
          PSNOWLIQ(JJ,JK)      = PSNOWLIQ(JJ,JK) - ZWORK(JJ)
          DMK%XSNOWTEMP(JJ,JK) = MIN(XTT,DMK%XSNOWTEMP(JJ,JK))
       ENDIF
@@ -898,7 +898,7 @@ END WHERE
 !*       10.     Temperature tendencies
 !               ----------------------
 !
-! Compute energy budget tendencies (for flux computations) 
+! Compute energy budget tendencies (for flux computations)
 ! and sub-sfc soil tendencies (K) (for phase changes)
 
 PDELTAT_G(:)   = PTG(:,1) - ZTGO(:,1)
@@ -922,8 +922,8 @@ PGRNDFLUX(:)    = PEK%XPSN(:)*ZTCONDA_DELZ_NG(:)*( DMK%XSNOWTEMP(:,JNSNOW) - PTG
 !*      12.     Energy Storage Diagnostics (W m-2)
 !               ----------------------------------
 !
-PDELHEATG_SFC(:) = PCHEATG(:)*PDELTAT_G(:)/PTSTEP 
-PDELHEATV_SFC(:) = PCHEATV(:)*PDELTAT_V(:)/PTSTEP 
+PDELHEATG_SFC(:) = PCHEATG(:)*PDELTAT_G(:)/PTSTEP
+PDELHEATV_SFC(:) = PCHEATV(:)*PDELTAT_V(:)/PTSTEP
 !
 IF(IO%CISBA == 'DIF')THEN
 
@@ -979,7 +979,7 @@ ENDIF
 ! latent heat and water mass fluxes:
 !
 PK%XLVTT(:)   = PLTT(:)
-PK%XLSTT(:)   = PLTT(:) 
+PK%XLSTT(:)   = PLTT(:)
 !
 !
 IF (LHOOK) CALL DR_HOOK('E_BUDGET_MEB',1,ZHOOK_HANDLE)

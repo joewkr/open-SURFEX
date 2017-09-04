@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_COVER ( DTCO, UG, U, USS, HPROGRAM, ORM_RIVER)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -123,7 +123,7 @@ REAL                     :: XRM_COVER   ! limit of coverage under which the
 REAL                     :: XRM_COAST   ! limit of coast coverage under which
                                         ! the coast is replaced by sea. Default is 1.
 REAL                     :: XRM_LAKE    ! limit of inland lake coverage under which
-                                        ! the water is removed. Default is 0.0                     
+                                        ! the water is removed. Default is 0.0
 REAL                     :: XRM_SEA     ! limit of sea coverage under which
                                         ! the sea is removed. Default is 0.0
 REAL                     :: XLAT_ANT    ! Lattitude limit from Orca grid (Antartic)
@@ -132,7 +132,7 @@ REAL, DIMENSION(:), ALLOCATABLE :: ZDEF
 REAL, DIMENSION(:), ALLOCATABLE :: ZLAT
 REAL, DIMENSION(:), ALLOCATABLE :: XUNIF_COVER ! value of each cover (cover will be
 !                                                uniform on the horizontal)
-REAL, DIMENSION(:), ALLOCATABLE :: ZSEA   !to check compatibility between 
+REAL, DIMENSION(:), ALLOCATABLE :: ZSEA   !to check compatibility between
 REAL, DIMENSION(:), ALLOCATABLE :: ZWATER !prescribed fractions and ECOCLIMAP
 REAL, DIMENSION(:), ALLOCATABLE :: ZNATURE
 REAL, DIMENSION(:), ALLOCATABLE :: ZTOWN
@@ -147,7 +147,7 @@ INTEGER               :: IRESP     ! Error code after redding
 INTEGER               :: JCOV    ! loop counter on covers
 INTEGER               :: JL, JI    ! loop counter on horizontal points
 INTEGER               :: ICOVER, ICOVERSUM, ICOVER_OLD, ICPT  ! 0 if cover is not present, >1 if present somewhere
-INTEGER               :: IPERMSNOW, IECO2 
+INTEGER               :: IPERMSNOW, IECO2
 INTEGER               :: IC_NAT, IC_TWN, IC_WAT, IC_SEA
 INTEGER :: ICPT1, ICPT2, ICPT_TOT
 !
@@ -157,7 +157,7 @@ INTEGER, DIMENSION(:), ALLOCATABLE :: IMASK_SEA, IMASK_WATER
 !
 LOGICAL, DIMENSION(:,:), ALLOCATABLE :: GCOVER_ALL
 LOGICAL, DIMENSION(:), ALLOCATABLE :: GCORINE
-LOGICAL                  :: LORCA_GRID  ! flag to compatibility between Surfex and Orca grid 
+LOGICAL                  :: LORCA_GRID  ! flag to compatibility between Surfex and Orca grid
                                         ! (Earth Model over Antarctic)
 LOGICAL                  :: LIMP_COVER  ! Imposed values for Cover from another PGD file
 !
@@ -193,7 +193,7 @@ IECO2 = 0
 !
  CALL READ_NAM_PGD_COVER(HPROGRAM, YCOVER, YFILETYPE, XUNIF_COVER,  &
                          XRM_COVER, XRM_COAST, XRM_LAKE, LRM_RIVER, &
-                         XRM_SEA, LORCA_GRID, XLAT_ANT, LIMP_COVER )  
+                         XRM_SEA, LORCA_GRID, XLAT_ANT, LIMP_COVER )
 !
 !-------------------------------------------------------------------------------
 !
@@ -271,7 +271,7 @@ CALL INIT_IO_SURF_n(DTCO, U, &
 !
   CALL END_IO_SURF_n(YFILETYPE)
 !
-ELSE 
+ELSE
 !-------------------------------------------------------------------------------
 !
 !*    3.      Averages the field
@@ -283,7 +283,7 @@ ELSE
   NSIZE_ALL(:,:) = 0
   XALL   (:,:,:) = 0.
   CALL TREAT_FIELD(UG, U, USS, &
-                   HPROGRAM,'SURF  ',YFILETYPE,'A_COVR',YCOVER, 'COVER               ' ) 
+                   HPROGRAM,'SURF  ',YFILETYPE,'A_COVR',YCOVER, 'COVER               ' )
 !
   DEALLOCATE(XSUMVAL  )
 !
@@ -366,7 +366,7 @@ ELSE
            U%XCOVER(:,IMASK_WATER(JL)) = 0.
          ENDWHERE
        ENDIF
-     ENDDO          
+     ENDDO
   ENDIF
   !
   ! * removes sea as the user want
@@ -377,7 +377,7 @@ ELSE
            U%XCOVER(:,IMASK_SEA(JL)) = 0.
          ENDWHERE
        ENDIF
-     ENDDO          
+     ENDDO
   ENDIF
   !
   !
@@ -386,7 +386,7 @@ ELSE
     !
     DO JL=1,SIZE(NSEA)
       IF (IMASK_SEA(JL)/=0) THEN
-        DO JI=1,SIZE(U%XCOVER,1)   
+        DO JI=1,SIZE(U%XCOVER,1)
           IF (ANINT(U%XCOVER(JI,IMASK_SEA(JL))*XPREC)/XPREC>=XRM_COAST .AND. &
                 U%XCOVER(JI,IMASK_SEA(JL))/=1.) THEN
             U%XCOVER(JI,:) = 0.
@@ -395,7 +395,7 @@ ELSE
         ENDDO
       ENDIF
     ENDDO
-    !    
+    !
     DO JL=1,SIZE(NWATER)
       IF (IMASK_WATER(JL)/=0) THEN
          DO JI=1,SIZE(U%XCOVER,1)
@@ -406,12 +406,12 @@ ELSE
           ENDIF
         ENDDO
       ENDIF
-    ENDDO     
-    !    
+    ENDDO
+    !
   ENDIF
 !
 !
-! * Compatibility between Surfex and Orca grid 
+! * Compatibility between Surfex and Orca grid
 !   (Earth Model over water bodies and Antarctic)
 !
   IF(LORCA_GRID.AND.(CGRID=='GAUSS     '.OR.CGRID=='LONLAT REG'))THEN
@@ -425,7 +425,7 @@ ELSE
           WHERE(ZLAT(:)<XLAT_ANT.AND.U%XCOVER(:,IMASK_SEA(JL))>0.0)
             U%XCOVER(:,IPERMSNOW) = 1.0
             U%XCOVER(:,IMASK_SEA(JL))  = 0.0
-          ENDWHERE 
+          ENDWHERE
         ENDIF
       ENDDO
 
@@ -437,7 +437,7 @@ ELSE
           ENDWHERE
         ENDIF
       ENDDO
-!  
+!
     DEALLOCATE(ZLAT)
 !
   ENDIF
@@ -525,7 +525,7 @@ DEALLOCATE(XUNIF_COVER)
 !
 !
 IF(.NOT.LIMP_COVER)THEN
-        
+
 !*    8.      List of cover present
 !             ---------------------
 !
@@ -590,7 +590,7 @@ ELSE
   '*********************************************************************'
   NSIZE(:,1) = 1
   WHERE (U%XNATURE(:).NE.0. .AND. ZNATURE(:).EQ.0.) NSIZE(:,1)=0
-          
+
   DO JL=1,SIZE(U%XCOVER,1)
     IF (U%XNATURE(JL).EQ.0.) NSIZE(JL,1)=-1
   ENDDO
@@ -602,7 +602,7 @@ ELSE
     ENDIF
   ENDDO
   CALL INTERPOL_FIELD2D(UG, U, &
-                        HPROGRAM,ILUOUT,NSIZE(:,1),ZCOVER_NATURE(:,:),YFIELD,ZDEF)  
+                        HPROGRAM,ILUOUT,NSIZE(:,1),ZCOVER_NATURE(:,:),YFIELD,ZDEF)
 !
   WRITE(ILUOUT,FMT=*) &
   '*********************************************************************'
@@ -621,9 +621,9 @@ ELSE
       ZDEF(JCOV) = 1.
       EXIT
     ENDIF
-  ENDDO  
+  ENDDO
   CALL INTERPOL_FIELD2D(UG, U, &
-                        HPROGRAM,ILUOUT,NSIZE(:,1),ZCOVER_TOWN (:,:),YFIELD,ZDEF) 
+                        HPROGRAM,ILUOUT,NSIZE(:,1),ZCOVER_TOWN (:,:),YFIELD,ZDEF)
 
   WRITE(ILUOUT,FMT=*) &
   '*********************************************************************'
@@ -636,7 +636,7 @@ ELSE
 ! if water imposed to 1 in a grid cell: no extrapolation
   DO JL=1,SIZE(U%XCOVER,1)
      IF(U%XWATER(JL)==1.0)THEN
-        ZCOVER_WATER(JL,:)=0.0             
+        ZCOVER_WATER(JL,:)=0.0
         ZCOVER_WATER(JL,IC_WAT)=1.0
         NSIZE(JL,1)=1
      ELSEIF(U%XWATER(JL)==0.0)THEN
@@ -649,7 +649,7 @@ ELSE
       ZDEF(JCOV) = 1.
       EXIT
     ENDIF
-  ENDDO    
+  ENDDO
   CALL INTERPOL_FIELD2D(UG, U, &
                         HPROGRAM,ILUOUT,NSIZE(:,1),ZCOVER_WATER (:,:),YFIELD,PDEF=ZDEF)
   WRITE(ILUOUT,FMT=*) &
@@ -660,10 +660,10 @@ ELSE
   '*********************************************************************'
   NSIZE(:,1) = 1
   WHERE (U%XSEA(:).NE.0. .AND. ZSEA(:).EQ.0.) NSIZE(:,1)=0
-! if sea imposed to 1 in a grid cell: no extrapolation          
+! if sea imposed to 1 in a grid cell: no extrapolation
   DO JL=1,SIZE(U%XCOVER,1)
      IF(U%XSEA(JL)==1.0)THEN
-        ZCOVER_SEA(JL,:)=0.0             
+        ZCOVER_SEA(JL,:)=0.0
         ZCOVER_SEA(JL,IC_SEA)=1.0
         NSIZE(JL,1)=1
      ELSEIF(U%XSEA(JL)==0.0)THEN
@@ -676,7 +676,7 @@ ELSE
       ZDEF(JCOV) = 1.
       EXIT
     ENDIF
-  ENDDO    
+  ENDDO
   CALL INTERPOL_FIELD2D(UG, U, &
                         HPROGRAM,ILUOUT,NSIZE(:,1),ZCOVER_SEA (:,:),YFIELD,PDEF=ZDEF)
   !

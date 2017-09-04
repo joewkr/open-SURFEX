@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODI_TRAD_BODY
 INTERFACE
@@ -28,14 +28,14 @@ FUNCTION TRAD_BODY(PSCA_SW, PREF_SW_FAC, PREF_SW_GRND, PEMIT_LW_FAC, PEMIT_LW_GR
                    PBLD, PBLD_HEIGHT, PWALL_O_HOR, PDIR_SW, PZENITH) RESULT(PTRAD_BODY)
 !   ##########################################################################
 !
-!!****  *TRAD_BODY  
+!!****  *TRAD_BODY
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the radiant temperature equivalent to the total radiation
 !     received by the human body
-!     
+!
 !!**  METHOD
 !     ------
 !
@@ -50,7 +50,7 @@ FUNCTION TRAD_BODY(PSCA_SW, PREF_SW_FAC, PREF_SW_GRND, PEMIT_LW_FAC, PEMIT_LW_GR
 !!    REFERENCE
 !!    ---------
 !!   www.utci.org
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -107,7 +107,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('TRAD_BODY',0,ZHOOK_HANDLE)
 !
-DO JJ = 1, SIZE(PBLD_HEIGHT) 
+DO JJ = 1, SIZE(PBLD_HEIGHT)
   !
   !*  1 - calculation of view factors
   ZWROAD(JJ) = PBLD_HEIGHT(JJ) * 2. * (1. - PBLD(JJ)) / PWALL_O_HOR(JJ)
@@ -129,7 +129,7 @@ DO JJ = 1, SIZE(PBLD_HEIGHT)
 ENDDO
 !
 
-!*  3 - add direct contribution in case of sunny conditions 
+!*  3 - add direct contribution in case of sunny conditions
 IF (PRESENT(PDIR_SW) .AND. PRESENT(PZENITH)) THEN
   DO JJ = 1, SIZE(PBLD_HEIGHT)
     ZELEV(JJ) = XPI/2. - PZENITH(JJ)

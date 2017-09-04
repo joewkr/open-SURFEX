@@ -1,17 +1,17 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE WET_LEAVES_FRAC(PWRM, PVEG, PWRMAX_CF, PZ0, PLAI, PWRMAX, PDELTA)
 !   ############################################################################
 !
-!!****  *WET_LEAVES_FRAC*  
+!!****  *WET_LEAVES_FRAC*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,11 +24,11 @@
 !!    ------------------
 !!
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -36,7 +36,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    13/03/95 
+!!      Original    13/03/95
 !!      (A.Boone)    11/26/98 Option for PDELTA: forested vs default surface
 !!      B. Decharme    2008  Add optional maximum value for the fraction of the foliage covered by intercepted water
 !-------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ REAL, DIMENSION(:), INTENT(IN)   :: PWRM
 REAL, DIMENSION(:), INTENT(IN)   :: PVEG, PWRMAX_CF, PLAI, PZ0
 !                                     PVEG = vegetation fraction
 !                                     PLAI = leaf area index
-!                                     PWRMAX_CF = coefficient for maximum water interception 
+!                                     PWRMAX_CF = coefficient for maximum water interception
 !                                                 storage capacity on the vegetation (kg/m2)
 !                                     PZ0  = roughness length
 !
@@ -88,7 +88,7 @@ REAL, DIMENSION(SIZE(PVEG)) :: ZCOEF,          &
                                  ZDELTA_LOW,     &
 !                                              ZDELTA_LOW = fraction of the foliage covered
 !                                              by intercepted water for low vegetation
-                                 ZDELTA_HIGH  
+                                 ZDELTA_HIGH
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !                                              ZDELTA_HIGH = fraction of the foliage covered
 !                                              by intercepted water for high vegetation
@@ -102,10 +102,10 @@ PDELTA(:) = 0.
 !               ------------------------------------------------------------
 !
 !                                         first calculate the maximum value of
-!                                         equivalent water content in the 
+!                                         equivalent water content in the
 !                                         vegetation canopy
 !
-PWRMAX(:) = PWRMAX_CF(:) * PVEG(:) * PLAI(:) 
+PWRMAX(:) = PWRMAX_CF(:) * PVEG(:) * PLAI(:)
 !
 ZWR(:) = MIN(PWRM(:),PWRMAX(:))
 !
@@ -114,7 +114,7 @@ WHERE (PVEG(:)>0. .AND. PWRMAX>0.)
 !
 !*       2.1    Low vegetation, Deardorff (1978) formulmation:
 !               ---------------------------------------------
-!       
+!
   ZDELTA_LOW(:) = ( ZWR(:)/PWRMAX(:) )**(2./3.)
 !
 !*       2.2    High vegetation, Manzi (1993) formulmation:
@@ -144,7 +144,7 @@ WHERE (PVEG(:)>0. .AND. PWRMAX>0.)
 !
 END WHERE
 !
-PDELTA(:) = MIN(XDELTA_MAX,PDELTA(:)) 
+PDELTA(:) = MIN(XDELTA_MAX,PDELTA(:))
 IF (LHOOK) CALL DR_HOOK('WET_LEAVES_FRAC',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------

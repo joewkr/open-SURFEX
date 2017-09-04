@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READHEAD(KGLB,PGLBLATMIN,PGLBLATMAX,PGLBLONMIN,PGLBLONMAX,&
                            KNBLAT,KNBLON,PCUTVAL,PDLAT,PDLON,PLAT,PLON,KERR,KFACT,&
-                           OCOMPRESS)  
+                           OCOMPRESS)
 !     ################################################################
 !
 !!**** *READHEAD* writes the head a the local 'latlon' file.
@@ -21,12 +21,12 @@
 !!     1 line of comment
 !!     nodata: -999
 !!     north: 90N             (or S or nothing)
-!!     south: 50N             (or S or nothing)    
+!!     south: 50N             (or S or nothing)
 !!     east: 90W              (or E or nothing)
 !!     west: 110W             (or E or nothing)
 !!     rows: 180
 !!     cols: 60
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -136,19 +136,19 @@ DO JHEAD=1,9
            YSTRING1=YSTRING(8:100)
          CASE('north')
            IHEAD=2
-           YSTRING1=YSTRING(7:100)           
+           YSTRING1=YSTRING(7:100)
          CASE('south')
            IHEAD=3
-           YSTRING1=YSTRING(7:100) 
+           YSTRING1=YSTRING(7:100)
          CASE('east:')
            IHEAD=4
-           YSTRING1=YSTRING(6:100)  
+           YSTRING1=YSTRING(6:100)
          CASE('west:')
            IHEAD=5
-           YSTRING1=YSTRING(6:100)  
+           YSTRING1=YSTRING(6:100)
          CASE('rows:')
            IHEAD=6
-           YSTRING1=YSTRING(6:100) 
+           YSTRING1=YSTRING(6:100)
          CASE('cols:')
            IHEAD=7
            YSTRING1=YSTRING(6:100)
@@ -157,7 +157,7 @@ DO JHEAD=1,9
            YSTRING1=YSTRING(6:100)
          CASE('compr')
            IHEAD=9
-           YSTRING1=YSTRING(10:100)          
+           YSTRING1=YSTRING(10:100)
   END SELECT
 !
 !*         2.2   Test on presence of geographical descritor (N, E, S or W)

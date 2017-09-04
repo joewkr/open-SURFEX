@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
       SUBROUTINE ARRANGE_COVER (DTCO, OWATER_TO_NATURE, OTOWN_TO_ROCK, &
@@ -147,7 +147,7 @@ ENDIF
 !-------------------------------------------------------------------------------
 !
 IF(OTOWN_TO_ROCK)THEN
-!        
+!
   DO JCOVER=1,JPCOVER
      IF(DTCO%XDATA_TOWN(JCOVER)>0.0.OR.DTCO%XDATA_GARDEN(JCOVER)>0.0)THEN
 !
@@ -156,15 +156,15 @@ IF(OTOWN_TO_ROCK)THEN
        DTCO%XDATA_GARDEN(JCOVER) = 0.0
 !
        ZWORK=DTCO%XDATA_NATURE(JCOVER)+DTCO%XDATA_TOWN(JCOVER)
-!       
+!
        DO JVEGTYPE=1,NVEGTYPE
              DTCO%XDATA_VEGTYPE(JCOVER,JVEGTYPE)=DTCO%XDATA_VEGTYPE(JCOVER,JVEGTYPE)*DTCO%XDATA_NATURE(JCOVER)/ZWORK
        ENDDO
-!      
+!
        DTCO%XDATA_VEGTYPE(JCOVER,NVT_ROCK) = DTCO%XDATA_VEGTYPE(JCOVER,NVT_ROCK)+DTCO%XDATA_TOWN(JCOVER)/ZWORK
 !
        DTCO%XDATA_NATURE(JCOVER)=DTCO%XDATA_NATURE(JCOVER)+DTCO%XDATA_TOWN(JCOVER)
-!       
+!
        DTCO%XDATA_TOWN  (JCOVER)=0.0
 !
 !      Initialise some variables
@@ -183,7 +183,7 @@ IF(OTOWN_TO_ROCK)THEN
 !
 ELSE
 !-------------------------------------------------------------------------------
-! Town is kept, but if gardens are not treated specifically, 
+! Town is kept, but if gardens are not treated specifically,
 ! they are included into nature fraction.
 !-------------------------------------------------------------------------------
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_SEAICE_n (HSELECT, S, HPROGRAM)
@@ -12,11 +12,11 @@
 !!    PURPOSE : writes state variable and 'domain' structure
 !!    -------
 !!
-!!**  METHOD : 
+!!**  METHOD :
 !!    ------
 !!      For now, only Gelato scheme is handled
 !!
-!!      quite standard in Surfex : use WRITE_SURF with 
+!!      quite standard in Surfex : use WRITE_SURF with
 !!         relevant field names (same names as in genuine gelato restarts)
 !!
 !!    EXTERNALS : WRITE_SURF, GLT_ALLOC, GET_TYPE_DIM
@@ -25,7 +25,7 @@
 !!    IMPLICIT ARGUMENTS : Gelato state variable, and some namelist parameters
 !!    ------------------
 !!
-!!    REFERENCE : 
+!!    REFERENCE :
 !!    ---------
 !!
 !!    AUTHOR : S. Sénési   *Meteo France*
@@ -81,7 +81,7 @@ CHARACTER(LEN=12) :: YCATEG           ! Category to write
 CHARACTER(LEN=12) :: YLEVEL           ! Level to write
 CHARACTER(LEN=100):: YCOMMENT         ! Error Message
 !
-INTEGER :: JK,JL                   ! loop counter on ice categories and layes 
+INTEGER :: JK,JL                   ! loop counter on ice categories and layes
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -93,7 +93,7 @@ YCOMMENT='(-)'
 CALL WRITE_SURF(HSELECT,  HPROGRAM,'SEAICE_SCHEM',S%CSEAICE_SCHEME,IRESP,YCOMMENT)
 !
 !
-IF (S%CSEAICE_SCHEME == 'GELATO') THEN 
+IF (S%CSEAICE_SCHEME == 'GELATO') THEN
    YCOMMENT='Number of sea-ice layers'
    CALL WRITE_SURF(HSELECT,HPROGRAM,'ICENL',nl,IRESP,YCOMMENT)
    YCOMMENT='Number of ice categories'
@@ -145,7 +145,7 @@ IF (S%CSEAICE_SCHEME == 'GELATO') THEN
         YFORM='(A6,I1.1,A4)'
         IF (JL >= 10)  YFORM='(A6,I2.2,A4)'
         WRITE(YCOMMENT,FMT=YFORM) 'X_Y_ICEH',JL,' (J/kg)'
-        ! .. Write sea ice vertical gltools_enthalpy profile for type JK and level JL  
+        ! .. Write sea ice vertical gltools_enthalpy profile for type JK and level JL
         CALL WRITE_SURF(HSELECT, &
                 HPROGRAM,'ICEH'//YLEVEL, S%TGLT%sil(JL,JK,:,1)%ent,IRESP,YCOMMENT)
       END DO
@@ -175,7 +175,7 @@ ENDIF
 !
 YRECFM='SIC'
 YCOMMENT='Sea ice coverage'
-CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,S%XSIC(:),IRESP,HCOMMENT=YCOMMENT)  
+CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,S%XSIC(:),IRESP,HCOMMENT=YCOMMENT)
 !
 !
 !* sea ice thickness constraint

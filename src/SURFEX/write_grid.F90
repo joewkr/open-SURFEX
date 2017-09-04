@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITE_GRID (HSELECT,HPROGRAM,HGRID,PGRID_PAR,PLAT,PLON,PMESH_SIZE,KRESP,HDIR)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!      P. Samuelsson SMHI  12/2012  Rotated lonlat
 !!      S. Senesi    08/15  Adapt to XIOS (non-sensical in that case => return immediately)
 !-------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('WRITE_GRID',0,ZHOOK_HANDLE)
 !
-IF (TRIM(HPROGRAM) == 'XIOS') THEN 
+IF (TRIM(HPROGRAM) == 'XIOS') THEN
   IF (LHOOK) CALL DR_HOOK('WRITE_GRID',1,ZHOOK_HANDLE)
   RETURN
 ENDIF

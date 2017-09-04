@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_LONLAT_n (DTCO, U, UG, HSELECT, HPROGRAM)
@@ -75,10 +75,10 @@ TYPE(SURF_ATM_GRID_t), INTENT(INOUT) :: UG
 !
 INTEGER :: ILUOUT
 !
-INTEGER            :: IRET      
+INTEGER            :: IRET
  CHARACTER(LEN=100) :: YCOMMENT
 !
-INTEGER            :: INI      
+INTEGER            :: INI
 REAL, DIMENSION(:), ALLOCATABLE :: ZLON, ZLAT
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -92,7 +92,7 @@ IF (LHOOK) CALL DR_HOOK('GET_LONLAT_N',0,ZHOOK_HANDLE)
 ALLOCATE(ZLON(INI))
 ALLOCATE(ZLAT(INI))
 !
- CALL GET_COORD_n(UG, HPROGRAM,INI,ZLON,ZLAT)      
+ CALL GET_COORD_n(UG, HPROGRAM,INI,ZLON,ZLAT)
 !
  CALL IO_BUFF_CLEAN
 CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'FULL  ','SURF  ','WRITE')

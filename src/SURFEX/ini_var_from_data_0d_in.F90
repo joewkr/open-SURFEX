@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INI_VAR_FROM_DATA_0D_IN (DTCO, UG, U, USS, &
@@ -15,7 +15,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -103,13 +103,13 @@ IF (HFTYP.EQ.'FA    ' .OR. HFTYP.EQ.'ASCII ' .OR. HFTYP.EQ.'LFI'&
     CASE ('LAN')
       CALL READ_FROM_SURFEX_FILE(DTCO, U, HFTYP,HFNAM,'SURF  ','      ',PFIELD(:,1))
     CASE ('TWN')
-      CALL READ_FROM_SURFEX_FILE(DTCO, U, HFTYP,HFNAM,'TOWN  ','      ',PFIELD(:,1))              
+      CALL READ_FROM_SURFEX_FILE(DTCO, U, HFTYP,HFNAM,'TOWN  ','      ',PFIELD(:,1))
     CASE ('NAT')
-      CALL READ_FROM_SURFEX_FILE(DTCO, U, HFTYP,HFNAM,'NATURE','      ',PFIELD(:,1))              
+      CALL READ_FROM_SURFEX_FILE(DTCO, U, HFTYP,HFNAM,'NATURE','      ',PFIELD(:,1))
     CASE ('SEA')
-      CALL READ_FROM_SURFEX_FILE(DTCO, U, HFTYP,HFNAM,'SEA   ','      ',PFIELD(:,1))              
+      CALL READ_FROM_SURFEX_FILE(DTCO, U, HFTYP,HFNAM,'SEA   ','      ',PFIELD(:,1))
     CASE ('WAT')
-      CALL READ_FROM_SURFEX_FILE(DTCO, U, HFTYP,HFNAM,'WATER ','      ',PFIELD(:,1))              
+      CALL READ_FROM_SURFEX_FILE(DTCO, U, HFTYP,HFNAM,'WATER ','      ',PFIELD(:,1))
    END SELECT
 
 ELSE

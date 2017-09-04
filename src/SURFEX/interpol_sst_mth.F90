@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INTERPOL_SST_MTH (S,HFLAG)
@@ -27,7 +27,7 @@
 !!
 !!    AUTHOR
 !!    ------
-!!      
+!!
 !     B.Decharme  Meteo-France
 !!
 !!    MODIFICATIONS
@@ -51,7 +51,7 @@ IMPLICIT NONE
 !
 !*       0.1   Declaration of arguments
 !------------------------
-! 
+!
 !
 TYPE(SEAFLUX_t), INTENT(INOUT) :: S
 !
@@ -64,7 +64,7 @@ CHARACTER(LEN=1), INTENT(IN) :: HFLAG  ! 'T' for SST, 'S' for SSS, 'H' for SIT, 
 REAL            :: ZDAT   ! current day in the current month
 REAL            :: ZNDAT  ! number of days in the current month
 INTEGER         :: IMTH0  ! previous month
-INTEGER         :: IMTH1  ! current month 
+INTEGER         :: IMTH1  ! current month
 INTEGER         :: IMTH2  ! next month
 INTEGER         :: INDAYS ! number of days in KMONTH
 !
@@ -105,7 +105,7 @@ ZNDAT= REAL(INDAYS)
 !
 ! The current month correspond to the indice 2 (or 3 if next month)
 !
-IF (S%TTIME%TDATE%MONTH==S%TZTIME%TDATE%MONTH) THEN 
+IF (S%TTIME%TDATE%MONTH==S%TZTIME%TDATE%MONTH) THEN
    IDELTA=0
 ELSE
    IDELTA=1
@@ -115,12 +115,12 @@ IMTH0=1+IDELTA
 IMTH1=2+IDELTA
 IMTH2=3+IDELTA
 !
-IF (HFLAG =='T') THEN 
+IF (HFLAG =='T') THEN
    CALL INTERPOL_LOCAL(S%CINTERPOL_SST,S%XSST_MTH(:,IMTH0),S%XSST_MTH(:,IMTH1),S%XSST_MTH(:,IMTH2),S%XSST)
-ELSEIF (HFLAG =='S') THEN 
+ELSEIF (HFLAG =='S') THEN
    CALL INTERPOL_LOCAL(S%CINTERPOL_SSS,S%XSSS_MTH(:,IMTH0),S%XSSS_MTH(:,IMTH1),S%XSSS_MTH(:,IMTH2),S%XSSS)
    S%XSSS(:) = MAX(0.0,S%XSSS(:))
-ELSEIF (HFLAG =='H') THEN 
+ELSEIF (HFLAG =='H') THEN
    CALL INTERPOL_LOCAL(S%CINTERPOL_SIT,S%XSIT_MTH(:,IMTH0),S%XSIT_MTH(:,IMTH1),S%XSIT_MTH(:,IMTH2),S%XFSIT)
    S%XFSIT(:) = MAX(0.0,S%XFSIT(:))
 ELSEIF (HFLAG =='C') THEN

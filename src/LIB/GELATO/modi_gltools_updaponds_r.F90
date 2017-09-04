@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,14 +28,14 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ===================== MODULE modi_gltools_updaponds_r ======================
 ! =======================================================================
@@ -48,7 +48,7 @@
 !
 ! Created : 2010/02 (M. Chevallier)
 ! Modified: 2010/11 (M. Chevallier)
-!       Called from updasn_r. Full computation of ponds thermodynamics 
+!       Called from updasn_r. Full computation of ponds thermodynamics
 !       and ponds albedo.
 !       Ponds albedo is used to correct sea-ice albedo. Fraction of the ice
 !       surface that is not covered by ponds consists in melting bare ice.
@@ -64,7 +64,7 @@
 !THXS_SFX!  LOGICAL, DIMENSION(nt,np), INTENT(in) :: &
 !THXS_SFX!        omelt
 !THXS_SFX!  TYPE(t_atm), DIMENSION(np), INTENT(in) :: &
-!THXS_SFX!        tpatm  
+!THXS_SFX!        tpatm
 !THXS_SFX!  TYPE(t_blk), DIMENSION(nt,np), INTENT(in) :: &
 !THXS_SFX!        tpblki
 !THXS_SFX!  TYPE(t_dia), DIMENSION(np), INTENT(inout) :: &
@@ -85,7 +85,7 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE gltools_updaponds_r -------------------------
 !
-! * Subroutine used to update melt ponds volume and albedo (takes into account rain, snow, or thermodynamic surface melting). 
+! * Subroutine used to update melt ponds volume and albedo (takes into account rain, snow, or thermodynamic surface melting).
 ! * (APONDS = Albedo of PONDS)
 !
 SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
@@ -99,7 +99,7 @@ SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
   LOGICAL, DIMENSION(nt,np), INTENT(in) :: &
         omelt
   TYPE(t_atm), DIMENSION(np), INTENT(in) :: &
-        tpatm  
+        tpatm
   TYPE(t_blk), DIMENSION(nt,np), INTENT(in) :: &
         tpblki
   TYPE(t_dia), DIMENSION(np), INTENT(inout) :: &
@@ -144,7 +144,7 @@ SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
     gsnpond(:,:) = .TRUE.
   ENDWHERE
 !
-! .. Melting ice without snow, ice thickness> hice_mp 
+! .. Melting ice without snow, ice thickness> hice_mp
 !
   gsipond = .FALSE.
   WHERE ( tpsit(:,:)%hsi>= hsi_mp .AND. tpsit(:,:)%hsn < hsn_mp .AND. omelt(:,:) )
@@ -158,7 +158,7 @@ SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
 ! .. Snow ablation (positive values)
 !
   zwork2(:) =  ( SUM( tpsit(:,:)%rsn*tpsit(:,:)%fsi*tpsit(:,:)%hsn, DIM=1 )-  &
-        tpdia(:)%dsn )/ dtt  
+        tpdia(:)%dsn )/ dtt
 ! .. Only consider melting snow: dhsn<0 i.e. -zworks2(:)>0.
   zwork2(:) = MAX( -zwork2(:),0. )
 !
@@ -182,7 +182,7 @@ SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
   zfblki(:,:) = tpblki(:,:)%nsf + tpblki(:,:)%swa
 !
   zrhwinv = dtt / rhofw ! in s*m3/kg
-! 
+!
 ! 2. Compute the characteristics of melt ponds
 ! ============================================
 !
@@ -213,7 +213,7 @@ SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
 ! --------------------------
 !
 ! .. Melting ice, but too much snow.
-! .. Only increase the total melt water volume 
+! .. Only increase the total melt water volume
 ! at the sea ice surface.
 ! .. No ponds.
 !
@@ -221,7 +221,7 @@ SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
                  zrhwinv * ( zmeltt(jt,jp) + zmelts(jt,jp) + zpcpr(jt,jp) )
        zfmp(jt,jp) = 0.
        zdmp(jt,jp) = 0.
-! 
+!
 !  ENDWHERE
 !
 !
@@ -239,7 +239,7 @@ SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
 ! -----------------------------------
 !
 ! .. Melting ice and no more snow.
-! .. Only a fraction of surface melt water is 
+! .. Only a fraction of surface melt water is
 ! used to form the melt ponds.
 !
 ! 2.2.1. Update melt pond volume
@@ -275,10 +275,10 @@ SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
           zdmp(jt,jp) = AMIN1( zdmp(jt,jp), dpthhi * tpsit(jt,jp)%hsi )
 !
 ! .. When limit depth reached, pond volume is corrected with respect to hpond
-! equal to limit depth. 
+! equal to limit depth.
 !
-          zvmp(jt,jp) = zfmp(jt,jp) * zdmp(jt,jp) 
-!       
+          zvmp(jt,jp) = zfmp(jt,jp) * zdmp(jt,jp)
+!
 !          print*, 'fmp: ', zfmp(jt,jp)
 !          print*, 'dmp: ', zdmp(jt,jp)
 !          print*, 'vmp: ', zvmp(jt,jp)
@@ -300,9 +300,9 @@ SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
              zfmp(jt,jp) = AMIN1( zfmp(jt,jp),1. )
              zdmp(jt,jp) = AMAX1( dptfr1 * zfmp(jt,jp) + dptfr2, 0. )
    ENDIF
-!        
+!
 ! .. Negative volume means all melt ponds have disappeared.
-!  
+!
    zvmp(jt,jp) = AMAX1(zvmp(jt,jp),0.)
   END DO
  END DO
@@ -352,7 +352,7 @@ SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
   pasi(:,:) = (1.-zfmp(:,:)) * pasi(:,:) + zfmp(:,:) * zamp(:,:)
 !
 !
-  tpdia(:)%amp = SUM( tpsit(:,:)%fsi * pasi(:,:), DIM=1 ) 
+  tpdia(:)%amp = SUM( tpsit(:,:)%fsi * pasi(:,:), DIM=1 )
 !
 !
 !

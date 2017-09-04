@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !##################
 MODULE MODE_PSYCHRO
@@ -10,12 +10,12 @@ MODULE MODE_PSYCHRO
 !!
 !!    PURPOSE
 !!    -------
-!      
+!
 !
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!       NONE          
+!!       NONE
 !!
 !!    REFERENCE
 !!    ---------
@@ -23,7 +23,7 @@ MODULE MODE_PSYCHRO
 !!
 !!    AUTHOR
 !!    ------
-!!      
+!!
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -59,7 +59,7 @@ END INTERFACE
 contains
 !PE_FROM_PQ
 !----------
-function PE_FROM_PQ_0D(PP, PQ) RESULT(PE) 
+function PE_FROM_PQ_0D(PP, PQ) RESULT(PE)
 !arguments and result
 REAL, INTENT(IN) :: PP !atmos. pressure (Pa)
 REAL, INTENT(IN) :: PQ !specific humidity (kg/kg)
@@ -70,7 +70,7 @@ PE = PQ * PP /(0.622 + 0.378 * PQ)
 IF (LHOOK) CALL DR_HOOK('MODE_PSYCHRO:PE_FROM_PQ_0D',1,ZHOOK_HANDLE)
 end function PE_FROM_PQ_0D
 
-function PE_FROM_PQ_1D(PP, PQ) RESULT(PE) 
+function PE_FROM_PQ_1D(PP, PQ) RESULT(PE)
 !arguments and result
 REAL, DIMENSION(:), INTENT(IN) :: PP !atmos. pressure (Pa)
 REAL, DIMENSION(:), INTENT(IN) :: PQ !specific humidity (kg/kg)
@@ -172,7 +172,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_PSYCHRO:RV_FROM_TPTWB_1D',0,ZHOOK_HANDLE)
 ZRVSAT = QSAT(PT, PP) / (1 - QSAT(PT, PP))
 PRV(:) = ((2501. - 2.326*(PTWB(:)-XTT))*ZRVSAT(:) - 1.006*(PT(:) - PTWB(:))) &
        / (2501. + 1.86*(PT(:) - XTT) -4.186*(PTWB(:) - XTT))
-IF (LHOOK) CALL DR_HOOK('MODE_PSYCHRO:RV_FROM_TPTWB_1D',1,ZHOOK_HANDLE)       
+IF (LHOOK) CALL DR_HOOK('MODE_PSYCHRO:RV_FROM_TPTWB_1D',1,ZHOOK_HANDLE)
 end function RV_FROM_TPTWB_1D
 !----------------------------
 
@@ -191,7 +191,7 @@ INTEGER :: JITER
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('MODE_PSYCHRO:TWB_FROM_TPQ_0D',0,ZHOOK_HANDLE)
 JITER = 1
-ZTD = TD_FROM_TQ(PT, PQ) 
+ZTD = TD_FROM_TQ(PT, PQ)
 !initial guess
 ZTWBSUP = PT
 ZTWBINF = ZTD
@@ -221,7 +221,7 @@ REAL, DIMENSION(SIZE(PT)) :: ZTWBINF, ZTWBSUP, ZRV
 INTEGER :: JITER, JI
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('MODE_PSYCHRO:TWB_FROM_TPQ_1D',0,ZHOOK_HANDLE)
-ZTD = TD_FROM_TQ(PT, PQ) 
+ZTD = TD_FROM_TQ(PT, PQ)
 !initial guess
 ZTWBSUP = PT
 ZTWBINF = ZTD
@@ -251,31 +251,31 @@ end function TWB_FROM_TPQ_1D
 !!    -------
 !       The purpose of this function is to compute the enthalpy function
 !       of temperature and humidity content
-!      
+!
 !
 !!**  METHOD
 !!    ------
-!!  
+!!
 !!
 !!    EXTERNAL
 !!    --------
 !!      NONE
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------  
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!
 !!    AUTHOR
 !!    ------
-!!      
+!!
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    12/04/11 
+!!      Original    12/04/11
 !!      A. Alias    01/2013   compi. on Bull : must be 1.0E-5 instead of 1.0D-5
 !-------------------------------------------------------------------------------
 !
@@ -321,31 +321,31 @@ END FUNCTION ENTH_FN_T_Q
 !!    -------
 !       The purpose of this function is to compute the humidity content
 !       as a function of temperature and enthalpy
-!      
+!
 !
 !!**  METHOD
 !!    ------
-!!  
+!!
 !!
 !!    EXTERNAL
 !!    --------
 !!      NONE
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------  
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!
 !!    AUTHOR
 !!    ------
-!!      
+!!
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    12/04/11 
+!!      Original    12/04/11
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS

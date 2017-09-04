@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE SM10(PZ,PBLD_HEIGHT,PLAMBDA_F,PL)
@@ -16,11 +16,11 @@ SUBROUTINE SM10(PZ,PBLD_HEIGHT,PLAMBDA_F,PL)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -38,7 +38,7 @@ IMPLICIT NONE
 REAL, DIMENSION(:,:), INTENT(IN)  :: PZ          ! canopy levels        (m)
 REAL, DIMENSION(:),   INTENT(IN)  :: PBLD_HEIGHT ! building height      (m)
 REAL, DIMENSION(:),   INTENT(IN)  :: PLAMBDA_F   ! frontal area density (-)
-REAL, DIMENSION(:,:), INTENT(OUT) :: PL          ! base profile for mixing 
+REAL, DIMENSION(:,:), INTENT(OUT) :: PL          ! base profile for mixing
 !                                                ! length computations  (m)
 !
 !

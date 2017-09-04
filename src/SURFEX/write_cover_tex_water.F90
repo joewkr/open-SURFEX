@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################
       SUBROUTINE WRITE_COVER_TEX_WATER
@@ -87,7 +87,7 @@ IF (NTEX==0 .AND. LHOOK) CALL DR_HOOK('WRITE_COVER_TEX_WATER',1,ZHOOK_HANDLE)
 IF (NTEX==0) RETURN
 !
 I=0
-DO 
+DO
   IF (I==JPCOVER) EXIT
   IF (CLANG=='EN') THEN
     WRITE(NTEX,*) '{\bf water parameters}\\'
@@ -117,7 +117,7 @@ DO
       YDATA_WATER(2) = YSTRING6
 
       ZZENITH(:) = XPI/2.
-      ZALBEDO(:) = ALBEDO_TA96(ZZENITH)  
+      ZALBEDO(:) = ALBEDO_TA96(ZZENITH)
       WRITE(YFMT,'(A2,I1,A1,I1,A1)') '(F',NB(ZALBEDO(1)),'.',DEC(ZALBEDO(1)),')'
       WRITE(YSTRING6, FMT=YFMT) ZALBEDO(1)
       YDATA_WATER(3) = YSTRING6
@@ -131,7 +131,7 @@ DO
           I,' & ',CNAME(I),' & ',YDATA_WATER(1),' & ', &
             YDATA_WATER(2),'-',YDATA_WATER(3),' & ', &
             YDATA_WATER(4),' & ', &
-            YDATA_WATER(5),' \\'  
+            YDATA_WATER(5),' \\'
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
     END IF

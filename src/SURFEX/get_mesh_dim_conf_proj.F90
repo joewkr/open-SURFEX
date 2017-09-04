@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_MESH_DIM_CONF_PROJ(KGRID_PAR,KL,PGRID_PAR,PDX,PDY)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -54,7 +54,7 @@ REAL,    DIMENSION(KL),          INTENT(OUT)   :: PDY       ! dimension in y dir
 !
 REAL                :: ZLAT0    ! reference latitude
 REAL                :: ZLON0    ! reference longitude
-REAL                :: ZRPK     ! projection parameter 
+REAL                :: ZRPK     ! projection parameter
 !                               !   K=1 : stereographic north pole
 !                               ! 0<K<1 : Lambert, north hemisphere
 !                               !   K=0 : Mercator
@@ -75,7 +75,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('GET_MESH_DIM_CONF_PROJ',0,ZHOOK_HANDLE)
  CALL GET_GRIDTYPE_CONF_PROJ(PGRID_PAR,ZLAT0,ZLON0,ZRPK,ZBETA,&
                               ZLATOR,ZLONOR,                   &
-                              PX=ZX,PY=ZY,PDX=PDX,PDY=PDY      )  
+                              PX=ZX,PY=ZY,PDX=PDX,PDY=PDY      )
 !
 !---------------------------------------------------------------------------
 !

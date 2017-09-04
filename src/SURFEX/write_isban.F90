@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITE_ISBA_n (DTCO, HSELECT, OSNOWDIMNC, U, IM, NDST, HPROGRAM, HWRITE, OLAND_USE)
@@ -64,7 +64,7 @@ IMPLICIT NONE
 !
 TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
  CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-LOGICAL, INTENT(IN) :: OSNOWDIMNC 
+LOGICAL, INTENT(IN) :: OSNOWDIMNC
 TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 TYPE(ISBA_MODEL_t), INTENT(INOUT) :: IM
 TYPE(DST_NP_t), INTENT(INOUT) :: NDST
@@ -86,7 +86,7 @@ IF (LHOOK) CALL DR_HOOK('WRITE_ISBA_N',0,ZHOOK_HANDLE)
 !
 !*       1.     Selection of surface scheme
 !               ---------------------------
-!        
+!
  CALL WRITESURF_ISBA_CONF_n(IM%CHI, IM%ID%DE, IM%ID%O, IM%ID%DM, IM%O, HPROGRAM)
 !
  CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'NATURE','ISBA  ','WRITE','ISBA_PROGNOSTIC.OUT.nc')

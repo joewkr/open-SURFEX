@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE URBAN_HYDRO(PWS_ROOF_MAX,PWS_ROAD_MAX, PWS_ROOF, PWS_ROAD,  &
@@ -8,15 +8,15 @@
                              PLE_ROAD, PRUNOFF_STRLROOF, PRUNOFF_ROAD      )
 !   ##########################################################################
 !
-!!****  *URBAN_HYDRO*  
+!!****  *URBAN_HYDRO*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the evolution of prognostic water reservoirs
 !     of urbanized areas.
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
@@ -38,11 +38,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -50,7 +50,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    23/01/98 
+!!      Original    23/01/98
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -98,7 +98,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('URBAN_HYDRO',0,ZHOOK_HANDLE)
 PWS_ROOF(:) =  PWS_ROOF(:)                                   &
-               - PTSTEP * ( PLE_ROOF(:) / XLVTT - PRR(:) )  
+               - PTSTEP * ( PLE_ROOF(:) / XLVTT - PRR(:) )
 !
 !                                           Ws_town must be positive
 !
@@ -122,7 +122,7 @@ PWS_ROOF(:) = MIN(PWS_ROOF(:), PWS_ROOF_MAX(:))
 !                                           PRR in kg/m2/s therefore PWS in mm
 !
 PWS_ROAD(:) =  PWS_ROAD(:)                                 &
-               - PTSTEP * ( PLE_ROAD(:) / XLVTT -  PRR(:) - PIRRIG_ROAD(:) )  
+               - PTSTEP * ( PLE_ROAD(:) / XLVTT -  PRR(:) - PIRRIG_ROAD(:) )
 !
 !                                           Ws_town must be positive
 !

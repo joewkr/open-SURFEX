@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !##################
 MODULE MODI_READ_SURF
@@ -19,7 +19,7 @@ MODULE MODI_READ_SURF
 !!    EXTERNAL
 !!    --------
 !!
-!!     
+!!
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
@@ -50,7 +50,7 @@ MODULE MODI_READ_SURF
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
 REAL, INTENT(OUT) :: PFIELD            ! real scalar to be read
-INTEGER,INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears 
+INTEGER,INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT  ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
 !
@@ -62,7 +62,7 @@ END SUBROUTINE READ_SURFX0
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
-REAL, DIMENSION(:), INTENT(OUT) ::PFIELD ! array containing the data field  
+REAL, DIMENSION(:), INTENT(OUT) ::PFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR       ! type of field :
@@ -77,7 +77,7 @@ END SUBROUTINE READ_SURFX1
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM    ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC        ! name of the article to be read
-REAL, DIMENSION(:,:), INTENT(OUT) :: PFIELD ! array containing the data field  
+REAL, DIMENSION(:,:), INTENT(OUT) :: PFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP               ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
@@ -94,7 +94,7 @@ END SUBROUTINE READ_SURFX2
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM      ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC          ! name of the article to be read
-REAL, DIMENSION(:,:,:), INTENT(OUT) :: PFIELD ! array containing the data field  
+REAL, DIMENSION(:,:,:), INTENT(OUT) :: PFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP                 ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
@@ -109,7 +109,7 @@ END SUBROUTINE READ_SURFX3
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
-INTEGER, INTENT(OUT) :: KFIELD           ! integer to be read  
+INTEGER, INTENT(OUT) :: KFIELD           ! integer to be read
 INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
@@ -122,7 +122,7 @@ END SUBROUTINE READ_SURFN0
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC         ! name of the article to be read
-INTEGER, DIMENSION(:), INTENT(OUT) :: KFIELD ! integer to be read  
+INTEGER, DIMENSION(:), INTENT(OUT) :: KFIELD ! integer to be read
 INTEGER, INTENT(OUT) :: KRESP                ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
@@ -137,7 +137,7 @@ END SUBROUTINE READ_SURFN1
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM   ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC       ! name of the article to be read
- CHARACTER(LEN=*), INTENT(OUT) :: HFIELD    ! caracter to be read  
+ CHARACTER(LEN=*), INTENT(OUT) :: HFIELD    ! caracter to be read
 INTEGER, INTENT(OUT) :: KRESP              ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
@@ -163,7 +163,7 @@ END SUBROUTINE READ_SURFL0
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC         ! name of the article to be read
-LOGICAL, DIMENSION(:), INTENT(OUT) :: OFIELD ! array containing the data field  
+LOGICAL, DIMENSION(:), INTENT(OUT) :: OFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP                ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
@@ -180,7 +180,7 @@ USE MODD_TYPE_DATE_SURF
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM  ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC      ! name of the article to be read
-TYPE(DATE_TIME), INTENT(INOUT) ::TFIELD   ! array containing the data field  
+TYPE(DATE_TIME), INTENT(INOUT) ::TFIELD   ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
@@ -195,7 +195,7 @@ USE MODD_TYPE_DATE_SURF
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
-TYPE (DATE_TIME), DIMENSION(:), INTENT(INOUT) :: TFIELD ! array containing the data field  
+TYPE (DATE_TIME), DIMENSION(:), INTENT(INOUT) :: TFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
@@ -210,7 +210,7 @@ USE MODD_TYPE_DATE_SURF
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
  CHARACTER(LEN=*), INTENT(IN) ::HREC      ! name of the article to be read
-TYPE (DATE_TIME), DIMENSION(:,:), INTENT(INOUT)::TFIELD ! array containing the data field  
+TYPE (DATE_TIME), DIMENSION(:,:), INTENT(INOUT)::TFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
@@ -267,7 +267,7 @@ INCLUDE "mpif.h"
 !
  CHARACTER(LEN=6), INTENT(IN)  :: HPROGRAM ! calling program
  CHARACTER(LEN=*), INTENT(IN)  :: HREC     ! name of the article to be read
-REAL, INTENT(OUT) :: PFIELD               ! the real scalar to be read  
+REAL, INTENT(OUT) :: PFIELD               ! the real scalar to be read
 INTEGER, INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
@@ -305,7 +305,7 @@ ENDIF
 !
 IF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
     HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
-    HPROGRAM=='NC    ') THEN 
+    HPROGRAM=='NC    ') THEN
   !
   IF (NRANK==NPIO) THEN
     !
@@ -352,7 +352,7 @@ IF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
 #endif
   !
 ENDIF
-!    
+!
 IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
 !
 IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFX0',1,ZHOOK_HANDLE)
@@ -405,7 +405,7 @@ IMPLICIT NONE
 !
 !
  CHARACTER(LEN=*), INTENT(IN) :: HREC      ! name of the article to be read
-REAL, DIMENSION(:), INTENT(OUT) :: PFIELD ! array containing the data field  
+REAL, DIMENSION(:), INTENT(OUT) :: PFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
@@ -534,7 +534,7 @@ IMPLICIT NONE
 !
 !
  CHARACTER(LEN=*), INTENT(IN) :: HREC        ! name of the article to be read
-REAL, DIMENSION(:,:), INTENT(OUT) :: PFIELD ! array containing the data field  
+REAL, DIMENSION(:,:), INTENT(OUT) :: PFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP               ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
@@ -640,7 +640,7 @@ IMPLICIT NONE
 !
 !
  CHARACTER(LEN=*), INTENT(IN) :: HREC          ! name of the article to be read
-REAL, DIMENSION(:,:,:), INTENT(OUT) :: PFIELD ! array containing the data field  
+REAL, DIMENSION(:,:,:), INTENT(OUT) :: PFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP                 ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
@@ -741,7 +741,7 @@ INCLUDE "mpif.h"
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
-INTEGER, INTENT(OUT) :: KFIELD           ! the integer to be read  
+INTEGER, INTENT(OUT) :: KFIELD           ! the integer to be read
 INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
@@ -779,7 +779,7 @@ ENDIF
 !
 IF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
     HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
-    HPROGRAM=='NC    ' ) THEN 
+    HPROGRAM=='NC    ' ) THEN
   !
   IF (NRANK==NPIO) THEN
     !
@@ -803,7 +803,7 @@ IF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
 #ifdef SFX_NC
       CALL READ_SURF0_NC(YREC,KFIELD,KRESP,YCOMMENT)
 #endif
-    ENDIF    
+    ENDIF
     !
     IF (HPROGRAM=='ASCII ') THEN
 #ifdef SFX_ASC
@@ -826,8 +826,8 @@ IF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
   ENDIF
   !
 #ifdef SFX_MPI
-  IF (YDIR/='A' .AND. NPROC>1) THEN          
-    XTIME0 = MPI_WTIME()  
+  IF (YDIR/='A' .AND. NPROC>1) THEN
+    XTIME0 = MPI_WTIME()
     CALL MPI_BCAST(KFIELD,KIND(KFIELD)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
 #ifdef SFX_LFI
     IF (HPROGRAM=='LFI   '.AND.TRIM(HREC)=="DIM_FULL") THEN
@@ -850,9 +850,9 @@ IF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
         NJE = IDIMS(6)
       ENDIF
     ENDIF
-#endif    
-    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)    
-  ENDIF    
+#endif
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
+  ENDIF
 #endif
   !
 ENDIF
@@ -906,7 +906,7 @@ IMPLICIT NONE
 !
 !
  CHARACTER(LEN=*), INTENT(IN) :: HREC         ! name of the article to be read
-INTEGER, DIMENSION(:), INTENT(OUT) :: KFIELD ! the integer to be read  
+INTEGER, DIMENSION(:), INTENT(OUT) :: KFIELD ! the integer to be read
 INTEGER, INTENT(OUT) :: KRESP                ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
@@ -1025,7 +1025,7 @@ INCLUDE "mpif.h"
 !
  CHARACTER(LEN=6), INTENT(IN)  :: HPROGRAM ! calling program
  CHARACTER(LEN=*), INTENT(IN)  :: HREC     ! name of the article to be read
- CHARACTER(LEN=*), INTENT(OUT) :: HFIELD   ! the integer to be read  
+ CHARACTER(LEN=*), INTENT(OUT) :: HFIELD   ! the integer to be read
 INTEGER, INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL,INTENT(OUT) :: HCOMMENT   ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL,INTENT(IN)  :: HDIR
@@ -1061,14 +1061,14 @@ ELSE IF (HPROGRAM=='AROME ') THEN
 #endif
 ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
     HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
-    HPROGRAM=='NC    ' ) THEN 
+    HPROGRAM=='NC    ' ) THEN
   !
   IF (NRANK==NPIO) THEN
     !
 #ifdef SFX_MPI
     XTIME0 = MPI_WTIME()
 #endif
-    !  
+    !
     IF (HPROGRAM=='OFFLIN') THEN
 #ifdef SFX_OL
       CALL READ_SURF0_OL(YREC,YFIELD,KRESP,YCOMMENT)
@@ -1092,9 +1092,9 @@ ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
                          YREC,YFIELD,KRESP,YCOMMENT)
 #endif
     ENDIF
-    !  
+    !
 #ifdef SFX_MPI
-    XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)  
+    XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
 #endif
     !
   ENDIF
@@ -1197,14 +1197,14 @@ ELSE IF (HPROGRAM=='AROME ') THEN
 #endif
 ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
     HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
-    HPROGRAM=='NC    ' ) THEN 
-  !  
+    HPROGRAM=='NC    ' ) THEN
+  !
   IF (NRANK==NPIO) THEN
     !
 #ifdef SFX_MPI
     XTIME0 = MPI_WTIME()
 #endif
-    ! 
+    !
     IF (HPROGRAM=='OFFLIN') THEN
 #ifdef SFX_OL
       CALL READ_SURF0_OL(YREC,OFIELD,KRESP,YCOMMENT)
@@ -1239,7 +1239,7 @@ ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
   IF (YDIR/='A' .AND. NPROC>1) THEN
     XTIME0 = MPI_WTIME()
     CALL MPI_BCAST(OFIELD,1,MPI_LOGICAL,NPIO,NCOMM,INFOMPI)
-    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)    
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF
 #endif
   !
@@ -1292,7 +1292,7 @@ IMPLICIT NONE
 !
 !
  CHARACTER(LEN=*), INTENT(IN) :: HREC         ! name of the article to be read
-LOGICAL, DIMENSION(:), INTENT(OUT) :: OFIELD ! array containing the data field  
+LOGICAL, DIMENSION(:), INTENT(OUT) :: OFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP                ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
@@ -1449,8 +1449,8 @@ ELSE IF (HPROGRAM=='AROME ') THEN
 #endif
 ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
     HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
-    HPROGRAM=='NC    ' ) THEN 
-  !  
+    HPROGRAM=='NC    ' ) THEN
+  !
   IF (NRANK==NPIO) THEN
     !
 #ifdef SFX_MPI
@@ -1489,12 +1489,12 @@ ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
   !
 #ifdef SFX_MPI
   IF (YDIR/='A' .AND. NPROC>1) THEN
-    XTIME0 = MPI_WTIME() 
+    XTIME0 = MPI_WTIME()
     CALL MPI_BCAST(IWORK(1),KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(IWORK(2),KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(IWORK(3),KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(ZWORK,KIND(ZWORK)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
-    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)    
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF
 #endif
   !
@@ -1568,7 +1568,7 @@ INCLUDE "mpif.h"
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM   ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC       ! name of the article to be read
-TYPE(DATE_TIME), DIMENSION(:), INTENT(INOUT)::TFIELD ! array containing the data field  
+TYPE(DATE_TIME), DIMENSION(:), INTENT(INOUT)::TFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP              ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
@@ -1610,7 +1610,7 @@ ELSE IF (HPROGRAM=='AROME ') THEN
 #endif
 ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
     HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' .OR. &
-    HPROGRAM=='NC    ') THEN 
+    HPROGRAM=='NC    ') THEN
   !
   IF (NRANK==NPIO) THEN
     !
@@ -1621,7 +1621,7 @@ ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
     IF (HPROGRAM=='OFFLIN') THEN
       CALL ABOR1_SFX('READ_SURFT1: NOT AVAILABLE FOR OFFLIN')
     ELSE IF (HPROGRAM=='FA    ') THEN
-      CALL ABOR1_SFX('READ_SURFT1: NOT AVAILABLE FOR FA')      
+      CALL ABOR1_SFX('READ_SURFT1: NOT AVAILABLE FOR FA')
     ELSE IF (HPROGRAM=='ASCII ') THEN
 #ifdef SFX_ASC
       CALL READ_SURFT_ASC(&
@@ -1645,17 +1645,17 @@ ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
   !
 #ifdef SFX_MPI
   IF (YDIR/='A' .AND. NPROC>1) THEN
-    XTIME0 = MPI_WTIME()         
+    XTIME0 = MPI_WTIME()
     CALL MPI_BCAST(IWORK2(:,1),IL1*KIND(IWORK2)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(IWORK2(:,2),IL1*KIND(IWORK2)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(IWORK2(:,3),IL1*KIND(IWORK2)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(ZWORK2,IL1*KIND(ZWORK2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
-    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)    
+    XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF
 #endif
   !
-ENDIF  
-! 
+ENDIF
+!
 IF (PRESENT(HCOMMENT)) HCOMMENT = YCOMMENT
 !
 IF (KRESP==-2) THEN
@@ -1722,7 +1722,7 @@ INCLUDE "mpif.h"
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
  CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
-TYPE(DATE_TIME), DIMENSION(:,:), INTENT(INOUT) :: TFIELD ! array containing the data field  
+TYPE(DATE_TIME), DIMENSION(:,:), INTENT(INOUT) :: TFIELD ! array containing the data field
 INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
  CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
@@ -1759,10 +1759,10 @@ ALLOCATE(IWORK3(IL1,IL2,3))
 IF (HPROGRAM=='MESONH') THEN
   CALL ABOR1_SFX('READ_SURFT2: NOT AVAILABLE FOR MESONH')
 ELSE IF (HPROGRAM=='AROME ') THEN
-  CALL ABOR1_SFX('READ_SURFT2: NOT AVAILABLE FOR AROME')  
+  CALL ABOR1_SFX('READ_SURFT2: NOT AVAILABLE FOR AROME')
 ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
-    HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' ) THEN 
-  !  
+    HPROGRAM=='FA    ' .OR. HPROGRAM=='LFI   ' ) THEN
+  !
   IF (NRANK==NPIO) THEN
     !
 #ifdef SFX_MPI
@@ -1798,12 +1798,12 @@ ELSEIF (HPROGRAM=='OFFLIN' .OR. HPROGRAM=='ASCII ' .OR. &
 #ifdef SFX_MPI
     XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
 #endif
-    !    
+    !
   ENDIF
   !
 #ifdef SFX_MPI
   IF (YDIR/='A' .AND. NPROC>1) THEN
-    XTIME0 = MPI_WTIME()   
+    XTIME0 = MPI_WTIME()
     CALL MPI_BCAST(IWORK3(:,:,1),IL1*IL2*KIND(IWORK3)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(IWORK3(:,:,2),IL1*IL2*KIND(IWORK3)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(IWORK3(:,:,3),IL1*IL2*KIND(IWORK3)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
@@ -1829,7 +1829,7 @@ ELSE
   TFIELD(:,:)%TDATE%YEAR  = IWORK3(:,:,1)
   TFIELD(:,:)%TDATE%MONTH = IWORK3(:,:,2)
   TFIELD(:,:)%TDATE%DAY   = IWORK3(:,:,3)
-  TFIELD(:,:)%TIME        = ZWORK3(:,:) 
+  TFIELD(:,:)%TIME        = ZWORK3(:,:)
 END IF
 !
 DEALLOCATE(IWORK3)

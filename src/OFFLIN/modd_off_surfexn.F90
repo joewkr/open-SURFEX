@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODD_OFF_SURFEX_n
 !
@@ -9,7 +9,7 @@ USE PARKIND1  ,ONLY : JPRB
 !
 USE MODD_SURFEX_n, ONLY : SURFEX_t
 !
-USE MODE_MODELN_SURFEX_HANDLER 
+USE MODE_MODELN_SURFEX_HANDLER
 !
 TYPE(SURFEX_t), ALLOCATABLE, TARGET, SAVE :: YSURF_LIST(:)
 TYPE(SURFEX_t), POINTER :: YSC => NULL()

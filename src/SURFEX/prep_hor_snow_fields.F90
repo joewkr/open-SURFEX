@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_HOR_SNOW_FIELDS (DTCO, G, U, GCP, HPROGRAM,HSURF,&
@@ -14,7 +14,7 @@ SUBROUTINE PREP_HOR_SNOW_FIELDS (DTCO, G, U, GCP, HPROGRAM,HSURF,&
                                 PUNIF_SG1SNOW, PUNIF_SG2SNOW,&
                                 PUNIF_HISTSNOW,PUNIF_AGESNOW, YDCTL,&
                                 PVEGTYPE_PATCH, KSIZE_P, KR_P,&
-                                PPATCH, OKEY                 )  
+                                PPATCH, OKEY                 )
 !     #######################################################
 !
 !
@@ -28,11 +28,11 @@ SUBROUTINE PREP_HOR_SNOW_FIELDS (DTCO, G, U, GCP, HPROGRAM,HSURF,&
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -102,10 +102,10 @@ REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_TSNOW ! prescribed temperature (K)
 REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_LWCSNOW ! prescribed snow liquid water content (kg/m3)
 REAL,               INTENT(IN)  :: PUNIF_ASNOW ! prescribed albedo (-)
 LOGICAL,            INTENT(INOUT)  :: OSNOW_IDEAL
-REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_SG1SNOW ! 
-REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_SG2SNOW ! 
-REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_HISTSNOW ! 
-REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_AGESNOW ! 
+REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_SG1SNOW !
+REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_SG2SNOW !
+REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_HISTSNOW !
+REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_AGESNOW !
 
 REAL,DIMENSION(:,:,:),  INTENT(IN ), OPTIONAL :: PVEGTYPE_PATCH ! fraction of each vegtype per patch
 INTEGER, DIMENSION(:), INTENT(IN), OPTIONAL :: KSIZE_P
@@ -178,25 +178,25 @@ ENDDO
 !*      2.     Find if PERMSNOW must be done
 !
 IF(PRESENT(OKEY))THEN
-  !  
+  !
   IF ( (HFILETYPE=='MESONH' .OR. HFILETYPE=='ASCII ' .OR. HFILETYPE=='LFI   '.OR. HFILETYPE=='FA    ') &
        .AND. (HSURF=='SN_VEG ')  ) THEN
-    !       
+    !
     CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'FULL  ')
     YRECFM='VERSION'
-    CALL READ_SURF(HFILETYPE,YRECFM,IVERSION,IRESP)    
+    CALL READ_SURF(HFILETYPE,YRECFM,IVERSION,IRESP)
     CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
-    !  
-    IF(IVERSION>7)THEN       
+    !
+    IF(IVERSION>7)THEN
       CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'NATURE')
       YRECFM='GLACIER'
-      CALL READ_SURF(HFILETYPE,YRECFM,GGLACIER,IRESP)    
-      CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)  
+      CALL READ_SURF(HFILETYPE,YRECFM,GGLACIER,IRESP)
+      CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
       IF(GGLACIER)OKEY=.FALSE.
     ENDIF
     !
   ENDIF
-  !  
+  !
   IF(OSNOW_IDEAL)OKEY=.FALSE.
   !
 ENDIF
@@ -211,8 +211,8 @@ CALL PREP_HOR_SNOW_FIELD(DTCO, G, U, GCP, &
                          KLUOUT, OUNIF, YSNSURF, KPATCH, KTEB_PATCH, KL, TNPSNOW, TPTIME,  &
                          PUNIF_WSNOW, PUNIF_RSNOW, PUNIF_TSNOW, PUNIF_LWCSNOW,&
                          PUNIF_ASNOW, OSNOW_IDEAL, PUNIF_SG1SNOW,             &
-                         PUNIF_SG2SNOW, PUNIF_HISTSNOW,PUNIF_AGESNOW, YDCTL,  &                      
-                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P         )  
+                         PUNIF_SG2SNOW, PUNIF_HISTSNOW,PUNIF_AGESNOW, YDCTL,  &
+                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P         )
 !
 !----------------------------------------------------------------------------
 !
@@ -268,7 +268,7 @@ CALL PREP_HOR_SNOW_FIELD(DTCO, G, U, GCP, &
                          PUNIF_WSNOW, PUNIF_RSNOW, PUNIF_TSNOW, PUNIF_LWCSNOW,     &
                          PUNIF_ASNOW, OSNOW_IDEAL, PUNIF_SG1SNOW,                  &
                          PUNIF_SG2SNOW, PUNIF_HISTSNOW,PUNIF_AGESNOW, YDCTL,       &
-                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH  )  
+                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH  )
 !
 !----------------------------------------------------------------------------
 !
@@ -343,7 +343,7 @@ YSNSURF='ALB'//HSURF
                          PUNIF_WSNOW, PUNIF_RSNOW, PUNIF_TSNOW, PUNIF_LWCSNOW,    &
                          PUNIF_ASNOW, OSNOW_IDEAL, PUNIF_SG1SNOW,                 &
                          PUNIF_SG2SNOW, PUNIF_HISTSNOW,PUNIF_AGESNOW, YDCTL,      &
-                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH  ) 
+                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH  )
 !
 IF (TNPSNOW%AL(1)%SCHEME/='D95') THEN
   !
@@ -369,7 +369,7 @@ IF (TNPSNOW%AL(1)%SCHEME=='CRO'.OR. TNPSNOW%AL(1)%SCHEME=='3-L') THEN
                          PUNIF_WSNOW, PUNIF_RSNOW, PUNIF_TSNOW, PUNIF_LWCSNOW,    &
                          PUNIF_ASNOW, OSNOW_IDEAL, PUNIF_SG1SNOW,                 &
                          PUNIF_SG2SNOW, PUNIF_HISTSNOW,PUNIF_AGESNOW, YDCTL,      &
-                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH  )   
+                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH  )
   !
   DO JP = 1,KPATCH
     WHERE(TNPSNOW%AL(JP)%WSNOW(:,1)>0.0 .AND. TNPSNOW%AL(JP)%WSNOW(:,1)/=XUNDEF .AND. &
@@ -394,7 +394,7 @@ IF (TNPSNOW%AL(1)%SCHEME=='CRO') THEN
                          PUNIF_WSNOW, PUNIF_RSNOW, PUNIF_TSNOW, PUNIF_LWCSNOW,    &
                          PUNIF_ASNOW, OSNOW_IDEAL, PUNIF_SG1SNOW,                 &
                          PUNIF_SG2SNOW, PUNIF_HISTSNOW,PUNIF_AGESNOW, YDCTL,      &
-                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH )   
+                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH )
   !
   YSNSURF='SG2'//HSURF
   CALL PREP_HOR_SNOW_FIELD(DTCO, G, U, GCP, &
@@ -403,7 +403,7 @@ IF (TNPSNOW%AL(1)%SCHEME=='CRO') THEN
                          PUNIF_WSNOW, PUNIF_RSNOW, PUNIF_TSNOW, PUNIF_LWCSNOW,    &
                          PUNIF_ASNOW, OSNOW_IDEAL, PUNIF_SG1SNOW,                 &
                          PUNIF_SG2SNOW, PUNIF_HISTSNOW,PUNIF_AGESNOW, YDCTL,      &
-                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH  )   
+                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH  )
   !
   YSNSURF='HIS'//HSURF
   CALL PREP_HOR_SNOW_FIELD(DTCO, G, U, GCP, &
@@ -412,7 +412,7 @@ IF (TNPSNOW%AL(1)%SCHEME=='CRO') THEN
                          PUNIF_WSNOW, PUNIF_RSNOW, PUNIF_TSNOW, PUNIF_LWCSNOW,    &
                          PUNIF_ASNOW, OSNOW_IDEAL, PUNIF_SG1SNOW,                 &
                          PUNIF_SG2SNOW, PUNIF_HISTSNOW,PUNIF_AGESNOW, YDCTL,      &
-                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH  )   
+                         ZVEGTYPE_PATCH, ZPATCH, ISIZE_P, IR_P, PDEPTH=ZDEPTH  )
   !
 ENDIF
 !

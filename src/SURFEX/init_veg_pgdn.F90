@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
 SUBROUTINE INIT_VEG_PGD_n (ISSK, DTI, IO, S, K, KK, PK, PEK, AGK, KI, &
                            HPROGRAM, HSURF, KLUOUT, KSIZE, KMONTH,    &
                            ODEEPSOIL, OPHYSDOMC, PTDEEP_CLI, PGAMMAT_CLI,     &
-                           OAGRIP, PTHRESHOLD, HINIT, PCO2, PRHOA     )  
+                           OAGRIP, PTHRESHOLD, HINIT, PCO2, PRHOA     )
 !#############################################################
 !
 !!****  *INIT_VEG_PGD_n_n* - routine to initialize ISBA
@@ -190,7 +190,7 @@ IF (.NOT.ASSOCIATED(K%XMPOTSAT)) THEN
     !  field capacity at hydraulic conductivity = 0.1mm/day
     K%XWFC(:,:) = WFC_FUNC(K%XCLAY(:,:),K%XSAND(:,:),IO%CPEDOTF)
   ELSE IF (IO%CISBA=='DIF') THEN
-    !  field capacity at water potential = 0.33bar        
+    !  field capacity at water potential = 0.33bar
     K%XWFC(:,:) = W33_FUNC(K%XCLAY(:,:),K%XSAND(:,:),IO%CPEDOTF)
   END IF
  !
@@ -233,7 +233,7 @@ IF (.NOT.ASSOCIATED(K%XMPOTSAT)) THEN
     ALLOCATE(K%XHCAPSOIL(KI,IO%NGROUND_LAYER))
     ALLOCATE(K%XCONDDRY (KI,IO%NGROUND_LAYER))
     ALLOCATE(K%XCONDSLD (KI,IO%NGROUND_LAYER))
-    ! 
+    !
     CALL HEATCAPZ(K%XSAND,K%XHCAPSOIL)
     CALL THRMCONDZ(K%XSAND,K%XWSAT,K%XCONDDRY,K%XCONDSLD)
   ELSE
@@ -308,11 +308,11 @@ ELSE
   !
   ALLOCATE(KK%XFWTD(0))
   ALLOCATE(KK%XWTD (0))
-  !   
+  !
 ENDIF
 !
 !
-!*         Physiographic Radiative fields:  
+!*         Physiographic Radiative fields:
 !               ------------------------------
 !
 !
@@ -341,8 +341,8 @@ IF (OAGRIP) THEN
   ALLOCATE(AGK%XTHRESHOLDSPT(KSIZE))
   !
   AGK%NIRRINUM (:) = 1
-  AGK%LIRRIDAY (:) = .FALSE.                          
-  AGK%LIRRIGATE(:) = .FALSE.                          
+  AGK%LIRRIDAY (:) = .FALSE.
+  AGK%LIRRIGATE(:) = .FALSE.
   !
   DO JILU = 1, KSIZE
     AGK%XTHRESHOLDSPT(JILU) = PTHRESHOLD(AGK%NIRRINUM(JILU))
@@ -376,7 +376,7 @@ IF (SIZE(ISSK%XAOSIP)>0) CALL SUBSCALE_Z0EFF(ISSK,PEK%XZ0,.FALSE.)
 !
 !
 !*       2.B.1. Additional fields for ISBA-AGS:
-!        --------------------------------------                 
+!        --------------------------------------
 !
 IF(IO%CPHOTO /= 'NON' .AND. HINIT == 'ALL') THEN
   !
@@ -389,7 +389,7 @@ IF(IO%CPHOTO /= 'NON' .AND. HINIT == 'ALL') THEN
     ALLOCATE(S%XABC(IABC))
     ALLOCATE(S%XPOI(IABC))
     S%XABC(:) = 0.
-    S%XPOI(:) = 0.       
+    S%XPOI(:) = 0.
     CALL GAULEG(0.0,1.0,S%XABC,S%XPOI,IABC)
   ENDIF
   !
@@ -465,7 +465,7 @@ IF (DTI%LDATA_CONDSAT) THEN
   PK%XCONDSAT(:,:) = DTI%XPAR_CONDSAT(:,:)
 ELSE
   DO JL=1,IO%NGROUND_LAYER
-    PK%XCONDSAT(:,JL) = HYDCONDSAT_FUNC(KK%XCLAY(:,JL),KK%XSAND(:,JL),IO%CPEDOTF) 
+    PK%XCONDSAT(:,JL) = HYDCONDSAT_FUNC(KK%XCLAY(:,JL),KK%XSAND(:,JL),IO%CPEDOTF)
   END DO
 ENDIF
 PK%XTAUICE(:) = XTAU_ICE
@@ -474,8 +474,8 @@ IF (IO%CISBA=='2-L' .OR. IO%CISBA=='3-L') THEN
   !
   ALLOCATE(PK%XC1SAT (KSIZE))
   ALLOCATE(PK%XC2REF (KSIZE))
-  ALLOCATE(PK%XC3    (KSIZE,2))  
-  ALLOCATE(PK%XC4REF (KSIZE))      
+  ALLOCATE(PK%XC3    (KSIZE,2))
+  ALLOCATE(PK%XC4REF (KSIZE))
   PK%XC1SAT(:) = C1SAT_FUNC(KK%XCLAY(:,1))
   PK%XC2REF(:) = C2REF_FUNC(KK%XCLAY(:,1))
   PK%XC3 (:,1) = C3_FUNC   (KK%XCLAY(:,1))
@@ -488,8 +488,8 @@ ELSE IF (IO%CISBA=='DIF') THEN
   !
   ALLOCATE(PK%XC1SAT (0))
   ALLOCATE(PK%XC2REF (0))
-  ALLOCATE(PK%XC3    (0,0))  
-  ALLOCATE(PK%XC4REF (0))  
+  ALLOCATE(PK%XC3    (0,0))
+  ALLOCATE(PK%XC4REF (0))
   !
 END IF
 !
@@ -508,14 +508,14 @@ ALLOCATE(PK%XRUNOFFD (KSIZE))
 PK%XRUNOFFD(:)=XUNDEF
 !
 IF (IO%CISBA == 'DIF') THEN
-!  
+!
   ALLOCATE(PK%XDZG       (KSIZE,IO%NGROUND_LAYER))
   ALLOCATE(PK%XDZDIF     (KSIZE,IO%NGROUND_LAYER))
   ALLOCATE(PK%XSOILWGHT  (KSIZE,IO%NGROUND_LAYER))
   CALL DIF_LAYER(KSIZE, IO, PK )
 !
 ELSE
-!   
+!
   ALLOCATE(PK%XDZG       (0,0))
   ALLOCATE(PK%XDZDIF     (0,0))
   ALLOCATE(PK%XSOILWGHT  (0,0))
@@ -523,11 +523,11 @@ ELSE
   WHERE(PK%XPATCH(:)>0.0)
     PK%XRUNOFFD(:) = PK%XDG(:,2)
   ENDWHERE
-!   
+!
 ENDIF
 !
 !Horton (also used by the flooding sheme)
-! 
+!
 ALLOCATE(PK%XKSAT_ICE(KSIZE))
 !
 IF(IO%CISBA/='DIF')THEN
@@ -541,13 +541,13 @@ ENDIF
 !
 !-------------------------------------------------------------------------------
 !
-!*        Physiographic Radiative fields:  
+!*        Physiographic Radiative fields:
 !         ------------------------------
 !
 
 !
 !*       2.B.4.  Nitrogen version for isbaAgs
-!        ------------------------------------                        
+!        ------------------------------------
 !
 IF (IO%CPHOTO=='NIT' .OR. IO%CPHOTO=='NCB') THEN
   ALLOCATE(PK%XBSLAI_NITRO (KSIZE ))

@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PGD_SEAFLUX_PAR_n (DTCO, U, GCP, DTS, KDIM, HPROGRAM,KSIZE,HDIR)
 !     ################################################
 !
 !!****  *READ_PGD_SEAFLUX_PAR_n* - reads SEAFLUX sst
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    09/2007 
+!!      Original    09/2007
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -127,7 +127,7 @@ END DO
 !
 ALLOCATE(DTS%XDATA_SST(KDIM,DTS%NTIME))
 IF (KDIM/=KSIZE) THEN
-  LINTERP(:) = .TRUE.      
+  LINTERP(:) = .TRUE.
   DO JTIME=1,DTS%NTIME
     CALL HOR_INTERPOL(DTCO, U, GCP, ILUOUT,ZDATA_SST(:,JTIME:JTIME),DTS%XDATA_SST(:,JTIME:JTIME))
   ENDDO

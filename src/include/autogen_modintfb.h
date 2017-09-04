@@ -1,6 +1,6 @@
 ! DO NOT REMOVE THIS FILE PLEASE !!
 ! It is here to signal that subroutine interfaces are generated automatically
-! (see make_intfbl_f90.pl in the main directory) 
+! (see make_intfbl_f90.pl in the main directory)
 ! Though never included, it is named like a header in order to make sure that
 ! a cleaning of the directory would not remove it.
 ! It may be helpful later to give some precision about the method how to generate

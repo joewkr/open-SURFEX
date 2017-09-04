@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
       SUBROUTINE READ_GRIDTYPE_LONLAT_REG (&
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -116,7 +116,7 @@ IF (LHOOK) CALL DR_HOOK('READ_GRIDTYPE_LONLAT_REG',0,ZHOOK_HANDLE)
 !              --------------------------------------------------
 !
  CALL PUT_GRIDTYPE_LONLAT_REG(ZGRID_PAR,ZLONMIN,ZLONMAX,               &
-                               ZLATMIN,ZLATMAX,ILON,ILAT,KLU,ZLON,ZLAT  )  
+                               ZLATMIN,ZLATMAX,ILON,ILAT,KLU,ZLON,ZLAT  )
 !
 !---------------------------------------------------------------------------
 IF (OREAD) THEN

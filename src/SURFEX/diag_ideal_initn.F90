@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DIAG_IDEAL_INIT_n (DGO, D, DC, HPROGRAM, OREAD_BUDGETC, KLU, KSW)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    04/2009 
+!!      Original    04/2009
 !!      P. Le Moigne 03/2015: add diagnostics IDEAL case
 !-------------------------------------------------------------------------------
 !
@@ -86,39 +86,39 @@ IF (DGO%LSURF_BUDGET .OR. DGO%LSURF_BUDGETC) THEN
   ALLOCATE(D%XEVAP   (KLU))
   ALLOCATE(D%XSUBL   (KLU))
   ALLOCATE(D%XALBT   (KLU))
-  ALLOCATE(D%XSWE    (KLU))  
+  ALLOCATE(D%XSWE    (KLU))
   !
   D%XEVAP    = XUNDEF
-  D%XSUBL    = XUNDEF    
+  D%XSUBL    = XUNDEF
   D%XALBT    = XUNDEF
-  D%XSWE     = XUNDEF 
-  ! 
+  D%XSWE     = XUNDEF
+  !
 ELSE
   !
   ALLOCATE(D%XEVAP   (0))
-  ALLOCATE(D%XSUBL   (0))   
+  ALLOCATE(D%XSUBL   (0))
   ALLOCATE(D%XALBT   (0))
-  ALLOCATE(D%XSWE    (0)) 
-  ! 
+  ALLOCATE(D%XSWE    (0))
+  !
 END IF
 !
 !* cumulative surface energy budget
 !
 IF (DGO%LSURF_BUDGETC) THEN
-  !   
+  !
   CALL ALLOC_SURF_BUD(DC,0,KLU,0)
   !
   ALLOCATE(DC%XEVAP (KLU))
-  ALLOCATE(DC%XSUBL (KLU))  
+  ALLOCATE(DC%XSUBL (KLU))
   !
-  IF (.NOT. OREAD_BUDGETC .OR. OREAD_BUDGETC.AND.DGO%LRESET_BUDGETC) THEN 
+  IF (.NOT. OREAD_BUDGETC .OR. OREAD_BUDGETC.AND.DGO%LRESET_BUDGETC) THEN
     CALL INIT_SURF_BUD(DC,0.)
     DC%XEVAP = 0.
     DC%XSUBL = 0.
   ELSE
     CALL READ_SURF(HPROGRAM,'VERSION',IVERSION,IRESP)
     IF (IVERSION<8)THEN
-      CALL INIT_SURF_BUD(DC,0.) 
+      CALL INIT_SURF_BUD(DC,0.)
       DC%XEVAP = 0.
       DC%XSUBL = 0.
     ELSE
@@ -129,7 +129,7 @@ IF (DGO%LSURF_BUDGETC) THEN
       YREC='LEC_WAT'
       CALL READ_SURF(HPROGRAM,YREC,DC%XLE,IRESP)
       YREC='LEIC_WAT'
-      CALL READ_SURF(HPROGRAM,YREC,DC%XLEI,IRESP)     
+      CALL READ_SURF(HPROGRAM,YREC,DC%XLEI,IRESP)
       YREC='GFLUXC_WAT'
       CALL READ_SURF(HPROGRAM,YREC,DC%XGFLUX,IRESP)
       YREC='SWDC_WAT'
@@ -147,10 +147,10 @@ IF (DGO%LSURF_BUDGETC) THEN
       YREC='EVAPC_WAT'
       CALL READ_SURF(HPROGRAM,YREC,DC%XEVAP,IRESP)
       YREC='SUBLC_WAT'
-      CALL READ_SURF(HPROGRAM,YREC,DC%XSUBL,IRESP)              
+      CALL READ_SURF(HPROGRAM,YREC,DC%XSUBL,IRESP)
     ENDIF
     !
-  ENDIF   
+  ENDIF
 ELSE
   CALL ALLOC_SURF_BUD(DC,0,0,0)
   ALLOCATE(DC%XEVAP (0))

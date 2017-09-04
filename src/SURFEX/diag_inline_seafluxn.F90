@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE DIAG_INLINE_SEAFLUX_n (DGO, D, DC, DI, DIC, DGMSI, S,              &
@@ -8,11 +8,11 @@ SUBROUTINE DIAG_INLINE_SEAFLUX_n (DGO, D, DC, DI, DIC, DGMSI, S,              &
                                   PMERA, PHT, PHW, PCD, PCDN, PCH, PCE, PRI, PHU,     &
                                   PZ0H, PQSAT, PSFTH, PSFTQ, PSFZON, PSFMER,          &
                                   PDIR_SW, PSCA_SW, PLW, PDIR_ALB, PSCA_ALB,          &
-                                  PEMIS, PTRAD, PRAIN, PSNOW,                         & 
+                                  PEMIS, PTRAD, PRAIN, PSNOW,                         &
                                   PCD_ICE, PCDN_ICE, PCH_ICE, PCE_ICE, PRI_ICE,       &
                                   PZ0_ICE, PZ0H_ICE, PQSAT_ICE, PSFTH_ICE, PSFTQ_ICE, &
                                    PSFZON_ICE, PSFMER_ICE )
-                                          
+
 !     #####################################################################################
 !
 !!****  *DIAG_INLINE_SEAFLUX_n * - computes diagnostics during SEAFLUX time-step
@@ -25,11 +25,11 @@ SUBROUTINE DIAG_INLINE_SEAFLUX_n (DGO, D, DC, DI, DIC, DGMSI, S,              &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -39,7 +39,7 @@ SUBROUTINE DIAG_INLINE_SEAFLUX_n (DGO, D, DC, DI, DIC, DGMSI, S,              &
 !!      S. Riette   06/2009 CLS_2M becomes CLS_TQ, CLS_TQ and CLS_WIND have one
 !!                          more argument (height of diagnostic)
 !!      B. Decharme 04/2013 : Add EVAP and SUBL diag
-!!      S. Senesi   01/2014 ! introduce fractional seaice and sea-ice model 
+!!      S. Senesi   01/2014 ! introduce fractional seaice and sea-ice model
 !!------------------------------------------------------------------
 !
 USE MODD_DIAG_n, ONLY : DIAG_t, DIAG_OPTIONS_t
@@ -149,20 +149,20 @@ ENDIF
 IF (.NOT. S%LSBL) THEN
 !
   IF (DGO%N2M==2) THEN
-    ZH(:)=2.          
+    ZH(:)=2.
     CALL CLS_TQ(PTA, PQA, PPA, PPS, PHT, PCD, PCH, PRI, &
                 S%XSST, PHU, PZ0H, ZH,D%XT2M, D%XQ2M, D%XHU2M)
-    ZH(:)=10.                
+    ZH(:)=10.
     CALL CLS_WIND(PZONA, PMERA, PHW,PCD, PCDN, PRI, ZH,  &
-                  D%XZON10M, D%XMER10M)  
+                  D%XZON10M, D%XMER10M)
     IF (S%LHANDLE_SIC) THEN
-       ZH(:)=2.          
+       ZH(:)=2.
        CALL CLS_TQ(PTA, PQA, PPA, PPS, PHT, PCD_ICE, PCH_ICE, PRI_ICE,       &
-            S%XTICE, PHU, PZ0H_ICE, ZH, DI%XT2M, DI%XQ2M, DI%XHU2M)  
-       ZH(:)=10.                
+            S%XTICE, PHU, PZ0H_ICE, ZH, DI%XT2M, DI%XQ2M, DI%XHU2M)
+       ZH(:)=10.
        CALL CLS_WIND(PZONA, PMERA, PHW, PCD_ICE, PCDN_ICE, PRI_ICE, ZH,  &
-            DI%XZON10M, DI%XMER10M  )  
-    ENDIF 
+            DI%XZON10M, DI%XMER10M  )
+    ENDIF
   END IF
 !
   IF (DGO%N2M>=1) THEN
@@ -211,7 +211,7 @@ IF (DGO%LSURF_BUDGET.OR.DGO%LSURF_BUDGETC) THEN
   CALL DIAG_SURF_BUDGET_SEA   (D, DI, S, XTTS, PRHOA, PSFTH, PSFTH_ICE, &
                                PSFTQ, PSFTQ_ICE, PDIR_SW, PSCA_SW, PLW,   &
                                PDIR_ALB, PSCA_ALB, PEMIS, PTRAD,          &
-                               PSFZON, PSFZON_ICE, PSFMER, PSFMER_ICE   ) 
+                               PSFZON, PSFZON_ICE, PSFMER, PSFMER_ICE   )
   IF (S%LHANDLE_SIC) DI%XLE = D%XLEI
 !
 END IF
@@ -228,7 +228,7 @@ IF(DGO%LSURF_BUDGETC)THEN
 ENDIF
 !
 IF (DGO%LCOEF) THEN
-   IF (S%LHANDLE_SIC) THEN 
+   IF (S%LHANDLE_SIC) THEN
       !
       !* Transfer coefficients
       !
@@ -238,9 +238,9 @@ IF (DGO%LCOEF) THEN
       !
       !* Roughness lengths
       !
-      ZZ0W = ( 1 - S%XSIC ) * 1.0/(LOG(PHW/S%XZ0)    **2)  +  S%XSIC   * 1.0/(LOG(PHW/PZ0_ICE)**2)  
+      ZZ0W = ( 1 - S%XSIC ) * 1.0/(LOG(PHW/S%XZ0)    **2)  +  S%XSIC   * 1.0/(LOG(PHW/PZ0_ICE)**2)
       D%XZ0  = PHW  * EXP ( - SQRT ( 1./  ZZ0W ))
-      ZZ0W = ( 1 - S%XSIC ) * 1.0/(LOG(PHW/PZ0H)    **2)  +  S%XSIC   * 1.0/(LOG(PHW/PZ0H_ICE)**2)  
+      ZZ0W = ( 1 - S%XSIC ) * 1.0/(LOG(PHW/PZ0H)    **2)  +  S%XSIC   * 1.0/(LOG(PHW/PZ0H_ICE)**2)
       D%XZ0H = PHW  * EXP ( - SQRT ( 1./  ZZ0W ))
 
       DI%XCD  = PCD_ICE
@@ -268,19 +268,19 @@ IF (DGO%LSURF_VARS) THEN
   !
   !* Humidity at saturation
   !
-   IF (S%LHANDLE_SIC) THEN 
+   IF (S%LHANDLE_SIC) THEN
       D%XQS     = (1 - S%XSIC) * PQSAT + S%XSIC * PQSAT_ICE
       DI%XQS = PQSAT_ICE
-   ELSE 
+   ELSE
       D%XQS = PQSAT
    ENDIF
 ENDIF
 !
 ! Diags from embedded Seaice model
-! CALL DIAG_INLINE_SEAICE() : simply  : 
+! CALL DIAG_INLINE_SEAICE() : simply  :
 !
 IF (DGMSI%LDIAG_MISC_SEAICE) THEN
-   IF (TRIM(S%CSEAICE_SCHEME) == 'GELATO') THEN 
+   IF (TRIM(S%CSEAICE_SCHEME) == 'GELATO') THEN
       GELATO_DIM=SIZE(PTA)
       DGMSI%XSIT  = RESHAPE(glt_avhicem(S%TGLT%dom,S%TGLT%sit),(/GELATO_DIM/))
       DGMSI%XSND  = RESHAPE(glt_avhsnwm(S%TGLT%dom,S%TGLT%sit),(/GELATO_DIM/))
@@ -299,7 +299,7 @@ IF (LCPL_SEA.OR.GSIC) THEN
 !
   CALL DIAG_CPL_ESM_SEA(S, D, DI, PTSTEP, PSFTQ, PRAIN, PSNOW, &
                         PLW, PSFTH_ICE, PSFTQ_ICE, PDIR_SW, PSCA_SW, GSIC )
-! 
+!
 ENDIF
 IF (LHOOK) CALL DR_HOOK('DIAG_INLINE_SEAFLUX_N',1,ZHOOK_HANDLE)
 !

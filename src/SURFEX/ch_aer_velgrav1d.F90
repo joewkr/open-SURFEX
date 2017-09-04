@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE CH_AER_VELGRAV1D(PSIG, PRG, PTA, PRHODREF, PRHOP, PMU, PVGK,PDPK, PVGG,PDPG)
@@ -31,7 +31,7 @@ SUBROUTINE CH_AER_VELGRAV1D(PSIG, PRG, PTA, PRHODREF, PRHOP, PMU, PVGK,PDPK, PVG
 !
 !*************************************************************
 ! Variables used during the deposition velocity calculation
-! 
+!
 ! PDPK       -Polydisperse diffusivity (m2/s)
 ! PVGK       -Polydisperse settling velocity of the kth moment (m/s)
 !************************************************************
@@ -72,7 +72,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('CH_AER_VELGRAV1D',0,ZHOOK_HANDLE)
 ZPI = 2.*ASIN(1.)
 ZAVOGADRO =  6.0221367E+23
-ZBOLTZ = 1.380658E-23 
+ZBOLTZ = 1.380658E-23
 ZMD   = 28.9644E-3
 ZRD  = ZAVOGADRO * ZBOLTZ / ZMD
 ZG  = 9.80665
@@ -86,27 +86,27 @@ ZLAMBDA(:)=PMU(:)/PRHODREF(:)*sqrt(1.89d-4*gasmw/PTA(:))*1.e6
 
 do II=1,JPMODE
 
-  ZRG(:)=PRG(:,II) * 1E-6 
-  ZLN2S(:)=LOG(PSIG(:,II))**2 
+  ZRG(:)=PRG(:,II) * 1E-6
+  ZLN2S(:)=LOG(PSIG(:,II))**2
   !
-  ZKNG(:)=ZLAMBDA(:) / PRG(:,II) 
+  ZKNG(:)=ZLAMBDA(:) / PRG(:,II)
   !
   PVGG(:,II)= 2.*ZG*PRHOP(:,II)*ZRG(:)**2 /(9.*PMU(:))
   PDPG(:,II)=ZBOLTZ*PTA(:)/ (6.*ZPI* ZRG(:)*PMU(:))
 
 
- 
+
   do IJ=0,2
 !
     ZK=real(3*IJ)
     PDPK(:,3*II+IJ-2)=PDPG(:,II)*(exp((-2.*ZK+1.)/2.*ZLN2S(:))+1.246*ZKNG(:)*&
-                exp((-4.*ZK+4)/2.*ZLN2S(:)))  
+                exp((-4.*ZK+4)/2.*ZLN2S(:)))
 
     PVGK(:,3*II+IJ-2)=PVGG(:,II)*&
-      (exp((4.*ZK+4.)/2.*ZLN2S(:)) + 1.246*ZKNG(:)* exp((2.*ZK+1.)/2.*ZLN2S(:)))  
+      (exp((4.*ZK+4.)/2.*ZLN2S(:)) + 1.246*ZKNG(:)* exp((2.*ZK+1.)/2.*ZLN2S(:)))
 
   enddo
- 
+
 enddo
 IF (LHOOK) CALL DR_HOOK('CH_AER_VELGRAV1D',1,ZHOOK_HANDLE)
 

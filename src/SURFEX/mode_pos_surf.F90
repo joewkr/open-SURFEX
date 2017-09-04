@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !!    ###############
       MODULE MODE_POS_SURF
@@ -47,7 +47,7 @@ END INTERFACE
 !!
 !!    AUTHOR
 !!    -------
-!!    I. Mallet  15/10/01 
+!!    I. Mallet  15/10/01
 !!
 !!    MODIFICATIONS
 !!    --------------
@@ -93,28 +93,28 @@ DO JFILE=1,2
     YLINE=' '
     READ(UNIT=KULNAM,FMT='(A)',IOSTAT=IRET,END=100) YLINE
 
-!   If file does not exist, most compilers would just create it and jump 
-!   to the END label ; but a few of them would report an error:         
-    IF (IRET /=0 ) THEN                 
+!   If file does not exist, most compilers would just create it and jump
+!   to the END label ; but a few of them would report an error:
+    IF (IRET /=0 ) THEN
       INQUIRE(KULNAM,OPENED=LLOPENED)
       IF (LLOPENED) THEN
         IF (PRESENT(KLUOUT)) THEN
           WRITE(KLUOUT,FMT=*) 'MODE_POS_SURF : error reading from unit ',&
                 KULNAM,' file ',HDNAML,' line ',YLINE
           CALL FLUSH(KLUOUT)
-        ENDIF        
-        CALL ABOR1_SFX('MODE_POS_SURF: read error in namelist file') 
+        ENDIF
+        CALL ABOR1_SFX('MODE_POS_SURF: read error in namelist file')
       ELSE
         EXIT search_nam
       END IF
-    ELSE   
+    ELSE
 !     FIRST SEARCH for "&" IN THE LINE, THEN CORRECT LINE AND TEST :
       INDL=INDEX(YLINE,'&')
       IF (INDL .NE. 0 ) THEN
         ILEY=LEN(YLINE)
         DO J=1,ILEY
           DO JA=1,26
-            IF (YLINE(J:J)==YLO(JA)) YLINE(J:J)=YUP(JA) 
+            IF (YLINE(J:J)==YLO(JA)) YLINE(J:J)=YUP(JA)
           END DO
         END DO
         IND1=INDEX(YLINE,'&'//HDNAML)

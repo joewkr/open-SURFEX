@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DIAG_SEAICE_INIT_n (DGO, DI, DIC, DGMSI, OREAD_BUDGETC, S, &
@@ -32,11 +32,11 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!      Modified    01/2006 : sea flux parameterization.
-!!      Modified    08/2009 : cumulative sea flux 
+!!      Modified    08/2009 : cumulative sea flux
 !!      B. decharme 04/2013 : Add EVAP and SUBL diag
-!!      S.Senesi    01/2014 : introduce fractional seaice 
+!!      S.Senesi    01/2014 : introduce fractional seaice
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -107,12 +107,12 @@ ELSE
   CALL ALLOC_SURF_BUD(DIC,0,0,0)
 ENDIF
 !
-!* Seaice model diagnostics init 
+!* Seaice model diagnostics init
 !
 IF (DGMSI%LDIAG_MISC_SEAICE) THEN
   ALLOCATE(DGMSI%XSIT(KLU))
-  ALLOCATE(DGMSI%XSND(KLU)) 
-  ALLOCATE(DGMSI%XMLT(KLU))  
+  ALLOCATE(DGMSI%XSND(KLU))
+  ALLOCATE(DGMSI%XMLT(KLU))
   DGMSI%XSIT=XUNDEF
   DGMSI%XSND=XUNDEF
   DGMSI%XMLT=XUNDEF

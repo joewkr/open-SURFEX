@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE HOR_INTERPOL (DTCO, U, GCP, KLUOUT,PFIELDIN,PFIELDOUT)
@@ -16,11 +16,11 @@ SUBROUTINE HOR_INTERPOL (DTCO, U, GCP, KLUOUT,PFIELDIN,PFIELDOUT)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -95,7 +95,7 @@ SELECT CASE (CINTERP_TYPE)
 !*      1.4    Interpolation from rotated lat/lon coord
 !
       CASE ('ROTLATLON ')
-        CALL HOR_INTERPOL_ROTLATLON(KLUOUT,PFIELDIN,PFIELDOUT)        
+        CALL HOR_INTERPOL_ROTLATLON(KLUOUT,PFIELDIN,PFIELDOUT)
 
       CASE DEFAULT
         CALL ABOR1_SFX('HOR_INTERPOL: WRONG GRID TYPE'//CINGRID_TYPE)
@@ -136,7 +136,7 @@ SELECT CASE (CINTERP_TYPE)
       PFIELDOUT(:,JL) = PFIELDIN(:,JL)
     END DO
 
-  CASE DEFAULT 
+  CASE DEFAULT
     CALL ABOR1_SFX('HOR_INTERPOL: WRONG INTERPOLATION TYPE'//CINTERP_TYPE)
 
 END SELECT

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################################################################
       SUBROUTINE LATLON_GRIDTYPE_CONF_PROJ(G,KL,PDIR)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -63,7 +63,7 @@ REAL, DIMENSION(KL),        INTENT(OUT) :: PDIR ! direction of main grid Y axis 
 !
 REAL                              :: ZLAT0    ! reference latitude
 REAL                              :: ZLON0    ! reference longitude
-REAL                              :: ZRPK     ! projection parameter 
+REAL                              :: ZRPK     ! projection parameter
 !                                             !   K=1 : stereographic north pole
 !                                             ! 0<K<1 : Lambert, north hemisphere
 !                                             !   K=0 : Mercator
@@ -92,7 +92,7 @@ ALLOCATE(ZDY(SIZE(G%XLAT)))
 !
  CALL GET_GRIDTYPE_CONF_PROJ(G%XGRID_PAR,ZLAT0,ZLON0,ZRPK,ZBETA,&
                               ZLATOR,ZLONOR,                   &
-                              PX=ZX,PY=ZY,PDX=ZDX,PDY=ZDY      )  
+                              PX=ZX,PY=ZY,PDX=ZDX,PDY=ZDY      )
 !
 !---------------------------------------------------------------------------
 !

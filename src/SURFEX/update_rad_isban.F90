@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE UPDATE_RAD_ISBA_n (IO, S, KK, PK, PEK, KPATCH, PZENITH, PSW_BANDS, &
@@ -9,9 +9,9 @@ SUBROUTINE UPDATE_RAD_ISBA_n (IO, S, KK, PK, PEK, KPATCH, PZENITH, PSW_BANDS, &
 !     ####################################################################
 !
 !!****  *UPDATE_RAD_ISBA_n * - Calculate snow/flood fraction, dir/dif albedo
-!!                             and emissivity at t+1 in order to close the 
-!!                             energy budget between the atmospheric model 
-!!                             and surfex  
+!!                             and emissivity at t+1 in order to close the
+!!                             energy budget between the atmospheric model
+!!                             and surfex
 !!
 !!    PURPOSE
 !!    -------
@@ -21,11 +21,11 @@ SUBROUTINE UPDATE_RAD_ISBA_n (IO, S, KK, PK, PEK, KPATCH, PZENITH, PSW_BANDS, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !,ZEMIST,PEMIST,ZPUT0)!
 !!    AUTHOR
 !!    ------
-!!     B. Decharme 
+!!     B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -43,11 +43,11 @@ USE MODD_TYPE_SNOW
 USE MODD_CSTS,      ONLY : XTT
 USE MODD_SURF_PAR,  ONLY : XUNDEF
 USE MODD_SNOW_PAR,  ONLY : XRHOSMIN_ES,XRHOSMAX_ES,XSNOWDMIN,XEMISSN
-USE MODD_WATER_PAR, ONLY : XALBSCA_WAT, XEMISWAT, XALBWATICE, XEMISWATICE 
+USE MODD_WATER_PAR, ONLY : XALBSCA_WAT, XEMISWAT, XALBWATICE, XEMISWATICE
 USE MODD_MEB_PAR,   ONLY : XSW_WGHT_VIS, XSW_WGHT_NIR
 !
 USE MODE_SURF_FLOOD_FRAC
-USE MODE_SURF_SNOW_FRAC      
+USE MODE_SURF_SNOW_FRAC
 USE MODE_MEB,       ONLY : MEB_SHIELD_FACTOR, MEBPALPHAN
 !
 USE MODI_ALBEDO_TA96
@@ -91,7 +91,7 @@ REAL, DIMENSION(PK%NSIZE_P) :: ZVEG
 REAL, DIMENSION(PK%NSIZE_P) :: ZPSNV_A
 REAL, DIMENSION(PK%NSIZE_P) :: ZALBF_DIR
 REAL, DIMENSION(PK%NSIZE_P) :: ZALBF_SCA
-REAL, DIMENSION(PK%NSIZE_P) :: ZEMISF   
+REAL, DIMENSION(PK%NSIZE_P) :: ZEMISF
 REAL, DIMENSION(PK%NSIZE_P) :: ZFF
 REAL, DIMENSION(PK%NSIZE_P) :: ZALBNIR_WITH_SNOW
 REAL, DIMENSION(PK%NSIZE_P) :: ZALBVIS_WITH_SNOW
@@ -136,18 +136,18 @@ IF(IO%LMEB_PATCH(KPATCH).OR.IO%LFLOOD)THEN
     IF(PRESENT(PDIR_SW))THEN
       !
       CALL PACK_SAME_RANK(PK%NR_P,PDIR_SW(:,:), ZDIR_SW(:,:))
-      CALL PACK_SAME_RANK(PK%NR_P,PSCA_SW(:,:), ZSCA_SW(:,:))  
+      CALL PACK_SAME_RANK(PK%NR_P,PSCA_SW(:,:), ZSCA_SW(:,:))
       !
     ENDIF
     !
   ENDIF
   !
 ENDIF
-!   
+!
 !-------------------------------------------------------------------------------
 !
  CALL ISBA_SNOW_FRAC(PEK%TSNOW%SCHEME, PEK%TSNOW%WSNOW, PEK%TSNOW%RHO, PEK%TSNOW%ALB, &
-                     ZVEG, PEK%XLAI, PEK%XZ0, PEK%XPSN, ZPSNV_A, PEK%XPSNG, PEK%XPSNV )  
+                     ZVEG, PEK%XLAI, PEK%XZ0, PEK%XPSN, ZPSNV_A, PEK%XPSNG, PEK%XPSNV )
 !
 IF ( PEK%TSNOW%SCHEME=='EBA' ) PEK%XPSNV_A(:) = ZPSNV_A(:)
 !
@@ -155,7 +155,7 @@ IF ( PEK%TSNOW%SCHEME=='EBA' ) PEK%XPSNV_A(:) = ZPSNV_A(:)
 !
 ! Flood fractions and properties
 !
-IF(IO%LFLOOD)THEN  
+IF(IO%LFLOOD)THEN
   !
   KK%XFFG(:) = FLOOD_FRAC_GROUND(PEK%XPSNG,KK%XFFLOOD)
   KK%XFFV(:) = FLOOD_FRAC_VEG   (PEK%XLAI,PEK%XPSNV,KK%XFFLOOD)
@@ -184,13 +184,13 @@ IF(IO%LFLOOD)THEN
   !
   ZEMISF(:) = KK%XEMISF(:)
   ZFF   (:) = KK%XFF(:)
-  !        
+  !
 ELSE
   ZALBF_DIR (:)=0.0
   ZALBF_SCA (:)=0.0
   ZEMISF    (:)=0.0
   ZFF       (:)=0.0
-ENDIF        
+ENDIF
 !-------------------------------------------------------------------------------
 !
 IF(IO%LMEB_PATCH(KPATCH))THEN
@@ -205,7 +205,7 @@ IF(IO%LMEB_PATCH(KPATCH))THEN
     !
     ! Albedo
     !
-    ! - just extract some parameters for call, but no need to update 
+    ! - just extract some parameters for call, but no need to update
     !   the cummulative variables in this routine:
     !
     DO JSWB=1,ISWB
@@ -224,9 +224,9 @@ IF(IO%LMEB_PATCH(KPATCH))THEN
       CALL RADIATIVE_TRANSFERT(IO%LAGRI_TO_GRASS, KK%XVEGTYPE,                   &
               PEK%XALBVIS_VEG, ZALBVIS_TSOIL, PEK%XALBNIR_VEG, ZALBNIR_TSOIL,    &
               ZGLOBAL_SW, ZLAIN, ZZENITH, S%XABC,                                &
-              PEK%XFAPARC, PEK%XFAPIRC, PEK%XMUS, PEK%XLAI_EFFC, GSHADE, ZIACAN, &              
+              PEK%XFAPARC, PEK%XFAPIRC, PEK%XMUS, PEK%XLAI_EFFC, GSHADE, ZIACAN, &
               ZIACAN_SUNLIT, ZIACAN_SHADE, ZFRAC_SUN,                            &
-              ZFAPAR, ZFAPIR, ZFAPAR_BS, ZFAPIR_BS                               )    
+              ZFAPAR, ZFAPIR, ZFAPAR_BS, ZFAPIR_BS                               )
 
       ! Total effective surface (canopy, ground/flooded zone, snow) all-wavelength
       ! albedo: diagnosed from shortwave energy budget closure.
@@ -237,7 +237,7 @@ IF(IO%LMEB_PATCH(KPATCH))THEN
       ZALBT(:)      = ZSWUP(:)/MAX(1.E-5, ZGLOBAL_SW(:))
       !
       KK%XDIR_ALB_WITH_SNOW(:,JSWB)=ZALBT(:)
-      KK%XSCA_ALB_WITH_SNOW(:,JSWB)=ZALBT(:) 
+      KK%XSCA_ALB_WITH_SNOW(:,JSWB)=ZALBT(:)
       !
     END DO
     !
@@ -253,18 +253,18 @@ IF(IO%LMEB_PATCH(KPATCH))THEN
   CALL ISBA_EMIS_MEB(PEK%XPSN, ZPALPHAN, ZSIGMA_F, ZSIGMA_FN, ZEMISSN, ZEMIST  )
   !
 ELSE
-  !        
+  !
   !  * albedo for near-infra-red and visible over snow-covered and snow-flood-free surface
   !
-  ZALBNIR_WITH_SNOW(:) = PEK%XALBNIR(:) * (1.-PEK%XPSN(:)-ZFF(:)) + PEK%TSNOW%ALB (:) * PEK%XPSN(:)   
-  ZALBVIS_WITH_SNOW(:) = PEK%XALBVIS(:) * (1.-PEK%XPSN(:)-ZFF(:)) + PEK%TSNOW%ALB (:) * PEK%XPSN(:)  
-  ZALBUV_WITH_SNOW (:) = PEK%XALBUV (:) * (1.-PEK%XPSN(:)-ZFF(:)) + PEK%TSNOW%ALB (:) * PEK%XPSN(:)  
+  ZALBNIR_WITH_SNOW(:) = PEK%XALBNIR(:) * (1.-PEK%XPSN(:)-ZFF(:)) + PEK%TSNOW%ALB (:) * PEK%XPSN(:)
+  ZALBVIS_WITH_SNOW(:) = PEK%XALBVIS(:) * (1.-PEK%XPSN(:)-ZFF(:)) + PEK%TSNOW%ALB (:) * PEK%XPSN(:)
+  ZALBUV_WITH_SNOW (:) = PEK%XALBUV (:) * (1.-PEK%XPSN(:)-ZFF(:)) + PEK%TSNOW%ALB (:) * PEK%XPSN(:)
   !
   !  * snow-flood-covered surface albedo for each wavelength (needed for outputs)
   !
   CALL ALBEDO_FROM_NIR_VIS(PSW_BANDS,                                              &
                            ZALBNIR_WITH_SNOW,  ZALBVIS_WITH_SNOW, ZALBUV_WITH_SNOW,&
-                           KK%XDIR_ALB_WITH_SNOW, KK%XSCA_ALB_WITH_SNOW          )  
+                           KK%XDIR_ALB_WITH_SNOW, KK%XSCA_ALB_WITH_SNOW          )
   !
   DO JSWB=1,ISWB
     KK%XDIR_ALB_WITH_SNOW(:,JSWB)=KK%XDIR_ALB_WITH_SNOW(:,JSWB) + ZFF(:)*ZALBF_DIR(:)

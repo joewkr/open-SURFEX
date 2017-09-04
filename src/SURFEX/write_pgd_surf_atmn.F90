@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ####################################
       SUBROUTINE WRITE_PGD_SURF_ATM_n (YSC, HPROGRAM)
 !     ####################################
 !
-!!****  *WRITE_PGD_SURF_ATM_n* - routine to write pgd surface variables 
+!!****  *WRITE_PGD_SURF_ATM_n* - routine to write pgd surface variables
 !!                               in their respective files or in file
 !!
 !!    PURPOSE
@@ -124,7 +124,7 @@ YCOMMENT='(-)'
  CALL WRITE_SURF( YSC%DUO%CSELECT, HPROGRAM,'DIM_WATER ',YSC%U%NDIM_WATER, IRESP,HCOMMENT=YCOMMENT)
  CALL WRITE_SURF( YSC%DUO%CSELECT, HPROGRAM,'DIM_TOWN  ',YSC%U%NDIM_TOWN,  IRESP,HCOMMENT=YCOMMENT)
  CALL WRITE_SURF( YSC%DUO%CSELECT, HPROGRAM,'ECOCLIMAP ',YSC%U%LECOCLIMAP ,IRESP,YCOMMENT)
- CALL WRITE_SURF( YSC%DUO%CSELECT, HPROGRAM,'ECOSG     ',YSC%U%LECOSG ,IRESP,YCOMMENT) 
+ CALL WRITE_SURF( YSC%DUO%CSELECT, HPROGRAM,'ECOSG     ',YSC%U%LECOSG ,IRESP,YCOMMENT)
  CALL WRITE_SURF( YSC%DUO%CSELECT, HPROGRAM,'WATER_TO_NAT',YSC%U%LWATER_TO_NATURE,IRESP,YCOMMENT)
  CALL WRITE_SURF( YSC%DUO%CSELECT, HPROGRAM,'TOWN_TO_ROCK',YSC%U%LTOWN_TO_ROCK,IRESP,YCOMMENT)
  CALL WRITE_SURF( YSC%DUO%CSELECT, HPROGRAM,'GARDEN',YSC%U%LGARDEN,IRESP,YCOMMENT)

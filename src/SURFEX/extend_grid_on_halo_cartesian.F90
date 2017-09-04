@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################
       SUBROUTINE EXTEND_GRID_ON_HALO_CARTESIAN(HPROGRAM,KDIM_FULL,KSIZE_FULL,KGRID_PAR,PGRID_PAR)
@@ -12,7 +12,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -51,7 +51,7 @@ IMPLICIT NONE
 !*    0.1    Declaration of dummy arguments
 !            ------------------------------
 !
- CHARACTER(LEN=6),   INTENT(IN)    :: HPROGRAM  ! host program 
+ CHARACTER(LEN=6),   INTENT(IN)    :: HPROGRAM  ! host program
 INTEGER,            INTENT(IN)    :: KDIM_FULL ! total number of points
 INTEGER,            INTENT(OUT)   :: KSIZE_FULL! number of points on this processor
 INTEGER,            INTENT(INOUT) :: KGRID_PAR ! size of PGRID_PAR pointer

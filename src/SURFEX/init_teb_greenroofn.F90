@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
 SUBROUTINE INIT_TEB_GREENROOF_n (DTCO, U, DMTO, TOP, IO, DTV, K, P, PEK, &
@@ -127,7 +127,7 @@ IF (LHOOK) CALL DR_HOOK('INIT_TEB_GREENROOF_N',0,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 !
- CALL ALLOCATE_TEB_VEG(PEK, KI, IO%NGROUND_LAYER, IO%NNBIOMASS)  
+ CALL ALLOCATE_TEB_VEG(PEK, KI, IO%NGROUND_LAYER, IO%NNBIOMASS)
 !
 !-------------------------------------------------------------------------------
 !
@@ -138,7 +138,7 @@ ENDIF
 !-------------------------------------------------------------------------------
 !
 IF (HINIT/='ALL') THEN
-  IF (LHOOK) CALL DR_HOOK('INIT_TEB_GREENROOF_N',1,ZHOOK_HANDLE)      
+  IF (LHOOK) CALL DR_HOOK('INIT_TEB_GREENROOF_N',1,ZHOOK_HANDLE)
   RETURN
 ENDIF
 !
@@ -160,7 +160,7 @@ K%XFFROZEN = 0.0
 K%XALBF    = 0.0
 K%XEMISF   = 0.0
 !
-ALLOCATE(K%XFSAT(KI))  
+ALLOCATE(K%XFSAT(KI))
 K%XFSAT(:) = 0.0
 !
 !-------------------------------------------------------------------------------
@@ -187,23 +187,23 @@ ZWG1(:) = PEK%XWG(:,1)
 ZTG1(:) = PEK%XTG(:,1)
 !
 IF (.NOT. IO%LPAR) THEN
-  CALL SOIL_ALBEDO(IO%CALBEDO, K%XWSAT(:,1),ZWG1, K, PEK, "ALL" )  
+  CALL SOIL_ALBEDO(IO%CALBEDO, K%XWSAT(:,1),ZWG1, K, PEK, "ALL" )
 ELSE
   IF (TOP%TTIME%TDATE%MONTH /= NUNDEF) THEN
     IDECADE = 3 * ( TOP%TTIME%TDATE%MONTH - 1 ) + MIN(TOP%TTIME%TDATE%DAY-1,29) / 10 + 1
   ELSE
     IDECADE = 1
   END IF
-  CALL INIT_FROM_DATA_TEB_VEG_n(DTV, K, P, PEK, IDECADE, .FALSE., .FALSE., .FALSE., .TRUE. )   
+  CALL INIT_FROM_DATA_TEB_VEG_n(DTV, K, P, PEK, IDECADE, .FALSE., .FALSE., .FALSE., .TRUE. )
 END IF
 !
 WHERE (PEK%XALBNIR_SOIL(:)==XUNDEF)
   PEK%XALBNIR_SOIL(:)=0.225
   PEK%XALBVIS_SOIL(:)=0.15
   PEK%XALBUV_SOIL (:)=0.07965
-ENDWHERE  
+ENDWHERE
 !
- CALL AVG_ALBEDO_EMIS_TEB_VEG(PEK, IO%CALBEDO,  ZTG1, PSW_BANDS, ZDIR_ALB, ZSCA_ALB, ZEMIS,ZTSRAD  )  
+ CALL AVG_ALBEDO_EMIS_TEB_VEG(PEK, IO%CALBEDO,  ZTG1, PSW_BANDS, ZDIR_ALB, ZSCA_ALB, ZEMIS,ZTSRAD  )
 !
  CALL DIAG_TEB_VEG_INIT_n(DK, DEK, DECK, DMK, KI, PEK%TSNOW%NLAYER)
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
       SUBROUTINE READ_NAM_GRID_CONF_PROJ(GCP,PGRID_FULL_PAR,KDIM_FULL,HPROGRAM,KGRID_PAR,KL,PGRID_PAR,HDIR)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!      A.Alias    10/2010 - XLATC/XLONC added to save the XLATCEN/XLONCEN values for FA
 !-------------------------------------------------------------------------------
 !
@@ -92,7 +92,7 @@ REAL, DIMENSION(1)                :: ZLONOR   ! longitude of origin point
 !
 REAL    :: XLAT0    ! reference latitude
 REAL    :: XLON0    ! reference longitude
-REAL    :: XRPK     ! projection parameter 
+REAL    :: XRPK     ! projection parameter
 !                   !   K=1 : stereographic north pole
 !                   ! 0<K<1 : Lambert, north hemisphere
 !                   !   K=0 : Mercator
@@ -117,12 +117,12 @@ NAMELIST/NAM_CONF_PROJ_GRID/NIMAX,NJMAX,XLATCEN,XLONCEN,XDX,XDY
 !------------------------------------------------------------------------------
 !
 !*       1.    opening of namelist
-! 
+!
 IF (LHOOK) CALL DR_HOOK('READ_NAM_GRID_CONF_PROJ',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !
 IF (HDIR/='H') THEN
-  !      
+  !
   CALL OPEN_NAMELIST(HPROGRAM,ILUNAM)
   !
   !---------------------------------------------------------------------------
@@ -189,7 +189,7 @@ IF (HDIR/='H') THEN
   ZYOR = - FLOAT(NJMAX+1)/2.*XDY
   !
   CALL LATLON_CONF_PROJ(XLAT0,XLON0,XRPK,XBETA,XLATCEN,XLONCEN, &
-                         ZXOR,ZYOR,ZLATOR,ZLONOR                 )  
+                         ZXOR,ZYOR,ZLATOR,ZLONOR                 )
   !
   GCP%XLATC=XLATCEN
   GCP%XLONC=XLONCEN
@@ -213,7 +213,7 @@ ELSE
   !
   IF (NRANK==NPIO) DEALLOCATE(ZX0,ZY0,ZDX0,ZDY0)
   !
-ENDIF  
+ENDIF
 !---------------------------------------------------------------------------
 !
 !*       8.    All this information stored into pointer PGRID_PAR
@@ -221,7 +221,7 @@ ENDIF
 !
  CALL PUT_GRIDTYPE_CONF_PROJ(ZGRID_PAR,XLAT0,XLON0,XRPK,XBETA,    &
                               ZLATOR(1),ZLONOR(1),NIMAX,NJMAX,     &
-                              ZX,ZY,ZDX,ZDY                        )  
+                              ZX,ZY,ZDX,ZDY                        )
 !
 !---------------------------------------------------------------------------
 DEALLOCATE(ZX)

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#######################
 MODULE MODI_GREEN_FROM_LAI
@@ -64,7 +64,7 @@ END MODULE MODI_GREEN_FROM_LAI
 !     Calculates coverage of soil by vegetation from leaf
 !    area index and type of vegetation
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -74,13 +74,13 @@ END MODULE MODI_GREEN_FROM_LAI
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -101,7 +101,7 @@ USE MODD_DATA_COVER_PAR, ONLY : NVT_NO, NVT_ROCK, NVT_SNOW, NVT_PARK,        &
                                 NVT_TEBD, NVT_BONE, NVT_TRBE, NVT_TRBD,      &
                                 NVT_TEBE, NVT_TENE, NVT_BOBD, NVT_BOND,      &
                                 NVT_SHRB, NVT_C3, NVT_C4, NVT_IRR,           &
-                                NVT_GRAS, NVT_BOGR, NVT_TROG   
+                                NVT_GRAS, NVT_BOGR, NVT_TROG
 !
 USE MODD_REPROD_OPER,    ONLY : XEVERG_VEG
 !
@@ -153,7 +153,7 @@ PGREEN= ZAGRI                     *(PVEGTYPE(NVT_C4  ) +     &! C4 crops
                                     PVEGTYPE(NVT_PARK)  )  &! irr. parks
        + 0.                       * PVEGTYPE(NVT_NO  )     &! no vegetation (smooth)
        + 0.                       * PVEGTYPE(NVT_SNOW)     &! no vegetation (snow)
-       + 0.                       * PVEGTYPE(NVT_ROCK)      ! no vegetation (rocks)  
+       + 0.                       * PVEGTYPE(NVT_ROCK)      ! no vegetation (rocks)
 !
 IF (LHOOK) CALL DR_HOOK('MODI_GREEN_FROM_LAI:GREEN_FROM_LAI_0D',1,ZHOOK_HANDLE)
 !-----------------------------------------------------------------
@@ -170,7 +170,7 @@ END FUNCTION GREEN_FROM_LAI_0D
 !     Calculates coverage of soil by vegetation from leaf
 !    area index and type of vegetation
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -180,13 +180,13 @@ END FUNCTION GREEN_FROM_LAI_0D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -234,7 +234,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('MODI_GREEN_FROM_LAI:GREEN_FROM_LAI_1D',0,ZHOOK_HANDLE)
 !
 ZLAI(:) = PLAI(:)
-WHERE ( PVEGTYPE(:,NVT_NO  ) + PVEGTYPE(:,NVT_ROCK) + PVEGTYPE(:,NVT_SNOW) < 1.) 
+WHERE ( PVEGTYPE(:,NVT_NO  ) + PVEGTYPE(:,NVT_ROCK) + PVEGTYPE(:,NVT_SNOW) < 1.)
   ZLAI(:) = PLAI(:) / (1.-PVEGTYPE(:,NVT_NO)-PVEGTYPE(:,NVT_ROCK)-PVEGTYPE(:,NVT_SNOW))
 END WHERE
 !
@@ -252,7 +252,7 @@ DO JJ = 1,SIZE(PGREEN)
   !
   ZSUM2 = PVEGTYPE(JJ,NVT_TRBD) + PVEGTYPE(JJ,NVT_TEBE) + PVEGTYPE(JJ,NVT_TEBD) + &
           PVEGTYPE(JJ,NVT_TENE) + PVEGTYPE(JJ,NVT_BOBD) + PVEGTYPE(JJ,NVT_BONE) + &
-          PVEGTYPE(JJ,NVT_BONE) + PVEGTYPE(JJ,NVT_SHRB) 
+          PVEGTYPE(JJ,NVT_BONE) + PVEGTYPE(JJ,NVT_SHRB)
   IF (NVT_FLTR/=0) ZSUM2 = ZSUM2 + PVEGTYPE(JJ,NVT_FLTR)
   !
   ZSUM3 = PVEGTYPE(JJ,NVT_GRAS) + PVEGTYPE(JJ,NVT_BOGR) + PVEGTYPE(JJ,NVT_TROG)
@@ -268,7 +268,7 @@ DO JJ = 1,SIZE(PGREEN)
           + MIN(1. - EXP( -0.6 * ZLAI(JJ) ),0.95) * ZSUM3       &
           + 0.                      * PVEGTYPE(JJ,NVT_NO  )     &! no vegetation (smooth)
           + 0.                      * PVEGTYPE(JJ,NVT_SNOW)     &! no vegetation (snow)
-          + 0.                      * PVEGTYPE(JJ,NVT_ROCK)      ! no vegetation (rocks)  
+          + 0.                      * PVEGTYPE(JJ,NVT_ROCK)      ! no vegetation (rocks)
   !
 ENDDO
 !
@@ -287,7 +287,7 @@ END FUNCTION GREEN_FROM_LAI_1D
 !     Calculates coverage of soil by vegetation from leaf
 !    area index and type of vegetation
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -297,13 +297,13 @@ END FUNCTION GREEN_FROM_LAI_1D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -350,7 +350,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-----------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('MODI_GREEN_FROM_LAI:GREEN_FROM_LAI_2D',0,ZHOOK_HANDLE)
 ZLAI(:,:) = PLAI(:,:)
-WHERE ( PVEGTYPE(:,:,NVT_NO  ) + PVEGTYPE(:,:,NVT_ROCK) + PVEGTYPE(:,:,NVT_SNOW) < 1.) 
+WHERE ( PVEGTYPE(:,:,NVT_NO  ) + PVEGTYPE(:,:,NVT_ROCK) + PVEGTYPE(:,:,NVT_SNOW) < 1.)
   ZLAI(:,:) = PLAI(:,:) / (1.-PVEGTYPE(:,:,NVT_NO)-PVEGTYPE(:,:,NVT_ROCK)-PVEGTYPE(:,:,NVT_SNOW))
 END WHERE
 !
@@ -374,7 +374,7 @@ DO JJ = 1,SIZE(PGREEN)
   !
   ZSUM2(:) = PVEGTYPE(JJ,:,NVT_TRBD) + PVEGTYPE(JJ,:,NVT_TEBE) + PVEGTYPE(JJ,:,NVT_TEBD) + &
              PVEGTYPE(JJ,:,NVT_TENE) + PVEGTYPE(JJ,:,NVT_BOBD) + PVEGTYPE(JJ,:,NVT_BONE) + &
-             PVEGTYPE(JJ,:,NVT_BONE) + PVEGTYPE(JJ,:,NVT_SHRB) 
+             PVEGTYPE(JJ,:,NVT_BONE) + PVEGTYPE(JJ,:,NVT_SHRB)
   IF (NVT_FLTR/=0) ZSUM2(:) = ZSUM2(:) + PVEGTYPE(JJ,:,NVT_FLTR)
   !
   ZSUM3(:) = PVEGTYPE(JJ,:,NVT_GRAS) + PVEGTYPE(JJ,:,NVT_BOGR) + PVEGTYPE(JJ,:,NVT_TROG)
@@ -389,10 +389,10 @@ DO JJ = 1,SIZE(PGREEN)
     PGREEN(JJ,:)= ZAGRI(JJ,:) * ZSUM1(:)  &
            + MIN((1. - EXP( -0.5 * ZLAI(JJ,:) )),0.95) * ZSUM2   &
            + XEVERG_VEG * PVEGTYPE(JJ,:,NVT_TRBE)                &! tropical broadleaf evergreen
-           + MIN((1. - EXP( -0.6 * ZLAI(JJ,:) )),0.95) * ZSUM3   & 
+           + MIN((1. - EXP( -0.6 * ZLAI(JJ,:) )),0.95) * ZSUM3   &
            + 0.                      * PVEGTYPE(JJ,:,NVT_NO  )    &! no vegetation (smooth)
            + 0.                      * PVEGTYPE(JJ,:,NVT_SNOW)    &! no vegetation (snow)
-           + 0.                      * PVEGTYPE(JJ,:,NVT_ROCK)      ! no vegetation (rocks)  
+           + 0.                      * PVEGTYPE(JJ,:,NVT_ROCK)      ! no vegetation (rocks)
     !
   END WHERE
   !
@@ -416,7 +416,7 @@ END FUNCTION GREEN_FROM_LAI_2D
 !     Calculates coverage of soil by vegetation from leaf
 !    area index and type of vegetation for each vegetation patch
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -426,13 +426,13 @@ END FUNCTION GREEN_FROM_LAI_2D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -523,7 +523,7 @@ ENDIF
 !
 PGREEN(NVT_NO  )= 0.
 PGREEN(NVT_SNOW)= 0.
-PGREEN(NVT_ROCK)= 0.  
+PGREEN(NVT_ROCK)= 0.
 IF (LHOOK) CALL DR_HOOK('MODI_GREEN_FROM_LAI:GREEN_FROM_LAI_VEGTYPE_1D',1,ZHOOK_HANDLE)
 
 !

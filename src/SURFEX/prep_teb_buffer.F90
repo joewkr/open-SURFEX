@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_TEB_BUFFER(HPROGRAM,HSURF,KLUOUT,PFIELD)
@@ -16,11 +16,11 @@ SUBROUTINE PREP_TEB_BUFFER(HPROGRAM,HSURF,KLUOUT,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     S. Malardel 
+!!     S. Malardel
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -103,7 +103,7 @@ SELECT CASE(HSURF)
      END SELECT
      !* if deep road temperature is prescribed
      IF (XTI_ROAD/=XUNDEF) THEN
-       ZFIELD(:,2:) = XTI_ROAD 
+       ZFIELD(:,2:) = XTI_ROAD
      END IF
      CALL TEB_PROFILE_BUFFER(XGRID_ROAD)
 !
@@ -118,7 +118,7 @@ SELECT CASE(HSURF)
      END SELECT
      !* if deep road temperature is prescribed
      IF (XTI_ROAD/=XUNDEF) THEN
-       ZFIELD(:,2:) = XTI_ROAD 
+       ZFIELD(:,2:) = XTI_ROAD
      END IF
      CALL TEB_PROFILE_BUFFER(XGRID_FLOOR)
 
@@ -128,7 +128,7 @@ SELECT CASE(HSURF)
   CASE('T_WALLA','T_WALLB')
      CALL READ_BUFFER_T_TEB(KLUOUT,YINMODEL,ZTI_BLD,ZFIELD,ZD)
      CALL TEB_PROFILE_BUFFER(XGRID_WALL)
-        
+
   CASE('T_WIN1')
     SELECT CASE (YINMODEL)
       CASE ('ALADIN')
@@ -141,13 +141,13 @@ SELECT CASE(HSURF)
 !*      5.     Profile of temperatures in roofs
 !              --------------------------------
 
-  CASE('T_ROOF')    
+  CASE('T_ROOF')
      CALL READ_BUFFER_T_TEB(KLUOUT,YINMODEL,ZTI_BLD,ZFIELD,ZD)
      CALL TEB_PROFILE_BUFFER(XGRID_ROOF)
 
 !*      5.bis    Profile of temperatures in thermal mass
 !              -----------------------------------------
-!    
+!
   CASE('T_MASS')
      ALLOCATE(PFIELD(NNI,3))
      PFIELD(:,:) = ZTI_BLD
@@ -179,7 +179,7 @@ SELECT CASE(HSURF)
 !*      9.     Deep road temperature
 !              ---------------------
 
-  CASE('TI_ROAD')    
+  CASE('TI_ROAD')
      IF (XTI_ROAD==XUNDEF) THEN
        CALL READ_BUFFER_T2(KLUOUT,YINMODEL,ZFIELD1D)
        ALLOCATE(PFIELD(NNI,1))
@@ -194,7 +194,7 @@ SELECT CASE(HSURF)
 !*      9.     Building temperatures/moisture
 !              --------------------
 
-  CASE('TI_BLD ')    
+  CASE('TI_BLD ')
      ALLOCATE(PFIELD(NNI,1))
      PFIELD(:,:) = ZTI_BLD
 !

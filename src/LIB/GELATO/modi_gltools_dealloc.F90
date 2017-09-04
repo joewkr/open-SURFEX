@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,14 +28,14 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ===================== MODULE modi_gltools_dealloc =======================
 ! =======================================================================
@@ -48,7 +48,7 @@
 ! Modified: 2011/12 (D. Salas y Melia)
 !           Collect the names of allocated arrays in a linked list, and
 !           eventually dump this list in an array of strings, in order
-!           to keep the allocation order in memory. This order will be 
+!           to keep the allocation order in memory. This order will be
 !           necessary to deallocate the arrays in reverse order.
 ! Modified: 2012/11 (D. Salas y Melia)
 !           Inverse order deallocation seems unuseful - simplify.
@@ -60,7 +60,7 @@
 !THXS_SFX!INTERFACE
 !THXS_SFX!!
 !THXS_SFX!SUBROUTINE gltools_dealloc(tpglt)
-!THXS_SFX!USE modd_types_glt 
+!THXS_SFX!USE modd_types_glt
 !THXS_SFX!USE modd_glt_param
 !THXS_SFX!TYPE(t_glt), INTENT(inout) ::  &
 !THXS_SFX!    tpglt
@@ -77,7 +77,7 @@
 !
 SUBROUTINE gltools_dealloc(tpglt)
 !
-USE modd_types_glt 
+USE modd_types_glt
 USE modd_glt_param
 #if ! defined in_surfex
 USE modd_CB_DynVariables
@@ -93,7 +93,7 @@ TYPE(t_glt), INTENT(inout) ::  &
     tpglt
 !
 !
-! 1. Initialisations 
+! 1. Initialisations
 ! ===================
 !
 IF (lwg) THEN
@@ -156,7 +156,7 @@ ENDIF
 ! =============================================
 !
 DEALLOCATE( tpglt%bat )
-DEALLOCATE( tpglt%dom )  
+DEALLOCATE( tpglt%dom )
 !
 #if ! defined in_surfex
 IF ( ndynami==1 .OR. nadvect==1 ) THEN
@@ -221,24 +221,24 @@ IF ( ntd/=0 ) DEALLOCATE( tpglt%sit_d )
 !
 #if ! defined in_surfex
 IF ( ndynami==1 ) THEN
-    DEALLOCATE( tpglt%evp ) 
+    DEALLOCATE( tpglt%evp )
 ELSE IF ( ndynami==2 ) THEN
-    DEALLOCATE( tpglt%jfn ) 
+    DEALLOCATE( tpglt%jfn )
 ENDIF
 #endif
 !
 DEALLOCATE( tpglt%sit )
-DEALLOCATE( tpglt%sil ) 
-DEALLOCATE( tpglt%tml ) 
+DEALLOCATE( tpglt%sil )
+DEALLOCATE( tpglt%tml )
 !
 DEALLOCATE( tpglt%ust )
 DEALLOCATE( tpglt%cdia0 )
 DEALLOCATE( tpglt%cdia )
-DEALLOCATE( tpglt%blkw ) 
-DEALLOCATE( tpglt%blki ) 
-DEALLOCATE( tpglt%tfl ) 
+DEALLOCATE( tpglt%blkw )
+DEALLOCATE( tpglt%blki )
+DEALLOCATE( tpglt%tfl )
 DEALLOCATE( tpglt%bud )
-DEALLOCATE( tpglt%dia ) 
+DEALLOCATE( tpglt%dia )
 !
 !
 !

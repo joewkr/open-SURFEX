@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
       SUBROUTINE INIT_BEM_n ( DTCO, TOP, BOP, DTT, DTB, BDD, G, &
@@ -46,7 +46,7 @@ USE MODD_BEM_OPTION_n, ONLY : BEM_OPTIONS_t
 USE MODD_DATA_TEB_n, ONLY : DATA_TEB_t
 USE MODD_DATA_BEM_n, ONLY : DATA_BEM_t
 USE MODD_BLD_DESCRIPTION_n, ONLY : BLD_DESC_t
-USE MODD_SFX_GRID_n, ONLY : GRID_t 
+USE MODD_SFX_GRID_n, ONLY : GRID_t
 USE MODD_TEB_n, ONLY : TEB_t
 USE MODD_BEM_n, ONLY : BEM_t
 !
@@ -206,12 +206,12 @@ CASE("BEM")
       ELSEIF (B%XNATVENT(JJ) >= 0.5 .AND. B%XNATVENT(JJ) < 1.5) THEN
         B%CNATVENT(JJ) = 'MANU'
       ELSEIF (B%XNATVENT(JJ) >= 1.5 .AND. B%XNATVENT(JJ) <= 2.5) THEN
-        B%CNATVENT(JJ) = 'AUTO'        
+        B%CNATVENT(JJ) = 'AUTO'
       ELSEIF (B%XNATVENT(JJ) >= 2.5 .AND. B%XNATVENT(JJ) <= 3.5) THEN
-        B%CNATVENT(JJ) = 'MECH'        
+        B%CNATVENT(JJ) = 'MECH'
       ELSE
         GPRINT = .TRUE.
-        B%CNATVENT(JJ) = 'NONE'        
+        B%CNATVENT(JJ) = 'NONE'
       ENDIF
     ENDDO
     IF (GPRINT) WRITE(KLUOUT,*) 'TEB-BEM : Chosen option for surventilation is not yet implemented; None venting is kept instead'
@@ -223,10 +223,10 @@ END SELECT
 !-------------------------------------------------------------------------------
 !
 !*       8.     Building HVAC automatic sizing:
-!               -------------------------------  
+!               -------------------------------
 IF (TOP%CBEM=='BEM' .AND. BOP%LAUTOSIZE) THEN
   CALL HVAC_AUTOSIZE(B, BOP, G, T, TOP, ILU,KLUOUT)
-  !* stores the real systems characteristics in physiographic data 
+  !* stores the real systems characteristics in physiographic data
   !  for further use
   CALL STORES_HVAC_AUTOSIZE(B, BOP, DTB)
 ENDIF

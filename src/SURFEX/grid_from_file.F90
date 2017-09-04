@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GRID_FROM_FILE (U,GCP,PGRID_FULL_PAR,HPROGRAM,HFILE,HFILETYPE,&
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -120,7 +120,7 @@ IF (LHOOK) CALL DR_HOOK('GRID_FROM_FILE',0,ZHOOK_HANDLE)
 IF (HDIR/='H') THEN
   !
   CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'FULL  ',HDIR=HDIR)
-  !  
+  !
   CALL READ_SURF(HFILETYPE,'DIM_FULL  ',KL,IRESP,HDIR=HDIR)
   U%NDIM_FULL = KL
   !
@@ -148,7 +148,7 @@ IF (HDIR/='H') THEN
   !
   ALLOCATE(PGRID_PAR(KGRID_PAR))
   CALL READ_GRIDTYPE(HFILETYPE,HGRID,KGRID_PAR,U%NSIZE_FULL,.TRUE.,PGRID_PAR,IRESP,HDIR='H')
-#else  
+#else
   CALL READ_GRIDTYPE(HFILETYPE,HGRID,KGRID_PAR,KL,.FALSE.,HDIR=HDIR)
   !
   ALLOCATE(PGRID_PAR(KGRID_PAR))

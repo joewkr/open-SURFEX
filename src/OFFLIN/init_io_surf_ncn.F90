@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INIT_IO_SURF_NC_n (DTCO, U, HMASK,HACTION)
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -65,14 +65,14 @@ TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
 
 TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 !
- CHARACTER(LEN=6),  INTENT(IN)  :: HMASK    
- CHARACTER(LEN=5),  INTENT(IN)  :: HACTION 
+ CHARACTER(LEN=6),  INTENT(IN)  :: HMASK
+ CHARACTER(LEN=5),  INTENT(IN)  :: HACTION
 !
 INTEGER :: IL, ILU, ILUOUT, IRET
 LOGICAL          :: GEXIST, GOPENED
 !
 REAL(KIND=JPRB)  :: ZHOOK_HANDLE
-!------------------------------------------------------------------------------ 
+!------------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('INIT_IO_SURF_NC_N',0,ZHOOK_HANDLE)
 !
 LMASK = .TRUE.
@@ -80,11 +80,11 @@ LMASK = .TRUE.
 IF (HACTION=='READ ') THEN
   INQUIRE(FILE=CFILEIN_NC,EXIST=GEXIST)
   CFILE_NC = CFILEIN_NC
-  IF (GEXIST) THEN 
+  IF (GEXIST) THEN
     IRET = NF90_OPEN(CFILEIN_NC,NF90_NOWRITE,NID_NC)
     CALL READ_SURF('NC    ','DIM_FULL',NFULL,IRET,HDIR='A')
   ENDIF
-ELSE 
+ELSE
   CALL GET_DIM_FULL_n(U%NDIM_FULL, NFULL)
   IF (NRANK==NPIO) THEN
     INQUIRE(FILE=CFILEOUT_NC,EXIST=GEXIST)
@@ -97,8 +97,8 @@ ELSE
   CFILE_NC = CFILEOUT_NC
 ENDIF
 !
-! nindex is needed for call to get_size_full_n. In init_index_mpi, 
-! it's not initialized for first readings.  
+! nindex is needed for call to get_size_full_n. In init_index_mpi,
+! it's not initialized for first readings.
 IF (.NOT.ALLOCATED(NINDEX).AND.NRANK==NPIO) THEN
   ALLOCATE(NINDEX(NFULL))
   NINDEX(:) = 0
@@ -106,7 +106,7 @@ ELSE
   CALL GET_DIM_FULL_n(U%NDIM_FULL, NFULL)
 ENDIF
 !
-! size by MPI task. NINDEX is supposed to be initialized at this step.  
+! size by MPI task. NINDEX is supposed to be initialized at this step.
  CALL GET_SIZE_FULL_n('OFFLIN',NFULL,U%NSIZE_FULL,ILU)
 !
 IL = ILU

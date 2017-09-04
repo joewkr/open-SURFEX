@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_SEAFLUX_n (HSELECT, O, OR, S, HPROGRAM)
@@ -27,11 +27,11 @@
 !!
 !!    AUTHOR
 !!    ------
-!!	V. Masson   *Meteo France*	
+!!	V. Masson   *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      Modified    01/2014 : S. Senesi : handle seaice scheme
 !!      S. Belamari 03/2014   Include sea surface salinity XSSS
 !!      R. Séférian 01/2015 : introduce interactive ocean surface albedo
@@ -60,7 +60,7 @@ IMPLICIT NONE
 !*       0.1   Declarations of arguments
 !              -------------------------
 !
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT 
+ CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
 !
 TYPE(OCEAN_t), INTENT(INOUT) :: O
 TYPE(OCEAN_REL_t), INTENT(INOUT) :: OR
@@ -118,7 +118,7 @@ ENDIF
 !
 YRECFM='SST'
 YCOMMENT='SST (K)'
- CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,S%XSST(:),IRESP,HCOMMENT=YCOMMENT)  
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,S%XSST(:),IRESP,HCOMMENT=YCOMMENT)
 !
 !-------------------------------------------------------------------------------
 !
@@ -149,7 +149,7 @@ ENDIF
 !
 YRECFM='SSS'
 YCOMMENT='Sea Surface Salinity (psu)'
- CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,S%XSSS(:),IRESP,HCOMMENT=YCOMMENT)  
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,S%XSSS(:),IRESP,HCOMMENT=YCOMMENT)
 !
 !
 !* ocean surface albedo (direct and diffuse fraction)

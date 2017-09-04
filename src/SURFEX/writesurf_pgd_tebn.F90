@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_PGD_TEB_n (HSELECT, TOP, BOP, G, BDD, DTB, DTT, T, TIR, GDM, GRM, HPROGRAM)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      B. Decharme 07/2011 : delete argument HWRITE
 !!      M. Moge     02/2015 parallelization using WRITE_LCOVER
 !-------------------------------------------------------------------------------
@@ -136,7 +136,7 @@ YCOMMENT=YRECFM
 !
 YRECFM='BEM'
 YCOMMENT=YRECFM
- CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%CBEM,IRESP,HCOMMENT=YCOMMENT) 
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%CBEM,IRESP,HCOMMENT=YCOMMENT)
 !
 IF (TOP%CBEM=='BEM') THEN
   YRECFM='COOL_COIL'
@@ -178,18 +178,18 @@ YCOMMENT=YRECFM
 !------------------------------------------------------------------------------
 !
 ! * ISBA fields for urban green areas
-! 
+!
 IF (TOP%LGARDEN) THEN
 !
 ! * Greenroofs and hydrology (only activated if LGARDEN)
 !
 YRECFM='LGREENROOF'
 YCOMMENT=YRECFM
- CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%LGREENROOF,IRESP,HCOMMENT=YCOMMENT) 
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%LGREENROOF,IRESP,HCOMMENT=YCOMMENT)
 !
 YRECFM='LURBAN_HYDRO'
 YCOMMENT=YRECFM
- CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%LHYDRO,IRESP,HCOMMENT=YCOMMENT) 
+ CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,TOP%LHYDRO,IRESP,HCOMMENT=YCOMMENT)
 !
 ! * General ISBA options for urban vegetation
 !

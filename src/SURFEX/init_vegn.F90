@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
 SUBROUTINE INIT_VEG_n(IO, KK, PK, PEK, DTV, &
-                      OSURF_DIAG_ALBEDO, PDIR_ALB, PSCA_ALB, PEMIS_OUT, PTSRAD )  
+                      OSURF_DIAG_ALBEDO, PDIR_ALB, PSCA_ALB, PEMIS_OUT, PTSRAD )
 !#############################################################
 !
 !!****  *INIT_VEG_n* - routine to initialize ISBA
@@ -98,7 +98,7 @@ IF (LHOOK) CALL DR_HOOK('INIT_VEG_n',0,ZHOOK_HANDLE)
 !
 !* z0 and vegetation fraction estimated from LAI if not imposed
 IF (IO%CPHOTO=='NIT' .OR. IO%CPHOTO=='NCB') THEN
-  DO JI=1,PK%NSIZE_P    
+  DO JI=1,PK%NSIZE_P
     IF(PEK%XLAI(JI)/=XUNDEF) THEN
       PEK%XLAI (JI) = MAX(PEK%XLAIMIN(JI),PEK%XLAI(JI))
       IF (.NOT.DTV%LIMP_Z0)   &
@@ -107,7 +107,7 @@ IF (IO%CPHOTO=='NIT' .OR. IO%CPHOTO=='NCB') THEN
         PEK%XVEG (JI) = VEG_FROM_LAI(PEK%XLAI(JI),PK%XVEGTYPE_PATCH(JI,:),IO%LAGRI_TO_GRASS)
       IF (.NOT.DTV%LIMP_EMIS) &
         PEK%XEMIS(JI) = EMIS_FROM_VEG(PEK%XVEG(JI),PK%XVEGTYPE_PATCH(JI,:))
-    END IF  
+    END IF
   END DO
 END IF
 !
@@ -127,7 +127,7 @@ ELSE
   ALLOCATE(PEK%XFAPIRC   (0))
   ALLOCATE(PEK%XLAI_EFFC (0))
   ALLOCATE(PEK%XMUS      (0))
-ENDIF        
+ENDIF
 !
 !-------------------------------------------------------------------------------
 !

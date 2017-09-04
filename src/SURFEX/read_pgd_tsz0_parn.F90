@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PGD_TSZ0_PAR_n (DTZ, HPROGRAM)
 !     ################################################
 !
 !!****  *READ_PGD_TSZ0_PAR_n* - reads SEAFLUX sst
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -28,11 +28,11 @@
 !!
 !!    AUTHOR
 !!    ------
-!!	P. Le Moigne   *Meteo France*	
+!!	P. Le Moigne   *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original     09/2007 
+!!      Original     09/2007
 !!      P. Le Moigne 03/2015 tsz0 time management
 !-------------------------------------------------------------------------------
 !
@@ -84,7 +84,7 @@ IF (IVERSION.GT.7 .OR. (IVERSION==7 .AND. IBUGFIX.GT.1)) THEN
   YRECFM='ND_TSZ0_TIME'
   YCOMMENT = '(-)'
   CALL READ_SURF(HPROGRAM,YRECFM,DTZ%NTIME,IRESP,HCOMMENT=YCOMMENT)
-ELSE 
+ELSE
   DTZ%NTIME=37
 ENDIF
 !

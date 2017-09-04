@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_FLUX_n (DGO, D, &
                              HPROGRAM,KI,PRN,PH,PLE,PLEI,PGFLUX,PT2M,PQ2M,   &
-                            PHU2M,PZON10M,PMER10M,PSURFLWNET,PSURFSWNET,PCD,&  
-                            PEVAP, PSUBL                                    )  
+                            PHU2M,PZON10M,PMER10M,PSURFLWNET,PSURFSWNET,PCD,&
+                            PEVAP, PSUBL                                    )
 !     ########################################
 !
 !!****  *GET_FLUX_n* - routine to get some surface fields
@@ -90,41 +90,41 @@ IF (LHOOK) CALL DR_HOOK('GET_FLUX_N',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !-------------------------------------------------------------------------------
 !
-IF (DGO%LSURF_BUDGET)      THEN 
-        PRN       = D%XRN      
-        PH        = D%XH  
-        PLE       = D%XLE 
-        PLEI      = D%XLEI 
-        PGFLUX    = D%XGFLUX 
+IF (DGO%LSURF_BUDGET)      THEN
+        PRN       = D%XRN
+        PH        = D%XH
+        PLE       = D%XLE
+        PLEI      = D%XLEI
+        PGFLUX    = D%XGFLUX
         PSURFLWNET= D%XLWD-D%XLWU
         PSURFSWNET= D%XSWD-D%XSWU
         PEVAP     = D%XEVAP
         PSUBL     = D%XSUBL
-   ELSE 
+   ELSE
         PRN       = XUNDEF
         PH        = XUNDEF
         PLE       = XUNDEF
         PLEI      = XUNDEF
         PGFLUX    = XUNDEF
         PSURFLWNET= XUNDEF
-        PSURFSWNET= XUNDEF  
+        PSURFSWNET= XUNDEF
         PEVAP     = XUNDEF
-        PSUBL     = XUNDEF        
-ENDIF           
+        PSUBL     = XUNDEF
+ENDIF
 !
-IF (DGO%N2M>0)      THEN 
+IF (DGO%N2M>0)      THEN
         PT2M      = D%XT2M
         PQ2M      = D%XQ2M
         PHU2M     = D%XHU2M
         PZON10M   = D%XZON10M
         PMER10M   = D%XMER10M
-   ELSE 
+   ELSE
         PT2M     = XUNDEF
         PQ2M     = XUNDEF
         PHU2M    = XUNDEF
         PZON10M  = XUNDEF
         PMER10M  = XUNDEF
-ENDIF   
+ENDIF
 !
 IF (DGO%LCOEF) THEN
   PCD      = D%XCD

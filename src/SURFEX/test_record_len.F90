@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#################################################
 SUBROUTINE TEST_RECORD_LEN (HPROGRAM,HREC,HSELECT,ONOWRITE)
@@ -54,7 +54,7 @@ IF (LFIRST_WRITE) THEN
 #ifdef WXIOS
   IF (LXIOS .AND. (TRIM(HPROGRAM)=='XIOS' )) THEN
     !
-    IF (LXIOS_DEF_CLOSED) THEN 
+    IF (LXIOS_DEF_CLOSED) THEN
       IF (XIOS_IS_VALID_FIELD(HREC)) THEN
         ONOWRITE = .NOT.XIOS_FIELD_IS_ACTIVE(HREC)
       ELSE

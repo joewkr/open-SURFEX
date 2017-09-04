@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_READ_SURF_NC
 !
@@ -15,7 +15,7 @@ MODULE MODE_READ_SURF_NC
 !!    EXTERNAL
 !!    --------
 !!
-!!     
+!!
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
@@ -173,13 +173,13 @@ KRESP=0
 HCOMMENT = " "
 !
 IF (NID_NC.NE.0) THEN
-  !       
+  !
   ! 1. Find id of the variable
   !----------------------------
   IRET(1)=NF90_INQ_VARID   (NID_NC,HREC,IVAR_ID)
   IRET(1)=NF90_INQUIRE_VARIABLE(NID_NC,IVAR_ID,XTYPE=ITYPE)
   IRET(1)=NF90_INQUIRE_VARIABLE(NID_NC,IVAR_ID,NDIMS=INDIMS)
-  !  
+  !
   ! 2. Get variable
   !----------------------------
   IF (ITYPE==NF90_DOUBLE) THEN
@@ -196,12 +196,12 @@ ENDIF
 ! 3. Check for errors
 !--------------------
 DO JRET=1,3
-  IF ((PFIELD==XUNDEF).OR.(NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+  IF ((PFIELD==XUNDEF).OR.(NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
     PFIELD=XUNDEF
     KRESP=1
   ENDIF
 ENDDO
-!     
+!
 IF (KRESP /=0) CALL ERROR_READ_SURF_NC(HREC,KRESP)
 !
 IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_NC:READ_SURFX0_NC',1,ZHOOK_HANDLE)
@@ -212,7 +212,7 @@ END SUBROUTINE READ_SURFX0_NC
       SUBROUTINE READ_SURFX1_NC(HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  *READX1* - routine to fill a real 1D array for the externalised surface 
+!!****  *READX1* - routine to fill a real 1D array for the externalised surface
 !
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, XTIME_NPIO_READ, NPROC, NCOMM, &
                                  XTIME_NPIO_READ, XTIME_COMM_READ, NREQ
@@ -284,7 +284,7 @@ ENDIF
 IF (NRANK==NPIO) THEN
   !
   IF (NID_NC.NE.0) THEN
-    !  
+    !
     ! 1. Find id of the variable
     !----------------------------
     IRET(1)=NF90_INQ_VARID   (NID_NC,HREC,IVAR_ID)
@@ -331,14 +331,14 @@ IF (NRANK==NPIO) THEN
       DEALLOCATE(ZTAB_1D4)
     ENDIF
     !
-    IRET(3) = NF90_GET_ATT(NID_NC,IVAR_ID,"comment",HCOMMENT)   
+    IRET(3) = NF90_GET_ATT(NID_NC,IVAR_ID,"comment",HCOMMENT)
     !
   ENDIF
   !
   ! 3. Check for errors
   !--------------------
   DO JRET=1,1
-    IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+    IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
       ZWORK = XUNDEF
       KRESP=1
     ENDIF
@@ -372,7 +372,7 @@ ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
 #ifdef SFX_MPI
   IF (NPROC>1) THEN
     XTIME0 = MPI_WTIME()
-    CALL MPI_BCAST(ZWORK,SIZE(ZWORK)*KIND(ZWORK)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)   
+    CALL MPI_BCAST(ZWORK,SIZE(ZWORK)*KIND(ZWORK)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
     XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF
 #endif
@@ -380,12 +380,12 @@ ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
 ELSE
   IF (LMASK) THEN
     CALL READ_AND_SEND_MPI(ZWORK,PFIELD,NMASK)
-  ELSE 
+  ELSE
     CALL READ_AND_SEND_MPI(ZWORK,PFIELD)
   END IF
   !IF (NRANK==NPIO) THEN
   !  CALL MPI_WAITALL(NPROC-1,NREQ,ISTATUS,INFOMPI)
-  !ENDIF  
+  !ENDIF
 ENDIF
 !
 DEALLOCATE(ZWORK)
@@ -398,7 +398,7 @@ END SUBROUTINE READ_SURFX1_NC
       SUBROUTINE READ_SURFX2_NC(HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  *READX2* - routine to fill a real 2D array for the externalised surface 
+!!****  *READX2* - routine to fill a real 2D array for the externalised surface
 !
 USE MODD_SURFEX_MPI, ONLY: NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ, NREQ
 !
@@ -438,7 +438,7 @@ INTEGER,                  INTENT(OUT) :: KRESP    ! KRESP  : return-code if a pr
 INTEGER, DIMENSION(MPI_STATUS_SIZE,NPROC-1) :: ISTATUS
 #endif
  CHARACTER(LEN=100) :: YFILE,YOUT          ! filename
- CHARACTER(LEN=100)    :: YNAME 
+ CHARACTER(LEN=100)    :: YNAME
 INTEGER            :: IL1, IL2
 INTEGER            :: IVAR_ID,JRET,JDIM, INDIMS,ITYPE, INFOMPI
 INTEGER,DIMENSION(4) :: IDIMIDS,IDIMLEN
@@ -483,7 +483,7 @@ IF (NRANK==NPIO) THEN
       JRET=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
     ENDDO
     !
-    IRET(4)=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(1),NAME=YNAME)    
+    IRET(4)=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(1),NAME=YNAME)
     !
     IF (HDIR/='-') THEN
       IF (TRIM(YNAME).NE.'Number_of_points') THEN
@@ -497,7 +497,7 @@ IF (NRANK==NPIO) THEN
     !----------------------------
     !
     ISTART(:) = 1
-    ICOUNT(:) = IDIMLEN(1:3)    
+    ICOUNT(:) = IDIMLEN(1:3)
     IF (ITYPE==NF90_DOUBLE) THEN
       IRET(2)=NF90_GET_VAR(NID_NC,IVAR_ID,ZWORK2,ISTART,ICOUNT)
     ELSEIF (ITYPE==NF90_FLOAT) THEN
@@ -505,16 +505,16 @@ IF (NRANK==NPIO) THEN
       IRET(2)=NF90_GET_VAR(NID_NC,IVAR_ID,ZTAB_2D4,ISTART,ICOUNT)
       ZWORK2(:,:) = ZTAB_2D4(:,:)
       DEALLOCATE(ZTAB_2D4)
-    ENDIF      
+    ENDIF
     !
-    IRET(3) = NF90_GET_ATT(NID_NC,IVAR_ID,"comment",HCOMMENT)  
+    IRET(3) = NF90_GET_ATT(NID_NC,IVAR_ID,"comment",HCOMMENT)
     !
   ENDIF
 
   ! 3. Check for errors
   !--------------------
   DO JRET=1,2
-    IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+    IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
       ZWORK2 = XUNDEF
       KRESP=1
     ENDIF
@@ -548,7 +548,7 @@ ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
 #ifdef SFX_MPI
   IF (NPROC>1) THEN
     XTIME0 = MPI_WTIME()
-    CALL MPI_BCAST(ZWORK2,SIZE(ZWORK2)*KIND(ZWORK2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)   
+    CALL MPI_BCAST(ZWORK2,SIZE(ZWORK2)*KIND(ZWORK2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
     XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF
 #endif
@@ -556,12 +556,12 @@ ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
 ELSE
   IF (LMASK) THEN
     CALL READ_AND_SEND_MPI(ZWORK2(:,1:SIZE(PFIELD,2)),PFIELD,NMASK)
-  ELSE 
+  ELSE
     CALL READ_AND_SEND_MPI(ZWORK2(:,1:SIZE(PFIELD,2)),PFIELD)
   END IF
   !IF (NRANK==NPIO) THEN
   !  CALL MPI_WAITALL(NPROC-1,NREQ,ISTATUS,INFOMPI)
-  !ENDIF    
+  !ENDIF
 ENDIF
 !
 DEALLOCATE(ZWORK2)
@@ -611,11 +611,11 @@ KRESP=0
 HCOMMENT = " "
 !
 IF (NID_NC.NE.0) THEN
-  !        
+  !
   ! 1. Find id of the variable
   !----------------------------
   IRET(1)=NF90_INQ_VARID   (NID_NC,HREC,IVAR_ID)
-  !  
+  !
   ! 2. Get variable
   !----------------------------
   IRET(2)=NF90_GET_VAR(NID_NC,IVAR_ID,KFIELD)
@@ -627,7 +627,7 @@ ENDIF
 ! 3. Check for errors
 !--------------------
 DO JRET=1,2
-  IF ((KFIELD==NUNDEF).OR.(NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+  IF ((KFIELD==NUNDEF).OR.(NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
     KFIELD=NUNDEF
     KRESP=1
   ENDIF
@@ -709,7 +709,7 @@ ENDIF
 IF (NRANK==NPIO) THEN
   !
   IF (NID_NC.NE.0) THEN
-    !  
+    !
     ! 1. Find id of the variable
     !----------------------------
     IRET(1)=NF90_INQ_VARID   (NID_NC,HREC,IVAR_ID)
@@ -720,7 +720,7 @@ IF (NRANK==NPIO) THEN
       ALLOCATE(IWORK(IL1))
       !
     ELSEIF (HDIR/='-') THEN
-      !    
+      !
       IRET(3)=NF90_INQUIRE_VARIABLE(NID_NC,IVAR_ID,NDIMS=INDIMS)
       !
       IF ( INDIMS>0 ) THEN
@@ -751,7 +751,7 @@ IF (NRANK==NPIO) THEN
     IF (ITYPE==NF90_INT) THEN
       IRET(1)=NF90_GET_VAR(NID_NC,IVAR_ID,IWORK)
     ENDIF
-    !  
+    !
     IRET(2) = NF90_GET_ATT(NID_NC,IVAR_ID,"comment",HCOMMENT)
     !
   ENDIF
@@ -759,7 +759,7 @@ IF (NRANK==NPIO) THEN
   ! 3. Check for errors
   !--------------------
   DO JRET=1,1
-    IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+    IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
       IWORK = NUNDEF
       KRESP=1
     ENDIF
@@ -789,7 +789,7 @@ ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
 #ifdef SFX_MPI
   IF (NPROC>1) THEN
     XTIME0 = MPI_WTIME()
-    CALL MPI_BCAST(IWORK,SIZE(IWORK)*KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)   
+    CALL MPI_BCAST(IWORK,SIZE(IWORK)*KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF
 #endif
@@ -797,7 +797,7 @@ ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
 ELSE
   IF (LMASK) THEN
     CALL READ_AND_SEND_MPI(IWORK,KFIELD,NMASK)
-  ELSE 
+  ELSE
     CALL READ_AND_SEND_MPI(IWORK,KFIELD)
   END IF
 ENDIF
@@ -848,7 +848,7 @@ INTEGER,                INTENT(OUT) :: KRESP    ! KRESP  : return-code if a prob
 !*      0.2   Declarations of local variables
 !
  CHARACTER(LEN=100) :: YFILE,YOUT          ! filename
- CHARACTER(LEN=100)    :: YNAME 
+ CHARACTER(LEN=100)    :: YNAME
 INTEGER            ::  IL1, IL2, IVAR_ID,JRET,JDIM,INDIMS,ITYPE, INFOMPI
 INTEGER,DIMENSION(4) :: IDIMIDS,IDIMLEN
 INTEGER,DIMENSION(4) :: IRET
@@ -877,7 +877,7 @@ ENDIF
 IF (NRANK==NPIO) THEN
   !
   IF (NID_NC.NE.0) THEN
-    !   
+    !
     ! 1. Find id of the variable
     !----------------------------
     IRET(1)=NF90_INQ_VARID   (NID_NC,HREC,IVAR_ID)
@@ -889,8 +889,8 @@ IF (NRANK==NPIO) THEN
       JRET=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
     ENDDO
     !
-    IRET(4)=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(1),NAME=YNAME)    
-    ! 
+    IRET(4)=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(1),NAME=YNAME)
+    !
     ! 2. Get variable
     !----------------------------
     IF (TRIM(YNAME).NE.'Number_of_points') THEN
@@ -901,7 +901,7 @@ IF (NRANK==NPIO) THEN
     !
     IF (ITYPE==NF90_INT) THEN
       IRET(2)=NF90_GET_VAR(NID_NC,IVAR_ID,IWORK2)
-    ENDIF      
+    ENDIF
     !
     IRET(3) = NF90_GET_ATT(NID_NC,IVAR_ID,"comment",HCOMMENT)
   ENDIF
@@ -909,7 +909,7 @@ IF (NRANK==NPIO) THEN
   ! 3. Check for errors
   !--------------------
   DO JRET=1,2
-    IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+    IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
       IWORK2 = NUNDEF
       KRESP=1
     ENDIF
@@ -940,7 +940,7 @@ ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
 #ifdef SFX_MPI
   IF (NPROC>1) THEN
     XTIME0 = MPI_WTIME()
-    CALL MPI_BCAST(IWORK2,SIZE(IWORK2)*KIND(IWORK2)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)   
+    CALL MPI_BCAST(IWORK2,SIZE(IWORK2)*KIND(IWORK2)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF
 #endif
@@ -948,12 +948,12 @@ ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
 ELSE
   IF (LMASK) THEN
     CALL READ_AND_SEND_MPI(IWORK2,KFIELD,NMASK)
-  ELSE 
+  ELSE
     CALL READ_AND_SEND_MPI(IWORK2,KFIELD)
   END IF
 ENDIF
 !
-DEALLOCATE(IWORK2) 
+DEALLOCATE(IWORK2)
 !
 IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_NC:READ_SURFN2_NC',1,ZHOOK_HANDLE)
 !
@@ -989,7 +989,7 @@ INTEGER,             INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem
 !*      0.2   Declarations of local variables
 !
  CHARACTER(LEN=100):: YFILE          ! filename
- CHARACTER(LEN=40):: YFIELD   
+ CHARACTER(LEN=40):: YFIELD
 INTEGER :: IVAR_ID,JRET,JDIM,INDIMS
 INTEGER,DIMENSION(4) :: IRET
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -1000,11 +1000,11 @@ KRESP=0
 HCOMMENT = " "
 !
 IF (NID_NC.NE.0) THEN
-  !       
+  !
   ! 1. Find id of the variable
   !----------------------------
   IRET(1)=NF90_INQ_VARID   (NID_NC,HREC,IVAR_ID)
-  !  
+  !
   ! 2. Get variable
   !----------------------------
   IRET(2)=NF90_GET_VAR(NID_NC,IVAR_ID,YFIELD)
@@ -1017,10 +1017,10 @@ ENDIF
 ! 3. Check for errors
 !--------------------
 DO JRET=1,2
-  IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+  IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
     KRESP=1
   ENDIF
-ENDDO  
+ENDDO
 !
 IF (KRESP /=0) CALL ERROR_READ_SURF_NC(HREC,KRESP)
 !
@@ -1033,7 +1033,7 @@ END SUBROUTINE READ_SURFC0_NC
 !     #############################################################
 !
 !!****  *READL0* - routine to read a logical
-!    
+!
 USE MODD_IO_SURF_NC, ONLY : NID_NC
 !
 USE MODI_ERROR_READ_SURF_NC
@@ -1069,25 +1069,25 @@ KRESP=0
 HCOMMENT = " "
 !
 IF (NID_NC.NE.0) THEN
-  !       
+  !
   ! 1. Find id of the variable
   !----------------------------
   IRET(1)=NF90_INQ_VARID   (NID_NC,HREC,IVAR_ID)
-  !  
+  !
   ! 2. Get variable
   !----------------------------
   IRET(2)=NF90_GET_VAR(NID_NC,IVAR_ID,YFIELD)
   !
   IRET(3) = NF90_GET_ATT(NID_NC,IVAR_ID,"comment",HCOMMENT)
-  !  
+  !
 ENDIF
-!  
+!
 IF (YFIELD =="T") OFIELD=.TRUE.
 IF (YFIELD =="F") OFIELD=.FALSE.
 !
 ! 3. Check for errors
 !--------------------
-IF ((NID_NC==0).OR.IRET(1).NE.NF90_NOERR) THEN 
+IF ((NID_NC==0).OR.IRET(1).NE.NF90_NOERR) THEN
   KRESP=1
 ENDIF
 !
@@ -1102,7 +1102,7 @@ END SUBROUTINE READ_SURFL0_NC
 !     #############################################################
 !
 !!****  *READL1* - routine to read a logical array
-!    
+!
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ
 !
 USE MODD_IO_SURF_NC, ONLY : NID_NC
@@ -1161,7 +1161,7 @@ XTIME0 = MPI_WTIME()
 IF (NRANK==NPIO) THEN
   !
   IF (NID_NC.NE.0) THEN
-    !   
+    !
     ! 1. Find id of the variable
     !----------------------------
     IRET(1)=NF90_INQ_VARID   (NID_NC,HREC,IVAR_ID)
@@ -1177,7 +1177,7 @@ IF (NRANK==NPIO) THEN
       ALLOCATE(YTAB_1D(1))
       ICOUNT(1) = 1
     ENDIF
-    !  
+    !
     ! 2. Get variable
     !----------------------------
     ISTART(1) = 1
@@ -1195,7 +1195,7 @@ IF (NRANK==NPIO) THEN
   ! 3. Check for errors
   !--------------------
   DO JRET=1,1
-    IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+    IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
       KRESP=1
     ENDIF
   ENDDO
@@ -1272,32 +1272,32 @@ HCOMMENT = " "
 !
 DO JWRK=1,4
   !
-  IF (JWRK == 1) THEN 
+  IF (JWRK == 1) THEN
     YRECFM=TRIM(HREC)//'-YEAR'
   ELSEIF (JWRK == 2) THEN
     YRECFM = TRIM(HREC)//'-MONTH'
   ELSEIF (JWRK == 3) THEN
     YRECFM = TRIM(HREC)//'-DAY'
-  ELSEIF (JWRK == 4) THEN    
+  ELSEIF (JWRK == 4) THEN
     YRECFM=TRIM(HREC)//'-TIME'
   ENDIF
 ! 0. find filename
   !
   IF (NID_NC.NE.0) THEN
-    !   
+    !
     ! 1. Find id of the variable
     !----------------------------
     JRET=NF90_INQ_VARID   (NID_NC,YRECFM,IVAR_ID)
     !
     ! 2. Get variable
     !----------------------------
-    IF (JWRK == 1) THEN 
+    IF (JWRK == 1) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,KYEAR)
     ELSEIF (JWRK==2) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,KMONTH)
     ELSEIF (JWRK==3) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,KDAY)
-    ELSEIF (JWRK==4) THEN     
+    ELSEIF (JWRK==4) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,PTIME)
     ENDIF
     !
@@ -1309,7 +1309,7 @@ ENDDO
 ! 3. Check for errors
 !--------------------
 DO JRET=1,4
-  IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+  IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
     KRESP=1
   ENDIF
 ENDDO
@@ -1368,32 +1368,32 @@ HCOMMENT = " "
 !
 DO JWRK=1,4
   !
-  IF (JWRK == 1) THEN 
+  IF (JWRK == 1) THEN
     YRECFM=TRIM(HREC)//'-YEAR'
   ELSEIF (JWRK == 2) THEN
     YRECFM = TRIM(HREC)//'-MONTH'
   ELSEIF (JWRK == 3) THEN
     YRECFM = TRIM(HREC)//'-DAY'
-  ELSEIF (JWRK == 4) THEN    
+  ELSEIF (JWRK == 4) THEN
     YRECFM=TRIM(HREC)//'-TIME'
   ENDIF
 ! 0. find filename
   !
   IF (NID_NC.NE.0) THEN
-    !   
+    !
     ! 1. Find id of the variable
     !----------------------------
     JRET=NF90_INQ_VARID   (NID_NC,YRECFM,IVAR_ID)
     !
     ! 2. Get variable
     !----------------------------
-    IF (JWRK == 1) THEN 
+    IF (JWRK == 1) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,KYEAR)
     ELSEIF (JWRK==2) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,KMONTH)
     ELSEIF (JWRK==3) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,KDAY)
-    ELSEIF (JWRK==4) THEN      
+    ELSEIF (JWRK==4) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,PTIME)
     ENDIF
     !
@@ -1405,7 +1405,7 @@ ENDDO
 ! 3. Check for errors
 !--------------------
 DO JRET=1,4
-  IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+  IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
     KRESP=1
   ENDIF
 ENDDO
@@ -1464,32 +1464,32 @@ HCOMMENT = " "
 !
 DO JWRK=1,4
   !
-  IF (JWRK == 1) THEN 
+  IF (JWRK == 1) THEN
     YRECFM=TRIM(HREC)//'-YEAR'
   ELSEIF (JWRK == 2) THEN
     YRECFM = TRIM(HREC)//'-MONTH'
   ELSEIF (JWRK == 3) THEN
     YRECFM = TRIM(HREC)//'-DAY'
-  ELSEIF (JWRK == 4) THEN    
+  ELSEIF (JWRK == 4) THEN
     YRECFM=TRIM(HREC)//'-TIME'
   ENDIF
 ! 0. find filename
   !
   IF (NID_NC.NE.0) THEN
-    !   
+    !
     ! 1. Find id of the variable
     !----------------------------
     JRET=NF90_INQ_VARID   (NID_NC,YRECFM,IVAR_ID)
     !
     ! 2. Get variable
     !----------------------------
-    IF (JWRK == 1) THEN 
+    IF (JWRK == 1) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,KYEAR)
     ELSEIF (JWRK==2) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,KMONTH)
     ELSEIF (JWRK==3) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,KDAY)
-    ELSEIF (JWRK==4) THEN      
+    ELSEIF (JWRK==4) THEN
       IRET(JWRK)=NF90_GET_VAR(NID_NC,IVAR_ID,PTIME)
     ENDIF
     !
@@ -1501,7 +1501,7 @@ ENDDO
 ! 3. Check for errors
 !--------------------
 DO JRET=1,4
-  IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+  IF ((NID_NC==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
     KRESP=1
   ENDIF
 ENDDO

@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE INIT_ISBA_SBL(IO, K, NP, NPE, SB, PTSTEP, PPA, PPS, PTA, PQA, PRHOA, PU, PV, &
-                             PDIR_SW, PSCA_SW, PSW_BANDS, PRAIN, PSNOW, PZREF, PUREF, PSSO_SLOPE )  
+                             PDIR_SW, PSCA_SW, PSW_BANDS, PRAIN, PSNOW, PZREF, PUREF, PSSO_SLOPE )
 !     #################################################################################
 !
 !!****  *INIT_WATER_SBL* - inits water SBL profiles
@@ -17,7 +17,7 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -78,7 +78,7 @@ REAL, DIMENSION(:), INTENT(IN)  :: PRAIN     ! liquid precipitation             
 REAL, DIMENSION(:), INTENT(IN)  :: PZREF     ! height of T,q forcing                 (m)
 REAL, DIMENSION(:), INTENT(IN)  :: PUREF     ! height of wind forcing                (m)
 REAL, DIMENSION(:), INTENT(IN)  :: PSSO_SLOPE! slope of S.S.O.                         (-)
-!                                            ! canopy       
+!                                            ! canopy
 !
 !*      0.2    declarations of local variables
 !
@@ -188,14 +188,14 @@ DO JP = 1,IO%NPATCH
     ZZ0 (IMASK) = ZZ0 (IMASK) + PEK%XZ0(JI)    * PK%XPATCH(JI)
     !
     ZZ0H(IMASK) = ZZ0H(IMASK) + PK%XPATCH(JI) * PEK%XZ0 (JI) / PK%XZ0_O_Z0H(JI)
-    ZVEG(IMASK) = ZVEG(IMASK) + PK%XPATCH(JI) * PEK%XVEG(JI) 
-    !    
+    ZVEG(IMASK) = ZVEG(IMASK) + PK%XPATCH(JI) * PEK%XVEG(JI)
+    !
     ZRESA(IMASK) = ZRESA(IMASK) + PK%XPATCH(JI) * PEK%XRESA(JI)
     !
     ZRGL  (IMASK) = ZRGL  (IMASK) + PK%XPATCH(JI) * PEK%XRGL  (JI)
     ZRSMIN(IMASK) = ZRSMIN(IMASK) + PK%XPATCH(JI) * PEK%XRSMIN(JI)
     ZGAMMA(IMASK) = ZGAMMA(IMASK) + PK%XPATCH(JI) * PEK%XGAMMA(JI)
-    !  
+    !
   ENDDO
 ENDDO
 !
@@ -267,7 +267,7 @@ DO JL=1,ISNOW_LAYER
     DO JI=1,PK%NSIZE_P
       IMASK = PK%NR_P(JI)
       !
-      IF (ZSUM_LAYER(IMASK,JL)>0.) THEN  
+      IF (ZSUM_LAYER(IMASK,JL)>0.) THEN
         ZSNOWRHO(IMASK,JL) = ZSNOWRHO(IMASK,JL) + PK%XPATCH(JI) * PEK%TSNOW%RHO(JI,JL)
       ELSEIF (JP==1) THEN
         ZSNOWRHO(IMASK,JL) = PEK%TSNOW%RHO(JI,JL)
@@ -279,13 +279,13 @@ DO JL=1,ISNOW_LAYER
 END DO
 !
 WHERE (ZSNOWSWE(:,:)==0.) ZSNOWRHO(:,:) = XUNDEF
-WHERE (ZSUM_LAYER(:,:)>0.) 
+WHERE (ZSUM_LAYER(:,:)>0.)
   ZSNOWRHO(:,:) = ZSNOWRHO(:,:) / ZSUM_LAYER(:,:)
 END WHERE
 !
 ZSUM(:)=SUM(ZSUM_LAYER(:,:),DIM=2)
 DEALLOCATE(ZSUM_LAYER)
-! 
+!
 ZWSNOW(:,:) = 0.
 DO JL = 1,ISNOW_LAYER
   DO JP = 1,IO%NPATCH
@@ -299,7 +299,7 @@ DO JL = 1,ISNOW_LAYER
       !
     ENDDO
   ENDDO
-ENDDO    
+ENDDO
 !
 ZSNOWALB(:) = 0.
 DO JP = 1,IO%NPATCH
@@ -321,8 +321,8 @@ DO JP = 1,IO%NPATCH
   ENDDO
 ENDDO
 !
-WHERE(ZSUM(:)>0)         
-  ZSNOWALB(:) = ZSNOWALB(:) / ZSUM(:)      
+WHERE(ZSUM(:)>0)
+  ZSNOWALB(:) = ZSNOWALB(:) / ZSUM(:)
 ENDWHERE
 !
 !
@@ -333,7 +333,7 @@ ZWIND(:) = SQRT(PU**2+PV**2)
 !
 !We compute the snow fractions
  CALL ISBA_SNOW_FRAC(PEK%TSNOW%SCHEME, ZSNOWSWE, ZSNOWRHO, ZSNOWALB,   &
-                     ZVEG, ZLAI, ZZ0, ZPSN, ZPSNV_A, ZPSNG, ZPSNV   )  
+                     ZVEG, ZLAI, ZZ0, ZPSN, ZPSNV_A, ZPSNG, ZPSNV   )
 !
 DEALLOCATE(ZSNOWSWE, ZSNOWRHO)
 !
@@ -369,14 +369,14 @@ IF (LNOSOF) ZP_SLOPE_COS(:) = 1.0
            ZZ0, ZZ0EFF, ZZ0H, K%XWFC(:,1), K%XWSAT(:,1), ZPSNG, ZPSNV,   &
            PZREF, PUREF, ZP_SLOPE_COS, ZDELTA, ZF5, ZRESA, ZCH, ZCD, ZCDN, &
            ZRI, ZHUG, ZHUGI, ZHV, ZHU, ZCPS, ZQS, ZFFG, ZFFV, ZFF, ZFFGNOS,&
-           ZFFVNOS, ZLEG_DELTA, ZLEGI_DELTA, ZWR, PRHOA, ZLVTT            )  
+           ZFFVNOS, ZLEG_DELTA, ZLEGI_DELTA, ZWR, PRHOA, ZLVTT            )
 !
 !Initialisation of T, Q, Wind and TKE on all canopy levels
 DO JL=1,SB%NLVL
   !
   CALL CLS_TQ(PTA, ZQA, PPA, PPS, PZREF, ZCD, ZCH, ZRI, ZTS, ZHU, ZZ0H, &
-              SB%XZ(:,JL), ZTNM, ZQNM, ZHUNM           ) 
-  ! 
+              SB%XZ(:,JL), ZTNM, ZQNM, ZHUNM           )
+  !
   SB%XT(:,JL)=ZTNM
   SB%XQ(:,JL)=ZQNM
   !
@@ -389,6 +389,6 @@ DO JL=1,SB%NLVL
   !
 ENDDO
 !
-IF (LHOOK) CALL DR_HOOK('INIT_ISBA_SBL',1,ZHOOK_HANDLE) 
+IF (LHOOK) CALL DR_HOOK('INIT_ISBA_SBL',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_ISBA_SBL

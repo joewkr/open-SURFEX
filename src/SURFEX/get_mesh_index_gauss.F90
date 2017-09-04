@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################
       SUBROUTINE GET_MESH_INDEX_GAUSS(KNBLINES,KSSO,PGRID_PAR,PLAT,PLON,&
@@ -125,7 +125,7 @@ IF (.NOT. ALLOCATED(NNLOPA)) THEN
   ALLOCATE(XXSUP(ILGRID))
   ALLOCATE(XYSUP(ILGRID))
   ALLOCATE(XXDIF(ILGRID))
-  ALLOCATE(XYDIF(ILGRID))  
+  ALLOCATE(XYDIF(ILGRID))
   !
   CALL GAUSS_GRID_LIMITS(NNLATI,NNLOPA(1:NNLATI),XXINF,XXSUP,XYINF,XYSUP)
   DO JJ=1,ILGRID
@@ -223,7 +223,7 @@ IF (LROTSTRETCH) THEN
   CALL XY_GAUSS(XCODIL,ISIZE,ZNODATA,ZVALUE,ZY,ZX)
 ELSE
   ZX(:) = PLON(:)
-  ZY(:) = PLAT(:) 
+  ZY(:) = PLAT(:)
 ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -244,12 +244,12 @@ DO JL=1,SIZE(PLAT)
   !
  IF (ZVALUE(JL)==ZNODATA) CYCLE
   !
-  fracx: &  
+  fracx: &
   DO JJ=1,IFACTX
     !
     IF (ZY(JL)>=XYINF(NFRACGX(JJ))) THEN
       !
-      JGRID = NFRACGX(JJ-1)  
+      JGRID = NFRACGX(JJ-1)
       !
       DO JI=NFRACDX(JJ-1)+1,NFRACDX(JJ)-1
         !
@@ -309,7 +309,7 @@ DO JL=1,SIZE(PLAT)
           !
         ENDIF
         !
-      ENDDO 
+      ENDDO
       !
     END IF
     !
@@ -327,12 +327,12 @@ IF (LHOOK) CALL DR_HOOK('GET_MESH_INDEX_GAUSS_4',1,ZHOOK_HANDLE_OMP)
 IF (KSSO/=0) THEN
 !$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)
 IF (LHOOK) CALL DR_HOOK('GET_MESH_INDEX_GAUSS_5',0,ZHOOK_HANDLE_OMP)
-!$OMP DO 
+!$OMP DO
   DO JL=1,SIZE(PLAT)
     IF (KINDEX(1,JL)/=0) THEN
       KISSOX(1,JL) = 1 + INT( FLOAT(KSSO) * (ZX(JL)-XXINF(KINDEX(1,JL)))/(XXSUP(KINDEX(1,JL))-XXINF(KINDEX(1,JL))) )
-      KISSOY(1,JL) = 1 + INT( FLOAT(KSSO) * (ZY(JL)-XYINF(KINDEX(1,JL)))/(XYSUP(KINDEX(1,JL))-XYINF(KINDEX(1,JL))) ) 
-    ENDIF 
+      KISSOY(1,JL) = 1 + INT( FLOAT(KSSO) * (ZY(JL)-XYINF(KINDEX(1,JL)))/(XYSUP(KINDEX(1,JL))-XYINF(KINDEX(1,JL))) )
+    ENDIF
   ENDDO
 !$OMP END DO
 IF (LHOOK) CALL DR_HOOK('GET_MESH_INDEX_GAUSS_5',1,ZHOOK_HANDLE_OMP)

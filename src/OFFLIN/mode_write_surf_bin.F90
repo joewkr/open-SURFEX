@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
 MODULE MODE_WRITE_SURF_BIN
@@ -195,7 +195,7 @@ END SUBROUTINE WRITE_SURFC0_BIN
       SUBROUTINE WRITE_SURFX1_BIN (HSELECT, HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 1D array for the externalised surface 
+!!****  * - routine to fill a write 1D array for the externalised surface
 !
 !
 !
@@ -253,11 +253,11 @@ IF (NRANK==NPIO) THEN
   !
   CALL INIT_WRITE_BIN(HSELECT, NFULL, HREC,1,LWFL)
   !
-  IF (LWFL) THEN 
+  IF (LWFL) THEN
     WRITE(NIND,REC=NWRITE,IOSTAT=KRESP) ZWORK
   ENDIF
   !
-  IF (KRESP/=0) CALL ERROR_WRITE_SURF_BIN(HREC,KRESP)  
+  IF (KRESP/=0) CALL ERROR_WRITE_SURF_BIN(HREC,KRESP)
   !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
@@ -273,7 +273,7 @@ END SUBROUTINE WRITE_SURFX1_BIN
       SUBROUTINE WRITE_SURFX2_BIN (HSELECT, HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 2D array for the externalised surface 
+!!****  * - routine to fill a write 2D array for the externalised surface
 !
 !
 !
@@ -310,7 +310,7 @@ INTEGER,                  INTENT(OUT):: KRESP    ! KRESP  : return-code if a pro
                                                  !       horizontal spatial dim.
                                                  ! '-' : no horizontal dim.
 !*      0.2   Declarations of local variables
-! 
+!
 LOGICAL :: LWFL=.FALSE.
 REAL(KIND=4), DIMENSION(MAX(NFULL,SIZE(PFIELD,1)),SIZE(PFIELD,2)) :: ZWORK   ! work array read in the file
 DOUBLE PRECISION   :: XTIME0

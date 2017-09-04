@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_WATFLUX_SBL_n (SB, CHW, DGO, D, DC, W, DST, SLT, &
@@ -23,11 +23,11 @@ SUBROUTINE COUPLING_WATFLUX_SBL_n (SB, CHW, DGO, D, DC, W, DST, SLT, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -50,7 +50,7 @@ USE MODD_SLT_n, ONLY : SLT_t
 !
 USE MODD_SURF_PAR,         ONLY : XUNDEF
 USE MODD_CSTS,             ONLY : XCPD
-! 
+!
 USE MODE_COUPLING_CANOPY
 !
 USE MODI_INIT_WATER_SBL
@@ -71,9 +71,9 @@ IMPLICIT NONE
 TYPE(CANOPY_t), INTENT(INOUT) :: SB
 TYPE(CH_WATFLUX_t), INTENT(INOUT) :: CHW
 TYPE(DIAG_OPTIONS_t), INTENT(INOUT) :: DGO
-TYPE(DIAG_t), INTENT(INOUT) :: D 
+TYPE(DIAG_t), INTENT(INOUT) :: D
 TYPE(DIAG_t), INTENT(INOUT) :: DC
-TYPE(WATFLUX_t), INTENT(INOUT) :: W 
+TYPE(WATFLUX_t), INTENT(INOUT) :: W
 !
 TYPE(DST_t), INTENT(INOUT) :: DST
 TYPE(SLT_t), INTENT(INOUT) :: SLT
@@ -281,7 +281,7 @@ ELSE
                       ZUREF, ZZREF,               &
                       ZPEW_A_COEF, ZPEW_B_COEF,   &
                       ZPET_A_COEF, ZPET_B_COEF,   &
-                      ZPEQ_A_COEF, ZPEQ_B_COEF    ) 
+                      ZPEQ_A_COEF, ZPEQ_B_COEF    )
 !
 END IF
 !

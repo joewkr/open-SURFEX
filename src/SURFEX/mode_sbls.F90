@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!     ############### 
-      MODULE MODE_SBLS 
+!     ###############
+      MODULE MODE_SBLS
 !     ###############
 !
 !!****  *MODE_SBLS * - contains Surface Boundary Layer characteristics functions
@@ -13,20 +13,20 @@
 !
 !!**  METHOD
 !!    ------
-!!    
-!!    
+!!
+!!
 !!
 !!    EXTERNAL
 !!    --------
-!!       
+!!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Businger et al 1971,   Wyngaard and Cote 1974
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -36,7 +36,7 @@
 !!    -------------
 !!      Original        13/10/99
 !!      V. Masson       06/11/02 optimization and add Businger fonction for TKE
-!!      J. EScobar      28/11/2013 really avoid / 0 in test in real*4 
+!!      J. EScobar      28/11/2013 really avoid / 0 in test in real*4
 !-----------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -95,7 +95,7 @@ FUNCTION BUSINGER_PHIM_3D(PZ_O_LMO)
   IMPLICIT NONE
   REAL, DIMENSION(:,:,:), INTENT(IN)                 :: PZ_O_LMO
   REAL, DIMENSION(SIZE(PZ_O_LMO,1), &
-                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: BUSINGER_PHIM_3D  
+                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: BUSINGER_PHIM_3D
   REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
   IF (LHOOK) CALL DR_HOOK('MODE_SBLS:BUSINGER_PHIM_3D',0,ZHOOK_HANDLE)
@@ -165,7 +165,7 @@ FUNCTION BUSINGER_PHIH_3D(PZ_O_LMO)
   IMPLICIT NONE
   REAL, DIMENSION(:,:,:), INTENT(IN)                 :: PZ_O_LMO
   REAL, DIMENSION(SIZE(PZ_O_LMO,1), &
-                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: BUSINGER_PHIH_3D  
+                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: BUSINGER_PHIH_3D
   REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
   IF (LHOOK) CALL DR_HOOK('MODE_SBLS:BUSINGER_PHIH_3D',0,ZHOOK_HANDLE)
@@ -233,16 +233,16 @@ END FUNCTION BUSINGER_PHIH_0D
 !
 FUNCTION BUSINGER_PHIE_3D(PZ_O_LMO)
   USE MODD_CANOPY_TURB, ONLY : XALPSBL
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, DIMENSION(:,:,:), INTENT(IN)                 :: PZ_O_LMO
   REAL, DIMENSION(SIZE(PZ_O_LMO,1), &
-                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: BUSINGER_PHIE_3D  
+                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: BUSINGER_PHIE_3D
   REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
   IF (LHOOK) CALL DR_HOOK('MODE_SBLS:BUSINGER_PHIE_3D',0,ZHOOK_HANDLE)
   WHERE ( PZ_O_LMO(:,:,:) < 0. )
     BUSINGER_PHIE_3D(:,:,:) =   (1.+(-PZ_O_LMO)**(2./3.)/XALPSBL) &
-                                * (1.-15.*PZ_O_LMO)**(0.5)  
+                                * (1.-15.*PZ_O_LMO)**(0.5)
   ELSEWHERE
     BUSINGER_PHIE_3D(:,:,:) = 1./(1. + 4.7 * PZ_O_LMO)**2
   END WHERE
@@ -253,7 +253,7 @@ END FUNCTION BUSINGER_PHIE_3D
 !
 FUNCTION BUSINGER_PHIE_2D(PZ_O_LMO)
   USE MODD_CANOPY_TURB, ONLY : XALPSBL
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, DIMENSION(:,:), INTENT(IN)                   :: PZ_O_LMO
   REAL, DIMENSION(SIZE(PZ_O_LMO,1),SIZE(PZ_O_LMO,2)) :: BUSINGER_PHIE_2D
   REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -261,7 +261,7 @@ FUNCTION BUSINGER_PHIE_2D(PZ_O_LMO)
   IF (LHOOK) CALL DR_HOOK('MODE_SBLS:BUSINGER_PHIE_2D',0,ZHOOK_HANDLE)
   WHERE ( PZ_O_LMO(:,:) < 0. )
     BUSINGER_PHIE_2D(:,:) =   (1.+(-PZ_O_LMO)**(2./3.)/XALPSBL) &
-                              * (1.-15.*PZ_O_LMO)**(0.5)  
+                              * (1.-15.*PZ_O_LMO)**(0.5)
   ELSEWHERE
     BUSINGER_PHIE_2D(:,:) = 1./(1. + 4.7 * PZ_O_LMO)**2
   END WHERE
@@ -272,7 +272,7 @@ END FUNCTION BUSINGER_PHIE_2D
 !
 FUNCTION BUSINGER_PHIE_1D(PZ_O_LMO)
   USE MODD_CANOPY_TURB, ONLY : XALPSBL
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, DIMENSION(:), INTENT(IN)    :: PZ_O_LMO
   REAL, DIMENSION(SIZE(PZ_O_LMO,1)) :: BUSINGER_PHIE_1D
   REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -280,7 +280,7 @@ FUNCTION BUSINGER_PHIE_1D(PZ_O_LMO)
   IF (LHOOK) CALL DR_HOOK('MODE_SBLS:BUSINGER_PHIE_1D',0,ZHOOK_HANDLE)
   WHERE ( PZ_O_LMO(:) < 0. )
     BUSINGER_PHIE_1D(:) =   (1.+(-PZ_O_LMO)**(2./3.)/XALPSBL) &
-                            * (1.-15.*PZ_O_LMO)**(0.5)  
+                            * (1.-15.*PZ_O_LMO)**(0.5)
   ELSEWHERE
     BUSINGER_PHIE_1D(:) = 1./(1. + 4.7 * PZ_O_LMO)**2
   END WHERE
@@ -291,7 +291,7 @@ END FUNCTION BUSINGER_PHIE_1D
 !
 FUNCTION BUSINGER_PHIE_0D(PZ_O_LMO)
   USE MODD_CANOPY_TURB, ONLY : XALPSBL
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, INTENT(IN):: PZ_O_LMO
   REAL            :: BUSINGER_PHIE_0D
   REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -299,7 +299,7 @@ FUNCTION BUSINGER_PHIE_0D(PZ_O_LMO)
   IF (LHOOK) CALL DR_HOOK('MODE_SBLS:BUSINGER_PHIE_0D',0,ZHOOK_HANDLE)
   IF ( PZ_O_LMO < 0. ) THEN
     BUSINGER_PHIE_0D =   (1.+(-PZ_O_LMO)**(2./3.)/XALPSBL) &
-                         * (1.-15.*PZ_O_LMO)**(0.5)  
+                         * (1.-15.*PZ_O_LMO)**(0.5)
   ELSE
     BUSINGER_PHIE_0D = 1./(1. + 4.7 * PZ_O_LMO)**2
   END IF
@@ -311,13 +311,13 @@ END FUNCTION BUSINGER_PHIE_0D
 !
 FUNCTION PAULSON_PSIM_3D(PZ_O_LMO)
   USE MODD_CSTS
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, DIMENSION(:,:,:), INTENT(IN)                 :: PZ_O_LMO
   REAL, DIMENSION(SIZE(PZ_O_LMO,1), &
-                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: PAULSON_PSIM_3D  
+                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: PAULSON_PSIM_3D
 !
   REAL, DIMENSION(SIZE(PZ_O_LMO,1), &
-                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: ZX  
+                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: ZX
   REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
   IF (LHOOK) CALL DR_HOOK('MODE_SBLS:PAULSON_PSIM_3D',0,ZHOOK_HANDLE)
@@ -335,7 +335,7 @@ END FUNCTION PAULSON_PSIM_3D
 !
 FUNCTION PAULSON_PSIM_2D(PZ_O_LMO)
   USE MODD_CSTS
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, DIMENSION(:,:), INTENT(IN)                   :: PZ_O_LMO
   REAL, DIMENSION(SIZE(PZ_O_LMO,1),SIZE(PZ_O_LMO,2)) :: PAULSON_PSIM_2D
 !
@@ -357,7 +357,7 @@ END FUNCTION PAULSON_PSIM_2D
 !
 FUNCTION PAULSON_PSIM_1D(PZ_O_LMO)
   USE MODD_CSTS
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, DIMENSION(:), INTENT(IN)    :: PZ_O_LMO
   REAL, DIMENSION(SIZE(PZ_O_LMO,1)) :: PAULSON_PSIM_1D
 !
@@ -379,7 +379,7 @@ END FUNCTION PAULSON_PSIM_1D
 !
 FUNCTION PAULSON_PSIM_0D(PZ_O_LMO)
   USE MODD_CSTS
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, INTENT(IN)    :: PZ_O_LMO
   REAL                :: PAULSON_PSIM_0D
 !
@@ -404,10 +404,10 @@ FUNCTION PAULSON_PSIH_3D(PZ_O_LMO)
   IMPLICIT NONE
   REAL, DIMENSION(:,:,:), INTENT(IN)                 :: PZ_O_LMO
   REAL, DIMENSION(SIZE(PZ_O_LMO,1), &
-                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: PAULSON_PSIH_3D  
+                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: PAULSON_PSIH_3D
 !
   REAL, DIMENSION(SIZE(PZ_O_LMO,1), &
-                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: ZY  
+                    SIZE(PZ_O_LMO,2),SIZE(PZ_O_LMO,3)) :: ZY
   REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
   IF (LHOOK) CALL DR_HOOK('MODE_SBLS:PAULSON_PSIH_3D',0,ZHOOK_HANDLE)
@@ -491,7 +491,7 @@ END FUNCTION PAULSON_PSIH_0D
 FUNCTION LMO_2D(PUSTAR,PTHETA,PRV,PSFTH,PSFRV)
   USE MODD_CSTS
   USE MODD_SURF_PAR,   ONLY : XUNDEF
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, DIMENSION(:,:), INTENT(IN)               :: PUSTAR
   REAL, DIMENSION(:,:), INTENT(IN)               :: PTHETA
   REAL, DIMENSION(:,:), INTENT(IN)               :: PRV
@@ -508,12 +508,12 @@ FUNCTION LMO_2D(PUSTAR,PTHETA,PRV,PSFTH,PSFRV)
   IF (LHOOK) CALL DR_HOOK('MODE_SBLS:LMO_2D',0,ZHOOK_HANDLE)
   ZEPS=(XRV-XRD)/XRD
   ZTHETAV(:,:) = PTHETA(:,:) * ( 1. +ZEPS * PRV(:,:))
-  ZQ0    (:,:) = PSFTH(:,:) + ZTHETAV(:,:) * ZEPS * PSFRV(:,:) 
+  ZQ0    (:,:) = PSFTH(:,:) + ZTHETAV(:,:) * ZEPS * PSFRV(:,:)
 !
   LMO_2D(:,:) = XUNDEF
   WHERE ( ZQ0(:,:) /=0.  )                                   &
       LMO_2D(:,:) = - MAX(PUSTAR(:,:),1.E-6)**3                &
-                    / ( XKARMAN * XG / ZTHETAV(:,:) *ZQ0(:,:) )  
+                    / ( XKARMAN * XG / ZTHETAV(:,:) *ZQ0(:,:) )
 !
   WHERE(ABS(LMO_2D)>10000.) LMO_2D=XUNDEF
 IF (LHOOK) CALL DR_HOOK('MODE_SBLS:LMO_2D',1,ZHOOK_HANDLE)
@@ -525,7 +525,7 @@ END FUNCTION LMO_2D
 FUNCTION LMO_1D(PUSTAR,PTHETA,PRV,PSFTH,PSFRV)
   USE MODD_CSTS
   USE MODD_SURF_PAR,  ONLY : XUNDEF
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, DIMENSION(:), INTENT(IN)  :: PUSTAR
   REAL, DIMENSION(:), INTENT(IN)  :: PTHETA
   REAL, DIMENSION(:), INTENT(IN)  :: PRV
@@ -547,7 +547,7 @@ FUNCTION LMO_1D(PUSTAR,PTHETA,PRV,PSFTH,PSFRV)
   WHERE ( PSFTH(:)/ZTHETAV(:)+ZEPS*PSFRV(:)/=0. )                  &
       LMO_1D(:) = - MAX(PUSTAR(:),1.E-6)**3                          &
                 / ( XKARMAN * XG   &
-                    * (  PSFTH(:) / ZTHETAV(:) + ZEPS * PSFRV(:) )  )  
+                    * (  PSFTH(:) / ZTHETAV(:) + ZEPS * PSFRV(:) )  )
 
   WHERE(ABS(LMO_1D)>10000.) LMO_1D=XUNDEF
 IF (LHOOK) CALL DR_HOOK('MODE_SBLS:LMO_1D',1,ZHOOK_HANDLE)
@@ -559,7 +559,7 @@ END FUNCTION LMO_1D
 FUNCTION LMO_0D(PUSTAR,PTHETA,PRV,PSFTH,PSFRV)
   USE MODD_CSTS
   USE MODD_SURF_PAR,  ONLY : XUNDEF
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, INTENT(IN)  :: PUSTAR
   REAL, INTENT(IN)  :: PTHETA
   REAL, INTENT(IN)  :: PRV
@@ -582,7 +582,7 @@ FUNCTION LMO_0D(PUSTAR,PTHETA,PRV,PSFTH,PSFRV)
   IF ( PSFTH/ZTHETAV+ZEPS*PSFRV/=0. )                      &
     LMO_0D = - MAX(PUSTAR,1.E-6)**3                          &
              / ( XKARMAN * (  XG / ZTHETAV       * PSFTH     &
-                            + XG * ZEPS * PSFRV )  )  
+                            + XG * ZEPS * PSFRV )  )
 
   IF(ABS(LMO_0D)>10000.) LMO_0D=XUNDEF
 IF (LHOOK) CALL DR_HOOK('MODE_SBLS:LMO_0D',1,ZHOOK_HANDLE)
@@ -595,7 +595,7 @@ END FUNCTION LMO_0D
 FUNCTION USTAR_2D(PWIND,PZ,PZ0,PLMO)
   USE MODD_CSTS
   USE MODD_SURF_PAR,  ONLY : XUNDEF
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, DIMENSION(:,:), INTENT(IN)               :: PWIND
   REAL, DIMENSION(:,:), INTENT(IN)               :: PZ
   REAL, DIMENSION(:,:), INTENT(IN)               :: PZ0
@@ -619,14 +619,14 @@ FUNCTION USTAR_2D(PWIND,PZ,PZ0,PLMO)
     USTAR_2D(:,:) = PWIND(:,:)                                &
                     * XKARMAN / ( LOG(PZ(:,:)/PZ0(:,:))         &
                                  - PAULSON_PSIM(ZZ_O_LMO(:,:))  &
-                                 + PAULSON_PSIM(ZZ0_O_LMO(:,:)) )  
+                                 + PAULSON_PSIM(ZZ0_O_LMO(:,:)) )
   END WHERE
 !
 !* purely neutral case
   WHERE(PLMO==XUNDEF)
     ZZ_O_LMO = 0.
     USTAR_2D(:,:) = PWIND(:,:)     &
-                    * XKARMAN / LOG(PZ(:,:)/PZ0(:,:))  
+                    * XKARMAN / LOG(PZ(:,:)/PZ0(:,:))
   END WHERE
 IF (LHOOK) CALL DR_HOOK('MODE_SBLS:USTAR_2D',1,ZHOOK_HANDLE)
 !
@@ -637,7 +637,7 @@ END FUNCTION USTAR_2D
 FUNCTION USTAR_1D(PWIND,PZ,PZ0,PLMO)
   USE MODD_CSTS
   USE MODD_SURF_PAR,  ONLY : XUNDEF
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, DIMENSION(:), INTENT(IN)               :: PWIND
   REAL, DIMENSION(:), INTENT(IN)               :: PZ
   REAL, DIMENSION(:), INTENT(IN)               :: PZ0
@@ -661,14 +661,14 @@ FUNCTION USTAR_1D(PWIND,PZ,PZ0,PLMO)
     USTAR_1D(:) = PWIND                                   &
                   * XKARMAN / ( LOG(PZ(:)/PZ0(:))           &
                                - PAULSON_PSIM(ZZ_O_LMO(:))  &
-                               + PAULSON_PSIM(ZZ0_O_LMO(:)) )  
+                               + PAULSON_PSIM(ZZ0_O_LMO(:)) )
   END WHERE
 !
 !* purely neutral case
   WHERE(PLMO==XUNDEF)
     ZZ_O_LMO = 0.
     USTAR_1D(:) = PWIND     &
-                    * XKARMAN / LOG(PZ(:)/PZ0(:))  
+                    * XKARMAN / LOG(PZ(:)/PZ0(:))
   END WHERE
 IF (LHOOK) CALL DR_HOOK('MODE_SBLS:USTAR_1D',1,ZHOOK_HANDLE)
 !
@@ -679,7 +679,7 @@ END FUNCTION USTAR_1D
 FUNCTION USTAR_0D(PWIND,PZ,PZ0,PLMO)
   USE MODD_CSTS
   USE MODD_SURF_PAR,  ONLY : XUNDEF
-  IMPLICIT NONE  
+  IMPLICIT NONE
   REAL, INTENT(IN)               :: PWIND
   REAL, INTENT(IN)               :: PZ
   REAL, INTENT(IN)               :: PZ0
@@ -693,11 +693,11 @@ FUNCTION USTAR_0D(PWIND,PZ,PZ0,PLMO)
 !
 !* general case
   IF ( ABS(PLMO) >= 1.E-20 .AND. PLMO/=XUNDEF)    &
-    USTAR_0D = PWIND * XKARMAN / ( LOG(PZ/PZ0) - PAULSON_PSIM(PZ/PLMO) + PAULSON_PSIM(PZ0/PLMO) )  
+    USTAR_0D = PWIND * XKARMAN / ( LOG(PZ/PZ0) - PAULSON_PSIM(PZ/PLMO) + PAULSON_PSIM(PZ0/PLMO) )
 !
 !* purely neutral case
   IF (PLMO==XUNDEF)                  &
-    USTAR_0D = PWIND * XKARMAN / LOG(PZ/PZ0)  
+    USTAR_0D = PWIND * XKARMAN / LOG(PZ/PZ0)
 IF (LHOOK) CALL DR_HOOK('MODE_SBLS:USTAR_0D',1,ZHOOK_HANDLE)
 
 END FUNCTION USTAR_0D

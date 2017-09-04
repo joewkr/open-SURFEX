@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################
       SUBROUTINE READ_ECO2_IRRIG (&
@@ -17,7 +17,7 @@ USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
 USE MODI_READ_SURF
 !
 USE MODD_DATA_COVER,     ONLY : TDATA_SEED, TDATA_REAP, XDATA_WATSUP, XDATA_IRRIG,&
-                                  LDATA_IRRIG 
+                                  LDATA_IRRIG
 USE MODD_DATA_COVER_PAR, ONLY : JPCOVER, NVT_IRR
 !
 !

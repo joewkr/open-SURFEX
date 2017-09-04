@@ -22,7 +22,7 @@ SUBROUTINE MY_FORC_PLM(HEXPER,KNI,KNPTS,              &
 !!
 !
 !----------------------------------------------------------------------------
-!      
+!
 !*    0.     Declaration of dummy arguments
 !            ------------------------------
 !
@@ -40,7 +40,7 @@ INTEGER, INTENT(OUT)         :: KYEAR     ! year  of simulation begining
 INTEGER, INTENT(OUT)         :: KMONTH    ! month of simulation begining
 INTEGER, INTENT(OUT)         :: KDAY      ! day   of simulation begining
 REAL,    INTENT(OUT)         :: PTIME     ! time  of simulation begining (s)
-REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PCO2      ! CO2 concentration (kg/m3) 
+REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PCO2      ! CO2 concentration (kg/m3)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PDIR_SW   ! Solar direct   radiation (W/m2)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PSCA_SW   ! Solar diffused radiation (W/m2)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PLW       ! Longwave radiation (W/m2)
@@ -60,7 +60,7 @@ REAL, DIMENSION(KNI),       INTENT(OUT) :: PLAT      ! latitude  (degrees)
 !*    1.     Declaration of user local variables
 !            -----------------------------------
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! Input file:
 !
 CHARACTER(LEN=*), PARAMETER       :: YFILE_FORCIN_01 = '../DATA/plm/select_TA.dat'
@@ -107,18 +107,18 @@ REAL :: XLATMAX = 79.   !55.5
 INTEGER :: I, K ! loop counters
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !----------------------------------------------------------------------------
-!      
+!
 !*    2.     Initialization of date (UTC)
 !            ------------------------------------
 !
 IF (LHOOK) CALL DR_HOOK('MODI_MY_FORC_PLM:MY_FORC_PLM',0,ZHOOK_HANDLE)
-KDAY    = 01          ! starting day 
+KDAY    = 01          ! starting day
 KMONTH  = 01          ! starting month
 KYEAR   = 2005        ! starting year
 PTIME   =    0.       ! starting time (s)
 !
 !-----------------------------------------------------------------------------
-!      
+!
 !      3.    grid definition
 !            ---------------
 !
@@ -141,14 +141,14 @@ PLON(:)   = ZLON(:)
 PLAT(:)   = ZLAT(:)
 !
 !----------------------------------------------------------------------------
-!      
+!
 !        4.    orography definition
 !               --------------------
-!      
+!
 PZS(:)   = 0.
-!        
+!
 !-----------------------------------------------------------------------------
-!      
+!
 !      5.    Forcing height
 !            --------------
 !
@@ -156,12 +156,12 @@ PZREF(:)   = 10.
 PUREF(:)   = 10.
 !
 !----------------------------------------------------------------------------
-!      
+!
 !*      6.   Initialization of forcing variables
 !            -----------------------------------
 !
 !----------------------------------------------------------------------------
-!      
+!
 !        3.1    reading forcing file
 !               --------------------
 !
@@ -246,7 +246,7 @@ CLOSE(UNIT=11)
 
 !-----------------------------------------------------------------------------
 IF (LSELECT_AREA) THEN
-!        
+!
 OPEN(UNIT=11, FILE=YFILE_SELECT_11, FORM='FORMATTED')
 OPEN(UNIT=12, FILE=YFILE_SELECT_12, FORM='FORMATTED')
 do i=1,kni
@@ -328,7 +328,7 @@ ENDIF
 !        6. Fills Surfex forcing variables
 !           ------------------------------
 !
-PCO2(:,:)    = 0.000620   ! (kg/m3, equivalent to 350 ppm) 
+PCO2(:,:)    = 0.000620   ! (kg/m3, equivalent to 350 ppm)
 PDIR_SW(:,:) = ZRG(:,:)
 PSCA_SW(:,:) = ZSCA_SW
 PWINDSPEED(:,:) = ZUA(:,:)

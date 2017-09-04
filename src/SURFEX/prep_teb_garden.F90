@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_TEB_GARDEN (DTCO, UG, U, USS, GCP, TG, TOP, IO, S, K, P, PEK, &
@@ -17,11 +17,11 @@ SUBROUTINE PREP_TEB_GARDEN (DTCO, UG, U, USS, GCP, TG, TOP, IO, S, K, P, PEK, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -125,7 +125,7 @@ IF (LHOOK) CALL DR_HOOK('PREP_TEB_GARDEN',0,ZHOOK_HANDLE)
 !
 !*      2.2    Soil ice reservoirs
 !
- CALL PREP_HOR_TEB_GARDEN_FIELD(DTCO, UG, U, USS, GCP, IO, S, K, P, PEK, TG, TOP, &         
+ CALL PREP_HOR_TEB_GARDEN_FIELD(DTCO, UG, U, USS, GCP, IO, S, K, P, PEK, TG, TOP, &
                                 HPROGRAM,'WGI    ',HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,KPATCH,YDCTL)
 !
 !*      2.3    Leaves interception water reservoir
@@ -152,7 +152,7 @@ IF (IO%CPHOTO/='NON')  &
 !
 !-------------------------------------------------------------------------------------
 !
-!*      3.    Physical limitation: 
+!*      3.    Physical limitation:
 !
 ! If whole ice reservoir is empty (grib from ecmwf case) and surface temperature is
 ! lower than -10C, then ice content is maximum and water content minimum
@@ -226,7 +226,7 @@ ELSEIF (IO%CPHOTO == 'NIT' .OR. IO%CPHOTO == 'NCB') THEN
    ALLOCATE(PEK%XBIOMASS(SIZE(PEK%XLAI),IO%NNBIOMASS))
    PEK%XBIOMASS(:,1) = PEK%XLAI(:) * P%XBSLAI_NITRO(:)
    PEK%XBIOMASS(:,2) = MAX( 0., (PEK%XBIOMASS(:,1)/ (XCC_NIT/10.**XCA_NIT))  &
-                              **(1.0/(1.0-XCA_NIT)) - PEK%XBIOMASS(:,1) )  
+                              **(1.0/(1.0-XCA_NIT)) - PEK%XBIOMASS(:,1) )
    PEK%XBIOMASS(:,3:IO%NNBIOMASS) = 0.
 !
    ALLOCATE(PEK%XRESP_BIOMASS(SIZE(PEK%XLAI),IO%NNBIOMASS))

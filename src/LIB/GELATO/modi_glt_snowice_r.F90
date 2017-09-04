@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,14 +28,14 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ======================== MODULE modi_glt_snowice_r ========================
 ! =======================================================================
@@ -45,7 +45,7 @@
 !   This module contains a subroutine that considers the formation of
 ! snow ice. If snow accumulates over sea ice, part of the snow layer
 ! will be invaded by sea water, creating snow ice.
-! 
+!
 ! Method:
 ! -------
 !   See Fichefet and Morales Maqueda, JGR (1997)
@@ -54,20 +54,20 @@
 ! Modified: 2002/09 (D. Salas y Melia) Better conservation of energy
 ! Modified: 2009/06 (D. Salas y Melia) Reduced grid
 ! Modified: 2011/12 (A. Voldoire) New formulation of the zdh change in
-!           sea ice thickness + new ice/water fluxes interface CALL 
+!           sea ice thickness + new ice/water fluxes interface CALL
 ! Modified: 2012/02 (A. Voldoire) Former change revised, go back to former
 ! formulation but with correct implementation of glt_updtfl
 !
 ! -------------------- BEGIN MODULE modi_glt_snowice_r ----------------------
 !
 !THXS_SFX!MODULE modi_glt_snowice_r
-!THXS_SFX!INTERFACE 
+!THXS_SFX!INTERFACE
 !THXS_SFX!!
 !THXS_SFX!SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
 !THXS_SFX!  USE modd_types_glt
 !THXS_SFX!  USE modd_glt_param
 !THXS_SFX!  TYPE(t_mxl), DIMENSION(np), INTENT(in) ::  &
-!THXS_SFX!        tpmxl 
+!THXS_SFX!        tpmxl
 !THXS_SFX!  TYPE(t_vtp), DIMENSION(nl,nt,np), INTENT(inout) ::  &
 !THXS_SFX!        tpsil
 !THXS_SFX!  TYPE(t_tfl), DIMENSION(np), INTENT(inout) ::  &
@@ -101,7 +101,7 @@ SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
   IMPLICIT NONE
 !
   TYPE(t_mxl), DIMENSION(np), INTENT(in) ::  &
-        tpmxl 
+        tpmxl
   TYPE(t_vtp), DIMENSION(nl,nt,np), INTENT(inout) ::  &
         tpsil
   TYPE(t_tfl), DIMENSION(np), INTENT(inout) ::  &
@@ -112,7 +112,7 @@ SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
         tpdia
 !
   INTEGER ::  &
-        jl,jp,jk 
+        jl,jp,jk
   REAL ::  &
         zenti,zentf,zssinew,zhsinew
   REAL, DIMENSION(nt,np) ::  &
@@ -122,7 +122,7 @@ SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
 !
 !
 ! 1. Array initializations
-! ======================== 
+! ========================
 !
   zdh(:,:) = 0.
 !call glt_aventh(tpsit,tpsil,zei1,zes1)
@@ -144,7 +144,7 @@ SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
 !!    write(noutlu,*)'hsi=',tpsit(:,:)%hsi
 !!    write(noutlu,*)'hsn=',tpsit(:,:)%hsn
 !
-  WHERE ( zdmass(:,:)<=0. ) 
+  WHERE ( zdmass(:,:)<=0. )
     zdmass(:,:) = 0.
   ENDWHERE
 !
@@ -163,17 +163,17 @@ SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
 !
 ! .. We consider here the snow ice transformation is equivalent to
 ! incorporating a thickness zh of snow to the mix layer AND to freeze
-! the same thickness of ice. 
-!    We assume that the sea ice we form has a temperature t_f (sea 
+! the same thickness of ice.
+!    We assume that the sea ice we form has a temperature t_f (sea
 ! water freezing point).
 !
 !
 ! 3.1. Compute involved masses of ice and snow
 ! --------------------------------------------
-! 
+!
 ! .. Ice mass variation due to snow ice formation
 !
-  zdmsi(:,:) = rhoice * tpsit(:,:)%fsi * zdh(:,:) 
+  zdmsi(:,:) = rhoice * tpsit(:,:)%fsi * zdh(:,:)
 !!    write(noutlu,*)'zdmsi=',zdmsi
 !
 ! .. Diagnostic in kg.m-2.s-1 (AR5)
@@ -182,7 +182,7 @@ SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
 !
 ! .. Snow mass variation due to snow ice formation
 !
-  zdmsn(:,:) = -tpsit(:,:)%rsn * tpsit(:,:)%fsi * zdh(:,:) 
+  zdmsn(:,:) = -tpsit(:,:)%rsn * tpsit(:,:)%fsi * zdh(:,:)
 !!    write(noutlu,*)'zdmsn=',zdmsn
 !
 !
@@ -260,12 +260,12 @@ SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
 ! 3.6. Final adjustment
 ! ----------------------
 !
-! .. Here, for simplicity, we suppose the ice slab has grown 
+! .. Here, for simplicity, we suppose the ice slab has grown
 ! vertically homothetically, keeping the vertical gltools_enthalpy
 ! profile unchanged. However the ice slab has grown thicker, leading
-! to a change in vertically integrated enthalpy. This change, which 
+! to a change in vertically integrated enthalpy. This change, which
 ! is rather small, will be delivered to the ocean to ensure energy
-! conservation. 
+! conservation.
 !    The best way would be to alter frzvtp (called from updhsi, to
 ! allow sea ice formation at the top of the slab.
 !
@@ -285,12 +285,12 @@ SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
       IF ( zdh(jk,jp)>epsil1 ) THEN
 !
 ! .. Temporary new thickness
-          zhsinew = tpsit(jk,jp)%hsi + zdh(jk,jp) 
+          zhsinew = tpsit(jk,jp)%hsi + zdh(jk,jp)
 !
 ! .. Update gltools_enthalpy (zenti, zentf in J.m-3)
           zenti = 0.
           DO jl=1,nilay
-            zenti = zenti + sf3tinv(jl)*tpsil(jl,jk,jp)%ent 
+            zenti = zenti + sf3tinv(jl)*tpsil(jl,jk,jp)%ent
           END DO
 !!         print*,'Enth. Glace avant (jk=',jk,')=',  &
 !!           zenti*tpsit(jk,jp)%hsi/dtt*rhoice
@@ -302,7 +302,7 @@ SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
               tpsil(1:nilay,jk,jp)%ent =  &
                 tpsil(1:nilay,jk,jp)%ent * zentf/zenti
             ELSE
-              tpsil(1:nilay,jk,jp)%ent = zentf 
+              tpsil(1:nilay,jk,jp)%ent = zentf
           ENDIF
 !
 ! .. Update snow thickness

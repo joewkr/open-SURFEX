@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
       SUBROUTINE DEALLOC_DIAG_SURF_ATM_n (D,DC,ND,NDC)
@@ -78,7 +78,7 @@ DO JT=1,NTILESFC
   DEALLOCATE(ND%AL(JT)%XHU2M_MAX   )
   DEALLOCATE(ND%AL(JT)%XWIND10M     )
   DEALLOCATE(ND%AL(JT)%XWIND10M_MAX )
-  !  
+  !
   DEALLOCATE(NDC%AL(JT)%XRN     )
   DEALLOCATE(NDC%AL(JT)%XH      )
   DEALLOCATE(NDC%AL(JT)%XLE     )
@@ -146,7 +146,7 @@ DEALLOCATE(DC%XFMU    )
 DEALLOCATE(DC%XFMV    )
 !
 IF (LHOOK) CALL DR_HOOK('DEALLOC_DIAG_SURF_ATM_N',1,ZHOOK_HANDLE)
-! 
+!
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DEALLOC_DIAG_SURF_ATM_n

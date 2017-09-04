@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################################
       SUBROUTINE CANOPY_EVOL(SB, KI, PTSTEP, KIMPL, PZZ, PWIND, PTA, PQA, PPA, PRHOA, &
@@ -8,11 +8,11 @@
                              PFORC_E, PDFORC_EDE, PFORC_T, PDFORC_TDT, &
                              PFORC_Q, PDFORC_QDQ, PLM, PLEPS, PUSTAR,  &
                              PALFAU, PBETAU, PALFATH, PBETATH, PALFAQ, PBETAQ, &
-                             ONEUTRAL     ) 
+                             ONEUTRAL     )
 !     #########################################
 !
 !!****  *CANOPY_EVOL* - evolution of canopy
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -37,7 +37,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/2006 
+!!      Original    07/2006
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -68,7 +68,7 @@ TYPE(CANOPY_t), INTENT(INOUT) :: SB
 !
 INTEGER,                  INTENT(IN)    :: KI        ! number of horizontal points
 REAL,                     INTENT(IN)    :: PTSTEP    ! atmospheric time-step                 (s)
-INTEGER,                  INTENT(IN)    :: KIMPL     ! implicitation code: 
+INTEGER,                  INTENT(IN)    :: KIMPL     ! implicitation code:
 !                                                    ! 1 : computes only alfa and beta coupling
 !                                                    !     coefficients for all variables
 !                                                    ! 2 : computes temporal evolution of the
@@ -136,14 +136,14 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('CANOPY_EVOL',0,ZHOOK_HANDLE)
 !
-GNEUTRAL = .FALSE. 
+GNEUTRAL = .FALSE.
 !
 IF (PRESENT(ONEUTRAL)) GNEUTRAL = ONEUTRAL
 !
 !*    1. First time step initialization
 !        ------------------------------
 !
-!* first time step (i.e. wind profile is initially zero) : 
+!* first time step (i.e. wind profile is initially zero) :
 !  set a neutral wind profile in relation with forcing wind
 DO JI=1,KI
   IF(PWIND(JI)>0. .AND. SB%XU(JI,SB%NLVL-1)==0.) THEN
@@ -169,7 +169,7 @@ END DO
 ZK = -999.
 DO JLAYER=2,SB%NLVL
   ZK(:,JLAYER) = 0.5 * XCMFS * PLM(:,JLAYER)   * SQRT(SB%XTKE(:,JLAYER)  ) &
-               + 0.5 * XCMFS * PLM(:,JLAYER-1) * SQRT(SB%XTKE(:,JLAYER-1))  
+               + 0.5 * XCMFS * PLM(:,JLAYER-1) * SQRT(SB%XTKE(:,JLAYER-1))
 END DO
 !
 !
@@ -195,7 +195,7 @@ PUSTAR = SQRT(ABS(ZUW(:,SB%NLVL)))
 !
 IF (GNEUTRAL) THEN
   !
-  ZTH  = 300.  
+  ZTH  = 300.
   ZWTH = 0.
   ZWQ  = 0.
   !
@@ -223,7 +223,7 @@ ELSE
   ZK = -999.
   DO JLAYER=2,SB%NLVL
     ZK(:,JLAYER) = 0.5 * XCSHF * PLM(:,JLAYER)   * SQRT(SB%XTKE(:,JLAYER)  ) &
-                 + 0.5 * XCSHF * PLM(:,JLAYER-1) * SQRT(SB%XTKE(:,JLAYER-1))  
+                 + 0.5 * XCSHF * PLM(:,JLAYER-1) * SQRT(SB%XTKE(:,JLAYER-1))
   END DO
   !
   !*    7.2 mixing coefficient vertical derivative at mid layers (at half levels)
@@ -269,7 +269,7 @@ ENDIF
 !*    9. time evolution of TKE in canopy
 !        -------------------------------
 !
- CALL CANOPY_EVOL_TKE(SB, KI, PTSTEP, PRHOA, PFORC_E, PDFORC_EDE, ZTH, ZUW, ZWTH, ZWQ, PLEPS) 
+ CALL CANOPY_EVOL_TKE(SB, KI, PTSTEP, PRHOA, PFORC_E, PDFORC_EDE, ZTH, ZUW, ZWTH, ZWQ, PLEPS)
 !
 !-------------------------------------------------------------------------------
 !
@@ -293,7 +293,7 @@ IF (.NOT.GNEUTRAL) THEN
   !
   DO JLAYER=1,SB%NLVL
     WHERE (SB%XLMO(:,JLAYER)>0.) SB%XLMO(:,JLAYER) = MAX(SB%XLMO(:,JLAYER),SB%XZ(:,SB%NLVL))
-    WHERE (SB%XLMO(:,JLAYER)<0.) SB%XLMO(:,JLAYER) = MIN(SB%XLMO(:,JLAYER),-SB%XZ(:,SB%NLVL))     
+    WHERE (SB%XLMO(:,JLAYER)<0.) SB%XLMO(:,JLAYER) = MIN(SB%XLMO(:,JLAYER),-SB%XZ(:,SB%NLVL))
   ENDDO
   !
   !-------------------------------------------------------------------------------

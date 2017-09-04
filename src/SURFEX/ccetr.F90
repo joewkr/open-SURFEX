@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
    SUBROUTINE CCETR(PXIA,PIA,PXMUS,PABC,PLAI)
@@ -13,7 +13,7 @@
 !!
 !!**  METHOD
 !!    ------
-!!    Calvet et al. 1998 Forr. Agri. Met. 
+!!    Calvet et al. 1998 Forr. Agri. Met.
 !!    [from model of Jacobs(1994) and Roujean(1996)]
 !!
 !!    EXTERNAL
@@ -21,13 +21,13 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------      
+!!    ------------------
 !!    USE MODD_CO2V_PAR
 !!
 !!    REFERENCE
 !!    ---------
-!!    Calvet et al. 1998 Forr. Agri. Met. 
-!!      
+!!    Calvet et al. 1998 Forr. Agri. Met.
+!!
 !!    AUTHOR
 !!    ------
 !!      A. Boone           * Meteo-France *
@@ -35,7 +35,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    27/10/97 
+!!      Original    27/10/97
 !!
 !-------------------------------------------------------------------------------
 !
@@ -54,7 +54,7 @@ IMPLICIT NONE
 !
 REAL, INTENT(IN)               :: PABC
 !                                 PABC = abscissa needed for integration
-!                                        of net assimilation and stomatal 
+!                                        of net assimilation and stomatal
 !                                        conductance over canopy depth
 !
 REAL, DIMENSION(:), INTENT(IN) :: PIA,PXMUS,PLAI
@@ -69,7 +69,7 @@ REAL, DIMENSION(:), INTENT(OUT):: PXIA
 !
 REAL, DIMENSION(SIZE(PIA,1)) :: ZXFD,ZXSLAI,ZXIDF,ZXIDR
 !                               ZXFD   = fraction of diffusion
-!                               ZXSLAI = LAI of upper layer 
+!                               ZXSLAI = LAI of upper layer
 !                                ZXIDF  = interception of diffusion
 !                              ZXIDR  = direct interception
 !
@@ -87,20 +87,20 @@ WHERE (PIA(:)>0.)
 !
 ! fraction of diffusion
 !
-  ZXFD(:)   = XDIFRACF/(XDIFRACF + PXMUS(:))                 
+  ZXFD(:)   = XDIFRACF/(XDIFRACF + PXMUS(:))
 !
 ! LAI of upper layer
 !
-  ZXSLAI(:) = PLAI(:)*(1.0-PABC)                             
+  ZXSLAI(:) = PLAI(:)*(1.0-PABC)
 !
 ! interception of diffusion
 !
-  ZXIDF(:)  = ZXFD(:)*(1.0-EXP(-0.8*ZXSLAI(:)*XXBOMEGA)) 
-  !ZXIDF(:)  = 0.8*XXBOMEGA*EXP(-0.8*ZXSLAI(:)*XXBOMEGA) 
+  ZXIDF(:)  = ZXFD(:)*(1.0-EXP(-0.8*ZXSLAI(:)*XXBOMEGA))
+  !ZXIDF(:)  = 0.8*XXBOMEGA*EXP(-0.8*ZXSLAI(:)*XXBOMEGA)
 !
 ! direct interception
 !
-  ZXIDR(:)  = (1.0-ZXFD(:))*(1.0-EXP(-XXGT*ZXSLAI(:)*XXBOMEGA/PXMUS(:)))     
+  ZXIDR(:)  = (1.0-ZXFD(:))*(1.0-EXP(-XXGT*ZXSLAI(:)*XXBOMEGA/PXMUS(:)))
   !ZXIDR(:) = XXGT*XXBOMEGA/PXMUS(:)*EXP(-XXGT*ZXSLAI(:)*XXBOMEGA/PXMUS(:))
 !
 ! Adjusted radiation:

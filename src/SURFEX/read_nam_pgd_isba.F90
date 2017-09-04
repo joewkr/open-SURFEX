@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_NAM_PGD_ISBA(HPROGRAM, KPATCH, KGROUND_LAYER,                         &
@@ -9,11 +9,11 @@
                                    HSAND, HSANDFILETYPE, PUNIF_SAND, OIMP_SAND,             &
                                    HSOC_TOP, HSOC_SUB, HSOCFILETYPE, PUNIF_SOC_TOP,         &
                                    PUNIF_SOC_SUB, OIMP_SOC, HCTI, HCTIFILETYPE, OIMP_CTI,   &
-                                   HPERM, HPERMFILETYPE, PUNIF_PERM, OIMP_PERM, OMEB,       &          
+                                   HPERM, HPERMFILETYPE, PUNIF_PERM, OIMP_PERM, OMEB,       &
                                    HRUNOFFB, HRUNOFFBFILETYPE, PUNIF_RUNOFFB,               &
                                    HWDRAIN,  HWDRAINFILETYPE , PUNIF_WDRAIN, PSOILGRID,     &
                                    HPH, HPHFILETYPE, PUNIF_PH, HFERT, HFERTFILETYPE,        &
-                                   PUNIF_FERT      )  
+                                   PUNIF_FERT      )
 !     ##############################################################
 !
 !!**** *READ_NAM_PGD_ISBA* reads namelist for ISBA
@@ -23,7 +23,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -44,12 +44,12 @@
 !!
 !!    Original    01/2005
 !!       2008 B. Decharme : uniform value of subgrid drainage coefficient
-!!    12/2008 E. Martin   : files of data for subgrid drainage 
+!!    12/2008 E. Martin   : files of data for subgrid drainage
 !!                          and subgridrunoff
 !!    06/2009 B. Decharme : files of data for topographic index
 !!    07/2012 B. Decharme : files of data for permafrost area and for SOC top and sub soil
 !!    10/2014 P. Samuelsson: MEB
-!!    10/2016 B. Decharme : bug surface/groundwater coupling 
+!!    10/2016 B. Decharme : bug surface/groundwater coupling
 !----------------------------------------------------------------------------
 !
 !*    0.     DECLARATION
@@ -181,11 +181,11 @@ NAMELIST/NAM_ISBA/ NPATCH, NGROUND_LAYER, CISBA, CPEDO_FUNCTION, CPHOTO,   &
                    LIMP_CLAY, YSAND, YSANDFILETYPE, XUNIF_SAND, LIMP_SAND, &
                    YSOC_TOP, YSOC_SUB, YSOCFILETYPE, XUNIF_SOC_TOP,        &
                    XUNIF_SOC_SUB, LIMP_SOC, YCTI, YCTIFILETYPE, LIMP_CTI,  &
-                   YPERM, YPERMFILETYPE, XUNIF_PERM, LIMP_PERM, LMEB,      &                   
+                   YPERM, YPERMFILETYPE, XUNIF_PERM, LIMP_PERM, LMEB,      &
                    YRUNOFFB, YRUNOFFBFILETYPE, XUNIF_RUNOFFB,              &
                    YWDRAIN,  YWDRAINFILETYPE,  XUNIF_WDRAIN, XSOILGRID,    &
                    YPH, YPHFILETYPE, XUNIF_PH, YFERT, YFERTFILETYPE,       &
-                   XUNIF_FERT   
+                   XUNIF_FERT
 !
 !-------------------------------------------------------------------------------
 !
@@ -232,7 +232,7 @@ YSOCFILETYPE     = '      '
 YCTIFILETYPE     = '      '
 YPERMFILETYPE    = '      '
 YRUNOFFBFILETYPE = '      '
-YWDRAINFILETYPE  = '      ' 
+YWDRAINFILETYPE  = '      '
 YPHFILETYPE      = '      '
 YPHFILETYPE      = '      '
 !
@@ -266,7 +266,7 @@ HISBA            = CISBA            ! ISBA option
 HPEDOTF          = CPEDO_FUNCTION   ! Pedo-transfert function for DIF
 HPHOTO           = CPHOTO           ! photosynthesis option
 OTR_ML           = LTR_ML           ! new radiative transfert
-HALBEDO          = CALBEDO 
+HALBEDO          = CALBEDO
 PRM_PATCH        = XRM_PATCH        ! threshol to remove little fractions of patches
 HSAND            = YSAND            ! file name for sand fraction
 HCLAY            = YCLAY            ! file name for clay fraction

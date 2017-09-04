@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_FIELDIN (DTCO, UG, U, USS, &
@@ -15,7 +15,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -35,10 +35,10 @@
 !!    ------------
 !!
 !!    Original    10/12/97
-!!    09/2010 (E. Kourzeneva):   interpolation of the lake depth 
+!!    09/2010 (E. Kourzeneva):   interpolation of the lake depth
 !!                               is not allowed and not necessary
 !!
-!!    02/2014 (B. Decharme):     interpolation of the lake depth 
+!!    02/2014 (B. Decharme):     interpolation of the lake depth
 !!                               re-allowed but using the nearest point
 !----------------------------------------------------------------------------
 !
@@ -153,7 +153,7 @@ IF (LEN_TRIM(HFILE)/=0 .OR. PUNIF/=XUNDEF) THEN
     CASE ('TWN')
           YMASK = 'TOWN  '
     CASE ('BLD')
-          YMASK = 'TOWN '              
+          YMASK = 'TOWN '
     CASE ('NAT')
           YMASK = 'NATURE'
     CASE ('SEA')
@@ -199,7 +199,7 @@ ENDIF
 !             --------------
 !
 IF (LEN_TRIM(HFILE)/=0) THEN
-!       
+!
 !-------------------------------------------------------------------------------
 !
 !*    4.      Averages the field
@@ -252,7 +252,7 @@ IF (LEN_TRIM(HFILE)/=0) THEN
         WHERE (U%XTOWN  (:)==0. .AND. NSIZE(:,JT)==0 ) NSIZE(:,JT) = -1
 
       CASE ('BLD')
-        WHERE (U%XTOWN  (:)==0. .AND. NSIZE(:,JT)==0 ) NSIZE(:,JT) = -1 
+        WHERE (U%XTOWN  (:)==0. .AND. NSIZE(:,JT)==0 ) NSIZE(:,JT) = -1
 
       CASE ('NAT')
         WHERE (U%XNATURE(:)==0. .AND. NSIZE(:,JT)==0 ) NSIZE(:,JT) = -1
@@ -293,7 +293,7 @@ IF (LEN_TRIM(HFILE)/=0) THEN
   DO JT=1,SIZE(NSIZE,2)
 
     IF (.NOT.U%LECOSG.AND.JT>NVEGTYPE) EXIT
-    
+
     !multitype input file
     IF (SIZE(ZFIELD,2)>1) THEN
 
@@ -331,7 +331,7 @@ IF (LEN_TRIM(HFILE)/=0) THEN
       CALL INTERPOL_FIELD(UG, U, HPROGRAM,ILUOUT,NSIZE(:,JT),ZFIELD(:,JT),HFIELD)
     ENDIF
 
-  ENDDO        
+  ENDDO
 !
   DEALLOCATE(NSIZE    )
   DEALLOCATE(XSUMVAL  )

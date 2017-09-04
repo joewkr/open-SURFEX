@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
       SUBROUTINE GET_Z0REL(ISS,OMASK  )
@@ -52,7 +52,7 @@ ZLOC(:) = 0.
 !
 WHERE (GMASK(:))
   ZLOC  (:) = 0.25 * XCDZ0EFF/(2.*XKARMAN**2)                  &
-                   * (ISS%XAOSIP(:) + ISS%XAOSIM(:) + ISS%XAOSJP(:) + ISS%XAOSJM(:))        
+                   * (ISS%XAOSIP(:) + ISS%XAOSIM(:) + ISS%XAOSJP(:) + ISS%XAOSJM(:))
   WHERE ( ZLOC(:) > 0. )
     ISS%XZ0REL(:) = 0.25 * (ISS%XHO2IP(:) + ISS%XHO2IM(:) + ISS%XHO2JP(:) + ISS%XHO2JM(:)) &
                      * EXP(-SQRT(1./ZLOC(:)))
@@ -60,7 +60,7 @@ WHERE (GMASK(:))
   ELSEWHERE
     ISS%XZ0REL(:) = 0.
   END WHERE
-END WHERE      
+END WHERE
 !
 IF (LHOOK) CALL DR_HOOK('GET_Z0REL',1,ZHOOK_HANDLE)
 !

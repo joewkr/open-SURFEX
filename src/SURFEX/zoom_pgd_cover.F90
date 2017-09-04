@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE ZOOM_PGD_COVER (DTCO, UG, U, GCP, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -35,8 +35,8 @@
 !!    ------------
 !!
 !!    Original     13/10/03
-!     Modification 17/04/12 M.Tomasini All COVER physiographic fields are now 
-!!                                     interpolated for spawning => 
+!     Modification 17/04/12 M.Tomasini All COVER physiographic fields are now
+!!                                     interpolated for spawning =>
 !!                                     ABOR1_SFX if (.NOT.OECOCLIMAP) in comment
 !     Modification 05/02/15 M.Moge : use NSIZE_FULL instead of SIZE(XLAT) (for clarity)
 !!      J.Escobar 18/12/2015 : missing interface
@@ -192,7 +192,7 @@ IF ( HPROGRAM == 'MESONH' ) THEN
       CALL HOR_INTERPOL(DTCO, U,GCP,ILUOUT,SPREAD(ZCOVER1D,2,1),U%XCOVER(:,ICPT1:ICPT1))
     ENDIF
     !
-  ENDDO 
+  ENDDO
   DEALLOCATE(ZCOVER1D)
 ENDIF
 #else
@@ -239,7 +239,7 @@ DEALLOCATE(ZTOWN2)
 !
 !*      5.     Coherence check
 !              ---------------
-! 
+!
 ALLOCATE(ZSUM(IL))
 ZSUM = 0.
 DO JCOVER=1,SIZE(U%XCOVER,2)

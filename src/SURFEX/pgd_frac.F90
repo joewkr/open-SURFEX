@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_FRAC (DTCO, UG, U, USS, HPROGRAM)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -127,7 +127,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 NAMELIST/NAM_FRAC/ LECOCLIMAP, LECOSG,                               &
                    XUNIF_SEA, XUNIF_WATER, XUNIF_NATURE, XUNIF_TOWN, &
                    CFNAM_SEA, CFNAM_WATER, CFNAM_NATURE, CFNAM_TOWN, &
-                   CFTYP_SEA, CFTYP_WATER, CFTYP_NATURE, CFTYP_TOWN  
+                   CFTYP_SEA, CFTYP_WATER, CFTYP_NATURE, CFTYP_TOWN
 !-------------------------------------------------------------------------------
 !
 !*    1.      Initializations
@@ -200,7 +200,7 @@ IF ((LEN_TRIM(CFNAM_SEA)/=0 .OR. XUNIF_SEA/=XUNDEF) .AND. (LEN_TRIM(CFNAM_WATER)
 !
     ELSE
 !
-      U%XSEA    = XUNIF_SEA 
+      U%XSEA    = XUNIF_SEA
       U%XWATER  = XUNIF_WATER
       U%XNATURE = XUNIF_NATURE
       U%XTOWN   = XUNIF_TOWN
@@ -216,29 +216,29 @@ IF ((LEN_TRIM(CFNAM_SEA)/=0 .OR. XUNIF_SEA/=XUNDEF) .AND. (LEN_TRIM(CFNAM_WATER)
     IF (XUNIF_SEA==XUNDEF) THEN
       CALL PGD_FIELD(DTCO, UG, U, USS, &
                      HPROGRAM,'XSEA: sea fraction      ','ALL', CFNAM_SEA   , &
-                    CFTYP_SEA   , XUNIF_SEA   , U%XSEA(:)   )  
-    ELSE                 
+                    CFTYP_SEA   , XUNIF_SEA   , U%XSEA(:)   )
+    ELSE
       U%XSEA(:) = XUNIF_SEA
     ENDIF
     IF (XUNIF_WATER==XUNDEF) THEN
       CALL PGD_FIELD(DTCO, UG, U, USS, &
                      HPROGRAM,'XWATER: water fraction  ','ALL', CFNAM_WATER , &
-                    CFTYP_WATER , XUNIF_WATER , U%XWATER(:) )  
-    ELSE                    
+                    CFTYP_WATER , XUNIF_WATER , U%XWATER(:) )
+    ELSE
       U%XWATER(:) = XUNIF_WATER
     ENDIF
     IF (XUNIF_NATURE==XUNDEF) THEN
       CALL PGD_FIELD(DTCO, UG, U, USS, &
                      HPROGRAM,'XNATURE: nature fraction','ALL', CFNAM_NATURE, &
-                    CFTYP_NATURE, XUNIF_NATURE, U%XNATURE(:))  
-    ELSE                    
+                    CFTYP_NATURE, XUNIF_NATURE, U%XNATURE(:))
+    ELSE
       U%XNATURE(:) = XUNIF_NATURE
     ENDIF
     IF (XUNIF_TOWN==XUNDEF) THEN
       CALL PGD_FIELD(DTCO, UG, U, USS, &
                      HPROGRAM,'XTOWN: town fraction    ','ALL', CFNAM_TOWN  , &
-                    CFTYP_TOWN  , XUNIF_TOWN  , U%XTOWN(:)  )  
-    ELSE                    
+                    CFTYP_TOWN  , XUNIF_TOWN  , U%XTOWN(:)  )
+    ELSE
       U%XTOWN(:) = XUNIF_TOWN
     ENDIF
   ENDIF
@@ -286,7 +286,7 @@ IF (.NOT.LECOCLIMAP) THEN
     ID_COV(2) = 22
     ID_COV(3) = 1
     ID_COV(4) = 20
-    JPCOVER = SUM(NTYPE)    
+    JPCOVER = SUM(NTYPE)
   ENDIF
 
   ALLOCATE(U%LCOVER(JPCOVER))
@@ -298,17 +298,17 @@ IF (.NOT.LECOCLIMAP) THEN
     ICOVER=ICOVER+1
   ENDIF
   ICPT= SUM_ON_ALL_PROCS(HPROGRAM,CGRID,U%XWATER(:)/=0. ,'COV')
-  IF (ICPT/=0) THEN  
+  IF (ICPT/=0) THEN
     U%LCOVER(ID_COV(2)) = .TRUE.
     ICOVER=ICOVER+1
   ENDIF
   ICPT= SUM_ON_ALL_PROCS(HPROGRAM,CGRID,U%XNATURE(:)/=0. ,'COV')
-  IF (ICPT/=0) THEN  
+  IF (ICPT/=0) THEN
     U%LCOVER(ID_COV(3)) = .TRUE.
     ICOVER=ICOVER+1
   ENDIF
   ICPT= SUM_ON_ALL_PROCS(HPROGRAM,CGRID,U%XTOWN(:)/=0. ,'COV')
-  IF (ICPT/=0) THEN  
+  IF (ICPT/=0) THEN
     U%LCOVER(ID_COV(4)) = .TRUE.
     ICOVER=ICOVER+1
   ENDIF
@@ -332,7 +332,7 @@ IF (.NOT.LECOCLIMAP) THEN
     ICPT = ICPT + 1
     U%XCOVER(:,ICPT) = U%XTOWN(:)
   ENDIF
-  
+
   ! comment V. Masson: to use this cover type for town by default avoids crashes
   ! when garden fraction is specified but no garden vegetation parameters.
   ! In this cas, the properties for garden come from the cover 151
@@ -353,7 +353,7 @@ IF (.NOT.LECOCLIMAP) THEN
   U%NDIM_WATER     = SUM_ON_ALL_PROCS(HPROGRAM,CGRID,U%XWATER (:) > 0.0, 'DIM')
   U%NDIM_SEA       = SUM_ON_ALL_PROCS(HPROGRAM,CGRID,U%XSEA   (:) > 0.0, 'DIM')
   U%NDIM_TOWN      = SUM_ON_ALL_PROCS(HPROGRAM,CGRID,U%XTOWN  (:) > 0.0, 'DIM')
-!  
+!
 ENDIF
 IF (LHOOK) CALL DR_HOOK('PGD_FRAC',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------

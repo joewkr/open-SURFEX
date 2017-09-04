@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
 SUBROUTINE GET_XYALL_IGN(PX,PY,PDX,PDY,PXALL,PYALL,KDIMX,KDIMY)
 !     ################################################################
 !
-!!****  *GET_XYALL_IGN* 
+!!****  *GET_XYALL_IGN*
 !!
 !!    PURPOSE
 !!    -------
@@ -31,7 +31,7 @@ SUBROUTINE GET_XYALL_IGN(PX,PY,PDX,PDY,PXALL,PYALL,KDIMX,KDIMY)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/2011 
+!!      Original    07/2011
 !-------------------------------------------------------------------------------
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -68,7 +68,7 @@ KDIMY = 0
 PXALL(1:KDIMX) = ZALL(1:KDIMX)
 !
  CALL GET_COORD(PY,PDY,ZALL,KDIMY)
-PYALL(1:KDIMY) = ZALL(1:KDIMY) 
+PYALL(1:KDIMY) = ZALL(1:KDIMY)
 !
 IF (LHOOK) CALL DR_HOOK('GET_XYALL_IGN',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
@@ -98,7 +98,7 @@ DO J=1,KSIZE
   ZMIN  = MINVAL(ZOUT(1:KSIZE))
   POUT(J) = ZMIN
   IDMIN = MINLOC(ZOUT(1:KSIZE),1)
-  ZDOUT2(J) = ZDOUT(IDMIN)  
+  ZDOUT2(J) = ZDOUT(IDMIN)
   ZOUT(IDMIN) = ZMAX+1
 ENDDO
 !

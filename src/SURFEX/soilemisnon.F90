@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #####################################################
 !      SUBROUTINE SOILEMISNO_n(PSW_FORBIO, PUA, PVA, KSV, HSV, PFLUX)
@@ -81,7 +81,7 @@ REAL, DIMENSION(:), INTENT(IN)                :: PUA        ! wind module
 REAL, DIMENSION(:), INTENT(IN)                :: PVA
 INTEGER                                       :: JI         ! index
 INTEGER                                       :: JSV
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! Local variables:
 !
@@ -92,7 +92,7 @@ REAL, DIMENSION(SIZE(PUA,1))   :: ZTG_S           ! Surface soil temperature in 
 REAL, DIMENSION(SIZE(PUA,1))   :: ZWFPS_S         ! Water filled pore space at surface
 REAL, DIMENSION(SIZE(PUA,1))   :: ZSAND           ! % of sand at surface (0-100)
 REAL, DIMENSION(SIZE(PUA,1))   :: ZWIND          ! wind speed
-REAL, DIMENSION(SIZE(PUA,1))   :: ZFWORK        
+REAL, DIMENSION(SIZE(PUA,1))   :: ZFWORK
 REAL, DIMENSION(SIZE(PUA,1))   :: ZN_WIND          ! Normalized wind speed
 REAL, DIMENSION(SIZE(PUA,1))   :: ZN_ZTG_D        ! Normalized deep soil temperature
 REAL, DIMENSION(SIZE(PUA,1))   :: ZN_ZTG_S        ! Normalized surface soil temperature
@@ -123,7 +123,7 @@ DO JI = 1,NP%AL(1)%NSIZE_P
   !
   IMASK = NP%AL(1)%NR_P(JI)
   !
-  ZWFPS_S(IMASK) = (NPE%AL(1)%XWG(JI,1) / 0.45) * 100.      
+  ZWFPS_S(IMASK) = (NPE%AL(1)%XWG(JI,1) / 0.45) * 100.
   ! Change unity of temperatures from Kelvin to Celsius
   ZTG_D  (IMASK) = NPE%AL(1)%XTG(JI,2)  - 273.15
   ZTG_S  (IMASK) = NPE%AL(1)%XTG(JI,1)  - 273.15
@@ -136,7 +136,7 @@ ZSAND(:) = K%XSAND(:,1) * 100.
 ! Calculate wind module
 ZWIND(:) = SQRT( PUA(:)**2 + PVA(:)**2 )
 !
-! Calculation of NO flux from soil 
+! Calculation of NO flux from soil
 !------------------------------------
 ! 1- Normalized centered entries
 !
@@ -154,12 +154,12 @@ DO J=1,3
   ZS(:,J) = XWGT_0(J) + XWGT_TG_S(J) * ZN_ZTG_S(:) &
           + XWGT_WFPS_S(J) * ZN_ZWFPS_S(:) + XWGT_TG_D(J) * ZN_ZTG_D(:) &
           + XWGT_FERT(J) * ZN_FERT(:) + XWGT_SAND(J) * ZN_ZSAND(:) &
-          + XWGT_PH(J) * ZN_PH(:) + XWGT_WIND(J) * ZN_WIND(:) 
+          + XWGT_PH(J) * ZN_PH(:) + XWGT_WIND(J) * ZN_WIND(:)
 ENDDO
 !
-! 3- Hyperbolic tangent calculation    
+! 3- Hyperbolic tangent calculation
 !
-ZN_Y(:) = XWGT_TOT(1) + XWGT_TOT(2)*TANH(ZS(:,1)) + XWGT_TOT(3)*TANH(ZS(:,2)) + XWGT_TOT(4)*TANH(ZS(:,3)) 
+ZN_Y(:) = XWGT_TOT(1) + XWGT_TOT(2)*TANH(ZS(:,1)) + XWGT_TOT(3)*TANH(ZS(:,2)) + XWGT_TOT(4)*TANH(ZS(:,3))
 !
 !  4- Flux calculation
 !       If  pH> 6, pulse effect, amplitude coefficient is maximum.
@@ -184,7 +184,7 @@ GB%XNOFLUX(:) = GB%XNOFLUX(:)*XAVOGADRO/(1.0E4*8.64E4*14)
 !PRINT*,'flux de NO en molec/cm2/s = ',XNOFLUX(JI)
 !
 !  7- Reduction du flux dans la canopee
-!          WHERE (XLAI(:,1)/=XUNDEF) 
+!          WHERE (XLAI(:,1)/=XUNDEF)
 !         ZCRF(:) = -0.0917*XLAI(:,1) + 0.9429
 ZCRF(:) = 1.
 DO JI = 1,NP%AL(1)%NSIZE_P

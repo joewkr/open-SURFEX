@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_WRITE_SURF_FA
 !
@@ -82,7 +82,7 @@ IF (KRESP/=0) THEN
 ENDIF
 !
 IF(LFANOCOMPACT)THEN
-  ! On remet la valeur par defaut 
+  ! On remet la valeur par defaut
   CALL FAGOTE(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
 ENDIF
 !
@@ -147,7 +147,7 @@ IF (KRESP/=0) THEN
 ENDIF
 !
 IF(LFANOCOMPACT)THEN
-  ! On remet la valeur par defaut 
+  ! On remet la valeur par defaut
   CALL FAGOTE(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
 ENDIF
 !
@@ -212,7 +212,7 @@ IF (KRESP/=0) THEN
 ENDIF
 !
 IF(LFANOCOMPACT)THEN
-  ! On remet la valeur par defaut 
+  ! On remet la valeur par defaut
   CALL FAGOTE(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
 ENDIF
 !
@@ -280,7 +280,7 @@ IF (KRESP/=0) THEN
 ENDIF
 !
 IF(LFANOCOMPACT)THEN
-  ! On remet la valeur par defaut 
+  ! On remet la valeur par defaut
   CALL FAGOTE(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
 ENDIF
 !
@@ -293,7 +293,7 @@ END SUBROUTINE WRITE_SURFC0_FA
                                   HREC,KL,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 1D array for the externalised surface 
+!!****  * - routine to fill a write 1D array for the externalised surface
 !
 !
 !
@@ -301,7 +301,7 @@ END SUBROUTINE WRITE_SURFC0_FA
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, XTIME_NPIO_WRITE, WLOG_MPI
 !
 USE MODD_IO_SURF_FA, ONLY : NUNIT_FA, NMASK, NFULL, CPREFIX1D, &
-                            LFANOCOMPACT 
+                            LFANOCOMPACT
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 !
 USE MODI_IO_BUFF
@@ -368,7 +368,7 @@ IF (NRANK==NPIO) THEN
     CALL FAGOTE(KRESP,NUNIT_FA,-1,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
     CALL FAIENC(KRESP,NUNIT_FA,CPREFIX1D,0,HREC,ZWORK,.FALSE.)
     IF (KRESP/=0) CALL ERROR_WRITE_SURF_FA(HREC,KRESP)
-    ! On remet la valeur par defaut 
+    ! On remet la valeur par defaut
     CALL FAGOTE(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
   ELSE
     ZMEAN =0.0
@@ -399,7 +399,7 @@ END SUBROUTINE WRITE_SURFX1_FA
       SUBROUTINE WRITE_SURFX2_FA (HREC,KL1,KL2,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 2D array for the externalised surface 
+!!****  * - routine to fill a write 2D array for the externalised surface
 !
 !
 !
@@ -438,7 +438,7 @@ INTEGER,                  INTENT(OUT):: KRESP    ! KRESP  : return-code if a pro
                                                  !       horizontal spatial dim.
                                                  ! '-' : no horizontal dim.
 !*      0.2   Declarations of local variables
-! 
+!
 LOGICAL :: GFOUND
 CHARACTER(LEN=4)  :: YPREFIX
 CHARACTER(LEN=3)  :: YPATCH
@@ -466,7 +466,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
 #endif
-  !    
+  !
   IF(LFANOCOMPACT)THEN
     CALL FAVEUR(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
     ! -- Pour ecrire sans compactage
@@ -477,7 +477,7 @@ IF (NRANK==NPIO) THEN
       CALL FAIENC(KRESP,NUNIT_FA,YPREFIX,0,HREC,ZWORK(:,JL),.FALSE.)
       IF (KRESP/=0) CALL ERROR_WRITE_SURF_FA(HREC,KRESP)
     END DO
-    ! On remet la valeur par defaut 
+    ! On remet la valeur par defaut
     CALL FAGOTE(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
   ELSE
     ZMEAN (:)=0.0
@@ -490,7 +490,7 @@ IF (NRANK==NPIO) THEN
         ENDIF
       ENDDO
     ENDDO
-    WHERE(ZCOUNT(:)>0.0)ZMEAN(:)=ZMEAN(:)/ZCOUNT(:)        
+    WHERE(ZCOUNT(:)>0.0)ZMEAN(:)=ZMEAN(:)/ZCOUNT(:)
     DO JL=1,SIZE(ZWORK,2)
       WHERE(ZWORK(:,JL)==XUNDEF)ZWORK(:,JL)=ZMEAN(JL)
       WRITE(YPATCH,'(I3.3)')JL
@@ -503,7 +503,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_FA:WRITE_SURFX2_FA',1,ZHOOK_HANDLE)
@@ -514,7 +514,7 @@ END SUBROUTINE WRITE_SURFX2_FA
       SUBROUTINE WRITE_SURFX3_FA (HREC,KL1,KL2,KL3,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 2D array for the externalised surface 
+!!****  * - routine to fill a write 2D array for the externalised surface
 !
 !
 !
@@ -554,7 +554,7 @@ INTEGER,                  INTENT(OUT):: KRESP    ! KRESP  : return-code if a pro
                                                  !       horizontal spatial dim.
                                                  ! '-' : no horizontal dim.
 !*      0.2   Declarations of local variables
-! 
+!
 LOGICAL :: GFOUND
 CHARACTER(LEN=4)  :: YPREFIX
 CHARACTER(LEN=3)  :: YPATCH
@@ -581,7 +581,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
 #endif
-  !    
+  !
   IF(LFANOCOMPACT)THEN
     CALL FAVEUR(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
     ! -- Pour ecrire sans compactage
@@ -594,7 +594,7 @@ IF (NRANK==NPIO) THEN
         IF (KRESP/=0) CALL ERROR_WRITE_SURF_FA(HREC,KRESP)
       ENDDO
     END DO
-    ! On remet la valeur par defaut 
+    ! On remet la valeur par defaut
     CALL FAGOTE(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
   ELSE
     ZMEAN (:,:)=0.0
@@ -610,7 +610,7 @@ IF (NRANK==NPIO) THEN
       ENDDO
     ENDDO
     WHERE(ZCOUNT(:,:)>0.0)ZMEAN(:,:)=ZMEAN(:,:)/ZCOUNT(:,:)
-    DO JP=1,SIZE(ZWORK,3)        
+    DO JP=1,SIZE(ZWORK,3)
       DO JL=1,SIZE(ZWORK,2)
         WHERE(ZWORK(:,JL,JP)==XUNDEF)ZWORK(:,JL,JP)=ZMEAN(JL,JP)
         WRITE(YPATCH,'(I3.3)')JL
@@ -624,7 +624,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_FA:WRITE_SURFX3_FA',1,ZHOOK_HANDLE)
@@ -674,7 +674,7 @@ INTEGER,                INTENT(OUT):: KRESP    ! KRESP  : return-code if a probl
                                                !       horizontal spatial dim.
                                                ! '-' : no horizontal dim.
 !*      0.2   Declarations of local variables
-! 
+!
 LOGICAL :: GFOUND
  CHARACTER(LEN=18)         :: YNAME! Field Nam
 INTEGER                   :: INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL
@@ -703,7 +703,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
 #endif
-  !    
+  !
   IF(LFANOCOMPACT)THEN
     CALL FAVEUR(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
     ! -- Pour ecrire sans compactage
@@ -716,14 +716,14 @@ IF (NRANK==NPIO) THEN
   IF (KRESP/=0) CALL ERROR_WRITE_SURF_FA(HREC,KRESP)
   !
   IF(LFANOCOMPACT)THEN
-    ! On remet la valeur par defaut 
+    ! On remet la valeur par defaut
     CALL FAGOTE(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
   ENDIF
   !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_FA:WRITE_SURFN1_FA',1,ZHOOK_HANDLE)
@@ -795,7 +795,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
 #endif
-  !  
+  !
   IF(LFANOCOMPACT)THEN
     CALL FAVEUR(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
     ! -- Pour ecrire sans compactage
@@ -807,14 +807,14 @@ IF (NRANK==NPIO) THEN
   IF (KRESP/=0) CALL ERROR_WRITE_SURF_FA(HREC,KRESP)
   !
   IF(LFANOCOMPACT)THEN
-    ! On remet la valeur par defaut 
+    ! On remet la valeur par defaut
     CALL FAGOTE(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
   ENDIF
   !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_FA:WRITE_SURFL1_FA',1,ZHOOK_HANDLE)
@@ -868,7 +868,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_FA:WRITE_SURFT0_FA',0,ZHOOK_HANDLE)
 KRESP=0
 !
 IF (HREC=='DTCUR') THEN
-!        
+!
   IHOUR = FLOOR(PTIME)/3600
   IMIN  = FLOOR(PTIME)/60 - IHOUR * 60
   ISEC  = NINT(PTIME) - IHOUR * 3600 - IMIN * 60
@@ -906,7 +906,7 @@ IF (KRESP/=0) THEN
 ENDIF
 !
 IF(LFANOCOMPACT)THEN
-  ! On remet la valeur par defaut 
+  ! On remet la valeur par defaut
   CALL FAGOTE(KRESP,NUNIT_FA,INGRIB,INBPDG,INBCSP,ISTRON,IPUILA,IDMOPL)
 ENDIF
 !
@@ -980,7 +980,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
 #endif
-  !  
+  !
   ITDATE(1,:,:) = KYEAR  (:,:)
   ITDATE(2,:,:) = KMONTH (:,:)
   ITDATE(3,:,:) = KDAY   (:,:)
@@ -992,7 +992,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_FA:WRITE_SURFT2_FA',1,ZHOOK_HANDLE)

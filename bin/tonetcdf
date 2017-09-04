@@ -1,9 +1,9 @@
 #! /bin/sh
 #MNH_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 #MNH_LIC This is part of the Meso-NH software governed by the CeCILL-C licence
-#MNH_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#MNH_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 #MNH_LIC for details. version 1.
-# fin de conversion d unfichier format CDL cree par extractdia 
+# fin de conversion d unfichier format CDL cree par extractdia
 # vers le format netcdf
 # modif 26/08/2008 pour prise en compte du traitemnt des fichiers de couplage
 # N. Asencio
@@ -37,7 +37,7 @@ esac
 #
 #
 # concatenation de l entete et des données
-# 
+#
 cat $entete $data  > ${FILE}${suffixe}cdl
 if [ $? -eq 0 ] ; then
   rm $entete $data
@@ -48,7 +48,7 @@ else
  exit
 fi
 #
-# outil netcdf : ncgen 
+# outil netcdf : ncgen
 #
 set -x
 ncgen -b ${FILE}${suffixe}cdl -o ${FILE}${suffixe}CL.nc ; retnc=$?

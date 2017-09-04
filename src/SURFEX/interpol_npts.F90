@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INTERPOL_NPTS (UG, U, &
@@ -172,7 +172,7 @@ IF (KNEAR_NBR/=U%NDIM_FULL) THEN
     !seach near meshes in the complete grid (xgrid_full_par) for this task
     CALL GET_NEAR_MESHES(UG%G%CGRID,UG%NGRID_FULL_PAR,U%NDIM_FULL,UG%XGRID_FULL_PAR,KNEAR_NBR,UG%NNEAR)
   ENDIF
-ENDIF 
+ENDIF
 !
 !
 !
@@ -187,7 +187,7 @@ IF (KNEAR_NBR==U%NDIM_FULL) THEN
   ICOUNT = 0
   DO JL=1,U%NDIM_FULL
     !is the neareast point available to interpolation
-    IF (NSIZE_ALL(JL,1)>0) THEN  
+    IF (NSIZE_ALL(JL,1)>0) THEN
       ICOUNT = ICOUNT+1
       IINDEX(ICOUNT) = JL
     END IF
@@ -221,7 +221,7 @@ ICPT=0
 !loop on points for this task
 DO JL=1,IL1
   !
-  !does this point need to be interpolated? 
+  !does this point need to be interpolated?
   IF (KCODE(JL)/=0) CYCLE
   !
   IF (KNEAR_NBR/=U%NDIM_FULL) THEN
@@ -230,7 +230,7 @@ DO JL=1,IL1
     DO JK=1,KNEAR_NBR
       IF (UG%NNEAR(JL,JK)>0) THEN
         !is the neareast point available to interpolation
-        IF (NSIZE_ALL(UG%NNEAR(JL,JK),1)>0) THEN  
+        IF (NSIZE_ALL(UG%NNEAR(JL,JK),1)>0) THEN
           ICOUNT = ICOUNT+1
           IINDEX(ICOUNT) = UG%NNEAR(JL,JK)
         END IF
@@ -298,7 +298,7 @@ ELSE
   ISIZE(:) = ICPT
 ENDIF
 !
-!this array contains, for each point to interpolate, 
+!this array contains, for each point to interpolate,
 !the correspondance between the task where is the point to use for interpolation
 !(NINDEX) and its index in this task (NNUM)
 ALLOCATE(ININD0(MAXVAL(ISIZE),KNPTS,0:NPROC-1))
@@ -321,7 +321,7 @@ ALLOCATE(ININD_ALL(MAXVAL(ISIZE),KNPTS,0:NPROC-1))
 IF (NPROC>1) THEN
   !for each task
   DO JP=0,NPROC-1
-#ifdef SFX_MPI   
+#ifdef SFX_MPI
     !inind_all receives from all tasks the points they need that are
     !located in it
     CALL MPI_GATHER(ININD0(:,:,JP),MAXVAL(ISIZE)*KNPTS*KIND(ININD0)/4,MPI_INTEGER,&
@@ -398,7 +398,7 @@ ENDDO
 DEALLOCATE(ININD, ZNDIST)
 !
 !
-!finally, pfield contains the interpolated values! 
+!finally, pfield contains the interpolated values!
 ICPT=0
 DO JL=1,IL1
 
@@ -406,7 +406,7 @@ DO JL=1,IL1
 
   ICPT = ICPT + 1
   PFIELD(JL,:) = ZNVAL(ICPT,:)
-  
+
 ENDDO
 !
 DEALLOCATE(ZNVAL)

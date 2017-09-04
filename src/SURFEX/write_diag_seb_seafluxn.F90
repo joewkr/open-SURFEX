@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITE_DIAG_SEB_SEAFLUX_n (DTCO, DUO, U, CHS, DSO, D, DC, &
@@ -31,7 +31,7 @@
 !!      Modified    08/2009 : cumulated diag
 !!      B. Decharme 06/2013 : Add evap and sublimation diag
 !!                            Delete LPROVAR_TO_DIAG here
-!!      S.Senesi    01/2014 : add diags on seaice 
+!!      S.Senesi    01/2014 : add diags on seaice
 !!      S. Belamari 06/2014 : Introduce GRESET to avoid errors due to NBLOCK=0
 !!                            when coupled with ARPEGE/ALADIN/AROME
 !!      S. Senesi    08/15   Add 2nd dimension name for SW bands to write_surf calls
@@ -165,7 +165,7 @@ IF (DSO%LSURF_BUDGET) THEN
    !
    YRECFM='LEI_SEA'
    YCOMMENT='X_Y_'//YRECFM//' (W/m2)'
-   CALL WRITE_SURF(DUO%CSELECT,HPROGRAM,YRECFM,D%XLEI(:),IRESP,HCOMMENT=YCOMMENT) 
+   CALL WRITE_SURF(DUO%CSELECT,HPROGRAM,YRECFM,D%XLEI(:),IRESP,HCOMMENT=YCOMMENT)
    !
    YRECFM='GFLUX_SEA'
    YCOMMENT='X_Y_'//YRECFM//' (W/m2)'
@@ -214,7 +214,7 @@ IF (DSO%LSURF_BUDGET) THEN
         YRECFM='SWU_SEA_'
         YCOMMENT='X_Y_'//YRECFM//' (W/m2)'
         CALL WRITE_SURF(DUO%CSELECT,&
-             HPROGRAM,YRECFM,D%XSWBU(:,:),IRESP,HCOMMENT=YCOMMENT, HNAM_DIM=YSWBAND_DIM_NAME)        
+             HPROGRAM,YRECFM,D%XSWBU(:,:),IRESP,HCOMMENT=YCOMMENT, HNAM_DIM=YSWBAND_DIM_NAME)
         !
       ELSE
         !
@@ -254,7 +254,7 @@ IF (DSO%LSURF_BUDGET.OR.DSO%LSURF_BUDGETC) THEN
   YRECFM='TALB_SEA'
   YCOMMENT='total albedo over tile sea (-)'
   CALL WRITE_SURF(DUO%CSELECT,HPROGRAM,YRECFM,D%XALBT(:),IRESP,HCOMMENT=YCOMMENT)
-!        
+!
 ENDIF
 !
 !*       4.     transfer coefficients
@@ -383,7 +383,7 @@ IF (CHS%SVS%NBEQ>0 .AND. CHS%CCH_DRY_DEP=="WES89 ") THEN
 ENDIF
 !
 IF (DSO%LSURF_BUDGETC) THEN
-   ! 
+   !
    CALL END_IO_SURF_n(HPROGRAM)
    CALL INIT_IO_SURF_n(DTCO, U,HPROGRAM,'SEA   ','SEAFLX','WRITE','SEAFLUX_DIAG_CUMUL.OUT.nc')
    !
@@ -404,7 +404,7 @@ IF (DSO%LSURF_BUDGETC) THEN
    !
    YRECFM='LEIC_SEA'
    YCOMMENT='X_Y_'//YRECFM//' (W/m2)'
-   CALL WRITE_SURF(DUO%CSELECT,HPROGRAM,YRECFM,DC%XLEI(:),IRESP,HCOMMENT=YCOMMENT) 
+   CALL WRITE_SURF(DUO%CSELECT,HPROGRAM,YRECFM,DC%XLEI(:),IRESP,HCOMMENT=YCOMMENT)
    !
    YRECFM='GFLUXC_SEA'
    YCOMMENT='X_Y_'//YRECFM//' (J/m2)'

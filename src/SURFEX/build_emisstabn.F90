@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE BUILD_EMISSTAB_n (PCONVERSION, HPROGRAM,KCH,HEMIS_GR_NAME, KNBTIMES,&
-              KEMIS_GR_TIME,KOFFNDX,TPEMISS,KSIZE,KLUOUT, KVERB,PRHODREF)  
+              KEMIS_GR_TIME,KOFFNDX,TPEMISS,KSIZE,KLUOUT, KVERB,PRHODREF)
 !!    #####################################################################
 !!
 !!*** *BUILD_EMISSTAB*
@@ -95,7 +95,7 @@ IF (KVERB >= 5) THEN
   WRITE(KLUOUT,*) '********     SUBROUTINE (CHIMIE): BUILD_EMISSTAB_n     ********'
 END IF
 !
-!*       1.   READ DATA 
+!*       1.   READ DATA
 !        --------------
 !
  CALL CH_OPEN_INPUTB("EMISUNIT", KCH, KLUOUT)
@@ -113,9 +113,9 @@ SELECT CASE (YUNIT)
 CASE ('MIX') ! flux given ppp*m/s,  conversion to molec/m2/s
 ! where 1 molecule/cm2/s = (224.14/6.022136E23) ppp*m/s
   PCONVERSION(:) = XAVOGADRO * PRHODREF(:) / XMD
-CASE ('CON') ! flux given in molecules/cm2/s, conversion to molec/m2/s 
+CASE ('CON') ! flux given in molecules/cm2/s, conversion to molec/m2/s
   PCONVERSION(:) =  1E4
-CASE ('MOL') ! flux given in microMol/m2/day, conversion to molec/m2/s  
+CASE ('MOL') ! flux given in microMol/m2/day, conversion to molec/m2/s
 ! where 1 microMol/m2/day = (22.414/86.400)*1E-12 ppp*m/s
   !XCONVERSION(:) = (22.414/86.400)*1E-12 * XAVOGADRO * PRHODREF(:) / XMD
   PCONVERSION(:) = 1E-6 * XAVOGADRO / 86400.
@@ -136,12 +136,12 @@ DO JSPEC=1,SIZE(TPEMISS) ! loop on offline emission species
 !
 ! Fill %CNAME
   TPEMISS(JSPEC)%CNAME = HEMIS_GR_NAME(KOFFNDX(JSPEC))
-! Allocate and Fill %NETIMES 
+! Allocate and Fill %NETIMES
   ALLOCATE(TPEMISS(JSPEC)%NETIMES(INBTS))
   IIND1 = IIND2+1
   IIND2 = IIND2+INBTS
   TPEMISS(JSPEC)%NETIMES(:) = KEMIS_GR_TIME(IIND1:IIND2)
-! 
+!
 ! Update %NWS, %NDX, %NTX, %LREAD, %XEMISDATA
   IF (INBTS <= IWS_DEFAULT) THEN
 ! Number of times smaller than read window size allowed
@@ -158,10 +158,10 @@ DO JSPEC=1,SIZE(TPEMISS) ! loop on offline emission species
 ! Correction : Replace 999. with 0. value in the Emission FLUX
 ! and apply conversion
     WHERE(TPEMISS(JSPEC)%XEMISDATA(:,:) == 999.)
-      TPEMISS(JSPEC)%XEMISDATA(:,:) = 0. 
+      TPEMISS(JSPEC)%XEMISDATA(:,:) = 0.
     END WHERE
     WHERE(TPEMISS(JSPEC)%XEMISDATA(:,:) == 1.E20)
-      TPEMISS(JSPEC)%XEMISDATA(:,:) = 0. 
+      TPEMISS(JSPEC)%XEMISDATA(:,:) = 0.
     END WHERE
       DO ITIME=1,INBTS
       ! XCONVERSION HAS BEEN ALREADY APPLY IN CH_EMISSION_FLUXN ONLY FOR LREAD = T
@@ -176,7 +176,7 @@ DO JSPEC=1,SIZE(TPEMISS) ! loop on offline emission species
     TPEMISS(JSPEC)%LREAD = .TRUE.
     ALLOCATE(TPEMISS(JSPEC)%XEMISDATA(KSIZE,IWS_DEFAULT))
   END IF
- 
+
   IF (INBTS == 1) THEN
     TPEMISS(JSPEC)%XFWORK=>TPEMISS(JSPEC)%XEMISDATA(:,1)
   ELSE
@@ -185,7 +185,7 @@ DO JSPEC=1,SIZE(TPEMISS) ! loop on offline emission species
 ! Compute index for periodic case
   TPEMISS(JSPEC)%NPX = MAXVAL(MINLOC(TPEMISS(JSPEC)%NETIMES(:)+&
          (1+(TPEMISS(JSPEC)%NETIMES(INBTS)-&
-         TPEMISS(JSPEC)%NETIMES(:))/NDAYSEC)*NDAYSEC))  
+         TPEMISS(JSPEC)%NETIMES(:))/NDAYSEC)*NDAYSEC))
 !
 ! Some di###ay
   IF (KVERB >= 6) THEN
@@ -194,7 +194,7 @@ DO JSPEC=1,SIZE(TPEMISS) ! loop on offline emission species
     WRITE(KLUOUT,*) '  Current time index :' ,TPEMISS(JSPEC)%NTX
     WRITE(KLUOUT,*) '  Current data index :' ,TPEMISS(JSPEC)%NDX
     WRITE(KLUOUT,*) '  Periodic index = ',TPEMISS(JSPEC)%NPX,&
-            ' at time :',TPEMISS(JSPEC)%NETIMES(TPEMISS(JSPEC)%NPX)  
+            ' at time :',TPEMISS(JSPEC)%NETIMES(TPEMISS(JSPEC)%NPX)
     WRITE(KLUOUT,*) '  Read window size :', TPEMISS(JSPEC)%NWS
     IF (TPEMISS(JSPEC)%LREAD) THEN
       WRITE(KLUOUT,*) ' -> Data must be read during simulation.'

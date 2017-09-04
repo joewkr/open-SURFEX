@@ -1,7 +1,7 @@
 #!/bin/ksh
 #MNH_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 #MNH_LIC This is part of the Meso-NH software governed by the CeCILL-C licence
-#MNH_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#MNH_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 #MNH_LIC for details. version 1.
 #set -x
 # HP-UX 10
@@ -31,7 +31,7 @@ fi
 #file
 #.SH METHOD
 #.B spl
-#uses 
+#uses
 #.B awk
 #to scan and treat the input file line per line. It is the Meso-NH fortran 90
 #counterpart to
@@ -47,10 +47,10 @@ fi
 #are the followings:
 #
 # - each fortran unit must begin with "STATEMENT something" and end
-#   with "END STATEMENT something" or "END STATEMENT" or "END". The 
+#   with "END STATEMENT something" or "END STATEMENT" or "END". The
 #   latter case allows
 #.B spl
-#to work on fixed form fortran 77 code. 
+#to work on fixed form fortran 77 code.
 #   Example:
 #       SUBROUTINE DARTAGNAN
 #       (...code...)
@@ -130,10 +130,10 @@ awk '
     { split(u2,p_name,"(");
       l_name=(tolower(p_name[1]));
       split((l_name),e_name,"$");
-      f_name=(e_name[1]) (e_name[2]) ".f90"; 
+      f_name=(e_name[1]) (e_name[2]) ".f90";
       print (f_name); i_flag="bof";
       print "!     ######spl" > (f_name)
-    }   
+    }
   }
 }
 { if((substr(u1,1,9)) == "INTERFACE")
@@ -158,44 +158,44 @@ awk '
               { split(u3,p_name,"(");
                 l_name=(tolower(p_name[1]));
                 split((l_name),e_name,"$");
-                f_name=(e_name[1]) (e_name[2]) ".f90"; 
+                f_name=(e_name[1]) (e_name[2]) ".f90";
                 print (f_name); i_flag="bof";
                 print "!     ######spl" > (f_name);
                 n_unit=(n_unit) + 0
-              }   
-            }   
+              }
+            }
 		  }
 		  { if((substr(u1,1,9)) == "RECURSIVE")
             { if((substr(u2,1,8)) == "FUNCTION")
               { split(u3,p_name,"(");
                 l_name=(tolower(p_name[1]));
                 split((l_name),e_name,"$");
-                f_name=(e_name[1]) (e_name[2]) ".f90"; 
+                f_name=(e_name[1]) (e_name[2]) ".f90";
                 print (f_name); i_flag="bof";
                 print "!     ######spl" > (f_name);
                 n_unit=(n_unit) + 0
-              }   
+              }
             }
 		  }
           { if((substr(u1,1,10)) == "SUBROUTINE")
             { split(u2,p_name,"(");
               l_name=(tolower(p_name[1]));
               split((l_name),e_name,"$");
-              f_name=(e_name[1]) (e_name[2]) ".f90"; 
+              f_name=(e_name[1]) (e_name[2]) ".f90";
               print (f_name); i_flag="bof";
               print "!     ######spl" > (f_name);
               n_unit=(n_unit) + 0
-            }   
-          }   
+            }
+          }
           { if((substr(u1,1,8)) == "FUNCTION")
             { split(u2,p_name,"(");
               l_name=(tolower(p_name[1]));
               split((l_name),e_name,"$");
-              f_name=(e_name[1]) (e_name[2]) ".f90"; 
+              f_name=(e_name[1]) (e_name[2]) ".f90";
               print (f_name); i_flag="bof";
               print "!     ######spl" > (f_name);
               n_unit=(n_unit) + 0
-            }   
+            }
           }
         }
         else
@@ -222,17 +222,17 @@ awk '
         { split(u2,p_name,"(");
           l_name=(tolower(p_name[1]));
           split((l_name),e_name,"$");
-          f_name=(e_name[1]) (e_name[2]) ".f90"; 
+          f_name=(e_name[1]) (e_name[2]) ".f90";
           print (f_name); i_flag="bof";
           print "!     ######spl" > (f_name);
           i_mod="open"; n_mod=(n_mod) + 0
-        }   
+        }
       }
     }
     else
     { if((substr(u1,1,6)) == "MODULE")
-      { n_mod=(n_mod) + 1 
-      }   
+      { n_mod=(n_mod) + 1
+      }
     }
   }
 }
@@ -251,19 +251,19 @@ awk '
             { if((substr(u2,1,10)) == "SUBROUTINE")
               { i_flag="eof"; i_conta="clos" ;
                 print $0 >>(f_name);
-                close((f_name)) 
+                close((f_name))
               }
             }
             { if((substr(u2,1,8)) == "FUNCTION")
               { i_flag="eof"; i_conta="clos" ;
                 print $0 >>(f_name);
-                close((f_name)) 
+                close((f_name))
               }
             }
             { if((u2) == "")
               { i_flag="eof"; i_conta="clos" ;
                 print $0 >>(f_name);
-                close((f_name)) 
+                close((f_name))
               }
             }
           }
@@ -281,26 +281,26 @@ awk '
           }
         }
       }
-    }   
+    }
     else
     { if((substr(u2,1,6)) == "MODULE")
       { if((n_mod) == 0)
-        { i_mod="clos"; i_flag="eof"; 
+        { i_mod="clos"; i_flag="eof";
           print $0 >>(f_name);
-          close((f_name)) 
+          close((f_name))
         }
         else
         { n_mod=(n_mod) - 1
         }
       }
-    }   
+    }
   }
 }
 { if((i_flag) == "bof")
     { print $0 >>(f_name) }
 }
 
-' /tmp/splfile.${USER}.$$ 
+' /tmp/splfile.${USER}.$$
 rm -f /tmp/splfile.${USER}.$$
 #--------------- 4. it may be that a routine generates the same file name
 #                   than the initial input file. In this case, the input is
@@ -311,8 +311,8 @@ if [ -f $FILE ] ;then
 #  echo "$FILE was rewritten by spl">>$OUTPUT
 #  echo "spl has however saved the old file in $REST">>$OUTPUT
    exit 1
-  rm $REST 
+  rm $REST
 else
-  rm $REST 
+  rm $REST
   mv $REST $FILE
 fi

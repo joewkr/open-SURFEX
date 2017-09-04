@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !######################
 MODULE MODI_INTERP_GRID
@@ -47,11 +47,11 @@ END MODULE MODI_INTERP_GRID
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -83,7 +83,7 @@ REAL :: ZEPS ! a small number
 REAL :: ZCOEFLIN ! interpolation coefficients
 INTEGER :: IKLIN    ! lower interpolating level of
 INTEGER :: ILEVEL, IS1
-!                                                     ! grid 1 for each level of grid 2 
+!                                                     ! grid 1 for each level of grid 2
 REAL(KIND=JPRB) :: ZHOOK_HANDLE, ZHOOK_HANDLE_OMP
 !-----------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('MODI_INTERP_GRID:INTERP_GRID_1D_1',0,ZHOOK_HANDLE)
@@ -121,28 +121,28 @@ DO JI = 1,SIZE(PZ1,1)
       IF (ILEVEL < 1 ) THEN    ! no extrapolation
         !
         IKLIN = 1
-        ZCOEFLIN = 1.                               
+        ZCOEFLIN = 1.
         !
       ELSE
         !
         !* linear extrapolation
         ILEVEL = MIN(ILEVEL,IS1-1)
         !
-        IKLIN = ILEVEL 
+        IKLIN = ILEVEL
         !
         ZCOEFLIN = ( PZ2(JK2)-PZ1(JI,ILEVEL+1) ) * ZDIZ1(ILEVEL)
         IF (ILEVEL==IS1-1) ZCOEFLIN = MAX(ZCOEFLIN,0.) ! no extrapolation
         !
       ENDIF
       !
-      PT2(JI,JK2) = ZCOEFLIN * PT1(JI,IKLIN) + (1.-ZCOEFLIN) * PT1(JI,IKLIN+1)  
+      PT2(JI,JK2) = ZCOEFLIN * PT1(JI,IKLIN) + (1.-ZCOEFLIN) * PT1(JI,IKLIN+1)
       !
     END DO
     !
   ENDIF
 !-------------------------------------------------------------------------------
 ENDDO
-!$OMP ENDDO 
+!$OMP ENDDO
 IF (LHOOK) CALL DR_HOOK('MODI_INTERP_GRID:INTERP_GRID_1D_2',1,ZHOOK_HANDLE_OMP)
 !$OMP END PARALLEL
 !
@@ -219,7 +219,7 @@ DO JI = 1,SIZE(PZ1,1)
         !
       ELSE
         !
-        !* linear extrapolation 
+        !* linear extrapolation
         ILEVEL = MIN(ILEVEL,IS1-1)
         IKLIN = ILEVEL
         !
@@ -228,7 +228,7 @@ DO JI = 1,SIZE(PZ1,1)
         !
       ENDIF
       !
-      PT2(JI,JK2) = ZCOEFLIN * PT1(JI,IKLIN) + (1.-ZCOEFLIN) * PT1(JI,IKLIN+1)  
+      PT2(JI,JK2) = ZCOEFLIN * PT1(JI,IKLIN) + (1.-ZCOEFLIN) * PT1(JI,IKLIN+1)
       !
     END DO
     !

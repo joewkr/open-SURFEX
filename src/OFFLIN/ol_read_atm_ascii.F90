@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE OL_READ_ATM_ASCII (KFORC_STEP,                                 &
                               PTA,PQA,PWIND,PDIR_SW,PSCA_SW,PLW,PSNOW,    &
-                              PRAIN,PPS,PCO2,PDIR                         )  
+                              PRAIN,PPS,PCO2,PDIR                         )
 !**************************************************************************
 !
 !!    PURPOSE
@@ -37,7 +37,7 @@ SUBROUTINE OL_READ_ATM_ASCII (KFORC_STEP,                                 &
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original     03/2008       
+!!      Original     03/2008
 !
 USE MODD_IO_SURF_OL, ONLY : XCOUNT
 USE MODI_READ_SURF_ATM

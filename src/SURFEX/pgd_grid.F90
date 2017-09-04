@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_GRID (UG, U, GCP, HPROGRAM,HFILE,HFILETYPE,OGRID,HDIR)
@@ -12,7 +12,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -45,7 +45,7 @@
 !
 USE MODD_SURF_ATM_GRID_n, ONLY : SURF_ATM_GRID_t
 USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
-USE MODD_GRID_CONF_PROJ_n, ONLY : GRID_CONF_PROJ_t 
+USE MODD_GRID_CONF_PROJ_n, ONLY : GRID_CONF_PROJ_t
 !
 USE MODD_SURFEX_MPI,     ONLY : NSIZE, NINDEX, NPIO, NRANK
 !
@@ -169,9 +169,9 @@ END IF
 !
 !*       4.    check of grid and input file types
 !              ----------------------------------
-! 
+!
  CALL TEST_NAM_VAR_SURF(ILUOUT,'CGRID',CGRID,'CONF PROJ ','NONE      ','LONLAT REG','CARTESIAN ','GAUSS     ',&
-          'IGN       ','LONLATVAL ','LONLAT ROT')  
+          'IGN       ','LONLATVAL ','LONLAT ROT')
  CALL TEST_NAM_VAR_SURF(ILUOUT,'YINIFILETYPE',YINIFILETYPE,'      ','MESONH','LFI   ','ASCII ','NC    ')
 !
 !
@@ -201,7 +201,7 @@ IF (LEN_TRIM(YINIFILETYPE)>0 .AND. LEN_TRIM(YINIFILE)>0 ) THEN
     ! on lit la taille globale du modele fils dans la namelist
     CALL OPEN_NAMELIST(HPROGRAM,ILUNAM)
     CALL POSNAM(ILUNAM,'NAM_INIFILE_CONF_PROJ',GFOUND,ILUOUT)
-    IF (GFOUND) THEN 
+    IF (GFOUND) THEN
       READ(UNIT=ILUNAM,NML=NAM_INIFILE_CONF_PROJ)
       IIMAX_ll = IXSIZE*IDXRATIO
       IJMAX_ll = IYSIZE*IDYRATIO
@@ -210,7 +210,7 @@ IF (LEN_TRIM(YINIFILETYPE)>0 .AND. LEN_TRIM(YINIFILE)>0 ) THEN
     !
     !*    3.      Additional actions for I/O
     !
-    IF (GFOUND) THEN 
+    IF (GFOUND) THEN
 #ifdef MNH_PARALLEL
       CALL PGD_GRID_IO_INIT(HPROGRAM,UG,NGRID_PAR,XGRID_PAR,CGRID,GRECT,IIMAX_ll,IJMAX_ll,IDXRATIO,IDYRATIO)
 #else
@@ -230,7 +230,7 @@ IF (LEN_TRIM(YINIFILETYPE)>0 .AND. LEN_TRIM(YINIFILE)>0 ) THEN
     U%NSIZE_FULL = ISIZE_FULL
     NL = U%NSIZE_FULL
 #else
-    U%NSIZE_FULL = NL    
+    U%NSIZE_FULL = NL
 #endif
   ELSE
     CALL ABOR1_SFX('PGD_GRID: FILE TYPE NOT SUPPORTED '//HFILETYPE//' FOR FILE '//HFILE)
@@ -268,7 +268,7 @@ ELSE
     NL = U%NSIZE_FULL
 #endif
     !
-  END IF  
+  END IF
 
 #ifdef MNH_PARALLEL
   ! IF we are in PREP_PGD, we need to split the grid. Otherwise, the grid was read in parallel and is already splitted
@@ -276,20 +276,20 @@ ELSE
     CALL SPLIT_GRID(UG,U,'MESONH',NGRID_PAR,XGRID_PAR)
   ENDIF
 #endif
-    
+
 END IF
 !
 IF (HDIR=='A') THEN
   UG%NGRID_FULL_PAR = NGRID_PAR
   ALLOCATE(UG%XGRID_FULL_PAR(UG%NGRID_FULL_PAR))
-  UG%XGRID_FULL_PAR = XGRID_PAR        
+  UG%XGRID_FULL_PAR = XGRID_PAR
 ELSE
   UG%G%NGRID_PAR = NGRID_PAR
   ALLOCATE(UG%G%XGRID_PAR(UG%G%NGRID_PAR))
   UG%G%XGRID_PAR = XGRID_PAR
 ENDIF
 !
-IF (YDIR=='A') THEN  
+IF (YDIR=='A') THEN
   CALL DR_HOOK('PGD_GRID',1,ZHOOK_HANDLE)
   RETURN
 ENDIF

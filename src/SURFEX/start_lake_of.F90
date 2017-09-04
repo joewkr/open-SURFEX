@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######
 SUBROUTINE START_LAKE_OF(KDAY, KMONTH, PLON, PLAT, PDEPTH, &   ! IN
@@ -8,36 +8,36 @@ SUBROUTINE START_LAKE_OF(KDAY, KMONTH, PLON, PLAT, PDEPTH, &   ! IN
                      PH_SNOW, PH_ICE, PH_ML, PH_B1, PT_SFC)                 ! OUT
 !     ###############
 !
-! PURPOSE: Extract the climate lake variables from the climate lake dataset 
+! PURPOSE: Extract the climate lake variables from the climate lake dataset
 !          for the given date, the given grid box of the atmopheric model grid in lon-lat
 !          and for the given lake depth;
 !          this version is for netcdf3 (old-fashioned)
-! AUTHOR: Ekaterina Kourzeneva, 
+! AUTHOR: Ekaterina Kourzeneva,
 !         Meteo France, 2010
-! INPUT:  KDAY - the day number 
+! INPUT:  KDAY - the day number
 !         KMONTH - the month number
 !         PLON - longitude of the center of the atmospheric model grid box, deg. dec., -180.0 ... 180.0
 !         PLAT - latitude of the center of the atmospheric model grid box, deg. dec., -90.0 ... 90.0
-!         PDEPTH - the lake depth in the grid box, m 
+!         PDEPTH - the lake depth in the grid box, m
 ! LIBRARIES: NetCDF. Install it and make sure you use right compilation and linkage lines!
 !                    (see the example for details)
 ! READS FILES: data for the lake climatology (LAKE_LTA.nc)
 ! Be sure that all necessary files are present and not zipped!!!
-! OUTPUT: PT_SNOW - the snow temperature, K (no snow at present, so equal to the ice temperature) 
+! OUTPUT: PT_SNOW - the snow temperature, K (no snow at present, so equal to the ice temperature)
 !         PT_ICE - the ice temperature, K
 !         PT_MNW - the mean water temperature, K
 !         PT_WML - the mixed layer temperature, K
 !         PT_BOT - the bottom temperature, K
 !         PT_B1 - the temperature on the outer edge of the active layer of the bottom sediments, K
-!                (at present the bottom sediments block is not used, 
+!                (at present the bottom sediments block is not used,
 !                 so eq. to the freshwater maximum density temperature)
 !         PCT - the shape factor, dimensioneless
 !         PH_SNOW - the snow depth, m (no snow at present, so equal to zero)
 !         PH_ICE - the ice depth, m
 !         PH_ML - the mixed layer depth, m
 !         PH_B1 - the depth of the active layer if the bottom sediments, m
-!                (at present the bottom sediments block is not used, 
-!                 so eq. to the dummy value)  
+!                (at present the bottom sediments block is not used,
+!                 so eq. to the dummy value)
 !         PT_SFC - the surface temperature, K (the diagnostic value, so just for information)
 ! WRITES FILES: no
 !
@@ -66,30 +66,30 @@ IMPLICIT NONE
 !
 INTEGER, INTENT(IN) :: KDAY,   & ! The day number
                        KMONTH    ! The month number
-REAL, INTENT(IN) :: PLON, PLAT   ! Longitude and latitude of the center of the atmospheric model grid box, 
+REAL, INTENT(IN) :: PLON, PLAT   ! Longitude and latitude of the center of the atmospheric model grid box,
                                  ! deg. dec. (-180.0 ... 180.0), (-90.0 ... 90.0)
 REAL, INTENT(IN) :: PDEPTH       ! The depth of the lakes, m
-REAL, INTENT(OUT) :: PT_SNOW, &  ! the snow temperature, K (no snow at present, so equal to the ice temperature) 
+REAL, INTENT(OUT) :: PT_SNOW, &  ! the snow temperature, K (no snow at present, so equal to the ice temperature)
                      PT_ICE,  &  ! the ice temperature, K
                      PT_MNW,  &  ! the mean water temperature, K
                      PT_WML,  &  ! the mixed layer temperature, K
                      PT_BOT,  &  ! the bottom temperature, K
                      PT_B1,   &  ! the temperature on the outer edge of the active layer of the bottom sediments, K
-                                 !  (at present the bottom sediments block is not used, 
+                                 !  (at present the bottom sediments block is not used,
                                  !  so eq. to the freshwater maximum density temperature)
                      PCT,     &  ! the shape factor, dimensioneless
                      PH_SNOW, &  ! the snow depth, m (no snow at present, so equal to zero)
                      PH_ICE,  &  ! the ice depth, m
                      PH_ML,   &  ! the mixed layer depth, m
                      PH_B1,   &  ! the depth of the active layer if the bottom sediments, m
-                                 !  (at present the bottom sediments block is not used, 
-                                 !   so eq. to the dummy value)  
-                     PT_SFC      ! the surface temperature, K (the diagnostic value, so just for information) 
+                                 !  (at present the bottom sediments block is not used,
+                                 !   so eq. to the dummy value)
+                     PT_SFC      ! the surface temperature, K (the diagnostic value, so just for information)
 !
 !*      0.2    declarations of local variables
 !
 REAL, DIMENSION(1,1) :: ZWT_SNOW, ZWT_ICE, ZWT_MNW, ZWT_WML, ZWT_BOT, ZWT_B1, ZWCT, & ! Lake values
-                         ZWH_SNOW, ZWH_ICE, ZWH_ML, ZWH_B1, ZWT_SFC                  ! to read from NetCDF                 
+                         ZWH_SNOW, ZWH_ICE, ZWH_ML, ZWH_B1, ZWT_SFC                  ! to read from NetCDF
 REAL :: ZFT_SNOW, ZFT_ICE, ZFT_MNW, ZFT_WML, ZFT_BOT, ZFT_B1, ZFCT, &
         ZFH_SNOW, ZFH_ICE, ZFH_ML, ZFH_B1, ZFT_SFC
 REAL, DIMENSION(NGRADDEPTH_LTA) :: ZDISTD
@@ -97,7 +97,7 @@ REAL :: ZWLON, ZWLAT, ZWDEPTH
 !
 LOGICAL :: LEXIST
 !
- INTEGER :: ID_LAKELTA, ID_MONTH, &  ! IDs for NetCDF 
+ INTEGER :: ID_LAKELTA, ID_MONTH, &  ! IDs for NetCDF
             ID_DEC, ID_LON, ID_LAT, ID_DEPTH, &
             ID_T_SNOW, ID_T_ICE, ID_T_MNW, ID_T_WML, ID_T_BOT, ID_T_B1, ID_CT, &
             ID_H_SNOW, ID_H_ICE, ID_H_ML, ID_H_B1, ID_T_SFC
@@ -120,7 +120,7 @@ IF(KMONTH.LE.0 .OR. KMONTH.GT.12) CALL ABOR1_SFX("START_LAKE_OF: WRONG MONTH NUM
 IF(PLON.LT.-180. .OR. PLON.GT.180.) CALL ABOR1_SFX("START_LAKE_OF: WRONG LONGITUDE (!!!!)")
 IF(PLAT.LT.-90. .OR. PLAT.GT.90.) CALL ABOR1_SFX("START_LAKE_OF: WRONG LATITUDE (!!!!)")
 !
-!*      1.     Calculate time indexes 
+!*      1.     Calculate time indexes
 !
 IMONTH = KMONTH
 !
@@ -162,17 +162,17 @@ IF (IRET.NE.0) CALL ABOR1_SFX("START_LAKE_OF: WRONG OR NO LAKE DATA FILE")
 !
 IRET = NF90_INQ_DIMID(ID_LAKELTA, "NMonth", ID_MONTH)
 IRET = NF90_INQUIRE_DIMENSION(ID_LAKELTA, ID_MONTH, LEN=IMONTHN)
-IF (IMONTHN.NE.12) CALL ABOR1_SFX("START_LAKE_OF: NUMBER OF MONTHS IN THE LAKE FILE IS NOT 12????") 
+IF (IMONTHN.NE.12) CALL ABOR1_SFX("START_LAKE_OF: NUMBER OF MONTHS IN THE LAKE FILE IS NOT 12????")
 !
 IRET = NF90_INQ_DIMID(ID_LAKELTA, "NDec", ID_DEC)
 IRET = NF90_INQUIRE_DIMENSION(ID_LAKELTA, ID_DEC, LEN=IDECN)
 IF (IDECN.NE.3) CALL ABOR1_SFX("START_LAKE_OF: NUMBER OF DECADES IN MONTH IN THE LAKE FILE IS NOT 3????")
 !
-IRET = NF90_INQ_DIMID(ID_LAKELTA, "NLon", ID_LON)  
+IRET = NF90_INQ_DIMID(ID_LAKELTA, "NLon", ID_LON)
 IRET = NF90_INQUIRE_DIMENSION(ID_LAKELTA, ID_LON, LEN=ILONN)
 IF (ILONN.NE.NLONG) CALL ABOR1_SFX("START_LAKE_OF: WRONG NUMBER OF POINTS IN LONGITUDE IN THE LAKE FILE!")
 !
-IRET = NF90_INQ_DIMID(ID_LAKELTA, "NLat", ID_LAT)    
+IRET = NF90_INQ_DIMID(ID_LAKELTA, "NLat", ID_LAT)
 IRET = NF90_INQUIRE_DIMENSION(ID_LAKELTA, ID_LAT, LEN=ILATN)
 IF (ILATN.NE.NLATG) CALL ABOR1_SFX("START_LAKE_OF: WRONG NUMBER OF POINTS IN LONGITUDE IN THE LAKE FILE!")
 !
@@ -182,14 +182,14 @@ IF (IDEPTHN.NE.NGRADDEPTH_LTA) CALL ABOR1_SFX("START_LAKE_OF: WRONG NUMBER OF GR
 !
 IRET = NF90_INQ_VARID(ID_LAKELTA, "T_snow", ID_T_SNOW)
 IRET = NF90_INQ_VARID(ID_LAKELTA, "T_ice", ID_T_ICE)
-IRET = NF90_INQ_VARID(ID_LAKELTA, "T_mnw", ID_T_MNW) 
+IRET = NF90_INQ_VARID(ID_LAKELTA, "T_mnw", ID_T_MNW)
 IRET = NF90_INQ_VARID(ID_LAKELTA, "T_wML", ID_T_WML)
 IRET = NF90_INQ_VARID(ID_LAKELTA, "T_bot", ID_T_BOT)
 IRET = NF90_INQ_VARID(ID_LAKELTA, "T_B1", ID_T_B1)
 IRET = NF90_INQ_VARID(ID_LAKELTA, "C_T", ID_CT)
 IRET = NF90_INQ_VARID(ID_LAKELTA, "h_snow", ID_H_SNOW)
 IRET = NF90_INQ_VARID(ID_LAKELTA, "h_ice", ID_H_ICE)
-IRET = NF90_INQ_VARID(ID_LAKELTA, "h_ML", ID_H_ML)  
+IRET = NF90_INQ_VARID(ID_LAKELTA, "h_ML", ID_H_ML)
 IRET = NF90_INQ_VARID(ID_LAKELTA, "H_B1", ID_H_B1)
 IRET = NF90_INQ_VARID(ID_LAKELTA, "T_sfc", ID_T_SFC)
 !
@@ -229,7 +229,7 @@ IRET = NF90_GET_VAR(ID_LAKELTA, ID_T_SFC, ZWT_SFC, NINDEX)
 !
 !*      8.     Close file
 !
-IRET = NF90_CLOSE(ID_LAKELTA)   
+IRET = NF90_CLOSE(ID_LAKELTA)
 !
 !*      9.     Make output
 !
@@ -242,12 +242,12 @@ LEXIST=(ZWT_SNOW(1,1).NE.ZFT_SNOW .AND. ZWT_ICE(1,1).NE.ZFT_ICE .AND. ZWT_MNW(1,
 IF (LEXIST) THEN
   !
   XAUXT_SNOW = ZWT_SNOW(1,1)
-  XAUXT_ICE = ZWT_ICE(1,1) 
-  XAUXT_MNW = ZWT_MNW(1,1) 
+  XAUXT_ICE = ZWT_ICE(1,1)
+  XAUXT_MNW = ZWT_MNW(1,1)
   XAUXT_WML = ZWT_WML(1,1)
   XAUXT_BOT = ZWT_BOT(1,1)
   XAUXT_B1 = ZWT_B1(1,1)
-  XAUXCT = ZWCT(1,1) 
+  XAUXCT = ZWCT(1,1)
   XAUXH_SNOW = ZWH_SNOW(1,1)
   XAUXH_ICE = ZWH_ICE(1,1)
   XAUXH_ML = ZWH_ML(1,1)
@@ -256,17 +256,17 @@ IF (LEXIST) THEN
   !
 ENDIF
 !
-PT_SNOW = XAUXT_SNOW 
-PT_ICE  = XAUXT_ICE 
-PT_MNW  = XAUXT_MNW 
-PT_WML  = XAUXT_WML 
-PT_BOT  = XAUXT_BOT 
-PT_B1   = XAUXT_B1  
-PCT     = XAUXCT 
-PH_SNOW = XAUXH_SNOW 
-PH_ICE  = XAUXH_ICE 
-PH_ML   = XAUXH_ML 
-PH_B1   = XAUXH_B1 
+PT_SNOW = XAUXT_SNOW
+PT_ICE  = XAUXT_ICE
+PT_MNW  = XAUXT_MNW
+PT_WML  = XAUXT_WML
+PT_BOT  = XAUXT_BOT
+PT_B1   = XAUXT_B1
+PCT     = XAUXCT
+PH_SNOW = XAUXH_SNOW
+PH_ICE  = XAUXH_ICE
+PH_ML   = XAUXH_ML
+PH_B1   = XAUXH_B1
 PT_SFC  = XAUXT_SFC
 !
 IF (LHOOK) CALL DR_HOOK('START_LAKE_OF',1,ZHOOK_HANDLE)

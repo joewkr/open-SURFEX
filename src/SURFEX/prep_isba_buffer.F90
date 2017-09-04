@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_ISBA_BUFFER (G, U, HPROGRAM,HSURF,KLUOUT,PFIELD)
@@ -16,11 +16,11 @@ SUBROUTINE PREP_ISBA_BUFFER (G, U, HPROGRAM,HSURF,KLUOUT,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     S. Malardel 
+!!     S. Malardel
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -159,9 +159,9 @@ SELECT CASE(HSURF)
             DEALLOCATE(ZALT_NATURE)
             DEALLOCATE(OINTERP)
           ENDIF
-        ENDIF 
+        ENDIF
      END SELECT
-     
+
      CALL SOIL_PROFILE_BUFFER
 
   CASE('WG    ')
@@ -184,7 +184,7 @@ SELECT CASE(HSURF)
 
             ! Pack nature points to reduce dimension to nsize_nature
             CALL PACK_SAME_RANK(U%NR_NATURE,ZLSM,ZLSM_NATURE)
-   
+
             ! Do extrapolations in all layers
             DO ILAYER=1,SIZE(ZFIELD,2)
               WRITE(KLUOUT,*) 'Extrapolating WG from nearest land point in points where LSM < 0.5. LAYER:',ILAYER
@@ -193,7 +193,7 @@ SELECT CASE(HSURF)
               CALL PACK_SAME_RANK(U%NR_NATURE,ZFIELD(:,ILAYER),ZFIELD_EP(:))
               ! Set values to be extrapolated
               OINTERP=.FALSE.
-              
+
               DO II=1,U%NSIZE_NATURE
                 IF ( ZLSM_NATURE(II) < 0.5 ) THEN
                   OINTERP(II)   = .TRUE.
@@ -223,7 +223,7 @@ SELECT CASE(HSURF)
 
 !*      3.3    Profile of soil ice content
 
-  CASE('WGI   ')    
+  CASE('WGI   ')
      !* reading of the profile and its depth definition
      SELECT CASE(YINMODEL)
        CASE('ALADIN')
@@ -249,7 +249,7 @@ SELECT CASE(HSURF)
             ! Do extrapolations in all layers
             DO ILAYER=1,SIZE(ZFIELD,2)
               WRITE(KLUOUT,*) 'Extrapolating WGI from nearest land point in points where LSM < 0.5. LAYER:',ILAYER
-        
+
               ! Pack nature points to reduce dimension
               CALL PACK_SAME_RANK(U%NR_NATURE,ZFIELD(:,ILAYER),ZFIELD_EP(:))
               ! Set values to be extrapolated
@@ -260,7 +260,7 @@ SELECT CASE(HSURF)
                   ZFIELD_EP(II) = XUNDEF
                 ENDIF
               ENDDO
-          
+
               ZFIELD_EP_IN(:) = ZFIELD_EP
 #ifdef SFX_ARO
               CALL OI_HOR_EXTRAPOL_SURF(U%NSIZE_NATURE,G%XLAT,G%XLON,ZFIELD_EP_IN(:), &
@@ -304,7 +304,7 @@ SELECT CASE(HSURF)
      PFIELD(:,:,:) = 0.0
 !
   CASE DEFAULT
-    CALL ABOR1_SFX('PREP_ISBA_BUFFER: '//TRIM(HSURF)//" initialization not implemented !")     
+    CALL ABOR1_SFX('PREP_ISBA_BUFFER: '//TRIM(HSURF)//" initialization not implemented !")
 !
 END SELECT
 !

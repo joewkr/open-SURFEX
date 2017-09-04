@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######################
       MODULE MODD_SNOW_PAR
@@ -11,17 +11,17 @@
 !!
 !!    PURPOSE
 !!    -------
-!       The purpose of this declarative module is to specify  the 
+!       The purpose of this declarative module is to specify  the
 !     parameters related to the surface parameterization of snow.
 !
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -29,7 +29,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original       01/2004                    
+!!      Original       01/2004
 !! P. Samuelsson  10/2014   MEB complements
 !-------------------------------------------------------------------------------
 !
@@ -49,7 +49,7 @@ REAL, SAVE       :: XEMISSN
 ! Minimum and maximum values of the albedo of snow:
 !
 REAL, SAVE       :: XANSMIN
-REAL, SAVE       :: XANSMAX 
+REAL, SAVE       :: XANSMAX
 !
 ! Minimum and maximum values of the albedo of permanet snow/ice:
 !
@@ -57,7 +57,7 @@ REAL, SAVE       :: XAGLAMIN
 REAL, SAVE       :: XAGLAMAX
 !
 ! Use recommended settings for snow albedo (FALSE = ISBA default)
-! 
+!
 LOGICAL,SAVE     :: LMEBREC
 !
 ! Fraction of maximum value of the albedo of snow that is reached for melting
@@ -65,14 +65,14 @@ LOGICAL,SAVE     :: LMEBREC
 !
 REAL, SAVE       :: XANSFRACMEL
 !
-! Threeshold temperature above which the snow albedo starts to decrease 
+! Threeshold temperature above which the snow albedo starts to decrease
 !
 REAL, SAVE       :: XTEMPANS
 !
 ! Minimum value of the albedo of snow reached under canopy vegetation:
 !
 REAL, SAVE       :: XANSMINMEB
-! 
+!
 ! Prescribed ice albedo in 3 spectral bands for glacier simulation with CROCUS scheme.
 REAL, SAVE       :: XALBICE1,XALBICE2,XALBICE3
 !
@@ -89,14 +89,14 @@ REAL, SAVE      :: XPERCENTAGEPORE
 ! Height (m) of aged snow in glacier case (allows Pn=1)
 !
 REAL, SAVE       :: XHGLA
-! 
+!
 ! Coefficient for calculation of snow fraction over vegetation
 !
 REAL, SAVE       :: XWSNV
 !
 ! Roughness length of pure snow surface (m)
 !
-REAL, SAVE       :: XZ0SN  
+REAL, SAVE       :: XZ0SN
 !
 ! Roughness length for heat of pure snow surface (m)
 !
@@ -105,7 +105,7 @@ REAL, SAVE       :: XZ0HSN
 ! Roughness length ratio between ice and snow
 REAL, SAVE       :: XZ0ICEZ0SNOW
 !
-! Snow Melt timescale with D95 (s): needed to prevent time step 
+! Snow Melt timescale with D95 (s): needed to prevent time step
 ! dependence of melt when snow fraction < unity.
 !
 REAL, SAVE       :: XTAU_SMELT
@@ -119,7 +119,7 @@ REAL, SAVE       :: XTAU_SMELT
 !
 REAL, PARAMETER       :: XWCRN      = 10.0   ! (kg m-2) Veg (default value)
 REAL, PARAMETER       :: XWCRN_EXPL =  1.0   ! (kg m-2) Veg explicit
-REAL, PARAMETER       :: XWCRN_ROOF =  1.0   ! (kg m-2)  Roofs 
+REAL, PARAMETER       :: XWCRN_ROOF =  1.0   ! (kg m-2)  Roofs
 REAL, PARAMETER       :: XWCRN_ROAD =  1.0   ! (kg m-2)  Roads
 REAL, PARAMETER       :: XWCRN_VEG  =  1.0   ! (kg m-2)  Urban veg
 !
@@ -151,7 +151,7 @@ REAL, PARAMETER       :: XANS_T_ROOF     = 0.174   ! (-)  Roofs
 REAL, PARAMETER       :: XANS_T_ROAD     = 0.174   ! (-)  Roads (alley simul)
 REAL, PARAMETER       :: XANS_T_MEB    = 0.480     ! (-) Surface under canopy vegetation
 !
-! Minimum and maximum values of the density of snow 
+! Minimum and maximum values of the density of snow
 ! for Force-Restore snow option
 !
 REAL, PARAMETER       :: XRHOSMIN = 100.       ! (kg m-3)   Veg (Default value)
@@ -162,7 +162,7 @@ REAL, PARAMETER       :: XRHOSMAX = 300.       ! (kg m-3)   Veg (Default value)
 REAL, PARAMETER       :: XRHOSMAX_ROOF = 300.  ! (kg m-3)   Roofs
 REAL, PARAMETER       :: XRHOSMAX_ROAD = 350.  ! (kg m-3)   Roads
 !
-! Minimum and maximum values of the density of snow 
+! Minimum and maximum values of the density of snow
 ! for ISBA-ES snow option
 !
 REAL, PARAMETER       :: XRHOSMIN_ES =  50.  ! (kg m-3)
@@ -171,22 +171,22 @@ REAL, PARAMETER       :: XRHOSMAX_ES = 750.  ! (kg m-3)
 ! ISBA-ES Critical snow depth at which snow grid thicknesses constant
 !
 REAL, PARAMETER       :: XSNOWCRITD = 0.03  ! (m)
-!                                       
-! ISBA-ES Minimum total snow depth for thermal calculations. 
-! Used to prevent numerical problems as snow becomes vanishingly thin. 
+!
+! ISBA-ES Minimum total snow depth for thermal calculations.
+! Used to prevent numerical problems as snow becomes vanishingly thin.
 !
 REAL, PARAMETER      :: XSNOWDMIN = 0.000001  ! (m)
-!                                      
+!
 ! Maximum Richardson number limit for very stable conditions using the ISBA-ES 'RIL' option
 !
 REAL, PARAMETER       :: X_RI_MAX = 0.20
-!                                       
+!
 ! ISBA-ES Maximum snow liquid water holding capacity (fraction by mass) parameters:
 !
-REAL, PARAMETER       :: XWSNOWHOLDMAX2   = 0.10  ! (-) 
+REAL, PARAMETER       :: XWSNOWHOLDMAX2   = 0.10  ! (-)
 REAL, PARAMETER       :: XWSNOWHOLDMAX1   = 0.03  ! (-)
 REAL, PARAMETER       :: XSNOWRHOHOLD     = 200.0 ! (kg/m3)
-!                                       
+!
 ! ISBA-ES arameters for grain size computation :
 !
 REAL, PARAMETER       :: XSNOW_AGRAIN = 1.6e-4   ! (m)
@@ -287,7 +287,7 @@ REAL, PARAMETER :: XDZMIN_TOP_BIS = 0.005
 REAL, PARAMETER :: XDZMIN_BOT = 0.02
 REAL, PARAMETER :: XSPLIT_COEF = 8.
 !
-! Coeefficients for snow layer agregation 
+! Coeefficients for snow layer agregation
 REAL, PARAMETER :: XAGREG_COEF_1 = 5.
 REAL, PARAMETER :: XAGREG_COEF_2 = 4.5
 !
@@ -315,13 +315,13 @@ REAL, PARAMETER :: XVDRIFT2 = 0.085 !  coefficient for computing
 ! the drift index
 REAL, PARAMETER :: XVDRIFT3 = 3.25  !  coefficient for computing
 ! the drift index
-REAL, PARAMETER :: XVSIZEMIN = 3.E-4 !  minimum size decrease 
+REAL, PARAMETER :: XVSIZEMIN = 3.E-4 !  minimum size decrease
 ! by drift  UNIT = m
 !
-! modif_EB pour sublim 
+! modif_EB pour sublim
 ! a pour but de tenir compte du fait que le vent moyen est > rafales
 ! on en tient compte egalement pour diminuer la duree de l'effet
-REAL, PARAMETER :: XCOEF_FF = 1.25 ! coefficient for gust diagnosis from average wind 
+REAL, PARAMETER :: XCOEF_FF = 1.25 ! coefficient for gust diagnosis from average wind
 REAL, PARAMETER :: XCOEF_EFFECT = 1.0 ! coefficient for impact on density du drift
 REAL, PARAMETER :: XQS_REF = 2.E-5 ! valeur de reference de ZQS pour effet neige
 !
@@ -329,11 +329,11 @@ REAL, PARAMETER :: XQS_REF = 2.E-5 ! valeur de reference de ZQS pour effet neige
 !
 ! ISBA-ES snow grid parameters
 !
-REAL, PARAMETER, DIMENSION(3)     :: XSGCOEF1  = (/0.25, 0.50, 0.25/) 
-REAL, PARAMETER, DIMENSION(2)     :: XSGCOEF2  = (/0.05, 0.34/)       
+REAL, PARAMETER, DIMENSION(3)     :: XSGCOEF1  = (/0.25, 0.50, 0.25/)
+REAL, PARAMETER, DIMENSION(2)     :: XSGCOEF2  = (/0.05, 0.34/)
 REAL, PARAMETER, DIMENSION(10)    :: XSGCOEF3  = (/0.025, 0.033, 0.043, &
                                      0.055, 0.071, 0.091, 0.117, 0.150, &
-                                     0.193, 0.247/) 
+                                     0.193, 0.247/)
 !
 ! Minimum total snow depth at which surface layer thickness is constant:
 !

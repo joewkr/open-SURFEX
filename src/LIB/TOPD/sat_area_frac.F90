@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ########################
@@ -11,10 +11,10 @@
 !
 !!    PURPOSE
 !!    -------
-!    
-!     
-!         
-!     
+!
+!
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,17 +24,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -44,7 +44,7 @@
 !!    -------------
 !!
 !!      Original   27/11/2006
-!!                 03/2014 (B. Vincendon) computation based of pixels counts instead of areas 
+!!                 03/2014 (B. Vincendon) computation based of pixels counts instead of areas
 !
 !----------------------------------------------------------------------
 !*       0.      DECLARATIONS
@@ -63,7 +63,7 @@ IMPLICIT NONE
 !
 REAL, DIMENSION(:,:),INTENT(IN)     :: PDEF    ! deficit
 REAL, DIMENSION(:), INTENT(OUT)     :: PAS     !contributive area fraction in Isba meshes
-LOGICAL, DIMENSION(:), INTENT(INOUT)   :: GTOPD     ! 
+LOGICAL, DIMENSION(:), INTENT(INOUT)   :: GTOPD     !
 !
 !*      0.2    declarations of local variables
 INTEGER               :: JJ, JI
@@ -73,14 +73,14 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('SAT_AREA_FRAC',0,ZHOOK_HANDLE)
 !
 !*       0.     Initialization:
-! 
+!
 PAS(:)=0.0
 !
 DO JJ=1,NNCAT
  IF (GTOPD(JJ)) THEN
   DO JI=1,NNMC(JJ)
-    IF (PDEF(JJ,JI)==0.0 .AND. NMASKT(JJ,JI)/=NUNDEF .AND. NMASKT(JJ,JI)/=0) THEN 
-      PAS(NMASKT(JJ,JI)) = PAS(NMASKT(JJ,JI)) +1. 
+    IF (PDEF(JJ,JI)==0.0 .AND. NMASKT(JJ,JI)/=NUNDEF .AND. NMASKT(JJ,JI)/=0) THEN
+      PAS(NMASKT(JJ,JI)) = PAS(NMASKT(JJ,JI)) +1.
     ENDIF
   ENDDO
  ENDIF

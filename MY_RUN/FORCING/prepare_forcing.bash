@@ -108,13 +108,13 @@ fi
 	ln -s ${SRC_SURFEX}/MY_RUN/ECOCLIMAP/ecoclimapI_covers_param.bin > $HOME/.bidon 2>&1
 	ln -s ${SRC_SURFEX}/MY_RUN/ECOCLIMAP/ecoclimapII_eu_covers_param.bin > $HOME/.bidon 2>&1
 
-	
+
         if [ -f OPTIONS.nam ]
         then
 	      cp ${SRC_SURFEX}/MY_RUN/KTEST/$1/OPTIONS.nam  ${SRC_SURFEX}/MY_RUN/KTEST/$1/OPTIONS.nam_save.$$
         fi
 	cp ${SRC_SURFEX}/MY_RUN/NAMELIST/$1/OPTIONS.nam  .
-	
+
 	echo "====================================================================================="
 	echo " > input files moved to ${SRC_SURFEX}/MY_RUN/KTEST/$1        "
 	echo "====================================================================================="
@@ -125,7 +125,7 @@ fi
 	rm ${SRC_SURFEX}/MY_RUN/FORCING/MY_PARAM.nam*
 	rm ${SRC_SURFEX}/MY_RUN/FORCING/OPTIONS.nam*
 
-	if [ "$option1" != "$option2" ] 
+	if [ "$option1" != "$option2" ]
 	then
 		echo " "
 		echo " "

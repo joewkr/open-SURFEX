@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_FLAKE (DTCO, USS, FG, F, SB, UG, U, GCP, &
@@ -17,7 +17,7 @@ SUBROUTINE PREP_FLAKE (DTCO, USS, FG, F, SB, UG, U, GCP, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -28,7 +28,7 @@ SUBROUTINE PREP_FLAKE (DTCO, USS, FG, F, SB, UG, U, GCP, &
 !!      Original    01/2004
 !!      S. Riette   06/2009 PREP_FLAKE_SBL has no more argument
 !!      E. Kourzeneva 09/2010 (i)  Change the default initialisation,
-!!                            (ii) Include the possibility to use 
+!!                            (ii) Include the possibility to use
 !!                                 lake climate data
 !!      P. Marguinaud10/2014, Support for a 2-part PREP
 !!------------------------------------------------------------------
@@ -175,17 +175,17 @@ IF (LCLIM_LAKE .OR. GNOVALUE) THEN
     ALLOCATE(F%XTS(ISIZE))
     F%XTS(:)=XUNDEF
   ENDIF
-  ALLOCATE(F%XT_SNOW(ISIZE)) 
-  ALLOCATE(F%XT_ICE(ISIZE))  
+  ALLOCATE(F%XT_SNOW(ISIZE))
+  ALLOCATE(F%XT_ICE(ISIZE))
   ALLOCATE(F%XT_WML(ISIZE))
-  ALLOCATE(F%XT_MNW(ISIZE)) 
-  ALLOCATE(F%XT_BOT(ISIZE))  
+  ALLOCATE(F%XT_MNW(ISIZE))
+  ALLOCATE(F%XT_BOT(ISIZE))
   ALLOCATE(F%XT_B1(ISIZE))
-  ALLOCATE(F%XCT(ISIZE))  
-  ALLOCATE(F%XH_SNOW(ISIZE))  
+  ALLOCATE(F%XCT(ISIZE))
+  ALLOCATE(F%XH_SNOW(ISIZE))
   ALLOCATE(F%XH_ICE(ISIZE))
   ALLOCATE(F%XH_ML(ISIZE))
-  ALLOCATE(F%XH_B1(ISIZE))  
+  ALLOCATE(F%XH_B1(ISIZE))
   F%XT_SNOW(:)=XUNDEF
   F%XT_ICE(:)=XUNDEF
   F%XT_WML(:)=XUNDEF
@@ -219,7 +219,7 @@ F%XUSTAR = 0.
 !*      3.     Vertical interpolations of all variables
 !
 IF(.NOT.LCLIM_LAKE) THEN
-  IF (LVERTSHIFT)THEN    
+  IF (LVERTSHIFT)THEN
     CALL PREP_VER_FLAKE(F)
     WRITE(ILUOUT,*) "WARNING: You want the vertical shift for lakes?"
     WRITE(ILUOUT,*) "WARNING: Vertical shift for the lake temperature profile is impossible!"
@@ -231,8 +231,8 @@ END IF
 DEALLOCATE(XZS_LS)
 !-------------------------------------------------------------------------------------
 !
-!*      4.    Compute T_MNW and give the default profile if needed 
-!              or read data from climate files 
+!*      4.    Compute T_MNW and give the default profile if needed
+!              or read data from climate files
 !
 IF (LCLIM_LAKE) THEN
  CALL CLI_LAKE(FG, F)
@@ -240,12 +240,12 @@ ELSEIF (.NOT.GNOVALUE) THEN
   F%XT_MNW(:)=F%XT_WML(:)-(F%XT_WML(:)-F%XT_BOT(:))*(1.-F%XH_ML(:)/F%XWATER_DEPTH(:))*F%XCT(:)
 ELSE
   WRITE(ILUOUT,*) "WARNING! One of the lake profile variales was not indicated, so set the default profile!"
-  F%XT_WML=MAX(F%XTS(:),XTT)  
+  F%XT_WML=MAX(F%XTS(:),XTT)
   F%XT_SNOW=MIN(F%XTS(:),XTT)
   F%XT_ICE=MIN(F%XTS(:),XTT)
-  F%XH_B1=0.0 
-  F%XCT=0.5   
-  F%XH_SNOW=0.0   
+  F%XH_B1=0.0
+  F%XCT=0.5
+  F%XH_SNOW=0.0
   WHERE (F%XTS <= XTT)
    F%XT_BOT=XTT+4.
    F%XT_B1=XTT+3.9
@@ -257,7 +257,7 @@ ELSE
    F%XT_B1=F%XTS-0.1
    F%XH_ICE=0.0
    F%XH_ML=F%XWATER_DEPTH
-   F%XT_MNW=F%XTS 
+   F%XT_MNW=F%XTS
   END WHERE
 END IF
 !

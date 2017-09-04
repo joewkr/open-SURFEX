@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE OL_READ_ATM_NETCDF (&
                                 HSURF_FILETYPE,                            &
                                  PTA,PQA,PWIND,PDIR_SW,PSCA_SW,PLW,PSNOW,   &
-                                 PRAIN,PPS,PCO2,PDIR                        )  
+                                 PRAIN,PPS,PCO2,PDIR                        )
 !**************************************************************************
 !
 !!    PURPOSE
@@ -40,12 +40,12 @@ SUBROUTINE OL_READ_ATM_NETCDF (&
 !!    -------------
 !!      Original     06/2003
 !!      P. Le Moigne 10/2004: set INB to 2 because of revised temporal loop in offline.f90:
-!!                            time evolution is done at the end of isba time step so first 
+!!                            time evolution is done at the end of isba time step so first
 !!                            isba computation is done on first forcing time step
-!!      P. Le Moigne 10/2005: consistency checking between orographies read from forcing 
+!!      P. Le Moigne 10/2005: consistency checking between orographies read from forcing
 !!                            file and from initial file
 
-!          
+!
 !
 !
 !

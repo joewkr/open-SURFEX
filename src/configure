@@ -1,6 +1,6 @@
 #!/bin/sh
 #set -e
-if [ "x$XYZ" = "x" ] 
+if [ "x$XYZ" = "x" ]
 then
 #
 export VERSION_MASTER=${VERSION_MASTER:-SFX-V8-1}
@@ -90,8 +90,8 @@ bash --norc
 else
 #RJ: continue on guessing
 case "$TARG" in
-'Linux service'*) 
-                export     ARCH=${ARCH:-LXifort} 
+'Linux service'*)
+                export     ARCH=${ARCH:-LXifort}
 		export  VER_MPI=${VER_MPI:-MPIICE}
 		export  VER_XIOS=${VER_XIOS:-0}
                 export NEED_NCARG=${NEED_NCARG:-YES}
@@ -99,7 +99,7 @@ case "$TARG" in
                 domain=$(grep .fr /etc/hosts | head -1 )
                 case "${domain}" in
 *cines*) # jade
-                export OPTLEVEL=${OPTLEVEL:-O2} 
+                export OPTLEVEL=${OPTLEVEL:-O2}
                 export MVWORK=${MVWORK:-NO}
                 export VER_CDF=${VER_CDF:-CDFICE}
                 export NEED_NCARG=${NEED_NCARG:-YES}
@@ -110,29 +110,29 @@ module rm intel  ; module load intel/12.0.13
 "}
 ;;
 *cict*)  # hyperion
-                export OPTLEVEL=${OPTLEVEL:-DEBUG} 
+                export OPTLEVEL=${OPTLEVEL:-DEBUG}
                 export VER_CDF=${VER_CDF:-CDFAUTO}
                 export MNHENV=${MNHENV:-"
-module purge    
+module purge
 module load intel-fc-10/10.1.017
 module load sgi-mpt/1.26
 "}
               ;;
                 esac
               ;;
-'Linux platine'*|'Linux titane'*|'Linux curie'*) 
-                export     ARCH=${ARCH:-LXifort} 
-                export  VER_MPI=${VER_MPI:-MPIAUTO} 
+'Linux platine'*|'Linux titane'*|'Linux curie'*)
+                export     ARCH=${ARCH:-LXifort}
+                export  VER_MPI=${VER_MPI:-MPIAUTO}
 		export  VER_XIOS=${VER_XIOS:-0}
-                export OPTLEVEL=${OPTLEVEL:-O2} 
+                export OPTLEVEL=${OPTLEVEL:-O2}
                 export MVWORK=${MVWORK:-NO}
                 export VER_CDF=${VER_CDF:-CDFAUTO}
               ;;
-'Linux brodie'*|'Linux mercure'*) 
-                export     ARCH=${ARCH:-SX8} 
-                export  VER_MPI=${VER_MPI:-MPIAUTO} 
+'Linux brodie'*|'Linux mercure'*)
+                export     ARCH=${ARCH:-SX8}
+                export  VER_MPI=${VER_MPI:-MPIAUTO}
 		export  VER_XIOS=${VER_XIOS:-0}
-                export OPTLEVEL=${OPTLEVEL:-O4} 
+                export OPTLEVEL=${OPTLEVEL:-O4}
                 export MVWORK=${MVWORK:-YES}
                 export VER_CDF=${VER_CDF:-CDFSX}
                 export MNHENV=${MNHENV:-"
@@ -151,19 +151,19 @@ module rm netcdf ; module load netcdf/3.6.3
                 export NEED_NCARG=${NEED_NCARG:-NO}
                 export VERSION_GRIBAPI="1.9.9"
               ;;
-'Linux babel'*) 
-                export     ARCH=${ARCH:-BG} 
-                export  VER_MPI=${VER_MPI:-MPIAUTO} 
+'Linux babel'*)
+                export     ARCH=${ARCH:-BG}
+                export  VER_MPI=${VER_MPI:-MPIAUTO}
 	        export  VER_XIOS=${VER_XIOS:-0}
-                export OPTLEVEL=${OPTLEVEL:-O2} 
+                export OPTLEVEL=${OPTLEVEL:-O2}
                 export MVWORK=${MVWORK:-YES}
               ;;
-AIX*) 
+AIX*)
                 export MNH_ARCH=$(echo $ARCH | grep AIX)
-                export     ARCH=${MNH_ARCH:-AIX64} 
-                export  VER_MPI=${VER_MPI:-MPIAUTO}   
+                export     ARCH=${MNH_ARCH:-AIX64}
+                export  VER_MPI=${VER_MPI:-MPIAUTO}
 		export  VER_XIOS=${VER_XIOS:-0}
-                export OPTLEVEL=${OPTLEVEL:-O2} 
+                export OPTLEVEL=${OPTLEVEL:-O2}
                 export MVWORK=${MVWORK:-NO}
                 export VER_CDF=${VER_CDF:-CDFAIX}
                 case "$(hostname)" in
@@ -176,7 +176,7 @@ module rm netcdf  ; module load netcdf/3.6.3
                       c1a*)
                       export VERSION_GRIBAPI="1.9.9"
                       export MNHENV=${MNHENV:-"
-. /usr/local/apps/module/init/sh.in 
+. /usr/local/apps/module/init/sh.in
 module rm fortran ; module load fortran/xlf/13.1.0.7
 module rm netcdf  ; module load netcdf/3.6.3
 export CDF_PATH=/usr/local/apps/netcdf/3.6.3/LP64
@@ -242,11 +242,11 @@ export LIB_GRIBAPI='${GRIB_API_LIB}'
                 export NEED_NCARG=${NEED_NCARG:-NO}
                 export NEED_TOOLS=NO
               ;;
-'Linux nuwa'*)      
-                export     ARCH=${ARCH:-LXifort} 
-                export  VER_MPI=${VER_MPI:-MPIAUTO} 
+'Linux nuwa'*)
+                export     ARCH=${ARCH:-LXifort}
+                export  VER_MPI=${VER_MPI:-MPIAUTO}
 		export  VER_XIOS=${VER_XIOS:-0}
-                export OPTLEVEL=${OPTLEVEL:-DEBUG}  
+                export OPTLEVEL=${OPTLEVEL:-DEBUG}
                 export MVWORK=${MVWORK:-NO}
                 export VER_CDF=${VER_CDF:-CDFAUTO}
                 export NEED_NCARG=${NEED_NCARG:-YES}
@@ -286,29 +286,29 @@ export MANPATH=\$MPI_ROOT/share/man:\$MANPATH
                 echo $OBJDIR_PATH
                 echo "********************************"
               ;;
-Linux*)      
-                export     ARCH=${ARCH:-LXgfortran} 
-                export  VER_MPI=${VER_MPI:-MPIAUTO} 
+Linux*)
+                export     ARCH=${ARCH:-LXgfortran}
+                export  VER_MPI=${VER_MPI:-MPIAUTO}
 		export  VER_XIOS=${VER_XIOS:-0}
-                export OPTLEVEL=${OPTLEVEL:-O2}  
+                export OPTLEVEL=${OPTLEVEL:-O2}
                 export MVWORK=${MVWORK:-NO}
                 #export VER_CDF=${VER_CDF:-CDFGFOR}
                 export VER_CDF=${VER_CDF:-CDFAUTO}
                 export NEED_NCARG=${NEED_NCARG:-NO}
               ;;
-*) 
-                echo "WARNING ; system not yet tested " 
-                echo "WARNING ; edit profile_surfex & set correct variables ARCH , VER_MPI & OPTLEVEL " 
+*)
+                echo "WARNING ; system not yet tested "
+                echo "WARNING ; edit profile_surfex & set correct variables ARCH , VER_MPI & OPTLEVEL "
 
-                export     ARCH=${ARCH} 
-                export  VER_MPI=${VER_MPI:-MPIVIDE} 
+                export     ARCH=${ARCH}
+                export  VER_MPI=${VER_MPI:-MPIVIDE}
 		export  VER_XIOS=${VER_XIOS:-0}
                 export OPTLEVEL=${OPTLEVEL:-DEBUG}
               ;;
 esac
 fi
 ##
-## Environnement for scandollar 
+## Environnement for scandollar
 ##
 
 if [ "x${CONF_DOLLAR}" = "x" ] ; then
@@ -365,7 +365,7 @@ fi
 #  Install 32/64 mesonh tools
 #
 if [ "x${NEED_TOOLS}" = "xYES" ] ; then
-  case "$(uname -m)" in 
+  case "$(uname -m)" in
     'x86_64')
         export BIN_TOOLS=${BIN_TOOLS:-X86_64}
     ;;
@@ -423,7 +423,7 @@ if [ "x${VER_MPI}" = "xNOMPI" ] ; then
   export VER_DRHOOK=BYPASS
 fi
 #
-LIB_PATH= 
+LIB_PATH=
 #
 if [ "x${VER_CDF}" = "xCDFAUTO" ] ; then
   export LIB_PATH=$LOCAL/src/LIB/netcdf4/netcdf-fortran-${VERSION_CDFF}-${ARCH}-${VER_MPI}/lib:$LOCAL/src/LIB/netcdf4/netcdf-${VERSION_CDF}-${ARCH}-${VER_MPI}/lib:$LOCAL/src/LIB/netcdf4/hdf5-${VERSION_HDF5}-${ARCH}-${VER_MPI}/lib:$LOCAL/src/LIB/netcdf4/szip-${VERSION_SZIP}-${ARCH}-${VER_MPI}/lib:$LOCAL/src/LIB/netcdf4/zlib-${VERSION_ZLIB}-${ARCH}-${VER_MPI}/lib:$LOCAL/src/LIB/netcdf4/curl-${VERSION_CURL}-${ARCH}-${VER_MPI}/lib
@@ -443,11 +443,11 @@ if [ "${MVWORK}" = "YES" ] ; then
    if [ "x${WORKDIR}" = "x" ] ; then
      echo "CAUTION :: configure !!!!!"
      echo
-     echo '  ---> variable $WORKDIR is not initialized ' 
+     echo '  ---> variable $WORKDIR is not initialized '
      echo '  ---> where binaries and test cases will be stored '
-     echo '  ---> initialize it et launch again "./configure"' 
+     echo '  ---> initialize it et launch again "./configure"'
      exit 1
-   fi 
+   fi
    if [ -d "$WORKDIR" ] && [ "${LOCAL}" = "${LOCAL##/work}" ] ; then
 #  if we are not allready in the workdir --> move stuff
       WORK="$WORKDIR/${RACINE}_WORKDIR"
@@ -528,10 +528,10 @@ if [ x"${VER_XIOS}" == x2 ] ; then
     else
 	cd $LOCAL/src/LIB
 	base=XIOS-${VERSION_XIOS}
-	if [ ! -d $base-$ARCH ]; then 
+	if [ ! -d $base-$ARCH ]; then
 	    tarball=$base.tar
-	    if [ -f $tarball ] ; then 
-		tar -xf $tarball 
+	    if [ -f $tarball ] ; then
+		tar -xf $tarball
 		mv $base $base-$ARCH
 	    else
 		echo '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
@@ -561,11 +561,11 @@ echo  "VER_DRHOOK=${VER_DRHOOK}"
 echo  "BIN_TOOLS=${BIN_TOOLS}"
 echo  "VER_OASIS=${VER_OASIS}"
 echo  "VER_XIOS=${VER_XIOS}"
-echo 
+echo
 echo  "---> XYZ=${XYZ}"
 echo
 echo "creation of file -->  ../conf/profile_surfex-${XYZ}"
-echo 
+echo
 ##########################################################
 #                                                        #
 # ENVIRONEMENT MESONH ALLREADY SET                       #
@@ -573,20 +573,20 @@ echo
 ##########################################################
 else
 clear
-echo 
+echo
 echo "CAUTION :: configure !!!!!"
 echo
 echo '  ---> your SURFEX environment is already initialized on this version'
 echo '  ---> $XYZ="'"$XYZ"'"'
-echo 
+echo
 echo "Verify your file '.profile'" or "'.bash_profile'"  !!!
-echo 
+echo
 echo "  ---> you can..."
 echo " -----> comment the line '. ../profile_surfex...' "
 echo " -----> do export XYZ=\"\" to reinitialize this variable "
 echo " -----> open another terminal and launch again ./configure "
-echo 
+echo
 echo "File 'profile_surfex' not modified !!! "
-echo 
+echo
 exit 1
-fi 
+fi

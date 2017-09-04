@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODD_DATA_ISBA_n
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -61,9 +61,9 @@ TYPE DATA_ISBA_t
   LOGICAL, POINTER, DIMENSION(:)   :: LDATA_EMIS
   LOGICAL, POINTER, DIMENSION(:)   :: LDATA_ALBNIR_VEG
   LOGICAL, POINTER, DIMENSION(:)   :: LDATA_ALBVIS_VEG
-  LOGICAL, POINTER, DIMENSION(:)   :: LDATA_ALBUV_VEG 
-  LOGICAL, POINTER, DIMENSION(:)   :: LDATA_IRRIG  
-  LOGICAL, POINTER, DIMENSION(:)   :: LDATA_WATSUP  
+  LOGICAL, POINTER, DIMENSION(:)   :: LDATA_ALBUV_VEG
+  LOGICAL, POINTER, DIMENSION(:)   :: LDATA_IRRIG
+  LOGICAL, POINTER, DIMENSION(:)   :: LDATA_WATSUP
   LOGICAL, POINTER, DIMENSION(:)   :: LDATA_ALBNIR_SOIL
   LOGICAL, POINTER, DIMENSION(:)   :: LDATA_ALBVIS_SOIL
   LOGICAL, POINTER, DIMENSION(:)   :: LDATA_ALBUV_SOIL
@@ -71,12 +71,12 @@ TYPE DATA_ISBA_t
 !
   LOGICAL, POINTER, DIMENSION(:)   :: LDATA_GNDLITTER
   LOGICAL, POINTER, DIMENSION(:)   :: LDATA_Z0LITTER
-  LOGICAL, POINTER, DIMENSION(:)   :: LDATA_H_VEG  
+  LOGICAL, POINTER, DIMENSION(:)   :: LDATA_H_VEG
   !
   LOGICAL, DIMENSION(MAX(NVEGTYPE_OLD,NVEGTYPE_ECOSG))   :: LDATA_DG
   LOGICAL, DIMENSION(MAX(NVEGTYPE_OLD,NVEGTYPE_ECOSG))   :: LDATA_ROOTFRAC
   LOGICAL, DIMENSION(MAX(NVEGTYPE_OLD,NVEGTYPE_ECOSG))   :: LDATA_H_TREE
-  LOGICAL, DIMENSION(MAX(NVEGTYPE_OLD,NVEGTYPE_ECOSG))   :: LDATA_DICE  
+  LOGICAL, DIMENSION(MAX(NVEGTYPE_OLD,NVEGTYPE_ECOSG))   :: LDATA_DICE
   LOGICAL, DIMENSION(MAX(NVEGTYPE_OLD,NVEGTYPE_ECOSG))   :: LDATA_GROUND_DEPTH
   LOGICAL, DIMENSION(MAX(NVEGTYPE_OLD,NVEGTYPE_ECOSG))   :: LDATA_ROOT_DEPTH
   LOGICAL, DIMENSION(MAX(NVEGTYPE_OLD,NVEGTYPE_ECOSG))   :: LDATA_ROOT_EXTINCTION
@@ -114,7 +114,7 @@ TYPE DATA_ISBA_t
   LOGICAL   :: LIMP_VEG
   LOGICAL   :: LIMP_Z0
   LOGICAL   :: LIMP_EMIS
-!  
+!
 ! Input Parameters, per patch:
 !
 ! - vegetation + bare soil:
@@ -133,8 +133,8 @@ TYPE DATA_ISBA_t
 ! - vegetation: default option (Jarvis) and general parameters:
 !
   REAL, POINTER, DIMENSION(:,:,:) :: XPAR_VEG            ! vegetation cover fraction               (-)
-  REAL, POINTER, DIMENSION(:,:) :: XPAR_WRMAX_CF         ! coefficient for maximum water 
-!                                                      ! interception 
+  REAL, POINTER, DIMENSION(:,:) :: XPAR_WRMAX_CF         ! coefficient for maximum water
+!                                                      ! interception
 !                                                      ! storage capacity on the vegetation      (-)
   REAL, POINTER, DIMENSION(:,:) :: XPAR_RSMIN            ! minimum stomatal resistance             (s/m)
   REAL, POINTER, DIMENSION(:,:) :: XPAR_GAMMA            ! coefficient for the calculation
@@ -154,7 +154,7 @@ TYPE DATA_ISBA_t
   REAL, POINTER, DIMENSION(:,:,:) :: XPAR_GNDLITTER      ! ground litter fraction
   REAL, POINTER, DIMENSION(:,:,:) :: XPAR_Z0LITTER       ! ground litter roughness length
   REAL, POINTER, DIMENSION(:,:,:) :: XPAR_H_VEG          ! height of canopy vegetation
-!  
+!
 !-------------------------------------------------------------------------------
 !
 ! - vegetation: Ags parameters ('AGS', 'LAI', 'AST', 'LST', 'NIT', 'NCB' options)
@@ -172,7 +172,7 @@ TYPE DATA_ISBA_t
 !
   LOGICAL, POINTER, DIMENSION(:,:) :: LPAR_STRESS       ! vegetation response type to water
 !                                                     ! stress (true:defensive false:offensive) (-)
-  REAL, POINTER, DIMENSION(:,:)    :: XPAR_F2I          ! critical normilized soil water 
+  REAL, POINTER, DIMENSION(:,:)    :: XPAR_F2I          ! critical normilized soil water
 !                                                     ! content for stress parameterisation
   REAL, POINTER, DIMENSION(:,:)    :: XPAR_GC           ! cuticular conductance                   (m s-1)
   REAL, POINTER, DIMENSION(:,:)    :: XPAR_DMAX         ! maximum air saturation deficit
@@ -182,11 +182,11 @@ TYPE DATA_ISBA_t
 !
 ! - vegetation: Ags Nitrogen-model parameters ('NIT', 'NCB' option)
 !
-  REAL, POINTER, DIMENSION(:,:)    :: XPAR_CE_NITRO       ! leaf aera ratio sensitivity to 
+  REAL, POINTER, DIMENSION(:,:)    :: XPAR_CE_NITRO       ! leaf aera ratio sensitivity to
 !                                                       ! nitrogen concentration                (m2/kg)
   REAL, POINTER, DIMENSION(:,:)    :: XPAR_CF_NITRO       ! lethal minimum value of leaf area
 !                                                       ! ratio                                 (m2/kg)
-  REAL, POINTER, DIMENSION(:,:)    :: XPAR_CNA_NITRO      ! nitrogen concentration of active 
+  REAL, POINTER, DIMENSION(:,:)    :: XPAR_CNA_NITRO      ! nitrogen concentration of active
 !                                                       ! biomass                               (kg/kg)
 !
 !-------------------------------------------------------------------------------
@@ -194,9 +194,9 @@ TYPE DATA_ISBA_t
 ! - soil: primary parameters
 !
   REAL, POINTER, DIMENSION(:,:,:)  :: XPAR_DG          ! soil layer depth                        (m)
-!                                                      ! NOTE: in Force-Restore mode, the 
+!                                                      ! NOTE: in Force-Restore mode, the
 !                                                      ! uppermost layer thickness is superficial
-!                                                      ! and is only explicitly used for soil 
+!                                                      ! and is only explicitly used for soil
 !                                                      ! water phase changes                     (m)
 !
   REAL, POINTER,DIMENSION(:,:)     :: XPAR_GROUND_DEPTH ! ground depth (DIF option)
@@ -228,7 +228,7 @@ TYPE DATA_ISBA_t
   REAL, POINTER, DIMENSION(:,:)     :: XPAR_SEED_M
   REAL, POINTER, DIMENSION(:,:)     :: XPAR_SEED_D
   REAL, POINTER, DIMENSION(:,:)     :: XPAR_REAP_M
-  REAL, POINTER, DIMENSION(:,:)     :: XPAR_REAP_D  
+  REAL, POINTER, DIMENSION(:,:)     :: XPAR_REAP_D
 !
 !-------------------------------------------------------------------------------
 !
@@ -283,9 +283,9 @@ IF (LHOOK) CALL DR_HOOK("MODD_DATA_ISBA_N:DATA_ISBA_INIT",0,ZHOOK_HANDLE)
   NULLIFY(YDATA_ISBA%XPAR_CNA_NITRO)
   NULLIFY(YDATA_ISBA%XPAR_DG)
   NULLIFY(YDATA_ISBA%XPAR_DICE)
-  NULLIFY(YDATA_ISBA%XPAR_GROUND_DEPTH)  
-  NULLIFY(YDATA_ISBA%XPAR_ROOT_DEPTH)  
-  NULLIFY(YDATA_ISBA%XPAR_ROOT_EXTINCTION)  
+  NULLIFY(YDATA_ISBA%XPAR_GROUND_DEPTH)
+  NULLIFY(YDATA_ISBA%XPAR_ROOT_DEPTH)
+  NULLIFY(YDATA_ISBA%XPAR_ROOT_EXTINCTION)
   NULLIFY(YDATA_ISBA%XPAR_ROOT_LIN)
   NULLIFY(YDATA_ISBA%XPAR_ALBNIR_SOIL)
   NULLIFY(YDATA_ISBA%XPAR_ALBVIS_SOIL)
@@ -296,7 +296,7 @@ IF (LHOOK) CALL DR_HOOK("MODD_DATA_ISBA_N:DATA_ISBA_INIT",0,ZHOOK_HANDLE)
   NULLIFY(YDATA_ISBA%XPAR_SEED_M)
   NULLIFY(YDATA_ISBA%XPAR_SEED_D)
   NULLIFY(YDATA_ISBA%XPAR_REAP_M)
-  NULLIFY(YDATA_ISBA%XPAR_REAP_D)  
+  NULLIFY(YDATA_ISBA%XPAR_REAP_D)
   NULLIFY(YDATA_ISBA%XPAR_GNDLITTER)
   NULLIFY(YDATA_ISBA%XPAR_Z0LITTER)
   NULLIFY(YDATA_ISBA%XPAR_H_VEG)
@@ -315,7 +315,7 @@ IF (LHOOK) CALL DR_HOOK("MODD_DATA_ISBA_N:DATA_ISBA_INIT",0,ZHOOK_HANDLE)
 !
 YDATA_ISBA%NTIME=0
 YDATA_ISBA%LDATA_MIXPAR=.FALSE.
-YDATA_ISBA%LDATA_VEGTYPE=.FALSE. 
+YDATA_ISBA%LDATA_VEGTYPE=.FALSE.
 !
 NULLIFY(YDATA_ISBA%LDATA_LAI)
 NULLIFY(YDATA_ISBA%LDATA_VEG)

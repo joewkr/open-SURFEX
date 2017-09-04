@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE HOR_INTERPOL_CONF_PROJ(GCP,KLUOUT,PFIELDIN,PFIELDOUT)
@@ -11,7 +11,7 @@ SUBROUTINE HOR_INTERPOL_CONF_PROJ(GCP,KLUOUT,PFIELDIN,PFIELDOUT)
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -27,8 +27,8 @@ SUBROUTINE HOR_INTERPOL_CONF_PROJ(GCP,KLUOUT,PFIELDIN,PFIELDOUT)
 !!    MODIFICATION
 !!    ------------
 !!
-!!    02/04/12 M. Tomasini  Add an index in the second dimension of the ISBA 
-!!                          array variables for BILIN interpolation routine to 
+!!    02/04/12 M. Tomasini  Add an index in the second dimension of the ISBA
+!!                          array variables for BILIN interpolation routine to
 !!                          not bug in case 2D (this is not the more beautiful
 !!                          method; the BILIN routine should better be adapted)
 !!                          Search  ! Ajout MT

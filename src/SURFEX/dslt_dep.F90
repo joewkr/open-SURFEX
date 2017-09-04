@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE DSLT_DEP (PSVT, PFSVT, PUSTAR, PRESA, PTA, PRHODREF,             &
                      PEMISSIG, PEMISRADIUS, KPMODE, PDENSITY, PMOLARWEIGHT, &
                      PCONVERTFACM0, PCONVERTFACM6, PCONVERTFACM3,           &
-                     OVARSIG, ORGFIX, HVERMOD                               )  
-!###########################################################                    
+                     OVARSIG, ORGFIX, HVERMOD                               )
+!###########################################################
 !!
 !!    PURPOSE
 !!    -------
-!!      
-!!    Compute dry deposition velocity for dust species 
+!!
+!!    Compute dry deposition velocity for dust species
 !!
 !!    AUTHOR
 !!    ------
@@ -47,7 +47,7 @@ REAL, DIMENSION(:),     INTENT(IN)    :: PUSTAR       ! friction velocity
 REAL, DIMENSION(:),     INTENT(IN)    :: PRESA        ! aerodynamical resistance
 REAL, DIMENSION(:),     INTENT(IN)    :: PTA          ! ait temperature
 REAL, DIMENSION(:),     INTENT(IN)    :: PRHODREF     ! air density
-REAL, DIMENSION(:),     INTENT(IN)    :: PEMISSIG  
+REAL, DIMENSION(:),     INTENT(IN)    :: PEMISSIG
 REAL, DIMENSION(:),     INTENT(IN)    :: PEMISRADIUS
 INTEGER,                INTENT(IN)    :: KPMODE
 REAL,                   INTENT(IN)    :: PDENSITY
@@ -66,7 +66,7 @@ REAL , DIMENSION(SIZE(PSVT,1), KPMODE) :: ZSTN ! Stockes number
 REAL , DIMENSION(SIZE(PSVT,1), KPMODE) :: ZSC  ! Schmidt number
 REAL , DIMENSION(SIZE(PSVT,1), KPMODE) :: ZRD  ! surface  resistance
 REAL , DIMENSION(SIZE(PSVT,1), KPMODE*3) :: ZVGK, ZDPK
-REAL , DIMENSION(SIZE(PSVT,1), KPMODE*3) :: ZVD  ! [m/s] dry deposition velocity 
+REAL , DIMENSION(SIZE(PSVT,1), KPMODE*3) :: ZVD  ! [m/s] dry deposition velocity
 REAL , DIMENSION(SIZE(PSVT,1), SIZE(PSVT,2)) :: ZSVT
 REAL , DIMENSION(SIZE(PSVT,1)) :: ZUSTAR, ZRESA
 REAL , DIMENSION(SIZE(PSVT,1)) :: ZNU
@@ -133,7 +133,7 @@ ZDG (:,:) = MAX(ZDG (:,:),1.E-40)
 !
 ZSTN(:,:) =0.
 !
-DO  JN = 1,KPMODE        
+DO  JN = 1,KPMODE
   !
   !         deposition velocity for each cover type
   !         ----------------------------------------
@@ -163,19 +163,19 @@ DO  JN = 1,KPMODE*3
   !         ----------------------------------------
   ZVD(:,JN) = 0.
   !
-  !Get ra + rd + ra*rd*vg which is equal to 
-  !getting nominator of equation 19.7 Seinfeld & Pandis 
+  !Get ra + rd + ra*rd*vg which is equal to
+  !getting nominator of equation 19.7 Seinfeld & Pandis
   ZVD(:,JN)= ZRESA(:) + ZRD(:,J0) + ZRESA(:)*ZRD(:,J0)*ZVGK(:,JN)
   !
   !Limit to reasonable values
   ZVD(:,JN)= MAX(ZVD(:,JN), 1.E-10)
   !
   !Get the total dry dep velocity (Seinfeld & Pandis, eqn 19.7)
-  IF (HVERMOD=='CMDVER') THEN 
-    ZVD(:,JN)= ZVGK(:,JN)         &  ! Gravitation term 
+  IF (HVERMOD=='CMDVER') THEN
+    ZVD(:,JN)= ZVGK(:,JN)         &  ! Gravitation term
                + 1./ZVD(:,JN)        ! turbulence and surface resistance term
-  ELSE    
-!     ZVD(:,JN)=zvs(:,JN)  &  !Gravitation term 
+  ELSE
+!     ZVD(:,JN)=zvs(:,JN)  &  !Gravitation term
 !         + 1./ZVD(:,JN)     !turbulence and surface resistance term
       ! The gravitation term as been computed by MesoNH (see sedim_dust.f90)
     ZVD(:,JN) =  1./ZVD(:,JN) ! turbulence and surface resistance term

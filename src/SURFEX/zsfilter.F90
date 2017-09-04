@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE ZSFILTER(PZS,PMASK,KZSFILTER)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    An iterative method is used, adding each time the discretized Laplacian
 !!    to the point value.
 !!    Note that only points where land is present are modified, taking into
@@ -21,7 +21,7 @@
 !!
 !!    EXTERNAL
 !!    --------
-!!                           
+!!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
@@ -59,9 +59,9 @@ INTEGER,                          INTENT(IN)    :: KZSFILTER! iteration number
 !*    0.2    Declaration of local variables
 !            ------------------------------
 !
-REAL,DIMENSION(0:SIZE(PZS,1)+1,0:SIZE(PZS,2)+1) :: ZZS   ! modified 
+REAL,DIMENSION(0:SIZE(PZS,1)+1,0:SIZE(PZS,2)+1) :: ZZS   ! modified
                                                          ! orography
-REAL,DIMENSION(0:SIZE(PZS,1)+1,0:SIZE(PZS,2)+1) :: ZMASK ! modified 
+REAL,DIMENSION(0:SIZE(PZS,1)+1,0:SIZE(PZS,2)+1) :: ZMASK ! modified
                                                          ! orography
 INTEGER :: JI,JJ,JITER,IIU,IJU
 REAL    :: ZK                 ! filter efficiency coefficient (0.=< ZK =<1.)
@@ -99,7 +99,7 @@ DO JITER=1,KZSFILTER
                 - ( ZMASK(JI-1,JJ)                      &
                    +ZMASK(JI+1,JJ)                      &
                    +ZMASK(JI,JJ-1)                      &
-                   +ZMASK(JI,JJ+1) ) * ZZS(JI,JJ)       )  
+                   +ZMASK(JI,JJ+1) ) * ZZS(JI,JJ)       )
     ENDDO
   ENDDO
   ZZS(1:IIU,1:IJU)=PZS(:,:)

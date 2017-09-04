@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !
 !     ##########################
@@ -11,8 +11,8 @@
 !!    PURPOSE
 !!    -------
 !     This routines updates the soil water content of ISBA DIF afeter TOPODYN
-!     lateral distribution  
-!     
+!     lateral distribution
+!
 !!**  METHOD
 !!    ------
 !
@@ -22,11 +22,11 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-!!     
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -35,7 +35,7 @@
 !!    MODIFICATIONS
 !!    -------------
 !!
-!!      Original  02/2011 
+!!      Original  02/2011
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -61,7 +61,7 @@ TYPE(ISBA_NP_t), INTENT(INOUT) :: NP
 TYPE(ISBA_NPE_t), INTENT(INOUT) :: NPE
 !
  REAL, DIMENSION(:,:), INTENT(IN) :: PWG
-!      
+!
 !*      0.2    declarations of local variables
 !
 TYPE(ISBA_K_t), POINTER :: KK
@@ -93,16 +93,16 @@ DO JP=1,IO%NPATCH
       IF(JL<=IDEPTH.AND.IDEPTH/=NUNDEF.AND.(XTOTBV_IN_MESH(IMASK)/=0.0).AND.(XTOTBV_IN_MESH(IMASK)/=XUNDEF)) THEN
 
       ! root layers
-      IF (PK%XDZG(JI,JL)/=XUNDEF.AND.PK%XDG2(JI)/=XUNDEF.AND.PK%XDG(JI,JL)/=XUNDEF) THEN 
+      IF (PK%XDZG(JI,JL)/=XUNDEF.AND.PK%XDG2(JI)/=XUNDEF.AND.PK%XDG(JI,JL)/=XUNDEF) THEN
         ZWORK=MIN(PK%XDZG(JI,JL),MAX(0.0,PK%XDG2(JI)-PK%XDG(JI,JL)+PK%XDZG(JI,JL)))
       ENDIF
 
       IF ((PWG(IMASK,2)/=XUNDEF).AND.(ZWORK>0.).AND.(ZWORK/=XUNDEF)) THEN
-        PEK%XWG(JI,JL)=MIN(MAX(PWG(IMASK,2),XWGMIN),KK%XWSAT(JI,JL)) 
+        PEK%XWG(JI,JL)=MIN(MAX(PWG(IMASK,2),XWGMIN),KK%XWSAT(JI,JL))
       ENDIF
 
       ! deep layers
-      IF ((XFRAC_D3(IMASK)/=0.0).AND.(XFRAC_D3(IMASK)/=XUNDEF)) THEN     
+      IF ((XFRAC_D3(IMASK)/=0.0).AND.(XFRAC_D3(IMASK)/=XUNDEF)) THEN
 
         IF (PK%XDZG(JI,JL)/=XUNDEF.AND.PK%XDG2(JI)/=XUNDEF.AND.PK%XDG(JI,JL)/=XUNDEF) THEN
           ZWORK=MIN(PK%XDZG(JI,JL),MAX(0.0,PK%XDG(JI,JL)-PK%XDG2(JI)))

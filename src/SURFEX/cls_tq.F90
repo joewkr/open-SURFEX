@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE CLS_TQ( PTA, PQA, PPA, PPS, PHT, PCD, PCH, PRI, &
-                          PTS, PHU, PZ0H, PH, PTNM, PQNM, PHUNM  )  
+                          PTS, PHU, PZ0H, PH, PTNM, PQNM, PHUNM  )
 !     #####################################################################
 !
-!!****  *PARAMCLS*  
+!!****  *PARAMCLS*
 !!
 !!    PURPOSE
 !!    -------
 !
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -23,16 +23,16 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!    USE MODD_CST
 !!    USE MODD_GROUND_PAR
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -113,7 +113,7 @@ ZQS    (:) = 0.
 !
 ZBNH(:)=LOG( PHT(:)/PZ0H(:))
 !
-ZBH(:)=XKARMAN*SQRT( PCD(:) )/PCH(:) 
+ZBH(:)=XKARMAN*SQRT( PCD(:) )/PCH(:)
 !
 ZRS(:)=MIN(PH/PHT(:),1.)
 !
@@ -147,7 +147,7 @@ ZPNM(:) = PPS(:) + PH/PHT(:) * (PPA(:)-PPS(:))
 ZQSATNM(:) = QSAT(PTNM(:),ZPNM(:))
 !
 IF (YHUMIDITY=='Q ') THEN
-!        
+!
   ZQSATS(:) = QSAT(PTS(:),PPS(:))
   ZQS(:)    = PHU(:)*ZQSATS(:)
   PQNM(:)   = ZQS(:)+ZIV(:)*(PQA(:)-ZQS(:))
@@ -155,7 +155,7 @@ IF (YHUMIDITY=='Q ') THEN
   PHUNM(:)  = PQNM(:) / ZQSATNM(:)
 !
 ELSE IF (YHUMIDITY=='HU') THEN
-!        
+!
   ZQSATA(:) = QSAT(PTA(:),PPA(:))
   ZHUA(:)   = PQA(:) / ZQSATA(:)
   PHUNM(:)  = PHU(:)+ZIV(:)*(ZHUA(:)-PHU(:))

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################################################
       SUBROUTINE GET_MESH_CORNER_IGN(KGRID_PAR,KL,KC,PGRID_PAR,PCORNER_LAT,PCORNER_LON)
@@ -57,7 +57,7 @@ REAL, DIMENSION(KL)    :: ZX    ! X Lambert coordinate
 REAL, DIMENSION(KL)    :: ZY    ! Y Lambert coordinate
 REAL, DIMENSION(KL)    :: ZDX   ! X size of grid mesh
 REAL, DIMENSION(KL)    :: ZDY   ! Y size of grid mesh
-REAL, DIMENSION(KL,KC) :: ZCX   ! Grid corner in X 
+REAL, DIMENSION(KL,KC) :: ZCX   ! Grid corner in X
 REAL, DIMENSION(KL,KC) :: ZCY   ! Grid corner in Y
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -70,7 +70,7 @@ IF (LHOOK) CALL DR_HOOK('GET_MESH_CORNER_IGN',0,ZHOOK_HANDLE)
 !            ---------------------------------
 !
 CALL GET_GRIDTYPE_IGN(PGRID_PAR,KLAMBERT=ILAMBERT,KL=INI)
-!  
+!
 IF(KL/=INI)THEN
   CALL ABOR1_SFX('GET_MESH_CORNER_IGN: WRONG NUMBER OF POINT')
 ENDIF
@@ -100,7 +100,7 @@ ZCX(:,4) = ZCX(:,1)
 ZCY(:,4) = ZCY(:,3)
 !
 DO JC=1,KC
-   CALL LATLON_IGN(ILAMBERT,ZCX(:,JC),ZCY(:,JC),PCORNER_LAT(:,JC),PCORNER_LON(:,JC))   
+   CALL LATLON_IGN(ILAMBERT,ZCX(:,JC),ZCY(:,JC),PCORNER_LAT(:,JC),PCORNER_LON(:,JC))
 ENDDO
 !
 IF (LHOOK) CALL DR_HOOK('GET_MESH_CORNER_IGN',1,ZHOOK_HANDLE)

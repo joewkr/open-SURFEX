@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DIAG_CPL_ESM_ISBA (IO, S, NK, NP, PTSTEP, PCPL_DRAIN, PCPL_RUNOFF, &
-                                    PCPL_EFLOOD,PCPL_PFLOOD,PCPL_IFLOOD,PCPL_ICEFLUX  )  
+                                    PCPL_EFLOOD,PCPL_PFLOOD,PCPL_IFLOOD,PCPL_ICEFLUX  )
 !     #####################################################################
 !
-!!****  *DIAG_CPL_ESM_ISBA*  
+!!****  *DIAG_CPL_ESM_ISBA*
 !!
 !!    PURPOSE
 !!    -------
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -22,13 +22,13 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -114,22 +114,22 @@ ENDIF
 !kg/m²
 DO JP=1,IO%NPATCH
   DO JI=1,INJ
-!  
+!
      IF(ZSUMPATCH(JI)>0.0)THEN
-       S%XCPL_DRAIN (JI) = S%XCPL_DRAIN (JI) + PTSTEP * ZCPL_DRAIN (JI,JP) * S%XPATCH(JI,JP)/ZSUMPATCH(JI) 
-       S%XCPL_RUNOFF(JI) = S%XCPL_RUNOFF(JI) + PTSTEP * PCPL_RUNOFF(JI,JP) * S%XPATCH(JI,JP)/ZSUMPATCH(JI) 
+       S%XCPL_DRAIN (JI) = S%XCPL_DRAIN (JI) + PTSTEP * ZCPL_DRAIN (JI,JP) * S%XPATCH(JI,JP)/ZSUMPATCH(JI)
+       S%XCPL_RUNOFF(JI) = S%XCPL_RUNOFF(JI) + PTSTEP * PCPL_RUNOFF(JI,JP) * S%XPATCH(JI,JP)/ZSUMPATCH(JI)
      ENDIF
 !
      IF(IO%LGLACIER.AND.ZSUMPATCH(JI)>0.0)THEN
         S%XCPL_ICEFLUX(JI) = S%XCPL_ICEFLUX(JI) + PTSTEP * PCPL_ICEFLUX(JI,JP) * S%XPATCH(JI,JP)/ZSUMPATCH(JI)
      ENDIF
-!   
+!
      IF(LCPL_FLOOD.AND.IO%LFLOOD.AND.ZSUMPATCH(JI)>0.0)THEN
         S%XCPL_EFLOOD  (JI) = S%XCPL_EFLOOD  (JI) + PTSTEP * PCPL_EFLOOD  (JI,JP)*S%XPATCH(JI,JP)/ZSUMPATCH(JI)
         S%XCPL_PFLOOD  (JI) = S%XCPL_PFLOOD  (JI) + PTSTEP * PCPL_PFLOOD  (JI,JP)*S%XPATCH(JI,JP)/ZSUMPATCH(JI)
         S%XCPL_IFLOOD  (JI) = S%XCPL_IFLOOD  (JI) + PTSTEP * PCPL_IFLOOD  (JI,JP)*S%XPATCH(JI,JP)/ZSUMPATCH(JI)
      ENDIF
-!    
+!
   ENDDO
 ENDDO
 !
@@ -152,7 +152,7 @@ IF(LCPL_FLOOD.AND.IO%LFLOOD)THEN
   DO JP = 1,IO%NPATCH
     KK => NK%AL(JP)
     PK => NP%AL(JP)
-  
+
     DO JI = 1,PK%NSIZE_P
       IMASK = PK%NR_P(JI)
       IF (ZBUDGET(IMASK)<=0.) THEN

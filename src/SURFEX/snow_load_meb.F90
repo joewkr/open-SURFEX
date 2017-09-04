@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ############################################################################
 SUBROUTINE SNOW_LOAD_MEB(PK, PEK, DEK, PTSTEP, PSR, PWRVNMAX, PKVN, PCHEATV, PMELTVN, &
@@ -13,7 +13,7 @@ SUBROUTINE SNOW_LOAD_MEB(PK, PEK, DEK, PTSTEP, PSR, PWRVNMAX, PKVN, PCHEATV, PME
 !!    -------
 !
 !     Calculate temporal evolution of canopy-intercepted intercepted snow
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -26,11 +26,11 @@ SUBROUTINE SNOW_LOAD_MEB(PK, PEK, DEK, PTSTEP, PSR, PWRVNMAX, PKVN, PCHEATV, PME
 !!    ------------------
 !!
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -82,7 +82,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 REAL, PARAMETER                   :: ZUNLOAD_T     = 1.5E+5   ! K s
 REAL, PARAMETER                   :: ZUNLOAD_TT    = 270.15   ! K
-REAL, PARAMETER                   :: ZUNLOAD_V     = 1.87E+5  ! m 
+REAL, PARAMETER                   :: ZUNLOAD_V     = 1.87E+5  ! m
 !
 !-------------------------------------------------
 ! 0) Initialization
@@ -97,7 +97,7 @@ ZUNLOAD(:)     = 0.0
 !
 ! 1) First consider the case when maximum interception is zero...
 ! this only occurs when vegetation canopy is *totally* buried. The follwing line
-! results in non-zero snow loading (total removal of intercepted snow) 
+! results in non-zero snow loading (total removal of intercepted snow)
 ! only during the timestep when vegetation has just been buried:
 !
 !
@@ -124,8 +124,8 @@ ELSEWHERE
 ! Interception: gain
 
    ZSRINT(:)      = MAX(0.0,PWRVNMAX(:)-PEK%XWR(:))*(1.0-EXP(-PKVN(:)*PSR(:)*PTSTEP)) ! kg m-2
-   ZSRINT(:)      = MIN(PSR(:)*PTSTEP, ZSRINT(:))  ! kg m-2 
-   ZWRVN(:)       = PEK%XWR(:) + ZSRINT(:)           ! kg m-2 
+   ZSRINT(:)      = MIN(PSR(:)*PTSTEP, ZSRINT(:))  ! kg m-2
+   ZWRVN(:)       = PEK%XWR(:) + ZSRINT(:)           ! kg m-2
 
    DEK%XSR_GN(:)  = MAX(0.0, PSR(:) - ZSRINT(:)/PTSTEP) ! kg m-2 s-1
 
@@ -139,19 +139,19 @@ ELSEWHERE
 
 ! Phase change: loss (melt of snow mass)
 
-   DEK%XMELT_CV(:) = PTSTEP*MAX(0.0, PMELTVN(:))         ! kg m-2  
+   DEK%XMELT_CV(:) = PTSTEP*MAX(0.0, PMELTVN(:))         ! kg m-2
    DEK%XMELT_CV(:) = MIN(DEK%XMELT_CV(:), ZWRVN(:))
    ZWRVN(:)        = ZWRVN(:)    - DEK%XMELT_CV(:)
    PEK%XWR(:)      = PEK%XWR(:)  + DEK%XMELT_CV(:)        ! NOTE...liq reservoir can exceed maximum holding
                                                         !        capacity here, but this is accounted for
                                                         !        in main prognostic PWRV routine.
 
-! Phase change: gain (freeze of intercepted water) 
-! Note, to get a better estimate of water available for freezing, remove Er in 
+! Phase change: gain (freeze of intercepted water)
+! Note, to get a better estimate of water available for freezing, remove Er in
 ! estimation of water for freezing:
 ! Also, update liquid water stored on the canopy here:
 
-   DEK%XFRZ_CV(:) = PTSTEP*MAX(0.0, -PMELTVN(:))        ! kg m-2  
+   DEK%XFRZ_CV(:) = PTSTEP*MAX(0.0, -PMELTVN(:))        ! kg m-2
    DEK%XFRZ_CV(:) = MIN(DEK%XFRZ_CV(:), MAX(0.0,PEK%XWR(:)-DEK%XLER_CV(:)*(PTSTEP/PK%XLVTT(:))))
    ZWRVN(:)       = ZWRVN(:)   + DEK%XFRZ_CV(:)
    PEK%XWR(:)     = PEK%XWR(:) - DEK%XFRZ_CV(:)
@@ -160,8 +160,8 @@ ELSEWHERE
 ! Note, the temperature effect is assumed to vanish for cold temperatures.
 
    ZUNLOAD(:)    = MIN(ZWRVN(:), PEK%XWR(:)*( PVELC(:)*(PTSTEP/ZUNLOAD_V)          &
-                     + MAX(0.0, PEK%XTV(:)-ZUNLOAD_TT)*(PTSTEP/ZUNLOAD_T) ))            ! kg m-2 
-   ZWRVN(:)      = ZWRVN(:) - ZUNLOAD(:)                                           ! kg m-2 
+                     + MAX(0.0, PEK%XTV(:)-ZUNLOAD_TT)*(PTSTEP/ZUNLOAD_T) ))            ! kg m-2
+   ZWRVN(:)      = ZWRVN(:) - ZUNLOAD(:)                                           ! kg m-2
    DEK%XSR_GN(:) = DEK%XSR_GN(:) + ZUNLOAD(:)/PTSTEP
 
 ! Diagnostic updates:

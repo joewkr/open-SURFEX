@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-       SUBROUTINE MINZS_VERT_SHIFT(D, PZS_MOY, PZS_MIN, PPS_MIN, PRHOA_2M_MIN  )  
+       SUBROUTINE MINZS_VERT_SHIFT(D, PZS_MOY, PZS_MIN, PPS_MIN, PRHOA_2M_MIN  )
 !      #########################################
 !
 !
-!!****   *MINZS_VERT_SHIFT* - routine to shift 2m variables to 2m variables 
+!!****   *MINZS_VERT_SHIFT* - routine to shift 2m variables to 2m variables
 !!                            above the minimum orography of the grid mesh
 !!
 !!
@@ -33,7 +33,7 @@
 !!     AUTHOR
 !!     ------
 !!       B. Decharme
-!! 
+!!
 !!     MODIFICATIONS
 !!     -------------
 !!       Original        06/2013
@@ -91,7 +91,7 @@ D%XT2M_MIN_ZS = D%XT2M + XCLIM_T_GRAD * (PZS_MIN - PZS_MOY)
 !            -------------------------
 !
 PPS_MIN = D%XPS * EXP ( - XG/XRD/(0.5*(D%XT2M+D%XT2M_MIN_ZS)*( 1.+((XRV/XRD)-1.)*ZQA_2M(:) )) &
-                              * (PZS_MIN-PZS_MOY)                                              )  
+                              * (PZS_MIN-PZS_MOY)                                              )
 !
 !-------------------------------------------------------------------------------
 !

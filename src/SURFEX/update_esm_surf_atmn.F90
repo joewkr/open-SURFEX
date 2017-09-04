@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
 SUBROUTINE UPDATE_ESM_SURF_ATM_n (F, IM, S, U, W, HPROGRAM, KI, KSW, PZENITH, PSW_BANDS,     &
-                                   PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF )  
+                                   PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF )
 !     #################################################################################
 !
 !!****  *UPDATE_ESM_SURF_ATM_n * - Routine to update radiative properties in Earth
@@ -20,11 +20,11 @@ SUBROUTINE UPDATE_ESM_SURF_ATM_n (F, IM, S, U, W, HPROGRAM, KI, KSW, PZENITH, PS
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     B. Decharme 
+!!     B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -113,7 +113,7 @@ ENDIF
 !
 ! Tile counter:
 !
-JTILE     = 0 
+JTILE     = 0
 !
 ! Initialization: Outputs to atmosphere over each tile:
 !
@@ -131,9 +131,9 @@ ZFRAC_TILE(:,:)    = 0.0
 ! Call arrange interfaces for sea, water, nature and town here...
 !--------------------------------------------------------------------------------------
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! SEA Tile calculations:
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !
 JTILE = JTILE + 1
 !
@@ -145,9 +145,9 @@ IF(GSEA)THEN
 !
 ENDIF
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! INLAND WATER Tile calculations:
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !
 JTILE = JTILE + 1
 !
@@ -155,12 +155,12 @@ IF(GWATER)THEN
 !
    ZFRAC_TILE(:,JTILE) = U%XWATER(:)
 !
-   CALL TREAT_SURF(U%NSIZE_WATER,U%NR_WATER,JTILE)  
+   CALL TREAT_SURF(U%NSIZE_WATER,U%NR_WATER,JTILE)
 !
-ENDIF 
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ENDIF
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! NATURAL SURFACE Tile calculations:
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !
 JTILE = JTILE + 1
 !
@@ -169,12 +169,12 @@ IF(GNATURE)THEN
    ZFRAC_TILE(:,JTILE) = U%XNATURE(:)
 !
    CALL TREAT_SURF(U%NSIZE_NATURE,U%NR_NATURE,JTILE)
-!   
-ENDIF 
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ENDIF
+!
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! URBAN Tile calculations:
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! Not yet implemented
 !
 !JTILE = JTILE + 1
@@ -183,21 +183,21 @@ ENDIF
 !
 !   ZFRAC_TILE(:,JTILE) = XTOWN(:)
 !
-!   CALL TREAT_SURF(NSIZE_TOWN,NR_TOWN,JTILE)  
+!   CALL TREAT_SURF(NSIZE_TOWN,NR_TOWN,JTILE)
 !
-!ENDIF 
+!ENDIF
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! Grid box average radiative properties:
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !
  CALL AVERAGE_RAD(ZFRAC_TILE,                                           &
                    ZDIR_ALB_TILE, ZSCA_ALB_TILE, ZEMIS_TILE, ZTRAD_TILE, &
-                   PDIR_ALB,      PSCA_ALB,      PEMIS,      PTRAD       )  
+                   PDIR_ALB,      PSCA_ALB,      PEMIS,      PTRAD       )
 !
  CALL AVERAGE_TSURF(ZFRAC_TILE, ZTSURF_TILE, PTSURF)
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !
 IF (LHOOK) CALL DR_HOOK('UPDATE_ESM_SURF_ATM_N',1,ZHOOK_HANDLE)
 CONTAINS
@@ -245,7 +245,7 @@ IF (KTILE==1) THEN
   !
 ELSEIF (KTILE==2) THEN
   !
-  IF (U%CWATER=='WATFLX') THEN   
+  IF (U%CWATER=='WATFLX') THEN
     CALL UPDATE_ESM_WATFLUX_n(W, U%NSIZE_WATER,KSW,ZP_ZENITH,ZP_DIR_ALB, &
                               ZP_SCA_ALB,ZP_EMIS,ZP_TRAD,ZP_TSURF   )
   ELSEIF (U%CWATER=='FLAKE ') THEN
@@ -256,8 +256,8 @@ ELSEIF (KTILE==2) THEN
   ENDIF
   !
 ELSEIF (KTILE==3) THEN
-  !          
-  IF (U%CNATURE=='ISBA') THEN   
+  !
+  IF (U%CNATURE=='ISBA') THEN
     CALL UPDATE_ESM_ISBA_n(IM%O, IM%S, IM%K, IM%NK, IM%NP, IM%NPE, U%NSIZE_NATURE,&
                            KSW,ZP_ZENITH,PSW_BANDS,ZP_DIR_ALB, &
                            ZP_SCA_ALB,ZP_EMIS,ZP_TRAD,ZP_TSURF              )
@@ -267,12 +267,12 @@ ELSEIF (KTILE==3) THEN
   !
 !ELSEIF (KTILE==4) THEN
 !  !
-!  IF (CTOWN=='TEB   ') THEN   
+!  IF (CTOWN=='TEB   ') THEN
 !    CALL UPDATE_ESM_TEB_n(NSIZE_SEA,KSW,ZP_ZENITH,ZP_TRAD,ZP_DIR_ALB,ZP_SCA_ALB,ZP_EMIS,ZP_TSURF)
 !  ELSE
 !    CALL ABOR1_SFX('UPDATE_ESM_SURF_ATM_n: TEB SCHEME MUST BE ACTIVATED FOR EARTH SYSTEM MODEL')
 !  ENDIF
-!  !        
+!  !
 ENDIF
 !
 DO JJ=1,KSIZE

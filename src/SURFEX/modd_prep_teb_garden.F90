@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################
       MODULE MODD_PREP_TEB_GARDEN
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -43,7 +43,7 @@ SAVE
  CHARACTER(LEN=28) :: CFILE_SNOW_GD     ! input file name for Snow
  CHARACTER(LEN=6)  :: CTYPE_SNOW     ! input file type for Snow
  CHARACTER(LEN=28) :: CFILEPGD_SNOW_GD     ! input file name for Snow
- CHARACTER(LEN=6)  :: CTYPEPGD_SNOW     ! input file type for Snow 
+ CHARACTER(LEN=6)  :: CTYPEPGD_SNOW     ! input file type for Snow
  CHARACTER(LEN=28) :: CFILE_HUG_GD      ! input file name for Wg, Wgi
  CHARACTER(LEN=6)  :: CTYPE_HUG      ! input file type for Wg, Wgi
  CHARACTER(LEN=28) :: CFILE_TG_GD       ! input file name for Tg
@@ -65,7 +65,7 @@ REAL              :: XTG_SURF_GD       ! surface temperature
 REAL              :: XTG_ROOT_GD       ! root layer temperature
 REAL              :: XTG_DEEP_GD       ! deep layer temperature
 !
-LOGICAL :: LSNOW_IDEAL_GD 
+LOGICAL :: LSNOW_IDEAL_GD
 !
 REAL, DIMENSION(:), POINTER :: XWSNOW_GD         ! Snow reservoir
 REAL, DIMENSION(:), POINTER :: XRSNOW_GD         ! snow density

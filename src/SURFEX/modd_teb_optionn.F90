@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################
       MODULE MODD_TEB_OPTION_n
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -46,7 +46,7 @@ TYPE TEB_OPTIONS_t
 ! TEB scheme option
 !
   LOGICAL                        :: LCANOPY      ! T: SBL scheme within the canopy
-                                                 ! F: no atmospheric layers below forcing level      
+                                                 ! F: no atmospheric layers below forcing level
   LOGICAL                        :: LGARDEN      ! T: Urban green areas (call ISBA from TEB)
                                                  ! F: No urban green areas
   CHARACTER(LEN=4)               :: CROAD_DIR    ! TEB option for road directions
@@ -74,19 +74,19 @@ TYPE TEB_OPTIONS_t
 
   CHARACTER(LEN=3)               :: CTREE        ! TEB option for the high vegetation
                                                  ! 'DEF':  DEFault version without radiative, dynamic effects or turbulent fluxes
-                                                 ! 'RAD':  only RADiative effects 
-                                                 ! 'DYN':  radiative and DYNamic effects 
-                                                 ! 'FLX':  radiative, dynamic effects, and turbulent fluxes 
+                                                 ! 'RAD':  only RADiative effects
+                                                 ! 'DYN':  radiative and DYNamic effects
+                                                 ! 'FLX':  radiative, dynamic effects, and turbulent fluxes
   LOGICAL                        :: LGREENROOF   ! T: green roofs (call ISBA from TEB)
   LOGICAL                        :: LHYDRO       ! T: urban subsoil and hydrology processes
   LOGICAL                        :: LSOLAR_PANEL ! T: solar panels on roofs
-! 
+!
 ! type of initialization of vegetation: from cover types (ecoclimap) or parameters prescribed
 !
   LOGICAL                        :: LECOCLIMAP   ! T: parameters computed from ecoclimap
 !                                                ! F: they are read in the file
 !
-! General surface: 
+! General surface:
 !
   REAL, POINTER, DIMENSION(:)   :: XZS           ! orography                        (m)
   REAL, POINTER, DIMENSION(:,:) :: XCOVER        ! fraction of each ecosystem       (-)

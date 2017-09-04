@@ -1,14 +1,14 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE COUPLING_SLT_n (SLT, &
-      KI,                   &!I [nbr] number of sea points 
-      KSLT,                 &!I [nbr] number of sea points 
+      KI,                   &!I [nbr] number of sea points
+      KSLT,                 &!I [nbr] number of sea points
       PWIND,                &!I Wind velocity
       PSFSLT                &!O [kg/m2/sec] flux of sea salt
-      ) 
-  
+      )
+
 !PURPOSE
 !-------
 !  Compute sea salt emission  upon Vignatti et al, 2001
@@ -41,7 +41,7 @@ REAL, DIMENSION(KI,KSLT), INTENT(OUT) :: PSFSLT      !Out: mole particles per mo
 !LOCAL VARIABLES
 REAL,DIMENSION(KI,3)  :: ZSFSLT_MDE       ! sea salt flux from modes
 INTEGER               :: JN, JI           !Counter for sea salt modes
-REAL, DIMENSION(KI)   :: DZSPEED 
+REAL, DIMENSION(KI)   :: DZSPEED
 INTEGER, DIMENSION(KI):: WCL
 REAL                  :: ZCONVERTFACM0_SLT
 REAL                  :: ZCONVERTFACM3_SLT
@@ -54,7 +54,7 @@ REAL                  :: ZCONVERTFACM6_SLT
 !          4.409E-11, 5.296E-11, 6.301E-11, 7.433E-11, 8.693E-11, 1.012E-10, &
 !          1.168E-10, 1.342E-10, 1.532E-10, 1.741E-10, 1.970E-10, 2.219E-10, &
 !          2.489E-10, 2.781E-10, 3.097E-10, 3.437E-10, 3.803E-10, 4.195E-10, &
-!          4.616E-10, 5.065E-10, 5.544E-10, 6.054E-10, 6.711E-10             /) 
+!          4.616E-10, 5.065E-10, 5.544E-10, 6.054E-10, 6.711E-10             /)
 !
 !REAL, PARAMETER :: MASS2FLUX(0:40) = (/  &
 !          0.000E+00, 2.319E-13, 2.411E-12, 9.481E-12, 2.505E-11, 5.321E-11,  &
@@ -63,7 +63,7 @@ REAL                  :: ZCONVERTFACM6_SLT
 !          4.026E-09, 4.832E-09, 5.746E-09, 6.776E-09, 7.925E-09, 9.214E-09,  &
 !          1.064E-08, 1.221E-08, 1.394E-08, 1.584E-08, 1.791E-08, 2.016E-08,  &
 !          2.261E-08, 2.526E-08, 2.812E-08, 3.120E-08, 3.451E-08, 3.806E-08,  &
-!          4.186E-08, 4.592E-08, 5.025E-08, 5.486E-08, 6.014E-08             /) 
+!          4.186E-08, 4.592E-08, 5.025E-08, 5.486E-08, 6.014E-08             /)
 !
 !REAL, PARAMETER :: MASS3FLUX(0:40) = (/ 0.0, &
 !        1.783E-12, 1.579E-11, 5.852E-11, 1.501E-10, 3.134E-10, 5.740E-10, &
@@ -72,7 +72,7 @@ REAL                  :: ZCONVERTFACM6_SLT
 !        2.792E-08, 3.325E-08, 3.927E-08, 4.608E-08, 5.356E-08, 6.194E-08, &
 !        7.121E-08, 8.143E-08, 9.266E-08, 1.049E-07, 1.183E-07, 1.329E-07, &
 !        1.487E-07, 1.658E-07, 1.843E-07, 2.041E-07, 2.255E-07, 2.484E-07, &
-!        2.729E-07, 2.991E-07, 3.270E-07, 3.517E-07 /) 
+!        2.729E-07, 2.991E-07, 3.270E-07, 3.517E-07 /)
 
 
 REAL, PARAMETER :: NUMB1FLUX(0:40) = (/ &
@@ -82,7 +82,7 @@ REAL, PARAMETER :: NUMB1FLUX(0:40) = (/ &
           6.129E+05, 7.379E+05, 8.800E+05, 1.041E+06, 1.220E+06, 1.422E+06,  &
           1.646E+06, 1.893E+06, 2.166E+06, 2.466E+06, 2.794E+06, 3.152E+06,  &
           3.541E+06, 3.962E+06, 4.419E+06, 4.911E+06, 5.441E+06, 6.011E+06,  &
-          6.621E+06, 7.274E+06, 7.972E+06, 8.716E+06, 8.801E+06             /) 
+          6.621E+06, 7.274E+06, 7.972E+06, 8.716E+06, 8.801E+06             /)
 
 REAL, PARAMETER :: NUMB2FLUX(0:40) = (/  &
           0.000E+00, 1.934E+01, 2.068E+02, 8.271E+02, 2.211E+03, 4.741E+03,  &
@@ -91,7 +91,7 @@ REAL, PARAMETER :: NUMB2FLUX(0:40) = (/  &
           3.776E+05, 4.542E+05, 5.413E+05, 6.395E+05, 7.501E+05, 8.726E+05,  &
           1.009E+06, 1.160E+06, 1.327E+06, 1.509E+06, 1.709E+06, 1.927E+06,  &
           2.163E+06, 2.420E+06, 2.697E+06, 2.996E+06, 3.318E+06, 3.664E+06,  &
-          4.034E+06, 4.430E+06, 4.852E+06, 5.303E+06, 5.740E+06             /) 
+          4.034E+06, 4.430E+06, 4.852E+06, 5.303E+06, 5.740E+06             /)
 
 REAL, PARAMETER :: NUMB3FLUX(0:40) = (/ 0.0, &
         4.340E-01, 5.217E+00, 2.241E+01, 6.301E+01, 1.404E+02, 2.703E+02, &
@@ -100,7 +100,7 @@ REAL, PARAMETER :: NUMB3FLUX(0:40) = (/ 0.0, &
         1.674E+04, 2.011E+04, 2.393E+04, 2.827E+04, 3.311E+04, 3.853E+04, &
         4.457E+04, 5.126E+04, 5.864E+04, 6.675E+04, 7.564E+04, 8.535E+04, &
         9.592E+04, 1.074E+05, 1.198E+05, 1.333E+05, 1.478E+05, 1.633E+05, &
-        1.801E+05, 1.980E+05, 2.172E+05, 2.353E+05 /) 
+        1.801E+05, 1.980E+05, 2.172E+05, 2.353E+05 /)
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !!
 !!    MESONH carries the following units during transport:
@@ -115,7 +115,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !!    Tulet et al, ORILAM manuscript for transformation of modal parameters
 !!    J. Geophys. Res., 110, D18201, doi:10.1029/2004JD005716
 !
-!Initialize output which is total flux of sea salt (kg/m2/sec). 
+!Initialize output which is total flux of sea salt (kg/m2/sec).
 IF (LHOOK) CALL DR_HOOK('COUPLING_SLT_N',0,ZHOOK_HANDLE)
 !
 !Factor which is needed so that all gains normal units when leaving ground paramn
@@ -133,9 +133,9 @@ IF (CEMISPARAM_SLT.eq."Vig01")THEN
   ZSFSLT_MDE(:,2) =  10**(0.0422*PWIND(:) + 0.288)   ! median mode
   ZSFSLT_MDE(:,3) =  10**(0.069 *PWIND(:) - 3.5)     ! coarse mode
   ! convert into  particles.m-2.s-1)
-  ZSFSLT_MDE(:,1) = MAX(ZSFSLT_MDE(:,1) * 1E4, 1E-10)  
-  ZSFSLT_MDE(:,2) = MAX(ZSFSLT_MDE(:,2) * 1E4, 1E-10)  
-  ZSFSLT_MDE(:,3) = MAX(ZSFSLT_MDE(:,3) * 1E4, 1E-10)  
+  ZSFSLT_MDE(:,1) = MAX(ZSFSLT_MDE(:,1) * 1E4, 1E-10)
+  ZSFSLT_MDE(:,2) = MAX(ZSFSLT_MDE(:,2) * 1E4, 1E-10)
+  ZSFSLT_MDE(:,3) = MAX(ZSFSLT_MDE(:,3) * 1E4, 1E-10)
   !
 ELSE ! Use Schultz et al., 2004
   !
@@ -161,8 +161,8 @@ DO JN=1,JPMODE_SLT
   IF (LVARSIG_SLT) THEN
     !
     PSFSLT(:,1+(JN-1)*3) = ZSFSLT_MDE(:,JORDER_SLT(JN))
-    PSFSLT(:,2+(JN-1)*3) = PSFSLT(:,1+(JN-1)*3) * (SLT%XEMISRADIUS_SLT(JN)**3)*EXP(4.5 * LOG(SLT%XEMISSIG_SLT(JN))**2)  
-    PSFSLT(:,3+(JN-1)*3) = PSFSLT(:,1+(JN-1)*3) * (SLT%XEMISRADIUS_SLT(JN)**6)*EXP(18. * LOG(SLT%XEMISSIG_SLT(JN))**2)  
+    PSFSLT(:,2+(JN-1)*3) = PSFSLT(:,1+(JN-1)*3) * (SLT%XEMISRADIUS_SLT(JN)**3)*EXP(4.5 * LOG(SLT%XEMISSIG_SLT(JN))**2)
+    PSFSLT(:,3+(JN-1)*3) = PSFSLT(:,1+(JN-1)*3) * (SLT%XEMISRADIUS_SLT(JN)**6)*EXP(18. * LOG(SLT%XEMISSIG_SLT(JN))**2)
     !
     ! Conversion into fluxes
     PSFSLT(:,1+(JN-1)*3) = PSFSLT(:,1+(JN-1)*3) * ZCONVERTFACM0_SLT
@@ -170,13 +170,13 @@ DO JN=1,JPMODE_SLT
     PSFSLT(:,3+(JN-1)*3) = PSFSLT(:,3+(JN-1)*3) * ZCONVERTFACM6_SLT
 
   ELSE IF (LRGFIX_SLT) THEN
-    PSFSLT(:,JN) =  ZSFSLT_MDE(:,JORDER_SLT(JN)) * (SLT%XEMISRADIUS_SLT(JN)**3)*EXP(4.5 * LOG(SLT%XEMISSIG_SLT(JN))**2) 
+    PSFSLT(:,JN) =  ZSFSLT_MDE(:,JORDER_SLT(JN)) * (SLT%XEMISRADIUS_SLT(JN)**3)*EXP(4.5 * LOG(SLT%XEMISSIG_SLT(JN))**2)
     ! Conversion into fluxes
     PSFSLT(:,JN) = PSFSLT(:,JN) * ZCONVERTFACM3_SLT
 
   ELSE
-    PSFSLT(:,1+(JN-1)*2) = ZSFSLT_MDE(:,JORDER_SLT(JN)) 
-    PSFSLT(:,2+(JN-1)*2) = PSFSLT(:,1+(JN-1)*2) * (SLT%XEMISRADIUS_SLT(JN)**3)*EXP(4.5 * LOG(SLT%XEMISSIG_SLT(JN))**2) 
+    PSFSLT(:,1+(JN-1)*2) = ZSFSLT_MDE(:,JORDER_SLT(JN))
+    PSFSLT(:,2+(JN-1)*2) = PSFSLT(:,1+(JN-1)*2) * (SLT%XEMISRADIUS_SLT(JN)**3)*EXP(4.5 * LOG(SLT%XEMISSIG_SLT(JN))**2)
 
     ! Conversion into fluxes
     PSFSLT(:,1+(JN-1)*2) = PSFSLT(:,1+(JN-1)*2) * ZCONVERTFACM0_SLT

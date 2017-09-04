@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODD_SURF_ATM_GRID_n
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -67,7 +67,7 @@ IF (LHOOK) CALL DR_HOOK("MODD_SURF_ATM_GRID_N:SURF_ATM_GRID_INIT",0,ZHOOK_HANDLE
   CALL GRID_INIT(YSURF_ATM_GRID%G)
   NULLIFY(YSURF_ATM_GRID%NNEAR)
   NULLIFY(YSURF_ATM_GRID%XGRID_FULL_PAR)
-  NULLIFY(YSURF_ATM_GRID%XJPDIR) 
+  NULLIFY(YSURF_ATM_GRID%XJPDIR)
 YSURF_ATM_GRID%NGRID_FULL_PAR=0
 IF (LHOOK) CALL DR_HOOK("MODD_SURF_ATM_GRID_N:SURF_ATM_GRID_INIT",1,ZHOOK_HANDLE)
 END SUBROUTINE SURF_ATM_GRID_INIT

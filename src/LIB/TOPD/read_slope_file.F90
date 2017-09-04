@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
-!     #######################     
+!     #######################
       SUBROUTINE READ_SLOPE_FILE(HPROGRAM,HFILE,HFORM,KNMC,PTANB,PSLOP,PDAREA,PLAMBDA)
 !     #######################
 !
-!!****  *READ_SLOPE_FILE*  
+!!****  *READ_SLOPE_FILE*
 !!
 !!    PURPOSE
 !!    -------
@@ -21,17 +21,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -75,7 +75,7 @@ REAL, DIMENSION(:),  INTENT(OUT)   :: PLAMBDA ! pure topographic index
 !*      0.2    declarations of local variables
 !
 !
-INTEGER                   :: JJ ! loop control 
+INTEGER                   :: JJ ! loop control
 INTEGER                   :: IWRK        ! work variable
 INTEGER                   :: ILUOUT      ! Unit of the files
 !
@@ -98,7 +98,7 @@ READ(NUNIT,*) YHEADER
 IF (INDEX(YHEADER,'pixel_REF')/=0) THEN !Slope file from new java+GRASS chain
  write(ILUOUT,*) 'Slope file from new java + GRASS chain'
  DO JJ=1,KNMC
-  READ(NUNIT,*,END=110) IWRK, PTANB(JJ),PLAMBDA(JJ) 
+  READ(NUNIT,*,END=110) IWRK, PTANB(JJ),PLAMBDA(JJ)
  ENDDO
  PSLOP(:)=PLAMBDA(:) !not used
  PDAREA(:)=PLAMBDA(:) !not used

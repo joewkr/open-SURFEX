@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
 SUBROUTINE INIT_FLAKE_n ( DTCO, OREAD_BUDGETC, UG, U, FM,            &
@@ -11,7 +11,7 @@ SUBROUTINE INIT_FLAKE_n ( DTCO, OREAD_BUDGETC, UG, U, FM,            &
                           PEMIS,PTSRAD,PTSURF,                       &
                           KYEAR, KMONTH,KDAY, PTIME,                 &
                           HATMFILE,HATMFILETYPE,                     &
-                          HTEST                                     )   
+                          HTEST                                     )
 !     #############################################################
 !
 !!****  *INIT_FLAKE_n* - routine to initialize FLAKE model
@@ -56,7 +56,7 @@ USE MODD_SURF_ATM_GRID_n, ONLY : SURF_ATM_GRID_t
 USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
 !
 !
-USE MODD_CSTS,          ONLY : XTT, XPI, XOMEGA 
+USE MODD_CSTS,          ONLY : XTT, XPI, XOMEGA
 !
 USE MODD_WATER_PAR,     ONLY : XALBWATICE, XALBWATSNOW
 USE MODD_SNOW_PAR,      ONLY : XANSMIN, XANSMAX
@@ -74,7 +74,7 @@ USE MODD_SURF_PAR,       ONLY : XUNDEF, NUNDEF
 USE MODI_INIT_IO_SURF_n
 USE MODI_DEFAULT_CH_DEP
 USE MODI_DEFAULT_FLAKE
-USE MODI_DEFAULT_DIAG_FLAKE 
+USE MODI_DEFAULT_DIAG_FLAKE
 USE MODI_READ_DEFAULT_FLAKE_n
 USE MODI_READ_FLAKE_CONF_n
 USE MODI_READ_FLAKE_n
@@ -177,18 +177,18 @@ IF (LNAM_READ) THEN
  !               --------
  !
  !        0.1. Hard defaults
- !      
+ !
  CALL DEFAULT_FLAKE(FM%F%XTSTEP,FM%F%XOUT_TSTEP,FM%F%LSEDIMENTS,FM%F%CSNOW_FLK,FM%F%CFLK_FLUX,FM%F%CFLK_ALB,&
                     FM%F%LSKINTEMP)
  CALL DEFAULT_CH_DEP(FM%CHF%CCH_DRY_DEP)
  CALL DEFAULT_DIAG_FLAKE(FM%DFO%N2M,FM%DFO%LSURF_BUDGET,FM%DFO%L2M_MIN_ZS,FM%DFO%LRAD_BUDGET,&
                          FM%DFO%LCOEF,FM%DFO%LSURF_VARS, FM%DMF%LWATER_PROFILE,FM%DFO%LSURF_BUDGETC,&
-                         FM%DFO%LRESET_BUDGETC,FM%DFO%XDIAG_TSTEP,FM%DMF%XZWAT_PROFILE      )  
+                         FM%DFO%LRESET_BUDGETC,FM%DFO%XDIAG_TSTEP,FM%DMF%XZWAT_PROFILE      )
  !
 ENDIF
 !
 !        0.2. Defaults from file header
-!    
+!
  CALL READ_DEFAULT_FLAKE_n(FM%CHF, FM%DFO, FM%DMF, FM%F, HPROGRAM)
 
 !
@@ -211,8 +211,8 @@ SELECT CASE (HINIT)
     FM%F%TTIME%TIME       = XUNDEF
 
   CASE ('PRE')
-    CALL PREP_CTRL_FLAKE(FM%DFO,ILUOUT,FM%DMF%LWATER_PROFILE) 
-    IF (LNAM_READ) CALL READ_NAM_PREP_FLAKE_n(HPROGRAM)                            
+    CALL PREP_CTRL_FLAKE(FM%DFO,ILUOUT,FM%DMF%LWATER_PROFILE)
+    IF (LNAM_READ) CALL READ_NAM_PREP_FLAKE_n(HPROGRAM)
     CALL READ_FLAKE_DATE(HPROGRAM,HINIT,ILUOUT,HATMFILE,HATMFILETYPE,KYEAR,KMONTH,KDAY,PTIME,FM%F%TTIME)
 
   CASE DEFAULT
@@ -262,7 +262,7 @@ ILU = SIZE(FM%F%XCOVER,1)
 !
 !-------------------------------------------------------------------------------
 !
-!*       3.     Specific fields 
+!*       3.     Specific fields
 !               ---------------
 !
 ALLOCATE(FM%F%XCORIO         (ILU))
@@ -307,7 +307,7 @@ PTSURF(:) = FM%F%XTS(:)
 !               ----------------
 !
 !
- CALL INIT_CHEMICAL_n(ILUOUT, KSV, HSV, FM%CHF%SVF,    &      
+ CALL INIT_CHEMICAL_n(ILUOUT, KSV, HSV, FM%CHF%SVF,    &
                      FM%CHF%CCH_NAMES, FM%CHF%CAER_NAMES,      &
                      HDSTNAMES=FM%CHF%CDSTNAMES, HSLTNAMES=FM%CHF%CSLTNAMES  )
 !

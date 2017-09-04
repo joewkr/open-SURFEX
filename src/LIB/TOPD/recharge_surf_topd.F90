@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------
 !     #######################
       SUBROUTINE RECHARGE_SURF_TOPD(PHI,PHT,KI)
 !     #######################
 !
-!!****  *RECHARGE_SURF_TOPD*  
+!!****  *RECHARGE_SURF_TOPD*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     
-!         
-!     
+!
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,12 +24,12 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -40,10 +40,10 @@
 !!
 !!      Original   12/2003
 !!                 03/2014 (B. Vincendon) use of the number of pixels included in a mesh and a watershed
-!! 
+!!
 !!    WARNING
 !!    ----------------
-!!     WFC is the threshold for deficits 
+!!     WFC is the threshold for deficits
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -66,13 +66,13 @@ IMPLICIT NONE
 !
 INTEGER, INTENT(IN) :: KI    ! Grid dimensions
 REAL, DIMENSION(:), INTENT(INOUT)   :: PHI   ! water content variation since last time step from ISBA (m)
-REAL, DIMENSION(:,:), INTENT(OUT)   :: PHT   ! water content variation to provide to TOPODYN to be distributed (m) 
+REAL, DIMENSION(:,:), INTENT(OUT)   :: PHT   ! water content variation to provide to TOPODYN to be distributed (m)
 !
 !*      0.2    declarations of local variables
 !
 !
 LOGICAL, DIMENSION(NNCAT,SIZE(NMASKI,3)) :: GTEST
-INTEGER            :: J1,J2,J3,J4     ! loop control 
+INTEGER            :: J1,J2,J3,J4     ! loop control
 INTEGER            :: INBSAT, INBALL
 !
 REAL                           :: ZREST            ! m
@@ -107,7 +107,7 @@ DO J3 = 1,KI
           IF ( ZWNEW >= XWFCTOPT(J1,J2) ) THEN
             !
             ! on reste au-dessus de la capacite au champ, malgre l'assechement
-            IF (XDMAXFC(J1,J2)/=XUNDEF) XDMAXT(J1,J2) = XDMAXFC(J1,J2) 
+            IF (XDMAXFC(J1,J2)/=XUNDEF) XDMAXT(J1,J2) = XDMAXFC(J1,J2)
             PHT(J1,J2) = (ZWNEW - XWFCTOPT(J1,J2)) * XDTOPT(J1,J2)
             !
           ELSE ! on passe au-dessous de la capacite au champ
@@ -167,12 +167,12 @@ DO J3 = 1,KI
               ZREST = ZREST + PHI(J3) - PHT(J1,J2)
               GTEST(J1,J4)=.FALSE.
               !
-            ELSE IF ( XWTOPT(J1,J2) < XWFCTOPT(J1,J2) ) THEN 
+            ELSE IF ( XWTOPT(J1,J2) < XWFCTOPT(J1,J2) ) THEN
               !
               ! en dessous de la capacité au champ avant d'ajouter la recharge
-              IF ( (XWTOPT(J1,J2) + PHI(J3)/XDTOPT(J1,J2)) <= XWFCTOPT(J1,J2) ) THEN 
+              IF ( (XWTOPT(J1,J2) + PHI(J3)/XDTOPT(J1,J2)) <= XWFCTOPT(J1,J2) ) THEN
                 !
-                ! en dessous de la capacité au champ avec la recharge 
+                ! en dessous de la capacité au champ avec la recharge
                 XDMAXT(J1,J2) = ( XWSTOPT(J1,J2) - ZWNEW ) * XDTOPT(J1,J2)
                 PHT(J1,J2) = 0.0
                 !

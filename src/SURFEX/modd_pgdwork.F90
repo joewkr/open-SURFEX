@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###################
       MODULE MODD_PGDWORK
@@ -9,24 +9,24 @@
 !!****  *MODD_PGDWORK* - declaration of work arrays and variables
 !!
 !!    PURPOSE
-!!    -------  
+!!    -------
 !!
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
-!!          
+!!
 !!    AUTHOR
 !!    ------
 !!      V. Masson   *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    12/09/95   
-!!                  15/03/96 orographic filter parameter                   
+!!      Original    12/09/95
+!!                  15/03/96 orographic filter parameter
 !!                  25/07/97 directional z0 computations
 !!                  15/03/99 add XSUMCOVER
 !!                  03/2004  externalization
@@ -45,20 +45,20 @@ REAL, PARAMETER :: XPREC = 1.0E+8
 !*        0.1    summation variables
 !                -------------------
 !
-REAL, DIMENSION(:,:), ALLOCATABLE   :: XSUMVAL  
+REAL, DIMENSION(:,:), ALLOCATABLE   :: XSUMVAL
                             ! Sum of data in each mesh
 !
 REAL, DIMENSION(:,:), ALLOCATABLE   :: XEXT_ALL
-                            ! Sum of square data in each mesh 
-!        
+                            ! Sum of square data in each mesh
+!
 REAL, DIMENSION(:,:,:), ALLOCATABLE :: XALL
-                            ! Sum of each cover type data in each mesh                           
-!  
+                            ! Sum of each cover type data in each mesh
+!
 REAL, DIMENSION(:,:,:), ALLOCATABLE :: XSSO_ALL
                             ! Sum of each cover type data in each mesh
 !
 INTEGER, DIMENSION(:,:,:), ALLOCATABLE :: NSSO_ALL
-                            ! Sum of each cover type data in each mesh     
+                            ! Sum of each cover type data in each mesh
 !
 INTEGER, DIMENSION(:,:), ALLOCATABLE:: NSIZE
 !                          ! Number of points inside each mesh of the domain
@@ -98,13 +98,13 @@ REAL, DIMENSION(:), ALLOCATABLE   :: XSKEW_WORK
 !*        0.4    Variables for the Majority aggregation rule
 !                -------------------------------------------
 !
-INTEGER, PARAMETER :: JPVALMAX=20  ! Maximum number of different values 
+INTEGER, PARAMETER :: JPVALMAX=20  ! Maximum number of different values
 !                                  ! in each grid mesh
 INTEGER, DIMENSION(:,:),   ALLOCATABLE :: NVALNBR
-!                                  ! number of different values 
+!                                  ! number of different values
 !                                  ! in each grid mesh
 INTEGER, DIMENSION(:,:,:), ALLOCATABLE :: NVALCOUNT
-!                                  ! Number of times each value has been 
+!                                  ! Number of times each value has been
 !                                  ! counted in each grid mesh
 REAL,    DIMENSION(:,:,:), ALLOCATABLE :: XVALLIST
 !                                  ! List of Values encountered in each grid mesh

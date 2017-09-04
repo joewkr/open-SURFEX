@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_FLAKE_OROGRAPHY_n (FM, DST, SLT, HPROGRAM, HCOUPLING,                &
@@ -12,7 +12,7 @@ SUBROUTINE COUPLING_FLAKE_OROGRAPHY_n (FM, DST, SLT, HPROGRAM, HCOUPLING,       
                                        PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF, PZ0,    &
                                        PZ0H, PQSURF, PPEW_A_COEF, PPEW_B_COEF,           &
                                        PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF,            &
-                                       PPEQ_B_COEF, HTEST                            )  
+                                       PPEQ_B_COEF, HTEST                            )
 !     ###############################################################################
 !
 !!****  *COUPLING_FLAKE_OROGRAPHY_n * - Modifies the input forcing if not
@@ -26,11 +26,11 @@ SUBROUTINE COUPLING_FLAKE_OROGRAPHY_n (FM, DST, SLT, HPROGRAM, HCOUPLING,       
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -174,7 +174,7 @@ IF(LVERTSHIFT)THEN
   ZLW  (:) = XUNDEF
   ZRAIN(:) = XUNDEF
   ZSNOW(:) = XUNDEF
-!        
+!
    CALL FORCING_VERT_SHIFT(PZS,FM%F%XZS,PTA,PQA,PPA,PRHOA,PLW,PRAIN,PSNOW,&
                            ZTA,ZQA,ZPA,ZRHOA,ZLW,ZRAIN,ZSNOW         )
 !

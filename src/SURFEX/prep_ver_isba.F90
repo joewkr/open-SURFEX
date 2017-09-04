@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_VER_ISBA (IO, NPE, PZS, NP)
@@ -16,11 +16,11 @@ SUBROUTINE PREP_VER_ISBA (IO, NPE, PZS, NP)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -120,7 +120,7 @@ DO JP = 1,IO%NPATCH
   !
   DO JL=1,SIZE(PEK%XTG,2)
     WHERE(PEK%XTG(:,JL)/=XUNDEF) &
-      PEK%XTG(:,JL) = PEK%XTG(:,JL) + XT_CLIM_GRAD  * (ZZS - ZZS_LS)  
+      PEK%XTG(:,JL) = PEK%XTG(:,JL) + XT_CLIM_GRAD  * (ZZS - ZZS_LS)
   END DO
   !
   !-------------------------------------------------------------------------------------
@@ -139,13 +139,13 @@ DO JP = 1,IO%NPATCH
     ! altitude where deep soil freezes (diurnal surface response is not treated)
     ZZSFREEZE(:) = ZZS + (XTT - PEK%XTG(:,JL)) / XT_CLIM_GRAD
     !
-    WHERE(PEK%XTG(:,JL)/=XUNDEF) 
+    WHERE(PEK%XTG(:,JL)/=XUNDEF)
       !
       WHERE (ZTG_LS(:,JL) < XTT)
         !
         WHERE (ZZS <= ZZS_LS)
           !
-          WHERE (ZZS > ZZSFREEZE) 
+          WHERE (ZZS > ZZSFREEZE)
             ZDW(:) = ZWGI_CLIM_GRAD(:,JL) * (ZZS - ZZS_LS)
           ELSEWHERE
             ZDW(:) = ZWGI_CLIM_GRAD(:,JL) * (ZZSFREEZE - ZZS_LS) + ZGRADX * (ZZS - ZZSFREEZE)
@@ -169,20 +169,20 @@ DO JP = 1,IO%NPATCH
           !
         END WHERE
         !
-      END WHERE 
+      END WHERE
       !
       ZWGTOT(:) = XUNDEF
       !
-      WHERE(PEK%XWG(:,JL)/=XUNDEF)        
+      WHERE(PEK%XWG(:,JL)/=XUNDEF)
         ZWGTOT(:) = PEK%XWG(:,JL) + PEK%XWGI(:,JL)
       ENDWHERE
       !
-      WHERE(PEK%XWG(:,JL)/=XUNDEF)        
+      WHERE(PEK%XWG(:,JL)/=XUNDEF)
         PEK%XWGI(:,JL) = PEK%XWGI(:,JL) + ZDW(:)
         PEK%XWG (:,JL) = PEK%XWG (:,JL) - ZDW(:)
       ENDWHERE
       !
-      WHERE (PEK%XWGI(:,JL)<0.0.AND.PEK%XWGI(:,JL)/=XUNDEF) 
+      WHERE (PEK%XWGI(:,JL)<0.0.AND.PEK%XWGI(:,JL)/=XUNDEF)
         PEK%XWGI(:,JL) = 0.
         PEK%XWG (:,JL) = ZWGTOT(:)
       END WHERE
@@ -209,13 +209,13 @@ DO JP = 1,IO%NPATCH
     PEK%XWG (:,2) = MAX(PEK%XWG (:,1)*PK%XDG(:,1),PEK%XWG (:,2)*PK%XDG(:,2))/PK%XDG(:,2)
     PEK%XWGI(:,2) = MAX(PEK%XWGI(:,1)*PK%XDG(:,1),PEK%XWGI(:,2)*PK%XDG(:,2))/PK%XDG(:,2)
   ENDIF
-  !  
-  IF (IO%CISBA=='3-L') THEN 
+  !
+  IF (IO%CISBA=='3-L') THEN
     !
     WHERE (PEK%XWGI(:,3) /= XUNDEF)
       PEK%XWG (:,3) = PEK%XWG(:,3)+PEK%XWGI(:,3)
       PEK%XWGI(:,3) = 0.
-      PEK%XTG (:,3) = ZTG_LS(:,3) + XT_CLIM_GRAD  * (ZZS - ZZS_LS)       
+      PEK%XTG (:,3) = ZTG_LS(:,3) + XT_CLIM_GRAD  * (ZZS - ZZS_LS)
     END WHERE
     IF(IO%LTEMP_ARP)THEN
        PEK%XTG (:,4:SIZE(PEK%XTG,2)) = ZTG_LS(:,4:SIZE(PEK%XTG,2))

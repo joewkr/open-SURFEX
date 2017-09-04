@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE GET_IGN_MASKALL (UG, KNI, PX, PY, OTOT)
 !     #######################################################
-!!****  *GET_IGN_MASKALL* - 
+!!****  *GET_IGN_MASKALL* -
 !!
 !!    PURPOSE
 !!    -------
@@ -30,9 +30,9 @@ SUBROUTINE GET_IGN_MASKALL (UG, KNI, PX, PY, OTOT)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    06/2010 
+!!      Original    06/2010
 !!      07/2011     add specific computation for IGN grid (B. Decharme)
-!-------------------------------------------------------------------------------                         
+!-------------------------------------------------------------------------------
 !
 !
 !
@@ -78,7 +78,7 @@ ENDIF
 IF (.NOT.ALLOCATED(NMASK_IGN))THEN
   ALLOCATE(NMASK_IGN(KNI))
   JL=0
-  DO JJ=1,SIZE(PY)  
+  DO JJ=1,SIZE(PY)
     DO JI=1,SIZE(PX)
       JL=JL+1
       DO JK=1,KNI

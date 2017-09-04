@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE URBAN_DRAG(TOP, T, B, HIMPLICIT_WIND, PTSTEP, PT_CANYON, PQ_CANYON, &
@@ -13,18 +13,18 @@
                           PQSAT_ROAD, PDELT_ROOF, PDELT_ROAD, PCD, PCDN, PAC_ROOF, &
                           PAC_ROOF_WAT, PAC_WALL, PAC_ROAD, PAC_ROAD_WAT, PAC_TOP, &
                           PAC_GARDEN, PRI, PUW_ROAD, PUW_ROOF, PDUWDU_ROAD,        &
-                          PDUWDU_ROOF, PUSTAR_TOWN, PAC_WIN ) 
+                          PDUWDU_ROOF, PUSTAR_TOWN, PAC_WIN )
 !   ##########################################################################
 !
-!!****  *URBAN_DRAG*  
+!!****  *URBAN_DRAG*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     Computes the surface drag over artificial surfaces as towns, 
+!     Computes the surface drag over artificial surfaces as towns,
 !     taking into account the canyon like geometry of urbanized areas.
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -38,11 +38,11 @@
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -50,7 +50,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/01/98 
+!!      Original    20/01/98
 !!          01/00 (V. Masson)  separation of skimming, wake and isolated flows
 !!          09/00 (V. Masson)  use of Z0 for roads
 !!          12/02 (A. Lemonsu) convective speed w* in canyon
@@ -139,7 +139,7 @@ REAL, DIMENSION(:), INTENT(OUT)   :: PAC_ROOF       ! aerodynamical conductance
 REAL, DIMENSION(:), INTENT(OUT)   :: PAC_ROOF_WAT   ! aerodynamical conductance (for water)
 REAL, DIMENSION(:), INTENT(OUT)   :: PAC_WALL       ! aerodynamical conductance
 !                                                   ! between canyon air and
-!                                                   ! walls 
+!                                                   ! walls
 REAL, DIMENSION(:), INTENT(OUT)   :: PAC_ROAD       ! aerodynamical conductance
 !                                                   ! between canyon air and
 !                                                   ! roads
@@ -154,8 +154,8 @@ REAL, DIMENSION(:), INTENT(OUT)   :: PRI            ! Town Richardson number
 !
 REAL, DIMENSION(:), INTENT(OUT)   :: PUW_ROAD       ! Momentum flux for roads
 REAL, DIMENSION(:), INTENT(OUT)   :: PUW_ROOF       ! Momentum flux for roofs
-REAL, DIMENSION(:), INTENT(OUT)   :: PDUWDU_ROAD    ! 
-REAL, DIMENSION(:), INTENT(OUT)   :: PDUWDU_ROOF    ! 
+REAL, DIMENSION(:), INTENT(OUT)   :: PDUWDU_ROAD    !
+REAL, DIMENSION(:), INTENT(OUT)   :: PDUWDU_ROOF    !
 REAL, DIMENSION(:), INTENT(OUT)   :: PUSTAR_TOWN    ! Fraction velocity for town
 !
 REAL, DIMENSION(:), INTENT(OUT)   :: PAC_WIN        ! aerodynamical conductance for window
@@ -186,8 +186,8 @@ REAL, DIMENSION(SIZE(PTA)) :: ZCH          ! town drag coefficient for heat (not
 REAL, DIMENSION(SIZE(PTA)) :: ZCD          ! any surf. exchange coefficient (not used)
 REAL, DIMENSION(SIZE(PTA)) :: ZCDN         ! any surf. neutral exch. coef.  (not used)
 !
-REAL, DIMENSION(SIZE(PTA)) :: ZU_STAR, ZW_STAR !! 
-REAL, DIMENSION(SIZE(PTA)) :: ZQ0              !! 
+REAL, DIMENSION(SIZE(PTA)) :: ZU_STAR, ZW_STAR !!
+REAL, DIMENSION(SIZE(PTA)) :: ZQ0              !!
 !
 REAL, DIMENSION(SIZE(PTA)) :: ZUSTAR2      ! square of friction velocity (m2/s2
 REAL, DIMENSION(SIZE(PTA)) :: ZVMOD        ! module of the horizontal wind at t+1
@@ -205,7 +205,7 @@ REAL, DIMENSION(SIZE(PTA)) :: ZCHTCS_ROOF  ! forced convective heat transfer coe
 REAL, DIMENSION(SIZE(PTA)) :: ZCHTCN_WALL  ! natural convective heat transfer coef. for wall [W/(m2.K)]
 REAL, DIMENSION(SIZE(PTA)) :: ZCHTCS_WALL  ! forced natural convective heat transfer coef. for smooth wall [W/(m2.K)]
 !
-INTEGER                   ::  JLOOP, JJ            !! 
+INTEGER                   ::  JLOOP, JJ            !!
 !
 REAL :: ZZ0_O_Z0H = 200.  ! z0/z0h ratio used in Mascart (1995) formulation.
 !                         ! It is set to the maximum value acceptable by
@@ -371,7 +371,7 @@ IF (TOP%CCH_BEM == "DOE-2") THEN
     ZCHTCN_WALL(JJ) = CHTC_VERT_DOE(PTS_WALL(JJ), PT_CANYON(JJ))
     ZCHTCS_WALL(JJ) = 0.5 * (CHTC_SMOOTH_LEE_DOE (ZCHTCN_WALL(JJ), PU_CANYON(JJ)) + &
                              CHTC_SMOOTH_WIND_DOE(ZCHTCN_WALL(JJ), PU_CANYON(JJ)) )
-                      
+
     PAC_WALL(JJ) = CHTC_ROUGH_DOE(ZCHTCN_WALL(JJ), ZCHTCS_WALL(JJ), T%XROUGH_WALL(JJ)) / XCPD / PRHOA(JJ)
   END DO
 ELSE
@@ -401,12 +401,12 @@ DO JLOOP=1,3
 
     IF (T%XROAD(JJ) .GT. 0.) THEN
       ZQ0(JJ)   = ZQ0(JJ) &
-            + (PTS_ROAD  (JJ) - PT_LOWCAN(JJ)) * PAC_ROAD  (JJ) * T%XROAD  (JJ)/(T%XROAD(JJ)+T%XGARDEN(JJ)) 
+            + (PTS_ROAD  (JJ) - PT_LOWCAN(JJ)) * PAC_ROAD  (JJ) * T%XROAD  (JJ)/(T%XROAD(JJ)+T%XGARDEN(JJ))
     ENDIF
     IF (T%XGARDEN(JJ) .GT. 0.) THEN
       ZQ0(JJ)   = ZQ0(JJ) &
             + (PTS_GARDEN(JJ) - PT_LOWCAN(JJ)) * PAC_GARDEN(JJ) * T%XGARDEN(JJ)/(T%XROAD(JJ)+T%XGARDEN(JJ))
-    ENDIF    
+    ENDIF
     !
     IF (ZQ0(JJ) >= 0.) THEN
       ZW_STAR(JJ) = ( (XG * PEXNA(JJ) / PTA(JJ)) * ZQ0(JJ) * T%XBLD_HEIGHT(JJ)) ** (1/3.)
@@ -466,14 +466,14 @@ DO JJ=1,SIZE(PTA)
       !   new implicitation
       ZUSTAR2(JJ) = (ZCD_ROAD(JJ)*PU_LOWCAN(JJ)*(2.*PPEW_B_COEF_LOWCAN(JJ)-PU_LOWCAN(JJ)))/  &
                     (1.0-2.0*PRHOA(JJ)*ZCD_ROAD(JJ)*PU_LOWCAN(JJ)*PPEW_A_COEF_LOWCAN(JJ))
-      !                   
+      !
       ZVMOD(JJ) = PRHOA(JJ)*PPEW_A_COEF_LOWCAN(JJ)*ZUSTAR2(JJ) + PPEW_B_COEF_LOWCAN(JJ)
       ZVMOD(JJ) = MAX(ZVMOD(JJ),0.)
       !
       IF(PPEW_A_COEF_LOWCAN(JJ)/= 0.)THEN
         ZUSTAR2(JJ) = MAX( ( ZVMOD(JJ) - PPEW_B_COEF_LOWCAN(JJ) ) / (PRHOA(JJ)*PPEW_A_COEF_LOWCAN(JJ)), 0.)
       ENDIF
-      !              
+      !
     ENDIF
     !
     PUW_ROAD(JJ) = - ZUSTAR2(JJ)
@@ -499,7 +499,7 @@ DO JJ=1,SIZE(PTA)
     !              --------
     !
     ZUSTAR2(JJ)=XUNDEF
-    !  
+    !
     IF(HIMPLICIT_WIND=='OLD')THEN
       !   old implicitation
       ZUSTAR2(JJ) = (PCD(JJ)*PVMOD(JJ)*PPEW_B_COEF(JJ))/            &
@@ -507,15 +507,15 @@ DO JJ=1,SIZE(PTA)
     ELSE
       !   new implicitation
       ZUSTAR2(JJ) = (PCD(JJ)*PVMOD(JJ)*(2.*PPEW_B_COEF(JJ)-PVMOD(JJ)))/ &
-                    (1.0-2.0*PRHOA(JJ)*PCD(JJ)*PVMOD(JJ)*PPEW_A_COEF(JJ)) 
-      !                   
+                    (1.0-2.0*PRHOA(JJ)*PCD(JJ)*PVMOD(JJ)*PPEW_A_COEF(JJ))
+      !
       ZVMOD(JJ) = PRHOA(JJ)*PPEW_A_COEF(JJ)*ZUSTAR2(JJ) + PPEW_B_COEF(JJ)
       ZVMOD(JJ) = MAX(ZVMOD(JJ),0.)
       !
       IF(PPEW_A_COEF(JJ)/= 0.)THEN
         ZUSTAR2(JJ) = MAX( ( ZVMOD(JJ) - PPEW_B_COEF(JJ) ) / (PRHOA(JJ)*PPEW_A_COEF(JJ)), 0.)
       ENDIF
-      !                        
+      !
     ENDIF
     !
     PUSTAR_TOWN(JJ) = SQRT(ZUSTAR2(JJ))

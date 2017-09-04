@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CH_OPEN_INPUTB(HKEYWORD,KCHANNEL,KLUOUT)
@@ -90,7 +90,7 @@ ENDDO search_key
 !
 ! read specific comment line and print it
 WRITE(KLUOUT,*) &
-     "Keyword ", HKEYWORD(1:8), " has been found in chemistry data file, the specific comment is:"  
+     "Keyword ", HKEYWORD(1:8), " has been found in chemistry data file, the specific comment is:"
 READ(KCHANNEL,"(A)") YIN
 WRITE(KLUOUT, *) YIN
 !

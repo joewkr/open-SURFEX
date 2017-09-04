@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE TEMPORAL_DISTS(KYEARF, KMONTHF, KDAYF, PSECF,     &
                                  KYEARI, KMONTHI, KDAYI, PSECI,     &
-                                 PDIST                              )  
+                                 PDIST                              )
 !     #############################################################
 !
 !!****  *TEMPORAL_DISTS* - finds the number of secunds between 2 dates
@@ -45,7 +45,7 @@
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    02/01/96
-!!    PP. 06/08: Add case where differents years and same month 
+!!    PP. 06/08: Add case where differents years and same month
 !!    for more-than-1year simulations
 !-------------------------------------------------------------------------------
 !
@@ -72,14 +72,14 @@ INTEGER, INTENT(IN) :: KMONTHI ! month of Initial date
 INTEGER, INTENT(IN) :: KDAYI   ! day of Initial date
 REAL,    INTENT(IN) :: PSECI   ! number of seconds since date at 00 UTC
                                ! of Initial date
-REAL,    INTENT(OUT):: PDIST   ! temporal distance in secunds between the final 
+REAL,    INTENT(OUT):: PDIST   ! temporal distance in secunds between the final
                                ! and initial date
 !
 !*       0.2   Declaration of local variables
 !              ------------------------------
 !
 INTEGER :: IDAYS  ! number of days between the two dates
-INTEGER :: JMONTH,JYEAR ! loop index on months or years 
+INTEGER :: JMONTH,JYEAR ! loop index on months or years
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !-------------------------------------------------------------------------------
@@ -107,7 +107,7 @@ IF ( (KYEARF==KYEARI) .AND. (KMONTHF/=KMONTHI) ) THEN
     RETURN
   END IF
   !
-  ! cumulate the number of days for the months in between KMONTHF-1 and 
+  ! cumulate the number of days for the months in between KMONTHF-1 and
   ! KMONTHI
   IDAYS = 0
   DO JMONTH = KMONTHI, KMONTHF-1
@@ -117,13 +117,13 @@ IF ( (KYEARF==KYEARI) .AND. (KMONTHF/=KMONTHI) ) THEN
       CASE(1,3,5,7:8,10,12)
         IDAYS=IDAYS+31
       CASE(2)
-        IF (MOD(KYEARI,4)==0) THEN 
+        IF (MOD(KYEARI,4)==0) THEN
           IDAYS=IDAYS+29
         ELSE
           IDAYS=IDAYS+28
         ENDIF
     END SELECT
-  END DO  
+  END DO
   !
   ! compute the temporal distance
   PDIST = ( IDAYS + KDAYF - KDAYI) * 86400. + PSECF - PSECI
@@ -143,7 +143,7 @@ IF ( (KYEARF/=KYEARI) .AND. (KMONTHF/=KMONTHI) ) THEN
     RETURN
   END IF
   !
-  ! cumulate the number of days for the months in between KMONTHI and 
+  ! cumulate the number of days for the months in between KMONTHI and
   ! December
   IDAYS = 0
   DO JMONTH = KMONTHI, 12
@@ -153,13 +153,13 @@ IF ( (KYEARF/=KYEARI) .AND. (KMONTHF/=KMONTHI) ) THEN
       CASE(1,3,5,7:8,10,12)
         IDAYS=IDAYS+31
       CASE(2)
-        IF (MOD(KYEARI,4)==0) THEN 
+        IF (MOD(KYEARI,4)==0) THEN
           IDAYS=IDAYS+29
         ELSE
           IDAYS=IDAYS+28
         ENDIF
     END SELECT
-  END DO  
+  END DO
   DO JMONTH = 1,KMONTHF-1
     SELECT CASE (JMONTH)
       CASE(4,6,9,11)
@@ -167,16 +167,16 @@ IF ( (KYEARF/=KYEARI) .AND. (KMONTHF/=KMONTHI) ) THEN
       CASE(1,3,5,7:8,10,12)
         IDAYS=IDAYS+31
       CASE(2)
-        IF (MOD(KYEARF,4)==0) THEN 
+        IF (MOD(KYEARF,4)==0) THEN
           IDAYS=IDAYS+29
         ELSE
           IDAYS=IDAYS+28
         ENDIF
     END SELECT
-  END DO  
+  END DO
   ! add the number of days corresponding to full years between the two dates
   DO JYEAR=KYEARI+1, KYEARF-1
-    IF (MOD(JYEAR,4)==0) THEN 
+    IF (MOD(JYEAR,4)==0) THEN
       IDAYS=IDAYS+366
     ELSE
       IDAYS=IDAYS+365
@@ -189,7 +189,7 @@ IF ( (KYEARF/=KYEARI) .AND. (KMONTHF/=KMONTHI) ) THEN
 END IF
 !
 !
-!!            4. SUPPLEMENTARY CASE FOR DIFFERENT YEARS AND SAME MONTH 
+!!            4. SUPPLEMENTARY CASE FOR DIFFERENT YEARS AND SAME MONTH
 !           ------------------------------------------------------------
 IF ( (KYEARF/=KYEARI) .AND. (KMONTHF==KMONTHI) ) THEN
   ! check chronological order
@@ -199,12 +199,12 @@ IF ( (KYEARF/=KYEARI) .AND. (KMONTHF==KMONTHI) ) THEN
     RETURN
   END IF
   !
-  ! cumulate the number of days for the months in between KMONTHI and 
+  ! cumulate the number of days for the months in between KMONTHI and
   ! December => IDAYS = 0 here
   IDAYS = 0
   ! add the number of days corresponding to full years between the two dates
   DO JYEAR=KYEARI+1, KYEARF-1
-    IF (MOD(JYEAR,4)==0) THEN 
+    IF (MOD(JYEAR,4)==0) THEN
       IDAYS=IDAYS+366
     ELSE
       IDAYS=IDAYS+365

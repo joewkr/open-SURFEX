@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !----------------------------------------------------------------------------!
 !     ##############################################################
@@ -17,7 +17,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -62,9 +62,9 @@ IMPLICIT NONE
 !
  CHARACTER(LEN=6),                   INTENT(IN)   :: HPROGRAM     ! Type of program
 LOGICAL, INTENT(OUT) :: OCOUPL_TOPD
- CHARACTER(LEN=15), DIMENSION(JPCAT),INTENT(OUT)  :: HCAT         ! Names of catchments         
+ CHARACTER(LEN=15), DIMENSION(JPCAT),INTENT(OUT)  :: HCAT         ! Names of catchments
 REAL, DIMENSION(JPCAT),INTENT(OUT)               :: PF_PARAM_BV
-REAL, DIMENSION(JPCAT),INTENT(OUT)               :: PC_DEPTH_RATIO_BV 
+REAL, DIMENSION(JPCAT),INTENT(OUT)               :: PC_DEPTH_RATIO_BV
 !
 !*    0.2    Declaration of local variables
 !            ------------------------------
@@ -80,9 +80,9 @@ LOGICAL                           :: GFOUND    ! flag when namelist is present
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !*    0.3    Declaration of namelists
-!  
 !
-NAMELIST/NAM_PGD_TOPD/CCAT, LCOUPL_TOPD, XF_PARAM_BV, XC_DEPTH_RATIO_BV   
+!
+NAMELIST/NAM_PGD_TOPD/CCAT, LCOUPL_TOPD, XF_PARAM_BV, XC_DEPTH_RATIO_BV
 !-------------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('READ_NAM_PGD_TOPD',0,ZHOOK_HANDLE)
 !

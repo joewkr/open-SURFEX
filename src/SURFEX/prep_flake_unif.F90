@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_FLAKE_UNIF(KLUOUT,HSURF,PFIELD)
@@ -16,7 +16,7 @@ SUBROUTINE PREP_FLAKE_UNIF(KLUOUT,HSURF,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -25,7 +25,7 @@ SUBROUTINE PREP_FLAKE_UNIF(KLUOUT,HSURF,PFIELD)
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    01/2004
-!!    09/2010 E. Kourzeneva: Renamed the lake surface temperature 
+!!    09/2010 E. Kourzeneva: Renamed the lake surface temperature
 !!                           from the namelist
 !!------------------------------------------------------------------
 !
@@ -42,7 +42,7 @@ USE MODD_PREP_FLAKE,   ONLY : XTS_UNIF, &
                                   XUNIF_H_SNOW  , &
                                   XUNIF_H_ICE   , &
                                   XUNIF_H_ML    , &
-                                  XUNIF_H_B1         
+                                  XUNIF_H_B1
 !
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK

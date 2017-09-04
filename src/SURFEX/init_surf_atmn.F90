@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
 SUBROUTINE INIT_SURF_ATM_n (YSC, HPROGRAM,HINIT, OLAND_USE,             &
@@ -8,7 +8,7 @@ SUBROUTINE INIT_SURF_ATM_n (YSC, HPROGRAM,HINIT, OLAND_USE,             &
                              PZENITH,PAZIM,PSW_BANDS,PDIR_ALB,PSCA_ALB, &
                              PEMIS,PTSRAD,PTSURF,                       &
                              KYEAR, KMONTH,KDAY, PTIME, TPDATE_END,     &
-                             HATMFILE,HATMFILETYPE, HTEST               )  
+                             HATMFILE,HATMFILETYPE, HTEST               )
 !#############################################################
 !
 !!****  *INIT_SURF_ATM_n* - routine to initialize GROUND
@@ -39,7 +39,7 @@ SUBROUTINE INIT_SURF_ATM_n (YSC, HPROGRAM,HINIT, OLAND_USE,             &
 !!      Original    01/2003
 !      (P.Tulet )             01/11/03  initialisation of the surface chemistry!
 !!     (D.Gazen)    01/12/03  change emissions handling for surf. externalization
-!!     (P.LeMoigne) 18/07/05  get 1d mask only if associated tile exists    
+!!     (P.LeMoigne) 18/07/05  get 1d mask only if associated tile exists
 !!     (B.Decharme)  03/2009  New keys read for arrange cover by user
 !!     (B.Decharme)  04/2009  Read precipitation forcing from the restart file for ARPEGE/ALADIN run
 !!     (A. Lemonsu)    2009   New key read for urban green areas
@@ -67,16 +67,16 @@ USE MODD_SURF_ATM,       ONLY : XCO2UNCPL
 !
 USE MODD_READ_NAMELIST,  ONLY : LNAM_READ
 USE MODD_SURF_CONF,      ONLY : CPROGNAME
-USE MODD_DST_SURF,       ONLY : NDSTMDE, NDST_MDEBEG, LVARSIG_DST, LRGFIX_DST 
-USE MODD_SLT_SURF,       ONLY : NSLTMDE, NSLT_MDEBEG, LVARSIG_SLT, LRGFIX_SLT                                
+USE MODD_DST_SURF,       ONLY : NDSTMDE, NDST_MDEBEG, LVARSIG_DST, LRGFIX_DST
+USE MODD_SLT_SURF,       ONLY : NSLTMDE, NSLT_MDEBEG, LVARSIG_SLT, LRGFIX_SLT
 
 USE MODD_DATA_COVER_PAR, ONLY : NTILESFC
 USE MODD_DATA_COVER,     ONLY : LCLIM_LAI, XDATA_LAI_ALL_YEARS, XDATA_LAI, &
-                                NECO2_START_YEAR, NECO2_END_YEAR  
+                                NECO2_START_YEAR, NECO2_END_YEAR
 !
 USE MODD_SURF_PAR,       ONLY : XUNDEF, NUNDEF
 USE MODD_CHS_AEROSOL,    ONLY : LVARSIGI, LVARSIGJ
-USE MODD_WRITE_SURF_ATM, ONLY : LNOWRITE_CANOPY, LNOWRITE_TEXFILE  
+USE MODD_WRITE_SURF_ATM, ONLY : LNOWRITE_CANOPY, LNOWRITE_TEXFILE
 !
 USE MODD_SURFEX_MPI, ONLY : XTIME_INIT_SEA, XTIME_INIT_WATER, XTIME_INIT_NATURE, XTIME_INIT_TOWN, &
                             NRANK, NPIO, NSIZE
@@ -149,7 +149,7 @@ TYPE(SURFEX_t), INTENT(INOUT) :: YSC
 !
  CHARACTER(LEN=6),                 INTENT(IN)  :: HPROGRAM  ! program calling surf. schemes
  CHARACTER(LEN=3),                 INTENT(IN)  :: HINIT     ! choice of fields to initialize
-LOGICAL,                          INTENT(IN)  :: OLAND_USE ! 
+LOGICAL,                          INTENT(IN)  :: OLAND_USE !
 INTEGER,                          INTENT(IN)  :: KI        ! number of points
 INTEGER,                          INTENT(IN)  :: KSV       ! number of scalars
 INTEGER,                          INTENT(IN)  :: KSW       ! number of short-wave spectral bands
@@ -243,7 +243,7 @@ IF (LNAM_READ) THEN
  !               --------
  !
  !        0.1. Hard defaults
- !      
+ !
  CALL DEFAULT_SSO(YSC%USS%CROUGH, YSC%USS%XFRACZ0, YSC%USS%XCOEFBE)
  CALL DEFAULT_CH_SURF_ATM(YSC%CHU%CCHEM_SURF_FILE, YSC%CHU%LCH_SURF_EMIS)
  CALL DEFAULT_DIAG_SURF_ATM(YSC%DUO%N2M, YSC%DUO%LT2MMW, YSC%DUO%LSURF_BUDGET,&
@@ -252,12 +252,12 @@ IF (LNAM_READ) THEN
                             YSC%DUO%LRESET_BUDGETC, YSC%DUO%LSELECT, &
                             YSC%DUO%LPROVAR_TO_DIAG, YSC%DUO%LDIAG_GRID, &
                             YSC%DUO%LFRAC, YSC%DUO%XDIAG_TSTEP, &
-                            YSC%DUO%LSNOWDIMNC, YSC%DUO%LRESETCUMUL )                       
+                            YSC%DUO%LSNOWDIMNC, YSC%DUO%LRESETCUMUL )
  !
 ENDIF
 !
 !        0.2. Defaults from file header
-!    
+!
  CALL READ_DEFAULT_SURF_ATM_n(YSC%CHU, YSC%DUO, YSC%USS, HPROGRAM)
 !
 !*       1.     Reading of configuration
@@ -272,11 +272,11 @@ IF(XCO2UNCPL/=XUNDEF)THEN
   WRITE(ILUOUT,*)'!!!                                           !!!'
   WRITE(ILUOUT,*)'!!!          WARNING    WARNING               !!!'
   WRITE(ILUOUT,*)'!!!                                           !!!'
-  WRITE(ILUOUT,*)'!!! Decoupling between CO2 for photosynthesis !!!' 
+  WRITE(ILUOUT,*)'!!! Decoupling between CO2 for photosynthesis !!!'
   WRITE(ILUOUT,*)'!!! and atmospheric CO2 activated             !!!'
   WRITE(ILUOUT,*)'!!! In NAM_SURF_ATM XCO2UNCPL =',XCO2UNCPL,'  !!!'
   WRITE(ILUOUT,*)'!!!                                           !!!'
-  WRITE(ILUOUT,*)'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'        
+  WRITE(ILUOUT,*)'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
 ENDIF
 !
 !        1.2. Date
@@ -287,10 +287,10 @@ SELECT CASE (HINIT)
     YSC%U%TTIME%TDATE%MONTH= NUNDEF
     YSC%U%TTIME%TDATE%DAY  = NUNDEF
     YSC%U%TTIME%TIME       = XUNDEF
-        
+
   CASE ('PRE')
     ! check that diagnostics are off if hinit=='pre'
-    CALL PREP_CTRL_SURF_ATM(YSC%DUO, LNOWRITE_TEXFILE, ILUOUT)  
+    CALL PREP_CTRL_SURF_ATM(YSC%DUO, LNOWRITE_TEXFILE, ILUOUT)
     ! preparation of fields  (date not present in PGD file)
     IF (LNAM_READ) CALL READ_NAM_PREP_SURF_n(HPROGRAM)
     CALL READ_SURF_ATM_DATE(HPROGRAM,HINIT,ILUOUT,HATMFILE,HATMFILETYPE,KYEAR,KMONTH,KDAY,PTIME,YSC%U%TTIME)
@@ -316,7 +316,7 @@ END SELECT
  CALL READ_SURF(HPROGRAM,'DIM_FULL  ',YSC%U%NDIM_FULL,  IRESP)
  CALL END_IO_SURF_n(HPROGRAM)
  CALL INIT_IO_SURF_n(YSC%DTCO, YSC%U, HPROGRAM,'FULL  ','SURF  ','READ ')
-                
+
 !
  CALL READ_SURF(HPROGRAM,'VERSION',IVERSION,IRESP)
  CALL READ_SURF(HPROGRAM,'BUG',IBUGFIX,IRESP)
@@ -331,7 +331,7 @@ ENDIF
  CALL READ_SURF(HPROGRAM,'NATURE',YSC%U%CNATURE,IRESP)
  CALL READ_SURF(HPROGRAM,'TOWN  ',YSC%U%CTOWN  ,IRESP)
 !
-! 
+!
  CALL READ_SURF(HPROGRAM,'DIM_SEA   ',YSC%U%NDIM_SEA,   IRESP)
  CALL READ_SURF(HPROGRAM,'DIM_NATURE',YSC%U%NDIM_NATURE,IRESP)
  CALL READ_SURF(HPROGRAM,'DIM_WATER ',YSC%U%NDIM_WATER, IRESP)
@@ -381,17 +381,17 @@ IF (HPROGRAM/='AROME '.AND.NRANK==NPIO) THEN
     ALLOCATE(YSC%UG%XGRID_FULL_PAR(YSC%UG%G%NGRID_PAR))
     CALL READ_GRIDTYPE(HPROGRAM,YSC%UG%G%CGRID,YSC%UG%G%NGRID_PAR,YSC%U%NSIZE_FULL,.TRUE.,&
                        YSC%UG%XGRID_FULL_PAR,IRESP,HDIR='H')
-#else          
+#else
     CALL READ_GRIDTYPE(HPROGRAM,YSC%UG%G%CGRID,YSC%UG%NGRID_FULL_PAR,YSC%U%NDIM_FULL,.FALSE.,HDIR='A')
     ALLOCATE(YSC%UG%XGRID_FULL_PAR(YSC%UG%NGRID_FULL_PAR))
     CALL READ_GRIDTYPE(HPROGRAM,YSC%UG%G%CGRID,YSC%UG%NGRID_FULL_PAR,YSC%U%NDIM_FULL,.TRUE.,&
                        YSC%UG%XGRID_FULL_PAR,IRESP,HDIR='A')
-#endif               
+#endif
   ENDIF
   !
 ENDIF
 !
-!*       2.4     Allocation of chemical species name, chemical index of HSV array 
+!*       2.4     Allocation of chemical species name, chemical index of HSV array
 !
  CALL INIT_CHEMICAL_n(ILUOUT, KSV, HSV, YSC%SV,        &
                      YSC%CHU%CCH_NAMES, YSC%CHU%CAER_NAMES     )
@@ -410,7 +410,7 @@ IF (YSC%CHU%LCH_EMIS) THEN
   !
   IF (YSC%CHU%CCH_EMIS=='AGGR') THEN
     CALL CH_INIT_EMISSION_n(YSC%CHE, YSC%CHU%XCONVERSION, YSC%SV%CSV, &
-                            HPROGRAM,YSC%U%NSIZE_FULL,HINIT,PRHOA,YSC%CHU%CCHEM_SURF_FILE) 
+                            HPROGRAM,YSC%U%NSIZE_FULL,HINIT,PRHOA,YSC%CHU%CCHEM_SURF_FILE)
   ELSE
     CALL CH_INIT_SNAP_n(YSC%CHN, YSC%SV%CSV, &
                         HPROGRAM,YSC%U%NSIZE_FULL,HINIT,PRHOA,YSC%CHU%CCHEM_SURF_FILE)
@@ -418,7 +418,7 @@ IF (YSC%CHU%LCH_EMIS) THEN
   !
 ENDIF
 !
-!*       2.5 Initialization of dry deposition scheme (chemistry)  
+!*       2.5 Initialization of dry deposition scheme (chemistry)
 !
 IF (YSC%SV%NBEQ .GT. 0) THEN
 !
@@ -545,10 +545,10 @@ IF (YSC%U%NDIM_SEA>0) &
                   ZP_ZENITH,ZP_AZIM,PSW_BANDS,ZP_DIR_ALB,ZP_SCA_ALB, &
                   ZP_EMIS,ZP_TSRAD,ZP_TSURF,                         &
                   KYEAR,KMONTH,KDAY,PTIME, HATMFILE,HATMFILETYPE,    &
-                  'OK'                                               )  
+                  'OK'                                               )
 !
 !
- CALL UNPACK_SURF_INIT_ARG(JTILE,YSC%U%NSIZE_SEA,YSC%U%NR_SEA)  
+ CALL UNPACK_SURF_INIT_ARG(JTILE,YSC%U%NSIZE_SEA,YSC%U%NR_SEA)
 !
 #ifdef SFX_MPI
 XTIME_INIT_SEA = XTIME_INIT_SEA + (MPI_WTIME() - XTIME0)*100./MAX(1,YSC%U%NSIZE_SEA)
@@ -606,7 +606,7 @@ IF (YSC%U%NDIM_NATURE>0) &
                      HATMFILE,HATMFILETYPE,'OK'      )
 !
 !
- CALL UNPACK_SURF_INIT_ARG(JTILE,YSC%U%NSIZE_NATURE,YSC%U%NR_NATURE)  
+ CALL UNPACK_SURF_INIT_ARG(JTILE,YSC%U%NSIZE_NATURE,YSC%U%NR_NATURE)
 !
 #ifdef SFX_MPI
 XTIME_INIT_NATURE = XTIME_INIT_NATURE + (MPI_WTIME() - XTIME0)*100./MAX(1,YSC%U%NSIZE_NATURE)
@@ -631,10 +631,10 @@ IF (YSC%U%NDIM_TOWN>0) &
                    ZP_ZENITH,ZP_AZIM,PSW_BANDS,ZP_DIR_ALB,ZP_SCA_ALB, &
                    ZP_EMIS,ZP_TSRAD,ZP_TSURF,                         &
                    KYEAR,KMONTH,KDAY,PTIME, HATMFILE,HATMFILETYPE,    &
-                   'OK'                                               )  
+                   'OK'                                               )
 !
 !
- CALL UNPACK_SURF_INIT_ARG(JTILE,YSC%U%NSIZE_TOWN,YSC%U%NR_TOWN)  
+ CALL UNPACK_SURF_INIT_ARG(JTILE,YSC%U%NSIZE_TOWN,YSC%U%NR_TOWN)
 !
 #ifdef SFX_MPI
 XTIME_INIT_TOWN = XTIME_INIT_TOWN + (MPI_WTIME() - XTIME0)*100./MAX(1,YSC%U%NSIZE_TOWN)
@@ -647,11 +647,11 @@ XTIME_INIT_TOWN = XTIME_INIT_TOWN + (MPI_WTIME() - XTIME0)*100./MAX(1,YSC%U%NSIZ
 IF (SIZE(PDIR_ALB)>0)                                                   &
   CALL AVERAGE_RAD(ZFRAC_TILE,                                            &
                    ZDIR_ALB_TILE, ZSCA_ALB_TILE, ZEMIS_TILE, ZTSRAD_TILE, &
-                   PDIR_ALB,      PSCA_ALB,      PEMIS,      PTSRAD       ) 
+                   PDIR_ALB,      PSCA_ALB,      PEMIS,      PTSRAD       )
 !
 IF (SIZE(PTSURF)>0) &
   CALL AVERAGE_TSURF(ZFRAC_TILE, ZTSURF_TILE, PTSURF)
-!                  
+!
 DEALLOCATE(ZFRAC_TILE)
 !
 !-------------------------------------------------------------------------------
@@ -697,21 +697,21 @@ END IF
 !
 DO JJ=1,KSIZE
 IF (SIZE(PCO2)>0) &
-     ZP_CO2   (JJ)     = PCO2        (KMASK(JJ))  
+     ZP_CO2   (JJ)     = PCO2        (KMASK(JJ))
 IF (SIZE(PRHOA)>0) &
-     ZP_RHOA  (JJ)     = PRHOA       (KMASK(JJ))  
+     ZP_RHOA  (JJ)     = PRHOA       (KMASK(JJ))
 IF (SIZE(PZENITH)>0) THEN
     IF (LZENITH) THEN
-       ZP_ZENITH(JJ)     = PZENITH     (KMASK(JJ)) 
+       ZP_ZENITH(JJ)     = PZENITH     (KMASK(JJ))
     ELSE
-       ZP_ZENITH(JJ)     = ZZENITH     (KMASK(JJ)) 
+       ZP_ZENITH(JJ)     = ZZENITH     (KMASK(JJ))
     ENDIF
 ENDIF
 IF (SIZE(PAZIM  )>0) THEN
     IF (LZENITH) THEN
-       ZP_AZIM  (JJ)     = PAZIM       (KMASK(JJ)) 
+       ZP_AZIM  (JJ)     = PAZIM       (KMASK(JJ))
     ELSE
-       ZP_AZIM  (JJ)     = ZAZIM       (KMASK(JJ)) 
+       ZP_AZIM  (JJ)     = ZAZIM       (KMASK(JJ))
     ENDIF
 ENDIF
 ENDDO
@@ -732,11 +732,11 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('UNPACK_SURF_INIT_ARG',0,ZHOOK_HANDLE)
 DO JJ=1,KSIZE
 IF (SIZE(ZTSRAD_TILE)>0) &
-     ZTSRAD_TILE  (KMASK(JJ),KTILE)  = ZP_TSRAD     (JJ)  
+     ZTSRAD_TILE  (KMASK(JJ),KTILE)  = ZP_TSRAD     (JJ)
 IF (SIZE(ZDIR_ALB_TILE)>0) &
-     ZDIR_ALB_TILE(KMASK(JJ),:,KTILE)= ZP_DIR_ALB   (JJ,:)  
+     ZDIR_ALB_TILE(KMASK(JJ),:,KTILE)= ZP_DIR_ALB   (JJ,:)
 IF (SIZE(ZSCA_ALB_TILE)>0) &
-     ZSCA_ALB_TILE(KMASK(JJ),:,KTILE)= ZP_SCA_ALB   (JJ,:)  
+     ZSCA_ALB_TILE(KMASK(JJ),:,KTILE)= ZP_SCA_ALB   (JJ,:)
 IF (SIZE(ZEMIS_TILE)>0) &
      ZEMIS_TILE   (KMASK(JJ),KTILE)  = ZP_EMIS      (JJ)
 IF (SIZE(ZTSURF_TILE)>0) &

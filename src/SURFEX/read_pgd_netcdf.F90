@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#################################################################################
 SUBROUTINE READ_PGD_NETCDF (UG, U, USS, &
@@ -17,11 +17,11 @@ SUBROUTINE READ_PGD_NETCDF (UG, U, USS, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     M. Lafaysse 
+!!     M. Lafaysse
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -144,10 +144,10 @@ ELSE
   DO JPOINT=1,INFIELD
     !*    5.     Call to the adequate subroutine (point by point treatment)
     !            ----------------------------------------------------------
-    !     
+    !
     CALL PT_BY_PT_TREATMENT(UG, U, USS, &
                             ILUOUT,  (/ ZLAT2D(JPOINT)/) , (/ZLON2D(JPOINT)/) , (/ ZFIELD(JPOINT)/) , &
-      HSUBROUTINE                                       )  
+      HSUBROUTINE                                       )
 
   ENDDO
 

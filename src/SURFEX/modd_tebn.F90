@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################
       MODULE MODD_TEB_n
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -97,7 +97,7 @@ TYPE TEB_t
   REAL, POINTER, DIMENSION(:)   :: XRESIDENTIAL  ! fraction of Residential use      (-)
   REAL                          :: XDT_RES       ! target temperature change when unoccupied (K) (residential buildings)
   REAL                          :: XDT_OFF       ! target temperature change when unoccupied (K) (offices buildings)
-  
+
 !
 ! anthropogenic fluxes
 !
@@ -105,7 +105,7 @@ TYPE TEB_t
 !                                                  ! heat fluxes due to traffic       (W/m2)
   REAL, POINTER, DIMENSION(:)   :: XLE_TRAFFIC   ! anthropogenic latent
 !                                                  ! heat fluxes due to traffic       (W/m2)
-  REAL, POINTER, DIMENSION(:)   :: XH_INDUSTRY   ! anthropogenic sensible                   
+  REAL, POINTER, DIMENSION(:)   :: XH_INDUSTRY   ! anthropogenic sensible
 !                                                  ! heat fluxes due to factories     (W/m2)
   REAL, POINTER, DIMENSION(:)   :: XLE_INDUSTRY  ! anthropogenic latent
 !                                                  ! heat fluxes due to factories     (W/m2)
@@ -144,14 +144,14 @@ TYPE TEB_t
 !
 ! Prognostic snow:
 !
-  TYPE(SURF_SNOW)                 :: TSNOW_ROOF      ! snow state on roofs: 
+  TYPE(SURF_SNOW)                 :: TSNOW_ROOF      ! snow state on roofs:
 !                                                  ! scheme type/option               (-)
 !                                                  ! number of layers                 (-)
 !                                                  ! snow (& liq. water) content      (kg/m2)
 !                                                  ! heat content                     (J/m2)
 !                                                  ! temperature                      (K)
 !                                                  ! density                          (kg m-3)
-  TYPE(SURF_SNOW)                 :: TSNOW_ROAD      ! snow state on roads: 
+  TYPE(SURF_SNOW)                 :: TSNOW_ROAD      ! snow state on roads:
 !                                                  ! scheme type/option               (-)
 !                                                  ! number of layers                 (-)
 !                                                  ! snow (& liq. water) content      (kg/m2)
@@ -259,7 +259,7 @@ ELSE
   DO JP=1,KPATCH
     CALL TEB_INIT(YNTEB%AL(JP))
   ENDDO
-  DEALLOCATE(YNTEB%AL)        
+  DEALLOCATE(YNTEB%AL)
 ENDIF
 IF (LHOOK) CALL DR_HOOK("MODD_TEB_N:TEB_NP_INIT",1,ZHOOK_HANDLE)
 END SUBROUTINE TEB_NP_INIT

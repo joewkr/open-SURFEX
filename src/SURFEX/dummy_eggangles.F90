@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE EGGANGLES
 USE PARKIND1  ,ONLY : JPIM,    JPRB
@@ -183,30 +183,30 @@ END FUNCTION MINIMAX_V
 ! -------------------------------------------------------------------------------
 REAL(KIND=JPRB) FUNCTION DIST_2REF_L(COORD_LON,REF_LON,PI) RESULT(DIST)
 REAL(KIND=JPRB), INTENT(IN)                   :: COORD_LON, REF_LON
-REAL(KIND=JPRB), INTENT(IN), OPTIONAL         :: PI       
+REAL(KIND=JPRB), INTENT(IN), OPTIONAL         :: PI
 END FUNCTION DIST_2REF_L
 ! -------------------------------------------------------------------------------
 REAL(KIND=JPRB) FUNCTION DIST_2REF_S(PT_COORD,REF_COORD,PI) RESULT(DIST)
 
 TYPE (LOLA), INTENT(IN)                       :: PT_COORD, REF_COORD
-REAL(KIND=JPRB), INTENT(IN), OPTIONAL         :: PI 
+REAL(KIND=JPRB), INTENT(IN), OPTIONAL         :: PI
 END FUNCTION DIST_2REF_S
 ! -------------------------------------------------------------------------------
 FUNCTION DIST_2REF_V(PT_COORD,REF_COORD,PI) RESULT(DIST)
 TYPE (LOLA), DIMENSION(:), INTENT(IN)                   :: PT_COORD
 TYPE (LOLA), INTENT(IN)                                 :: REF_COORD
-REAL(KIND=JPRB), INTENT(IN), OPTIONAL                   :: PI 
+REAL(KIND=JPRB), INTENT(IN), OPTIONAL                   :: PI
 REAL(KIND=JPRB), DIMENSION(SIZE(PT_COORD)) :: DIST
 END FUNCTION DIST_2REF_V
 ! -------------------------------------------------------------------------------
 REAL(KIND=JPRB) FUNCTION SIZE_W2E_L(WEST_LON,EAST_LON,PI) RESULT(TAILLE)
 REAL(KIND=JPRB), INTENT(IN)                   :: WEST_LON, EAST_LON
-REAL(KIND=JPRB), INTENT(IN), OPTIONAL         :: PI 
+REAL(KIND=JPRB), INTENT(IN), OPTIONAL         :: PI
 END FUNCTION SIZE_W2E_L
 ! -------------------------------------------------------------------------------
 REAL(KIND=JPRB) FUNCTION SIZE_W2E_S(WEST_COORD,EAST_COORD,PI) RESULT(TAILLE)
 TYPE (LOLA), INTENT(IN)                       :: WEST_COORD, EAST_COORD
-REAL(KIND=JPRB), INTENT(IN), OPTIONAL         :: PI 
+REAL(KIND=JPRB), INTENT(IN), OPTIONAL         :: PI
 END FUNCTION SIZE_W2E_S
 ! -------------------------------------------------------------------------------
-END MODULE EGGANGLES      
+END MODULE EGGANGLES

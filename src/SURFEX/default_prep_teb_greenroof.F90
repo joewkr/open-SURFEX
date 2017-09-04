@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_PREP_TEB_GREENROOF
@@ -28,11 +28,11 @@
 !!
 !!    AUTHOR
 !!    ------
-!!    A. Lemonsu & C. de Munck 
+!!    A. Lemonsu & C. de Munck
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/2011 
+!!      Original    07/2011
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -46,7 +46,7 @@ USE MODD_PREP_TEB_GREENROOF, ONLY : CFILE_GR, CTYPE, CFILEPGD_GR, CTYPEPGD,     
                                     CFILE_TG_GR, CTYPE_TG,                               &
                                     CFILE_TG_SURF_GR, CFILE_TG_ROOT_GR, CFILE_TG_DEEP_GR,      &
                                     XTG_SURF_GR, XTG_ROOT_GR, XTG_DEEP_GR,                     &
-                                    XWR_DEF  
+                                    XWR_DEF
 
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 !

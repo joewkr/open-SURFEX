@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##############################################################
       SUBROUTINE UPDATE_ESM_WATFLUX_n (W, KI,KSW,PZENITH,PDIR_ALB,     &
@@ -8,7 +8,7 @@
 !     ##############################################################
 !
 !!****  *UPDATE_ESM_WATFLUX_n* - routine to update WATFLUX radiative and physical properties in
-!!                               Earth System Model after the call to OASIS coupler in order 
+!!                               Earth System Model after the call to OASIS coupler in order
 !!                               to close the energy budget between radiative scheme and surfex
 !!
 !!    PURPOSE
@@ -30,7 +30,7 @@
 !!
 !!    AUTHOR
 !!    ------
-!!     B. Decharme 
+!!     B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -46,7 +46,7 @@ USE MODD_WATFLUX_n, ONLY : WATFLUX_t
 !
 USE MODD_CSTS,           ONLY : XTT
 USE MODD_SURF_PAR,       ONLY : XUNDEF
-!                                
+!
 USE MODI_UPDATE_RAD_WATER
 !
 !
@@ -86,7 +86,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('UPDATE_ESM_WATFLUX_N',0,ZHOOK_HANDLE)
 !
-CALL UPDATE_RAD_WATER(W,PZENITH,XTT,PDIR_ALB,PSCA_ALB,PEMIS,PTSRAD ) 
+CALL UPDATE_RAD_WATER(W,PZENITH,XTT,PDIR_ALB,PSCA_ALB,PEMIS,PTSRAD )
 !
 PTSURF(:) = W%XTS(:)
 !

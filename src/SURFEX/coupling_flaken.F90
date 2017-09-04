@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_FLAKE_n (CHF, DGO, D, DC, DMF, F, DST, SLT, &
@@ -11,7 +11,7 @@ SUBROUTINE COUPLING_FLAKE_n (CHF, DGO, D, DC, DMF, F, DST, SLT, &
                              PSFTH, PSFTS, PSFCO2, PSFU, PSFV, PTSRAD, PDIR_ALB,       &
                              PSCA_ALB, PEMIS, PTSURF, PZ0, PZ0H, PQSURF, PPEW_A_COEF,  &
                              PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF,       &
-                             PPEQ_B_COEF, HTEST                              )  
+                             PPEQ_B_COEF, HTEST                              )
 !     ###############################################################################
 
 !
@@ -25,11 +25,11 @@ SUBROUTINE COUPLING_FLAKE_n (CHF, DGO, D, DC, DMF, F, DST, SLT, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -60,17 +60,17 @@ USE MODD_REPROD_OPER, ONLY : CIMPLICIT_WIND
 USE MODD_CSTS,     ONLY : XRD, XCPD, XP00, XLVTT, XLSTT, XKARMAN, XTT
 USE MODD_SURF_PAR, ONLY : XUNDEF
 !
-!                          
+!
 !
 USE MODD_SLT_SURF
 USE MODD_DST_SURF
 !
 USE MODE_DSLT_SURF
 USE MODE_THERMOS
-! 
+!
 USE MODI_WATER_FLUX
 USE MODI_ADD_FORECAST_TO_DATE_SURF
-USE MODI_DIAG_INLINE_FLAKE_n 
+USE MODI_DIAG_INLINE_FLAKE_n
 USE MODI_DIAG_MISC_FLAKE_n
 USE MODI_CH_AER_DEP
 USE MODI_CH_DEP_WATER
@@ -168,7 +168,7 @@ REAL, DIMENSION(KI), INTENT(IN) :: PPEQ_B_COEF
 !
 !*      0.2    declarations of local variables
 !
-REAL, DIMENSION(KI,KSW) :: ZDIR_ALB   ! Direct albedo at time t , 
+REAL, DIMENSION(KI,KSW) :: ZDIR_ALB   ! Direct albedo at time t ,
 REAL, DIMENSION(KI,KSW) :: ZSCA_ALB   ! Diffuse albedo at time t
 !
 REAL, DIMENSION(KI)  :: ZALB     ! surface albedo
@@ -178,7 +178,7 @@ REAL, DIMENSION(KI)  :: ZEXNA  ! Exner function at forcing level
 REAL, DIMENSION(KI)  :: ZEXNS  ! Exner function at surface level
 !
 REAL, DIMENSION(KI)  :: ZWIND  ! Wind
-REAL, DIMENSION(KI)  :: ZGLOBAL_SW    ! Solar radiation flux at the surface (W/m2) 
+REAL, DIMENSION(KI)  :: ZGLOBAL_SW    ! Solar radiation flux at the surface (W/m2)
 REAL, DIMENSION(KI)  :: ZQA    ! Air specific humidity (kg/kg)
 !
 REAL, DIMENSION(KI)  :: ZUSTAR ! friction velocity (m/s)
@@ -211,7 +211,7 @@ REAL                 :: ZCONVERTFACM6_SLT, ZCONVERTFACM6_DST
 !
 INTEGER              :: ISWB   ! number of shortwave spectral bands
 INTEGER              :: JSWB   ! loop counter on shortwave spectral bands
-!  
+!
 INTEGER              :: ILUOUT ! output logical unit
 !
 LOGICAL              :: GPWG        = .FALSE.
@@ -233,7 +233,7 @@ END IF
 ! Variables needed by flake:
 !-------------------------------------------------------------------------------------
 !
-ZCD        (:) = XUNDEF    
+ZCD        (:) = XUNDEF
 ZCDN       (:) = XUNDEF
 ZCH        (:) = XUNDEF
 ZRI        (:) = XUNDEF
@@ -285,8 +285,8 @@ IF (F%CFLK_FLUX=='DEF  ') THEN
     CALL WATER_FLUX(F%XZ0, PTA, ZEXNA, PRHOA, F%XTS, ZEXNS, PQA, &
                     PRAIN, PSNOW, XTT, ZWIND, PZREF, PUREF,      &
                     PPS, GHANDLE_SIC, ZQSAT, PSFTH, PSFTQ, ZUSTAR,&
-                    ZCD, ZCDN, ZCH, ZRI, ZRESA_WATER, ZZ0H        )  
-!                  
+                    ZCD, ZCDN, ZCH, ZRI, ZRESA_WATER, ZZ0H        )
+!
     WHERE (F%XTS(:)<XTT)
       ZLE  (:) = PSFTQ(:) * XLSTT
       ZLEI (:) = PSFTQ(:) * XLSTT
@@ -297,25 +297,25 @@ IF (F%CFLK_FLUX=='DEF  ') THEN
       ZSUBL(:) = 0.0
     END WHERE
 !
-    IF(CIMPLICIT_WIND=='OLD')THEN    
+    IF(CIMPLICIT_WIND=='OLD')THEN
 !     old implicitation (m2/s2)
       ZUSTAR2(:) = (ZCD(:)*ZWIND(:)*PPEW_B_COEF(:))/            &
-                   (1.0-PRHOA(:)*ZCD(:)*ZWIND(:)*PPEW_A_COEF(:)) 
+                   (1.0-PRHOA(:)*ZCD(:)*ZWIND(:)*PPEW_A_COEF(:))
     ELSE
-!     new implicitation (m2/s2)            
+!     new implicitation (m2/s2)
       ZUSTAR2(:) = (ZCD(:)*ZWIND(:)*(2.*PPEW_B_COEF(:)-ZWIND(:))) /&
-                   (1.0-2.0*PRHOA(:)*ZCD(:)*ZWIND(:)*PPEW_A_COEF(:)) 
-!                   
+                   (1.0-2.0*PRHOA(:)*ZCD(:)*ZWIND(:)*PPEW_A_COEF(:))
+!
       ZWORK(:) = PRHOA(:)*PPEW_A_COEF(:)*ZUSTAR2(:) + PPEW_B_COEF(:)
       ZWORK(:) = MAX(ZWORK(:),0.)
 !
       WHERE(PPEW_A_COEF(:)/= 0.)
             ZUSTAR2(:) = MAX( ( ZWORK(:) - PPEW_B_COEF(:) ) / (PRHOA(:)*PPEW_A_COEF(:)), 0.)
       ENDWHERE
-!                   
+!
     ENDIF
-!    
-    WHERE (ZWIND(:)>0.)            
+!
+    WHERE (ZWIND(:)>0.)
       ZSFM(:) = - PRHOA(:) * ZUSTAR2(:)
       PSFU(:) = ZSFM(:) * PU(:) / ZWIND(:)
       PSFV(:) = ZSFM(:) * PV(:) / ZWIND(:)
@@ -332,7 +332,7 @@ ENDIF
 !
 ISWB = SIZE(PSW_BANDS)
 !
-DO JSWB=1,ISWB 
+DO JSWB=1,ISWB
   ZDIR_ALB(:,JSWB) = F%XDIR_ALB(:)
   ZSCA_ALB(:,JSWB) = F%XSCA_ALB(:)
 END DO
@@ -351,7 +351,7 @@ ZTRAD = F%XTS
 ! Surface heat, momentum fluxes, and other diags
                       PSFTH, ZLE, ZSFM, ZZ0H, ZQSAT, ZRI, ZUSTAR,     &
                       ZCD, PSFTQ, ZLEI, ZSUBL, ZLWUP, ZSWE,           &
-! Flags              
+! Flags
                       PPEW_A_COEF, PPEW_B_COEF, PRHOA, CIMPLICIT_WIND )
 !
 !-------------------------------------------------------------------------------------
@@ -365,7 +365,7 @@ IF (F%CFLK_FLUX=='FLAKE') THEN
     PSFU(:) = ZSFM(:) * PU(:) / ZWIND(:)
     PSFV(:) = ZSFM(:) * PV(:) / ZWIND(:)
   END WHERE
-  ! 
+  !
   ! ZUSTAR and ZRESA_WATER are not in Flake but are needed to the ch_* routines
   !
   ZUSTAR(:)       = SQRT (ABS(ZSFM(:))/PRHOA(:))
@@ -374,11 +374,11 @@ IF (F%CFLK_FLUX=='FLAKE') THEN
   ZRESA_WATER=2.E4
   WHERE (PSFTH/=0.)
   ZRESA_WATER (:) = XCPD * PRHOA(:) * (F%XTS(:) - PTA(:) * ZEXNS(:)/ZEXNA(:)) &
-                     / (PSFTH(:) * ZEXNS(:))  
+                     / (PSFTH(:) * ZEXNS(:))
   END WHERE
 !
 ENDIF
-!                               
+!
 F%XUSTAR(:) = ZUSTAR(:)
 !
 ! CO2 flux
@@ -399,15 +399,15 @@ IF (CHF%SVF%NBEQ>0) THEN
     IEND = CHF%SVF%NSV_CHSEND
     !
     CALL CH_DEP_WATER  (ZRESA_WATER, ZUSTAR, PTA, ZTRAD, PSV(:,IBEG:IEND), &
-                        CHF%SVF%CSV(IBEG:IEND), CHF%XDEP(:,1:CHF%SVF%NBEQ) )  
+                        CHF%SVF%CSV(IBEG:IEND), CHF%XDEP(:,1:CHF%SVF%NBEQ) )
 
-    PSFTS(:,IBEG:IEND) = - PSV(:,IBEG:IEND) * CHF%XDEP(:,1:CHF%SVF%NBEQ) 
-    ! 
+    PSFTS(:,IBEG:IEND) = - PSV(:,IBEG:IEND) * CHF%XDEP(:,1:CHF%SVF%NBEQ)
+    !
     IF (CHF%SVF%NAEREQ > 0 ) THEN
       IBEG = CHF%SVF%NSV_AERBEG
       IEND = CHF%SVF%NSV_AEREND
       !
-      CALL CH_AER_DEP(PSV(:,IBEG:IEND),PSFTS(:,IBEG:IEND),ZUSTAR,ZRESA_WATER,PTA,PRHOA)     
+      CALL CH_AER_DEP(PSV(:,IBEG:IEND),PSFTS(:,IBEG:IEND),ZUSTAR,ZRESA_WATER,PTA,PRHOA)
       END IF
 
   ELSE
@@ -428,7 +428,7 @@ IF (CHF%SVF%NDSTEQ>0) THEN
   CALL DSLT_DEP(PSV(:,IBEG:IEND), PSFTS(:,IBEG:IEND), ZUSTAR, ZRESA_WATER, PTA, PRHOA, &
                 DST%XEMISSIG_DST, DST%XEMISRADIUS_DST, JPMODE_DST, XDENSITY_DST, &
                 XMOLARWEIGHT_DST, ZCONVERTFACM0_DST, ZCONVERTFACM6_DST, ZCONVERTFACM3_DST, &
-                LVARSIG_DST, LRGFIX_DST, CVERMOD  )  
+                LVARSIG_DST, LRGFIX_DST, CVERMOD  )
 
   CALL MASSFLUX2MOMENTFLUX(         &
     PSFTS(:,IBEG:IEND),             & !I/O ![kg/m2/sec] In: flux of only mass, out: flux of moments
@@ -439,7 +439,7 @@ IF (CHF%SVF%NDSTEQ>0) THEN
     ZCONVERTFACM0_DST,              &
     ZCONVERTFACM6_DST,              &
     ZCONVERTFACM3_DST,              &
-    LVARSIG_DST, LRGFIX_DST         )  
+    LVARSIG_DST, LRGFIX_DST         )
 ENDIF
 
 
@@ -451,7 +451,7 @@ IF (CHF%SVF%NSLTEQ>0) THEN
   CALL DSLT_DEP(PSV(:,IBEG:IEND), PSFTS(:,IBEG:IEND), ZUSTAR, ZRESA_WATER, PTA, PRHOA, &
                 SLT%XEMISSIG_SLT, SLT%XEMISRADIUS_SLT, JPMODE_SLT, XDENSITY_SLT, &
                 XMOLARWEIGHT_SLT, ZCONVERTFACM0_SLT, ZCONVERTFACM6_SLT, ZCONVERTFACM3_SLT, &
-                LVARSIG_SLT, LRGFIX_SLT, CVERMOD  )  
+                LVARSIG_SLT, LRGFIX_SLT, CVERMOD  )
 
   CALL MASSFLUX2MOMENTFLUX(         &
     PSFTS(:,IBEG:IEND),             & !I/O ![kg/m2/sec] In: flux of only mass, out: flux of moments
@@ -462,7 +462,7 @@ IF (CHF%SVF%NSLTEQ>0) THEN
     ZCONVERTFACM0_SLT,              &
     ZCONVERTFACM6_SLT,              &
     ZCONVERTFACM3_SLT,              &
-    LVARSIG_SLT, LRGFIX_SLT         ) 
+    LVARSIG_SLT, LRGFIX_SLT         )
 ENDIF
 
 !
@@ -489,15 +489,15 @@ ENDIF
                           ZCD, ZCDN, ZCH, ZRI, ZHU,                  &
                           ZZ0H, ZQSAT, PSFTH, PSFTQ, PSFU, PSFV,     &
                           PDIR_SW, PSCA_SW, PLW, ZDIR_ALB, ZSCA_ALB, &
-                          ZLE, ZLEI, ZSUBL, ZLWUP, ZALB, ZSWE        )  
+                          ZLE, ZLEI, ZSUBL, ZLWUP, ZALB, ZSWE        )
 !
 !-------------------------------------------------------------------------------------
 !
  CALL DIAG_MISC_FLAKE_n(DMF, F)
 !
 !-------------------------------------------------------------------------------
-!Physical properties see by the atmosphere in order to close the energy budget 
-!between surfex and the atmosphere. All variables should be at t+1 but very 
+!Physical properties see by the atmosphere in order to close the energy budget
+!between surfex and the atmosphere. All variables should be at t+1 but very
 !difficult to do. Maybe it will be done later. However, Ts can be at time t+1
 !-------------------------------------------------------------------------------
 !
@@ -511,8 +511,8 @@ PQSURF (:) = ZQSAT(:)
 !the energy budget between surfex and the atmosphere
 !-------------------------------------------------------------------------------------
 !
- CALL UPDATE_RAD_FLAKE(F,PZENITH2,PDIR_ALB,PSCA_ALB,PEMIS,PTSRAD  )                       
-!                         
+ CALL UPDATE_RAD_FLAKE(F,PZENITH2,PDIR_ALB,PSCA_ALB,PEMIS,PTSRAD  )
+!
 IF (LHOOK) CALL DR_HOOK('COUPLING_FLAKE_N',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------------

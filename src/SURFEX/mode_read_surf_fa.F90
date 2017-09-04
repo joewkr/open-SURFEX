@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_READ_SURF_FA
 !!
@@ -15,7 +15,7 @@ MODULE MODE_READ_SURF_FA
 !!    EXTERNAL
 !!    --------
 !!
-!!     
+!!
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
@@ -66,7 +66,7 @@ CONTAINS
       SUBROUTINE SFX_FA_VERSION(ONEW)
 !     #############################################################
 !
-!!****  *SFX_FA_VERSION* - routine to find which fa version 
+!!****  *SFX_FA_VERSION* - routine to find which fa version
 !                          (convergence with GMAP var name)
 !
 USE MODD_IO_SURF_FA, ONLY : NUNIT_FA, CPREFIX1D
@@ -167,7 +167,7 @@ END SUBROUTINE READ_SURFX0_FA
       SUBROUTINE READ_SURFX1_FA(HREC,KL,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  *READX1* - routine to fill a real 1D array for the externalised surface 
+!!****  *READX1* - routine to fill a real 1D array for the externalised surface
 !
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ, &
                             WLOG_MPI, NREQ
@@ -250,7 +250,7 @@ IF (NRANK==NPIO) THEN
       YPREFIX='S1D_'
     ENDIF
     CALL FACILE(KRESP,NUNIT_FA,YPREFIX,0,HREC,ZWORK,.FALSE.)
-    IF (KRESP/=0) CALL ERROR_READ_SURF_FA(HREC,KRESP)  
+    IF (KRESP/=0) CALL ERROR_READ_SURF_FA(HREC,KRESP)
     HCOMMENT = YPREFIX//TRIM(HREC)
   ENDIF
   !
@@ -291,13 +291,13 @@ ELSE
   CALL READ_AND_SEND_MPI(ZWORK,PFIELD,NMASK)
   !IF (NRANK==NPIO) THEN
   !  CALL MPI_WAITALL(NPROC-1,NREQ,ISTATUS,INFOMPI)
-  !ENDIF  
+  !ENDIF
 ENDIF
 !
 DEALLOCATE(ZWORK)
 !
 IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_FA:READ_SURFX1_FA',1,ZHOOK_HANDLE)
-! 
+!
 END SUBROUTINE READ_SURFX1_FA
 !
 !----------------------------------------------------------------------------
@@ -306,7 +306,7 @@ END SUBROUTINE READ_SURFX1_FA
       SUBROUTINE READ_SURFX2_FA(HREC,KL1,KL2,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  *READX2* - routine to fill a real 2D array for the externalised surface 
+!!****  *READX2* - routine to fill a real 2D array for the externalised surface
 !
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ, &
                             WLOG_MPI, NREQ
@@ -367,8 +367,8 @@ XTIME0 = MPI_WTIME()
 !
 IF (NRANK==NPIO) THEN
   !
-  ALLOCATE(ZWORK2(NFULL,KL2)) 
-  !  
+  ALLOCATE(ZWORK2(NFULL,KL2))
+  !
   CALL SFX_FA_VERSION(GV8)
   !
   DO JL=1,KL2
@@ -383,7 +383,7 @@ IF (NRANK==NPIO) THEN
      IF (KRESP/=0) THEN
        HCOMMENT = YPREFIX//TRIM(HREC)
        CALL ERROR_READ_SURF_FA(HCOMMENT,KRESP)
-     ENDIF  
+     ENDIF
   END DO
   !
   HCOMMENT = 'PATCH_'//TRIM(HREC)
@@ -415,7 +415,7 @@ ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
   IF (NPROC>1) THEN
     XTIME0 = MPI_WTIME()
     CALL MPI_BCAST(NFULL,KIND(NFULL)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
-    IF ( NRANK/=NPIO ) ALLOCATE(ZWORK2(NFULL,KL2))    
+    IF ( NRANK/=NPIO ) ALLOCATE(ZWORK2(NFULL,KL2))
     CALL MPI_BCAST(ZWORK2(1:KL1,1:KL2),KL1*KL2*KIND(ZWORK2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
     XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF
@@ -425,7 +425,7 @@ ELSE
   CALL READ_AND_SEND_MPI(ZWORK2,PFIELD,NMASK)
   !IF (NRANK==NPIO) THEN
   !  CALL MPI_WAITALL(NPROC-1,NREQ,ISTATUS,INFOMPI)
-  !ENDIF  
+  !ENDIF
 ENDIF
 !
 DEALLOCATE(ZWORK2)
@@ -510,7 +510,7 @@ END SUBROUTINE READ_SURFN0_FA
 !
 !
 !
-USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ, & 
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ, &
                             WLOG_MPI
 !
 USE MODD_IO_SURF_FA, ONLY : NUNIT_FA, NLUOUT, NMASK, NFULL, CMASK, CPREFIX1D
@@ -588,7 +588,7 @@ IF (NRANK==NPIO) THEN
     ALLOCATE(IWORK(KL))
   ELSEIF (HDIR/='-') THEN
     ALLOCATE(IWORK(NFULL))
-  END IF    
+  END IF
   !
   CALL FALIT_I_D(KRESP,NUNIT_FA,YNAME,SIZE(IWORK),IWORK)
   IF (KRESP/=0) CALL ERROR_READ_SURF_FA(HREC,KRESP)
@@ -618,7 +618,7 @@ ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
   IF (NPROC>1) THEN
     XTIME0 = MPI_WTIME()
     CALL MPI_BCAST(NFULL,KIND(NFULL)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
-    IF ( NRANK/=NPIO ) ALLOCATE(IWORK(NFULL))    
+    IF ( NRANK/=NPIO ) ALLOCATE(IWORK(NFULL))
     CALL MPI_BCAST(IWORK(1:KL),KL*KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF

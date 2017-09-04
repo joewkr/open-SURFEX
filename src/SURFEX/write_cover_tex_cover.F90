@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################
       SUBROUTINE WRITE_COVER_TEX_COVER
@@ -83,7 +83,7 @@ GLINE = .FALSE.
 !
 !
 I=0
-DO 
+DO
 
   IF (I==JPCOVER) EXIT
 
@@ -101,7 +101,7 @@ DO
   WRITE(NTEX,*) '\hline'
   WRITE(NTEX,*) '\hline'
   IP=0
-  DO 
+  DO
     IF (I==JPCOVER) EXIT
     I=I+1
     IF (XDATA_TOWN(I)+XDATA_NATURE(I)+XDATA_WATER(I)+XDATA_SEA(I)>0.) THEN
@@ -137,7 +137,7 @@ DO
 
       WRITE(NTEX, FMT=*) &
           I,' & ',CNAME(I),' & ',YDATA_SURFTYPE(1),' & ',YDATA_SURFTYPE(2),' & ',&
-                  YDATA_SURFTYPE(3),' & ', YDATA_SURFTYPE(4), ' \\'  
+                  YDATA_SURFTYPE(3),' & ', YDATA_SURFTYPE(4), ' \\'
       GLINE=.TRUE.
       WRITE(NTEX,*) '\hline'
       CALL HLINE(NTEX,GLINE,I)

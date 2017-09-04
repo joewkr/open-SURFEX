@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_TEB_GARDEN_n (HSELECT, OSNOWDIMNC, IO, S, PEK, HPROGRAM,HPATCH)
 !     #####################################
 !
 !!****  *WRITESURF_TEB_GARDEN_n* - writes ISBA prognostic fields
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      P. LeMoigne 12/2004 : correct dimensionning if more than 10 layers in
 !!                            the soil (diffusion version)
 !!      B. Decharme  2008    : Floodplains
@@ -61,7 +61,7 @@ IMPLICIT NONE
 !              -------------------------
 !
 !
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT 
+ CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
 LOGICAL, INTENT(IN) :: OSNOWDIMNC
 !
 TYPE(ISBA_OPTIONS_t), INTENT(IN) :: IO

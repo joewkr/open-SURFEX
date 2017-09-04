@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-------------------------------------------------------------------------------
 !     ####################
       SUBROUTINE ISBA_TO_TOPDSAT(PKAPPA,PKAPPAC,KI,PRO_I,PRO_T)
 !     ####################
 !
-!!****  *ISBA_TO_TOPDSAT*  
+!!****  *ISBA_TO_TOPDSAT*
 !!
 !!    PURPOSE
 !!    -------
-!     
-!         
-!     
+!
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -23,15 +23,15 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -59,9 +59,9 @@ IMPLICIT NONE
 !*      0.1    declarations of arguments
 !
 INTEGER, INTENT(IN)              :: KI      ! Number of Isba meshes
-REAL, DIMENSION(:,:), INTENT(IN) :: PKAPPA  ! Hydrological indexes on the catchments 
+REAL, DIMENSION(:,:), INTENT(IN) :: PKAPPA  ! Hydrological indexes on the catchments
                                             ! at the previous time step
-REAL, DIMENSION(:), INTENT(IN)   :: PKAPPAC ! Hydrological index at saturation at the 
+REAL, DIMENSION(:), INTENT(IN)   :: PKAPPAC ! Hydrological index at saturation at the
                                             ! previous time step
 REAL, DIMENSION(:), INTENT(IN)   :: PRO_I   ! Runoff on Isba grid
 REAL, DIMENSION(:,:), INTENT(OUT):: PRO_T   ! Runoff on TOPODYN grid
@@ -72,8 +72,8 @@ REAL, DIMENSION(:,:), INTENT(OUT):: PRO_T   ! Runoff on TOPODYN grid
 INTEGER                          :: JCAT, JPIX, JMESH_ISBA,JJ ! Loop indexes
 INTEGER, DIMENSION(KI)           :: INSAT       ! number of saturated pixels in an ISBA mesh
 INTEGER, DIMENSION(KI)           :: INDRY       ! Number of non-saturated pixels in an ISBA mesh
-REAL, DIMENSION(NNCAT,NMESHT)    :: ZROSAT      ! 
-REAL, DIMENSION(NNCAT,NMESHT)    :: ZRODRY      ! 
+REAL, DIMENSION(NNCAT,NMESHT)    :: ZROSAT      !
+REAL, DIMENSION(NNCAT,NMESHT)    :: ZRODRY      !
  CHARACTER(LEN=30)                :: YVAR        ! name of results file
 !
 REAL::ZSMALL,ZTMP,ZTMP2
@@ -105,7 +105,7 @@ DO JMESH_ISBA = 1,KI
           INSAT(NMASKT(JCAT,JPIX)) = INSAT(NMASKT(JCAT,JPIX)) + 1
           ZROSAT(JCAT,JPIX) = PRO_I(NMASKT(JCAT,JPIX))
         ELSE
-          INDRY(NMASKT(JCAT,JPIX)) = INDRY(NMASKT(JCAT,JPIX)) + 1 
+          INDRY(NMASKT(JCAT,JPIX)) = INDRY(NMASKT(JCAT,JPIX)) + 1
           ZRODRY(JCAT,JPIX) = PRO_I(NMASKT(JCAT,JPIX))
         ENDIF
       ENDIF
@@ -138,7 +138,7 @@ DO JCAT = 1,NNCAT
     !
   ENDDO
   !
-  ! budget control 
+  ! budget control
   ZTMP=0.
   ZTMP2=0.
   !

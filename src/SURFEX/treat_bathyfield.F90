@@ -1,15 +1,15 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE TREAT_BATHYFIELD (UG, U, USS, &
                                    HPROGRAM,HSCHEME,HFILETYPE,    &
                               HSUBROUTINE,HFILENAME,HNCVARNAME,   &
-                              HFIELD, PPGDARRAY,HSFTYPE               )  
+                              HFIELD, PPGDARRAY,HSFTYPE               )
 !     ##############################################################
 !
-!!**** *TREAT_BATHYFIELD* chooses which treatment subroutine to use to read 
+!!**** *TREAT_BATHYFIELD* chooses which treatment subroutine to use to read
 !!                        the bathymetry
 !!
 !!    PURPOSE
@@ -17,7 +17,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -34,7 +34,7 @@
 !!
 !!    MODIFICATION
 !!    ------------
-!!    
+!!
 !!    Original    01/2008
 !!
 !----------------------------------------------------------------------------
@@ -199,9 +199,9 @@ IF (NPROC>1) THEN
     !
   ENDDO
   DEALLOCATE(ISIZE)
-#ifdef SFX_MPI  
+#ifdef SFX_MPI
   CALL MPI_WAITALL(NPROC-1,NREQ(1:NPROC-1),ISTATUS2,INFOMPI)
-#endif  
+#endif
 ELSE
   NSIZE(:,1) = NSIZE_ALL(:,1)
 ENDIF
@@ -241,7 +241,7 @@ SELECT CASE (HSUBROUTINE)
       WRITE(ILUOUT,*) 'but you did not give the array to store this field'
       CALL ABOR1_SFX('TREAT_BATHYFIELD: PGD ARRAY IS MISSING')
     END IF
-    ALLOCATE(ZPGDARRAY(SIZE(PPGDARRAY),1))    
+    ALLOCATE(ZPGDARRAY(SIZE(PPGDARRAY),1))
     CALL AVERAGE2_MESH(ZPGDARRAY)
     PPGDARRAY = ZPGDARRAY(:,1)
     DEALLOCATE(ZPGDARRAY)

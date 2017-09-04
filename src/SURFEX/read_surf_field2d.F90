@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_SURF_FIELD2D( HPROGRAM,PFIELD2D,HFIELDNAME,HCOMMENT,HDIR,KRESP)
@@ -10,7 +10,7 @@
 !!                           patch by patch if needed in MESONH
 !!                           with Z-parallel IO in MESO-NH, we force surfex to write 2D fields
 !!                           because Z-parallel IO are not supported for 2D SURFEX fields.
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -37,7 +37,7 @@
 !!
 !!    AUTHOR
 !!    ------
-!!      M.Moge   *LA - UPS*	
+!!      M.Moge   *LA - UPS*
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -73,7 +73,7 @@ CHARACTER(LEN=1),OPTIONAL,        INTENT(IN) :: HDIR ! type of field :
 !                                             ! 'H' : field with
 !                                             !       horizontal spatial dim.
 !                                             ! '-' : no horizontal dim.
-INTEGER,OPTIONAL,               INTENT(OUT)  :: KRESP  
+INTEGER,OPTIONAL,               INTENT(OUT)  :: KRESP
 !
 !*       0.2   Declarations of local variables
 !              -------------------------------

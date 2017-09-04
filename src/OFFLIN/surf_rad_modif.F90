@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE SURF_RAD_MODIF (PMAP,PXHAT,PYHAT,PCOSZEN,PSINZEN,PAZIMSOL,  &
                            PZS,PZS_XY,PSLOPANG,PSLOPAZI,PSURF_TRIANGLE,&
@@ -20,7 +20,7 @@ SUBROUTINE SURF_RAD_MODIF (PMAP,PXHAT,PYHAT,PCOSZEN,PSINZEN,PAZIMSOL,  &
 !!
 !!    2) modification of direct SW downwards flux due to the
 !!       slope and orientation of the surface (SURF_SOLAR_SLOPES).
-!!       The surface characteristics are compared to the azimuthal 
+!!       The surface characteristics are compared to the azimuthal
 !!       and zenithal solar angles.
 !!
 !!    3) modification of direct SW by shadowing from other grid points orography.
@@ -93,7 +93,7 @@ REAL, DIMENSION(:,:,:),     INTENT(IN) :: PSURF_TRIANGLE ! surface of triangles
 REAL, DIMENSION(:),       INTENT(IN) :: ZXHAT_ll   ! X coordinate (all processors)
 REAL, DIMENSION(:),       INTENT(IN) :: ZYHAT_ll   ! Y coordinate (all processors)
 INTEGER,                  INTENT(IN) :: IIOR_ll    ! position of SW corner of current processor domain
-!                                                  ! in the entire domain (I index along X coordinate) 
+!                                                  ! in the entire domain (I index along X coordinate)
 !                                                  ! (both including the 1 point border)
 INTEGER,                  INTENT(IN) :: IJOR_ll    ! position of SW corner of current processor domain
 !                                                  ! in the entire domain (J index along Y coordinate)
@@ -110,13 +110,13 @@ REAL, DIMENSION(:,:,:),   INTENT(OUT):: PDIRSRFSWD ! Downward SuRF. DIRect    SW
 !
 !*       0.2   DECLARATIONS OF LOCAL VARIABLES
 !
-REAL, DIMENSION(SIZE(PZS,1),SIZE(PZS,2),SIZE(PDIRFLASWD,3)) :: ZDIRSWD 
+REAL, DIMENSION(SIZE(PZS,1),SIZE(PZS,2),SIZE(PDIRFLASWD,3)) :: ZDIRSWD
                                                       ! down SW on grid mesh
 REAL, DIMENSION(SIZE(PZS,1),SIZE(PZS,2),4,SIZE(PDIRFLASWD,3)) :: ZDIRSWDT
 !                                                     ! down SW on triangles
 !                                                     ! (4 per grid mesh)
 !
-!REAL, DIMENSION(SIZE(PDIRFLASWD,3)) :: ZENERGY1 
+!REAL, DIMENSION(SIZE(PDIRFLASWD,3)) :: ZENERGY1
 ! energy received by the surface by direct solar radiation
 !REAL, DIMENSION(SIZE(PDIRFLASWD,3)) :: ZENERGY2
 ! before and after modification of radiation by terrain slopes

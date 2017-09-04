@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CONVERT_COVER_CH_ISBA (DTCO, PCOVER, OCOVER, KNPATCH, KPATCH, PK, &
                                            PSOILRC_SO2, PSOILRC_O3)
 !     ##############################################################
 !
-!!**** *CONVERT_COVER* convert surface cover classes into secondary 
+!!**** *CONVERT_COVER* convert surface cover classes into secondary
 !!                     physiographic variables for ISBA
 !!
 !!    PURPOSE
@@ -15,7 +15,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -34,7 +34,7 @@
 !!    ------------
 !!
 !!    Original   01/2004
-!     
+!
 !
 !----------------------------------------------------------------------------
 !
@@ -47,7 +47,7 @@ USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
 !
 USE MODD_ISBA_n, ONLY : ISBA_P_t
 !
-USE MODD_DATA_COVER,     ONLY : XDATA_SOILRC_SO2, XDATA_SOILRC_O3 
+USE MODD_DATA_COVER,     ONLY : XDATA_SOILRC_SO2, XDATA_SOILRC_O3
 !
 USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE, JPCOVER
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE WRITE_DIAG_WATFLUX_n (DTCO, DUO, U, WM, HPROGRAM,HWRITE)
@@ -16,11 +16,11 @@ SUBROUTINE WRITE_DIAG_WATFLUX_n (DTCO, DUO, U, WM, HPROGRAM,HWRITE)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -37,7 +37,7 @@ USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
 USE MODD_SURF_PAR,       ONLY : XUNDEF
 !
 USE MODI_WRITE_DIAG_SEB_WATFLUX_n
-! 
+!
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -63,12 +63,12 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('WRITE_DIAG_WATFLUX_N',0,ZHOOK_HANDLE)
 IF (HWRITE/='PGD') THEN
-!        
+!
    IF (WM%DWO%XDIAG_TSTEP==XUNDEF .OR. &
         ABS(NINT(WM%W%TTIME%TIME/WM%DWO%XDIAG_TSTEP)*WM%DWO%XDIAG_TSTEP-WM%W%TTIME%TIME)<1.E-3 ) THEN
       CALL WRITE_DIAG_SEB_WATFLUX_n(DTCO, DUO, U, WM%CHW, WM%DWO, WM%DW, WM%DWC, HPROGRAM)
    END IF
-!        
+!
 ENDIF
 IF (LHOOK) CALL DR_HOOK('WRITE_DIAG_WATFLUX_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------

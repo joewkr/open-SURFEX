@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_ISBA_EXTERN (DTCO, IO, U, GCP, &
@@ -17,11 +17,11 @@ SUBROUTINE PREP_ISBA_EXTERN (DTCO, IO, U, GCP, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -117,7 +117,7 @@ YRECFM='VERSION'
 IF (NRANK/=NPIO) INI = 0
 !
 ALLOCATE(ZMASK(INI))
-IF (IVERSION>=7) THEN 
+IF (IVERSION>=7) THEN
   YRECFM='FRAC_NATURE'
   CALL READ_SURF(HFILEPGDTYPE,YRECFM,ZMASK,IRESP,HDIR='A')
 ELSE
@@ -164,7 +164,7 @@ SELECT CASE(HSURF)
 !* reading of the profile and its depth definition
      CALL READ_EXTERN_ISBA(U, DTCO, GCP, IO, HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,&
                            KLUOUT,INI,HSURF,HSURF,ZFIELD,ZD,OKEY)
-! 
+!
     IF (INI>0) THEN
       ALLOCATE(PFIELD(SIZE(ZFIELD,1),SIZE(XGRID_SOIL),SIZE(ZFIELD,3)))
       DO JP=1,SIZE(ZFIELD,3)
@@ -186,7 +186,7 @@ SELECT CASE(HSURF)
 !
 !*      3.4    Water content intercepted on leaves, LAI
 !
-  CASE('WR     ')    
+  CASE('WR     ')
      !* number of tiles
      CALL OPEN_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE,'NATURE')
      YRECFM='PATCH_NUMBER'
@@ -200,7 +200,7 @@ SELECT CASE(HSURF)
      CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
      DO JP=1,SIZE(PFIELD,3)
        WHERE (ZMASK(:)==0.) PFIELD(:,1,JP) = XUNDEF
-     ENDDO     
+     ENDDO
 !
   CASE('LAI    ')
      !* number of tiles
@@ -208,10 +208,10 @@ SELECT CASE(HSURF)
      YRECFM='PATCH_NUMBER'
      CALL READ_SURF(HFILEPGDTYPE,YRECFM,IPATCH,IRESP,HDIR='-')
      YRECFM='PHOTO'
-     CALL READ_SURF(HFILEPGDTYPE,YRECFM,YPHOTO,IRESP,HDIR='-')     
+     CALL READ_SURF(HFILEPGDTYPE,YRECFM,YPHOTO,IRESP,HDIR='-')
      CALL CLOSE_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE)
      ALLOCATE(PFIELD(INI,1,IPATCH))
-     PFIELD(:,:,:) = XUNDEF     
+     PFIELD(:,:,:) = XUNDEF
      IF (YPHOTO=='NIT' .OR. YPHOTO=='NCB') THEN
        CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'NATURE')
        YRECFM = 'LAI'
@@ -219,10 +219,10 @@ SELECT CASE(HSURF)
        CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
        DO JP=1,SIZE(PFIELD,3)
          WHERE (ZMASK(:)==0.) PFIELD(:,1,JP) = XUNDEF
-       ENDDO       
+       ENDDO
      ENDIF
 !
-  CASE('ICE_STO') 
+  CASE('ICE_STO')
       !* number of tiles
      CALL OPEN_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE,'NATURE')
      YRECFM='PATCH_NUMBER'
@@ -232,7 +232,7 @@ SELECT CASE(HSURF)
      YRECFM='GLACIER'
      CALL READ_SURF(HFILETYPE,YRECFM,GGLACIER,IRESP,HDIR='-')
      ALLOCATE(PFIELD(INI,1,IPATCH))
-     PFIELD(:,:,:) = 0.0     
+     PFIELD(:,:,:) = 0.0
      IF(GGLACIER)THEN
        YRECFM = 'ICE_STO'
        CALL MAKE_CHOICE_ARRAY(HFILETYPE, IPATCH, GDIM, YRECFM, PFIELD(:,1,:),HDIR='E')
@@ -240,7 +240,7 @@ SELECT CASE(HSURF)
      CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
      DO JP=1,SIZE(PFIELD,3)
        WHERE (ZMASK(:)==0.) PFIELD(:,1,JP) = XUNDEF
-     ENDDO     
+     ENDDO
 !
   CASE DEFAULT
     CALL ABOR1_SFX('PREP_ISBA_EXTERN: '//TRIM(HSURF)//" initialization not implemented !")

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
         MODULE MODE_COUPLING_CANOPY
@@ -138,7 +138,7 @@ SUBROUTINE INIT_COUPLING( HCOUPLING,                  &
                           PUUREF, PZZREF,             &
                           PPEW_AA_COEF, PPEW_BB_COEF, &
                           PPET_AA_COEF, PPET_BB_COEF, &
-                          PPEQ_AA_COEF, PPEQ_BB_COEF  ) 
+                          PPEQ_AA_COEF, PPEQ_BB_COEF  )
 !
 USE MODD_CSTS,             ONLY : XCPD, XRD, XP00
 !
@@ -180,8 +180,8 @@ IF (LHOOK) CALL DR_HOOK('MODE_COUPLING_CANOPY:INIT_COUPLING',0,ZHOOK_HANDLE)
 PPPA = PPA
 PTTA = PTA
 PQQA = PQA
-PUU  = PU 
-PVV  = PV 
+PUU  = PU
+PVV  = PV
 PUUREF = PUREF
 PZZREF = PZREF
 !

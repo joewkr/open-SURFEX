@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_VER_WATFLUX (W)
@@ -16,7 +16,7 @@ SUBROUTINE PREP_VER_WATFLUX (W)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -72,7 +72,7 @@ W%XTS = ZTS_LS  + XT_CLIM_GRAD  * (W%XZS - XZS_LS)
 WHERE (ZTS_LS < XTT .AND. W%XTS < XTT + 4.) W%XTS = MIN(W%XTS,XTT)
 !
 !* if water was liquid, it can be considered frozen only for
-!  very cold temperatures, colder than 20 C. It should obviously 
+!  very cold temperatures, colder than 20 C. It should obviously
 !  depend on the size of the lake. This cold limit is taken for
 !  large lakes, as US great lakes, that take a long time to freeze.
 !

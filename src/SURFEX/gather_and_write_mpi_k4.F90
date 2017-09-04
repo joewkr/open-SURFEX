@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODI_GATHER_AND_WRITE_MPI_K4
 !----------------------------------------------------
 !!    MODIFICATIONS
 !!    -------------
-!!      Original       
+!!      Original
 !!      J.Escobar      10/06/2013: replace DOUBLE PRECISION by REAL to handle problem for promotion of real on IBM SP
 !----------------------------------------------------
 !
@@ -118,10 +118,10 @@ IF (NRANK/=NPIO) THEN
 ELSE
   !
   PWORK2(:) = 0.
-  !    
+  !
   IDX_W = IDX_W + 1
   !
-  DO I=0,NPROC-1  
+  DO I=0,NPROC-1
     !
 #ifdef SFX_MPI
     XTIME0 = MPI_WTIME()
@@ -242,8 +242,8 @@ ELSEIF (NPROC>1) THEN
   PWORK2(:,:) = 0.
   !
   IDX_W = IDX_W + 1
-  !  
-!!$OMP PARALLEL DO PRIVATE(I,ZINTER,ICPT,J,ISTATUS,INFOMPI,ZHOOK_HANDLE_OMP)  
+  !
+!!$OMP PARALLEL DO PRIVATE(I,ZINTER,ICPT,J,ISTATUS,INFOMPI,ZHOOK_HANDLE_OMP)
   DO I=0,NPROC-1
     !
 #ifdef SFX_MPI
@@ -360,7 +360,7 @@ IF (LHOOK) CALL DR_HOOK('GATHER_AND_WRITE_MPI_X3D0_2',0,ZHOOK_HANDLE)
 
 IF (NRANK/=NPIO) THEN
   !
-  !  
+  !
   IDX_W = IDX_W + 1
   !
 #ifdef SFX_MPI
@@ -384,9 +384,9 @@ IF (LHOOK) CALL DR_HOOK('GATHER_AND_WRITE_MPI_X3D0_2',1,ZHOOK_HANDLE)
   DO I=0,NPROC-1
 IF (LHOOK) CALL DR_HOOK('GATHER_AND_WRITE_MPI_X3D0_3',0,ZHOOK_HANDLE_OMP)
     !
-#ifdef SFX_MPI   
+#ifdef SFX_MPI
     XTIME0 = MPI_WTIME()
-#endif    
+#endif
     !
     IF (I/=NPIO) THEN
 #ifdef SFX_MPI
@@ -396,12 +396,12 @@ IF (LHOOK) CALL DR_HOOK('GATHER_AND_WRITE_MPI_X3D0_3',0,ZHOOK_HANDLE_OMP)
       ZINTER(:,:,:) = ZWORK(:,:,:)
     ENDIF
 !    !
-#ifdef SFX_MPI    
+#ifdef SFX_MPI
     XTIME_COMM_WRITE = XTIME_COMM_WRITE + (MPI_WTIME() - XTIME0)
     !
     XTIME0 = MPI_WTIME()
-#endif     
-    !    
+#endif
+    !
 IF (LHOOK) CALL DR_HOOK('GATHER_AND_WRITE_MPI_X3D0_3',1,ZHOOK_HANDLE_OMP)
 IF (LHOOK) CALL DR_HOOK('GATHER_AND_WRITE_MPI_X3D0_4',0,ZHOOK_HANDLE_OMP)
 
@@ -416,10 +416,10 @@ IF (LHOOK) CALL DR_HOOK('GATHER_AND_WRITE_MPI_X3D0_4',0,ZHOOK_HANDLE_OMP)
       !
     ENDDO
      !
-#ifdef SFX_MPI    
+#ifdef SFX_MPI
     XTIME_CALC_WRITE = XTIME_CALC_WRITE + (MPI_WTIME() - XTIME0)
-#endif      
-     ! 
+#endif
+     !
 IF (LHOOK) CALL DR_HOOK('GATHER_AND_WRITE_MPI_X3D0_4',1,ZHOOK_HANDLE_OMP)
   ENDDO
 !!$OMP END PARALLEL DO

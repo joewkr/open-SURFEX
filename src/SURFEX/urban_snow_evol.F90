@@ -1,23 +1,23 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE URBAN_SNOW_EVOL(T, B, PT_LWCN, PQ_LWCN, PU_LWCN, PTS_RF, PTS_RD, PTS_WL_A,   &
                                PTS_WL_B, PPS, PTA, PQA, PRHOA, PLW_RAD, PSR, PZREF, PUREF,  &
-                               PVMOD, PTSTEP, PZ_LWCN, PDN_RF, PABS_SW_SN_RF, PABS_LW_SN_RF,& 
+                               PVMOD, PTSTEP, PZ_LWCN, PDN_RF, PABS_SW_SN_RF, PABS_LW_SN_RF,&
                                PDN_RD, PABS_SW_SN_RD, PABS_LW_SN_RD, PRNSN_RF, PHSN_RF,     &
                                PLESN_RF, PGSN_RF, PMELT_RF, PRNSN_RD, PHSN_RD, PLESN_RD,    &
                                PGSN_RD, PMELT_RD, PLW_WA_TO_NR , PLW_WB_TO_NR, PLW_S_TO_NR, &
-                               PLW_WIN_TO_NR, PDQS_SN_RF, PDQS_SN_RD   )  
+                               PLW_WIN_TO_NR, PDQS_SN_RF, PDQS_SN_RD   )
 !   ##########################################################################
 !
-!!****  *URBAN_SNOW_EVOL*  
+!!****  *URBAN_SNOW_EVOL*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     
+!
 !!**  METHOD
 !     ------
 !
@@ -32,11 +32,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -44,7 +44,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    23/01/98 
+!!      Original    23/01/98
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -59,7 +59,7 @@ USE MODD_SNOW_PAR, ONLY : XZ0SN, XZ0HSN,                                    &
                             XWCRN_ROOF,                                       &
                             XANSMIN_ROAD, XANSMAX_ROAD, XANS_TODRY_ROAD,      &
                             XANS_T_ROAD, XRHOSMIN_ROAD, XRHOSMAX_ROAD,        &
-                            XWCRN_ROAD  
+                            XWCRN_ROAD
 USE MODD_CSTS,     ONLY : XSTEFAN
 !
 USE MODE_SURF_SNOW_FRAC
@@ -215,7 +215,7 @@ IF ( GSN_RF ) THEN
                           ZTS_COEFA, ZTS_COEFB, PABS_SW_SN_RF, ZLW1_RF,  ZLW2_RF,&
                           PTA, PQA, PVMOD, PPS, PRHOA, ZSR_RF, PZREF, PUREF,     &
                           PRNSN_RF, PHSN_RF, PLESN_RF, PGSN_RF, PMELT_RF,        &
-                          PDQS_SN_RF, PABS_LW_SN_RF)  
+                          PDQS_SN_RF, PABS_LW_SN_RF)
 !
 
 !
@@ -224,7 +224,7 @@ IF ( GSN_RF ) THEN
   DO JL=1,SIZE(T%TSNOW_ROOF%WSNOW,2)
     T%TSNOW_ROOF%WSNOW(:,JL) = T%TSNOW_ROOF%WSNOW(:,JL) * PDN_RF(:)
   END DO
-!           
+!
 END IF
 !
 !*      5.2    roads
@@ -260,11 +260,11 @@ IF ( GSN_RD ) THEN
   IF (T%TSNOW_ROAD%SCHEME=='1-L')                &
     CALL SNOW_COVER_1LAYER(PTSTEP, XANSMIN_ROAD, XANSMAX_ROAD, XANS_TODRY_ROAD,   &
                            XRHOSMIN_ROAD, XRHOSMAX_ROAD, XANS_T_ROAD, .FALSE.,    &
-                           0., XWCRN_ROAD, XZ0SN, XZ0HSN, T%TSNOW_ROAD, PTS_RD,   & 
+                           0., XWCRN_ROAD, XZ0SN, XZ0HSN, T%TSNOW_ROAD, PTS_RD,   &
                            ZTS_COEFA, ZTS_COEFB,  PABS_SW_SN_RD, ZLW1_RD, ZLW2_RD,&
                            PT_LWCN, PQ_LWCN, PU_LWCN, PPS, PRHOA, ZSR_RD, PZ_LWCN,&
                            PZ_LWCN, PRNSN_RD, PHSN_RD, PLESN_RD, PGSN_RD,         &
-                           PMELT_RD, PDQS_SN_RD, PABS_LW_SN_RD        )  
+                           PMELT_RD, PDQS_SN_RD, PABS_LW_SN_RD        )
 !
 !* The global amount of snow on roads is reported to total road surface.
 !

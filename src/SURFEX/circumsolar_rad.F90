@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE CIRCUMSOLAR_RAD(PDIR_SW, PSCA_SW, PZENITH, PF1_o_B)
 !     ###############################################################################
 !
-!!****  *CIRCUMSOLAR_RAD * 
+!!****  *CIRCUMSOLAR_RAD *
 !!
 !!    PURPOSE
 !!    -------
@@ -20,13 +20,13 @@ SUBROUTINE CIRCUMSOLAR_RAD(PDIR_SW, PSCA_SW, PZENITH, PF1_o_B)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 ! Engeneering Reference, EnergyPlus DOE, 2012
-! Perez, 1990 
+! Perez, 1990
 !!
 !!    AUTHOR
 !!    ------
-!!     G. Pigeon 
+!!     G. Pigeon
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -35,7 +35,7 @@ SUBROUTINE CIRCUMSOLAR_RAD(PDIR_SW, PSCA_SW, PZENITH, PF1_o_B)
 !
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
-USE PARKIND1  ,ONLY : JPRB      
+USE PARKIND1  ,ONLY : JPRB
 USE MODD_CSTS ,ONLY : XPI
 
 IMPLICIT NONE
@@ -53,8 +53,8 @@ REAL, DIMENSION(SIZE(PZENITH)) :: ZE !sky clearness factor
 REAL, DIMENSION(SIZE(PZENITH)) :: ZB ! b coef
 REAL, DIMENSION(SIZE(PZENITH)) :: ZF1 !factors depending on ZE and Z
 REAL, DIMENSION(SIZE(PZENITH)) :: ZF11, ZF13 !factors depending on ZE
-REAL, PARAMETER :: ZK = 1.041 !coef. from EP Engineering Reference 
-REAL, PARAMETER :: ZBMIN = 0.087 !coef. from EP Engineering Reference 
+REAL, PARAMETER :: ZK = 1.041 !coef. from EP Engineering Reference
+REAL, PARAMETER :: ZBMIN = 0.087 !coef. from EP Engineering Reference
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 REAL, DIMENSION(SIZE(PZENITH)) :: ZELEV
 INTEGER :: JJ
@@ -76,7 +76,7 @@ ENDDO
 
  CALL FIJ(ZE, ZF11, ZF13)
 ZF1 = ZF11 + ZF13 * ZELEV
-   
+
 PF1_o_B = ZF1 / ZB
 DO JJ=1,SIZE(PF1_o_B)
    PF1_o_B(JJ) = MIN(PF1_o_B(JJ), 1.)

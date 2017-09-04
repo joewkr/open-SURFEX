@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_SNAP_TEMP_PROFILE(HPROGRAM,HFILENAME,PSNAP_COEF, &
@@ -20,7 +20,7 @@
 !!    MODIFICATION
 !!    ------------
 !!
-!!    Original    09/2011 
+!!    Original    09/2011
 !!    A. Alias    07/2013 CONTINUE procedure for compilation on beaufix
 !!
 !----------------------------------------------------------------------------
@@ -96,7 +96,7 @@ READ(IUNIT,'(A)') YCOMMENT
 PSNAP_COEF(:,:)=0.
 !
 DO JSNAP=1,KSNAP
-  READ(IUNIT,*,END=2000) ISNAP,ZSNAP_COEF(1:KTPS) 
+  READ(IUNIT,*,END=2000) ISNAP,ZSNAP_COEF(1:KTPS)
   PSNAP_COEF(:,ISNAP)=ZSNAP_COEF(:)
 ENDDO
 !

@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-      SUBROUTINE READ_NAM_PGD_CHEMISTRY(HPROGRAM, HCH_EMIS )  
+      SUBROUTINE READ_NAM_PGD_CHEMISTRY(HPROGRAM, HCH_EMIS )
 !     ##############################################################
 !
 !!**** *READ_NAM_PGD_CHEMISTRY* reads namelist for CHEMISTRY
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -54,10 +54,10 @@ IMPLICIT NONE
 !
 !*    0.1    Declaration of arguments
 !            ------------------------
-!                                   
+!
  CHARACTER(LEN=6),    INTENT(IN)    :: HPROGRAM      ! Type of program
  CHARACTER(LEN=4),    INTENT(OUT)   :: HCH_EMIS      ! Option for emissions computations
-!                                  
+!
 !
 !*    0.2    Declaration of local variables
 !            ------------------------------

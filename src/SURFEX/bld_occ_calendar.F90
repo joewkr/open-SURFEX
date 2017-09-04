@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#####################################################################################
 SUBROUTINE BLD_OCC_CALENDAR(TPTIME, PTSUN, T, B, PQIN_FRAC, PTCOOL_TARGET, PTHEAT_TARGET, PQIN)
@@ -15,7 +15,7 @@ SUBROUTINE BLD_OCC_CALENDAR(TPTIME, PTSUN, T, B, PQIN_FRAC, PTCOOL_TARGET, PTHEA
 !! AUTHOR
 !! ------
 !! C. de Munck     *Météo-France*
-!! 
+!!
 !! MODIFICATIONS
 !! -------------
 !! Original  02/2013
@@ -78,9 +78,9 @@ IF (TPTIME%TDATE%MONTH >= 4 .AND. TPTIME%TDATE%MONTH <= 10) CTIME = 'SUMMER'
 ! Parameters assigned to the occupied values - read in namelist via BATI.csv :
 !
 PTHEAT_TARGET(:) = B%XTHEAT_TARGET(:)
-!  
+!
 PTCOOL_TARGET(:) = B%XTCOOL_TARGET(:)
-! 
+!
 PQIN(:)          = B%XQIN(:)
 !
 ZTOD_BEG(:) = 0.
@@ -101,7 +101,7 @@ DO JJ =1,SIZE(PTSUN)
    ZDT(JJ) = T%XDT_RES
    !
  ELSE
-   !     
+   !
    IF (JDOW >= 2 .AND. JDOW <=7) THEN ! week days
      ZTOD_BEG(JJ) = 17. * 3600.       ! 17 UTC
      ZTOD_END(JJ) =  7. * 3600.       !  7 UTC
@@ -114,8 +114,8 @@ DO JJ =1,SIZE(PTSUN)
  END IF
 ! adjustment of unoccupied TOD based on time scheme
  IF (CTIME == 'SUMMER') THEN
-  ZTOD_BEG(JJ) = ZTOD_BEG(JJ) - 3600.   
-  ZTOD_END(JJ) = ZTOD_END(JJ) - 3600.   
+  ZTOD_BEG(JJ) = ZTOD_BEG(JJ) - 3600.
+  ZTOD_END(JJ) = ZTOD_END(JJ) - 3600.
  END IF
 !
 ENDDO
@@ -129,7 +129,7 @@ DO JJ =1,SIZE(PTSUN)
      IF (( (ZTOD_BEG(JJ) < ZTOD_END(JJ)) .AND. (PTSUN(JJ) > ZTOD_BEG(JJ) .AND. PTSUN(JJ) < ZTOD_END(JJ))    )      &
         .OR.                                                                                         &
          ( (ZTOD_BEG(JJ) > ZTOD_END(JJ)) .AND. ((PTSUN(JJ) > 0 .AND. PTSUN(JJ) < ZTOD_END(JJ)) .OR.            &
-                                        (PTSUN(JJ) > ZTOD_BEG(JJ) .AND. PTSUN(JJ) < 24 * 3600.)))) THEN             
+                                        (PTSUN(JJ) > ZTOD_BEG(JJ) .AND. PTSUN(JJ) < 24 * 3600.)))) THEN
          !
             PTHEAT_TARGET(JJ) = B%XTHEAT_TARGET(JJ) - ZDT(JJ)
             PTCOOL_TARGET(JJ) = B%XTCOOL_TARGET(JJ) + ZDT(JJ)

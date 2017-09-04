@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_TEB_GREENROOF_UNIF(KLUOUT,HSURF,PFIELD)
@@ -18,11 +18,11 @@ SUBROUTINE PREP_TEB_GREENROOF_UNIF(KLUOUT,HSURF,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!    A. Lemonsu & C. de Munck 
+!!    A. Lemonsu & C. de Munck
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -36,7 +36,7 @@ USE MODD_SURF_PAR,          ONLY : XUNDEF
 USE MODD_PREP_TEB_GREENROOF,ONLY : XHUG_SURF_GR, XHUG_ROOT_GR, XHUG_DEEP_GR,     &
                                    XHUGI_SURF_GR, XHUGI_ROOT_GR, XHUGI_DEEP_GR,  &
                                    XTG_SURF_GR, XTG_ROOT_GR, XTG_DEEP_GR,        &
-                                   XWR_DEF  
+                                   XWR_DEF
 !
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -65,7 +65,7 @@ SELECT CASE(HSURF)
   CASE('ZS     ')
     ALLOCATE(PFIELD(1,1,1))
     PFIELD = 0.
-   
+
 !
 !*      3.1    Profile of soil relative humidity
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE OL_ALLOC_ATM(KNI,KBANDS,KSCAL)
@@ -122,10 +122,10 @@ IF (.NOT.ALLOCATED(XZ0H)  ) ALLOCATE(XZ0H  (KNI)     )
 IF (.NOT.ALLOCATED(XQSURF)) ALLOCATE(XQSURF(KNI)     )
 !
 IF (SIZE(CSV)>=1) CSV(1) = '#CO   '
-IF (SIZE(CSV)>=2) CSV(2) = '#O3   '     
-IF (SIZE(CSV)>=3) CSV(3) = '#H2O2 ' 
-IF (SIZE(CSV)>=4) CSV(4) = '#NO   '  
-IF (SIZE(CSV)>=5) CSV(5) = '#NO2  ' 
+IF (SIZE(CSV)>=2) CSV(2) = '#O3   '
+IF (SIZE(CSV)>=3) CSV(3) = '#H2O2 '
+IF (SIZE(CSV)>=4) CSV(4) = '#NO   '
+IF (SIZE(CSV)>=5) CSV(5) = '#NO2  '
 IF (SIZE(CSV)>=6) CSV(6) = '#NO3  '
 IF (SIZE(CSV)>=7) CSV(7) = '#N2O5 '
 IF (SIZE(CSV)>=8) CSV(8) = '#HONO '

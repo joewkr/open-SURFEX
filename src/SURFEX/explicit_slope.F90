@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################################################################
 SUBROUTINE EXPLICIT_SLOPE (UG,KDIM_FULL, &
@@ -124,7 +124,7 @@ ALLOCATE(ZZSL (INNX,INNY))
 
 DO JY=1,IY
   DO JX=1,IX
-    ZZS (JX,JY) = ZZS0 ( JX + (JY-1)*IX ) 
+    ZZS (JX,JY) = ZZS0 ( JX + (JY-1)*IX )
   END DO
 END DO
 
@@ -223,15 +223,15 @@ DO JJ=IJB,IJE
       ! If slope is higher than 60 degrees : numerical problems
       ZDZSDX=MIN(2.0,MAX(-2.0,ZDZSDX))
       ZDZSDY=MIN(2.0,MAX(-2.0,ZDZSDY))
-    
+
      ! total surface of 4 triangles
       ZSURF=ZSURF+0.25*SQRT(1. + ZDZSDX**2 + ZDZSDY**2)
 
     END DO
-    
+
     !equivalent tangent slope of a homogeneous surface with the same area
     ZSSO_SLOPE(JI-JPHEXT,JJ-JPHEXT)=SQRT(ZSURF**2-1)
-    
+
   END DO
 END DO
 DEALLOCATE(ZZSL)

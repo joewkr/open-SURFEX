@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_TEB (DTCO, UG, U, USS, GCP, TOP, BOP, NB, TG, SB, NT, GDM, GRM, &
@@ -17,11 +17,11 @@ SUBROUTINE PREP_TEB (DTCO, UG, U, USS, GCP, TOP, BOP, NB, TG, SB, NT, GDM, GRM, 
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -175,7 +175,7 @@ DO JP=1,TOP%NTEB_PATCH
                          HPROGRAM,'T_FLOOR',HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE, JP,YDCTL)
     CALL PREP_HOR_TEB_FIELD(NB%AL(JP), BOP, DTCO, U, GCP, TG, NT%AL(JP), TOP, &
                          HPROGRAM,'T_MASS ',HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE, JP,YDCTL)
-  ENDIF  
+  ENDIF
   !*      2.5    Snow variables
   !
   NT%AL(JP)%TSNOW_ROOF%SCHEME='1-L'
@@ -204,7 +204,7 @@ DO JP=1,TOP%NTEB_PATCH
   !
   !*      4.     Urban green areas
   !
-  
+
   IF (TOP%LGARDEN)    CALL PREP_TEB_GARDEN(DTCO, UG, U, USS,  GCP, TG, TOP, &
                                            GDM%O, GDM%S, GDM%K, GDM%P, GDM%NPE%AL(JP),  &
                                               HPROGRAM,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE, JP,YDCTL)
@@ -212,9 +212,9 @@ DO JP=1,TOP%NTEB_PATCH
      CALL PREP_TEB_GREENROOF(DTCO, UG, U, USS,  GCP, TG, TOP, GRM%O, GRM%S, GRM%K, GRM%P, GRM%NPE%AL(JP), &
                              HPROGRAM,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE, JP,YDCTL)
     !
-    ! Initializing deep GR temp. with that of the outer layer of the structural roof 
+    ! Initializing deep GR temp. with that of the outer layer of the structural roof
     !
-    GRM%K%XTDEEP(:) = NT%AL(JP)%XT_ROOF(:,1)  
+    GRM%K%XTDEEP(:) = NT%AL(JP)%XT_ROOF(:,1)
     !
   ENDIF
   !

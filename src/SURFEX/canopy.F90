@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE CANOPY(KI, SB, PHEIGHT, PDENSITY, PCDRAG, PAIRVOL, PSV, &
-                  PFORC, PFORC_U, PDFORC_UDU, PFORC_E, PDFORC_EDE   )  
+                  PFORC, PFORC_U, PDFORC_UDU, PFORC_E, PDFORC_EDE   )
 !     ###############################################################################
 !
 !!****  *ISBA_CANOPY_n * - prepares forcing for canopy air model
@@ -17,11 +17,11 @@ SUBROUTINE CANOPY(KI, SB, PHEIGHT, PDENSITY, PCDRAG, PAIRVOL, PSV, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -62,7 +62,7 @@ REAL, DIMENSION(KI,SB%NLVL), INTENT(OUT)   :: PDFORC_EDE! formal derivative of t
 !
 !*      0.2    declarations of local variables
 !
-INTEGER                  :: JLAYER    ! loop counter on canopy heights      
+INTEGER                  :: JLAYER    ! loop counter on canopy heights
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !-------------------------------------------------------------------------------------

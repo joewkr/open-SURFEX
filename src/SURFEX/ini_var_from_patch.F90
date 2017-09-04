@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-      SUBROUTINE INI_VAR_FROM_PATCH (DTCO, UG, U, NP, NPE, KPATCH,& 
+      SUBROUTINE INI_VAR_FROM_PATCH (DTCO, UG, U, NP, NPE, KPATCH,&
                            HPROGRAM,KLUOUT,HNAME,KPTS,KLAYER,KLAYER2,PDEF)
 !!
 !!    PURPOSE
 !!    -------
 !!
 !!      (1) KPTS=n  interpol field with n pts
-!!      (2) KPTS=0  conserve cells mass  
+!!      (2) KPTS=0  conserve cells mass
 !!   Case 2 : simple extrapolation based on the inside cell informations.
 !!             this is donne before conserving cell or global mass
 !!
 !!    METHOD
-!!    ------ 
+!!    ------
 !!
 !!    EXTERNAL
 !!    --------
@@ -77,7 +77,7 @@ INTEGER,                      INTENT(IN) :: KPTS
 INTEGER, INTENT(IN), OPTIONAL :: KLAYER
 INTEGER, INTENT(IN), OPTIONAL :: KLAYER2
 !
-REAL, DIMENSION(:), OPTIONAL, INTENT(IN) :: PDEF 
+REAL, DIMENSION(:), OPTIONAL, INTENT(IN) :: PDEF
 !
 !*    0.2    Declaration of local variables
 !            ------------------------------
@@ -114,7 +114,7 @@ IF (TRIM(HNAME)=='WR') THEN
 ELSEIF (TRIM(HNAME)=='ICE_STO') THEN
   DO JP = 1,KPATCH
     ZFIELD(:,JP) = NPE%AL(JP)%XICE_STO(:)
-  ENDDO   
+  ENDDO
 ELSEIF (TRIM(HNAME)=='TEMP GRO') THEN
   DO JP = 1,KPATCH
     ZFIELD(:,JP) = NPE%AL(JP)%XTG(:,KLAYER)
@@ -214,7 +214,7 @@ ELSEIF (TRIM(HNAME)=='LITTER') THEN
 ELSEIF (TRIM(HNAME)=='SOILCARB') THEN
   DO JP = 1,KPATCH
     ZFIELD(:,JP) = NPE%AL(JP)%XSOILCARB(:,KLAYER)
-  ENDDO  
+  ENDDO
 ENDIF
 
 IF (KPTS>0)THEN
@@ -242,7 +242,7 @@ IF (KPTS>0)THEN
     !
     CALL PACK_SAME_RANK(IMASK,ZFIELD_TOT,ZFIELD_NAT)
     CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZFIELD_NAT,ZFIELD(:,JP))
-    !  
+    !
   ENDDO
   !
 ELSE
@@ -251,7 +251,7 @@ ELSE
 ! (3) Cell mass conservative + simple interpolation based on global cell
 !     informations
 !----------------------------
-!                 
+!
   !
   ZFIELD1_TOT(:)=0.
   ZFIELD2_TOT(:)=0.
@@ -265,7 +265,7 @@ ELSE
       PEK => NPE%AL(JP)
 
       WHERE(PK%XPATCH(:) /=0. .AND. PK%XPATCH_OLD(:) ==0..AND.PEK%XLAI(:)==0.)
-          ZFIELD(:,JP) = 0.  
+          ZFIELD(:,JP) = 0.
           GVEG  (:,JP) = .FALSE.
       ENDWHERE
     END DO
@@ -273,7 +273,7 @@ ELSE
   !
   !quantity of water before restart in each grid point
   ZFIELD1_TOT(:) = 0.0
-  DO JP = 1,KPATCH 
+  DO JP = 1,KPATCH
     PK => NP%AL(JP)
     DO JI = 1,PK%NSIZE_P
       IMASK0 = PK%NR_P(JI)
@@ -285,26 +285,26 @@ ELSE
   DO JP=1,KPATCH
     PK => NP%AL(JP)
     DO JI = 1,PK%NSIZE_P
-      IMASK0 = PK%NR_P(JI)  
+      IMASK0 = PK%NR_P(JI)
       !if a patch appears in a grid point, it takes the quantity of water in the
       !whole grid point before
       IF(PK%XPATCH(JI) /=0. .AND. PK%XPATCH_OLD(JI)==0. .AND. GVEG  (JI,JP)) THEN
         ZFIELD(JI,JP)=ZFIELD1_TOT(IMASK0)
       ENDIF
-      !quantity of water after restart and landuse in each grid point 
+      !quantity of water after restart and landuse in each grid point
       ZFIELD2_TOT(IMASK0)=ZFIELD2_TOT(IMASK0)+ PK%XPATCH(JI)*ZFIELD(JI,JP)
-    ENDDO      
+    ENDDO
   END DO
   !
   ! Conserve cell mass if not WG and WGI
   ! If WG or WGI conserve global mass via CONSERV_GLOBAL_MASS routine
-  !    is recomanded 
+  !    is recomanded
   !
   IF (TRIM(HNAME)/='WG' .AND. TRIM(HNAME)/='WGI') THEN
     DO JP=1,KPATCH
       PK => NP%AL(JP)
       DO JI = 1,PK%NSIZE_P
-        IMASK0 = PK%NR_P(JI)  
+        IMASK0 = PK%NR_P(JI)
         IF (ZFIELD2_TOT(IMASK0) > 1.E-12) THEN
           ZFIELD(JI,JP)=(ZFIELD1_TOT(IMASK0)/ZFIELD2_TOT(IMASK0))*ZFIELD(JI,JP)
         ENDIF
@@ -325,7 +325,7 @@ IF (TRIM(HNAME)=='WR') THEN
 ELSEIF (TRIM(HNAME)=='ICE_STO') THEN
   DO JP = 1,KPATCH
     NPE%AL(JP)%XICE_STO(:) = ZFIELD(:,JP)
-  ENDDO   
+  ENDDO
 ELSEIF (TRIM(HNAME)=='TEMP GRO') THEN
   DO JP = 1,KPATCH
     NPE%AL(JP)%XTG(:,KLAYER) = ZFIELD(:,JP)
@@ -425,7 +425,7 @@ ELSEIF (TRIM(HNAME)=='LITTER') THEN
 ELSEIF (TRIM(HNAME)=='SOILCARB') THEN
   DO JP = 1,KPATCH
     NPE%AL(JP)%XSOILCARB(:,KLAYER) = ZFIELD(:,JP)
-  ENDDO  
+  ENDDO
 ENDIF
 !-------------------------------------------------------------------------------
 !

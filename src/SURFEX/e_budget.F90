@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE E_BUDGET(IO, KK, PK, PEK, DK, DMK, HIMPLICIT_WIND,  &
@@ -10,18 +10,18 @@
                           PHUI, PLEG_DELTA, PLEGI_DELTA, PGRNDFLUX, PFLUX_COR, &
                           PSOILCONDZ, PSOILHCAPZ, PALBT, PEMIST, PQSAT, PDQSAT, &
                           PFROZEN1, PTDEEP_A,PTA_IC, PQA_IC, PUSTAR2_IC, PDEEP_FLUX, &
-                          PRESTORE                                             )  
+                          PRESTORE                                             )
 !     ##########################################################################
 !
-!!****  *E_BUDGET*  
+!!****  *E_BUDGET*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates the evolution of the surface and deep-soil temperature
 !     (i.e., Ts and T2), as well as all the surface fluxes.
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -37,16 +37,16 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Noilhan and Planton (1989)
 !!    Belair (199:)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -54,10 +54,10 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    14/03/95 
+!!      Original    14/03/95
 !!      (J.Stein)   15/11/95 use the wind components in the flux computation
 !!      (J.Noilhan) 15/03/96 use the potential temperature instead of the
-!!                           temperature for the heat flux computation 
+!!                           temperature for the heat flux computation
 !!      (J.Stein)   27/03/96 use only H and LE in the soil scheme
 !!      (A.Boone, V.Masson)  28/08/98 splits the routine in two for C02 computations
 !!      (A.Boone)   15/03/99 Soil ice tendencies calculated here: heating/cooling
@@ -87,7 +87,7 @@ USE MODD_DIAG_n, ONLY : DIAG_t
 USE MODD_DIAG_MISC_ISBA_n, ONLY : DIAG_MISC_ISBA_t
 !
 USE MODD_CSTS,       ONLY : XLVTT, XLSTT, XSTEFAN, XCPD, XPI, XDAY, &
-                              XTT, XCL, XCPV, XCI  
+                              XTT, XCL, XCPV, XCI
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 USE MODD_SNOW_PAR,   ONLY : XEMISSN, XEMCRIN
 !
@@ -95,7 +95,7 @@ USE MODD_SURF_ATM,   ONLY : LCPL_ARP, LQVNPLUS
 !
 USE MODE_THERMOS
 !
-USE MODI_SOIL_HEATDIF 
+USE MODI_SOIL_HEATDIF
 USE MODI_SOIL_TEMP_ARP
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -132,7 +132,7 @@ REAL, DIMENSION(:), INTENT (IN)  :: PSW_RAD, PLW_RAD, PPS, PRHOA, PTA, PQA, PVMO
 !
 REAL, DIMENSION(:), INTENT(IN)  :: PPEW_A_COEF, PPEW_B_COEF,                   &
                                    PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF,      &
-                                   PPEQ_B_COEF  
+                                   PPEQ_B_COEF
 !                                  PPEW_A_COEF = A-wind coefficient (m2s/kg)
 !                                  PPEW_B_COEF = B-wind coefficient (m/s)
 !                                  PPET_A_COEF = A-air temperature coefficient
@@ -148,7 +148,7 @@ REAL, DIMENSION(:), INTENT(IN)     :: PFROZEN1
 REAL, DIMENSION(:), INTENT(IN)     :: PTDEEP_A
 !                                      PTDEEP_A = Deep soil temperature
 !                                                 coefficient depending on flux
-REAL, DIMENSION(:), INTENT(IN)      :: PGRNDFLUX 
+REAL, DIMENSION(:), INTENT(IN)      :: PGRNDFLUX
 !                                      PGRNDFLUX = soil/snow interface flux (W/m2) using
 !                                                  ISBA-SNOW3L option
 !
@@ -171,9 +171,9 @@ REAL, DIMENSION(:), INTENT (OUT)   :: PQA_IC, PTA_IC, PUSTAR2_IC
 !                                            atmosphere used)
 !
 REAL, DIMENSION(:), INTENT (IN)     :: PTSM, PT2M
-!                                      PTSM   = surface temperature at start 
+!                                      PTSM   = surface temperature at start
 !                                               of time step (K)
-!                                      PT2M   = mean surface (or restore) temperature at start 
+!                                      PT2M   = mean surface (or restore) temperature at start
 !                                               of time step (K)
 !
 REAL, DIMENSION(:), INTENT(OUT)  :: PALBT, PEMIST, PDQSAT
@@ -194,7 +194,7 @@ REAL, DIMENSION(:), INTENT(OUT)    :: PRESTORE
 REAL, DIMENSION(SIZE(PEK%XSNOWFREE_ALB)) :: ZRORA,                        &
 !                                             rhoa / ra
 !
-                                               ZA,ZB,ZC  
+                                               ZA,ZB,ZC
 !                                             terms for the calculation of Ts(t)
 !
 ! ISBA-DF:
@@ -205,7 +205,7 @@ REAL, DIMENSION(SIZE(PEK%XSNOWFREE_ALB)) ::  ZCONDAVG, ZCOND1, ZCOND2, ZTERM2, Z
 !
 REAL, DIMENSION(SIZE(PEK%XSNOWFREE_ALB)) :: ZPET_A_COEF, ZPEQ_A_COEF, ZPET_B_COEF,      &
                                ZPEQ_B_COEF, Z_CCOEF, ZHUMS, ZHUMA, ZLAVG,  &
-                               ZHUMSD, ZHUMAD 
+                               ZHUMSD, ZHUMAD
 !                              ZPET_A_COEF = A-air temperature coefficient
 !                              ZPET_B_COEF = B-air temperature coefficient
 !                              ZPEQ_A_COEF = A-air specific humidity coefficient
@@ -239,7 +239,7 @@ ZHUMAD(:)    = 0.0
 !
 !-------------------------------------------------------------------------------
 !
-!*       1.     COEFFICIENTS FOR THE TIME INTEGRATION OF  TS 
+!*       1.     COEFFICIENTS FOR THE TIME INTEGRATION OF  TS
 !               --------------------------------------------
 !
 !
@@ -255,10 +255,10 @@ ZTEMP  (:) = DK%XCD(:)*PVMOD(:)
 !
 IF(HIMPLICIT_WIND=='OLD')THEN
 ! old implicitation (m2/s2)
-  ZUSTAR2(:) = ZTEMP(:) * PPEW_B_COEF(:) / (1.0- ZTEMP(:)*PRHOA(:)*PPEW_A_COEF(:)) 
+  ZUSTAR2(:) = ZTEMP(:) * PPEW_B_COEF(:) / (1.0- ZTEMP(:)*PRHOA(:)*PPEW_A_COEF(:))
 ELSE
 ! new implicitation (m2/s2)
-  ZUSTAR2(:) = ZTEMP(:) * (2.*PPEW_B_COEF(:)-PVMOD(:)) / (1.0-2.0*ZTEMP(:)*PRHOA(:)*PPEW_A_COEF(:)) 
+  ZUSTAR2(:) = ZTEMP(:) * (2.*PPEW_B_COEF(:)-PVMOD(:)) / (1.0-2.0*ZTEMP(:)*PRHOA(:)*PPEW_A_COEF(:))
 ENDIF
 !
 !wind modulus at t+1 (m/s)
@@ -284,11 +284,11 @@ Z_CCOEF(:)     = (1.0 - ZTEMP(:))/PEXNA(:)
 !
 ZPET_A_COEF(:) = - ZTEMP(:)/PEXNS(:)/Z_CCOEF(:)
 !
-ZPET_B_COEF(:) = PPET_B_COEF(:)/Z_CCOEF(:) 
+ZPET_B_COEF(:) = PPET_B_COEF(:)/Z_CCOEF(:)
 !
 !-------------------------------------------------------------------------------
 !
-!*       2.     AIR AND SOIL SPECIFIC HUMIDITIES 
+!*       2.     AIR AND SOIL SPECIFIC HUMIDITIES
 !               --------------------------------
 !
 ! - air specific humidity:
@@ -311,7 +311,7 @@ IF (LCPL_ARP) THEN
   PLEGI_DELTA(:) = 1.0
 
   ZLAVG(:)        = PK%XLVTT(:)*ZFNFRZ(:) + PK%XLSTT(:)*ZFFRZ(:)
-  ZXCPV_XCL_AVG(:)=   (XCPV-XCL)*ZFNFRZ(:) + (XCPV-XCI)  *ZFFRZ(:) 
+  ZXCPV_XCL_AVG(:)=   (XCPV-XCL)*ZFNFRZ(:) + (XCPV-XCI)  *ZFFRZ(:)
 
   ZLVTT(:) = ZLAVG(:)
   ZLSTT(:) = ZLAVG(:)
@@ -335,17 +335,17 @@ ZFGNFRZ(:) = ZFG(:) * (1.-PFROZEN1(:)) * PLEG_DELTA(:)
 ZFGFRZ (:) = ZFG(:) * PFROZEN1(:)      * PLEGI_DELTA(:)
 !
 ZHUMA(:) = ZLVTT(:)/ZLAVG(:) * ((1.-KK%XFFROZEN(:))*KK%XFF(:) + ZFV(:)*DMK%XHV(:) + ZFGNFRZ(:))   +  &
-           ZLSTT(:)/ZLAVG(:) * (KK%XFFROZEN(:)     *KK%XFF(:) + ZFGFRZ(:) + ZSNOW*PEK%XPSN(:) ) 
+           ZLSTT(:)/ZLAVG(:) * (KK%XFFROZEN(:)     *KK%XFF(:) + ZFGFRZ(:) + ZSNOW*PEK%XPSN(:) )
 !
 ZHUMS(:) = ZLVTT(:)/ZLAVG(:) * ((1.-KK%XFFROZEN(:))*KK%XFF(:) + ZFV(:)*DMK%XHV(:) + ZFGNFRZ(:)*DK%XHUG(:)) +   &
-           ZLSTT(:)/ZLAVG(:) * (KK%XFFROZEN(:)     *KK%XFF(:) + ZFGFRZ(:)*PHUI(:)  + ZSNOW*PEK%XPSN(:) )  
+           ZLSTT(:)/ZLAVG(:) * (KK%XFFROZEN(:)     *KK%XFF(:) + ZFGFRZ(:)*PHUI(:)  + ZSNOW*PEK%XPSN(:) )
 !
 IF(PEK%TSNOW%SCHEME == '3-L' .OR. PEK%TSNOW%SCHEME == 'CRO' .OR. IO%CISBA == 'DIF')THEN
 !
 ! humidity considering no snow (done elsewhere) and flooded zones:
 !
-  ZHUMAD(:) = KK%XFF(:) + ZFV(:)*DMK%XHV(:) + ZFGNFRZ(:) + ZFGFRZ(:)  
-  ZHUMSD(:) = KK%XFF(:) + ZFV(:)*DMK%XHV(:) + ZFGNFRZ(:)*DK%XHUG(:) + ZFGFRZ(:)*PHUI(:)          
+  ZHUMAD(:) = KK%XFF(:) + ZFV(:)*DMK%XHV(:) + ZFGNFRZ(:) + ZFGFRZ(:)
+  ZHUMSD(:) = KK%XFF(:) + ZFV(:)*DMK%XHV(:) + ZFGNFRZ(:)*DK%XHUG(:) + ZFGFRZ(:)*PHUI(:)
 ELSE
   ZHUMAD(:) = ZHUMA(:)
   ZHUMSD(:) = ZHUMS(:)
@@ -353,7 +353,7 @@ ENDIF
 !
 !-------------------------------------------------------------------------------
 !
-!*       3.     COEFFICIENTS FOR THE TIME INTEGRATION OF Q 
+!*       3.     COEFFICIENTS FOR THE TIME INTEGRATION OF Q
 !               -------------------------------------------
 !
 ! implicit q coefficients:
@@ -363,31 +363,31 @@ Z_CCOEF(:)     = 1.0 - ZTEMP(:)*ZHUMAD(:)
 !
 ZPEQ_A_COEF(:) = - ZTEMP(:)*PDQSAT(:)*ZHUMSD(:)/Z_CCOEF(:)
 !
-ZPEQ_B_COEF(:) = ( PPEQ_B_COEF(:) - ZTEMP(:)*ZHUMSD(:)* (PQSAT(:) - PDQSAT(:)*PEK%XTG(:,1)) )/Z_CCOEF(:)  
+ZPEQ_B_COEF(:) = ( PPEQ_B_COEF(:) - ZTEMP(:)*ZHUMSD(:)* (PQSAT(:) - PDQSAT(:)*PEK%XTG(:,1)) )/Z_CCOEF(:)
 !
 !-------------------------------------------------------------------------------
 !
-!*       4.     TOTAL ALBEDO AND EMISSIVITY 
+!*       4.     TOTAL ALBEDO AND EMISSIVITY
 !               ---------------------------
 !
 !
 IF(PEK%TSNOW%SCHEME == '3-L' .OR. PEK%TSNOW%SCHEME == 'CRO' .OR. IO%CISBA == 'DIF')THEN
 !
 ! NON-SNOW covered Grid averaged albedo and emissivity for explicit
-! snow scheme 
+! snow scheme
 !
   IF(.NOT.IO%LFLOOD)THEN
-!          
+!
      PALBT (:) = PEK%XSNOWFREE_ALB(:)
      PEMIST(:) = PEK%XEMIS(:)
-!     
+!
   ELSE
 !
 ! Taking into account the floodplains with snow grid fractions :
 !     PFF    1.-PFF-PEK%XPSN(:)   PEK%XPSN(:)
 ! |------------|----|---------------|
 !
-  WHERE(PEK%XPSN(:)<1.0)          
+  WHERE(PEK%XPSN(:)<1.0)
      PALBT (:) = ((1.-KK%XFF(:)-PEK%XPSN(:))*PEK%XSNOWFREE_ALB(:) + KK%XFF(:)*KK%XALBF(:) )/(1.-PEK%XPSN(:))
      PEMIST(:) = ((1.-KK%XFF(:)-PEK%XPSN(:))*PEK%XEMIS(:)         + KK%XFF(:)*KK%XEMISF(:))/(1.-PEK%XPSN(:))
   ELSEWHERE
@@ -407,14 +407,14 @@ ELSE
       PALBT(:)  = (1-PEK%XVEG(:)) * (PEK%XSNOWFREE_ALB_SOIL(:)*(1-PEK%XPSNG(:)) + &
                                                  PEK%TSNOW%ALB(:)*PEK%XPSNG(:)) + &
                      PEK%XVEG(:)  * (PEK%XSNOWFREE_ALB_VEG (:)*(1-PEK%XPSNV_A(:)) +      &
-                                                PEK%TSNOW%ALB(:)*PEK%XPSNV_A(:))  
+                                                PEK%TSNOW%ALB(:)*PEK%XPSNV_A(:))
 !
       PEMIST(:) = PEK%XEMIS(:)-PEK%XPSN(:)*(PEK%XEMIS(:)-XEMCRIN)
-!      
+!
    ELSE
 !
       PALBT (:) = ( 1.-PEK%XPSN(:)-KK%XFF(:))* PEK%XSNOWFREE_ALB(:) + &
-                       PEK%XPSN(:)           * PEK%TSNOW%ALB(:)     + KK%XFF(:)*KK%XALBF(:)     
+                       PEK%XPSN(:)           * PEK%TSNOW%ALB(:)     + KK%XFF(:)*KK%XALBF(:)
 !
       PEMIST(:) = ( 1.-PEK%XPSN(:)-KK%XFF(:))* PEK%XEMIS(:) + &
                        PEK%XPSN(:)           * XEMISSN      + KK%XFF(:)*KK%XEMISF(:)
@@ -452,17 +452,17 @@ ZA(:) = 1. / PTSTEP + DMK%XCT(:) *                         &
          ((ZFNSNOW(:) *                                    &
            ( 4.*ZTRAD(:) + ZRORA(:)*ZCPS(:)*ZPETA2(:) ))   &
          + ZCHUMS(:)*PDQSAT(:) - ZCHUMA(:)*ZPEQ_A_COEF(:)) &
-         + 2. * XPI / XDAY        
+         + 2. * XPI / XDAY
 !
-ZB(:) = 1. / PTSTEP + DMK%XCT(:) * ( ZFNSNOW(:)* 3.*ZTRAD(:) + ZCHUMS(:)*PDQSAT(:) ) 
+ZB(:) = 1. / PTSTEP + DMK%XCT(:) * ( ZFNSNOW(:)* 3.*ZTRAD(:) + ZCHUMS(:)*PDQSAT(:) )
 !
 ZC(:) = 2. * XPI * PEK%XTG(:,2) / XDAY + DMK%XCT(:) *       &
        ( ZFNSNOW(:) *                                       &
        ( ZRORA(:)*ZCPS(:)*ZPETB2(:)                         &
        + PSW_RAD(:)*(1.-PALBT(:)) + PLW_RAD(:)*PEMIST(:))   &
-       - (ZCHUMS(:)*PQSAT(:) - ZCHUMA(:)*ZPEQ_B_COEF(:)))           
+       - (ZCHUMS(:)*PQSAT(:) - ZCHUMA(:)*ZPEQ_B_COEF(:)))
 !
-IF(PEK%TSNOW%SCHEME == '3-L' .OR. PEK%TSNOW%SCHEME == 'CRO' .OR. IO%CISBA == 'DIF')THEN                                 
+IF(PEK%TSNOW%SCHEME == '3-L' .OR. PEK%TSNOW%SCHEME == 'CRO' .OR. IO%CISBA == 'DIF')THEN
 !
 !       5.2. With CSNOW=SNOW3L or CSNOW=CRO or IO%CISBA=DIF
 !       -------------------------------------------------
@@ -478,9 +478,9 @@ ZCDQSAT(:) = (XCPV-XCPD)*ZHUMS(:)*PDQSAT(:)
 ZINCR(:)= DMK%XCT(:) * ZRORA(:) * &
           (ZCDQSAT(:) * ( ZPETA2(:)*PEK%XTG(:,1) - ZPETB2(:)) + &
           ZXCPV_XCL_AVG(:) * &
-          (ZHUMS(:)*PQSAT(:) - ZHUMA(:) * (ZPEQ_B_COEF(:) + ZPEQ_A_COEF(:) * PEK%XTG(:,1)))) 
+          (ZHUMS(:)*PQSAT(:) - ZHUMA(:) * (ZPEQ_B_COEF(:) + ZPEQ_A_COEF(:) * PEK%XTG(:,1))))
 
-! Surface Energy Budget linearization coefficients for a composite 
+! Surface Energy Budget linearization coefficients for a composite
 ! (soil-vegetation-flood-snow) energy budget: composite fluxes "felt" by
 ! atmosphere from a mixed soil,snow and vegetation surface:
 ! (Douville et al. 1995, J. Clim. Dyn.)
@@ -488,8 +488,8 @@ ZINCR(:)= DMK%XCT(:) * ZRORA(:) * &
 
   ZA(:) = ZA(:) + ZINCR(:)
 
-  ZB(:) = ZB(:) + ZINCR(:)            
-           
+  ZB(:) = ZB(:) + ZINCR(:)
+
   IF (LQVNPLUS) THEN
 !
 !       5.4. With  LQVNPLUS=TRUE
@@ -501,12 +501,12 @@ ZINCR(:)= DMK%XCT(:) * ZRORA(:) * &
 
     ZA(:) = ZA(:) + DMK%XCT(:) * ZRORA(:) * &
              (2.* ZPEQA2(:) + &
-             ZCNHUMA(:) * (ZDKQB(:)*ZPETA2(:) - ZPEQ_A_COEF(:)*ZPETB2(:) )) 
+             ZCNHUMA(:) * (ZDKQB(:)*ZPETA2(:) - ZPEQ_A_COEF(:)*ZPETB2(:) ))
 
-    ZB(:) = ZB(:) + DMK%XCT(:) * ZRORA(:) * ZPEQA2(:)         
-  
-    ZC(:) = ZC(:) + DMK%XCT(:)*ZRORA(:)*ZCNHUMA(:) *ZDKQB(:)*ZPETB2(:) 
-           
+    ZB(:) = ZB(:) + DMK%XCT(:) * ZRORA(:) * ZPEQA2(:)
+
+    ZC(:) = ZC(:) + DMK%XCT(:)*ZRORA(:)*ZCNHUMA(:) *ZDKQB(:)*ZPETB2(:)
+
   ENDIF
 ENDIF
 !
@@ -516,7 +516,7 @@ ENDIF
 !*       6.     T AT TIME 'T+DT' (before snowmelt or soil ice evolution)
 !               -----------------
 !
-IF(IO%CISBA == 'DIF')THEN                                                          
+IF(IO%CISBA == 'DIF')THEN
 !
 ! First determine terms needed for implicit linearization of surface:
 !
@@ -526,10 +526,10 @@ IF(IO%CISBA == 'DIF')THEN
    ZCOND2(:) = PK%XDZG(:,2)/((PK%XDZG(:,1)+PK%XDZG(:,2))*PSOILCONDZ(:,2))
 !
    ZCONDAVG(:) = 1.0/(ZCOND1(:)+ZCOND2(:))
-!   
+!
    ZA(:)       = ZA(:) - (2. * XPI / XDAY) + ZCONDAVG(:)*DMK%XCG(:)/PK%XDZDIF(:,1)
    ZTERM2(:)   = ZCONDAVG(:)*DMK%XCG(:)/(ZA(:)*PK%XDZDIF(:,1))
-   ZTERM1(:)   = (PEK%XTG(:,1)*ZB(:) + (ZC(:) - (2. * XPI * PEK%XTG(:,2) / XDAY)) )/ZA(:)  
+   ZTERM1(:)   = (PEK%XTG(:,1)*ZB(:) + (ZC(:) - (2. * XPI * PEK%XTG(:,2) / XDAY)) )/ZA(:)
 !
 ! Determine the soil temperatures:
 !
@@ -552,28 +552,28 @@ ELSE
 !     "Restore" flux between surface and deep layer(W m-2):
     PRESTORE(:) = 2.0 * XPI * (PEK%XTG(:,1)-PEK%XTG(:,2)) / &
                          ( DMK%XCT(:)*XDAY*IO%XSODELX(1)*(IO%XSODELX(1)+IO%XSODELX(2)) )
-!      
+!
   ELSE
 !
     PEK%XTG(:,1) = ( PEK%XTG(:,1)*ZB(:) + ZC(:) ) / ZA(:)
 !
     WHERE(KK%XTDEEP(:) /= XUNDEF .AND. KK%XGAMMAT(:) /= XUNDEF)
       PEK%XTG(:,2) = (PEK%XTG(:,2) + (PTSTEP/XDAY)*(PEK%XTG(:,1) + KK%XGAMMAT(:)*KK%XTDEEP(:))) / &
-                         (1.+(PTSTEP/XDAY)*(1.0+KK%XGAMMAT(:)))  
+                         (1.+(PTSTEP/XDAY)*(1.0+KK%XGAMMAT(:)))
     ELSEWHERE
       PEK%XTG(:,2) = (PEK%XTG(:,2) + (PTSTEP/XDAY)*PEK%XTG(:,1)) /        &
-                         (1.+(PTSTEP/XDAY) )  
+                         (1.+(PTSTEP/XDAY) )
     END WHERE
 !
 !     "Restore" flux between surface and deep layer(W m-2):
-    PRESTORE(:) = 2.0*XPI*(PEK%XTG(:,1)-PT2M(:))/(DMK%XCT(:)*XDAY)  
+    PRESTORE(:) = 2.0*XPI*(PEK%XTG(:,1)-PT2M(:))/(DMK%XCT(:)*XDAY)
 !
   ENDIF
 !
 ENDIF
 !
 !-------------------------------------------------------------------------------
-!*       7.     TA and QA AT TIME 'T+DT' 
+!*       7.     TA and QA AT TIME 'T+DT'
 !               ------------------------
 !               (QA and TA are only modified by these expressions
 !                if the implicit atmospheric coupling is used)
@@ -597,7 +597,7 @@ IF (LCPL_ARP) THEN
 
   IF (LQVNPLUS) THEN
     PK%XCPS(:) =  PK%XCPS(:) + (XCPV-XCPD) *ZHUMS(:)*PDQSAT(:)*(PEK%XTG(:,1)-PTSM(:))  &
-                       + (XCPV-XCPD) *(1-ZHUMA(:))*(PQA_IC(:)-PQA(:))  
+                       + (XCPV-XCPD) *(1-ZHUMA(:))*(PQA_IC(:)-PQA(:))
   ENDIF
 
   PK%XLSTT(:) = PK%XLSTT(:) + (XCPV-XCI)*(PEK%XTG(:,1)-PTSM(:))

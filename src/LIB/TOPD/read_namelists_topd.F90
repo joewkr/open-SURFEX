@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################
 SUBROUTINE READ_NAMELISTS_TOPD(HPROGRAM)
@@ -15,7 +15,7 @@ SUBROUTINE READ_NAMELISTS_TOPD(HPROGRAM)
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -42,7 +42,7 @@ SUBROUTINE READ_NAMELISTS_TOPD(HPROGRAM)
 USE MODI_READ_NAM_PGD_TOPD
 USE MODI_READ_NAM_TOPD
 !
-USE MODD_TOPODYN, ONLY       : CCAT, XTOPD_STEP, NNB_TOPD_STEP,& 
+USE MODD_TOPODYN, ONLY       : CCAT, XTOPD_STEP, NNB_TOPD_STEP,&
                                XSPEEDR, XSPEEDG, XSPEEDH,&
                                XQINIT, XRTOP_D2
 USE MODD_COUPLING_TOPD, ONLY : LCOUPL_TOPD, NNB_TOPD,&

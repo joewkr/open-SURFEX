@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_GREENROOF( HRUNOFF_GR,HSCOND_GR,                   &
-                                    HKSAT_GR,HHORT_GR                       )  
+                                    HKSAT_GR,HHORT_GR                       )
 !     ########################################################################
 !
 !!****  *DEFAULT_GREENROOF* - routine to set default values for the configuration for GREENROOF
@@ -52,11 +52,11 @@ IMPLICIT NONE
 !              -------------------------
 !
 !
- CHARACTER(LEN=4),  INTENT(OUT) :: HRUNOFF_GR    ! surface runoff formulation ('WSAT','DT92','SGH ')    
+ CHARACTER(LEN=4),  INTENT(OUT) :: HRUNOFF_GR    ! surface runoff formulation ('WSAT','DT92','SGH ')
  CHARACTER(LEN=4),  INTENT(OUT) :: HSCOND_GR     ! thermal conductivity ('DEF ','PL98')
  CHARACTER(LEN=3),  INTENT(OUT) :: HKSAT_GR      ! soil hydraulic profile option ('DEF','SGH')
  CHARACTER(LEN=3),  INTENT(OUT) :: HHORT_GR      ! Horton runoff ('DEF','SGH')
-!                                           
+!
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !*       0.2   Declarations of local variables

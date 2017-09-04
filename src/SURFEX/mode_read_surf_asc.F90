@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_READ_SURF_ASC
 !!
@@ -15,7 +15,7 @@ MODULE MODE_READ_SURF_ASC
 !!    EXTERNAL
 !!    --------
 !!
-!!     
+!!
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
@@ -122,7 +122,7 @@ END SUBROUTINE READ_SURFX0_ASC
                                   HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  *READX1* - routine to fill a real 1D array for the externalised surface 
+!!****  *READX1* - routine to fill a real 1D array for the externalised surface
 !
 !
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ, NREQ
@@ -235,7 +235,7 @@ ELSEIF (HDIR=='-') THEN ! distribution of the total field on other tasks
 #ifdef SFX_MPI
   IF (NPROC>1) THEN
     XTIME0 = MPI_WTIME()
-    CALL MPI_BCAST(ZWORK,IL1*KIND(ZWORK)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)   
+    CALL MPI_BCAST(ZWORK,IL1*KIND(ZWORK)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
     XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF
 #endif
@@ -244,11 +244,11 @@ ELSE
   CALL READ_AND_SEND_MPI(ZWORK,PFIELD,NMASK)
   !IF (NRANK==NPIO) THEN
   !  CALL MPI_WAITALL(NPROC-1,NREQ,ISTATUS,INFOMPI)
-  !ENDIF  
+  !ENDIF
 ENDIF
 !
 DEALLOCATE(ZWORK)
-!  
+!
 IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_ASC:READ_SURFX1_ASC',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE READ_SURFX1_ASC
@@ -258,7 +258,7 @@ END SUBROUTINE READ_SURFX1_ASC
                                   HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  *READX2* - routine to fill a real 2D array for the externalised surface 
+!!****  *READX2* - routine to fill a real 2D array for the externalised surface
 !
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ, NREQ
 !
@@ -293,7 +293,7 @@ INTEGER,                  INTENT(OUT) :: KRESP    ! KRESP  : return-code if a pr
                                                   !       horizontal spatial dim.
                                                   ! '-' : no horizontal dim.
 !*      0.2   Declarations of local variables
-! 
+!
 LOGICAL :: GFOUND
  CHARACTER(LEN=6)  :: YMASK
 INTEGER           :: IL1, IL2, INFOMPI
@@ -326,7 +326,7 @@ IF (NRANK==NPIO) THEN
     ALLOCATE(ZWORK2(IL1,IL2))
   ELSEIF (HDIR/='-') THEN
     ALLOCATE(ZWORK2(NFULL,IL2))
-  END IF                 
+  END IF
   !
   IF (HDIR=='A' .OR. HDIR=='-'.OR.HDIR=='E') THEN
     CALL POSNAM(NUNIT,CMASK//' '//HREC,GFOUND,NLUOUT)
@@ -371,7 +371,7 @@ ELSEIF (HDIR=='-') THEN
 #ifdef SFX_MPI
   IF (NPROC>1) THEN
     XTIME0 = MPI_WTIME()
-    CALL MPI_BCAST(ZWORK2,IL1*IL2*KIND(ZWORK2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)   
+    CALL MPI_BCAST(ZWORK2,IL1*IL2*KIND(ZWORK2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
     XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF
 #endif
@@ -380,7 +380,7 @@ ELSE
   CALL READ_AND_SEND_MPI(ZWORK2,PFIELD,NMASK)
   !IF (NRANK==NPIO) THEN
   !  CALL MPI_WAITALL(NPROC-1,NREQ,ISTATUS,INFOMPI)
-  !ENDIF  
+  !ENDIF
 ENDIF
 !
 DEALLOCATE(ZWORK2)
@@ -506,7 +506,7 @@ LOGICAL :: GFOUND
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_ASC:READ_SURFN1_ASC',0,ZHOOK_HANDLE)
-!  
+!
 IL1 = SIZE(KFIELD)
 !
 KRESP = 0
@@ -526,7 +526,7 @@ IF (NRANK==NPIO) THEN
     ALLOCATE(IWORK(IL1))
   ELSEIF (HDIR/='-') THEN
     ALLOCATE(IWORK(NFULL))
-  END IF            
+  END IF
   !
   IF (HDIR=='A' .OR. HDIR=='-') THEN
     CALL POSNAM(NUNIT,CMASK//' '//HREC,GFOUND,NLUOUT)
@@ -568,7 +568,7 @@ ELSEIF (HDIR=='-') THEN
 #ifdef SFX_MPI
   IF (NPROC>1) THEN
     XTIME0 = MPI_WTIME()
-    CALL MPI_BCAST(IWORK,IL1*KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)   
+    CALL MPI_BCAST(IWORK,IL1*KIND(IWORK)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
   ENDIF
 #endif
@@ -761,7 +761,7 @@ XTIME0 = MPI_WTIME()
 !
 IF (NRANK==NPIO) THEN
   !
-  ! 
+  !
   YMASK=CMASK
   CALL IO_BUFF(&
                 HREC,'R',GFOUND)

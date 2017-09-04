@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_OCEAN_n (DTCO, O, OR, U, HPROGRAM)
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    04/2007 
+!!      Original    04/2007
 !!      Modofied    07/2012, P. Le Moigne : CMO1D phasing
 !-------------------------------------------------------------------------------
 !
@@ -110,9 +110,9 @@ ENDIF
 !
 IF (.NOT. O%LMERCATOR) THEN
   ALLOCATE(O%XSEAT(0,0))
-  ALLOCATE(O%XSEAS(0,0))  
+  ALLOCATE(O%XSEAS(0,0))
   ALLOCATE(O%XSEAU(0,0))
-  ALLOCATE(O%XSEAV(0,0))  
+  ALLOCATE(O%XSEAV(0,0))
   ALLOCATE(OR%XSEAT_REL(0,0))
   ALLOCATE(OR%XSEAS_REL(0,0))
   ALLOCATE(OR%XSEAU_REL(0,0))
@@ -307,7 +307,7 @@ DO J=1,ILU
       OR%XSEAT_REL(J,JLEVEL)=OR%XSEAT_REL(J,JLEVEL-1)
       OR%XSEAS_REL(J,JLEVEL)=OR%XSEAS_REL(J,JLEVEL-1)
       OR%XSEAU_REL(J,JLEVEL)=OR%XSEAU_REL(J,JLEVEL-1)
-      OR%XSEAV_REL(J,JLEVEL)=OR%XSEAV_REL(J,JLEVEL-1)      
+      OR%XSEAV_REL(J,JLEVEL)=OR%XSEAV_REL(J,JLEVEL-1)
     ENDIF
   ENDDO
 ENDDO
@@ -334,8 +334,8 @@ O%XSEATEND(:) =XUNDEF
 ALLOCATE(O%XDTFSOL(ILU,NOCKMIN:NOCKMAX))
 ALLOCATE(O%XDTFNSOL(ILU))
 !
-O%XDTFSOL(:,:) = XUNDEF 
-O%XDTFNSOL(:) = XUNDEF 
+O%XDTFSOL(:,:) = XUNDEF
+O%XDTFNSOL(:) = XUNDEF
 !
 IF (LHOOK) CALL DR_HOOK('READ_OCEAN_N',1,ZHOOK_HANDLE)
 !

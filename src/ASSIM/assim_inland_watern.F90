@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE ASSIM_INLAND_WATER_n (NPE, W, U, HPROGRAM, KI, PTS_IN, PITM, HTEST, &
@@ -8,7 +8,7 @@ SUBROUTINE ASSIM_INLAND_WATER_n (NPE, W, U, HPROGRAM, KI, PTS_IN, PITM, HTEST, &
 
 !     ###############################################################################
 !
-!!****  *ASSIM_INLAND_WATER_n * - Chooses the surface assimilation schemes for INLAND_WATER parts  
+!!****  *ASSIM_INLAND_WATER_n * - Chooses the surface assimilation schemes for INLAND_WATER parts
 !!
 !!    PURPOSE
 !!    -------
@@ -18,7 +18,7 @@ SUBROUTINE ASSIM_INLAND_WATER_n (NPE, W, U, HPROGRAM, KI, PTS_IN, PITM, HTEST, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -71,7 +71,7 @@ REAL(KIND=JPRB), DIMENSION (:), INTENT(IN) ::  PLAT_IN
 REAL, DIMENSION(KI)              :: ZLST
 REAL, DIMENSION(KI)              :: ZLST0
 REAL, DIMENSION(KI)              :: ZLSTINC
-REAL, DIMENSION(:), ALLOCATABLE  :: ZLST01, ZLST1, ZLON1, ZLAT1, ZALT1 
+REAL, DIMENSION(:), ALLOCATABLE  :: ZLST01, ZLST1, ZLON1, ZLAT1, ZALT1
 !
 LOGICAL,DIMENSION(KI) :: GINTERP_LST
 LOGICAL, DIMENSION(:), ALLOCATABLE :: GINTERP_LST1
@@ -123,7 +123,7 @@ DO JI=1,KI
   ELSEIF ( LEXTRAP_WATER ) THEN
     ! Keep ZLST or do extrapolation from neighbour points
     ZLST0(JI) = XUNDEF
-    GINTERP_LST(JI) = .TRUE.  
+    GINTERP_LST(JI) = .TRUE.
   ELSE
     ZLST0(JI) = W%XTS(JI)
   ENDIF
@@ -132,7 +132,7 @@ ENDDO
 IF ( LEXTRAP_WATER ) THEN
   !
   IF (OLKEEPEXTZONE) THEN
-    !     
+    !
     ZLST(:) = ZLST0(:)
     WHERE ( OD_MASKEXT(:) ) ZLST0(:) = XUNDEF
     CALL OI_HOR_EXTRAPOL_SURF(KI,PLAT_IN,PLON_IN,ZLST0,PLAT_IN,PLON_IN,ZLST,GINTERP_LST,W%XZS)
@@ -154,7 +154,7 @@ IF ( LEXTRAP_WATER ) THEN
         JJ = JJ + 1
       ENDIF
     ENDDO
-       
+
     ZLST1(:) = ZLST01(:)
     CALL OI_HOR_EXTRAPOL_SURF(IS1,ZLAT1,ZLON1,ZLST01,ZLAT1,ZLON1,ZLST1,GINTERP_LST1,ZALT1)
     !

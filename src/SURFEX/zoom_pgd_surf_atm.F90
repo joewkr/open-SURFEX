@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################
       SUBROUTINE ZOOM_PGD_SURF_ATM (YSC,HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -87,7 +87,7 @@ INTEGER :: IINFO_ll
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !------------------------------------------------------------------------------
 !
-!*    1.      Set default constant values 
+!*    1.      Set default constant values
 !             ---------------------------
 !
 IF (LHOOK) CALL DR_HOOK('ZOOM_PGD_SURF_ATM',0,ZHOOK_HANDLE)
@@ -140,7 +140,7 @@ IF (LHOOK) CALL DR_HOOK('ZOOM_PGD_SURF_ATM',0,ZHOOK_HANDLE)
 !
 IF (YSC%U%NDIM_NATURE>0)                                 &
   CALL ZOOM_PGD_NATURE(YSC%DTCO, YSC%IM, YSC%UG, YSC%U, YSC%USS, YSC%GCP, &
-                       HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE,YSC%U%LECOCLIMAP)  
+                       HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE,YSC%U%LECOCLIMAP)
 !_______________________________________________________________________________
 !
 !*    6.      Additionnal fields for town scheme
@@ -149,7 +149,7 @@ IF (YSC%U%NDIM_NATURE>0)                                 &
 IF (YSC%U%NDIM_TOWN>0)                                 &
   CALL ZOOM_PGD_TOWN(YSC%TM%BOP, YSC%TM%BDD, YSC%TM%DTB, YSC%DTCO, YSC%TM%DTT, YSC%UG, YSC%U, YSC%GCP, &
                      YSC%GDM%O, YSC%GDM%K, YSC%TM%G, YSC%TM%TOP, &
-                     HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE,YSC%U%LECOCLIMAP,YSC%U%LGARDEN)  
+                     HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE,YSC%U%LECOCLIMAP,YSC%U%LGARDEN)
 !_______________________________________________________________________________
 !
 !*    7.      Additionnal fields for inland water scheme
@@ -157,7 +157,7 @@ IF (YSC%U%NDIM_TOWN>0)                                 &
 !
 IF (YSC%U%NDIM_WATER>0)                                 &
   CALL ZOOM_PGD_INLAND_WATER(YSC%DTCO, YSC%FM%G, YSC%FM%F, YSC%UG, YSC%U, YSC%USS, YSC%WM%G, YSC%WM%W, &
-                             HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE,YSC%U%LECOCLIMAP)  
+                             HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE,YSC%U%LECOCLIMAP)
 !_______________________________________________________________________________
 !
 !*    8.      Additionnal fields for sea scheme
@@ -165,7 +165,7 @@ IF (YSC%U%NDIM_WATER>0)                                 &
 !
 IF (YSC%U%NDIM_SEA>0)                                 &
   CALL ZOOM_PGD_SEA(YSC%DTCO, YSC%SM%DTS, YSC%SM%G, YSC%SM%S, YSC%UG, YSC%U, YSC%GCP, &
-                    HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE)  
+                    HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE)
 !
 !_______________________________________________________________________________
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################
       SUBROUTINE INIT_BUDGET_COUPL_ROUT (DEC, DC, DMI, PMESH_SIZE, IO, NP, NPE, U, KNI)
@@ -9,8 +9,8 @@
 !!
 !!    PURPOSE
 !!    -------
-!    Initialise varriables usefull for budget computation    
-!     
+!    Initialise varriables usefull for budget computation
+!
 !!**  METHOD
 !!    ------
 !!    Terms of the budget on all the domain
@@ -19,41 +19,41 @@
 !!      variable =1 : Rain
 !!      variable =2 : Snow
 !!    Water going out of the system
-!!      variable =3 : Incerception 
+!!      variable =3 : Incerception
 !!      variable =4 : Evaporation
 !!      variable =5 : Runoff
 !!      variable =6 : Drainage
 !!      variable =7 : Variation of liquid water stocked in the ground
 !!      variable =8 : Variation of solid water stocked in the ground
 !!      variable =9 : Variation of melting snow
-!!    Budget 
+!!    Budget
 !!      variable =10:  Water going in the system- Water going out of the system
-!!    
+!!
 !!    Terms of the budget on a given catchment
 !!    XB_VAR_BV(forcing time step,catchment,variable)
 !!    XB_VAR_NOBV(forcing time step,catchment,variable)
-!!    
+!!
 !!    EXTERNAL
 !!    --------
 !!
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-!!     
+!!
 !!    AUTHOR
 !!    ------
 !!
 !!    L. Bouilloud &  B. Vincendon      * Meteo-France *
 
-!!    
+!!
 !!    MODIFICATIONS
 !!    -------------
 !!
-!!      Original  03/2008 
+!!      Original  03/2008
 !!      03/2014: Modif BV : add more variables
 !-------------------------------------------------------------------------------
 !
@@ -105,7 +105,7 @@ INTEGER, INTENT(IN)           :: KNI      ! expected physical size of full surfa
 !
 INTEGER    :: JJ,JWRK2
 INTEGER           :: INB_VAR   ! number of variable to write
-REAL, DIMENSION(U%NSIZE_NATURE,3)  :: ZWG_3L,ZWGI_3L,ZDG_3L  
+REAL, DIMENSION(U%NSIZE_NATURE,3)  :: ZWG_3L,ZWGI_3L,ZDG_3L
 REAL, DIMENSION(U%NSIZE_NATURE) :: ZINTER
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -126,7 +126,7 @@ ELSEIF (IO%CISBA=='3-L') THEN
   CALL AVG_PATCH_WG(IO, NP, NPE, ZWG_3L,ZWGI_3L,ZDG_3L)
 ENDIF
 !
-ALLOCATE(YB_VAR(INB_VAR)) 
+ALLOCATE(YB_VAR(INB_VAR))
 YB_VAR(1)='RAIN  '
 YB_VAR(2)='SNOW  '
 YB_VAR(3)='INTERC'
@@ -139,7 +139,7 @@ YB_VAR(9)='DSTOSW'
 YB_VAR(10)='BUDGET'
 YB_VAR(11)='HORTON'
 YB_VAR(12)='WATBUD'
-!   
+!
 !
 ALLOCATE(XB_RAIN(KNI))
 ALLOCATE(XB_SNOW(KNI))
@@ -173,7 +173,7 @@ ALLOCATE(XB_WGI3M  (KNI))
 ALLOCATE(XB_WGITOTM(KNI))
 ALLOCATE(XB_SWE1M  (KNI))
 ALLOCATE(XB_SWE2M  (KNI))
-ALLOCATE(XB_SWE3M  (KNI))   
+ALLOCATE(XB_SWE3M  (KNI))
 ALLOCATE(XB_SWETOTM(KNI))
 !
 ALLOCATE(XB_MESH_SIZE(KNI))
@@ -222,26 +222,26 @@ CALL UNPACK_SAME_RANK(U%NR_NATURE,PMESH_SIZE,XB_MESH_SIZE)
 !
 ALLOCATE(XB_ABV_BYMESH(KNI,NNCAT))
 DO JJ=1,KNI
-  XB_ABV_BYMESH(JJ,:) = XBV_IN_MESH(JJ,:)/XB_MESH_SIZE(JJ) !*NNMC(:)*XDXT(:)**2 ! 
-  XB_ABV_BYMESH(JJ,:) = MIN(1.,XB_ABV_BYMESH(JJ,:))      
+  XB_ABV_BYMESH(JJ,:) = XBV_IN_MESH(JJ,:)/XB_MESH_SIZE(JJ) !*NNMC(:)*XDXT(:)**2 !
+  XB_ABV_BYMESH(JJ,:) = MIN(1.,XB_ABV_BYMESH(JJ,:))
 ENDDO
-! 
+!
 ALLOCATE(XB_VAR_BV(NNB_TOPD_STEP,NNCAT,INB_VAR))
 XB_VAR_BV(:,:,:) = 0.
 ALLOCATE(XB_VAR_NOBV(NNB_TOPD_STEP,NNCAT,INB_VAR))
 XB_VAR_NOBV(:,:,:) = 0.
-! 
+!
 ALLOCATE(XB_VAR_TOT(NNB_TOPD_STEP,INB_VAR))
 XB_VAR_TOT(:,:) = 0.
 !
 ALLOCATE(XB_RUNOFF_TOPD(KNI))
 ALLOCATE(XB_RUNOFF_TOPDM(KNI))
 ALLOCATE(XB_ATOP_BYMESH(KNI))
-!  
+!
 CALL UNPACK_SAME_RANK(U%NR_NATURE,XATOP,XB_ATOP_BYMESH)
   XB_RUNOFF_TOPDM = XB_RUNOFF_ISBAM
 !
-ALLOCATE(YB_VARQ(5)) 
+ALLOCATE(YB_VARQ(5))
 YB_VARQ(1)='Q_TOT '
 YB_VARQ(2)='Q_RUN '
 YB_VARQ(3)='Q_DR  '
@@ -257,7 +257,7 @@ ALLOCATE(XB_VAR_Q(NNB_TOPD_STEP,NNCAT,5))
 ALLOCATE(XB_QTOTM(NNCAT))
 ALLOCATE(XB_QDRM (NNCAT))
 ALLOCATE(XB_QRUNM(NNCAT))
-! 
+!
 !init var bilan q
 XB_QTOT(:) = 0.
 XB_QDR (:) = 0.

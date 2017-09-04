@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_HOR_SNOW_FIELD (DTCO, G, U, GCP, HPROGRAM,      &
@@ -28,11 +28,11 @@ SUBROUTINE PREP_HOR_SNOW_FIELD (DTCO, G, U, GCP, HPROGRAM,      &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -121,10 +121,10 @@ REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_TSNOW ! prescribed temperature (K)
 REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_LWCSNOW ! prescribed snow liquid water content (kg/m3)
 REAL,               INTENT(IN)  :: PUNIF_ASNOW ! prescribed albedo (-)
 LOGICAL,            INTENT(INOUT)  :: OSNOW_IDEAL
-REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_SG1SNOW ! 
-REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_SG2SNOW ! 
-REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_HISTSNOW ! 
-REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_AGESNOW ! 
+REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_SG1SNOW !
+REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_SG2SNOW !
+REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_HISTSNOW !
+REAL, DIMENSION(:), INTENT(IN)  :: PUNIF_AGESNOW !
 !
 REAL,DIMENSION(:,:,:),  INTENT(IN) :: PVEGTYPE_PATCH ! fraction of each vegtype per patch
 REAL,DIMENSION(:,:),  INTENT(IN) :: PPATCH ! fraction of each patch
@@ -181,8 +181,8 @@ IF (YDCTL%LPART1) THEN
                         PUNIF_SG2SNOW, PUNIF_HISTSNOW, PUNIF_AGESNOW,       &
                         ISNOW_NLAYER                                     )
   ELSE IF (HFILETYPE=='GRIB  ') THEN
-    CALL PREP_GRIB_GRID(HFILE,KLUOUT,CINMODEL,CINGRID_TYPE,CINTERP_TYPE,TZTIME_GRIB)            
-    IF (NRANK==NPIO) CALL PREP_SNOW_GRIB(HPROGRAM,HSNSURF,HFILE,KLUOUT,ISNOW_NLAYER,ZFIELDIN)        
+    CALL PREP_GRIB_GRID(HFILE,KLUOUT,CINMODEL,CINGRID_TYPE,CINTERP_TYPE,TZTIME_GRIB)
+    IF (NRANK==NPIO) CALL PREP_SNOW_GRIB(HPROGRAM,HSNSURF,HFILE,KLUOUT,ISNOW_NLAYER,ZFIELDIN)
   ELSE IF (HFILETYPE=='MESONH' .OR. HFILETYPE=='ASCII ' .OR. HFILETYPE=='LFI   '&
           .OR. HFILETYPE=='FA    '.OR. HFILETYPE=='AROME ') THEN
     CALL PREP_SNOW_EXTERN(GCP,HPROGRAM,HSNSURF,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE, &
@@ -215,7 +215,7 @@ IF (YDCTL%LPART3) THEN
     CALL MPI_BCAST(INP,KIND(INP)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
 #endif
   ENDIF
-!    
+!
   ALLOCATE(ZFIELDOUTP(KL,INL,INP))
 !
 ! ZPATCH is the array of output patches put on the input patches
@@ -245,7 +245,7 @@ IF (YDCTL%LPART3) THEN
         ZDEPTH(:,JP) = PDEPTH(:,1,IP)
       ENDDO
     ENDIF
-    ! 
+    !
     CALL GET_PREP_INTERP(INP,KPATCH,ZDEPTH,PDEPTH(:,1,:),ZDEPTH,KR_P)
     !
   ENDIF
@@ -294,7 +294,7 @@ IF (YDCTL%LPART5) THEN
       CALL VEGTYPE_GRID_TO_PATCH_GRID(JP, KPATCH, PVEGTYPE_PATCH(1:KSIZE_P(JP),:,JP),  &
                                       PPATCH(1:KSIZE_P(JP),JP), KR_P(1:KSIZE_P(JP),JP), &
                                       ZFIELDOUTV, ZW%AL(JP)%ZOUT)
-    ENDDO  
+    ENDDO
     !
     DEALLOCATE(ZFIELDOUTV)
     !
@@ -306,7 +306,7 @@ IF (YDCTL%LPART5) THEN
       !
       CALL PACK_SAME_RANK(KR_P(1:KSIZE_P(JP),JP),ZFIELDOUTP(:,:,1),ZW%AL(JP)%ZOUT)
       !
-    ENDDO    
+    ENDDO
     !
   ELSE
     !
@@ -318,7 +318,7 @@ IF (YDCTL%LPART5) THEN
       !
     ENDDO
     !
-    DEALLOCATE(ZFIELDOUTP)  
+    DEALLOCATE(ZFIELDOUTP)
     !
   ENDIF
   !
@@ -401,7 +401,7 @@ IF (YDCTL%LPART5) THEN
         IF (OSNOW_IDEAL.OR.ISNOW_NLAYER==INL) THEN
           SK%DEPTH(:,:) = ZW%AL(JP)%ZOUT(:,:)
         ELSE
-          CALL SNOW3LGRID(SK%DEPTH(:,:),ZW%AL(JP)%ZOUT(:,1))                
+          CALL SNOW3LGRID(SK%DEPTH(:,:),ZW%AL(JP)%ZOUT(:,1))
           !DO JL=1,SIZE(SK%DEPTH,2)
           !  SK%DEPTH(:,JL) = ZW%AL(JP)%ZOUT(:,1)
           !ENDDO
@@ -415,14 +415,14 @@ IF (YDCTL%LPART5) THEN
       !
       !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       !
-      CASE('RHO') 
+      CASE('RHO')
         !
         IF (OSNOW_IDEAL.OR.INL==ISNOW_NLAYER) THEN
           SK%RHO(:,:) = ZW%AL(JP)%ZOUT(:,:)
         ELSEIF(INL==1) THEN
           DO JL = 1,ISNOW_NLAYER
             SK%RHO(:,JL) = ZW%AL(JP)%ZOUT(:,1)
-          ENDDO      
+          ENDDO
         ELSE
           !* interpolation on snow levels
           CALL INIT_FROM_REF_GRID(XGRID_SNOW,ZW%AL(JP)%ZOUT,ZGRID(1:KSIZE_P(JP),:,JP),SK%RHO)
@@ -444,7 +444,7 @@ IF (YDCTL%LPART5) THEN
       !
       !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       !
-      CASE('HEA') 
+      CASE('HEA')
         !
         IF (SK%SCHEME=='3-L' .OR. SK%SCHEME=='CRO') THEN
           !
@@ -453,7 +453,7 @@ IF (YDCTL%LPART5) THEN
           ELSEIF(INL==1) THEN
             DO JL = 1,ISNOW_NLAYER
               SK%HEAT(:,JL) = ZW%AL(JP)%ZOUT(:,1)
-            ENDDO        
+            ENDDO
           ELSE
             !* interpolation of heat on snow levels
             CALL INIT_FROM_REF_GRID(XGRID_SNOW,ZW%AL(JP)%ZOUT,ZGRID(1:KSIZE_P(JP),:,JP),SK%HEAT)
@@ -473,7 +473,7 @@ IF (YDCTL%LPART5) THEN
           ELSEIF(INL==1) THEN
             DO JL = 1,ISNOW_NLAYER
               ZHEAT(:,JL) = ZW%AL(JP)%ZOUT(:,1)
-            ENDDO        
+            ENDDO
           ELSE
             CALL INIT_FROM_REF_GRID(XGRID_SNOW,ZW%AL(JP)%ZOUT,ZGRID(1:KSIZE_P(JP),:,JP),ZHEAT)
           ENDIF
@@ -499,7 +499,7 @@ IF (YDCTL%LPART5) THEN
         ELSEIF(INL==1) THEN
          DO JL = 1,ISNOW_NLAYER
              SK%GRAN1(:,JL) = ZW%AL(JP)%ZOUT(:,1)
-          ENDDO      
+          ENDDO
         ELSE
           !* interpolation of heat on snow levels
           CALL INIT_FROM_REF_GRID(XGRID_SNOW,ZW%AL(JP)%ZOUT,ZGRID(1:KSIZE_P(JP),:,JP),SK%GRAN1)
@@ -517,7 +517,7 @@ IF (YDCTL%LPART5) THEN
         ELSEIF(SIZE(ZW%AL(JP)%ZOUT,2)==1) THEN
           DO JL = 1,ISNOW_NLAYER
             SK%GRAN2(:,JL) = ZW%AL(JP)%ZOUT(:,1)
-          ENDDO      
+          ENDDO
         ELSE
           !* interpolation of heat on snow levels
           CALL INIT_FROM_REF_GRID(XGRID_SNOW,ZW%AL(JP)%ZOUT,ZGRID(1:KSIZE_P(JP),:,JP),SK%GRAN2)
@@ -535,7 +535,7 @@ IF (YDCTL%LPART5) THEN
         ELSEIF(INL==1) THEN
           DO JL = 1,ISNOW_NLAYER
             SK%HIST(:,JL) = ZW%AL(JP)%ZOUT(:,1)
-          ENDDO      
+          ENDDO
         ELSE
           !* interpolation of heat on snow levels
           CALL INIT_FROM_REF_GRID(XGRID_SNOW,ZW%AL(JP)%ZOUT,ZGRID(1:KSIZE_P(JP),:,JP),SK%HIST)
@@ -556,7 +556,7 @@ IF (YDCTL%LPART5) THEN
           ELSEIF(INL==1) THEN
             DO JL = 1,ISNOW_NLAYER
               SK%AGE(:,JL) = ZW%AL(JP)%ZOUT(:,1)
-            ENDDO        
+            ENDDO
           ELSE
             !* interpolation of heat on snow levels
             CALL INIT_FROM_REF_GRID(XGRID_SNOW,ZW%AL(JP)%ZOUT,ZGRID(1:KSIZE_P(JP),:,JP),SK%AGE)

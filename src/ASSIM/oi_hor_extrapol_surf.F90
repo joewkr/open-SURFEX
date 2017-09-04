@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 
 !     ###################################################################
       SUBROUTINE OI_HOR_EXTRAPOL_SURF(NDIM,PLAT_IN,PLON_IN,PFIELD_IN, &
-                                         PLAT,PLON,PFIELD,OINTERP,PZS,NDIM2)  
+                                         PLAT,PLON,PFIELD,OINTERP,PZS,NDIM2)
 !     ###################################################################
 !
 !!**** *OI_HOR_EXTRAPOL_SURF* extrapolate a surface field
@@ -38,7 +38,7 @@
 !!
 !!    Original     01/12/98
 !!   V. Masson     01/2004 extrapolation in latitude and longitude
-!!   J.-F. Mahfouf 03/2010 adaptation for OI soil analysis 
+!!   J.-F. Mahfouf 03/2010 adaptation for OI soil analysis
 !----------------------------------------------------------------------------
 !
 !*    0.     DECLARATION
@@ -91,10 +91,10 @@ LOGICAL :: LNDIM2
 ! Earth radius
 !
 IF (LHOOK) CALL DR_HOOK('OI_HOR_EXTRAPOL_SURF',0,ZHOOK_HANDLE)
-ZR_EARTH = 6371598.0 
+ZR_EARTH = 6371598.0
 !
 ! Angle conversion factor
-!  
+!
 ZCONV = XPI/180.0
 !-------------------------------------------------------------------------------
 !
@@ -155,17 +155,17 @@ DO JI=1,NDIM
 
   ! Check if we got values
   IF ( ZNDIST  == XUNDEF ) THEN
-    CALL ABOR1_SFX("Extrapolated point is undefined! No nearby point found.")      
+    CALL ABOR1_SFX("Extrapolated point is undefined! No nearby point found.")
   ELSEIF ( ZNDIST > (ZLIMMAX*ZCONV) ) THEN
     IF ( LNDIM2 ) &
-    & CALL ABOR1_SFX("Distance to extrapolated point is to large. Increase ZLIMMAX or NDIM2")     
+    & CALL ABOR1_SFX("Distance to extrapolated point is to large. Increase ZLIMMAX or NDIM2")
     JZLIMCNT = JZLIMCNT + 1
   ENDIF
   IF (PRESENT(PZS)) THEN
     PFIELD(JI) = ZFIELD + (ZZS_OUT - PZS(JI))*0.0065
   ELSE
     PFIELD(JI) = ZFIELD
-  ENDIF  
+  ENDIF
 
 END DO
 

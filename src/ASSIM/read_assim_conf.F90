@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_ASSIM_CONF(HPROGRAM)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    04/2012 
+!!      Original    04/2012
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -53,7 +53,7 @@ USE PARKIND1,      ONLY : JPRB
 
 USE MODI_GET_LUOUT
 USE MODI_OPEN_NAMELIST
-USE MODI_TEST_NAM_VAR_SURF  
+USE MODI_TEST_NAM_VAR_SURF
 USE MODI_CLOSE_NAMELIST
 USE MODI_ABOR1_SFX
 !
@@ -155,7 +155,7 @@ IF ( ( CASSIM_ISBA == "EKF" .AND. ( LASSIM.OR.LPRT ) ) .OR. &
     ENDIF
   ENDDO
 ENDIF
- 
+
 IF ( CASSIM_ISBA == "ENKF" .AND. ( LASSIM.OR.NIE/=0 ) ) THEN
   !
   IF (.NOT.ALLOCATED(XINFL)) ALLOCATE (XINFL(NVAR))

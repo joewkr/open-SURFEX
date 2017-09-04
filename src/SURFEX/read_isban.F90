@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_ISBA_n (DTCO, IO, S, NP, NPE, PCLAY, U, HPROGRAM)
 !     ##################################
 !
 !!****  *READ_ISBA_n* - routine to initialise ISBA variables
-!!                         
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -37,8 +37,8 @@
 !!      READ_SURF for general reading : 08/2003 (S.Malardel)
 !!      B. Decharme  2008    : Floodplains
 !!      B. Decharme  01/2009 : Optional Arpege deep soil temperature read
-!!      A.L. Gibelin   03/09 : modifications for CENTURY model 
-!!      A.L. Gibelin    04/2009 : BIOMASS and RESP_BIOMASS arrays 
+!!      A.L. Gibelin   03/09 : modifications for CENTURY model
+!!      A.L. Gibelin    04/2009 : BIOMASS and RESP_BIOMASS arrays
 !!      A.L. Gibelin    06/2009 : Soil carbon variables for CNT option
 !!      B. Decharme  09/2012 : suppress NWG_LAYER (parallelization problems)
 !!      T. Aspelien  08/2013 : Read diagnostics for assimilation
@@ -55,12 +55,12 @@ USE MODD_ISBA_n, ONLY : ISBA_S_t, ISBA_NP_t, ISBA_NPE_t, ISBA_P_t, ISBA_PE_t
 USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
 !
 USE MODD_CO2V_PAR,       ONLY : XANFMINIT, XCONDCTMIN
-!                          
+!
 USE MODD_ASSIM,          ONLY : LASSIM,CASSIM_ISBA,XAT2M_ISBA,XAHU2M_ISBA,&
                                 XAZON10M_ISBA,XAMER10M_ISBA,NIFIC,NVAR, &
                                 COBS,NOBSTYPE,CVAR,LPRT,XTPRT,NIVAR,CBIO, &
                                 XADDINFL,NENS,XSIGMA,NIE
-!                                
+!
 USE MODD_SURF_PAR,       ONLY : XUNDEF, NUNDEF
 USE MODD_SNOW_PAR,       ONLY : XZ0SN
 USE MODD_ISBA_PAR,       ONLY : XWGMIN
@@ -182,7 +182,7 @@ IF ( TRIM(CASSIM_ISBA)=="ENKF") THEN
 ELSE
   DO JP = 1,IO%NPATCH
     ALLOCATE(NP%AL(JP)%XRED_NOISE(0,0))
-  ENDDO  
+  ENDDO
 ENDIF
 !
 IF  ( TRIM(CASSIM_ISBA)=="ENKF" .OR. (TRIM(CASSIM_ISBA)=="EKF" .AND. LPRT) ) THEN
@@ -256,7 +256,7 @@ IF ( TRIM(CASSIM_ISBA)=="EKF" .AND. LPRT ) THEN
    !
    DO JL=1,IO%NGROUND_LAYER
      ! read in control variable
-     IF ( (TRIM(CVAR(NIVAR))=="WG1" .AND. JL==1) .OR. & 
+     IF ( (TRIM(CVAR(NIVAR))=="WG1" .AND. JL==1) .OR. &
           (TRIM(CVAR(NIVAR))=="WG2" .AND. JL==2) .OR. &
           (TRIM(CVAR(NIVAR))=="WG3" .AND. JL==3) .OR. &
           (TRIM(CVAR(NIVAR))=="WG4" .AND. JL==4) .OR. &
@@ -264,14 +264,14 @@ IF ( TRIM(CASSIM_ISBA)=="EKF" .AND. LPRT ) THEN
           (TRIM(CVAR(NIVAR))=="WG6" .AND. JL==6) .OR. &
           (TRIM(CVAR(NIVAR))=="WG7" .AND. JL==7) .OR. &
           (TRIM(CVAR(NIVAR))=="WG8" .AND. JL==8) ) THEN
-            
+
        DO JP = 1,IO%NPATCH
          PEK => NPE%AL(JP)
          PK => NP%AL(JP)
          DO JI = 1,PK%NSIZE_P
            IMASK = PK%NR_P(JI)
            IF (PEK%XWG(JI,JL)/=XUNDEF ) THEN
-             PEK%XWG(JI,JL) = PEK%XWG(JI,JL) + XTPRT(NIVAR) * ZCOFSWI(IMASK) 
+             PEK%XWG(JI,JL) = PEK%XWG(JI,JL) + XTPRT(NIVAR) * ZCOFSWI(IMASK)
            ENDIF
          ENDDO
        END DO
@@ -315,7 +315,7 @@ ENDDO
 IF (IO%CPHOTO=='NIT' .OR. IO%CPHOTO=='NCB') THEN
 
   YRECFM = 'LAI'
-  CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)  
+  CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
   DO JP = 1,IO%NPATCH
     CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XLAI(:))
   ENDDO
@@ -326,7 +326,7 @@ IF (IO%CPHOTO=='NIT' .OR. IO%CPHOTO=='NCB') THEN
     IF ( TRIM(CVAR(NIVAR))=="LAI" ) THEN
       DO JP = 1,IO%NPATCH
         PEK => NPE%AL(JP)
-        WHERE ( PEK%XLAI(:)/=XUNDEF ) 
+        WHERE ( PEK%XLAI(:)/=XUNDEF )
            PEK%XLAI(:) =  PEK%XLAI(:) + XTPRT(NIVAR)* PEK%XLAI(:)
         ENDWHERE
       ENDDO
@@ -350,8 +350,8 @@ IF (IO%CPHOTO=='NIT' .OR. IO%CPHOTO=='NCB') THEN
       NPE%AL(JP)%XLAI(:) = MAX(ZVLAIMIN(JP),ZLAI(1:NP%AL(JP)%NSIZE_P,1,JP))
     ENDDO
     DEALLOCATE(ZLAI)
-    !    
-  ENDIF  
+    !
+  ENDIF
 END IF
 !
 !* snow mantel
@@ -381,7 +381,7 @@ IF(IO%LGLACIER)THEN
       NPE%AL(JP)%XICE_STO(:) = 0.0
     ENDDO
   ENDIF
-ELSE  
+ELSE
   DO JP = 1,IO%NPATCH
     ALLOCATE(NPE%AL(JP)%XICE_STO(0))
   ENDDO
@@ -409,7 +409,7 @@ IF (ISIZE_LMEB_PATCH>0) THEN
   ENDDO
 
 !* water intercepted on litter
- 
+
  YRECFM = 'WRL'
  CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
 DO JP = 1,IO%NPATCH
@@ -420,7 +420,7 @@ ENDDO
  CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
 DO JP = 1,IO%NPATCH
   CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XWRLI(:))
-ENDDO 
+ENDDO
 !
 !* snow intercepted on vegetation canopy leaves
 !
@@ -428,7 +428,7 @@ ENDDO
  CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
 DO JP = 1,IO%NPATCH
   CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XWRVN(:))
-ENDDO   
+ENDDO
 !
 !* vegetation canopy temperature
 !
@@ -436,7 +436,7 @@ ENDDO
  CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
 DO JP = 1,IO%NPATCH
   CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XTV(:))
-ENDDO    
+ENDDO
 !
 !* litter temperature
 !
@@ -444,7 +444,7 @@ ENDDO
  CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
 DO JP = 1,IO%NPATCH
   CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XTL(:))
-ENDDO  
+ENDDO
 !
 !* vegetation canopy air temperature
 !
@@ -452,7 +452,7 @@ ENDDO
  CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
 DO JP = 1,IO%NPATCH
   CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XTC(:))
-ENDDO    
+ENDDO
 !
 !* vegetation canopy air specific humidity
 !
@@ -460,7 +460,7 @@ ENDDO
  CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
 DO JP = 1,IO%NPATCH
   CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XQC(:))
-ENDDO     
+ENDDO
 !
 ENDIF
 !
@@ -474,22 +474,22 @@ DO JP = 1,IO%NPATCH
   PEK => NPE%AL(JP)
 
   ALLOCATE(PEK%XRESA(PK%NSIZE_P))
-  ALLOCATE(PEK%XLE  (PK%NSIZE_P))  
+  ALLOCATE(PEK%XLE  (PK%NSIZE_P))
   PEK%XRESA(:) = 100.
   PEK%XLE(:) = 0.
-  
+
   IF (IO%CPHOTO/='NON') THEN
     ALLOCATE(PEK%XANFM  (PK%NSIZE_P))
     ALLOCATE(PEK%XAN    (PK%NSIZE_P))
     ALLOCATE(PEK%XANDAY (PK%NSIZE_P))
-    PEK%XANFM (:) = XANFMINIT  
+    PEK%XANFM (:) = XANFMINIT
     PEK%XAN   (:) = 0.
-    PEK%XANDAY(:) = 0.      
+    PEK%XANDAY(:) = 0.
     !
     ALLOCATE(PEK%XBIOMASS         (PK%NSIZE_P,IO%NNBIOMASS))
     ALLOCATE(PEK%XRESP_BIOMASS    (PK%NSIZE_P,IO%NNBIOMASS))
     PEK%XBIOMASS(:,:) = 0.
-    PEK%XRESP_BIOMASS(:,:) = 0.    
+    PEK%XRESP_BIOMASS(:,:) = 0.
   END IF
 
 ENDDO
@@ -537,24 +537,24 @@ IF (IO%CPHOTO/='NON') THEN
   CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
   DO JP = 1,IO%NPATCH
     CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XANDAY(:))
-  ENDDO  
+  ENDDO
   !
   YRECFM = 'ANFM'
   CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
   DO JP = 1,IO%NPATCH
     CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XANFM(:))
-  ENDDO  
+  ENDDO
   !
   YRECFM = 'LE_AGS'
   CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
   DO JP = 1,IO%NPATCH
     CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XLE(:))
-  ENDDO  
+  ENDDO
 END IF
 !
 IF (IO%CPHOTO=='NIT'.OR.IO%CPHOTO=='NCB') THEN
   !
-  ALLOCATE(ZWORK3D(ILU,IO%NNBIOMASS,IO%NPATCH))    
+  ALLOCATE(ZWORK3D(ILU,IO%NNBIOMASS,IO%NPATCH))
   IF (IVERSION>7 .OR. IVERSION==7 .AND. IBUGFIX>=3) THEN
     YRECFM='BIOMA'
   ELSE
@@ -567,7 +567,7 @@ IF (IO%CPHOTO=='NIT'.OR.IO%CPHOTO=='NCB') THEN
       YCBIO = YRECFM(:LEN_TRIM(YRECFM))//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))
       ! read in control variable
       IF ( TRIM(CVAR(NIVAR)) == "LAI" .AND. TRIM(CBIO)==TRIM(YCBIO) ) THEN
-        WHERE ( ZWORK3D(:,JNB,:)/=XUNDEF ) 
+        WHERE ( ZWORK3D(:,JNB,:)/=XUNDEF )
           ZWORK3D(:,JNB,:) = ZWORK3D(:,JNB,:) * ( 1. + XTPRT(NIVAR) )
         ENDWHERE
       ENDIF
@@ -585,11 +585,11 @@ IF (IO%CPHOTO=='NIT'.OR.IO%CPHOTO=='NCB') THEN
           ENDIF
         ENDDO
       ENDIF
-      !      
-    ENDIF     
+      !
+    ENDIF
     DO JP = 1,IO%NPATCH
       CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK3D(:,JNB,JP),NPE%AL(JP)%XBIOMASS(:,JNB))
-    ENDDO 
+    ENDDO
   END DO
   DEALLOCATE(ZWORK3D)
 !
@@ -602,12 +602,12 @@ IF (IO%CPHOTO=='NIT'.OR.IO%CPHOTO=='NCB') THEN
       YRECFM='RESPI'//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))
     ELSE
       YRECFM='RESP_BIOM'//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))
-    ENDIF    
+    ENDIF
     CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
     IF ( TRIM(CASSIM_ISBA)=="EKF" .AND. LPRT ) THEN
       ! read in control variable
       IF ( TRIM(CVAR(NIVAR)) == "LAI" .AND. TRIM(CBIO)==TRIM(YRECFM) ) THEN
-        WHERE ( ZWORK(:,:)/=XUNDEF ) 
+        WHERE ( ZWORK(:,:)/=XUNDEF )
           ZWORK(:,:) = ZWORK(:,:) + XTPRT(NIVAR)*ZWORK(:,:)
         ENDWHERE
     ELSEIF ( TRIM(CASSIM_ISBA)=="ENKF" .AND. NIE<NENS+1 .AND. .NOT.LASSIM ) THEN
@@ -624,9 +624,9 @@ IF (IO%CPHOTO=='NIT'.OR.IO%CPHOTO=='NCB') THEN
           ENDIF
         ENDDO
       ENDIF
-      !  
+      !
       ENDIF
-    ENDIF  
+    ENDIF
     DO JP = 1,IO%NPATCH
       CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XRESP_BIOMASS(:,JNB))
     ENDDO
@@ -649,8 +649,8 @@ IF (IO%CRESPSL=='CNT') THEN
     ALLOCATE(PEK%XLIGNIN_STRUC(PK%NSIZE_P,IO%NNLITTLEVS))
     !
     PEK%XLITTER(:,:,:) = 0.
-    PEK%XSOILCARB(:,:) = 0. 
-    PEK%XLIGNIN_STRUC(:,:) = 0.  
+    PEK%XSOILCARB(:,:) = 0.
+    PEK%XLIGNIN_STRUC(:,:) = 0.
     !
   ENDDO
   !
@@ -661,7 +661,7 @@ IF (IO%CRESPSL=='CNT') THEN
       CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
       DO JP = 1,IO%NPATCH
         CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XLITTER(:,JNLITTER,JNLITTLEVS))
-      ENDDO       
+      ENDDO
     END DO
   END DO
 
@@ -671,7 +671,7 @@ IF (IO%CRESPSL=='CNT') THEN
     CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
     DO JP = 1,IO%NPATCH
       CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XSOILCARB(:,JNSOILCARB))
-    ENDDO      
+    ENDDO
   END DO
 !
   DO JNLITTLEVS=1,IO%NNLITTLEVS
@@ -680,7 +680,7 @@ IF (IO%CRESPSL=='CNT') THEN
     CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
     DO JP = 1,IO%NPATCH
       CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NPE%AL(JP)%XSOILCARB(:,JNLITTLEVS))
-    ENDDO     
+    ENDDO
   END DO
 !
 ENDIF
@@ -688,7 +688,7 @@ ENDIF
 IF ( LASSIM ) THEN
   IF ( TRIM(CASSIM_ISBA) == "OI" ) THEN
     IF ( IO%NPATCH /= 1 ) CALL ABOR1_SFX ('Reading of diagnostical values for'&
-                       & //'assimilation at the moment only works for one patch for OI')          
+                       & //'assimilation at the moment only works for one patch for OI')
     ! Diagnostic fields for assimilation
     IF ( .NOT. ALLOCATED(XAT2M_ISBA)) ALLOCATE(XAT2M_ISBA(ILU,1))
     XAT2M_ISBA=XUNDEF
@@ -734,9 +734,9 @@ IF ( LASSIM ) THEN
        CASE("WG2")
          ! This is already read above
        CASE("LAI")
-         ! This is already read above   
+         ! This is already read above
        CASE("SWE")
-         ! This is handled independently 
+         ! This is handled independently
        CASE DEFAULT
          CALL ABOR1_SFX("Mapping of "//TRIM(COBS(IOBS))//" is not defined in READ_ISBA_n!")
      END SELECT
@@ -816,7 +816,7 @@ DO JL=1,KWORK
         CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
         DO JP = 1,IO%NPATCH
           CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NP%AL(JP)%XRED_NOISE(:,IVAR))
-        ENDDO           
+        ENDDO
         !
         IF (.NOT.LASSIM) THEN
           !
@@ -843,7 +843,7 @@ DO JL=1,KWORK
           ENDDO
         ENDDO
         !
-        ZCOEF = 1. 
+        ZCOEF = 1.
         !
       ENDIF
       !

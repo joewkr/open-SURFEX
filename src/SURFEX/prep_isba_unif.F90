@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_ISBA_UNIF(KLUOUT,HSURF,PFIELD)
@@ -16,11 +16,11 @@ SUBROUTINE PREP_ISBA_UNIF(KLUOUT,HSURF,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -35,7 +35,7 @@ USE MODD_PREP_ISBA,      ONLY : XHUG_SURF, XHUG_ROOT, XHUG_DEEP,    &
                                   XTG_SURF, XTG_ROOT, XTG_DEEP,     &
                                   XWR_DEF, XWRV_DEF, XWRVN_DEF,     &
                                   XQC_DEF,                          &
-                                  XHUGI_SURF, XHUGI_ROOT, XHUGI_DEEP  
+                                  XHUGI_SURF, XHUGI_ROOT, XHUGI_DEEP
 !
 USE MODI_ABOR1_SFX
 !
@@ -65,7 +65,7 @@ SELECT CASE(HSURF)
   CASE('ZS     ')
     ALLOCATE(PFIELD(1,1,1))
     PFIELD = 0.
-   
+
 !
 !*      3.1    Profile of soil relative humidity
 !

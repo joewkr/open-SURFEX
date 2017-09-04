@@ -12,7 +12,7 @@
 OPT_BASE = -g -w -qsmp=omp -qrealsize=8 -qnoescape -q64 -qextname \
 	   -NS32648 -qmaxmem=-1 -bbigtoc
 OPT_PERF0 = -O0 -qnooptimize
-OPT_PERF2 = -O2 
+OPT_PERF2 = -O2
 OPT_PERF2 = -O3 -qarch=pwr6 -qstrict
 OPT_CHECK = -C
 OPT_I8    = -qintsize=8
@@ -31,8 +31,8 @@ else
 MNH_MPI_RANK_KIND ?=4
 LFI_INT           ?=4
 endif
-OPT       = $(OPT_BASE) $(OPT_PERF2) 
-OPT0      = $(OPT_BASE) $(OPT_PERF0) 
+OPT       = $(OPT_BASE) $(OPT_PERF2)
+OPT0      = $(OPT_BASE) $(OPT_PERF0)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF2)
 #
 ifeq "$(OPTLEVEL)" "DEBUG"
@@ -47,9 +47,9 @@ OPT0      = $(OPT_BASE) $(OPT_PERF0)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF3)
 endif
 #
-#            
+#
 F90 = mpxlf95_r
-F90FLAGS =       $(OPT) -qfree=f90 -qsuffix=f=f90 
+F90FLAGS =       $(OPT) -qfree=f90 -qsuffix=f=f90
 F77 = $(F90)
 F77FLAGS      =  $(OPT) -qfixed
 FX90 = $(F90)
@@ -58,15 +58,15 @@ FC = $(F90)
 #
 
 #
-# vargas / c1a underscore management 
+# vargas / c1a underscore management
 #
 ifneq "$(findstring c1a,$(shell uname -n))" ""
 LDFLAGS   =  $(OPT) -brename:.fminbits_in_word_,.fminbits_in_word__ -bloadmap:exec.log.out
 else
-LDFLAGS   =  $(OPT) -brename:.flush,.flush_ 
+LDFLAGS   =  $(OPT) -brename:.flush,.flush_
 endif
 #
-# preprocessing flags 
+# preprocessing flags
 #
 CPP = /usr/lib/cpp -C -P -qlanglvl=classic
 #
@@ -87,7 +87,7 @@ CNAME_GRIBEX=""
 # Source of MESONH PACKAGE  Distribution                 #
 #                                                        #
 ##########################################################
-#DIR_SURFEX      += ARCH_SRC/surfex 
+#DIR_SURFEX      += ARCH_SRC/surfex
 #DIR_SURCOUCHE   += ARCH_SRC/bug_surcouche
 #
 include Makefile.SURFEX.mk
@@ -109,6 +109,6 @@ OBJS_O1 += spll_aeroopt_get.o
 $(OBJS_O1) : OPT = $(OPT_BASE) $(OPT_PERF1)
 
 #OBJS_O0 += spll_compute_exner_from_ground3d.o  spll_compute_exner_from_ground1d.o spll_modi_set_rsou.o spll_set_rsou.o
-OBJS_O0 += spll_compute_exner_from_ground1d.o 
+OBJS_O0 += spll_compute_exner_from_ground1d.o
 $(OBJS_O0) : OPT = $(OPT_BASE) $(OPT_PERF0)
 #

@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
-SUBROUTINE DIF_LAYER(KLU, IO, PK  )  
+SUBROUTINE DIF_LAYER(KLU, IO, PK  )
 !#############################################################
 !
 !!****  *DIF_LAYER_n* - routine to initialize dif numbers of layers
@@ -96,11 +96,11 @@ DO JL=1,IO%NGROUND_LAYER
     IF(JL<IO%NGROUND_LAYER)THEN
       PK%XDZDIF(JI,JL)=0.5*(PK%XDZG(JI,JL)+PK%XDZG(JI,JL+1))
     ELSE
-      PK%XDZDIF(JI,JL)=0.5*PK%XDZG(JI,JL) 
+      PK%XDZDIF(JI,JL)=0.5*PK%XDZG(JI,JL)
     ENDIF
   ENDDO
-ENDDO 
-! 
+ENDDO
+!
 !
 ! Horton runoff parameter
 !
@@ -118,15 +118,15 @@ ENDDO
 IF (SIZE(IWORK)>0.AND.MAXVAL(IWORK(:),IWORK(:)/=NUNDEF)>IO%NLAYER_HORT) THEN
   IO%NLAYER_HORT=MAXVAL(IWORK(:),IWORK(:)/=NUNDEF)
 ENDIF
-!  
+!
 ! Dunne runoff parameter
 !
 IWORK(:)=PK%NWG_LAYER(:)
 !
-!  
+!
 DO JI=1,KLU
-  IF(PK%XPATCH(JI)>0.0)THEN 
-    IDEPTH = PK%NWG_LAYER(JI)    
+  IF(PK%XPATCH(JI)>0.0)THEN
+    IDEPTH = PK%NWG_LAYER(JI)
     IF(PK%XDROOT(JI)>0.0.AND.PK%XDROOT(JI)/=XUNDEF)THEN
       PK%XRUNOFFD(JI) = PK%XDG(JI,1)
       DO JL=1,IDEPTH-1
@@ -146,7 +146,7 @@ DO JL=1,IO%NGROUND_LAYER
     IF(PK%XPATCH(JI)>0.0)THEN
       IDEPTH=PK%NWG_LAYER(JI)
       IF(JL<=IDEPTH)THEN
-        ZWORK    (JI      ) = ZWORK(JI) + PK%XDZG(JI,JL)  
+        ZWORK    (JI      ) = ZWORK(JI) + PK%XDZG(JI,JL)
         PK%XSOILWGHT(JI,JL) = MIN(PK%XDZG(JI,JL), &
                                         MAX(0.0,PK%XRUNOFFD(JI)-ZWORK(JI)+PK%XDZG(JI,JL)))
       ENDIF
@@ -156,7 +156,7 @@ DO JL=1,IO%NGROUND_LAYER
     ENDIF
   ENDDO
 ENDDO
-!  
+!
 !
 IF (SIZE(IWORK)>0.AND.MAXVAL(IWORK(:),IWORK(:)/=NUNDEF)>IO%NLAYER_DUN) THEN
   IO%NLAYER_DUN=MAXVAL(IWORK(:),IWORK(:)/=NUNDEF)

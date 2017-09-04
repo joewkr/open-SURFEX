@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ############################
       SUBROUTINE READ_COVERS_PARAM(KFILE)
@@ -48,7 +48,7 @@ USE MODD_DATA_COVER,     ONLY : XDATA_TOWN, XDATA_NATURE, XDATA_SEA, XDATA_WATER
                                   XDATA_ROOT_DEPTH, XDATA_GROUND_DEPTH, XDATA_DICE, &
                                   XDATA_LAI_ALL_YEARS, TDATA_SEED, TDATA_REAP,      &
                                   XDATA_ALB_SOIL_NIR, XDATA_ALB_SOIL_VIS,           &
-                                  XDATA_ALB_VEG_NIR, XDATA_ALB_VEG_VIS,             &                                  
+                                  XDATA_ALB_VEG_NIR, XDATA_ALB_VEG_VIS,             &
                                   XDATA_WATSUP, XDATA_IRRIG,                        &
                                   XDATA_Z0_TOWN, XDATA_BLD_HEIGHT, XDATA_WALL_O_HOR,&
                                   XDATA_BLD, XDATA_GARDEN,                          &
@@ -93,11 +93,11 @@ IF (LHOOK) CALL DR_HOOK('READ_COVERS_PARAM',0,ZHOOK_HANDLE)
 !opening of the file
 IF (KFILE==1) THEN
   OPEN(41,FILE='ecoclimapI_covers_param.bin',FORM='UNFORMATTED',ACCESS='DIRECT', &
-          recl=20*8,STATUS='OLD',IOSTAT=IERR_OPEN)  
+          recl=20*8,STATUS='OLD',IOSTAT=IERR_OPEN)
   IF (IERR_OPEN /= 0 ) THEN
           CALL ABOR1_SFX ('ERROR WHILE OPENING ''ecoclimapI_covers_param.bin'' THIS FILE IS NEEDED AND MUST BE'// &
                   ' IN (OR LINKED TO) THE RUN DIRECTORY')
-  ENDIF        
+  ENDIF
   INB_COVER = NCOVER_ECO1_END
   INB_AN = 1
 ELSEIF (KFILE==2) THEN
@@ -186,16 +186,16 @@ IF (KFILE<=2 .AND. XDATA_NATURE(ICOVER)/=0.) THEN
   READ(41,REC=IREC) ZINTER(:)
   XDATA_ALB_SOIL_NIR(ICOVER,13:24,1) = ZINTER(:)
   IREC=IREC+1
-  READ(41,REC=IREC) ZINTER(:) 
+  READ(41,REC=IREC) ZINTER(:)
   XDATA_ALB_SOIL_NIR(ICOVER,25:36,1) = ZINTER(:)
   IREC=IREC+1
   READ(41,REC=IREC) ZINTER(:)
   XDATA_ALB_SOIL_VIS(ICOVER,1:12,1) = ZINTER(:)
   IREC=IREC+1
-  READ(41,REC=IREC) ZINTER(:) 
+  READ(41,REC=IREC) ZINTER(:)
   XDATA_ALB_SOIL_VIS(ICOVER,13:24,1) = ZINTER(:)
   IREC=IREC+1
-  READ(41,REC=IREC) ZINTER(:) 
+  READ(41,REC=IREC) ZINTER(:)
   XDATA_ALB_SOIL_VIS(ICOVER,25:36,1) = ZINTER(:)
 ENDIF
 !
@@ -203,7 +203,7 @@ DO JVEGTYPE=1,NVEGTYPE
   !not null fraction of vegtype
   IF (XDATA_VEGTYPE(ICOVER,JVEGTYPE).NE.0.) THEN
     !root and soil depths
-    IREC=IREC+1      
+    IREC=IREC+1
     READ(41,REC=IREC) XDATA_ROOT_DEPTH(ICOVER,JVEGTYPE), XDATA_GROUND_DEPTH(ICOVER,JVEGTYPE), XDATA_DICE(ICOVER,JVEGTYPE)
     IF (JVEGTYPE.GT.3) THEN
       !LAI
@@ -225,22 +225,22 @@ DO JVEGTYPE=1,NVEGTYPE
       !albedos for the vegetation
       IF (KFILE<=2 .AND. XDATA_NATURE(ICOVER)/=0.) THEN
         IREC=IREC+1
-        READ(41,REC=IREC) ZINTER(:) 
+        READ(41,REC=IREC) ZINTER(:)
         XDATA_ALB_VEG_NIR(ICOVER,1:12,JVEGTYPE) = ZINTER(:)
         IREC=IREC+1
-        READ(41,REC=IREC) ZINTER(:) 
+        READ(41,REC=IREC) ZINTER(:)
         XDATA_ALB_VEG_NIR(ICOVER,13:24,JVEGTYPE) = ZINTER(:)
         IREC=IREC+1
-        READ(41,REC=IREC) ZINTER(:) 
+        READ(41,REC=IREC) ZINTER(:)
         XDATA_ALB_VEG_NIR(ICOVER,25:36,JVEGTYPE) = ZINTER(:)
         IREC=IREC+1
-        READ(41,REC=IREC) ZINTER(:) 
+        READ(41,REC=IREC) ZINTER(:)
         XDATA_ALB_VEG_VIS(ICOVER,1:12,JVEGTYPE) = ZINTER(:)
         IREC=IREC+1
-        READ(41,REC=IREC) ZINTER(:) 
+        READ(41,REC=IREC) ZINTER(:)
         XDATA_ALB_VEG_VIS(ICOVER,13:24,JVEGTYPE) = ZINTER(:)
         IREC=IREC+1
-        READ(41,REC=IREC) ZINTER(:) 
+        READ(41,REC=IREC) ZINTER(:)
         XDATA_ALB_VEG_VIS(ICOVER,25:36,JVEGTYPE) = ZINTER(:)
       ENDIF
     ELSE

@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ######################################################################
     SUBROUTINE SURFACE_AERO_COND(PRI, PZREF, PUREF, PVMOD, PZ0,&
-                                     PZ0H, PAC, PRA, PCH           ) 
+                                     PZ0H, PAC, PRA, PCH           )
 !   ######################################################################
 !
-!!****  *SURFACE_AERO_COND*  
+!!****  *SURFACE_AERO_COND*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the drag coefficients for heat and momentum near the ground
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -38,11 +38,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -50,7 +50,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/01/98 
+!!      Original    20/01/98
 !!                  02/04/01 (P Jabouille) limitation of Z0 with 0.5 PUREF
 !-------------------------------------------------------------------------------
 !
@@ -90,7 +90,7 @@ REAL, DIMENSION(:), INTENT(OUT)   :: PCH      ! drag coefficient for heat
 !
 REAL, DIMENSION(SIZE(PRI)) :: ZZ0, ZZ0H, ZMU,          &
                                ZFH, ZCHSTAR, ZPH, ZCDN, &
-                               ZSTA, ZDI, ZWORK1, ZWORK2, ZWORK3 
+                               ZSTA, ZDI, ZWORK1, ZWORK2, ZWORK3
 REAL, DIMENSION(SIZE(PRI)) :: ZVMOD
 !
 INTEGER                    :: JJ
@@ -125,7 +125,7 @@ DO JJ=1,SIZE(PRI)
   ZCHSTAR(JJ) = CHSTAR(ZMU(JJ))
   ZPH(JJ)     = PH(ZMU(JJ))
 !
-! 
+!
   ZCDN(JJ) = (XKARMAN/ZWORK1(JJ))**2.
 !
 !
@@ -137,13 +137,13 @@ DO JJ=1,SIZE(PRI)
                    +ZCHSTAR(JJ)*ZCDN(JJ)*15.                         &
                                 *ZWORK2(JJ)**ZPH(JJ)  &
                                 *ZFH(JJ) * SQRT(-ZSTA(JJ))           &
-                  ) 
+                  )
     PAC(JJ) = ZCDN(JJ)*(ZVMOD(JJ)-15.* ZSTA(JJ)*ZDI(JJ))*ZFH(JJ)
 
   ELSE
     ZDI(JJ) = SQRT(ZWORK3(JJ) + 5. * ZSTA(JJ) )
     PAC(JJ) = ZCDN(JJ)*ZVMOD(JJ)/(1.+15.*ZSTA(JJ)*ZDI(JJ)  &
-             / ZWORK3(JJ) /ZVMOD(JJ) )*ZFH(JJ)    
+             / ZWORK3(JJ) /ZVMOD(JJ) )*ZFH(JJ)
   ENDIF
 !
   PRA(JJ) = 1. / PAC(JJ)

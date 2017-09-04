@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
 SUBROUTINE HVAC_AUTOSIZE (B, BOP, G, T, TOP, KI,KLUOUT)
@@ -10,7 +10,7 @@ SUBROUTINE HVAC_AUTOSIZE (B, BOP, G, T, TOP, KI,KLUOUT)
 !!    -------
 !!
 !!    Calibrates HVAC systems for TEB-BEM
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -51,7 +51,7 @@ USE MODI_DIAG_MISC_TEB_INIT_n
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
 !
-#ifdef AIX64 
+#ifdef AIX64
 USE OMP_LIB
 #endif
 !
@@ -87,8 +87,8 @@ TYPE(TEB_IRRIG_t)     :: YTIR
 !
 LOGICAL :: GCANOPY
  CHARACTER(LEN=3) :: YBEM
- CHARACTER(LEN=6) :: YZ0H 
- CHARACTER(LEN=5) :: YCH_BEM  
+ CHARACTER(LEN=6) :: YZ0H
+ CHARACTER(LEN=5) :: YCH_BEM
 !
 ! Teb Fields T
 !
@@ -211,7 +211,7 @@ REAL, DIMENSION(KI) :: ZLEW_RD     ! latent heat flux over road (snow)
 !
 REAL, DIMENSION(KI) :: ZLE_WL_A    ! latent heat flux over wall
 REAL, DIMENSION(KI) :: ZLE_WL_B    ! latent heat flux over wall
- 
+
 !
 REAL, DIMENSION(KI) :: ZRNSNOW_RF  ! net radiation over snow
 REAL, DIMENSION(KI) :: ZHSNOW_RF   ! sensible heat flux over snow
@@ -242,7 +242,7 @@ REAL, DIMENSION(KI) :: ZAC_WL      ! wall conductance
 REAL, DIMENSION(KI) :: ZAC_TOP       ! top conductance
 REAL, DIMENSION(KI) :: ZAC_GD     ! garden conductance
 REAL, DIMENSION(KI) :: ZAC_RF_WAT  ! roof water conductance
-REAL, DIMENSION(KI) :: ZAC_RD_WAT  ! roof water conductance 
+REAL, DIMENSION(KI) :: ZAC_RD_WAT  ! roof water conductance
 REAL, DIMENSION(KI) :: ZEMIT_LW_FAC
 REAL, DIMENSION(KI) :: ZEMIT_LW_RD
 REAL, DIMENSION(KI) :: ZT_RAD_IND
@@ -302,8 +302,8 @@ REAL, DIMENSION(KI) :: ZRN_GR
 REAL, DIMENSION(KI) :: ZH_GR
 REAL, DIMENSION(KI) :: ZLE_GR
 REAL, DIMENSION(KI) :: ZGFLUX_GR
-REAL, DIMENSION(KI) :: ZRUNOFF_GR 
-REAL, DIMENSION(KI) :: ZDRAIN_GR 
+REAL, DIMENSION(KI) :: ZRUNOFF_GR
+REAL, DIMENSION(KI) :: ZDRAIN_GR
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -320,18 +320,18 @@ ZEXNS = (ZPS/XP00)**(XRD/XCPD)
 ZEXNA = (ZPA/XP00)**(XRD/XCPD)
 ZQA   = 0.011
 ZLW_RAD= 300.
-ZRR = 0.0 
-ZSR = 0.0 
+ZRR = 0.0
+ZSR = 0.0
 ZZREF =  50.
 !
-ZPEW_A_COEF  = 0.5  
-ZPEW_B_COEF  = 0.5 
+ZPEW_A_COEF  = 0.5
+ZPEW_B_COEF  = 0.5
 !
 ! initial value for air temperature and outdoor wall/roof/window/road temperature
 ZT_CAN(:) = 10.7/2 * SIN(2*XPI/(24*3600) * (ZTIME+16*3600)) + (B%XT_SIZE_MAX(:)-10.7/2)
 !
 ZQ_CAN = 0.011
-ZU_CAN = 2.5 
+ZU_CAN = 2.5
 ZZ_LOWCAN = ZZREF
 !
 !
@@ -344,8 +344,8 @@ ZDF_RD = 1.0
 !
 ZQSAT_RF = 0.015
 ZQSAT_RD = 0.015
-ZDELT_RF = 0.0 
-ZDELT_RD = 0.0 
+ZDELT_RF = 0.0
+ZDELT_RD = 0.0
 !
 !
 !
@@ -354,16 +354,16 @@ ZDELT_RD = 0.0
 !
 ZU_RF(:) = 0.0
 DO JJ=1,TOP%NROOF_LAYER
-  ZU_RF(:) = ZU_RF(:) + T%XD_ROOF(:,JJ)/T%XTC_ROOF(:,JJ) 
+  ZU_RF(:) = ZU_RF(:) + T%XD_ROOF(:,JJ)/T%XTC_ROOF(:,JJ)
 END DO
-ZU_RF(:) = ZU_RF(:) + 1./10. + 1./25.         
+ZU_RF(:) = ZU_RF(:) + 1./10. + 1./25.
 ZU_RF(:) = 1. / ZU_RF(:)
 !
 ZU_WL(:) = 0.0
 DO JJ=1,TOP%NWALL_LAYER
   ZU_WL(:) = ZU_WL(:) + T%XD_WALL(:,JJ)/T%XTC_WALL(:,JJ)
 END DO
-ZU_WL(:) = ZU_WL(:) + 1./10. + 1./25.         
+ZU_WL(:) = ZU_WL(:) + 1./10. + 1./25.
 ZU_WL(:) = 1. / ZU_WL(:)
 !
 ZRHOA = 1.30
@@ -399,7 +399,7 @@ ZRHOA = 1.15
 ! Options TOP
 !
 YBEM = TOP%CBEM
-TOP%CBEM = "BEM" 
+TOP%CBEM = "BEM"
 !
 YZ0H = TOP%CZ0H
 TOP%CZ0H = 'KAND07'
@@ -425,7 +425,7 @@ ALLOCATE(T%TSNOW_ROOF%RHO  (KI,1))
 ALLOCATE(T%TSNOW_ROOF%TS   (KI))
 ALLOCATE(T%TSNOW_ROOF%EMIS (KI))
 !
-YSNOW_RF = T%TSNOW_ROOF%SCHEME 
+YSNOW_RF = T%TSNOW_ROOF%SCHEME
 T%TSNOW_ROOF%SCHEME = 'NONE'
 T%TSNOW_ROOF%WSNOW  = 0.0
 T%TSNOW_ROOF%T      = 273.0
@@ -441,7 +441,7 @@ ALLOCATE(T%TSNOW_ROAD%RHO  (KI,1))
 ALLOCATE(T%TSNOW_ROAD%TS   (KI))
 ALLOCATE(T%TSNOW_ROAD%EMIS (KI))
 !
-YSNOW_RD = T%TSNOW_ROAD%SCHEME 
+YSNOW_RD = T%TSNOW_ROAD%SCHEME
 T%TSNOW_ROAD%SCHEME = 'NONE'
 T%TSNOW_ROAD%WSNOW  = 0.0
 T%TSNOW_ROAD%T      = 273.0
@@ -454,7 +454,7 @@ ZGD = T%XGARDEN
 T%XGARDEN = 0.
 !
 !------------------------------------------------
-!BEM 
+!BEM
 !
 YCOOL_COIL = BOP%CCOOL_COIL
 BOP%CCOOL_COIL = 'IDEAL '
@@ -480,7 +480,7 @@ ENDDO
 !OUTDOOR WINDOW TEMPERATURE
 ALLOCATE(B%XT_WIN1(KI))
 B%XT_WIN1(:) = ZT_CAN(:)
-!! 
+!!
 ALLOCATE(B%XT_WIN2(KI))
 B%XT_WIN2(:) = B%XTI_BLD(:)
 !
@@ -604,10 +604,10 @@ DO JFORC_STEP= 1,INB_STEP_ATM
 !
   ZDIR_SW(:) = 0.88 * ZTOT_SW(:) * 0.85 ! manual adjustment
   ZSCA_SW(:) = 0.12 * ZTOT_SW(:) * 0.85 ! manual adjustment
-  WHERE (ZDIR_SW < 0.0) 
+  WHERE (ZDIR_SW < 0.0)
     ZDIR_SW = 0.0
   END WHERE
-  WHERE (ZSCA_SW < 0.0) 
+  WHERE (ZSCA_SW < 0.0)
     ZSCA_SW = 0.0
   END WHERE
 !
@@ -628,7 +628,7 @@ DO JFORC_STEP= 1,INB_STEP_ATM
 !
   ZEMIS_GD = 1.0
   CALL URBAN_LW_COEF(B, T, ZLW_RAD, ZEMIS_GD,                       &
-                     T%TSNOW_ROAD%TS, ZTS_GD,                       &  
+                     T%TSNOW_ROAD%TS, ZTS_GD,                       &
                      ZLW_WA_TO_WB, ZLW_WA_TO_R, ZLW_WB_TO_R,            &
                      ZLW_WA_TO_NR,ZLW_WB_TO_NR,                         &
                      ZLW_WA_TO_G, ZLW_WB_TO_G,                          &
@@ -664,7 +664,7 @@ DO JFORC_STEP= 1,INB_STEP_ATM
              ZLW_S_TO_WIN, ZLW_WIN_TO_WA, ZLW_WIN_TO_WB, ZLW_WIN_TO_R,       &
              ZLW_WIN_TO_NR, IDAY, ZEMIT_LW_FAC, ZEMIT_LW_RD, ZT_RAD_IND,     &
              ZHU_BLD, ZTIME, ZE_SHADING  )
-! 
+!
 !   Time update
   ZTIME = ZTIME + ZTSTEP
   IF (ZTIME >= 86400) THEN
@@ -710,10 +710,10 @@ DEALLOCATE(T%TSNOW_ROAD%RHO)
 DEALLOCATE(T%TSNOW_ROAD%TS)
 DEALLOCATE(T%TSNOW_ROAD%EMIS)
 !
-T%XGARDEN = ZGD 
+T%XGARDEN = ZGD
 !
 !------------------------------------------------
-!BEM 
+!BEM
 !
 BOP%CCOOL_COIL = YCOOL_COIL
 BOP%CHEAT_COIL = YHEAT_COIL
@@ -728,7 +728,7 @@ DEALLOCATE(B%XT_FLOOR,B%XT_MASS)
 DEALLOCATE(B%XT_WIN1)
 DEALLOCATE(B%XT_WIN2)
 !
-B%CNATVENT(:) = YNATVENT(:) 
+B%CNATVENT(:) = YNATVENT(:)
 B%XF_WATER_COND(:) = ZF_WATER_COND(:)
 B%XAUX_MAX = ZAUX_MAX
 !
@@ -763,7 +763,7 @@ WRITE(KLUOUT,*) '    --------------------------------'
 WRITE(KLUOUT,*) ' '
 IF (LHOOK) CALL DR_HOOK('HVAC_AUTOSIZE',1,ZHOOK_HANDLE)
 !
-CONTAINS 
+CONTAINS
 !
 SUBROUTINE INTERP_PROFTWL(PT1, PTN, PD, PT)
 !interpolation of vertical profile for 'wall' : roof/wall
@@ -790,7 +790,7 @@ DO JI=1,KI
    ZD(JI) = 0.5*PD(JI,1)
    DO JJ=2,ILAYER-1
       ZD(JI) = ZD(JI) + 0.5*PD(JI,JJ)
-      PT(JI,JJ) = PT1(JI) + (PTN(JI)-PT1(JI)) / ZDN(JI) * ZD(JI) 
+      PT(JI,JJ) = PT1(JI) + (PTN(JI)-PT1(JI)) / ZDN(JI) * ZD(JI)
       ZD(JI) = ZD(JI) + 0.5 * PD(JI,JJ)
    ENDDO
    PT(JI,1) = PT1(JI)

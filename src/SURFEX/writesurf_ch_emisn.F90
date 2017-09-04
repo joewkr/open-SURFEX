@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_CH_EMIS_n (HSELECT, CHE, HPROGRAM)
@@ -49,8 +49,8 @@ TYPE(CH_EMIS_FIELD_t), INTENT(INOUT) :: CHE
 !*       0.2   Declarations of local variables
 !              -------------------------------
 !
-INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears 
-                                    ! at the open of the file in LFI  routines 
+INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears
+                                    ! at the open of the file in LFI  routines
 !
  CHARACTER(LEN=12) :: YRECFM         ! Name of the article to be written
  CHARACTER(LEN=100):: YCOMMENT       ! Comment string
@@ -79,7 +79,7 @@ YCOMMENT='Total number of 2D emission files.'
  CALL WRITE_SURF(HSELECT, &
                  HPROGRAM,YRECFM,CHE%NEMIS_NBR,IRESP,HCOMMENT=YCOMMENT)
 !
-! count emitted species 
+! count emitted species
 IEMISPEC_NBR = 0
 DO JI=1,CHE%NEMIS_NBR
   YNAME = TRIM(ADJUSTL(CHE%CEMIS_NAME(JI)))
@@ -165,26 +165,26 @@ DO WHILE (LOK)
 END DO
 ! Now fill the ZWORK2D array for writing
 ZWORK2D(:,:) = CHE%XEMIS_FIELDS(:,IINDEX(:))
-! 
-! Write NAME of species JSPEC with AREA and number of emission times 
+!
+! Write NAME of species JSPEC with AREA and number of emission times
 ! stored in the commentary
 WRITE(YRECFM,'("EMISNAME",I3.3)') JSPEC
 WRITE(YCOMMENT,'(A3,", emission times number:",I5)') CHE%CEMIS_AREA(IINDEX(1)),KSIZE
  CALL WRITE_SURF(HSELECT, &
                  HPROGRAM,YRECFM,YEMISPEC_NAMES(JSPEC),IRESP,HCOMMENT=YCOMMENT)
-! 
+!
 WRITE(YRECFM,'("EMISAREA",I3.3)') JSPEC
-YCOMMENT = "Emission area" 
+YCOMMENT = "Emission area"
  CALL WRITE_SURF(HSELECT, &
                  HPROGRAM,YRECFM,CHE%CEMIS_AREA(IINDEX(1)),IRESP,HCOMMENT=YCOMMENT)
 !
 WRITE(YRECFM,'("EMISNBT",I3.3)') JSPEC
-YCOMMENT = "Emission times number" 
+YCOMMENT = "Emission times number"
  CALL WRITE_SURF(HSELECT, &
                  HPROGRAM,YRECFM,KSIZE,IRESP,HCOMMENT=YCOMMENT)
 
 ! Write emission times (ITIME) for species JSPEC
-WRITE(YRECFM,'("EMISTIMES",I3.3)') JSPEC  
+WRITE(YRECFM,'("EMISTIMES",I3.3)') JSPEC
 YCOMMENT = "Emission times in second"
  CALL WRITE_SURF(HSELECT, &
                  HPROGRAM,YRECFM,ITIME(:),IRESP,HCOMMENT=YCOMMENT,HDIR='-',HNAM_DIM="Temporal_emiss  ")

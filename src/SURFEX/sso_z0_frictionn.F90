@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################################
 SUBROUTINE SSO_Z0_FRICTION_n (USS, PSEA,PUREF,PRHOA,PU,PV,PPEW_A_COEF,PPEW_B_COEF,PSFU,PSFV)
@@ -20,11 +20,11 @@ SUBROUTINE SSO_Z0_FRICTION_n (USS, PSEA,PUREF,PRHOA,PU,PV,PPEW_A_COEF,PPEW_B_COE
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -69,7 +69,7 @@ REAL, DIMENSION(:), INTENT(INOUT) :: PSFV      ! meridian momentum flux         
 REAL, DIMENSION(SIZE(PU))    :: ZWIND   ! wind strength (m/s)
 REAL, DIMENSION(SIZE(PU))    :: ZWORK   ! work array
 REAL, DIMENSION(SIZE(PU))    :: ZDIR    ! wind direction (rad., clockwise)
-REAL, DIMENSION(SIZE(PU))    :: ZALFA   ! angle between z0eff J axis and wind direction (rad., clockwise) 
+REAL, DIMENSION(SIZE(PU))    :: ZALFA   ! angle between z0eff J axis and wind direction (rad., clockwise)
 REAL, DIMENSION(SIZE(PU))    :: ZCOS2, ZSIN2
 REAL, DIMENSION(SIZE(PU))    :: ZZ0EFF  ! Momentum Roughness length
 REAL, DIMENSION(SIZE(PU))    :: ZCD     ! drag coefficient
@@ -141,7 +141,7 @@ IF (USS%CROUGH=="Z04D") THEN
             END IF
             !
          END IF
-         !    
+         !
       END IF
    END DO
 ENDIF

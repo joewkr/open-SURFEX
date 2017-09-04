@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######################
 MODULE MODD_SLOPE_EFFECT
@@ -8,7 +8,7 @@ MODULE MODD_SLOPE_EFFECT
 !
 !!****  *MODD_SLOPE_EFFECT - declaration of parameters relative to
 !! computations of slopes and aspect effects on direct shortwave
-!radiations 
+!radiations
 !!
 !!    PURPOSE
 !!    -------
@@ -16,7 +16,7 @@ MODULE MODD_SLOPE_EFFECT
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -53,7 +53,7 @@ INTEGER,SAVE::NINDX1_X,NINDX2_X,NINDX1_Y,NINDX2_Y
 LOGICAL :: LREVERTGRID
 
 REAL, DIMENSION(:,:),ALLOCATABLE :: XZSL   ! orography in a 2D array
-REAL, DIMENSION(:,:),ALLOCATABLE :: XZS_XY ! orography at southwest corner of the mesh 
+REAL, DIMENSION(:,:),ALLOCATABLE :: XZS_XY ! orography at southwest corner of the mesh
 REAL, DIMENSION(:),ALLOCATABLE :: XXHAT  ! X coordinate
 REAL, DIMENSION(:),ALLOCATABLE :: XYHAT  ! Y coordinate
 

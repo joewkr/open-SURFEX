@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PUT_SFXCPL_n (F, IM, S, U, W, &
@@ -9,7 +9,7 @@ SUBROUTINE PUT_SFXCPL_n (F, IM, S, U, W, &
                         PLAND_PIFLOOD,PSEA_SST,PSEA_UCU,   &
                         PSEA_VCU,PSEAICE_SIT,PSEAICE_CVR,  &
                         PSEAICE_ALB,PTSRAD,                &
-                        PDIR_ALB,PSCA_ALB,PEMIS,PTSURF     )  
+                        PDIR_ALB,PSCA_ALB,PEMIS,PTSURF     )
 !     #################################################################################################
 !
 !!****  *PUT_SFXCPL_n* - routine to modify some variables in surfex from information coming
@@ -57,7 +57,7 @@ USE MODN_SFX_OASIS,  ONLY : LWATER
 USE MODD_SFX_OASIS,  ONLY : LCPL_SEA, LCPL_SEAICE, &
                             LCPL_LAND, LCPL_GW,    &
                             LCPL_FLOOD
-!                          
+!
 USE MODI_GET_LUOUT
 !
 USE MODI_ABOR1_SFX
@@ -134,7 +134,7 @@ ENDIF
 !
 IF(LCPL_LAND)THEN
   CALL PUT_SFX_LAND(IM%O, IM%S, IM%K, IM%NK, IM%NP, U, ILUOUT, LCPL_GW, LCPL_FLOOD, &
-                    PLAND_WTD(:), PLAND_FWTD(:),PLAND_FFLOOD(:),PLAND_PIFLOOD(:))        
+                    PLAND_WTD(:), PLAND_FWTD(:),PLAND_FFLOOD(:),PLAND_PIFLOOD(:))
 ENDIF
 !
 !-------------------------------------------------------------------------------

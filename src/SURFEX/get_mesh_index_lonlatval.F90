@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################
       SUBROUTINE GET_MESH_INDEX_LONLATVAL(KSSO,PGRID_PAR,PLAT,PLON,KINDEX,KISSOX,KISSOY)
@@ -19,7 +19,7 @@
 !!    MODIFICATION
 !!    ------------
 !!
-!!    Original    10/2007  
+!!    Original    10/2007
 !!
 !----------------------------------------------------------------------------
 !
@@ -28,7 +28,7 @@
 !
 USE MODD_GET_MESH_INDEX_LONLATVAL, ONLY : XXLIM, XYLIM, XX_MIN, XX_MAX, XY_MIN, &
                                       XY_MAX, XDX, XDY, XXLIMS, NXIDS, XDX_MAX,&
-                                      NFRACD  
+                                      NFRACD
 USE MODE_GRIDTYPE_LONLATVAL
 !
 USE MODD_POINT_OVERLAY
@@ -90,7 +90,7 @@ IF (.NOT. ALLOCATED(XXLIM)) THEN
   NFRACD(IFACT+1) = IL
   DO JJ=2,IFACT
     NFRACD(JJ) = 1 + (JJ-1)*ISIZE
-  ENDDO  
+  ENDDO
 !
   ALLOCATE(ZX (IL))
   ALLOCATE(ZY (IL))
@@ -102,7 +102,7 @@ IF (.NOT. ALLOCATED(XXLIM)) THEN
   ALLOCATE(XXLIMS(0:IL))
   ALLOCATE(NXIDS(IL))
 
-  ALLOCATE(ZXLIM(IL))   
+  ALLOCATE(ZXLIM(IL))
 !
   CALL GET_GRIDTYPE_LONLATVAL(PGRID_PAR,PX=ZX,PY=ZY,PDX=XDX,PDY=XDY)
 !
@@ -123,17 +123,17 @@ IF (.NOT. ALLOCATED(XXLIM)) THEN
 
   ZVALX = MAXVAL(ZXLIM) + 1.
   DO JI=1,IL
-    IDX0 = MINLOC(ZXLIM) 
+    IDX0 = MINLOC(ZXLIM)
     XXLIMS(JI) = ZXLIM(IDX0(1))
     NXIDS(JI) = IDX0(1)
     ZXLIM(IDX0(1)) = ZVALX
   ENDDO
   XXLIMS(0) = XXLIMS(1) - XDX_MAX -1.
 
-  DEALLOCATE(ZXLIM)  
+  DEALLOCATE(ZXLIM)
   DEALLOCATE(ZX )
   DEALLOCATE(ZY )
-  
+
 END IF
 !
 XLON0 = 0.5*(XX_MIN+XX_MAX)
@@ -193,7 +193,7 @@ DO JL=1,SIZE(PLAT)
       !
       EXIT frac
       !
-    ENDIF 
+    ENDIF
     !
   ENDDO frac
   !
@@ -219,13 +219,13 @@ DO JL=1,SIZE(PLAT)
       KINDEX(ICPT,JL) = NXIDS(JI)
       !
       IF (KSSO/=0) THEN
-        KISSOX(ICPT,JL) = 1 + INT( FLOAT(KSSO) * (ZLON(JL)-XXLIM(NXIDS(JI)))/XDX(NXIDS(JI)) )   
-        KISSOY(ICPT,JL) = 1 + INT( FLOAT(KSSO) * (PLAT(JL)-XYLIM(NXIDS(JI)))/XDY(NXIDS(JI)) ) 
-      ENDIF     
+        KISSOX(ICPT,JL) = 1 + INT( FLOAT(KSSO) * (ZLON(JL)-XXLIM(NXIDS(JI)))/XDX(NXIDS(JI)) )
+        KISSOY(ICPT,JL) = 1 + INT( FLOAT(KSSO) * (PLAT(JL)-XYLIM(NXIDS(JI)))/XDY(NXIDS(JI)) )
+      ENDIF
       !
       IF (ICPT==NOVMX) EXIT
       !
-    ENDIF 
+    ENDIF
     !
   ENDDO
   !

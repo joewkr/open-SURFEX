@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_TEB_VEG (DTCO, UG, U, USS, GDO, GDK, DTGD, GDIR, &
@@ -15,7 +15,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -180,11 +180,11 @@ CALL READ_NAM_PGD_ISBA(HPROGRAM, IPATCH, IGROUND_LAYER,                         
                        YSAND, YSANDFILETYPE, XUNIF_SAND, LIMP_SAND,             &
                        YSOC_TOP, YSOC_SUB, YSOCFILETYPE, XUNIF_SOC_TOP,         &
                        XUNIF_SOC_SUB, LIMP_SOC, YCTI, YCTIFILETYPE, LIMP_CTI,   &
-                       YPERM, YPERMFILETYPE, XUNIF_PERM, LIMP_PERM, GMEB,       & 
+                       YPERM, YPERMFILETYPE, XUNIF_PERM, LIMP_PERM, GMEB,       &
                        YRUNOFFB, YRUNOFFBFILETYPE, XUNIF_RUNOFFB,               &
                        YWDRAIN,  YWDRAINFILETYPE , XUNIF_WDRAIN, ZSOILGRID,     &
                        YPH, YPHFILETYPE, XUNIF_PH, YFERT, YFERTFILETYPE,        &
-                       XUNIF_FERT                                               )  
+                       XUNIF_FERT                                               )
 !
 GDO%NPATCH = 1
 GDO%NGROUND_LAYER = IGROUND_LAYER
@@ -213,21 +213,21 @@ GDO%CALBEDO       = YALBEDO
   SELECT CASE (GDO%CISBA)
     CASE ('2-L')
       GDO%NGROUND_LAYER = 2
-      GDO%CPEDOTF       ='CH78'       
+      GDO%CPEDOTF       ='CH78'
       WRITE(ILUOUT,*) '*****************************************'
       WRITE(ILUOUT,*) '* With option CISBA = ',GDO%CISBA,'         *'
       WRITE(ILUOUT,*) '* the number of soil layers is set to 2 *'
       WRITE(ILUOUT,*) '* theta(psi) function = Brook and Corey *'
-      WRITE(ILUOUT,*) '* Pedo transfert function = CH78        *'          
+      WRITE(ILUOUT,*) '* Pedo transfert function = CH78        *'
       WRITE(ILUOUT,*) '*****************************************'
     CASE ('3-L')
       GDO%NGROUND_LAYER = 3
-      GDO%CPEDOTF       ='CH78'         
+      GDO%CPEDOTF       ='CH78'
       WRITE(ILUOUT,*) '*****************************************'
       WRITE(ILUOUT,*) '* With option CISBA = ',GDO%CISBA,'         *'
       WRITE(ILUOUT,*) '* the number of soil layers is set to 3 *'
       WRITE(ILUOUT,*) '* theta(psi) function = Brook and Corey *'
-      WRITE(ILUOUT,*) '* Pedo transfert function = CH78        *'        
+      WRITE(ILUOUT,*) '* Pedo transfert function = CH78        *'
       WRITE(ILUOUT,*) '*****************************************'
     CASE ('DIF')
       IF(GDO%NGROUND_LAYER==NUNDEF)THEN
@@ -240,10 +240,10 @@ GDO%CALBEDO       = YALBEDO
           CALL ABOR1_SFX('PGD_TEB_GARDEN: NGROUND_LAYER MUST BE DONE IN NAM_ISBA')
         ENDIF
       ENDIF
-! 
+!
       ALLOCATE(GDO%XSOILGRID(GDO%NGROUND_LAYER))
       GDO%XSOILGRID(:)=XUNDEF
-      GDO%XSOILGRID(:)=ZSOILGRID(1:GDO%NGROUND_LAYER) 
+      GDO%XSOILGRID(:)=ZSOILGRID(1:GDO%NGROUND_LAYER)
       IF(ALL(ZSOILGRID(:)==XUNDEF))THEN
         IF(TOP%LECOCLIMAP) &
                 GDO%XSOILGRID(1:GDO%NGROUND_LAYER)=XOPTIMGRID(1:GDO%NGROUND_LAYER)
@@ -251,17 +251,17 @@ GDO%CALBEDO       = YALBEDO
         WRITE(ILUOUT,*) '********************************************************'
         WRITE(ILUOUT,*) '* Soil grid reference values /= number of ground layer *'
         WRITE(ILUOUT,*) '********************************************************'
-        CALL ABOR1_SFX('PGD_TEB_GARDEN: XSOILGRID must be coherent with NGROUND_LAYER in NAM_ISBA')            
+        CALL ABOR1_SFX('PGD_TEB_GARDEN: XSOILGRID must be coherent with NGROUND_LAYER in NAM_ISBA')
       ENDIF
 !
       WRITE(ILUOUT,*) '*****************************************'
       WRITE(ILUOUT,*) '* Option CISBA            = ',GDO%CISBA
-      WRITE(ILUOUT,*) '* Pedo transfert function = ',GDO%CPEDOTF    
+      WRITE(ILUOUT,*) '* Pedo transfert function = ',GDO%CPEDOTF
       WRITE(ILUOUT,*) '* Number of soil layers   = ',GDO%NGROUND_LAYER
       IF(TOP%LECOCLIMAP)THEN
         WRITE(ILUOUT,*) '* Soil layers grid (m)    = ',GDO%XSOILGRID(1:GDO%NGROUND_LAYER)
       ENDIF
-      WRITE(ILUOUT,*) '*****************************************' 
+      WRITE(ILUOUT,*) '*****************************************'
 
   END SELECT
 !
@@ -317,7 +317,7 @@ DO JLAYER=1,GDO%NGROUND_LAYER
 END DO
 !-------------------------------------------------------------------------------
 !
-!*    5.      Subgrid runoff 
+!*    5.      Subgrid runoff
 !             --------------
 !
 ALLOCATE(GDK%XRUNOFFB(KDIM))

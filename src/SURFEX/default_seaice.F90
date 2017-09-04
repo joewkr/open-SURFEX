@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE DEFAULT_SEAICE(HPROGRAM,                                   &
                           HINTERPOL_SIC, HINTERPOL_SIT, PFREEZING_SST,&
                           PSEAICE_TSTEP, PSIC_EFOLDING_TIME,          &
-                          PSIT_EFOLDING_TIME, PCD_ICE, PSI_FLX_DRV    )  
+                          PSIT_EFOLDING_TIME, PCD_ICE, PSI_FLX_DRV    )
 !     ########################################################################
 !
 !!****  *DEFAULT_SEAICE* - routine to set default values for the configuration for SEAICE scheme
@@ -18,11 +18,11 @@ SUBROUTINE DEFAULT_SEAICE(HPROGRAM,                                   &
 !!    ------
 !!       For now, only Gelato seaice scheme is handled
 !!
-!!       We do use MODD_GLT_PARAM, for modifying its values, in order to 
+!!       We do use MODD_GLT_PARAM, for modifying its values, in order to
 !!       avoid duplicating code with Gelato sources
 !!
 !!       We set all its parameters to values which are sensible in Surfex context
-!!       This is done by inserting a relevant 'gltpar' file as source code, and 
+!!       This is done by inserting a relevant 'gltpar' file as source code, and
 !!       changing a few values (we used a Glt 6.0.36 version, initially)
 !!
 !!    EXTERNAL
@@ -42,7 +42,7 @@ SUBROUTINE DEFAULT_SEAICE(HPROGRAM,                                   &
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2014 
+!!      Original    01/2014
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -62,7 +62,7 @@ USE MODD_GLT_PARAM,  ONLY :  nmkinit, nrstout, nrstgl4, nthermo, ndynami, nadvec
      nspalu , noutlu , ntimlu , ciopath,                                                    &
      gelato_leadproc, gelato_myrank, lwg, nnflxin, ntd
 !
-USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO 
+USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO
 !
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -108,11 +108,11 @@ PSIT_EFOLDING_TIME = 0 ! in days; 0 means no relaxation
 PCD_ICE       = 0.0
 PSI_FLX_DRV   = -20.
 !
-! Even if default case is to avoid using a seaice scheme, we set 
+! Even if default case is to avoid using a seaice scheme, we set
 ! default Gelato seaice model parameters
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
-! Setting those Gelato parameters which are not usually set by an 
+! Setting those Gelato parameters which are not usually set by an
 ! external file but by the gelato library caller program
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
@@ -129,10 +129,10 @@ gelato_myrank=nrank
 lwg=(nrank == npio)
 
 
-! Setting those Gelato parameters which are usually set by an 
+! Setting those Gelato parameters which are usually set by an
 ! external file (gltpar)
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!  
+!
 !  Gelato model parameters
 ! =========================
 !
@@ -185,12 +185,12 @@ lwg=(nrank == npio)
 !                      your atm. model does not cause any heat gain for the
 !                      atmosphere)
 !       nsnwrad=1  --> generates a negative heat flux sent to the ocean by
-!                      Gelato, due to the melting of snow into the ocean 
-!  - nleviti    : sea ice is levitating over the ocean or not 
+!                      Gelato, due to the melting of snow into the ocean
+!  - nleviti    : sea ice is levitating over the ocean or not
 !       nleviti=0  --> sea ice is not levitating (a freshwater flux due to the
 !                      melting/freezing of ice is sent to the ocean model)
 !                  --> sea ice is levitating
-!  - nsalflx    : ice-ocean salt flux parameterisation 
+!  - nsalflx    : ice-ocean salt flux parameterisation
 !                 (if 2 or 3, check ocean topmost level dz parameter xhtopoc !)
 !       nsalflx=1  --> approximated calculation
 !       nsalflx=2  --> exact calculation
@@ -202,7 +202,7 @@ lwg=(nrank == npio)
 !  - nicesub    : ice sublimation
 !       nicesub=1  --> take ice sublimation into account (non heat conservative)
 !       nicesub=0  --> no ice sublimation
-!  - cnflxin    : input fluxes 
+!  - cnflxin    : input fluxes
 !       cnflxin    --> 'mixed' : only one flux, to share between water/ice
 !       cnflxin    --> 'double': one flux for water, one flux for ice
 !       cnflxin    --> 'multi' : one flux for water, one flux for each ice cat
@@ -237,9 +237,9 @@ cnflxin = 'double'
 !  - xfsidmpeft : sea ice fraction damping e-folding time (in days)
 !  - chsidmp    : sea ice thickness constraint
 !       chsidmp='NONE'       --> no sea ice thickness constraint
-!       chsidmp='DAMP_ADD'   --> damp (thickness of all ice categories is 
+!       chsidmp='DAMP_ADD'   --> damp (thickness of all ice categories is
 !         modified by the same value: h_i => h_i + add)
-!       chsidmp='DAMP_FAC'   --> damp (thickness of all ice categories is 
+!       chsidmp='DAMP_FAC'   --> damp (thickness of all ice categories is
 !         modified by the same factor: h_i => h_i * fac)
 !       chsidmp='PRESCRIBE'  --> prescribe
 !  - xhsidmpeft : sea ice thickness damping e-folding time (in days)
@@ -257,17 +257,17 @@ xhsidmpeft=0.
 !       cdiafmt='GELATO'  --> Gelato Vairmer format
 !       cdiafmt='VMAR5'   --> IPCC AR5 vairmer format
 !       cdiafmt='NCAR5'   --> IPCC AR5 NetCDF format (not active yet)
-!  - cdialev    : diagnostics level 
+!  - cdialev    : diagnostics level
 !       . cdialev can include one, two or all of the letters b, d and t
-!       . If cdiafmt='GELATO' 
+!       . If cdiafmt='GELATO'
 !           - 1: makes the 2D diag. file (2D fields), called
 !          '2d.[ave|ins].vairmer'. Contains: ice concentration, thickness,
 !          velocity components, thin ice+thick ice, snow thickness).
 !       .   - 2:  add more detailed 2D diagnostics to the 2D diag file,
-!          like: solar short wave flux, non solar flux, water flux crossing 
+!          like: solar short wave flux, non solar flux, water flux crossing
 !          the leads+sea ice ensemble...
-!       .   - 3: makes the 0d.ins.vairmer diag. file (0D fields). 
-!          Contains: sea ice area, extent, volume, for both hemispheres + 
+!       .   - 3: makes the 0d.ins.vairmer diag. file (0D fields).
+!          Contains: sea ice area, extent, volume, for both hemispheres +
 !          transports at most Arctic Straits
 !           - Example: cdialev=13 or 31 means that you want only the 2d basic
 !          diagnostics + 0d diagnostic.
@@ -277,18 +277,18 @@ xhsidmpeft=0.
 !           - 3: save only the priority 3 fields
 !           - x: save only my personal fields (additional)
 !           - note fields e.g. in priority 2 fields can have a space dimension
-!          equal to grid size nxglo*nyglo or equal to 1 
+!          equal to grid size nxglo*nyglo or equal to 1
 !           - VMAR5: output in Vairmer; NCAR5: output in NetCDF.
 !           - Example: cdialev=123x means you want all AR5 fields + yours
 !  - dttave     : period for averaged fields (days, optional, default=365)
 !  - navedia    : average the output over dttave and over the whole run
 !  - ninsdia    : output delivered once per time step
 !  - ndiamax    : maximum number of diagnostic files
-!  - nsavinp    : allows to save gelato routine input in a file (used in 
+!  - nsavinp    : allows to save gelato routine input in a file (used in
 !                 coupled mode)
 !       nsavinp=0 --> gelato routine input is not saved
 !       nsavinp=1 --> gelato routine input is saved in a file
-!  - nsavout    : allows to save gelato routine output in a file (used in 
+!  - nsavout    : allows to save gelato routine output in a file (used in
 !                 coupled mode)
 !       nsavout=0 --> gelato routine input is not saved
 !       nsavout=1 --> gelato routine input is saved in a file
@@ -323,15 +323,15 @@ nprlast = 0
 ! 4. Grid definition
 ! -------------------
 !
-!  - cn_grdname   : grid name radical. Defined the grid you are running on.  
-!         . Available (pre-coded) options are : 
+!  - cn_grdname   : grid name radical. Defined the grid you are running on.
+!         . Available (pre-coded) options are :
 !         'OPAG8', 'NEMO1', 'ORCA2' or 'MICOM'.
-!         For these precoded grids, any nbndco, nxglo and nyglo values you 
+!         For these precoded grids, any nbndco, nxglo and nyglo values you
 !         will specify in gltpar will be ignored by the code.
 !         . You may specify another cgrdname, but then the nbndco, nxglo
-!         and nyglo values you provide in gltpar MUST MAKE SENSE and will 
-!         be taken into account. 
-!  - rn_htopoc    : reference thickness (in m) of the topmost ocean level 
+!         and nyglo values you provide in gltpar MUST MAKE SENSE and will
+!         be taken into account.
+!  - rn_htopoc    : reference thickness (in m) of the topmost ocean level
 !          . This is important if Gelato is coupled to an ocean model, to
 !          send the right concentration / dilution flux to the ocean.
 !
@@ -360,7 +360,7 @@ dtt = XUNDEF  ! means : same time step as seaflux
 nt = 1
 IF (ALLOCATED(thick)) DEALLOCATE( thick )
 ALLOCATE( thick(nt+1) )
-thick(1)= -.01 
+thick(1)= -.01
 thick(2) = 1000.
 !
 !
@@ -420,7 +420,7 @@ xhsimin = .2
 ! (it is not recommended to use values other than 0...)
 !  - alblc      : albedo of low clouds
 !  - xlmelt     : lateral melting parameterization factor
-!  - xswhdfr    : fraction of the solar radiation absorbed by snow that 
+!  - xswhdfr    : fraction of the solar radiation absorbed by snow that
 ! is involved in the vertical heat diffusion (the rest contributes to direct
 ! warming/melting)
 !  - albyngi    : parameterisation of young ice albedo (exponential formulation)
@@ -443,7 +443,7 @@ albsdry = 0.84
 ! -------------------
 !
 !  - ngrdlu     : unit for reading the grid
-!  - nsavlu     : unit for writing input/output fields for Gelato 
+!  - nsavlu     : unit for writing input/output fields for Gelato
 !  - nrstlu     : unit for reading/writing Gelato restart
 !  - n0vilu     : unit for writing 0D Glt Instantaneous diags
 !  - n0valu     : unit for writing 0D Glt Averaged diags

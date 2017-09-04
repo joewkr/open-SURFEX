@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_DIAG_ISBA(K2M,OSURF_BUDGET,O2M_MIN_ZS,ORAD_BUDGET, &
@@ -9,7 +9,7 @@
                                    OSURF_BUDGETC,OSURF_MISC_DIF,            &
                                    OPATCH_BUDGET,OPGD,ORESET_BUDGETC,       &
                                    OWATER_BUDGET,OPROSNOW,                  &
-                                   OVOLUMETRIC_SNOWLIQ,PDIAG_TSTEP          )  
+                                   OVOLUMETRIC_SNOWLIQ,PDIAG_TSTEP          )
 !     #################################################################################################################
 !
 !!****  *DEFAULT_DIAG_ISBA* - routine to set default values for the choice of diagnostics
@@ -37,9 +37,9 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
-!!      Modified by P. Le Moigne, 11/2004: add budget switch 
-!!      Modified by B. Decharme , 06/2009: add patch budget switch 
+!!      Original    01/2004
+!!      Modified by P. Le Moigne, 11/2004: add budget switch
+!!      Modified by B. Decharme , 06/2009: add patch budget switch
 !!      Modified by A.L. Gibelin, 04/2009: add carbon spinup
 !!      Modified by B. Decharme , 05/2012: move carbon spinup to NAM_SPINUP_CARB
 !!                                         add miscellaneous field key for dif

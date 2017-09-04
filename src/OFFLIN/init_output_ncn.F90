@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INIT_OUTPUT_NC_n (BDD, CHE, CHN, CHU, DTS, DTT, DTZ, IM, UG, U, HSELECT)
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -93,7 +93,7 @@ TYPE(SURF_ATM_t), INTENT(INOUT) :: U
  CHARACTER(LEN=100), DIMENSION(:), POINTER :: YNAME_DIM
  CHARACTER(LEN=100), DIMENSION(1) :: YATT_TITLE, YATT
  CHARACTER(LEN=13),DIMENSION(1)  :: YUNIT1, YUNIT2
- CHARACTER(LEN=3)                 :: YISBA 
+ CHARACTER(LEN=3)                 :: YISBA
 !
 REAL,DIMENSION(:), POINTER       :: ZX, ZY
 !
@@ -111,7 +111,7 @@ LOGICAL          :: GEXIST, GOPENED, GSST_DATA
 LOGICAL          :: GDATA_BLDTYPE, GDATA_BLD_AGE, GDATA_USETYPE
 !
 REAL(KIND=JPRB)  :: ZHOOK_HANDLE
-!------------------------------------------------------------------------------ 
+!------------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('INIT_OUTPUT_NC_N',0,ZHOOK_HANDLE)
 !
 CALL GET_DIM_FULL_n(U%NDIM_FULL, IFULL)
@@ -132,11 +132,11 @@ IF (NRANK==NPIO) THEN
     IF (CSOFTWARE=='PGD') THEN
       IF (LSPLIT_PATCH) THEN
         CALL OL_DEFINE_DIM(UG, U%NSIZE_FULL, 'NOTIME ', ILUOUT, IFULL, IDIM1, YUNIT1, YUNIT2, &
-                           ZX, ZY, IDIMS, IDDIM, YNAME_DIM)       
-      ELSE 
+                           ZX, ZY, IDIMS, IDDIM, YNAME_DIM)
+      ELSE
         CALL OL_DEFINE_DIM(UG, U%NSIZE_FULL, 'NOTIME ', ILUOUT, IFULL, IDIM1, YUNIT1, YUNIT2, &
-                           ZX, ZY, IDIMS, IDDIM, YNAME_DIM, INPATCH) 
-      ENDIF        
+                           ZX, ZY, IDIMS, IDDIM, YNAME_DIM, INPATCH)
+      ENDIF
     ELSE
       IF (LSPLIT_PATCH) THEN
         CALL OL_DEFINE_DIM(UG, U%NSIZE_FULL, 'NOTIME ', ILUOUT, IFULL, IDIM1, YUNIT1, YUNIT2, &
@@ -146,14 +146,14 @@ IF (NRANK==NPIO) THEN
                            ZX, ZY, IDIMS, IDDIM, YNAME_DIM, INPATCH)
       ENDIF
     ENDIF
-    CALL CREATE_FILE(CFILEOUT_NC,IDIMS,YNAME_DIM,NID_NC,IDDIM) 
+    CALL CREATE_FILE(CFILEOUT_NC,IDIMS,YNAME_DIM,NID_NC,IDDIM)
     !IF (UG%G%CGRID=='IGN') THEN
       !YATT_TITLE(1) = "comment"
       !YATT(1) = "longitude"
       !CALL DEF_VAR_NETCDF(HSELECT,NID_NC,'XLON','XLON',IDDIM(1:1),YATT_TITLE,YATT,ID0,NF90_DOUBLE)
       !YATT(1) = "latitude"
       !CALL DEF_VAR_NETCDF(HSELECT,NID_NC,'XLAT','XLAT',IDDIM(1:1),YATT_TITLE,YATT,ID0,NF90_DOUBLE)
-    !ENDIF      
+    !ENDIF
     CFILEOUT_NC_SAVE = CFILEOUT_NC
     LCREATED = .TRUE.
     IF (CSOFTWARE=='PGD') IRET = NF90_DEF_DIM(NID_NC,"Nb_of_input_data",NVEGTYPE*IM%DTV%NTIME,IDIMID)
@@ -192,7 +192,7 @@ IF (NRANK==NPIO) THEN
         ENDIF
       ENDIF
       IF (ASSOCIATED(DTZ%XDATA_DTS)) THEN
-        ITIME = SIZE(DTZ%XDATA_DTS) 
+        ITIME = SIZE(DTZ%XDATA_DTS)
         IF (ITIME/=0) IRET = NF90_DEF_DIM(NID_NC,"Nforc_tsz0",ITIME,IDIMID)
       ENDIF
     ENDIF

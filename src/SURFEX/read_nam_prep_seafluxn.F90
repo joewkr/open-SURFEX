@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE READ_NAM_PREP_SEAFLUX_n(HPROGRAM)
@@ -50,10 +50,10 @@ IF (GFOUND) READ(UNIT=ILUNAM,NML=NAM_PREP_SEAFLUX)
 CALL CLOSE_NAMELIST(HPROGRAM,ILUNAM)
 !
 CALL TEST_NAM_VAR_SURF(ILUOUT,'CTYPE_SEAFLX',   CTYPE_SEAFLX,   '      ','GRIB  ','MESONH',&
-                          'ASCII ','NETCDF','LFI   ','FA    ')   
+                          'ASCII ','NETCDF','LFI   ','FA    ')
 CALL TEST_NAM_VAR_SURF(ILUOUT,'CTYPEPGD',   CTYPEPGD,   '      ','GRIB  ','MESONH','ASCII ','LFI   ','FA    ')
 CALL TEST_NAM_VAR_SURF(ILUOUT,'CSEAICE_SCHEME',CSEAICE_SCHEME,'GELATO','NONE  ')
-! 
+!
 IF (LHOOK) CALL DR_HOOK('READ_NAM_PREP_SEAFLUX_N',1,ZHOOK_HANDLE)
 !------------------------------------
 !

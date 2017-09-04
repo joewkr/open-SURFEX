@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
       SUBROUTINE STORES_HVAC_AUTOSIZE (B, BOP, DTB)
@@ -74,15 +74,15 @@ IF (LHOOK) CALL DR_HOOK('STORES_HVAC_AUTOSIZE',0,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 !*       8.     Building HVAC automatic sizing:
-!               -------------------------------  
-!* stores the real systems characteristics in physiographic data 
+!               -------------------------------
+!* stores the real systems characteristics in physiographic data
 !  for further use
 !
 IL = SIZE(B%XM_SYS_RAT)
 !
 DTB%LDATA_M_SYS_RAT = .TRUE.
 ALLOCATE(DTB%XPAR_M_SYS_RAT(IL))
-DTB%XPAR_M_SYS_RAT = B%XM_SYS_RAT 
+DTB%XPAR_M_SYS_RAT = B%XM_SYS_RAT
 !
 DTB%LDATA_CAP_SYS_RAT = .TRUE.
 ALLOCATE(DTB%XPAR_CAP_SYS_RAT(IL))

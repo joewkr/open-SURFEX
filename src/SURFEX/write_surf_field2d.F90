@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITE_SURF_FIELD2D(HSELECT,HPROGRAM,PFIELD2D,HFIELDNAME,HCOMMENT,HCOMMENTUNIT,HDIR,HNAM_DIM)
@@ -10,7 +10,7 @@
 !!                           patch by patch if needed in MESONH
 !!                           with Z-parallel IO in MESO-NH, we force surfex to write 2D fields
 !!                           because Z-parallel IO are not supported for 2D SURFEX fields.
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -37,7 +37,7 @@
 !!
 !!    AUTHOR
 !!    ------
-!!      M.Moge   *LA - UPS*	
+!!      M.Moge   *LA - UPS*
 !!
 !!    MODIFICATIONS
 !!    -------------

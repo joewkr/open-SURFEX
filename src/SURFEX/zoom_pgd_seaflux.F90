@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
       SUBROUTINE ZOOM_PGD_SEAFLUX (DTCO, DTS, SG, S, UG, U, GCP, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -34,7 +34,7 @@
 !!    ------------
 !!
 !!    Original    09/2008
-!!    G. TANGUY   03/2009 : add reading and interpolation of XDATA_SST and 
+!!    G. TANGUY   03/2009 : add reading and interpolation of XDATA_SST and
 !!                          TDATA_SST in the case LDATA_SST=T
 !!
 !----------------------------------------------------------------------------
@@ -132,7 +132,7 @@ ALLOCATE(SG%XLAT       (SG%NDIM))
 ALLOCATE(SG%XLON       (SG%NDIM))
 ALLOCATE(SG%XMESH_SIZE (SG%NDIM))
 !
- CALL PACK_PGD(DTCO, U, HPROGRAM, 'SEA   ', SG, S%LCOVER,  S%XCOVER, S%XZS )  
+ CALL PACK_PGD(DTCO, U, HPROGRAM, 'SEA   ', SG, S%LCOVER,  S%XCOVER, S%XZS )
 !
 !------------------------------------------------------------------------------
 !
@@ -156,7 +156,7 @@ ALLOCATE(ZSEABATHY(INI,1))
  CALL READ_SURF(HPROGRAM,'BATHY',ZSEABATHY(:,1),IRESP,HDIR='A')
 !
 ALLOCATE(ZWORK(SG%NDIM,1))
- CALL HOR_INTERPOL(DTCO, U, GCP, ILUOUT,ZSEABATHY(:,1:1),ZWORK(:,1:1)) 
+ CALL HOR_INTERPOL(DTCO, U, GCP, ILUOUT,ZSEABATHY(:,1:1),ZWORK(:,1:1))
 ALLOCATE(S%XSEABATHY (SG%NDIM))
 S%XSEABATHY(:) = ZWORK(:,1)
 DEALLOCATE(ZSEABATHY,ZWORK)

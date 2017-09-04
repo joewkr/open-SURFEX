@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #####################
       MODULE MODD_GR_BIOG_n
 !     ######################
 !
 !!
-!!!!****  *MODD_GR_BIOG_n* - Declaration of variables for biogenic emissions 
+!!!!****  *MODD_GR_BIOG_n* - Declaration of variables for biogenic emissions
 !
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -23,7 +23,7 @@
 !!    MODIFICATIONS
 !!    -------------
 !!    P. Tulet  30/07/03 externalisation of biogenics fluxes
-!!     
+!!
 !*       0.   DECLARATIONS
 !             ----------
 !
@@ -37,9 +37,9 @@ TYPE GR_BIOG_t
 !
 !
 !
-!* Emission potential for isoprene and monoterpenes 
-  REAL, DIMENSION(:), POINTER :: XISOPOT 
-  REAL, DIMENSION(:), POINTER :: XMONOPOT 
+!* Emission potential for isoprene and monoterpenes
+  REAL, DIMENSION(:), POINTER :: XISOPOT
+  REAL, DIMENSION(:), POINTER :: XMONOPOT
 !
 !* Radiation at different level(cf Gauss) in the canopy
   REAL, DIMENSION(:,:),POINTER ::XIACAN ! PAR at 3 gauss level for each patch
@@ -89,7 +89,7 @@ IF (LHOOK) CALL DR_HOOK("MODD_GR_BIOG_N:GR_BIOG_NP_INIT",0,ZHOOK_HANDLE)
 IF (ASSOCIATED(YGR_BIOG_NP%AL)) THEN
   DO JP = 1,KPATCH
     CALL GR_BIOG_INIT(YGR_BIOG_NP%AL(JP))
-  ENDDO        
+  ENDDO
   DEALLOCATE(YGR_BIOG_NP%AL)
 ELSE
   ALLOCATE(YGR_BIOG_NP%AL(KPATCH))

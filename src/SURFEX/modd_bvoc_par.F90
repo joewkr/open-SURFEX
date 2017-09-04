@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ####################
       MODULE MODD_BVOC_PAR
 !     ####################
 !
 !!
-!! Declaration of parameters for biogenic emissions 
+!! Declaration of parameters for biogenic emissions
 !
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
-!!     
+!!
 !*       0.   DECLARATIONS
 !             ----------
 !
@@ -42,7 +42,7 @@ REAL, PARAMETER :: XMONO_T3=303.      !temperature of normalization
 !
 !
 !--------------------------------------------------
-!Default emission potential for other types of vegetation than ligneous(france) 
+!Default emission potential for other types of vegetation than ligneous(france)
 !
 !Grassland (Simpson et al, 1999)
 !microg.m-2.hr-1)

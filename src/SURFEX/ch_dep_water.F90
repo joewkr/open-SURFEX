@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
      SUBROUTINE CH_DEP_WATER  (PRESA,PUSTAR,PTA,PTRAD,PSV, HSV, PDEP)
   !###########################################################
   !
-  !!                   
-  !!                       
+  !!
+  !!
   !!
   !!    PURPOSE
   !!    -------
-  !!      
-  !!    Compute dry deposition velocity for chemical species    
+  !!
+  !!    Compute dry deposition velocity for chemical species
   !!
   !!    AUTHOR
   !!    ------
@@ -20,7 +20,7 @@
   !!
   !!    MODIFICATIONS
   !!    -------------
-  !!      Original      20/02/97 
+  !!      Original      20/02/97
   !!    Modification  18/07/03  (Tulet) surface externalization
   !!
   !-------------------------------------------------------------------------------
@@ -52,15 +52,15 @@
   !*       0.2   Declarations of local variables :
   !
   !
-  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZSCMDT 
+  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZSCMDT
   ! Schmidt number
   REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZDIFFMOLVAL
   ! Molecular diffusivity
-  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZWATRB  
+  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZWATRB
   ! water quasi-laminar  resistance
-  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZWATRC 
+  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZWATRC
   ! water surface  resistance
-  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZRESWAT  
+  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZRESWAT
   !  final water resistance
   REAL, DIMENSION(SIZE(PTRAD,1))      :: ZTCOR
   REAL,DIMENSION(SIZE(PUSTAR,1))      ::ZUSTAR
@@ -82,14 +82,14 @@
   !
   !
   !       2.0  Quasi-laminar resistance (for WATER) (Hicks, 1987)
-  !            ------------------------      
+  !            ------------------------
   !
-  !  
+  !
   !         compute molecular diffusivity for each species (Langevin, 1905)
   !         ----------------------------------------------
   DO JSV=1,SIZE(HSV,1)
     ZDIFFMOLVAL(:,JSV) = 2.22E-05 + 1.46E-07 * (PTRAD(:) - 273.0) * &
-                                 SQRT(18. / XSREALMASSMOLVAL(JSV))  
+                                 SQRT(18. / XSREALMASSMOLVAL(JSV))
     ZSCMDT(:,JSV)=0.15E-4 / ZDIFFMOLVAL(:,JSV)
   ENDDO
   !
@@ -98,26 +98,26 @@
   !         ---------
   DO JSV=1,SIZE(HSV,1)
     ZWATRB(:,JSV) =  ((ZSCMDT(:,JSV)/0.72)**(2./3.)) &
-                                     / (XKARMAN*ZUSTAR(:))  
+                                     / (XKARMAN*ZUSTAR(:))
   ENDDO
   !
   !
   !       3.  Surface resistance
   !            ------------------
-  ! 
+  !
   !       3.1  Surface  resistance on water
   !            ----------------------------
   !
   !         3.1.1  Compute surface  resistance on inland water
   !                --------------------------------------------
-  !  
+  !
   DO JSV=1,SIZE(HSV,1)
     ZWATRC(:,JSV) = 2.54E4 / ( XSREALHENRYVAL(JSV,1) *&
                        EXP(XSREALHENRYVAL(JSV,2)* (1./298. - 1./PTA(:))) *&
-                       PTRAD(:) * ZUSTAR(:))  
+                       PTRAD(:) * ZUSTAR(:))
   ENDDO
-  ! 
-  !          3.1.2 Surface temperature correction 
+  !
+  !          3.1.2 Surface temperature correction
   !                ------------------------------
   ZTCOR(:) = 0.
   WHERE( PTRAD(:) < 271. )
@@ -125,18 +125,18 @@
     ZTCOR(:) = MIN (2.5E3, ZTCOR(:))
   END WHERE
   DO JSV=1,SIZE(HSV,1)
-    ZWATRC(:,JSV) = ZWATRC(:,JSV)+ZTCOR(:)   
+    ZWATRC(:,JSV) = ZWATRC(:,JSV)+ZTCOR(:)
   ENDDO
   !
   !
   !       5.0  Compute  water resistance (in land water and sea)
   !            -------------------------------------------------
   !
-  DO JSV=1,SIZE(HSV,1) 
+  DO JSV=1,SIZE(HSV,1)
     ZRESWAT(:,JSV)  = PRESA(:) + ZWATRB(:,JSV) + ZWATRC(:,JSV)
   ENDDO
   !
-  !        7.0  Compute dry deposition velocity for inland water 
+  !        7.0  Compute dry deposition velocity for inland water
   !             ------------------------------------------------
   !
   PDEP(:,:) = 1. / ZRESWAT(:,:)

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE SET_AXIS(HNAME, PVALUE ,CDPOSITIVE, KSIZE, CDUNITS, PBOUNDS)
 !!
@@ -8,11 +8,11 @@ SUBROUTINE SET_AXIS(HNAME, PVALUE ,CDPOSITIVE, KSIZE, CDUNITS, PBOUNDS)
 !!     PURPOSE
 !!     --------
 !!
-!!     Declare a Surfex axis to XIOS 
+!!     Declare a Surfex axis to XIOS
 !!
 !!
 !!     IMPLICIT ARGUMENTS :
-!!     -------------------- 
+!!     --------------------
 !!
 !!
 !!     EXTERNAL
@@ -24,7 +24,7 @@ SUBROUTINE SET_AXIS(HNAME, PVALUE ,CDPOSITIVE, KSIZE, CDUNITS, PBOUNDS)
 !!     REFERENCE
 !!     ---------
 !!
-!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 - 
+!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 -
 !!     svn co -r 515 http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS/branchs/xios-1.0 <dir> ; cd <dir>/doc ; ....
 !!
 !!     AUTHOR
@@ -76,11 +76,11 @@ REAL(KIND=JPRB)      :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('SET_AXIS',0,ZHOOK_HANDLE)
 !
-IF (LXIOS) THEN 
+IF (LXIOS) THEN
 #ifdef WXIOS
 !
 !$OMP SINGLE
-   
+
    CALL XIOS_GET_HANDLE("axis_definition",axisgroup_hdl)
    CALL XIOS_ADD_CHILD(axisgroup_hdl,axis_hdl,HNAME)
    IF (PRESENT(PVALUE)) THEN
@@ -92,7 +92,7 @@ IF (LXIOS) THEN
          CALL XIOS_SET_AXIS_ATTR(HNAME, UNIT=CDUNITS)
       ENDIF
    ELSE
-      IF (PRESENT(KSIZE)) THEN 
+      IF (PRESENT(KSIZE)) THEN
          ALLOCATE(ZAXIS(KSIZE))
          ZAXIS=(/(I, I=1,KSIZE)/)
          CALL XIOS_SET_AXIS_ATTR(HNAME, VALUE=ZAXIS, N_GLO=KSIZE)
@@ -101,7 +101,7 @@ IF (LXIOS) THEN
          CALL ABOR1_SFX('SET_AXIS : MUST PROVIDE PVALUE OR KSIZE FOR'//TRIM(HNAME))
       ENDIF
    ENDIF
-   IF (PRESENT(CDPOSITIVE)) THEN    
+   IF (PRESENT(CDPOSITIVE)) THEN
       CALL XIOS_SET_AXIS_ATTR(HNAME, POSITIVE=CDPOSITIVE)
    ENDIF
 

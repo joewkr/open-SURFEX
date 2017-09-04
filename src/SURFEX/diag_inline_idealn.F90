@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE DIAG_INLINE_IDEAL_n (DGO, D, DC, PTSTEP, PTA, PTS,             &
@@ -8,7 +8,7 @@
                                        PRAIN, PSNOW, PCD, PCDN, PCH, PRI, PHU, PZ0,  &
                                        PZ0H, PQSAT, PSFTH, PSFTQ, PSFZON, PSFMER,    &
                                        PDIR_SW, PSCA_SW, PLW, PDIR_ALB, PSCA_ALB,    &
-                                       PLE, PLEI, PSUBL, PLWUP)  
+                                       PLE, PLEI, PSUBL, PLWUP)
 !     ###############################################################################
 !
 !!****  *DIAG_INLINE_IDEAL_n * - computes diagnostics during IDEAL time-step
@@ -21,11 +21,11 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     P. Le Moigne 
+!!     P. Le Moigne
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -103,15 +103,15 @@ IF (LHOOK) CALL DR_HOOK('DIAG_INLINE_IDEAL_N',0,ZHOOK_HANDLE)
 D%XTS(:) = PTS(:)
 !
   IF (DGO%N2M==2) THEN
-    ZH(:)=2.          
+    ZH(:)=2.
     CALL CLS_TQ(PTA, PQA, PPA, PPS, PHT,         &
                 PCD, PCH, PRI,                 &
                 PTS, PHU, PZ0H, ZH,            &
-                D%XT2M, D%XQ2M, D%XHU2M  )  
-    ZH(:)=10.                
+                D%XT2M, D%XQ2M, D%XHU2M  )
+    ZH(:)=10.
     CALL CLS_WIND(PZONA, PMERA, PHW,        &
                   PCD, PCDN, PRI, ZH,       &
-                  D%XZON10M, D%XMER10M  )  
+                  D%XZON10M, D%XMER10M  )
   END IF
 !
   IF (DGO%N2M>=1) THEN
@@ -143,12 +143,12 @@ IF (DGO%LSURF_BUDGET) THEN
                                  PSFZON, PSFMER, D%XLE, D%XRN,     &
                                  D%XH, D%XGFLUX, D%XSWD,         &
                                  D%XSWU, D%XSWBD, D%XSWBU,       &
-                                 D%XLWD, D%XLWU, D%XFMU, D%XFMV )  
+                                 D%XLWD, D%XLWU, D%XFMU, D%XFMV )
   !
 END IF
 !
 IF( DGO%LSURF_BUDGETC)THEN
-  CALL DIAG_SURF_BUDGETC(D, DC, PTSTEP, .TRUE.   )  
+  CALL DIAG_SURF_BUDGETC(D, DC, PTSTEP, .TRUE.   )
 ENDIF
 !
 IF (DGO%LCOEF) THEN

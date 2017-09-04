@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   #################################################################
     SUBROUTINE SURFACE_CD(PRI, PZREF, PUREF, PZ0EFF, PZ0H,   &
-                              PCD, PCDN) 
+                              PCD, PCDN)
 !   #################################################################
 !
-!!****  *SURFACE_CD*  
+!!****  *SURFACE_CD*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the drag coefficients for momentum near the ground
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -39,11 +39,11 @@
 !!    MODD_CST
 !!    MODD_GROUND_PAR
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -51,7 +51,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/01/98 
+!!      Original    20/01/98
 !!                  02/04/01 (P Jabouille) limitation of Z0 with 0.5 PUREF
 !-------------------------------------------------------------------------------
 !
@@ -88,7 +88,7 @@ REAL, DIMENSION(:), INTENT(OUT)   :: PCDN     ! neutral drag coefficient for mom
 !
 !
 REAL                       :: ZZ0EFF, ZZ0H, ZMU,     &
-                               ZCMSTAR, ZPM, ZCM, ZFM 
+                               ZCMSTAR, ZPM, ZCM, ZFM
 INTEGER                    :: JJ
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 

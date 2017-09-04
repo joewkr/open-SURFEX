@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_SEAFLUX (DTCO, DTS, SG, S, UG, U, USS, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -112,7 +112,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('PGD_SEAFLUX',0,ZHOOK_HANDLE)
  CALL READ_NAM_PGD_SEABATHY(HPROGRAM,YSEABATHY,YSEABATHYFILETYPE,YNCVARNAME,&
-       XUNIF_SEABATHY)  
+       XUNIF_SEABATHY)
 !
 !-------------------------------------------------------------------------------
 !
@@ -125,7 +125,7 @@ IF (LHOOK) CALL DR_HOOK('PGD_SEAFLUX',0,ZHOOK_HANDLE)
 !             ----------
 !
  CALL PGD_BATHYFIELD(UG, U, USS, HPROGRAM,'bathymetry','SEA',YSEABATHY,YSEABATHYFILETYPE,&
-       YNCVARNAME,XUNIF_SEABATHY,ZSEABATHY(:))  
+       YNCVARNAME,XUNIF_SEABATHY,ZSEABATHY(:))
 !-------------------------------------------------------------------------------
 !
 !*    5.      Number of points and packing
@@ -139,7 +139,7 @@ ALLOCATE(SG%XLAT       (SG%NDIM))
 ALLOCATE(SG%XLON       (SG%NDIM))
 ALLOCATE(SG%XMESH_SIZE (SG%NDIM))
 !
- CALL PACK_PGD(DTCO, U, HPROGRAM, 'SEA   ', SG, S%LCOVER, S%XCOVER, S%XZS )  
+ CALL PACK_PGD(DTCO, U, HPROGRAM, 'SEA   ', SG, S%LCOVER, S%XCOVER, S%XZS )
 !
  CALL PACK_PGD_SEAFLUX(DTCO, SG%NDIM, S, U, HPROGRAM, ZSEABATHY)
 !

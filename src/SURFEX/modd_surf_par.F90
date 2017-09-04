@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !####################
 MODULE MODD_SURF_PAR
@@ -15,7 +15,7 @@ MODULE MODD_SURF_PAR
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -41,7 +41,7 @@ INTEGER :: NBUGFIX   ! bugfix number of this version
 !
 #ifndef SFX_MNH
 REAL,    PARAMETER :: XUNDEF = 1.E+20
-#else 
+#else
 #ifdef MNH_MPI_DOUBLE_PRECISION
 REAL,    PARAMETER :: XUNDEF = 1.E+20! HUGE(XUNDEF) ! Z'7FFFFFFFFFFFFFFF' !  undefined value
 #else
@@ -49,9 +49,9 @@ REAL,    PARAMETER :: XUNDEF = 1.E+6 ! HUGE(XUNDEF) ! Z'7FBFFFFF' ! undefined va
 #endif
 #endif
 INTEGER, PARAMETER :: NUNDEF = 1E+9   !  HUGE(NUNDEF) !  undefined value
-REAL,    PARAMETER :: XSURF_EPSILON = EPSILON(XSURF_EPSILON)  ! minimum 
-REAL,    PARAMETER :: XSURF_HUGE    = HUGE(XSURF_HUGE) 
-REAL,    PARAMETER :: XSURF_TINY    = TINY(XSURF_TINY) 
+REAL,    PARAMETER :: XSURF_EPSILON = EPSILON(XSURF_EPSILON)  ! minimum
+REAL,    PARAMETER :: XSURF_HUGE    = HUGE(XSURF_HUGE)
+REAL,    PARAMETER :: XSURF_TINY    = TINY(XSURF_TINY)
 !-----------------------------------------------------------------------------------------------------
 !
 END MODULE MODD_SURF_PAR

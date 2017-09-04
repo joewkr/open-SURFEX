@@ -1,14 +1,14 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-SUBROUTINE UPDATE_RAD_FLAKE(F,PZENITH,PDIR_ALB_ATMOS,PSCA_ALB_ATMOS,PEMIS_ATMOS,PTRAD )  
+SUBROUTINE UPDATE_RAD_FLAKE(F,PZENITH,PDIR_ALB_ATMOS,PSCA_ALB_ATMOS,PEMIS_ATMOS,PTRAD )
 !     #######################################################################
 !
-!!****  *UPDATE_RAD_FLAKE * - update the radiative properties at time t+1 (see by the atmosphere) 
+!!****  *UPDATE_RAD_FLAKE * - update the radiative properties at time t+1 (see by the atmosphere)
 !                           in order to close the energy budget between surfex and the atmosphere
- 
+
 !!
 !!    PURPOSE
 !!    -------
@@ -18,11 +18,11 @@ SUBROUTINE UPDATE_RAD_FLAKE(F,PZENITH,PDIR_ALB_ATMOS,PSCA_ALB_ATMOS,PEMIS_ATMOS,
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     B. Decharme 
+!!     B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -95,7 +95,7 @@ ELSEWHERE
 !* open water
   F%XDIR_ALB  (:) = ZALBDIR(:)
   F%XSCA_ALB  (:) = ZALBSCA(:)
-  F%XEMIS     (:) = XEMISWAT    
+  F%XEMIS     (:) = XEMISWAT
 END WHERE
 !
 !-------------------------------------------------------------------------------------

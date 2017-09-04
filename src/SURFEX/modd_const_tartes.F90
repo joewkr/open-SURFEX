@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODD_CONST_TARTES
 
@@ -13,7 +13,7 @@ MODULE MODD_CONST_TARTES
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!       NONE          
+!!       NONE
 !!
 !!    REFERENCE
 !!    ---------
@@ -81,7 +81,7 @@ REAL, DIMENSION(NPNBANDS), PARAMETER :: XPRATIO_DIR= (/5.3620478055e-06 , 0.0026
 0.000937885283853 , 0.000887231706461 , 0.000785688010624 , 0.000758891288228 , 0.000442399356375,                 &
 0.000309470041671 /)
 
-! Fraction of direct solar radiation between 2520 and 4000 nanometers 
+! Fraction of direct solar radiation between 2520 and 4000 nanometers
 REAL, PARAMETER :: XPCOEFNIR_DIR = 0.001000684
 
 REAL, DIMENSION(NPNBANDS), PARAMETER :: XPRATIO_DIF = (/4.68915470846e-05, 0.023565193397, 0.0541992631727, 0.0466197761774,   &
@@ -103,7 +103,7 @@ REAL, DIMENSION(NPNBANDS), PARAMETER :: XPRATIO_DIF = (/4.68915470846e-05, 0.023
 9.11804672403e-05, 8.71083298684e-05, 9.93247419841e-05, 7.80788078698e-05, 7.54230661056e-05, 7.00230578515e-05,              &
 6.11705853039e-05, 5.81607446377e-05,3.26656237007e-05, 2.23436407101e-05 /)
 !
-! Fraction of diffuse solar radiation between 2520 and 4000 nanometers 
+! Fraction of diffuse solar radiation between 2520 and 4000 nanometers
 REAL, PARAMETER :: XPCOEFNIR_DIF = 0.01216941
 !
 REAL, PARAMETER :: XP_MUDIFF = 0.601815023 ! =cos(53./180.*XPI) : diffuse incident flux is treated as direct flux at incident angle 53deg

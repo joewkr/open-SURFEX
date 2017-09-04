@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ############################################################
 SUBROUTINE COUPLING_IDEAL_FLUX (DGO, D, DC, HPROGRAM, HCOUPLING, PTIMEC,                 &
@@ -10,35 +10,35 @@ SUBROUTINE COUPLING_IDEAL_FLUX (DGO, D, DC, HPROGRAM, HCOUPLING, PTIMEC,        
                  PSFTQ, PSFTH, PSFTS, PSFCO2, PSFU, PSFV,                                    &
                  PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF, PZ0, PZ0H, PQSURF,                &
                  PPEW_A_COEF, PPEW_B_COEF,                                                   &
-                 PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST                   )  
+                 PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST                   )
 !     ############################################################
 !
-!!****  *COUPLING_IDEAL_FLUX * - Computes the surface fluxes for the temperature, 
-!!    vapor, horizontal components of the wind and the scalar variables.   
+!!****  *COUPLING_IDEAL_FLUX * - Computes the surface fluxes for the temperature,
+!!    vapor, horizontal components of the wind and the scalar variables.
 !!
 !!    PURPOSE
 !!    -------
-!       Give prescribed values of the surface fluxes for the potential 
-!     temperature, the vapor, the horizontal components of the wind and the 
-!     scalar variables. These fluxes are unsteady when a diurnal cycle 
+!       Give prescribed values of the surface fluxes for the potential
+!     temperature, the vapor, the horizontal components of the wind and the
+!     scalar variables. These fluxes are unsteady when a diurnal cycle
 !     is taken into account.
 !
 !!**  METHOD
 !!    ------
-!!         A temporal interpolation is performed to recover the values of the 
+!!         A temporal interpolation is performed to recover the values of the
 !!    fluxes at every instant of the simulation. The different values of the
 !!    prescribed fluxes are given at their declarations.
-!!         For the wind, z0 can also be prescribed and the flux is determined 
+!!         For the wind, z0 can also be prescribed and the flux is determined
 !!    with a neutral drag coefficient.
 !!
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!     (from J. Cuxart and J. Stein)
 !!
 !!    MODIFICATIONS
@@ -60,7 +60,7 @@ USE MODD_CSTS,       ONLY : XRD, XCPD, XP00, XPI, XLVTT, XDAY, XKARMAN, XTT, &
                             XLSTT, XSTEFAN
 USE MODD_IDEAL_FLUX, ONLY : NFORCF, NFORCT, XSFTH, XSFTQ, XSFTS, XSFCO2, &
                             CUSTARTYPE, XUSTAR, XZ0, XALB, XEMIS, XTSRAD, &
-                            XTIMEF, XTIMET 
+                            XTIMEF, XTIMET
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 !
 USE MODE_SBLS
@@ -79,7 +79,7 @@ USE MODI_ABOR1_SFX
 IMPLICIT NONE
 !
 !*       0.1   declarations of arguments
-! 
+!
 !
 TYPE(DIAG_OPTIONS_t), INTENT(IN) :: DGO
 TYPE(DIAG_t), INTENT(INOUT) :: D
@@ -174,7 +174,7 @@ REAL, DIMENSION(KI)  :: ZLE    ! total latent heat flux (W/m2)
 REAL, DIMENSION(KI)  :: ZLEI   ! sublimation heat flux (W/m2)
 REAL, DIMENSION(KI)  :: ZSUBL  ! sublimation (kg/m2/s)
 REAL, DIMENSION(KI)  :: ZLWUP  ! upward longwave flux at t
-REAL, DIMENSION(KI,KSW) :: ZDIR_ALB   ! Direct albedo at time t , 
+REAL, DIMENSION(KI,KSW) :: ZDIR_ALB   ! Direct albedo at time t ,
 REAL, DIMENSION(KI,KSW) :: ZSCA_ALB   ! Diffuse albedo at time t
 !
 INTEGER              :: ISWB   ! number of shortwave spectral bands
@@ -212,7 +212,7 @@ ZLWUP      (:)   = XUNDEF
 !*       3.    CONS. TEMPERATURE SURFACE FLUX
 !              ------------------------------
 !
-PSFTH(:) = XSFTH(IHOURF) + ( XSFTH(IHOURF+1)-XSFTH(IHOURF) )*ZALPHA  
+PSFTH(:) = XSFTH(IHOURF) + ( XSFTH(IHOURF+1)-XSFTH(IHOURF) )*ZALPHA
 !
 GCALL_LMO = ( XSFTH(IHOURF) + ( XSFTH(IHOURF+1)-XSFTH(IHOURF) )*ZALPHA ) /=0.
 !----------------------------------------------------------------------------------
@@ -240,7 +240,7 @@ SELECT CASE (CUSTARTYPE)
   CASE ('USTAR')
     !  when u* is prescribed
     ZUSTAR(:) = XUSTAR(IHOURF) + ( XUSTAR(IHOURF+1)-XUSTAR(IHOURF) )*ZALPHA
-    ! 
+    !
   CASE ('Z0   ')
     !
     !* spatialized roughness length
@@ -286,7 +286,7 @@ WHERE (ZWIND>0.)
 END WHERE
 !
 !-------------------------------------------------------------------------------
-!  
+!
 !*       6.    SCALAR VARIABLES FLUXES.
 !              -----------------------
 !
@@ -295,14 +295,14 @@ DO JSV=1,SIZE(PSFTS,2)
 END DO
 !
 !-------------------------------------------------------------------------------
-!  
+!
 !*       7.    CO2 FLUXES.
 !              ----------
 !
 PSFCO2(:) = XSFCO2(IHOURF) + ( XSFCO2(IHOURF+1)-XSFCO2(IHOURF) )*ZALPHA
 !
 !-------------------------------------------------------------------------------
-!  
+!
 !*       8.    OTHER OUTPUTS (RADIATIVE QUANTITIES) SET TO A CONSTANT VALUE
 !              ------------------------------------
 !
@@ -313,7 +313,7 @@ PTRAD(:) = XTSRAD(IHOURT) + ( XTSRAD(IHOURT+1)-XTSRAD(IHOURT) )*ZALPHA
 PDIR_ALB = XALB
 PSCA_ALB = XALB
 PEMIS    = XEMIS
-!  
+!
 PTSURF(:) = PTRAD(:)
 PZ0   (:) = XZ0
 PZ0H  (:) = XZ0
@@ -385,18 +385,18 @@ IF (PTIMES(KFORC)==XUNDEF) THEN
   KHOUR = 1
   PALPHA = 0.
 ELSEIF (ZTIMEIN<PTIMES(1).OR.ZTIMEIN>PTIMES(KFORC)) THEN
-    WRITE(*,*) 'COUPLING_IDEAL_FLUX', ZTIMEIN, PTIMES(1), PTIMES(KFORC)      
+    WRITE(*,*) 'COUPLING_IDEAL_FLUX', ZTIMEIN, PTIMES(1), PTIMES(KFORC)
   CALL ABOR1_SFX("COUPLING_IDEAL_FLUX:TEMP_FORC_DISTS: PTIMEC OUT OF BOUNDS!!!")
 ELSEIF (ZTIMEIN==PTIMES(KFORC)) THEN
   KHOUR = KFORC
-  PALPHA = 0.  
+  PALPHA = 0.
 ELSE
  DO JT = KFORC,1,-1
    IF (PTIMEIN.GE.PTIMES(JT)) THEN
      KHOUR = JT
      EXIT
    ENDIF
-  ENDDO      
+  ENDDO
   PALPHA = (PTIMEIN-PTIMES(KHOUR)) / (PTIMES(KHOUR+1)-PTIMES(KHOUR))
 ENDIF
 !

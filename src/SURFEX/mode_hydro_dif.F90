@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
-      MODULE MODE_HYDRO_DIF 
+      MODULE MODE_HYDRO_DIF
 !     ################
 !
 !!****  *MODE_HYDRO_DIF * - pedo-transfert functions
@@ -13,17 +13,17 @@
 !
 !!**  METHOD
 !!    ------
-!!    
+!!
 !!
 !!    EXTERNAL
 !!    --------
-!!       
+!!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -38,7 +38,7 @@
 !
 !
 INTERFACE VAPCONDCF
-  MODULE PROCEDURE VAPCONDCF       
+  MODULE PROCEDURE VAPCONDCF
 END INTERFACE
 !
 INTERFACE INFMAX_FUNC
@@ -115,7 +115,7 @@ DO JL=1,KNL
 !
       IDEPTH = KWG_LAYER(JJ)
       ZWG    = PWG (JJ,JL) + PWGI(JJ,JL)
-!      
+!
       IF(JL<=IDEPTH .AND. ZWG < PWFC(JJ,JL) .AND. ZWG > XWGMIN)THEN
 !
 !        Vapor pressure over liquid and solid water surfaces (Pa), respectively:
@@ -129,7 +129,7 @@ DO JL=1,KNL
          ZWORK  = ZNV*LOG(PTG(JJ,JL)/XTT)
          ZDVA   = ZCV*(XP00/PPS(JJ))*EXP(ZWORK)
 !
-!        function of pore space: 
+!        function of pore space:
 !
          ZFVA   = (PWSAT(JJ,JL) - ZWG)*(1.+(ZWG/(PWSAT(JJ,JL)-ZWK)))
          ZFVA   = MIN(ZFVA,PWSAT(JJ,JL))
@@ -174,14 +174,14 @@ USE MODD_SGH_PAR, ONLY : XHORT_DEPTH
 USE PARKIND1     ,ONLY : JPRB
 IMPLICIT NONE
 REAL, DIMENSION(:,:), INTENT(IN) :: PWG
-REAL, DIMENSION(:,:), INTENT(IN) :: PWSAT           
+REAL, DIMENSION(:,:), INTENT(IN) :: PWSAT
 REAL, DIMENSION(:,:), INTENT(IN) :: PFRZ
-REAL, DIMENSION(:,:), INTENT(IN) :: PCONDSAT            
-REAL, DIMENSION(:,:), INTENT(IN) :: PMPOTSAT    
-REAL, DIMENSION(:,:), INTENT(IN) :: PBCOEF 
+REAL, DIMENSION(:,:), INTENT(IN) :: PCONDSAT
+REAL, DIMENSION(:,:), INTENT(IN) :: PMPOTSAT
+REAL, DIMENSION(:,:), INTENT(IN) :: PBCOEF
 REAL, DIMENSION(:,:), INTENT(IN) :: PDZG
 REAL, DIMENSION(:,:), INTENT(IN) :: PDG
-INTEGER,              INTENT(IN) :: KLAYER_HORT   
+INTEGER,              INTENT(IN) :: KLAYER_HORT
 !
 REAL, DIMENSION(SIZE(PWG,1)) :: ZGREEN_AMPT, ZDEPTH
 REAL                         :: ZS, ZCOEF
@@ -199,13 +199,13 @@ ZGREEN_AMPT(:) = 0.0
 ZDEPTH     (:) = 0.0
 !
 DO JL=1,KLAYER_HORT
-   DO JJ=1,INI  
+   DO JJ=1,INI
       IF(ZDEPTH(JJ)<XHORT_DEPTH)THEN
          ZS              = MIN(1.0,PWG(JJ,JL)/PWSAT(JJ,JL))
-         ZCOEF           = PBCOEF(JJ,JL)*PMPOTSAT(JJ,JL)*(ZS-1.0)/PDZG(JJ,JL)        
+         ZCOEF           = PBCOEF(JJ,JL)*PMPOTSAT(JJ,JL)*(ZS-1.0)/PDZG(JJ,JL)
          ZGREEN_AMPT(JJ) = ZGREEN_AMPT(JJ)+PDZG(JJ,JL)*PFRZ(JJ,JL)*PCONDSAT(JJ,JL)*(ZCOEF+1.0)
          ZDEPTH     (JJ) = PDG(JJ,JL)
-      ENDIF      
+      ENDIF
    ENDDO
 ENDDO
 !
@@ -256,10 +256,10 @@ DO JL=2,KNL
       IF(JL<=IDEPTH)THEN
         ZWORK(JJ,JL) = PCMTRX(JJ,JL-1)/ZDET(JJ)
         ZDET (JJ)    = PBMTRX(JJ,JL) - PAMTRX(JJ,JL)*ZWORK(JJ,JL)
-        PSOL (JJ,JL) = (PFRC (JJ,JL) - PAMTRX(JJ,JL)*PSOL(JJ,JL-1))/ZDET(JJ)  
+        PSOL (JJ,JL) = (PFRC (JJ,JL) - PAMTRX(JJ,JL)*PSOL(JJ,JL-1))/ZDET(JJ)
       ENDIF
-   ENDDO 
-ENDDO        
+   ENDDO
+ENDDO
 !
 !levels going down
 DO JL=KNL-1,1,-1

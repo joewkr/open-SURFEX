@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODN_TEB_n
@@ -19,14 +19,14 @@
 !!    REFERENCE
 !!    ---------
 !!
-!!       
+!!
 !!    AUTHOR
 !!    ------
 !!      V. Masson    *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004                   
+!!      Original    01/2004
 !!      Modified    10/2004 by P. Le Moigne: miscellaneous switch
 !!      Modified    07/2007 by P. Le Moigne: minimum wind speed and/or shear
 !!      Modified    08/2009 by B. Decharme : LSURF_BUDGETC for all tiles
@@ -44,7 +44,7 @@ USE PARKIND1  ,ONLY : JPRB
 IMPLICIT NONE
 !
 LOGICAL           :: LPGD
-LOGICAL           :: L2M_MIN_ZS         
+LOGICAL           :: L2M_MIN_ZS
 LOGICAL           :: LSURF_BUDGET
 LOGICAL           :: LRAD_BUDGET
 LOGICAL           :: LCOEF
@@ -90,8 +90,8 @@ SUBROUTINE INIT_NAM_DIAG_SURFn (DGO, TOP)
 
   IF (LHOOK) CALL DR_HOOK('MODN_TEB_N:INIT_NAM_DIAG_SURFN',0,ZHOOK_HANDLE)
   XTSTEP = TOP%XTSTEP
-  XOUT_TSTEP = TOP%XOUT_TSTEP  
-  XDIAG_TSTEP = DGO%XDIAG_TSTEP  
+  XOUT_TSTEP = TOP%XOUT_TSTEP
+  XDIAG_TSTEP = DGO%XDIAG_TSTEP
   N2M = DGO%N2M
   L2M_MIN_ZS = DGO%L2M_MIN_ZS
   LSURF_BUDGET = DGO%LSURF_BUDGET
@@ -112,11 +112,11 @@ SUBROUTINE UPDATE_NAM_DIAG_SURFn (DGO)
   REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
   IF (LHOOK) CALL DR_HOOK('MODN_TEB_N:UPDATE_NAM_DIAG_SURFN',0,ZHOOK_HANDLE)
-  DGO%XDIAG_TSTEP = XDIAG_TSTEP  
+  DGO%XDIAG_TSTEP = XDIAG_TSTEP
   DGO%N2M = N2M
   DGO%L2M_MIN_ZS = L2M_MIN_ZS
   DGO%LSURF_BUDGET = LSURF_BUDGET
-  DGO%LRAD_BUDGET = LRAD_BUDGET 
+  DGO%LRAD_BUDGET = LRAD_BUDGET
   DGO%LCOEF = LCOEF
   DGO%LSURF_VARS = LSURF_VARS
 IF (LHOOK) CALL DR_HOOK('MODN_TEB_N:UPDATE_NAM_DIAG_SURFN',1,ZHOOK_HANDLE)
@@ -156,7 +156,7 @@ SUBROUTINE UPDATE_NAM_TEBn (T, TOP)
 
   IF (LHOOK) CALL DR_HOOK('MODN_TEB_N:UPDATE_NAM_TEBN',0,ZHOOK_HANDLE)
   TOP%XTSTEP = XTSTEP
-  TOP%XOUT_TSTEP = XOUT_TSTEP    
+  TOP%XOUT_TSTEP = XOUT_TSTEP
   TOP%CZ0H = CZ0H
   TOP%CCH_BEM = CCH_BEM
   T%XDT_RES = XDT_RES

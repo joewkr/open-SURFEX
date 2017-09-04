@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_ISBA (DTCO, DTV, IG, IO, S, K, ISS, UG, U, USS, HPROGRAM)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -223,11 +223,11 @@ CALL READ_NAM_PGD_ISBA(HPROGRAM, IPATCH, IGROUND_LAYER,                         
                        YSAND, YSANDFILETYPE, XUNIF_SAND, LIMP_SAND,              &
                        YSOC_TOP, YSOC_SUB, YSOCFILETYPE, XUNIF_SOC_TOP,          &
                        XUNIF_SOC_SUB, LIMP_SOC, YCTI, YCTIFILETYPE, LIMP_CTI,    &
-                       YPERM, YPERMFILETYPE, XUNIF_PERM, LIMP_PERM, GMEB,        &                       
+                       YPERM, YPERMFILETYPE, XUNIF_PERM, LIMP_PERM, GMEB,        &
                        YRUNOFFB, YRUNOFFBFILETYPE, XUNIF_RUNOFFB,                &
                        YWDRAIN,  YWDRAINFILETYPE , XUNIF_WDRAIN, ZSOILGRID,      &
                        YPH, YPHFILETYPE, XUNIF_PH, YFERT, YFERTFILETYPE,         &
-                       XUNIF_FERT                          )  
+                       XUNIF_FERT                          )
 !
 IO%NPATCH        = IPATCH
 IO%NGROUND_LAYER = IGROUND_LAYER
@@ -269,7 +269,7 @@ IF(GMEB)THEN
 
   ! Current recommendation is to use MEB for tree patches only.
   ! Here follows a test in which non-tree patches in LMEB_PATCH are set to FALSE.
-  ! Thus, if you wish to test MEB for non-tree patches you can set 
+  ! Thus, if you wish to test MEB for non-tree patches you can set
   ! GMEB_PATCH_REC(:)=.TRUE.
   ! in the following line:
 
@@ -326,29 +326,29 @@ ENDIF
 SELECT CASE (IO%CISBA)
 !
   CASE ('2-L')
-!          
+!
     IO%NGROUND_LAYER = 2
     IO%CPEDOTF       ='CH78'
-    ALLOCATE(IO%XSOILGRID(0)) 
+    ALLOCATE(IO%XSOILGRID(0))
     WRITE(ILUOUT,*) '*****************************************'
     WRITE(ILUOUT,*) '* With option CISBA = ',IO%CISBA,'         *'
     WRITE(ILUOUT,*) '* the number of soil layers is set to 2 *'
-    WRITE(ILUOUT,*) '* Pedo transfert function = CH78        *'    
+    WRITE(ILUOUT,*) '* Pedo transfert function = CH78        *'
     WRITE(ILUOUT,*) '*****************************************'
-!    
+!
   CASE ('3-L')
-!          
+!
     IO%NGROUND_LAYER = 3
-    IO%CPEDOTF       ='CH78'    
+    IO%CPEDOTF       ='CH78'
     ALLOCATE(IO%XSOILGRID(0))
     WRITE(ILUOUT,*) '*****************************************'
     WRITE(ILUOUT,*) '* With option CISBA = ',IO%CISBA,'         *'
     WRITE(ILUOUT,*) '* the number of soil layers is set to 3 *'
-    WRITE(ILUOUT,*) '* Pedo transfert function = CH78        *'    
+    WRITE(ILUOUT,*) '* Pedo transfert function = CH78        *'
     WRITE(ILUOUT,*) '*****************************************'
-!    
+!
   CASE ('DIF')
-!          
+!
     IF(IO%NGROUND_LAYER==NUNDEF)THEN
       IF(U%LECOCLIMAP)THEN
         IO%NGROUND_LAYER=NOPTIMLAYER
@@ -359,30 +359,30 @@ SELECT CASE (IO%CISBA)
         CALL ABOR1_SFX('PGD_ISBA: NGROUND_LAYER MUST BE DONE IN NAM_ISBA')
       ENDIF
     ENDIF
-! 
+!
     ALLOCATE(IO%XSOILGRID(IO%NGROUND_LAYER))
     IO%XSOILGRID(:)=0.
-    IO%XSOILGRID(:)=ZSOILGRID(1:IO%NGROUND_LAYER) 
+    IO%XSOILGRID(:)=ZSOILGRID(1:IO%NGROUND_LAYER)
     IF (ALL(ZSOILGRID(:)==XUNDEF)) THEN
       IF(U%LECOCLIMAP) IO%XSOILGRID(1:IO%NGROUND_LAYER)=XOPTIMGRID(1:IO%NGROUND_LAYER)
     ELSEIF (COUNT(IO%XSOILGRID/=XUNDEF)/=IO%NGROUND_LAYER) THEN
       WRITE(ILUOUT,*) '********************************************************'
       WRITE(ILUOUT,*) '* Soil grid reference values /= number of ground layer *'
       WRITE(ILUOUT,*) '********************************************************'
-      CALL ABOR1_SFX('PGD_ISBA: XSOILGRID must be coherent with NGROUND_LAYER in NAM_ISBA') 
+      CALL ABOR1_SFX('PGD_ISBA: XSOILGRID must be coherent with NGROUND_LAYER in NAM_ISBA')
     ELSEIF (IO%XSOILGRID(1).GT.0.01) THEN
       CALL ABOR1_SFX('PGD_ISBA: First layer of XSOILGRID must be lower than 1cm')
     ENDIF
 !
     WRITE(ILUOUT,*) '*****************************************'
     WRITE(ILUOUT,*) '* Option CISBA            = ',IO%CISBA
-    WRITE(ILUOUT,*) '* Pedo transfert function = ',IO%CPEDOTF    
+    WRITE(ILUOUT,*) '* Pedo transfert function = ',IO%CPEDOTF
     WRITE(ILUOUT,*) '* Number of soil layers   = ',IO%NGROUND_LAYER
     IF(U%LECOCLIMAP)THEN
       WRITE(ILUOUT,*) '* Soil layers grid (m)    = ',IO%XSOILGRID(1:IO%NGROUND_LAYER)
     ENDIF
     WRITE(ILUOUT,*) '*****************************************'
-!    
+!
 END SELECT
 !
 SELECT CASE (IO%CPHOTO)
@@ -431,7 +431,7 @@ ALLOCATE(IG%XLON       (ILU))
 ALLOCATE(IG%XMESH_SIZE (ILU))
 ALLOCATE(ISS%XZ0EFFJPDIR(ILU))
 !
- CALL PACK_PGD(DTCO, U, HPROGRAM, 'NATURE',  IG, S%LCOVER, S%XCOVER, S%XZS  )  
+ CALL PACK_PGD(DTCO, U, HPROGRAM, 'NATURE',  IG, S%LCOVER, S%XCOVER, S%XZS  )
 !
 !-------------------------------------------------------------------------------
 !
@@ -444,7 +444,7 @@ ALLOCATE(ISS%XZ0EFFJPDIR(ILU))
  CALL PACK_PGD_ISBA(DTCO, IG%NDIM, ISS, U, HPROGRAM,              &
                      ZAOSIP, ZAOSIM, ZAOSJP, ZAOSJM,              &
                      ZHO2IP, ZHO2IM, ZHO2JP, ZHO2JM,              &
-                     ZSSO_SLOPE                                   )  
+                     ZSSO_SLOPE                                   )
 !
 !-------------------------------------------------------------------------------
 !
@@ -525,7 +525,7 @@ IF(LEN_TRIM(YSOCFILETYPE)/=0.OR.(XUNIF_SOC_TOP/=XUNDEF.AND.XUNIF_SOC_SUB/=XUNDEF
     WRITE(ILUOUT,*) '* If used, sub and top soil input file must be given      *'
     WRITE(ILUOUT,*) '***********************************************************'
     WRITE(ILUOUT,*) ' '
-    CALL ABOR1_SFX('PGD_ISBA: TOP AND SUB SOC INPUT FILE REQUIRED')        
+    CALL ABOR1_SFX('PGD_ISBA: TOP AND SUB SOC INPUT FILE REQUIRED')
   ENDIF
 !
  CALL GET_FIELD(YSOCFILETYPE,YSOC_TOP,"SOC_TOP",LIMP_SOC,XUNIF_SOC_TOP,S%XSOC(:,1))
@@ -551,12 +551,12 @@ IF(LEN_TRIM(YPERM)/=0.OR.XUNIF_PERM/=XUNDEF)THEN
   ALLOCATE(K%XPERM(ILU))
 !
   IO%LPERM=.TRUE.
-! 
+!
  CALL GET_FIELD(YPERMFILETYPE,YPERM,"PERM",LIMP_PERM,XUNIF_PERM,K%XPERM(:))
 !
 ELSE
 !
-  IO%LPERM=.FALSE.  
+  IO%LPERM=.FALSE.
   ALLOCATE(K%XPERM(0))
 !
 ENDIF
@@ -583,12 +583,12 @@ ENDIF
 !
 !-------------------------------------------------------------------------------
 !
-!*    13.      Subgrid runoff 
+!*    13.      Subgrid runoff
 !             --------------
 !
 ALLOCATE(K%XRUNOFFB(ILU))
  CALL PGD_FIELD(DTCO, UG, U, USS, HPROGRAM,'subgrid runoff','NAT',YRUNOFFB,YRUNOFFBFILETYPE,&
-                        XUNIF_RUNOFFB,K%XRUNOFFB(:))  
+                        XUNIF_RUNOFFB,K%XRUNOFFB(:))
 !
 !-------------------------------------------------------------------------------
 !
@@ -647,9 +647,9 @@ IF(OIMP)THEN
      CFILEIN_LFI = ADJUSTL(HFILE)
 #endif
 CALL INIT_IO_SURF_n(DTCO, U, HFILETYPE,'NATURE','ISBA  ','READ ')
-  ENDIF     
-!   
-  CALL READ_SURF(HFILETYPE,TRIM(HFIELD),PFIELD,IRESP) 
+  ENDIF
+!
+  CALL READ_SURF(HFILETYPE,TRIM(HFIELD),PFIELD,IRESP)
 !
   CALL END_IO_SURF_n(HFILETYPE)
 !

@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODI_GATHER_AND_WRITE_MPI
 !----------------------------------------------------
 !!    MODIFICATIONS
 !!    -------------
-!!      Original       
+!!      Original
 !!      J.Escobar      10/06/2013: replace DOUBLE PRECISION by REAL to handle problem for promotion of real on IBM SP
 !----------------------------------------------------
 !
@@ -155,7 +155,7 @@ XTIME0 = MPI_WTIME()
 IF (NRANK/=NPIO) THEN
   !
   IDX_W = IDX_W + 1
-  !  
+  !
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
   CALL MPI_SEND(IWORK,SIZE(IWORK)*KIND(IWORK)/4,MPI_INTEGER,NPIO,IDX_W,NCOMM,INFOMPI)
@@ -164,9 +164,9 @@ IF (NRANK/=NPIO) THEN
   !
 ELSE
   !
-  KWORK2(:) = 0        
+  KWORK2(:) = 0
   !
-  IDX_W = IDX_W + 1 
+  IDX_W = IDX_W + 1
   !
   DO I=0,NPROC-1
     !
@@ -189,7 +189,7 @@ ELSE
 #endif
     !
     ICPT = 0
-    !    
+    !
     DO J=1,SIZE(NINDEX)
       !
       IF ( NINDEX(J)==I ) THEN
@@ -274,7 +274,7 @@ XTIME0 = MPI_WTIME()
 IF (NRANK/=NPIO) THEN
   !
   IDX_W = IDX_W + 1
-  !  
+  !
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
   CALL MPI_SEND(IWORK(:,:),SIZE(IWORK)*KIND(IWORK)/4,MPI_INTEGER,NPIO,IDX_W,NCOMM,INFOMPI)
@@ -283,7 +283,7 @@ IF (NRANK/=NPIO) THEN
   !
 ELSE
   !
-  IDX_W = IDX_W + 1 
+  IDX_W = IDX_W + 1
   !
   DO I=1,NPROC
     !
@@ -306,7 +306,7 @@ ELSE
 #endif
     !
     ICPT = 0
-    !  
+    !
     DO J=1,SIZE(NINDEX)
       !
       IF ( NINDEX(J)==MOD(I,NPROC) ) THEN
@@ -392,7 +392,7 @@ XTIME0 = MPI_WTIME()
 IF (NRANK/=NPIO) THEN
   !
   IDX_W = IDX_W + 1
-  !  
+  !
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
   CALL MPI_SEND(IWORK(:,:,:),SIZE(IWORK)*KIND(IWORK)/4,MPI_INTEGER,NPIO,IDX_W,NCOMM,INFOMPI)
@@ -400,16 +400,16 @@ IF (NRANK/=NPIO) THEN
 #endif
   !
 ELSE
-  ! 
+  !
   KWORK2(:,:,:) = 0
   !
-  IDX_W = IDX_W + 1 
+  IDX_W = IDX_W + 1
   !
   DO I=0,NPROC-1
     !
-#ifdef SFX_MPI    
+#ifdef SFX_MPI
     XTIME0 = MPI_WTIME()
-#endif    
+#endif
     !
     IF (I/=NPIO) THEN
 #ifdef SFX_MPI
@@ -419,14 +419,14 @@ ELSE
       IINTER(:,:,:) = IWORK(:,:,:)
     ENDIF
     !
-#ifdef SFX_MPI     
+#ifdef SFX_MPI
     XTIME_COMM_WRITE = XTIME_COMM_WRITE + (MPI_WTIME() - XTIME0)
     !
     XTIME0 = MPI_WTIME()
-#endif     
+#endif
     !
     ICPT = 0
-    !  
+    !
     DO J=1,SIZE(NINDEX)
       !
       IF ( NINDEX(J)==I ) THEN
@@ -436,9 +436,9 @@ ELSE
       !
     ENDDO
     !
-#ifdef SFX_MPI     
+#ifdef SFX_MPI
     XTIME_CALC_WRITE = XTIME_CALC_WRITE + (MPI_WTIME() - XTIME0)
-#endif     
+#endif
     !
   ENDDO
   !

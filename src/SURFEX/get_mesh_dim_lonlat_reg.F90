@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_MESH_DIM_LONLAT_REG(KGRID_PAR,KL,PGRID_PAR,PDX,PDY)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -71,7 +71,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('GET_MESH_DIM_LONLAT_REG',0,ZHOOK_HANDLE)
  CALL GET_GRIDTYPE_LONLAT_REG(PGRID_PAR,ZLONMIN,ZLONMAX,                    &
-                               ZLATMIN,ZLATMAX,ILON,ILAT,PLON=ZLON,PLAT=ZLAT )  
+                               ZLATMIN,ZLATMAX,ILON,ILAT,PLON=ZLON,PLAT=ZLAT )
 !
 !-----------------------------------------------------------------------------
 !

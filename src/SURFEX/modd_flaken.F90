@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ####################
 MODULE MODD_FLAKE_n
 !     ####################
 !
-!!****  *MODD_FLAKE_n - declaration of surface parameters for the FLake model 
+!!****  *MODD_FLAKE_n - declaration of surface parameters for the FLake model
 !!                      for inland water surfaces
 !!
 !!    PURPOSE
@@ -16,7 +16,7 @@ MODULE MODD_FLAKE_n
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -39,10 +39,10 @@ USE PARKIND1  ,ONLY : JPRB
 !
 IMPLICIT NONE
 !
-TYPE FLAKE_t 
+TYPE FLAKE_t
 !
 !-------------------------------------------------------------------------------------
-! General surface: 
+! General surface:
 !-------------------------------------------------------------------------------------
 !
   REAL, POINTER, DIMENSION(:) :: XZS       ! orography                     (m)
@@ -51,7 +51,7 @@ TYPE FLAKE_t
   REAL, POINTER, DIMENSION(:) :: XEMIS     ! water surface emissivity (NOT USED BY FLAKE)
 !
   REAL, POINTER, DIMENSION(:,:) :: XCOVER  ! fraction of each ecosystem    (-)
-!                                          ! F: no atmospheric layers below forcing level  
+!                                          ! F: no atmospheric layers below forcing level
 !
   LOGICAL, POINTER, DIMENSION(:) :: LCOVER ! GCOVER(i)=T --> ith cover field is not 0.
   LOGICAL                        :: LSBL   ! T: SBL scheme within the Surface Boundary Layer
@@ -82,7 +82,7 @@ TYPE FLAKE_t
 !
   REAL, POINTER, DIMENSION(:) :: XWATER_DEPTH  ! Lake depth (m)
   REAL, POINTER, DIMENSION(:) :: XWATER_FETCH  ! Lake fetch (m)
-  REAL, POINTER, DIMENSION(:) :: XT_BS         ! Temperature at the outer edge of the thermally 
+  REAL, POINTER, DIMENSION(:) :: XT_BS         ! Temperature at the outer edge of the thermally
                                                !       active layer of the bottom sediments [K]
   REAL, POINTER, DIMENSION(:) :: XDEPTH_BS     ! Depth of the thermally active layer of the
                                                !       bottom sediments [m]
@@ -93,21 +93,21 @@ TYPE FLAKE_t
   REAL, POINTER, DIMENSION(:) :: XSNOW_ALB     ! Snow surface albedo
   REAL, POINTER, DIMENSION(:) :: XEXTCOEF_WATER ! Extinction coefficient for the water [m^{-1}]
   REAL, POINTER, DIMENSION(:) :: XEXTCOEF_ICE   ! Extinction coefficient for the ice [m^{-1}]
-  REAL, POINTER, DIMENSION(:) :: XEXTCOEF_SNOW  ! Extinction coefficient for the snow [m^{-1}] 
-  REAL, POINTER, DIMENSION(:) :: XT_SNOW       ! Temperature at the air-snow interface [K]    
-  REAL, POINTER, DIMENSION(:) :: XT_ICE        ! Temperature at the snow-ice or air-ice 
+  REAL, POINTER, DIMENSION(:) :: XEXTCOEF_SNOW  ! Extinction coefficient for the snow [m^{-1}]
+  REAL, POINTER, DIMENSION(:) :: XT_SNOW       ! Temperature at the air-snow interface [K]
+  REAL, POINTER, DIMENSION(:) :: XT_ICE        ! Temperature at the snow-ice or air-ice
                                                !        interface [K]
   REAL, POINTER, DIMENSION(:) :: XT_MNW        ! Mean temperature of the water column [K]
   REAL, POINTER, DIMENSION(:) :: XT_WML        ! Mixed-layer temperature [K]
-  REAL, POINTER, DIMENSION(:) :: XT_BOT        ! Temperature at the water-bottom sediment 
+  REAL, POINTER, DIMENSION(:) :: XT_BOT        ! Temperature at the water-bottom sediment
                                                !        interface [K]
-  REAL, POINTER, DIMENSION(:) :: XT_B1         ! Temperature at the bottom of the upper 
+  REAL, POINTER, DIMENSION(:) :: XT_B1         ! Temperature at the bottom of the upper
                                                !        layer of the sediments [K]
   REAL, POINTER, DIMENSION(:) :: XCT           ! Shape factor (thermocline)
   REAL, POINTER, DIMENSION(:) :: XH_SNOW       ! Snow thickness [m]
   REAL, POINTER, DIMENSION(:) :: XH_ICE        ! Ice thickness [m]
   REAL, POINTER, DIMENSION(:) :: XH_ML         ! Thickness of the mixed-layer [m]
-  REAL, POINTER, DIMENSION(:) :: XH_B1         ! Thickness of the upper layer of bottom sediments [m]                                    
+  REAL, POINTER, DIMENSION(:) :: XH_B1         ! Thickness of the upper layer of bottom sediments [m]
 !
   REAL, POINTER, DIMENSION(:) :: XTS  ! surface temperature  (K)
                                       ! (water or ice or snow)

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################
       SUBROUTINE GET_MESH_INDEX_LONLAT_REG(KSSO,PGRID_PAR,PLAT,PLON,&
@@ -98,7 +98,7 @@ IF (.NOT. ALLOCATED(XLATLIM)) THEN
 !            -----------------------------
 !
   CALL GET_GRIDTYPE_LONLAT_REG(PGRID_PAR,ZLONMIN,ZLONMAX, &
-                                 ZLATMIN,ZLATMAX,NLON,NLAT  ) 
+                                 ZLATMIN,ZLATMAX,NLON,NLAT  )
 !
 !----------------------------------------------------------------------------
 !
@@ -156,7 +156,7 @@ DO JL = 1,SIZE(PLON)
     ZLON(JL) = PLON(JL)
   ENDIF
 ENDDO
-!$OMP END DO 
+!$OMP END DO
 IF (LHOOK) CALL DR_HOOK('GET_MESH_INDEX_LONLAT_REG_2',1,ZHOOK_HANDLE_OMP)
 !$OMP END PARALLEL
 !
@@ -222,7 +222,7 @@ DO JL=1,SIZE(PLAT)
       EXIT fraclon
     ENDIF
   ENDDO fraclon
-  !  
+  !
 ENDDO
 !$OMP END DO
 IF (LHOOK) CALL DR_HOOK('GET_MESH_INDEX_LONLAT_REG_3',1,ZHOOK_HANDLE_OMP)
@@ -238,8 +238,8 @@ DO JL=1,SIZE(PLAT)
   IF (ZVALUE(JL)==ZNODATA) THEN
     !
     KINDEX(1,JL) = 0
-    ! 
-  ELSEIF ( ICI(JL)==0 .OR. ICJ(JL)==0 ) THEN    
+    !
+  ELSEIF ( ICI(JL)==0 .OR. ICJ(JL)==0 ) THEN
     !
     KINDEX(1,JL) = 0
     !

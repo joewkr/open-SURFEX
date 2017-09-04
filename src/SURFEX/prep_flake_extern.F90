@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_FLAKE_EXTERN (GCP,HPROGRAM,HSURF,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,KLUOUT,PFIELD)
@@ -87,7 +87,7 @@ IF (NRANK/=NPIO) INI = 0
 ALLOCATE(ZMASK(INI))
 IF (IVERSION>=7) THEN
   YRECFM='FRAC_WATER'
-  CALL READ_SURF(HFILEPGDTYPE,YRECFM,ZMASK,IRESP,HDIR='E')       
+  CALL READ_SURF(HFILEPGDTYPE,YRECFM,ZMASK,IRESP,HDIR='E')
 ELSE
   ZMASK(:) = 1.
 ENDIF
@@ -146,47 +146,47 @@ IF (HSURF/='ZS    ' .AND. HSURF/='TS    ') THEN
 
     CASE('T_SNOW ')
       ALLOCATE(PFIELD(INI,1))
-      YRECFM='T_SNOW  '  
+      YRECFM='T_SNOW  '
       CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
 !
     CASE('T_ICE  ')
       ALLOCATE(PFIELD(INI,1))
-      YRECFM='T_ICE   '  
+      YRECFM='T_ICE   '
       CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
 !
     CASE('T_MNW  ')
       ALLOCATE(PFIELD(INI,1))
-      YRECFM='T_MNW   '  
+      YRECFM='T_MNW   '
       CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
 !
     CASE('T_BOT  ')
       ALLOCATE(PFIELD(INI,1))
-      YRECFM='T_BOT   '  
+      YRECFM='T_BOT   '
       CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
 !
     CASE('T_B1   ')
       ALLOCATE(PFIELD(INI,1))
-      YRECFM='T_B1    '  
+      YRECFM='T_B1    '
       CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
 !
     CASE('H_SNOW ')
       ALLOCATE(PFIELD(INI,1))
-      YRECFM='H_SNOW  '  
+      YRECFM='H_SNOW  '
       CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
 !
     CASE('H_ICE  ')
       ALLOCATE(PFIELD(INI,1))
-      YRECFM='H_ICE   '  
+      YRECFM='H_ICE   '
       CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
 !
     CASE('H_ML   ')
       ALLOCATE(PFIELD(INI,1))
-      YRECFM='H_ML    '  
+      YRECFM='H_ML    '
       CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
 !
     CASE('H_B1   ')
       ALLOCATE(PFIELD(INI,1))
-      YRECFM='H_B1    '  
+      YRECFM='H_B1    '
       CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
 !
 !---------------------------------------------------------------------------------------

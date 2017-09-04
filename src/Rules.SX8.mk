@@ -32,13 +32,13 @@ MNH_MPI_RANK_KIND ?=4
 endif
 #
 ifeq "$(OPTLEVEL)" "O2"
-OPT       = $(OPT_BASE) $(OPT_PERF2) 
-OPT0      = $(OPT_BASE) $(OPT_PERF0) 
+OPT       = $(OPT_BASE) $(OPT_PERF2)
+OPT0      = $(OPT_BASE) $(OPT_PERF0)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF2)
 endif
 #
 ifeq "$(OPTLEVEL)" "O3"
-OPT       = $(OPT_BASE) $(OPT_PERF3) 
+OPT       = $(OPT_BASE) $(OPT_PERF3)
 OPT0      = $(OPT_BASE) $(OPT_PERF0)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF3)
 endif
@@ -53,11 +53,11 @@ ifeq "$(OPTLEVEL)" "DEBUG"
 OPT       = $(OPT_BASE) $(OPT_PERF0) $(OPT_CHECK)
 OPT0      = $(OPT_BASE) $(OPT_PERF0) $(OPT_CHECK)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF0)
-#LDFLAGS   +=  -Wl"-f nan" 
+#LDFLAGS   +=  -Wl"-f nan"
 endif
 #
 ifeq "$(OPTLEVEL)" "O4"
-OPT       = $(OPT_BASE) $(OPT_PERF4) 
+OPT       = $(OPT_BASE) $(OPT_PERF4)
 OPT0      = $(OPT_BASE) $(OPT_PERF0)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF4)
 # routines with probleme with inlining
@@ -69,7 +69,7 @@ spll_mode_repro_sum.o spll_dotprod.o \
 spll_ini_radiations_ecmwf.o spll_mass_leak.o spll_mode_sum_ll.o spll_modi_sum_ll.o \
 spll_p_abs.o spll_reduce_sum_0dd_ll.o spll_reduce_sum_1dd_ll.o spll_relaxdef.o \
 spll_set_ref.o spll_surf_solar_sum.o spll_test_double_double.o spll_trid.o
-$(OBJS2) :  OPT =  $(OPT_BASE)  $(OPT_PERF2) 
+$(OBJS2) :  OPT =  $(OPT_BASE)  $(OPT_PERF2)
 endif
 
 ifneq "$(OPTLEVEL)" "DEBUG"
@@ -144,20 +144,20 @@ endif
 
 ifeq "$(VER_MPI)" "NOMPI"
 F90 = sxf90
-else         
+else
 F90 = sxmpif90
 endif
 
 F90FLAGS  = $(OPT)
-F77 = $(F90)     
+F77 = $(F90)
 F77FLAGS  =    -f0 $(OPT)
-FX90 = $(F90)        
+FX90 = $(F90)
 FX90FLAGS =    -f0 $(OPT)
-# 
-LDFLAGS += $(OPT) -Wl,-Z,80G 
+#
+LDFLAGS += $(OPT) -Wl,-Z,80G
 #
 #
-# preprocessing flags 
+# preprocessing flags
 #
 CPP = cpp -P -traditional -Wcomment
 AR=sxar
@@ -195,4 +195,4 @@ INC += -I/SX/opt/sxf90/${SXF90VERSION}/include
 #
 OBJS0 += spll_ch_jac.o spll_ch_terms.o  \
          spll_fm_writ_ll.o spll_NEWLFI_ALL.o spll_fm_read_ll.o
-$(OBJS0) : OPT_CHECK = 
+$(OBJS0) : OPT_CHECK =

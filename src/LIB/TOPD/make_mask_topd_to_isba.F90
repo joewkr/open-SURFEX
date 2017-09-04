@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
     SUBROUTINE MAKE_MASK_TOPD_TO_ISBA (HGRID, PGRID_PAR, KI)
 !     #######################
 !
-!!****  *MAKE_MASK_TOPD_TO_ISBA(*  
+!!****  *MAKE_MASK_TOPD_TO_ISBA(*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     Create a mask for each catchment. 
-!         
-!     
+!     Create a mask for each catchment.
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,11 +24,11 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!                     
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-     
+
 !!    AUTHOR
 !!    ------
 !!
@@ -69,11 +69,11 @@ INTEGER, INTENT(IN) :: KI    ! Grid dimensions
 !*      0.2    declarations of local variables
 !
  CHARACTER(LEN=30)  :: YVAR        ! name of results file
-INTEGER            :: JCAT, JJ, JI, IDX     ! loop control  
+INTEGER            :: JCAT, JJ, JI, IDX     ! loop control
 INTEGER            :: II,ILINE ! work integer variables
 INTEGER            :: IDXM   ! indexes of Isba grid meshes and nodes
 INTEGER            :: ILUOUT   ! unit
-REAL :: ZXT, ZYT ! catchment grid nodes Lambert II coordinates 
+REAL :: ZXT, ZYT ! catchment grid nodes Lambert II coordinates
 REAL, DIMENSION(MAX(1,KI-1)) :: ZX1, ZX2, ZX3, ZX4, ZY1, ZY2, ZY3, ZY4  ! Isba mesh Lambert II coordinates
 REAL :: ZXA, ZXB, ZYA, ZYB
 REAL, DIMENSION(NNCAT,NMESHT):: ZWRK
@@ -110,7 +110,7 @@ DO JCAT=1,NNCAT
       IF ( XTOPD(JCAT,IDX).NE.XNUL(JCAT) ) THEN
         !* calcule des coordonées X et Y inf et sup de la maille ISBA considérée
         CALL GET_COORD(ZXT,ZYT,ZX1(1),ZX2(1),ZX3(1),ZX4(1),ZY1(1),ZY2(1),ZY3(1),ZY4(1),ZXA,ZYA,ZXB,ZYB)
-        !* si on se trouve sur le premier pixel du MNT ou si le pixel du MNT n'est pas 
+        !* si on se trouve sur le premier pixel du MNT ou si le pixel du MNT n'est pas
         !dans la maille Isba considérée (qui est celle dans laquelle se trouve le pixel précédent)
         IF (ZXT.LT.ZXA.OR.ZXT.GE.ZXB.OR.ZYT.LT.ZYA.OR.ZYT.GE.ZYB) THEN
           !* on repart de la première maille de la grille Isba
@@ -164,7 +164,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('MAKE_MASK_TOPD_TO_ISBA:INIT_4POINTS',0,ZHOOK_HANDLE)
 !
-IF (HGRID=='IGN') THEN 
+IF (HGRID=='IGN') THEN
   CALL GET_GRIDTYPE_IGN(PGRID_PAR,PDX=ZDX,PDY=ZDY)
   IDXN=KDXM
   !on va juste retourner les quatre coins de la maille, les XXI et XYI etant les coordonees du centre
@@ -185,7 +185,7 @@ ELSE
 !
  PX1 = XXI(IDXN)              ! coordonnée X du point courant
  PX2 = XXI(IDXN+1)            ! coordonnée X du point suivant
- PX3 = XXI(IDXN+(NIMAX+1))    ! coordonnée X du point aligné sur la ligne suivante 
+ PX3 = XXI(IDXN+(NIMAX+1))    ! coordonnée X du point aligné sur la ligne suivante
  PX4 = XXI(IDXN+1+(NIMAX+1))  ! coordonnée X du point suivant sur la ligne suivante
 !
  PY1 = XYI(IDXN)              ! coordonnée Y du point courant

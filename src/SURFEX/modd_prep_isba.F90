@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################
       MODULE MODD_PREP_ISBA
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -72,7 +72,7 @@ REAL              :: XWRVN_DEF      ! default for canopy vegetation leaves snow 
 REAL              :: XQC_DEF        ! default for canopy air specific humidity
 !--------------------------------------------------------------------------
 !
-!* dimensions for interpolation grids for soil  
+!* dimensions for interpolation grids for soil
 !
 INTEGER, PARAMETER           :: NGRID_LEVEL = 22
 REAL, DIMENSION(NGRID_LEVEL) :: XGRID_SOIL = &
@@ -82,7 +82,7 @@ REAL, DIMENSION(NGRID_LEVEL) :: XGRID_SOIL = &
 !
 ! Parameter for snow field uniform initialization
 !
-LOGICAL :: LSNOW_IDEAL 
+LOGICAL :: LSNOW_IDEAL
 !
 REAL, DIMENSION(:), POINTER :: XWSNOW         ! Snow reservoir
 REAL, DIMENSION(:), POINTER :: XRSNOW         ! snow density
@@ -96,10 +96,10 @@ REAL                  :: XASNOW         ! snow albedo
 !
 !--------------------------------------------------------------------------
 !
-LOGICAL           :: LEXTRAP_TG     ! extrapolate TG points where LSM < 0.5 (buffer only)         
-LOGICAL           :: LEXTRAP_WG     ! extrapolate WG points where LSM < 0.5 (buffer only)  
-LOGICAL           :: LEXTRAP_WGI    ! extrapolate WGI points where LSM < 0.5 (buffer only) 
-LOGICAL           :: LEXTRAP_SN     ! extrapolate SNOW (SWE/depth) points where LSM < 0.5 (buffer only) 
+LOGICAL           :: LEXTRAP_TG     ! extrapolate TG points where LSM < 0.5 (buffer only)
+LOGICAL           :: LEXTRAP_WG     ! extrapolate WG points where LSM < 0.5 (buffer only)
+LOGICAL           :: LEXTRAP_WGI    ! extrapolate WGI points where LSM < 0.5 (buffer only)
+LOGICAL           :: LEXTRAP_SN     ! extrapolate SNOW (SWE/depth) points where LSM < 0.5 (buffer only)
 
 END MODULE MODD_PREP_ISBA
 

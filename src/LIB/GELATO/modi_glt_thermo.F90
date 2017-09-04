@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,14 +28,14 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ======================= MODULE modi_glt_thermo ========================
 ! =======================================================================
@@ -47,21 +47,21 @@
 ! and snow-covered sea ice. Version with thickness within each box
 ! which is constant, compensated with variable fractional ice
 ! covers.
-!   This part of the code runs on a reduced grid, the work grid only includes 
+!   This part of the code runs on a reduced grid, the work grid only includes
 ! ocean points where SST is less than a certain threshold or where there
 ! is sea ice. We consider that:
-!       - if there is a lot of sea ice, there is a possibility for warm 
-! water advection in this area, hence any place where there is sea ice 
+!       - if there is a lot of sea ice, there is a possibility for warm
+! water advection in this area, hence any place where there is sea ice
 ! should be treated to avoid losing sea ice
-!       - a reasonable temperature threshold is 1°, to include areas 
+!       - a reasonable temperature threshold is 1°, to include areas
 ! where salinity is zero (freezing point = 0°C)
-!  
-! Created : 2009/06 - Reduced grid option introduced - full grid still 
+!
+! Created : 2009/06 - Reduced grid option introduced - full grid still
 !   available (D. Salas y Melia)
 ! Modified: 2009/11 - Full grid is no longer treated (D. Salas y Melia)
 ! Modified: 2010/05 - mpi Multi-processing introduced (S.Senesi)
 ! Modified: 2011/04 - (Re)-ensure portability on both NEC and PC
-! Modified: 2011/05 - Solve issue occurring when less ice points than 
+! Modified: 2011/05 - Solve issue occurring when less ice points than
 !   processors (S.Senesi)
 ! Modified: 2011/12 - Introduce new diagnostics (A. Voldoire)
 ! Modified: 2012/07 (D. Salas y Melia)
@@ -235,11 +235,11 @@ SUBROUTINE glt_thermo  &
 ! 2.1. Define grid point selection criterion
 ! -------------------------------------------
 !
-  zfsit(:,:) = glt_iceconcm(tpdom,tpsit) 
+  zfsit(:,:) = glt_iceconcm(tpdom,tpsit)
   isel(:,:) = 0
 !
 ! In principe, calculations on tpdom%imk==1 would suffice. But it
-! would require bounding in the end (thermodynamics would not be 
+! would require bounding in the end (thermodynamics would not be
 ! purely 1d...)
 !
   WHERE( tpdom(:,:)%tmk==1 .AND.  &
@@ -248,7 +248,7 @@ SUBROUTINE glt_thermo  &
   ENDWHERE
 !
   gsel(:,:) = ( isel(:,:)==1 )
-! 
+!
 !
 ! 2.2. Pack all fields and allocate reduced grid arrays
 ! ------------------------------------------------------
@@ -333,7 +333,7 @@ SUBROUTINE glt_thermo  &
      tzatm_r%mty = PACK( tpatm%mty ,gsel )
 !
 ! .. Surface fluxes (over ocean)
-!     
+!
      tzblkw_r%swa = PACK( tpblkw%swa ,gsel )
      tzblkw_r%nsf = PACK( tpblkw%nsf ,gsel )
      tzblkw_r%dfl = PACK( tpblkw%dfl ,gsel )
@@ -452,7 +452,7 @@ SUBROUTINE glt_thermo  &
     END DO
   ENDIF
 !
-! .. Sea ice 2D 
+! .. Sea ice 2D
 !
     DO jk=1,nt
         tzsit_r(jk,:)%esi = PACK( tpsit(jk,:,:)%esi ,gsel )
@@ -473,8 +473,8 @@ SUBROUTINE glt_thermo  &
       DO jk=1,nt
           tzsil_r(jl,jk,:)%ent = PACK( tpsil(jl,jk,:,:)%ent ,gsel )
       END DO
-    END DO 
-! 
+    END DO
+!
 !
 ! 2.4. Update domain surface
 ! ---------------------------
@@ -503,8 +503,8 @@ SUBROUTINE glt_thermo  &
 ! 2.7. From reduced to global grid arrays
 ! ----------------------------------------
 !
-! .. Energy budget 
-! Nothing to do : this is a non-cumulative diagnostic (initialized at 
+! .. Energy budget
+! Nothing to do : this is a non-cumulative diagnostic (initialized at
 ! every glt_updtfl CALL)
 !
 ! .. Diagnostics
@@ -708,7 +708,7 @@ SUBROUTINE glt_thermo  &
 ! .. Note that on some platforms, in contradiction with the Fortran 95 norm,
 ! locally-allocated arrays are not released automatically. More over, some
 ! platforms require that the last allocated array in deallocated first.
-! These rules have to be respected if more arrays are allocated/deallocated 
+! These rules have to be respected if more arrays are allocated/deallocated
 ! here.
 !
 !    DEALLOCATE( ind_r )
@@ -731,7 +731,7 @@ SUBROUTINE glt_thermo  &
 ! ==============================
 !
 1000 FORMAT( " Processor ", I5," ==> Running on ", I5,  &
-  " points instead of ", I6, "(" I5, " times " , I5, ")" ) 
+  " points instead of ", I6, "(" I5, " times " , I5, ")" )
 !
   IF (lp1) THEN
     WRITE(noutlu,*) ' '

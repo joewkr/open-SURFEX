@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE HOR_INTERPOL_LATLON(KLUOUT,PFIELDIN,PFIELDOUT)
@@ -16,11 +16,11 @@ SUBROUTINE HOR_INTERPOL_LATLON(KLUOUT,PFIELDIN,PFIELDOUT)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     C. Lebeaupin Brossier 
+!!     C. Lebeaupin Brossier
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -28,7 +28,7 @@ SUBROUTINE HOR_INTERPOL_LATLON(KLUOUT,PFIELDIN,PFIELDOUT)
 !!     B. Decharme  07/2014 use usual HORIBL_SURF for regular lat/lon grid
 !!                         (ADAPT_HORIBL_SURF is not up to date and is wrong
 !!                          for interpolation from a coarse grid to a finer)
-!!  
+!!
 !!------------------------------------------------------------------
 !
 !
@@ -38,7 +38,7 @@ USE MODD_HORIBL, ONLY : LGLOBLON, LGLOBS, LGLOBN, XILO1H, XILO2H, NINLOH, &
                         XLA, XOLA, XOLO, NP, XLOPH
 USE MODD_PREP,             ONLY : XLAT_OUT, XLON_OUT, LINTERP
 USE MODD_GRID_LATLONREGUL, ONLY : XILAT1, XILON1, XILAT2, XILON2,    &
-                                  NINLAT, NINLON, NILENGTH,XILATARRAY  
+                                  NINLAT, NINLON, NILENGTH,XILATARRAY
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 !
 USE MODI_HORIBL_SURF_GRIDIN
@@ -59,9 +59,9 @@ REAL, DIMENSION(:,:), INTENT(OUT)   :: PFIELDOUT ! interpolated field
 !*      0.2    declarations of local variables
 !
 REAL, DIMENSION(:,:), POINTER :: ZFIELDIN0
-REAL, DIMENSION(:,:,:), ALLOCATABLE :: ZFIELDIN    
+REAL, DIMENSION(:,:,:), ALLOCATABLE :: ZFIELDIN
 !
-INTEGER, DIMENSION(:,:,:), ALLOCATABLE :: ILSMIN  
+INTEGER, DIMENSION(:,:,:), ALLOCATABLE :: ILSMIN
 INTEGER, DIMENSION(:,:), ALLOCATABLE :: IMASKIN  ! input mask
 INTEGER, DIMENSION(:), ALLOCATABLE :: IMASKOUT ! output mask
 INTEGER, DIMENSION(:), POINTER :: IMASK=>NULL()

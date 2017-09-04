@@ -1,14 +1,14 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-SUBROUTINE UPDATE_RAD_SEA(S,PZENITH,PTT,PDIR_ALB_ATMOS,PSCA_ALB_ATMOS,PEMIS_ATMOS,PTRAD,PU,PV)  
+SUBROUTINE UPDATE_RAD_SEA(S,PZENITH,PTT,PDIR_ALB_ATMOS,PSCA_ALB_ATMOS,PEMIS_ATMOS,PTRAD,PU,PV)
 !     #######################################################################
 !
-!!****  *UPDATE_RAD_SEA * - update the radiative properties at time t+1 (see by the atmosphere) 
+!!****  *UPDATE_RAD_SEA * - update the radiative properties at time t+1 (see by the atmosphere)
 !                           in order to close the energy budget between surfex and the atmosphere
- 
+
 !!
 !!    PURPOSE
 !!    -------
@@ -18,11 +18,11 @@ SUBROUTINE UPDATE_RAD_SEA(S,PZENITH,PTT,PDIR_ALB_ATMOS,PSCA_ALB_ATMOS,PEMIS_ATMO
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     B. Decharme 
+!!     B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -82,17 +82,17 @@ ZALBDIR(:) = 0.
 ZALBSCA(:) = 0.
 !
 IF (S%CSEA_ALB=='TA96') THEN
-!        
+!
   ZALBDIR(:) = ALBEDO_TA96(PZENITH(:))
   ZALBSCA(:) = XALBSCA_WAT
-!  
+!
 ELSEIF (S%CSEA_ALB=='MK10') THEN
-!        
+!
   ZALBDIR(:) = ALBEDO_MK10(PZENITH(:))
   ZALBSCA(:) = XALBSCA_WAT
-!  
+!
 ELSEIF (S%CSEA_ALB=='RS14') THEN
-!        
+!
   IF (PRESENT(PU).AND.PRESENT(PV)) THEN
      ZWIND(:) = SQRT(PU(:)**2+PV(:)**2)
      CALL ALBEDO_RS14(PZENITH(:),ZWIND(:),ZALBDIR(:),ZALBSCA(:))
@@ -123,7 +123,7 @@ IF(LCPL_SEA)THEN !Earth System Model
     WHERE (S%XSST(:)>=PTT) S%XSCA_ALB(:) = ZALBSCA(:)
   ENDIF
   !
-ELSEIF(S%LHANDLE_SIC) THEN 
+ELSEIF(S%LHANDLE_SIC) THEN
   ! Returned values are an average of open sea and seaice properties
   ! weighted by the seaice cover
   S%XEMIS   (:) = ( 1 - S%XSIC(:)) * XEMISWAT    + S%XSIC(:) * XEMISWATICE
@@ -177,7 +177,7 @@ DO JSWB=1,SIZE(PDIR_ALB_ATMOS,2)
 END DO
 !
 PEMIS_ATMOS(:) = S%XEMIS(:)
-IF(S%LHANDLE_SIC) THEN 
+IF(S%LHANDLE_SIC) THEN
    PTRAD(:) = (((1 - S%XSIC(:)) * XEMISWAT    * S%XSST (:)**4 + &
                      S%XSIC(:)  * XEMISWATICE * S%XTICE(:)**4)/ &
               S%XEMIS(:)) ** 0.25

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !##############################################################
 SUBROUTINE PACK_GRID_GAUSS(KMASK_SIZE,KMASK,KGRID_PAR1,PGRID_PAR1,KGRID_PAR2,OPACK,PGRID_PAR2)
@@ -13,7 +13,7 @@ SUBROUTINE PACK_GRID_GAUSS(KMASK_SIZE,KMASK,KGRID_PAR1,PGRID_PAR1,KGRID_PAR2,OPA
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -26,7 +26,7 @@ SUBROUTINE PACK_GRID_GAUSS(KMASK_SIZE,KMASK,KGRID_PAR1,PGRID_PAR1,KGRID_PAR2,OPA
 !!    ------------
 !!
 !!    Original    03/2004
-!!    (B. Decharme)  2008 pack mesh area  
+!!    (B. Decharme)  2008 pack mesh area
 !----------------------------------------------------------------------------
 !
 !*    0.     DECLARATION
@@ -70,8 +70,8 @@ REAL, DIMENSION(:), ALLOCATABLE    :: ZLAT_XY1  ! pseudo-latitude of all grid po
 REAL, DIMENSION(:), ALLOCATABLE    :: ZLON_XY1  ! pseudo-longitude of all grid points
 REAL, DIMENSION(:), ALLOCATABLE    :: ZLAT_XY2  ! pseudo-latitude of subset of grid points
 REAL, DIMENSION(:), ALLOCATABLE    :: ZLON_XY2  ! pseudo-longitude of subset of grid points
-REAL, DIMENSION(:), ALLOCATABLE    :: ZMESH_SIZE1! 
-REAL, DIMENSION(:), ALLOCATABLE    :: ZMESH_SIZE2! 
+REAL, DIMENSION(:), ALLOCATABLE    :: ZMESH_SIZE1!
+REAL, DIMENSION(:), ALLOCATABLE    :: ZMESH_SIZE2!
 !                                                                            _____ Sup
 REAL, DIMENSION(:), ALLOCATABLE    :: ZLATSUP1    ! Grid corner Latitude    |     |
 REAL, DIMENSION(:), ALLOCATABLE    :: ZLONSUP1    ! Grid corner Longitude   |     |
@@ -109,7 +109,7 @@ ALLOCATE(ZLATSUP1   (IL))
 !
 CALL GET_GRIDTYPE_GAUSS(PGRID_PAR1,INLATI,ZLAPO,ZLOPO,ZCODIL,INLOPA(:), &
                         IL,ZLAT1,ZLON1,ZLAT_XY1,ZLON_XY1,ZMESH_SIZE1  , &
-                        ZLONINF1,ZLATINF1,ZLONSUP1,ZLATSUP1             )  
+                        ZLONINF1,ZLATINF1,ZLONSUP1,ZLATSUP1             )
 !
 !----------------------------------------------------------------------------
 !
@@ -154,7 +154,7 @@ DEALLOCATE(ZLATSUP1   )
 !
 CALL PUT_GRIDTYPE_GAUSS(ZGRID_PAR2,INLATI,ZLAPO,ZLOPO,ZCODIL,INLOPA(:), &
                         KMASK_SIZE,ZLAT2,ZLON2,ZLAT_XY2,ZLON_XY2,       &
-                        ZMESH_SIZE2,ZLONINF2,ZLATINF2,ZLONSUP2,ZLATSUP2 )  
+                        ZMESH_SIZE2,ZLONINF2,ZLATINF2,ZLONSUP2,ZLATSUP2 )
 !
 DEALLOCATE(ZLAT_XY2   )
 DEALLOCATE(ZLON_XY2   )
@@ -167,7 +167,7 @@ DEALLOCATE(ZLONSUP2   )
 DEALLOCATE(ZLATSUP2   )
 
 !----------------------------------------------------------------------------
-! 
+!
 IF (OPACK) THEN
   PGRID_PAR2(:) = ZGRID_PAR2(:)
 ELSE

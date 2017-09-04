@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################
       SUBROUTINE GET_MESH_INDEX_IGN(KSSO,PGRID_PAR,PLAT,PLON,&
@@ -20,7 +20,7 @@
 !!    MODIFICATION
 !!    ------------
 !!
-!!    Original    10/2007  
+!!    Original    10/2007
 !!
 !----------------------------------------------------------------------------
 !
@@ -117,7 +117,7 @@ IF (.NOT. ALLOCATED(XXLIM)) THEN
   ALLOCATE(XXLIMS(0:IL))
   ALLOCATE(NXIDS(IL))
 
-  ALLOCATE(ZXLIM(IL))  
+  ALLOCATE(ZXLIM(IL))
 !
   CALL GET_GRIDTYPE_IGN(PGRID_PAR,PX=ZX,PY=ZY,PDX=XDX,PDY=XDY)
 !
@@ -138,7 +138,7 @@ IF (.NOT. ALLOCATED(XXLIM)) THEN
 
   ZVALX = MAXVAL(ZXLIM) + 1.
   DO JI=1,IL
-    IDX0 = MINLOC(ZXLIM) 
+    IDX0 = MINLOC(ZXLIM)
     XXLIMS(JI) = ZXLIM(IDX0(1))
     NXIDS(JI) = IDX0(1)
     ZXLIM(IDX0(1)) = ZVALX
@@ -190,7 +190,7 @@ IF (LHOOK) CALL DR_HOOK('GET_MESH_INDEX_IGN_3',0,ZHOOK_HANDLE_OMP)
 !$OMP DO PRIVATE(JL,JI,JJ)
 DO JL=1,SIZE(PLAT)
   !
-  IF (ZVALUE(JL)==ZNODATA) CYCLE  
+  IF (ZVALUE(JL)==ZNODATA) CYCLE
   IF (GMASK(JL)) CYCLE
   !
   frac: &
@@ -214,7 +214,7 @@ DO JL=1,SIZE(PLAT)
       !
       EXIT frac
       !
-    ENDIF 
+    ENDIF
     !
   ENDDO frac
   !
@@ -227,7 +227,7 @@ IF (LHOOK) CALL DR_HOOK('GET_MESH_INDEX_IGN_4',0,ZHOOK_HANDLE)
 !
 DO JL=1,SIZE(PLAT)
   !
-  IF (ZVALUE(JL)==ZNODATA) CYCLE  
+  IF (ZVALUE(JL)==ZNODATA) CYCLE
   IF (GMASK(JL)) CYCLE
   !
   ICPT = 0
@@ -241,13 +241,13 @@ DO JL=1,SIZE(PLAT)
       KINDEX(ICPT,JL) = NXIDS(JI)
       !
       IF (KSSO/=0) THEN
-        KISSOX(ICPT,JL) = 1 + INT( FLOAT(KSSO) * (ZX(JL)-XXLIM(NXIDS(JI)))/XDX(NXIDS(JI)) )   
-        KISSOY(ICPT,JL) = 1 + INT( FLOAT(KSSO) * (ZY(JL)-XYLIM(NXIDS(JI)))/XDY(NXIDS(JI)) ) 
-      ENDIF     
+        KISSOX(ICPT,JL) = 1 + INT( FLOAT(KSSO) * (ZX(JL)-XXLIM(NXIDS(JI)))/XDX(NXIDS(JI)) )
+        KISSOY(ICPT,JL) = 1 + INT( FLOAT(KSSO) * (ZY(JL)-XYLIM(NXIDS(JI)))/XDY(NXIDS(JI)) )
+      ENDIF
       !
       IF (ICPT==NOVMX) EXIT
       !
-    ENDIF 
+    ENDIF
     !
   ENDDO
   !

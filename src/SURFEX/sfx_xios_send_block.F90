@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE SFX_XIOS_SEND_BLOCK(HDTAG,PFIELD,PFIELD2,PFIELD3,&
                 HDOMAIN,HAXIS,HAXIS2,HDCOMMENT,KFREQOP)
 !!
 !!
-!!     PURPOSE 
+!!     PURPOSE
 !!     --------
 !!
 !!     Front-end to XIOS for client models
 !!
 !!     It performes field declaration to XIOS if needed, provided it is
 !!     not too late with respect to xios context definition closing
-!!     (see sfx_xios_declare_field)  
+!!     (see sfx_xios_declare_field)
 !!
 !!     It copes with client models which process fields by 'blocks'
 !!     over the first dimension, and wish to send them by blocks too,
@@ -25,11 +25,11 @@ SUBROUTINE SFX_XIOS_SEND_BLOCK(HDTAG,PFIELD,PFIELD2,PFIELD3,&
 !!     blocks have been received, compared to a MODD_XIOS variable)
 !!
 !!     METHOD :
-!!     -------------------- 
-!!     
+!!     --------------------
+!!
 !!     For each new field name received, create an entry in buffer
 !!     array and records full MPI-task field size (as known by
-!!     Xios). 
+!!     Xios).
 !!
 !!     For all field names, add the block to the buffer and, if field
 !!     is complete, send it to Xios and clears the buffer
@@ -43,8 +43,8 @@ SUBROUTINE SFX_XIOS_SEND_BLOCK(HDTAG,PFIELD,PFIELD2,PFIELD3,&
 !!     REFERENCE
 !!     ---------
 !!
-!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 - 
-!!     svn co --r 515 http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS/branchs/xios-1.0 <dir> 
+!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 -
+!!     svn co --r 515 http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS/branchs/xios-1.0 <dir>
 !!     cd <dir>/doc ; ....
 !!
 !!     AUTHOR
@@ -67,7 +67,7 @@ USE MODD_SURFEX_MPI, ONLY : NRANK
 USE MODD_XIOS, ONLY : LXIOS, LXIOS_DEF_CLOSED, NBLOCK , NTIMESTEP
 !
 ! NBLOCK dans arpege : YOMDIM:NGPBLKS
-#ifdef WXIOS 
+#ifdef WXIOS
 USE MODI_SFX_XIOS_DECLARE_FIELD
 USE XIOS ,ONLY : XIOS_IS_DEFINED_FIELD_ATTR, XIOS_GET_FIELD_ATTR, &
       XIOS_IS_DEFINED_GRID_ATTR, XIOS_GET_GRID_ATTR, &
@@ -91,7 +91,7 @@ IMPLICIT NONE
 REAL(KIND=JPRB) , INTENT(IN), OPTIONAL, DIMENSION(:)  :: PFIELD  ! Field data block
 REAL(KIND=JPRB) , INTENT(IN), OPTIONAL, DIMENSION(:,:):: PFIELD2 ! (or) 2d field data block
 REAL(KIND=JPRB) , INTENT(IN), OPTIONAL, DIMENSION(:,:,:):: PFIELD3 ! (or) 3d field data block
- CHARACTER(LEN=*), INTENT(IN), OPTIONAL     :: HDOMAIN ! Field domain name, defaults to 'FULL' 
+ CHARACTER(LEN=*), INTENT(IN), OPTIONAL     :: HDOMAIN ! Field domain name, defaults to 'FULL'
  CHARACTER(LEN=*), INTENT(IN), OPTIONAL     :: HAXIS   ! Axis name, for 2d fields
  CHARACTER(LEN=*), INTENT(IN), OPTIONAL     :: HAXIS2  ! 2nd axis name, for 3d fields
  CHARACTER(LEN=*), INTENT(IN), OPTIONAL     :: HDCOMMENT ! Comment 'a la Surfex' (i.e. '<long name> (<units>)')
@@ -108,7 +108,7 @@ TYPE BUF_t
    INTEGER(KIND=JPIM) :: ISIZEMAX ! Expected size of the complete field
                                   ! for the whole of the MPI task
    INTEGER(KIND=JPIM) :: ISIZE    ! Current usable size (ie. over received blocks)
-   INTEGER(KIND=JPIM) :: INDIM    ! Number of dimensions 
+   INTEGER(KIND=JPIM) :: INDIM    ! Number of dimensions
    INTEGER(KIND=JPIM) :: ILEV     ! Size of 2nd dim  (from first call)
    INTEGER(KIND=JPIM) :: ILEV2    ! Size of 3rd dim (from first call)
    INTEGER(KIND=JPIM) :: IBLOCK   ! Number of blocks received for current timestep
@@ -117,7 +117,7 @@ END TYPE BUF_t
 !
 TYPE(xios_field) :: field_hdl, other_field_hdl
 TYPE(xios_fieldgroup) :: fieldgroup_hdl
-INTEGER(KIND=JPIM)             :: ISIZE = 1000         ! Initial number of managed field entries 
+INTEGER(KIND=JPIM)             :: ISIZE = 1000         ! Initial number of managed field entries
 INTEGER(KIND=JPIM), PARAMETER  :: INCR = 100          ! Increment in field entries number when reallocating
 INTEGER(KIND=JPIM), PARAMETER  :: IMAXSIZE = 10000    ! Max number of field entries
 !
@@ -127,12 +127,12 @@ TYPE(BUF_t), ALLOCATABLE               :: YLTEMP(:) ! id - temporary
 !
 INTEGER(KIND=JPIM)      :: JI, IL, IEMPTY, IIDIM, ITAKE, ILEV, INFIELDS
  CHARACTER(LEN=100)      :: YLTAG   ! Field name
- CHARACTER(LEN=300)      :: YLAXIS, YLAXIS2 
+ CHARACTER(LEN=300)      :: YLAXIS, YLAXIS2
  CHARACTER(LEN=300)      :: YLDOMAIN
  CHARACTER(LEN=300)      :: YLGRID
  CHARACTER(LEN=300)      :: YLCOMMENT
 !
-INTEGER                 :: IFREQOP 
+INTEGER                 :: IFREQOP
 !
 LOGICAL :: GLISDEF
 !
@@ -151,8 +151,8 @@ ENDIF
 !
 #ifdef WXIOS
 !
-IF (LXIOS_DEF_CLOSED) THEN 
-  IF (.NOT. XIOS_FIELD_IS_ACTIVE(HDTAG) ) THEN 
+IF (LXIOS_DEF_CLOSED) THEN
+  IF (.NOT. XIOS_FIELD_IS_ACTIVE(HDTAG) ) THEN
     IF (LHOOK) CALL DR_HOOK('SFX_XIOS_SEND_BLOCK_1',1,ZHOOK_HANDLE)
     RETURN
   ENDIF
@@ -169,7 +169,7 @@ YLFIELDS(:)%YLNAME = ''
 !
 IL = 0
 DO JI=1,ISIZE
-  IF (YLFIELDS(JI)%YLNAME == YLTAG) THEN 
+  IF (YLFIELDS(JI)%YLNAME == YLTAG) THEN
     IL = JI
     EXIT
   ENDIF
@@ -193,14 +193,14 @@ IF (LHOOK) CALL DR_HOOK('SFX_XIOS_SEND_BLOCK_2',0,ZHOOK_HANDLE)
     IFREQOP=0
     IF (PRESENT(KFREQOP)) IFREQOP = KFREQOP
     !
-    IF (PRESENT(PFIELD)) THEN 
+    IF (PRESENT(PFIELD)) THEN
       CALL SFX_XIOS_DECLARE_FIELD(YLTAG, YLDOMAIN, HCOMMENT=YLCOMMENT, KFREQOP=IFREQOP)
-    ELSEIF (PRESENT(PFIELD2)) THEN 
+    ELSEIF (PRESENT(PFIELD2)) THEN
       YLAXIS=''
       IF (PRESENT(HAXIS)) YLAXIS = TRIM(HAXIS)
       CALL SFX_XIOS_DECLARE_FIELD(YLTAG, YLDOMAIN, HAXIS=YLAXIS, &
               KLEV=SIZE(PFIELD2,2), HCOMMENT=YLCOMMENT,KFREQOP=IFREQOP)
-    ELSEIF (PRESENT(PFIELD3)) THEN 
+    ELSEIF (PRESENT(PFIELD3)) THEN
       YLAXIS ='' ; IF (PRESENT(HAXIS))  YLAXIS  = TRIM(HAXIS)
       YLAXIS2='' ; IF (PRESENT(HAXIS2)) YLAXIS2 = TRIM(HAXIS2)
       CALL SFX_XIOS_DECLARE_FIELD(YLTAG, YLDOMAIN, &
@@ -225,7 +225,7 @@ IF (LHOOK) CALL DR_HOOK('SFX_XIOS_SEND_BLOCK_3',0,ZHOOK_HANDLE)
 
     IEMPTY = 0
     DO JI = 1,ISIZE
-      IF (TRIM(YLFIELDS(JI)%YLNAME) == '') THEN 
+      IF (TRIM(YLFIELDS(JI)%YLNAME) == '') THEN
         IEMPTY = JI
         EXIT
       ENDIF
@@ -237,7 +237,7 @@ IF (LHOOK) CALL DR_HOOK('SFX_XIOS_SEND_BLOCK_4',0,ZHOOK_HANDLE)
 
     IF ( IEMPTY == 0 ) THEN
       ! The fields table is full. Allocate a new one and copy the content
-      IF (ISIZE > IMAXSIZE) THEN 
+      IF (ISIZE > IMAXSIZE) THEN
         CALL ABOR1_SFX("SFX_XIOS_SEND_BLOCK: MAX BUFFER ENTRIES NUMBER WAS REACHED")
       ENDIF
       !
@@ -265,22 +265,22 @@ IF (LHOOK) CALL DR_HOOK('SFX_XIOS_SEND_BLOCK_5',0,ZHOOK_HANDLE)
     YLF%YLNAME = TRIM(YLTAG)
     !
     CALL XIOS_IS_DEFINED_FIELD_ATTR(YLTAG, grid_ref=GLISDEF)
-    IF (GLISDEF)  THEN 
+    IF (GLISDEF)  THEN
       CALL XIOS_GET_FIELD_ATTR(YLTAG, grid_ref=YLGRID)
-      IF (YLGRID(1:4)=='FULL') THEN 
+      IF (YLGRID(1:4)=='FULL') THEN
         YLDOMAIN='FULL'
-      ELSEIF (YLGRID(1:3)=='SEA') THEN 
+      ELSEIF (YLGRID(1:3)=='SEA') THEN
         YLDOMAIN='SEA'
-      ELSEIF (YLGRID(1:5)=='WATER') THEN 
+      ELSEIF (YLGRID(1:5)=='WATER') THEN
         YLDOMAIN='WATER'
-      ELSEIF (YLGRID(1:6)=='NATURE') THEN 
+      ELSEIF (YLGRID(1:6)=='NATURE') THEN
         YLDOMAIN='NATURE'
-      ELSEIF (YLGRID(1:4)=='TOWN') THEN 
+      ELSEIF (YLGRID(1:4)=='TOWN') THEN
         YLDOMAIN='TOWN'
       ENDIF
     ELSE
       CALL XIOS_IS_DEFINED_FIELD_ATTR(YLTAG, domain_ref=GLISDEF)
-      IF (GLISDEF)  THEN 
+      IF (GLISDEF)  THEN
         CALL XIOS_GET_FIELD_ATTR(YLTAG, domain_ref=YLDOMAIN)
       ELSE
         CALL ABOR1_SFX('SFX_XIOS_SEND_BLOCK : FIELD '//TRIM(YLTAG)//' HAS NO DOMAIN')
@@ -329,7 +329,7 @@ ELSE
   !
 ENDIF
 !
-IF (LXIOS_DEF_CLOSED)  THEN 
+IF (LXIOS_DEF_CLOSED)  THEN
   !
   ! Check consistency between calls : discarded for efficiency purpose
   !IF (ILEV .NE. YLF%ILEV) THEN
@@ -346,34 +346,34 @@ IF (LHOOK) CALL DR_HOOK('SFX_XIOS_SEND_BLOCK_7',0,ZHOOK_HANDLE)
   ! Add the block data to the field buffer and send the field if it is
   ! complete
   !
-  IF (YLF%INDIM ==1 ) THEN 
+  IF (YLF%INDIM ==1 ) THEN
     ITAKE=SIZE(PFIELD)
-  ELSEIF (YLF%INDIM ==2 ) THEN 
+  ELSEIF (YLF%INDIM ==2 ) THEN
     ITAKE=SIZE(PFIELD2,1)
-  ELSEIF (YLF%INDIM ==3 ) THEN 
+  ELSEIF (YLF%INDIM ==3 ) THEN
     ITAKE=SIZE(PFIELD3,1)
   ENDIF
   !
   YLF%IBLOCK = YLF%IBLOCK+1
-  IF ((YLF%ISIZE + ITAKE) > YLF%ISIZEMAX) THEN 
+  IF ((YLF%ISIZE + ITAKE) > YLF%ISIZEMAX) THEN
     ! xxx a modifier : le dernier blc arpege arrive avec taille NPROMA
-    IF (YLF%IBLOCK .NE. NBLOCK) THEN 
+    IF (YLF%IBLOCK .NE. NBLOCK) THEN
       CALL ABOR1_SFX("SFX_XIOS_SEND_BLOCK: FIELD "//TRIM(YLTAG)//&
               " OVERFLOWS - CHECK ITS DECLARATION TO XIOS (MAYBE TWO INCONSISTENT DECLARATIONS ?)")
     ENDIF
-    ITAKE = YLF%ISIZEMAX - YLF%ISIZE 
+    ITAKE = YLF%ISIZEMAX - YLF%ISIZE
   ENDIF
   ! Store the field and update its size
-  IF (ITAKE > 0 ) THEN 
-    IF (YLF%INDIM==1) THEN 
+  IF (ITAKE > 0 ) THEN
+    IF (YLF%INDIM==1) THEN
       YLF%ZFIELD(YLF%ISIZE+1:YLF%ISIZE+ITAKE,1,1) = PFIELD(1:ITAKE)
-    ELSEIF (YLF%INDIM==2) THEN 
+    ELSEIF (YLF%INDIM==2) THEN
       YLF%ZFIELD(YLF%ISIZE+1:YLF%ISIZE+ITAKE,:,1) = PFIELD2(1:ITAKE,:)
-    ELSEIF (YLF%INDIM==3) THEN 
+    ELSEIF (YLF%INDIM==3) THEN
       YLF%ZFIELD(YLF%ISIZE+1:YLF%ISIZE+ITAKE,:,:) = PFIELD3(1:ITAKE,:,:)
     ENDIF
   ELSEIF ( ITAKE < 0 ) THEN
-    CALL ABOR1_SFX('SFX_XIOS_SEND_BLOCK :isizemax < isize')     
+    CALL ABOR1_SFX('SFX_XIOS_SEND_BLOCK :isizemax < isize')
   ENDIF
   !
   YLF%ISIZE = YLF%ISIZE + ITAKE
@@ -382,17 +382,17 @@ IF (LHOOK) CALL DR_HOOK('SFX_XIOS_SEND_BLOCK_7',1,ZHOOK_HANDLE)
 IF (LHOOK) CALL DR_HOOK('SFX_XIOS_SEND_BLOCK_8',0,ZHOOK_HANDLE)
   IF (YLF%IBLOCK==NBLOCK) THEN
     ! Send field and clears the buffer (incl. de-allocation)
-    IF (YLF%INDIM==1) THEN 
+    IF (YLF%INDIM==1) THEN
       CALL XIOS_SEND_FIELD(trim(YLTAG),YLF%ZFIELD(:,1,1))
-    ELSEIF (YLF%INDIM==2) THEN 
+    ELSEIF (YLF%INDIM==2) THEN
       CALL XIOS_SEND_FIELD(trim(YLTAG),YLF%ZFIELD(:,:,1))
-    ELSEIF (YLF%INDIM==3) THEN 
+    ELSEIF (YLF%INDIM==3) THEN
       CALL XIOS_SEND_FIELD(trim(YLTAG),YLF%ZFIELD(:,:,:))
     ENDIF
     YLF%IBLOCK = 0
     YLF%ISIZE  = 0
     DEALLOCATE(YLF%ZFIELD)
-  ENDIF  
+  ENDIF
 IF (LHOOK) CALL DR_HOOK('SFX_XIOS_SEND_BLOCK_8',1,ZHOOK_HANDLE)
 ENDIF
 !
@@ -402,4 +402,4 @@ IF (ALLOCATED(YLFIELDS)) DEALLOCATE(YLFIELDS)
 !
 #endif
 !
-END SUBROUTINE SFX_XIOS_SEND_BLOCK 
+END SUBROUTINE SFX_XIOS_SEND_BLOCK

@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-SUBROUTINE NITRO_DECLINE(IO, PK, PEK, OWOOD, PBSLAI_NITRO, PLAT, PBIOMASS_LEAF )  
+SUBROUTINE NITRO_DECLINE(IO, PK, PEK, OWOOD, PBSLAI_NITRO, PLAT, PBIOMASS_LEAF )
 !
 !   ###############################################################
-!!**  NITRO_DECLINE 
+!!**  NITRO_DECLINE
 !!
 !!    PURPOSE
 !!    -------
@@ -14,7 +14,7 @@ SUBROUTINE NITRO_DECLINE(IO, PK, PEK, OWOOD, PBSLAI_NITRO, PLAT, PBIOMASS_LEAF )
 !!**  METHOD
 !!    ------
 !!     Calvet and Soussana (2001) and Gibelin et al. (2006) for nitrogen dilution.
-!!     Gibelin et al. (2008) : New biomass reservoirs, and new method for allocation, 
+!!     Gibelin et al. (2008) : New biomass reservoirs, and new method for allocation,
 !!     mortality and respiration.
 !!
 !!    EXTERNAL
@@ -23,7 +23,7 @@ SUBROUTINE NITRO_DECLINE(IO, PK, PEK, OWOOD, PBSLAI_NITRO, PLAT, PBIOMASS_LEAF )
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
@@ -32,10 +32,10 @@ SUBROUTINE NITRO_DECLINE(IO, PK, PEK, OWOOD, PBSLAI_NITRO, PLAT, PBIOMASS_LEAF )
 !! Calvet and Soussana (2001), "Modelling CO2-enrichment effects using an
 !! interactive vegetation SVAT scheme", Agricultural and Forest Meteorology, Vol. 108
 !! pp. 129-152
-!! Gibelin et al. (2008), "Modelling energy and CO2 fluxes with an interactive vegetation 
-!! land surface model - Evaluation at high and middle latitudes", 
+!! Gibelin et al. (2008), "Modelling energy and CO2 fluxes with an interactive vegetation
+!! land surface model - Evaluation at high and middle latitudes",
 !! Agricultural and Forest Meteorology, Vol. 148 , pp. 1611-1628
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -44,7 +44,7 @@ SUBROUTINE NITRO_DECLINE(IO, PK, PEK, OWOOD, PBSLAI_NITRO, PLAT, PBIOMASS_LEAF )
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    27/01/03 
+!!      Original    27/01/03
 !!
 !!      P Le Moigne  09/2005 : AGS modifs of L. Jarlan
 !!      A.L. Gibelin 04/2009 : BIOMASS and RESP_BIOMASS arrays
@@ -69,7 +69,7 @@ USE MODD_ISBA_n, ONLY : ISBA_P_t, ISBA_PE_t
 !
 USE MODD_CSTS,           ONLY : XPI, XDAY
 USE MODD_CO2V_PAR,       ONLY : XPCCO2, XCC_NIT, XCA_NIT, XMC, &
-                                XMCO2, XCC_NITRO, XBIOMASST_LIM 
+                                XMCO2, XCC_NITRO, XBIOMASST_LIM
 USE MODD_DATA_COVER_PAR, ONLY : NVT_TEBD, NVT_BONE, NVT_TRBE, NVT_TRBD, &
                                 NVT_TEBE, NVT_TENE, NVT_BOBD, NVT_BOND, &
                                 NVT_SHRB
@@ -144,7 +144,7 @@ ZMORT_LEAF(:)       = 0.0
 ZBMCOEF     = XMC/(XMCO2*XPCCO2)
 !
 !-----------------------------------------------------------------
-!avoid possible but unlikely negative values for biomass:        
+!avoid possible but unlikely negative values for biomass:
 !
 PEK%XBIOMASS(:,1) = MAX(PEK%XBIOMASS(:,1),0.0)
 !
@@ -154,7 +154,7 @@ PBIOMASS_LEAF(:) = PEK%XBIOMASS(:,1)
 !
 !-------------------------------------------------------------------------------
 !
-! Once a day (at midnight),repartition of net assimilation and mortality 
+! Once a day (at midnight),repartition of net assimilation and mortality
 ! into different biomass compartments.
 !
 ! 2 - Evolution of leaf biomass and senescence calculations
@@ -224,10 +224,10 @@ WHERE (ZASSIM(:) >= ZDECLINE(:,1))
   ! 3.1 - Growing phase : plant nitrogen decline theory
   !
   ! the growth allometric law is applied
-  ! repartition of total biomass    
+  ! repartition of total biomass
   !
   !before optimization
-  !ZBIOMASST(:)= MAX(PBIOMASS_LEAF(:), (PBIOMASS_LEAF(:)/XCC_NITRO)**(1.0/(1.0-XCA_NIT)))  
+  !ZBIOMASST(:)= MAX(PBIOMASS_LEAF(:), (PBIOMASS_LEAF(:)/XCC_NITRO)**(1.0/(1.0-XCA_NIT)))
   ZBIOMASST(:) = MAX(PBIOMASS_LEAF(:), ZWORK(:))
   !
   ! active structural biomass increment and storage
@@ -249,7 +249,7 @@ ELSE WHERE
   !  Avoid negative values of biomass
   !  No test on ZDECLINE(:,2) as it is not used after, or recalculated
   !  No test on PEK%XRESP_BIOMASS(:,2,1) as it should be smaller than PEK%XBIOMASS(:,2,1)
-  !  otherwise there are irrealistic values of temperature     
+  !  otherwise there are irrealistic values of temperature
   !
   ZBIOMASS(:,2) = MAX(ZBIOMASS(:,2),0.0)
   !
@@ -259,7 +259,7 @@ END WHERE
 !
 ! 3.3 - Flow to the passive structural biomass: cut or growth after senescence
 ! Biomass is taken from active structural biomass, not from senescence of leaves
-! 
+!
 ZINCREASE(:,1) = ZASSIM(:)
 ZINCREASE(:,2) = ZSTORAGE(:,1)
 ZINCREASE(:,3) = -MIN(ZSTORAGE(:,1),0.0)
@@ -270,7 +270,7 @@ ZSTORAGE (:,1) = MAX(0.0,ZSTORAGE(:,1))
 !
 WHERE( ZSTORAGE(:,1) > ZDECLINE(:,1))
   ZDECLINE(:,2)    = PEK%XBIOMASS(:,2) * (1.0 - EXP(-1.0*XDAY/PEK%XSEFOLD(:)))
-  ZBIOMASST(:)     = PEK%XBIOMASS(:,1) + PEK%XBIOMASS(:,2) - ZDECLINE(:,2) - PEK%XRESP_BIOMASS(:,2)  
+  ZBIOMASST(:)     = PEK%XBIOMASS(:,1) + PEK%XBIOMASS(:,2) - ZDECLINE(:,2) - PEK%XRESP_BIOMASS(:,2)
 END WHERE
 !
 ZWORK(:) = 0.0
@@ -280,13 +280,13 @@ WHERE( ZBIOMASST(:) > 0.0)
 ENDWHERE
 !
 WHERE( ZSTORAGE(:,1) > ZDECLINE(:,1))
-  !   
+  !
   !before optimization
   !PBIOMASS_LEAF(:)= ZCC_NITRO * (ZBIOMASST(:)**(1.0-XCA_NIT))
   PBIOMASS_LEAF(:) = XCC_NITRO * ZWORK(:)
   ZBIOMASS(:,2)    = ZBIOMASST(:)  - PBIOMASS_LEAF(:)
   ZDECLINE(:,1)    = PEK%XBIOMASS(:,1) - PBIOMASS_LEAF(:)
-  ZSTORAGE(:,1)    = ZBIOMASS(:,2) - PEK%XBIOMASS(:,2) + ZDECLINE(:,2) + PEK%XRESP_BIOMASS(:,2)  
+  ZSTORAGE(:,1)    = ZBIOMASS(:,2) - PEK%XBIOMASS(:,2) + ZDECLINE(:,2) + PEK%XRESP_BIOMASS(:,2)
   !
   ZINCREASE(:,2) = ZSTORAGE(:,1)
   !
@@ -307,7 +307,7 @@ IF (IO%CPHOTO=='NIT') THEN
   !
   ! senesence of deep-structural biomass
   !
-  ZDECLINE(:,3) = ZBIOMASS(:,3)*(1.0-EXP(-1.0*XDAY/PEK%XSEFOLD(:)))          
+  ZDECLINE(:,3) = ZBIOMASS(:,3)*(1.0-EXP(-1.0*XDAY/PEK%XSEFOLD(:)))
   !
   ! threshold value for leaf biomass and total above ground biomass in nitrogen
   ! dilution theory now in modd_co2v_par.F90 (XBIOMASST_LIM)
@@ -323,7 +323,7 @@ ELSEIF (IO%CPHOTO=='NCB') THEN
   ! 4.2.1 - senesence, avoiding negative values of biomass
   !
   ZDECLINE(:,3) = MIN(PEK%XBIOMASS(:,3)*(1.0-EXP(-1.0*XDAY/(PEK%XSEFOLD(:)/4.))), &
-                      PEK%XBIOMASS(:,3)-PEK%XRESP_BIOMASS(:,3))            
+                      PEK%XBIOMASS(:,3)-PEK%XRESP_BIOMASS(:,3))
   ZDECLINE(:,4) = MIN(PEK%XBIOMASS(:,4)*(1.0-EXP(-1.0*XDAY/PEK%XSEFOLD(:))), &
                       PEK%XBIOMASS(:,4)-PEK%XRESP_BIOMASS(:,4))
   !
@@ -346,14 +346,14 @@ ELSEIF (IO%CPHOTO=='NCB') THEN
     !
     ! Remaining mortality is stored in roots.
     ZINCREASE(:,4)   = ZMORT_LEAF(:)
-    !      
+    !
     ! Growing phase, all leaf decline is used as storage.
     ZSTORAGE(:,1)    = ZSTORAGE(:,1) + ZINCREASE(:,4)
     ZMORT_LEAF(:)    = ZMORT_LEAF(:) - ZINCREASE(:,4)
-    !      
+    !
     ZSTORAGE(:,2)    = ZDECLINE(:,2)
     ZSTORAGE(:,3)    = ZDECLINE(:,3)
-    !   
+    !
   ELSEWHERE
     !
     ! Senescence, a part of mortality is stored in roots, limited by assimilation rate.
@@ -361,7 +361,7 @@ ELSEIF (IO%CPHOTO=='NCB') THEN
     !
     ZSTORAGE(:,1)    = ZSTORAGE(:,1) + ZINCREASE(:,4)
     ZMORT_LEAF(:)    = ZMORT_LEAF(:) - ZINCREASE(:,4)
-    !   
+    !
   END WHERE
   !
   WHERE(GMASK_ASSIM(:).AND.OWOOD(:))
@@ -420,7 +420,7 @@ ENDIF
 !
 ZBIOMASS(:,3) = ZBIOMASS(:,3) + ZINCREASE(:,3) - ZDECLINE(:,3) - PEK%XRESP_BIOMASS(:,3)
 !
-! Add net accumulated CO2 assimilation 
+! Add net accumulated CO2 assimilation
 PBIOMASS_LEAF(:) = PBIOMASS_LEAF(:) + ZASSIM(:)
 !
 ! re-initialisation of biomass compartments values: X(day) <-- X(day-1)
@@ -458,8 +458,8 @@ ELSEIF (IO%CPHOTO=='NCB') THEN
          ZDECLINE(JI,5) = ZBIOMASS(JI,5)*(1.0-EXP((-1.0*XDAY)/PK%XTAU_WOOD(JI)))
          ZDECLINE(JI,6) = ZBIOMASS(JI,6)*(1.0-EXP((-1.0*XDAY)/PK%XTAU_WOOD(JI)))
          IF (PEK%XBIOMASS(JI,5).GT.0.0) &
-                 ZRESP(JI) = PEK%XRESP_BIOMASS(JI,5)/PEK%XBIOMASS(JI,5) * ZBIOMASS(JI,5)  
-       ELSE   
+                 ZRESP(JI) = PEK%XRESP_BIOMASS(JI,5)/PEK%XBIOMASS(JI,5) * ZBIOMASS(JI,5)
+       ELSE
          !Herbaceous
          ZBIOMASS(JI,5) = 0.
          ZBIOMASS(JI,6) = 0.
@@ -475,7 +475,7 @@ ELSEIF (IO%CPHOTO=='NCB') THEN
   PEK%XRESP_BIOMASS(:,5) = 0.0
   !
   PK%XINCREASE(:,:) = ZINCREASE(:,:)
- 
+
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('NITRO_DECLINE',1,ZHOOK_HANDLE)

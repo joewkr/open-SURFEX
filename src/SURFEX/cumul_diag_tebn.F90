@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !##################################
 SUBROUTINE CUMUL_DIAG_TEB_n (DMTC, DMT, GDDEC, GDDE, GRDEC, GRDE, TOP, PTSTEP)
 !##################################
 !
 !
-!!****  *CUMUL_DIAG_TEB_n*  
+!!****  *CUMUL_DIAG_TEB_n*
 !!
 !!    PURPOSE
 !!    -------
 !      Cumulates some diagnostics for TEB
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -20,12 +20,12 @@ SUBROUTINE CUMUL_DIAG_TEB_n (DMTC, DMT, GDDEC, GDDE, GRDEC, GRDE, TOP, PTSTEP)
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      C. de Munck       * Meteo-France *
@@ -67,7 +67,7 @@ REAL,               INTENT(IN) :: PTSTEP            ! time step
 !
 !*      0.2    declarations of local variables
 !
-INTEGER :: JI 
+INTEGER :: JI
 
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ DO JI=1,SIZE(DMT%XRUNOFF_ROOF,1)
   DMTC%XRUNOFF_ROAD(JI)      =  DMTC%XRUNOFF_ROAD(JI)     + DMT%XRUNOFF_ROAD(JI)      * PTSTEP
  ENDIF
  !
- IF (DMT%XRUNOFF_ROOF(JI) .NE. XUNDEF) THEN 
+ IF (DMT%XRUNOFF_ROOF(JI) .NE. XUNDEF) THEN
   DMTC%XRUNOFF_ROOF(JI)      =  DMTC%XRUNOFF_ROOF(JI)     + DMT%XRUNOFF_ROOF(JI)      * PTSTEP
  ENDIF
  !
@@ -125,7 +125,7 @@ DO JI=1,SIZE(DMT%XRUNOFF_ROOF,1)
    !
    IF (GDDE%XRUNOFF(JI) .NE. XUNDEF) THEN
      GDDEC%XRUNOFF(JI)    =  GDDEC%XRUNOFF(JI)   + GDDE%XRUNOFF(JI)    * PTSTEP
-   ENDIF 
+   ENDIF
    !
    IF (GDDE%XDRAIN(JI) .NE. XUNDEF) THEN
      GDDEC%XDRAIN(JI)    =  GDDEC%XDRAIN(JI)    + GDDE%XDRAIN(JI)     * PTSTEP
@@ -136,8 +136,8 @@ DO JI=1,SIZE(DMT%XRUNOFF_ROOF,1)
    ENDIF
    !
  ENDIF
- ! 
- IF (TOP%LGREENROOF) THEN 
+ !
+ IF (TOP%LGREENROOF) THEN
 
     IF (GRDE%XRUNOFF(JI) .NE. XUNDEF) THEN
      GRDEC%XRUNOFF(JI) =  GRDEC%XRUNOFF(JI)+ GRDE%XRUNOFF(JI) * PTSTEP

@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE TSZ0 (DTZ, PTIME, PTSTEP, KK, PEK )
 !     ################################################################
 !
 !
-!!****  *TSZ0*  
+!!****  *TSZ0*
 !!
 !!    PURPOSE
 !!    -------
 !       This subroutine computes the surface fluxes when  the soil temperature,
-!     humidity and rugisty length are prescribed. It uses these values and the 
+!     humidity and rugisty length are prescribed. It uses these values and the
 !     atmospheric fields at the first level located at dz/2 to compute a
 !     vertical gradient and a drag coefficient is computed according to a
-!     stability index ( Richardson number )    
-!     
+!     stability index ( Richardson number )
+!
 !!**  METHOD
 !!    ------
 !!
@@ -24,19 +24,19 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!	J. Stein           * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original     25/01/96 
+!!      Original     25/01/96
 !!                   25/03/96 spatialize the input TS, WG, SST fields
 !!                   22/05/96 correct igrid value for the rain rate
 !!                   27/11/96 set realistic values for z0 fields on sea
@@ -91,9 +91,9 @@ INTEGER :: JPATCH       ! loop counter on patches
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
 ! prescribed values of the surface temperature increment over land (K)
-REAL :: ZDTS_HOUR 
+REAL :: ZDTS_HOUR
 ! prescribed values of the soil humidity increment at every hour (fraction)
-REAL :: ZDHUGRD_HOUR              
+REAL :: ZDHUGRD_HOUR
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 !
@@ -112,7 +112,7 @@ IHOURP = INT(ZTIMEP/3600.)+1
 !
 IF (DTZ%NTIME==1) THEN
   ZDTS_HOUR    = DTZ%XDATA_DTS   (1)
-  ZDHUGRD_HOUR = DTZ%XDATA_DHUGRD(1)        
+  ZDHUGRD_HOUR = DTZ%XDATA_DHUGRD(1)
 ELSE
   ZDTS_HOUR    = DTZ%XDATA_DTS   (IHOURP)
   ZDHUGRD_HOUR = DTZ%XDATA_DHUGRD(IHOURP)
@@ -129,7 +129,7 @@ ZA= ZDHUGRD_HOUR /3600.* PTSTEP
 WHERE (PEK%XWG(:,:)/=XUNDEF)
   PEK%XWG(:,:)= ACOS( 1.                                                               &
       - 2.* MIN( 0.5 * (1. - COS( XPI * MIN(PEK%XWG(:,:) /KK%XWFC(:,:),1.)  )) + ZA , 1.) &
-            ) / XPI * KK%XWFC(:,:)  
+            ) / XPI * KK%XWFC(:,:)
 END WHERE
 !
 IF (LHOOK) CALL DR_HOOK('TSZ0',1,ZHOOK_HANDLE)

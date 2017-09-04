@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_READ_SURF_OL
 !
@@ -15,7 +15,7 @@ MODULE MODE_READ_SURF_OL
 !!    EXTERNAL
 !!    --------
 !!
-!!     
+!!
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
@@ -101,13 +101,13 @@ HCOMMENT = " "
  CALL OL_FIND_FILE_READ(HREC,IFILE_ID)
 !
 IF (IFILE_ID.NE.0) THEN
-  !       
+  !
   ! 1. Find id of the variable
   !----------------------------
   IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
   IRET(1)=NF90_INQUIRE_VARIABLE(IFILE_ID,IVAR_ID,XTYPE=ITYPE)
   IRET(1)=NF90_INQUIRE_VARIABLE(IFILE_ID,IVAR_ID,NDIMS=INDIMS)
-  !  
+  !
   ! 2. Get variable
   !----------------------------
   IF (ITYPE==NF90_DOUBLE) THEN
@@ -116,18 +116,18 @@ IF (IFILE_ID.NE.0) THEN
     IRET(2)=NF90_GET_VAR(IFILE_ID,IVAR_ID,ZFIELD)
     PFIELD = ZFIELD
   ENDIF
-  !  
+  !
 ENDIF
 !
 ! 3. Check for errors
 !--------------------
 DO JRET=1,2
-  IF ((PFIELD==XUNDEF).OR.(IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+  IF ((PFIELD==XUNDEF).OR.(IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
     PFIELD=XUNDEF
     KRESP=1
   ENDIF
 ENDDO
-!     
+!
 IF (KRESP /=0) CALL ERROR_READ_SURF_OL(HREC,KRESP)
 !
 IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_OL:READ_SURFX0_OL',1,ZHOOK_HANDLE)
@@ -138,7 +138,7 @@ END SUBROUTINE READ_SURFX0_OL
       SUBROUTINE READ_SURFX1_OL(HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  *READX1* - routine to fill a real 1D array for the externalised surface 
+!!****  *READX1* - routine to fill a real 1D array for the externalised surface
 !
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, XTIME_NPIO_READ
 !
@@ -201,9 +201,9 @@ IF (NRANK==NPIO) THEN
   ! 0. find filename
   ! -----------------
   CALL OL_FIND_FILE_READ(HREC,IFILE_ID)
-  ! 
+  !
   IF (IFILE_ID.NE.0) THEN
-    !  
+    !
     ! 1. Find id of the variable
     !----------------------------
     IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
@@ -219,7 +219,7 @@ IF (NRANK==NPIO) THEN
     ! 2. Get variable
     !----------------------------
     IF  (LPARTR) THEN
-      ! write partially a time-matrix. 
+      ! write partially a time-matrix.
       ! Have to find which of the dimension is the time dimension
       ALLOCATE(ISTART(INDIMS))
       ALLOCATE(ICOUNT(INDIMS))
@@ -227,7 +227,7 @@ IF (NRANK==NPIO) THEN
       DO  JDIM=1,INDIMS
         IRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),NAME=YOUT)
         IF ((INDEX(YOUT,'time') > 0).OR.(INDEX(YOUT,'TIME') >0) &
-          .OR.(INDEX(YOUT,'Time')>0.)) THEN  
+          .OR.(INDEX(YOUT,'Time')>0.)) THEN
           ISTART(JDIM)=XSTART
           ICOUNT(JDIM)=XCOUNT
           ISTRIDE(JDIM)=XSTRIDE
@@ -259,7 +259,7 @@ IF (NRANK==NPIO) THEN
         IRET(1)=NF90_GET_VAR(IFILE_ID,IVAR_ID,ZTAB_1D4)
         ZWORK(:) = ZTAB_1D4(:)
         DEALLOCATE(ZTAB_1D4)
-      ENDIF            
+      ENDIF
     ENDIF
     !
   ENDIF
@@ -267,11 +267,11 @@ IF (NRANK==NPIO) THEN
   ! 3. Check for errors
   !--------------------
   DO JRET=1,1
-    IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+    IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
       ZWORK = XUNDEF
       KRESP=1
     ELSE
-      IF (MINVAL(ZWORK)==XUNDEF) THEN 
+      IF (MINVAL(ZWORK)==XUNDEF) THEN
         KRESP = 1
         ZWORK = XUNDEF
      ENDIF
@@ -290,7 +290,7 @@ XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
 !
 IF (LMASK) THEN
   CALL READ_AND_SEND_MPI(ZWORK,PFIELD,NMASK)
-ELSE 
+ELSE
   CALL READ_AND_SEND_MPI(ZWORK,PFIELD)
 END IF
 !
@@ -304,7 +304,7 @@ END SUBROUTINE READ_SURFX1_OL
       SUBROUTINE READ_SURFX2_OL(HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  *READX2* - routine to fill a real 2D array for the externalised surface 
+!!****  *READX2* - routine to fill a real 2D array for the externalised surface
 !
 USE MODD_SURFEX_MPI, ONLY: NRANK, NPIO, XTIME_NPIO_READ
 !
@@ -365,9 +365,9 @@ IF (NRANK==NPIO) THEN
   ! 0. find filename
   ! -----------------
   CALL OL_FIND_FILE_READ(HREC,IFILE_ID)
-  ! 
+  !
   IF (IFILE_ID.NE.0) THEN
-    !   
+    !
     ! 1. Find id of the variable
     !----------------------------
     IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
@@ -378,11 +378,11 @@ IF (NRANK==NPIO) THEN
     DO JDIM=1,INDIMS
       JRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
     ENDDO
-    ! 
+    !
     ! 2. Get variable
     !----------------------------
     IF (LPARTR) THEN
-      ! write partially a time-matrix. 
+      ! write partially a time-matrix.
       ! Have to find which of the dimension is the time dimension
       ALLOCATE(ISTART(INDIMS))
       ALLOCATE(ICOUNT(INDIMS))
@@ -391,7 +391,7 @@ IF (NRANK==NPIO) THEN
       DO JDIM=1,INDIMS
         IRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),NAME=YOUT)
         IF ((INDEX(YOUT,'time') > 0).OR.(INDEX(YOUT,'TIME') >0) &
-          .OR.(INDEX(YOUT,'Time')>0.)) THEN  
+          .OR.(INDEX(YOUT,'Time')>0.)) THEN
           ISTART(JDIM)=XSTART
           ICOUNT(JDIM)=XCOUNT
           ISTRIDE(JDIM)=XSTRIDE
@@ -424,7 +424,7 @@ IF (NRANK==NPIO) THEN
         IRET(2)=NF90_GET_VAR(IFILE_ID,IVAR_ID,ZTAB_2D4)
         ZWORK2(:,:) = ZTAB_2D4(:,:)
         DEALLOCATE(ZTAB_2D4)
-      ENDIF      
+      ENDIF
     ENDIF
 
   ENDIF
@@ -432,11 +432,11 @@ IF (NRANK==NPIO) THEN
   ! 3. Check for errors
   !--------------------
   DO JRET=1,2
-    IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+    IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
       ZWORK2 = XUNDEF
       KRESP=1
     ELSE
-      IF (MINVAL(ZWORK2)==XUNDEF) THEN 
+      IF (MINVAL(ZWORK2)==XUNDEF) THEN
         KRESP=1
         ZWORK2 = XUNDEF
       ENDIF
@@ -455,11 +455,11 @@ XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
 !
 IF (LMASK) THEN
   CALL READ_AND_SEND_MPI(ZWORK2,PFIELD,NMASK)
-ELSE 
+ELSE
   CALL READ_AND_SEND_MPI(ZWORK2,PFIELD)
 END IF
 !
-DEALLOCATE(ZWORK2) 
+DEALLOCATE(ZWORK2)
 !
 IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_OL:READ_SURFX2_OL',1,ZHOOK_HANDLE)
 !
@@ -469,7 +469,7 @@ END SUBROUTINE READ_SURFX2_OL
       SUBROUTINE READ_SURFX3_OL(HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  *READX3* - routine to fill a real 2D array for the externalised surface 
+!!****  *READX3* - routine to fill a real 2D array for the externalised surface
 !
 USE MODD_SURFEX_MPI, ONLY: NRANK, NPIO, XTIME_NPIO_READ
 !
@@ -529,9 +529,9 @@ IF (NRANK==NPIO) THEN
   ! 0. find filename
   ! -----------------
   CALL OL_FIND_FILE_READ(HREC,IFILE_ID)
-  ! 
+  !
   IF (IFILE_ID.NE.0) THEN
-    !      
+    !
     ! 1. Find id of the variable
     !----------------------------
     IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
@@ -541,11 +541,11 @@ IF (NRANK==NPIO) THEN
     DO JDIM=1,INDIMS
       JRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
     ENDDO
-    ! 
+    !
     ! 2. Get variable
     !----------------------------
     IF (LPARTR) THEN
-      ! write partially a time-matrix. 
+      ! write partially a time-matrix.
       ! Have to find which of the dimension is the time dimension
       ALLOCATE(ISTART(INDIMS))
       ALLOCATE(ICOUNT(INDIMS))
@@ -553,7 +553,7 @@ IF (NRANK==NPIO) THEN
       DO  JDIM=1,INDIMS
         IRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),NAME=YOUT)
         IF ((INDEX(YOUT,'time') > 0).OR.(INDEX(YOUT,'TIME') >0) &
-            .OR.(INDEX(YOUT,'Time')>0.)) THEN  
+            .OR.(INDEX(YOUT,'Time')>0.)) THEN
           ISTART(JDIM)=XSTART
           ICOUNT(JDIM)=XCOUNT
           ISTRIDE(JDIM)=XSTRIDE
@@ -587,7 +587,7 @@ IF (NRANK==NPIO) THEN
         IRET(2)=NF90_GET_VAR(IFILE_ID,IVAR_ID,ZTAB_3D4)
         ZWORK3(:,:,:) = ZTAB_3D4(:,:,:)
         DEALLOCATE(ZTAB_3D4)
-      ENDIF      
+      ENDIF
     ENDIF
     !
   ENDIF
@@ -595,11 +595,11 @@ IF (NRANK==NPIO) THEN
   ! 3. Check for errors
   !--------------------
   DO JRET=1,2
-    IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+    IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
       ZWORK3 = XUNDEF
       KRESP = 1
     ELSE
-      IF (MINVAL(ZWORK3)==XUNDEF) THEN 
+      IF (MINVAL(ZWORK3)==XUNDEF) THEN
         KRESP = 1
         ZWORK3 = XUNDEF
       ENDIF
@@ -618,7 +618,7 @@ XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
 !
 IF (LMASK) THEN
   CALL READ_AND_SEND_MPI(ZWORK3,PFIELD,NMASK)
-ELSE 
+ELSE
   CALL READ_AND_SEND_MPI(ZWORK3,PFIELD)
 END IF
 !
@@ -672,21 +672,21 @@ HCOMMENT = " "
  CALL OL_FIND_FILE_READ(HREC,IFILE_ID)
 !
 IF (IFILE_ID.NE.0) THEN
-  !        
+  !
   ! 1. Find id of the variable
   !----------------------------
   IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
-  !  
+  !
   ! 2. Get variable
   !----------------------------
   IRET(2)=NF90_GET_VAR(IFILE_ID,IVAR_ID,KFIELD)
-  !  
+  !
 ENDIF
 !
 ! 3. Check for errors
 !--------------------
 DO JRET=1,2
-  IF ((KFIELD==NUNDEF).OR.(IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+  IF ((KFIELD==NUNDEF).OR.(IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
     KFIELD=NUNDEF
     KRESP=1
   ENDIF
@@ -764,7 +764,7 @@ INTEGER,             INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem
 !*      0.2   Declarations of local variables
 !
  CHARACTER(LEN=100):: YFILE          ! filename
- CHARACTER(LEN=100):: YFIELD   
+ CHARACTER(LEN=100):: YFIELD
 INTEGER :: IVAR_ID,IFILE_ID,JRET,JDIM,INDIMS
 INTEGER,DIMENSION(4) :: IRET
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -779,25 +779,25 @@ HCOMMENT = " "
  CALL OL_FIND_FILE_READ(HREC,IFILE_ID)
 !
 IF (IFILE_ID.NE.0) THEN
-  !       
+  !
   ! 1. Find id of the variable
   !----------------------------
   IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
-  !  
+  !
   ! 2. Get variable
   !----------------------------
   IRET(2)=NF90_GET_VAR(IFILE_ID,IVAR_ID,YFIELD)
   HFIELD=YFIELD(:LEN_TRIM(YFIELD))
-  !  
+  !
 ENDIF
 
 ! 3. Check for errors
 !--------------------
 DO JRET=1,2
-  IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+  IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
     KRESP=1
   ENDIF
-ENDDO  
+ENDDO
 !
 IF (KRESP /=0) CALL ERROR_READ_SURF_OL(HREC,KRESP)
 !
@@ -810,7 +810,7 @@ END SUBROUTINE READ_SURFC0_OL
 !     #############################################################
 !
 !!****  *READL0* - routine to read a logical
-!    
+!
 USE MODI_OL_FIND_FILE_READ
 USE MODI_ERROR_READ_SURF_OL
 !
@@ -849,15 +849,15 @@ HCOMMENT = " "
  CALL OL_FIND_FILE_READ(HREC,IFILE_ID)
 !
 IF (IFILE_ID.NE.0) THEN
-  !       
+  !
   ! 1. Find id of the variable
   !----------------------------
   IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
-  !  
+  !
   ! 2. Get variable
   !----------------------------
   IRET(2)=NF90_GET_VAR(IFILE_ID,IVAR_ID,YFIELD)
-  !  
+  !
   IF (YFIELD =='T') OFIELD=.TRUE.
   IF (YFIELD =='F') OFIELD=.FALSE.
   !
@@ -865,7 +865,7 @@ ENDIF
 !
 ! 3. Check for errors
 !--------------------
-IF ((IFILE_ID==0).OR.IRET(1).NE.NF90_NOERR) THEN 
+IF ((IFILE_ID==0).OR.IRET(1).NE.NF90_NOERR) THEN
   KRESP=1
 ENDIF
 !
@@ -880,7 +880,7 @@ END SUBROUTINE READ_SURFL0_OL
 !     #############################################################
 !
 !!****  *READL1* - routine to read a logical array
-!    
+!
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPROC, NCOMM, NPIO, XTIME_NPIO_READ, XTIME_COMM_READ
 !
 USE MODI_OL_FIND_FILE_READ
@@ -939,9 +939,9 @@ IF (NRANK==NPIO) THEN
   ! 0. find filename
   ! -----------------
   CALL OL_FIND_FILE_READ(HREC,IFILE_ID)
-  ! 
+  !
   IF (IFILE_ID.NE.0) THEN
-    !   
+    !
     ! 1. Find id of the variable
     !----------------------------
     IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
@@ -951,7 +951,7 @@ IF (NRANK==NPIO) THEN
       JRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
     ENDDO
     ALLOCATE(YTAB_1D(IDIMLEN(1)))
-    !  
+    !
     ! 2. Get variable
     !----------------------------
     IRET(1)=NF90_GET_VAR(IFILE_ID,IVAR_ID,YTAB_1D)
@@ -966,7 +966,7 @@ IF (NRANK==NPIO) THEN
   ! 3. Check for errors
   !--------------------
   DO JRET=1,1
-    IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+    IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
       KRESP=1
     ENDIF
   ENDDO
@@ -1042,7 +1042,7 @@ KRESP=0
 HCOMMENT = " "
 !
 DO JWRK=1,2
-  IF (JWRK == 1) THEN 
+  IF (JWRK == 1) THEN
     YRECFM=TRIM(HREC)//'-TDATE'
   ELSE
     YRECFM=TRIM(HREC)//'-TIME'
@@ -1052,14 +1052,14 @@ DO JWRK=1,2
   CALL OL_FIND_FILE_READ(YRECFM,IFILE_ID)
   !
   IF (IFILE_ID.NE.0) THEN
-    !   
+    !
     ! 1. Find id of the variable
     !----------------------------
     JRET=NF90_INQ_VARID   (IFILE_ID,YRECFM,IVAR_ID)
     !
     ! 2. Get variable
     !----------------------------
-    IF (JWRK == 1) THEN 
+    IF (JWRK == 1) THEN
       IRET(JWRK)=NF90_GET_VAR(IFILE_ID,IVAR_ID,ITDATE)
       KYEAR  = ITDATE(1)
       KMONTH = ITDATE(2)
@@ -1073,7 +1073,7 @@ ENDDO
 ! 3. Check for errors
 !--------------------
 DO JRET=1,2
-  IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN 
+  IF ((IFILE_ID==0).OR.IRET(JRET).NE.NF90_NOERR) THEN
     KRESP=1
   ENDIF
 ENDDO

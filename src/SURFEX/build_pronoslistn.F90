@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE BUILD_PRONOSLIST_n (HSV, KEMIS_NBR,HEMIS_NAME,TPPRONOS,KCH,KLUOUT,KVERB)
@@ -64,7 +64,7 @@ INTEGER,                       INTENT(IN)  :: KVERB   ! verbose level
 !*       0.2  declaration of local variables
 !
  CHARACTER(LEN=256) :: YINPLINE ! input agregation line read from Namelist
-INTEGER :: INDX     ! 
+INTEGER :: INDX     !
 INTEGER :: INBCOEFF ! Numer of agregations coeff for one species
 INTEGER :: JI       ! loop index
 INTEGER :: INDX_PRO ! index of the pronostic variable in CNAMES array
@@ -95,7 +95,7 @@ IEQ = SIZE(HSV)
 !
 NULLIFY(HEAD)
 NULLIFY(CURRENT)
-DO 
+DO
 !
 ! Read a line and convert 'tab' to 'space' characters
 ! until the keyword 'END_AGREGATION' is reached
@@ -114,7 +114,7 @@ DO
 ! search the variable in CNAMES, STOP if not FOUND
   GFOUND = .FALSE.
   DO JI=1,IEQ
-    IF (CNAMES(JI) == YPRO_NAME) THEN 
+    IF (CNAMES(JI) == YPRO_NAME) THEN
       INDX_PRO = JI
       GFOUND = .TRUE.
       EXIT
@@ -122,7 +122,7 @@ DO
   END DO
   IF (.NOT. GFOUND) THEN
     WRITE(KLUOUT,*) 'BUILD_PRONOSLIST ERROR : ',TRIM(YPRO_NAME),&
-            ' not found in pronostic variables list !'  
+            ' not found in pronostic variables list !'
     CALL ABOR1_SFX('BUILD_PRONOSLISTN: VARIABLE NOT FOUND')
   END IF
 !
@@ -156,7 +156,7 @@ DO
     INBCOEFF = INBCOEFF+1
     IF (INBCOEFF > JPNBCOEFFMAX) THEN
       WRITE(KLUOUT,*) 'FATAL ERROR : Number of aggregation coefficients for ',&
-             TRIM(YPRO_NAME),' exceeds constant JPNBCOEFFMAX = ',JPNBCOEFFMAX  
+             TRIM(YPRO_NAME),' exceeds constant JPNBCOEFFMAX = ',JPNBCOEFFMAX
       WRITE(KLUOUT,*) '=> You should increase the JPNBCOEFFMAX value in modd_type_efutil.f90'
       CALL ABOR1_SFX('BUILD_PRONOSLISTN: NUMBER OF AGGREGATION COEFFICIENTS TOO BIG')
     END IF
@@ -178,7 +178,7 @@ DO
     END DO
     IF (.NOT. GFOUND) THEN
       WRITE(KLUOUT,*) 'ERROR : ',TRIM(YEMIS_NAME),&
-              ' not found in emission variables list !'  
+              ' not found in emission variables list !'
       CALL ABOR1_SFX('BUILD_PRONOSLISTN: UNKNOWN EMISSION VARIABLE')
     END IF
   END DO
@@ -193,7 +193,7 @@ IF (KVERB >= 6) THEN
   CURRENT=>HEAD
   DO WHILE(ASSOCIATED(CURRENT))
     WRITE(KLUOUT,*) 'Emission for Atmospheric Chemical Species ',TRIM(CNAMES(CURRENT%NAMINDEX)),' (index ',&
-            CURRENT%NAMINDEX,' in CSV)'  
+            CURRENT%NAMINDEX,' in CSV)'
     WRITE(KLUOUT,*) 'is aggregated with the following weights from the Emission Inventory Species:'
     DO JI=1,CURRENT%NBCOEFF
       WRITE(KLUOUT,*) CURRENT%XCOEFF(JI),HEMIS_NAME(CURRENT%NEFINDEX(JI))
@@ -204,7 +204,7 @@ END IF
 !
 IF (LHOOK) CALL DR_HOOK('BUILD_PRONOSLIST_N',1,ZHOOK_HANDLE)
 !
-CONTAINS 
+CONTAINS
 !!
 !!    ###########################
       SUBROUTINE TAB2SPACE(HTEXT)

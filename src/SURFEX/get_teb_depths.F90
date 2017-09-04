@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_TEB_DEPTHS (DTCO,  &
@@ -8,14 +8,14 @@
                                  PD_ROOF, PD_ROAD, PD_WALL, PD_FLOOR,HDIR)
 !     ##############################################################
 !
-!!**** *CONVERT_COVER* 
+!!**** *CONVERT_COVER*
 !!
 !!    PURPOSE
 !!    -------
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -34,7 +34,7 @@
 !!    ------------
 !!
 !!    Original    01/2004
-!     
+!
 !----------------------------------------------------------------------------
 !
 !*    0.     DECLARATION
@@ -107,7 +107,7 @@ INTEGER           :: IBUGFIX        ! surface bugfix version
  CHARACTER(LEN=12) :: YRECFM0        ! Name of the article to be read
  CHARACTER(LEN=12) :: YRECFM1        ! Name of the article to be read
  CHARACTER(LEN=12) :: YRECFM2        ! Name of the article to be read
- CHARACTER(LEN=12) :: YRECFM3        ! Name of the article to be read 
+ CHARACTER(LEN=12) :: YRECFM3        ! Name of the article to be read
 INTEGER :: IRESP          ! reading return code
 INTEGER :: ILAYER                   ! number of surface layers
 INTEGER :: JLAYER                   ! loop counter on surface layers
@@ -210,7 +210,7 @@ ELSE
     IPAR_LAYER = 0
     CALL READ_SURF(HFILEPGDTYPE,YRECFM0,IPAR_LAYER,IRESP,HDIR='-')
     !* gets the data layers depths
-    ALLOCATE(ZPAR_D(ILU,IPAR_LAYER)) 
+    ALLOCATE(ZPAR_D(ILU,IPAR_LAYER))
     DO JLAYER=1,IPAR_LAYER
       WRITE(YRECFM,FMT='(A,I1)') TRIM(YRECFM2),JLAYER
       CALL READ_SURF(HFILEPGDTYPE,YRECFM,ZPAR_D(:,JLAYER),IRESP,HDIR=YDIR)
@@ -218,7 +218,7 @@ ELSE
   ENDIF
   !
   CALL CLOSE_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE)
-  !  
+  !
 END IF
 !
 !* depths are read in the file
@@ -226,15 +226,15 @@ IF (.NOT.GDATA) THEN
   !
 !* depths are deduced from the cover types
   ALLOCATE(ZD(ILU,ILAYER))
-  ! 
+  !
   IF (IVERSION_PREP>8 .OR. (IVERSION_PREP==8 .AND. IBUGFIX_PREP>=1)) THEN
     CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'TOWN  ')
     CALL READ_SURF(HFILETYPE,'WRITE_EXT  ',GREAD_EXT,IRESP,HDIR='-')
     IF (GREAD_EXT) THEN
       DO JLAYER=1,ILAYER
         WRITE(YRECFM,FMT='(A,I1)') TRIM(YRECFM3),JLAYER
-        CALL READ_SURF(HFILETYPE,YRECFM,ZD(:,JLAYER),IRESP,HDIR=YDIR)      
-      END DO 
+        CALL READ_SURF(HFILETYPE,YRECFM,ZD(:,JLAYER),IRESP,HDIR=YDIR)
+      END DO
     ENDIF
     CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
   ELSE
@@ -249,7 +249,7 @@ IF (.NOT.GDATA) THEN
       ALLOCATE(GCOVER(NCOVER))
     ENDIF
     !
-    CALL OPEN_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE,'FULL  ')   
+    CALL OPEN_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE,'FULL  ')
     !* reading of the cover to obtain the thickness of layers
     CALL OLD_NAME(HFILEPGDTYPE,'COVER_LIST      ',YRECFM,'-')
     CALL READ_SURF(HFILEPGDTYPE,YRECFM,GCOVER(:),IRESP,HDIR='-')
@@ -278,8 +278,8 @@ IF (.NOT.GDATA) THEN
     END IF
     DEALLOCATE(ZPAR_D)
     !
-  ENDIF  
-  !  
+  ENDIF
+  !
 ENDIF
 !
 IF (PRESENT(PD_ROOF )) PD_ROOF  = ZD

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE URBAN_FLUXES(TOP, T, B, DMT, HIMPLICIT_WIND, PT_CANYON, PPEW_A_COEF, PPEW_B_COEF,      &
@@ -13,12 +13,12 @@
                             PLEW_RD, PLE_WL_A, PLE_WL_B, PMELT_BLT, PUSTAR_TWN                        )
 !   ##########################################################################
 !
-!!****  *URBAN_FLUXES* computes fluxes on urbanized surfaces  
+!!****  *URBAN_FLUXES* computes fluxes on urbanized surfaces
 !!
 !!    PURPOSE
 !!    -------
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
@@ -34,11 +34,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -46,9 +46,9 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    23/01/98 
+!!      Original    23/01/98
 !!                     12/02 (A. Lemonsu) modifications of emissivity and Tstown
-!!                     07/07 (P. LeMoigne) expression of latent heat fluxes as 
+!!                     07/07 (P. LeMoigne) expression of latent heat fluxes as
 !!                           functions of w'theta' instead of w'T'
 !!                     17/10 (G. Pigeon)  computation of anthropogenic heat due
 !!                            to domestic heating
@@ -193,8 +193,8 @@ ENDIF
 !
 !                                            heat flux into the ground
 !
-DMT%XGFLUX_WALL_A(:) = DMT%XRN_WALL_A(:) - DMT%XH_WALL_A(:)            
-DMT%XGFLUX_WALL_B(:) = DMT%XRN_WALL_B(:) - DMT%XH_WALL_B(:)            
+DMT%XGFLUX_WALL_A(:) = DMT%XRN_WALL_A(:) - DMT%XH_WALL_A(:)
+DMT%XGFLUX_WALL_B(:) = DMT%XRN_WALL_B(:) - DMT%XH_WALL_B(:)
 !
 !                                            sensible heat flux
 !
@@ -230,7 +230,7 @@ PLE_WL_B(:) = ZINTER(:)
 !                                            heat flux into the ground
 !
 DMT%XGFLUX_ROAD (:) =  PDF_RD(:) * (DMT%XRN_ROAD(:) - DMT%XH_ROAD (:) - PLEW_RD(:) )&
-                       + PDN_RD(:) * PGSN_RD(:)  
+                       + PDN_RD(:) * PGSN_RD(:)
 !
 !                                            net radiation
 !
@@ -252,12 +252,12 @@ DMT%XLE_ROAD (:) = PLEW_RD(:) * PDF_RD(:) + PLESN_RD(:) * PDN_RD(:)
 !
 !                                            heat flux into the ground
 !
-DMT%XGFLUX_STRLROOF(:) =  PDF_RF(:) * (ZRN_RF_SNFREE(:) - ZH_RF_SNFREE(:) - PLEW_RF(:)) + PDN_RF(:) *  PGSN_RF(:)  
+DMT%XGFLUX_STRLROOF(:) =  PDF_RF(:) * (ZRN_RF_SNFREE(:) - ZH_RF_SNFREE(:) - PLEW_RF(:)) + PDN_RF(:) *  PGSN_RF(:)
 DMT%XGFLUX_ROOF    (:) = (1.-T%XGREENROOF(:)) * DMT%XGFLUX_STRLROOF(:) + T%XGREENROOF(:) * PGFLUX_GR(:)
 !
 !
 !                                            net radiation
-! 
+!
 DMT%XRN_STRLROOF   (:) = ZRN_RF_SNFREE(:) * PDF_RF(:) + PRNSN_RF(:) * PDN_RF(:)
 DMT%XRN_ROOF       (:) = (1.-T%XGREENROOF(:)) * DMT%XRN_STRLROOF(:) + T%XGREENROOF(:) * PRN_GR(:)
 !
@@ -274,7 +274,7 @@ DMT%XH_ROOF        (:) = (1.-T%XGREENROOF(:)) * DMT%XH_STRLROOF(:) + T%XGREENROO
 ! total latent heat of evaporation from the roof (snow free + snow)
 !
 DMT%XLE_STRLROOF   (:) = PLEW_RF(:) * PDF_RF(:)  + PLESN_RF(:) * PDN_RF(:)
-DMT%XLE_ROOF       (:) = (1.-T%XGREENROOF(:)) * DMT%XLE_STRLROOF(:) + T%XGREENROOF(:) * PLE_GR(:) 
+DMT%XLE_ROOF       (:) = (1.-T%XGREENROOF(:)) * DMT%XLE_STRLROOF(:) + T%XGREENROOF(:) * PLE_GR(:)
 !
 IF (TOP%CBEM=="BEM") THEN
   DMT%XH_ROOF (:) = DMT%XH_ROOF (:) + (1 - B%XF_WASTE_CAN(:)) * DMT%XH_WASTE (:)/T%XBLD(:)
@@ -293,25 +293,25 @@ IF (.NOT. TOP%LCANOPY) THEN
   ZUSTAR2(:) = 0.0
   ZVMOD  (:) = PVMOD(:)
   !
-  IF(HIMPLICIT_WIND=='OLD')THEN 
+  IF(HIMPLICIT_WIND=='OLD')THEN
     ! old implicitation
     ZUSTAR2(:) = (PCD(:)*PVMOD(:)*PPEW_B_COEF(:))/ (1.0-PRHOA(:)*PCD(:)*PVMOD(:)*PPEW_A_COEF(:))
   ELSE
     ! new implicitation
     ZUSTAR2(:) = (PCD(:)*PVMOD(:)*(2.*PPEW_B_COEF(:)-PVMOD(:)))/ &
                  (1.0-2.0*PRHOA(:)*PCD(:)*PVMOD(:)*PPEW_A_COEF(:))
-    !                   
+    !
     ZVMOD(:) = PRHOA(:)*PPEW_A_COEF(:)*ZUSTAR2(:) + PPEW_B_COEF(:)
     ZVMOD(:) = MAX(ZVMOD(:),0.)
     !
     WHERE(PPEW_A_COEF(:)/= 0.)
       ZUSTAR2(:) = MAX( ( ZVMOD(:) - PPEW_B_COEF(:) ) / (PRHOA(:)*PPEW_A_COEF(:)), 0.)
     ENDWHERE
-    !               
+    !
   ENDIF
   !
-  PUSTAR_TWN(:) = SQRT(ZUSTAR2(:))     
-  !  
+  PUSTAR_TWN(:) = SQRT(ZUSTAR2(:))
+  !
 ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -330,14 +330,14 @@ DMT%XRN_BLT (:)    = ( T%XBLD(:)        * DMT%XRN_ROOF(:)        &
 !
 DMT%XH_BLT  (:)    = ( T%XBLD(:)        * DMT%XH_ROOF(:)         &
                   +     T%XROAD(:)       * DMT%XH_ROAD(:)         &
-                  + 0.5*T%XWALL_O_HOR(:) * DMT%XH_WALL_A(:)       &   
-                  + 0.5*T%XWALL_O_HOR(:) * DMT%XH_WALL_B(:))      &   
+                  + 0.5*T%XWALL_O_HOR(:) * DMT%XH_WALL_A(:)       &
+                  + 0.5*T%XWALL_O_HOR(:) * DMT%XH_WALL_B(:))      &
                   / (T%XROAD(:) + T%XBLD(:))
 !
 DMT%XLE_BLT (:)    = ( T%XBLD(:)        * DMT%XLE_ROOF (:)       &
                   +     T%XROAD(:)       * DMT%XLE_ROAD (:)       &
-                  + 0.5*T%XWALL_O_HOR(:) * PLE_WL_A (:)     & 
-                  + 0.5*T%XWALL_O_HOR(:) * PLE_WL_B (:))    & 
+                  + 0.5*T%XWALL_O_HOR(:) * PLE_WL_A (:)     &
+                  + 0.5*T%XWALL_O_HOR(:) * PLE_WL_B (:))    &
                   / (T%XROAD(:) + T%XBLD(:))
 !
 DMT%XGFLUX_BLT (:) = ( T%XBLD(:)        * DMT%XGFLUX_ROOF (:)    &
@@ -357,7 +357,7 @@ DMT%XDQS_TOWN  (:) = (  T%XBLD(:)         * PDQS_RF (:)      &
                 / (T%XROAD(:) + T%XBLD(:))
 !
 IF (TOP%CBEM == "DEF") THEN
-  DMT%XQF_BLD(:) = ( ZH_RF_SNFREE(:) + PLEW_RF(:) +          & 
+  DMT%XQF_BLD(:) = ( ZH_RF_SNFREE(:) + PLEW_RF(:) +          &
                  PDQS_RF(:) - ZRN_RF_SNFREE(:)  ) * PDF_RF(:) &
              + ( PDQS_RF(:) - PGSN_RF      (:)  ) * PDN_RF(:) &
              + 0.5*T%XWALL_O_HOR(:)/T%XBLD(:) * ( DMT%XH_WALL_A(:) + PLE_WL_A(:) + PDQS_WL_A(:) - DMT%XRN_WALL_A(:) ) &
@@ -367,7 +367,7 @@ ELSEIF (TOP%CBEM == "BEM") THEN
   DMT%XQF_BLD(:) = DMT%XQIN(:)*B%XN_FLOOR(:) + DMT%XHVAC_COOL(:) + DMT%XHVAC_HEAT(:)
   DMT%XFLX_BLD(:)=  PFLX_BLD_RF(:) + 0.5*T%XWALL_O_HOR(:)/T%XBLD(:)*PFLX_BLD_WL_A(:) &
                  +                    0.5*T%XWALL_O_HOR(:)/T%XBLD(:)*PFLX_BLD_WL_B(:) &
-                 + PFLX_BLD_FL(:) + PFLX_BLD_MA(:)  
+                 + PFLX_BLD_FL(:) + PFLX_BLD_MA(:)
 ENDIF
 !
 DMT%XQF_TOWN(:)= T%XBLD(:)*DMT%XQF_BLD(:) + PH_TRAFFIC(:) + T%XH_INDUSTRY(:) + PLE_TRAFFIC(:) + T%XLE_INDUSTRY(:)

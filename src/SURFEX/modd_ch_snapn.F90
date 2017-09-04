@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################
       MODULE MODD_CH_SNAP_n
@@ -10,17 +10,17 @@
 !!
 !!    PURPOSE
 !!    -------
-!       The purpose of this declarative module is to specify  the 
+!       The purpose of this declarative module is to specify  the
 !     chemical emission data arrays.
 !
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -28,7 +28,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    08/03/2001                      
+!!      Original    08/03/2001
 !!      01/12/03    (D.Gazen) change emissions handling for surf. externalization
 !!      M.Leriche 04/2014  change length of CHARACTER for emission 6->12
 !-------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ TYPE CH_EMIS_SNAP_t
 !                                                         ! each chemical specie and
 !                                                         ! each snap
   REAL,     DIMENSION(:,:),   POINTER:: XEMIS_FIELDS      ! Emission for each specie
-!                                                         ! (at a given time taking into 
+!                                                         ! (at a given time taking into
 !                                                         ! account all snaps)
   REAL,     DIMENSION(:),     POINTER:: XDELTA_LEGAL_TIME ! Difference (in hours)) between
 !                                                         ! Legal time and UTC time

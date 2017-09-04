@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
       SUBROUTINE INIT_SEAFLUX_n (DTCO, OREAD_BUDGETC, UG, U, GCP, SM, &
@@ -8,7 +8,7 @@
                                  HSV,PCO2,PRHOA,PZENITH,PAZIM,PSW_BANDS,    &
                                  PDIR_ALB,PSCA_ALB, PEMIS,PTSRAD,PTSURF,    &
                                  KYEAR, KMONTH,KDAY,PTIME,                  &
-                                 HATMFILE,HATMFILETYPE,HTEST                )  
+                                 HATMFILE,HATMFILETYPE,HTEST                )
 !     #############################################################
 !
 !!****  *INIT_SEAFLUX_n* - routine to initialize SEAFLUX
@@ -39,10 +39,10 @@
 !!      Original    01/2003
 !!      Modified    01/2006 : sea flux parameterization.
 !!                  01/2008 : coupling with 1D ocean
-!!      B. Decharme 08/2009 : specific treatment for sea/ice in the Earth System Model 
-!!      B. Decharme 07/2011 : read pgd+prep 
+!!      B. Decharme 08/2009 : specific treatment for sea/ice in the Earth System Model
+!!      B. Decharme 07/2011 : read pgd+prep
 !!      B. Decharme 04/2013 : new coupling variables
-!!      S. Senesi   01/2014 : introduce sea-ice model 
+!!      S. Senesi   01/2014 : introduce sea-ice model
 !!      S. Belamari 03/2014 : add NZ0 (to choose PZ0SEA formulation)
 !!      R. Séférian 01/2015 : introduce interactive ocean surface albedo
 !-------------------------------------------------------------------------------
@@ -180,8 +180,8 @@ IF (LNAM_READ) THEN
  !               --------
  !
  !        0.1. Hard defaults
- !      
- 
+ !
+
  CALL DEFAULT_SEAFLUX(SM%S%XTSTEP,SM%S%XOUT_TSTEP,SM%S%CSEA_ALB,SM%S%CSEA_FLUX,SM%S%LPWG,  &
                       SM%S%LPRECIP,SM%S%LPWEBB,SM%S%NZ0,SM%S%NGRVWAVES,SM%O%LPROGSST,      &
                       SM%O%NTIME_COUPLING,SM%O%XOCEAN_TSTEP,SM%S%XICHCE,SM%S%CINTERPOL_SST,&
@@ -189,20 +189,20 @@ IF (LNAM_READ) THEN
  CALL DEFAULT_SEAICE(HPROGRAM,                                                  &
                      SM%S%CINTERPOL_SIC,SM%S%CINTERPOL_SIT, SM%S%XFREEZING_SST, &
                      SM%S%XSEAICE_TSTEP, SM%S%XSIC_EFOLDING_TIME,               &
-                     SM%S%XSIT_EFOLDING_TIME, SM%S%XCD_ICE_CST, SM%S%XSI_FLX_DRV)     
- !                     
- CALL DEFAULT_CH_DEP(SM%CHS%CCH_DRY_DEP) 
- !            
+                     SM%S%XSIT_EFOLDING_TIME, SM%S%XCD_ICE_CST, SM%S%XSI_FLX_DRV)
+ !
+ CALL DEFAULT_CH_DEP(SM%CHS%CCH_DRY_DEP)
+ !
  CALL DEFAULT_DIAG_SEAFLUX(SM%SD%O%N2M,SM%SD%O%LSURF_BUDGET,SM%SD%O%L2M_MIN_ZS,&
                            SM%SD%O%LRAD_BUDGET,SM%SD%O%LCOEF,SM%SD%O%LSURF_VARS,&
                            SM%SD%GO%LDIAG_OCEAN,SM%SD%DMI%LDIAG_MISC_SEAICE,&
-                           SM%SD%O%LSURF_BUDGETC,SM%SD%O%LRESET_BUDGETC,SM%SD%O%XDIAG_TSTEP )  
+                           SM%SD%O%LSURF_BUDGETC,SM%SD%O%LRESET_BUDGETC,SM%SD%O%XDIAG_TSTEP )
 
 ENDIF
 !
 !
 !        0.2. Defaults from file header
-!    
+!
  CALL READ_DEFAULT_SEAFLUX_n(SM%CHS, SM%SD%GO, SM%SD%O, SM%SD%DMI, SM%O, SM%S, HPROGRAM)
 !
 !*       1.1    Reading of configuration:
@@ -215,7 +215,7 @@ SM%S%LINTERPOL_SSS=.FALSE.
 SM%S%LINTERPOL_SIC=.FALSE.
 SM%S%LINTERPOL_SIT=.FALSE.
 !
-IF(LCPL_SEA)THEN 
+IF(LCPL_SEA)THEN
   IF(SM%SD%O%N2M<1)THEN
      CALL ABOR1_SFX('INIT_SEAFLUX_n: N2M must be set >0 in case of LCPL_SEA')
   ENDIF
@@ -254,8 +254,8 @@ SELECT CASE (HINIT)
 !
   CASE ('PRE')
 !
-    CALL PREP_CTRL_SEAFLUX(SM%SD%O,SM%SD%GO%LDIAG_OCEAN,SM%SD%DMI%LDIAG_MISC_SEAICE,ILUOUT ) 
-    IF (LNAM_READ) CALL READ_NAM_PREP_SEAFLUX_n(HPROGRAM)      
+    CALL PREP_CTRL_SEAFLUX(SM%SD%O,SM%SD%GO%LDIAG_OCEAN,SM%SD%DMI%LDIAG_MISC_SEAICE,ILUOUT )
+    IF (LNAM_READ) CALL READ_NAM_PREP_SEAFLUX_n(HPROGRAM)
     CALL READ_SEAFLUX_DATE(SM%O%LMERCATOR,HPROGRAM,HINIT,ILUOUT,HATMFILE,HATMFILETYPE,&
                            KYEAR,KMONTH,KDAY,PTIME,SM%S%TTIME)
 !
@@ -307,7 +307,7 @@ IF(SM%S%LINTERPOL_SST.OR.SM%S%LINTERPOL_SSS.OR.SM%S%LINTERPOL_SIC.OR.SM%S%LINTER
    SM%S%TZTIME%TDATE%YEAR  = SM%S%TTIME%TDATE%YEAR
    SM%S%TZTIME%TDATE%MONTH = SM%S%TTIME%TDATE%MONTH
    SM%S%TZTIME%TDATE%DAY   = SM%S%TTIME%TDATE%DAY
-   SM%S%TZTIME%TIME        = SM%S%TTIME%TIME        
+   SM%S%TZTIME%TIME        = SM%S%TTIME%TIME
 ENDIF
 !
  CALL READ_SEAFLUX_n(DTCO, SM%G, SM%S, U, HPROGRAM,ILUOUT)
@@ -344,8 +344,8 @@ ENDWHERE
 !               (Sea current and Sea-ice temperature)
 !               -----------------------------------------------------------------
 !
-IF(LCPL_SEA.OR.SM%S%LHANDLE_SIC)THEN       
-! 
+IF(LCPL_SEA.OR.SM%S%LHANDLE_SIC)THEN
+!
   ALLOCATE(SM%S%XUMER   (ILU))
   ALLOCATE(SM%S%XVMER   (ILU))
 !
@@ -353,13 +353,13 @@ IF(LCPL_SEA.OR.SM%S%LHANDLE_SIC)THEN
   SM%S%XVMER   (:)=XUNDEF
 !
 ELSE
-! 
+!
   ALLOCATE(SM%S%XUMER   (0))
   ALLOCATE(SM%S%XVMER   (0))
 !
 ENDIF
 !
-IF(LCPL_SEAICE.OR.SM%S%LHANDLE_SIC)THEN       
+IF(LCPL_SEAICE.OR.SM%S%LHANDLE_SIC)THEN
   ALLOCATE(SM%S%XTICE   (ILU))
   ALLOCATE(SM%S%XICE_ALB(ILU))
   SM%S%XTICE   (:)=XUNDEF
@@ -383,7 +383,7 @@ CALL READ_SEAICE_n(SM%G, SM%S, HPROGRAM,ILU,ILUOUT)
 ALLOCATE(SM%S%XEMIS    (ILU))
 SM%S%XEMIS    = 0.0
 !
-CALL UPDATE_RAD_SEA(SM%S,PZENITH,XTTS,PDIR_ALB,PSCA_ALB,PEMIS,PTSRAD )  
+CALL UPDATE_RAD_SEA(SM%S,PZENITH,XTTS,PDIR_ALB,PSCA_ALB,PEMIS,PTSRAD )
 !
 IF (SM%S%LHANDLE_SIC) THEN
    PTSURF(:) = SM%S%XSST(:) * ( 1 - SM%S%XSIC(:)) + SM%S%XTICE(:) * SM%S%XSIC(:)
@@ -429,7 +429,7 @@ ENDIF
 IF (SM%S%LHANDLE_SIC.OR.LCPL_SEAICE) &
         CALL DIAG_SEAICE_INIT_n(SM%SD%O, SM%SD%DI, SM%SD%DIC, SM%SD%DMI, &
                                OREAD_BUDGETC, SM%S, HPROGRAM,ILU,KSW)
-                 
+
 !
 !-------------------------------------------------------------------------------
 !

@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE REPROJ_DIAG_ISBA_n (DK, DEK, DMK, PEK, OSURF_BUDGET, OSURF_EVAP_BUDGET, &
                                OWATER_BUDGET, OSURF_MISC_BUDGET, OPROSNOW, &
-                               OMEB_PATCH, PSLOPECOS    )  
+                               OMEB_PATCH, PSLOPECOS    )
 !     ###############################################################################
 !
 !!****  *REPROJ_DIAG-ISBA_n * - additional diagnostics for ISBA
@@ -18,11 +18,11 @@ SUBROUTINE REPROJ_DIAG_ISBA_n (DK, DEK, DMK, PEK, OSURF_BUDGET, OSURF_EVAP_BUDGE
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     S. Faroux 
+!!     S. Faroux
 !!
 !!------------------------------------------------------------------
 !
@@ -45,15 +45,15 @@ TYPE(DIAG_MISC_ISBA_t), INTENT(INOUT) :: DMK
 TYPE(ISBA_PE_t), INTENT(INOUT) :: PEK
 !
 LOGICAL, INTENT(IN) :: OSURF_BUDGET
-LOGICAL, INTENT(IN) :: OSURF_EVAP_BUDGET 
-LOGICAL, INTENT(IN) :: OWATER_BUDGET 
+LOGICAL, INTENT(IN) :: OSURF_EVAP_BUDGET
+LOGICAL, INTENT(IN) :: OWATER_BUDGET
 LOGICAL, INTENT(IN) :: OSURF_MISC_BUDGET
 LOGICAL, INTENT(IN) :: OPROSNOW
 !
 LOGICAL, INTENT(IN) :: OMEB_PATCH
 !
 REAL, DIMENSION(:), INTENT(IN) :: PSLOPECOS ! cosine of the slope for Crocus
-!    
+!
 !*      0.2    declarations of local variables
 !
 REAL, DIMENSION(SIZE(PEK%XPSN))    :: ZCORR_SLOPE
@@ -71,7 +71,7 @@ IF ( OPROSNOW ) THEN
   !this variable is used further to project diagnostics on the verticale
   ZCORR_SLOPE(:) = 1. / PSLOPECOS(:)
   DO JL = 1,SIZE(PEK%TSNOW%WSNOW,2)
-    WHERE (PEK%TSNOW%WSNOW(:,JL)>0.) 
+    WHERE (PEK%TSNOW%WSNOW(:,JL)>0.)
       ZCORR_SLOPE_2D(:,JL) = ZCORR_SLOPE(:)
     ELSEWHERE
       ZCORR_SLOPE_2D(:,JL) = 1.
@@ -196,13 +196,13 @@ IF ( OPROSNOW ) THEN
           DMK%XSNDPT_1DY     (:) = DMK%XSNDPT_1DY     (:) * ZCORR_SLOPE(:)
           DMK%XSNDPT_3DY     (:) = DMK%XSNDPT_3DY     (:) * ZCORR_SLOPE(:)
           DMK%XSNDPT_5DY     (:) = DMK%XSNDPT_5DY     (:) * ZCORR_SLOPE(:)
-          DMK%XSNDPT_7DY     (:) = DMK%XSNDPT_7DY     (:) * ZCORR_SLOPE(:)   
+          DMK%XSNDPT_7DY     (:) = DMK%XSNDPT_7DY     (:) * ZCORR_SLOPE(:)
           DMK%XSNSWE_1DY     (:) = DMK%XSNSWE_1DY     (:) * ZCORR_SLOPE(:)
           DMK%XSNSWE_3DY     (:) = DMK%XSNSWE_3DY     (:) * ZCORR_SLOPE(:)
           DMK%XSNSWE_5DY     (:) = DMK%XSNSWE_5DY     (:) * ZCORR_SLOPE(:)
           DMK%XSNSWE_7DY     (:) = DMK%XSNSWE_7DY     (:) * ZCORR_SLOPE(:)
           DMK%XSNRAM_SONDE   (:) = DMK%XSNRAM_SONDE   (:) * ZCORR_SLOPE(:)
-          DMK%XSN_REFRZNTHCKN(:) = DMK%XSN_REFRZNTHCKN(:) * ZCORR_SLOPE(:) 
+          DMK%XSN_REFRZNTHCKN(:) = DMK%XSN_REFRZNTHCKN(:) * ZCORR_SLOPE(:)
           DMK%XSN_WETTHCKN   (:) = DMK%XSN_WETTHCKN   (:) * ZCORR_SLOPE(:)
         ENDWHERE
       ENDIF

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_TEB_n (DTCO, DST, SLT, TOP, SB, G, CHT, NT, TPN, TIR, BOP, NB, TD, GDM, GRM, &
@@ -13,7 +13,7 @@ SUBROUTINE COUPLING_TEB_n (DTCO, DST, SLT, TOP, SB, G, CHT, NT, TPN, TIR, BOP, N
                            PPEQ_B_COEF, HTEST     )
 !     ###############################################################################
 !
-!!****  *COUPLING_TEB_n * - Driver for TEB 
+!!****  *COUPLING_TEB_n * - Driver for TEB
 !!
 !!    PURPOSE
 !!    -------
@@ -23,11 +23,11 @@ SUBROUTINE COUPLING_TEB_n (DTCO, DST, SLT, TOP, SB, G, CHT, NT, TPN, TIR, BOP, N
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -65,7 +65,7 @@ USE MODD_REPROD_OPER, ONLY : CIMPLICIT_WIND
 !
 USE MODD_CSTS,         ONLY : XRD, XCPD, XP00, XLVTT, XPI, XKARMAN, XG
 USE MODD_SURF_PAR,     ONLY : XUNDEF
-!                            
+!
 USE MODD_DST_SURF
 USE MODD_SLT_SURF
 !
@@ -83,7 +83,7 @@ USE MODI_CH_DEP_TOWN
 USE MODI_DSLT_DEP
 USE MODI_TEB_GARDEN
 USE MODI_TEB_CANOPY
-! 
+!
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
 !
@@ -104,7 +104,7 @@ TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
 TYPE(DST_t), INTENT(INOUT) :: DST
 TYPE(SLT_t), INTENT(INOUT) :: SLT
 !
-TYPE(CH_TEB_t), INTENT(INOUT) :: CHT 
+TYPE(CH_TEB_t), INTENT(INOUT) :: CHT
 TYPE(CANOPY_t), INTENT(INOUT) :: SB
 TYPE(GRID_t), INTENT(INOUT) :: G
 TYPE(TEB_OPTIONS_t), INTENT(INOUT) :: TOP
@@ -114,7 +114,7 @@ TYPE(TEB_NP_t), INTENT(INOUT) :: NT
 !
 TYPE(TEB_DIAG_t), INTENT(INOUT) :: TD
 !
-TYPE(BEM_OPTIONS_t), INTENT(INOUT) :: BOP 
+TYPE(BEM_OPTIONS_t), INTENT(INOUT) :: BOP
 TYPE(BEM_NP_t), INTENT(INOUT) :: NB
 !
 TYPE(TEB_GARDEN_MODEL_t), INTENT(INOUT) :: GDM
@@ -191,7 +191,7 @@ REAL, DIMENSION(KI), INTENT(IN) :: PPEQ_B_COEF
 !*      0.2    declarations of local variables
 !
 INTEGER                     :: JSWB        ! loop counter on shortwave spectral bands
-!         
+!
 REAL, DIMENSION(KI)  :: ZQA         ! specific humidity                 (kg/kg)
 REAL, DIMENSION(KI)  :: ZEXNA       ! Exner function at forcing level
 REAL, DIMENSION(KI)  :: ZEXNS       ! Exner function at surface level
@@ -202,7 +202,7 @@ REAL, DIMENSION(KI)  :: ZWIND       ! wind
 REAL, DIMENSION(KI)  :: ZU_CANYON   ! wind in canyon
 REAL, DIMENSION(KI)  :: ZT_CANYON   ! temperature in canyon
 REAL, DIMENSION(KI)  :: ZQ_CANYON   ! specific humidity in canyon
-REAL, DIMENSION(KI)  :: ZAVG_T_CANYON ! temperature in canyon for town 
+REAL, DIMENSION(KI)  :: ZAVG_T_CANYON ! temperature in canyon for town
 REAL, DIMENSION(KI)  :: ZAVG_Q_CANYON ! specific humidity in canyon for town
 REAL, DIMENSION(KI)  :: ZT_CAN      ! temperature in canyon       (evolving in TEB)
 REAL, DIMENSION(KI)  :: ZQ_CAN      ! specific humidity in canyon (evolving in TEB)
@@ -227,7 +227,7 @@ REAL, DIMENSION(KI) :: ZZREF      ! height      of canyon level just above roof 
 REAL, DIMENSION(KI)  :: ZDIR_SW       ! total direct SW
 REAL, DIMENSION(KI)  :: ZSCA_SW       ! total diffuse SW
 REAL, DIMENSION(KI) :: ZAVG_SCA_SW
-REAL, DIMENSION(KI) :: ZAVG_DIR_SW 
+REAL, DIMENSION(KI) :: ZAVG_DIR_SW
 REAL, DIMENSION(KI,SIZE(PDIR_SW,2))  :: ZDIR_SWB ! total direct SW per band
 REAL, DIMENSION(KI,SIZE(PSCA_SW,2))  :: ZSCA_SWB ! total diffuse SW per band
 !
@@ -353,7 +353,7 @@ REAL, DIMENSION(KI) :: ZAVG_T_RAD_IND
 !
 ! absorbed solar and infra-red radiation by road, wall and roof
 !
-REAL, DIMENSION(KI) :: ZU_UTCI ! wind speed for the UTCI calculation (m/s) 
+REAL, DIMENSION(KI) :: ZU_UTCI ! wind speed for the UTCI calculation (m/s)
 
 REAL, DIMENSION(KI) :: ZALFAU   ! V+(1) = alfa u'w'(1) + beta
 REAL, DIMENSION(KI) :: ZBETAU   ! V+(1) = alfa u'w'(1) + beta
@@ -474,7 +474,7 @@ WHERE( PTSUN>ZBEGIN_TRAFFIC_TIME  .AND.  PTSUN<ZEND_TRAFFIC_TIME  )
   ZLE_TRAFFIC (:) = NT%AL(1)%XLE_TRAFFIC  (:)
 ELSEWHERE
   ZH_TRAFFIC  (:) = 0.
-  ZLE_TRAFFIC (:) = 0.   
+  ZLE_TRAFFIC (:) = 0.
 END WHERE
 !
 !--------------------------------------------------------------------------------------
@@ -603,11 +603,11 @@ IF (TOP%LCANOPY) THEN
                    ZBETAU, ZALFAT, ZBETAT, ZALFAQ, ZBETAQ)
   !
   ZPEW_A_COEF_LOWCAN = - ZALFAU / PRHOA
-  ZPEW_B_COEF_LOWCAN = ZBETAU  
+  ZPEW_B_COEF_LOWCAN = ZBETAU
   !
-  !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ELSE              ! no canopy case
-  !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   DO JI=1,KI
     !* skimming flow for h/w>1 (maximum effect of direction on wind in the canyon);
     !* isolated flow for h/w<0.5 (wind is the same in large streets for all dir.)
@@ -758,7 +758,7 @@ DO JP = 1,TOP%NTEB_PATCH
   !
   IF (TD%MTO%LSURF_MISC_BUDGET) THEN
     !
-    ! cumulated diagnostics 
+    ! cumulated diagnostics
     ! ---------------------
     !
     CALL CUMUL_DIAG_TEB_n(TD%NDMTC%AL(JP), TD%NDMT%AL(JP), GDM%VD%NDEC%AL(JP), GDM%VD%NDE%AL(JP), &
@@ -887,8 +887,8 @@ END IF
                   ZTRAD_PATCH, PDIR_ALB, PSCA_ALB, PEMIS, PTRAD )
 !
 !-------------------------------------------------------------------------------
-!Physical properties see by the atmosphere in order to close the energy budget 
-!between surfex and the atmosphere. All variables should be at t+1 but very 
+!Physical properties see by the atmosphere in order to close the energy budget
+!between surfex and the atmosphere. All variables should be at t+1 but very
 !difficult to do. Maybe it will be done later. However, Ts can be at time t+1
 !-------------------------------------------------------------------------------
 !
@@ -912,7 +912,7 @@ IF (CHT%SVT%NBEQ>0) THEN
   IF (CHT%CCH_DRY_DEP == "WES89") THEN
     CALL CH_DEP_TOWN(ZAVG_RESA,  ZAVG_USTAR, PTA, PTRAD, ZAVG_WL_O_HOR,&
                      PSV(:,IBEG:IEND), CHT%SVT%CSV(IBEG:IEND), CHT%XDEP(:,1:CHT%SVT%NBEQ)  )
-   
+
     DO JI=IBEG,IEND
 !cdir nodep
       DO JJ=1,SIZE(PSFTS,1)
@@ -926,7 +926,7 @@ IF (CHT%SVT%NBEQ>0) THEN
       IEND = CHT%SVT%NSV_AEREND
 
       CALL CH_AER_DEP(PSV(:,IBEG:IEND), PSFTS(:,IBEG:IEND), &
-                      ZAVG_USTAR, ZAVG_RESA, PTA, PRHOA)   
+                      ZAVG_USTAR, ZAVG_RESA, PTA, PRHOA)
     END IF
 
   ELSE
@@ -961,7 +961,7 @@ IF (CHT%SVT%NDSTEQ>0) THEN
   CALL DSLT_DEP(PSV(:,IBEG:IEND), PSFTS(:,IBEG:IEND), ZUSTAR, ZRESA, PTA, PRHOA, &
                 DST%XEMISSIG_DST, DST%XEMISRADIUS_DST, JPMODE_DST, XDENSITY_DST, &
                 XMOLARWEIGHT_DST, ZCONVERTFACM0_DST, ZCONVERTFACM6_DST,          &
-                ZCONVERTFACM3_DST, LVARSIG_DST, LRGFIX_DST, CVERMOD  )  
+                ZCONVERTFACM3_DST, LVARSIG_DST, LRGFIX_DST, CVERMOD  )
 
   CALL MASSFLUX2MOMENTFLUX(         &
     PSFTS(:,IBEG:IEND),             & !I/O ![kg/m2/sec] In: flux of only mass, out: flux of moments
@@ -972,7 +972,7 @@ IF (CHT%SVT%NDSTEQ>0) THEN
     ZCONVERTFACM0_DST,              &
     ZCONVERTFACM6_DST,              &
     ZCONVERTFACM3_DST,              &
-    LVARSIG_DST, LRGFIX_DST         )  
+    LVARSIG_DST, LRGFIX_DST         )
 ENDIF
 IF (CHT%SVT%NSLTEQ>0) THEN
   !
@@ -982,7 +982,7 @@ IF (CHT%SVT%NSLTEQ>0) THEN
   CALL DSLT_DEP(PSV(:,IBEG:IEND), PSFTS(:,IBEG:IEND), ZUSTAR, ZRESA, PTA, PRHOA, &
                 SLT%XEMISSIG_SLT, SLT%XEMISRADIUS_SLT, JPMODE_SLT, XDENSITY_SLT, &
                 XMOLARWEIGHT_SLT, ZCONVERTFACM0_SLT, ZCONVERTFACM6_SLT,          &
-                ZCONVERTFACM3_SLT, LVARSIG_SLT, LRGFIX_SLT, CVERMOD  )  
+                ZCONVERTFACM3_SLT, LVARSIG_SLT, LRGFIX_SLT, CVERMOD  )
 
   CALL MASSFLUX2MOMENTFLUX(         &
     PSFTS(:,IBEG:IEND),             & !I/O ![kg/m2/sec] In: flux of only mass, out: flux of moments
@@ -993,7 +993,7 @@ IF (CHT%SVT%NSLTEQ>0) THEN
     ZCONVERTFACM0_SLT,              &
     ZCONVERTFACM6_SLT,              &
     ZCONVERTFACM3_SLT,              &
-    LVARSIG_SLT, LRGFIX_SLT         ) 
+    LVARSIG_SLT, LRGFIX_SLT         )
 ENDIF
 !
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1016,7 +1016,7 @@ IF (.NOT. TOP%LCANOPY) THEN
     NT%AL(JP)%XQ_CANYON(:) = ZAVG_Q_CANYON(:)
   END DO
 END IF
-!          
+!
 !-------------------------------------------------------------------------------------
 ! Thermal confort index
 !-------------------------------------------------------------------------------------

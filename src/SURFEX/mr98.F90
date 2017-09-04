@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE MR98      (PZ0SEA,                                         &
@@ -9,17 +9,17 @@
                               PVMOD, PZREF, PUREF,                            &
                               PPS, PQSAT,                                     &
                               PSFTH, PSFTQ, PUSTAR,                           &
-                              PCD, PCDN, PCH, PRI, PRESA, PZ0HSEA             )  
+                              PCD, PCDN, PCH, PRI, PRESA, PZ0HSEA             )
 !     #######################################################################
 !
 !
-!!****  *MR98*  
+!!****  *MR98*
 !!
 !!    PURPOSE
 !!    -------
 !      Calculate the surface fluxes of heat, moisture, and momentum over
-!      water surfaces.  
-!     
+!      water surfaces.
+!
 !!**  METHOD
 !!    ------
 !
@@ -27,12 +27,12 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      V. Masson           * Meteo-France *
@@ -75,8 +75,8 @@ REAL, DIMENSION(:), INTENT(IN)       :: PPS   ! air pressure at sea surface
 REAL,               INTENT(IN)       :: PTT   ! temperature of freezing point
 !
 REAL, DIMENSION(:), INTENT(INOUT)    :: PZ0SEA! roughness length over the ocean
-!                                         
-!                                         
+!
+!
 !  surface fluxes : latent heat, sensible heat, friction fluxes
 REAL, DIMENSION(:), INTENT(OUT)      :: PSFTH ! heat flux  (W/m2)
 REAL, DIMENSION(:), INTENT(OUT)      :: PSFTQ ! water flux (kg/m2/s)
@@ -90,7 +90,7 @@ REAL, DIMENSION(:), INTENT(OUT)      :: PCH   ! neutral momentum drag coefficien
 REAL, DIMENSION(:), INTENT(OUT)      :: PRI   ! Richardson number
 REAL, DIMENSION(:), INTENT(OUT)      :: PRESA     ! aerodynamical resistance
 REAL, DIMENSION(:), INTENT(OUT)      :: PZ0HSEA   ! roughness length for heat
-!                                         
+!
 !
 !
 !*      0.2    declarations of local variables
@@ -98,7 +98,7 @@ REAL, DIMENSION(:), INTENT(OUT)      :: PZ0HSEA   ! roughness length for heat
 !
 REAL, DIMENSION(SIZE(PTA)) :: ZZ0SEAH,        &!roughness length heat
                                 ZZ0SEAQ,        &!roughness length moisture
-                                ZTHVI  
+                                ZTHVI
 !
 REAL, DIMENSION(SIZE(PTA)) :: ZQSA, ZTHA, ZDU, ZDT, ZDQ, ZNU, ZWG
 !                             ZQSA = specific humidity at the
@@ -106,22 +106,22 @@ REAL, DIMENSION(SIZE(PTA)) :: ZQSA, ZTHA, ZDU, ZDT, ZDQ, ZNU, ZWG
 !                             ZTHA = potential temperature at the
 !                                     the first level
 !                             ZDU, ZDT, ZDQ = wind, potential
-!                                     temperature and specific 
+!                                     temperature and specific
 !                                     humidity difference between
 !                                     the first level and the sea
 !                             ZNU = air kinematic visosity
 !                             ZWG = wind subgrid "gustiness" effects
 REAL, DIMENSION(SIZE(PTA)) :: ZTSTAR, ZQSTAR, ZTVSTAR,          &
-!                             T*, Q*, Tv* usefull in fluxes computation 
-                                ZBUFLX  
+!                             T*, Q*, Tv* usefull in fluxes computation
+                                ZBUFLX
 !                             ZBUFLX = surface buoyancy flux
 !
 REAL, DIMENSION(SIZE(PTA)) :: ZLMON, ZZETA, ZPSIM, ZPSIH, ZPSIQ,  &
                                 ZKHI, ZKHIC, ZPSIC, ZF,             &
-                                ZPSIHSTAND,ZPSIMSTAND,ZZETAST  
+                                ZPSIHSTAND,ZPSIMSTAND,ZZETAST
 !                             ZLMON = Monin Obukhov length
 !                             ZZETA = Monin Obukhov Stability
-!                                     parameter : Zeta=Zref/Lmon 
+!                                     parameter : Zeta=Zref/Lmon
 !                             ZPSIM, ZPSIH, ZPSIQ = Stability
 !                                     functions for Momentum,
 !                                     Heat and Moisture
@@ -133,17 +133,17 @@ REAL, DIMENSION(SIZE(PTA)) :: ZLMON, ZZETA, ZPSIM, ZPSIH, ZPSIQ,  &
 !                                     computation
 !
 !  constants for wind gustiness effect (ZWG) calculation
-!                                            
+!
 REAL                      ::  ZBETA
 !                             ZBETA = coef.  for the gustiness
-!                                      effect on the wind 
+!                                      effect on the wind
 
 !                                     Wg=(ZBETA).W*
 REAL                      ::  ZZBL
-!                             ZZBL = atmospheric boundary 
+!                             ZZBL = atmospheric boundary
 !                                    layer depth (m)
 !
-REAL                      ::  ZSTAND        
+REAL                      ::  ZSTAND
 !
 !  loop parameters for iterative case
 !
@@ -174,7 +174,7 @@ PUSTAR(:)=XUNDEF
 !                                    continent.  When the "WHERE" function of
 !                                    the CRAY F90 will be vectorized, it can
 !                                    be used to discriminate points over the
-!                                    ocean and the continent.  But for now, 
+!                                    ocean and the continent.  But for now,
 !                                    the current approach is believed the
 !                                    simplest, without being too penalizing.
 !                                    It mainly consists in averaging the
@@ -199,8 +199,8 @@ PQSAT(:) = QSAT(PSST(:),PPS(:))
 !       3.1            initialisations
 !       ----------------------------------------------------
 !
-ZZBL=650.       
-ZSTAND=15.         
+ZZBL=650.
+ZSTAND=15.
 ZBETA = 0.6
 !
   ZQSA(:)  = 0.98 * PQSAT(:)
@@ -220,7 +220,7 @@ ZBETA = 0.6
 !
 !
 !
-!           3.2    begining of iterations 
+!           3.2    begining of iterations
 !           -------------------------------------------------
 !
   DO JITER = 1 , IITERMAX
@@ -249,34 +249,34 @@ ZBETA = 0.6
       ZPSIM(:) =  2*LOG((1+ZKHI(:))/2)                            &
                     + LOG((1+ZKHI(:)*ZKHI(:))/2)                    &
                     - 2*ATAN(ZKHI(:))                               &
-                    + XPI/2  
-      ZPSIH(:) = 2 * LOG((1+ZKHI(:)*ZKHI(:))/2) 
+                    + XPI/2
+      ZPSIH(:) = 2 * LOG((1+ZKHI(:)*ZKHI(:))/2)
 !
       ZKHI(:)  = (1 - 16 * ZZETAST(:))**0.25
-      ZPSIHSTAND(:) =  2 * LOG((1+ZKHI(:)*ZKHI(:))/2) 
+      ZPSIHSTAND(:) =  2 * LOG((1+ZKHI(:)*ZKHI(:))/2)
       ZPSIMSTAND(:) =   2*LOG((1+ZKHI(:))/2)                                   &
                         + LOG((1+ZKHI(:)*ZKHI(:))/2)                             &
                         - 2*ATAN(ZKHI(:))                                        &
-                        + XPI/2  
+                        + XPI/2
 !
 ! to match very unstable conditions
 !
       ZKHIC(:) = (1 - 12.87 * ZZETA(:))**0.33
       ZPSIC(:) =  1.5 * LOG ((1+ZKHIC(:)+ZKHIC(:)*ZKHIC(:))/3)                 &
                     - (3**0.5)*ATAN((2*ZKHIC(:)+1)/(3**0.5))                     &
-                    + XPI/(3**0.5)  
+                    + XPI/(3**0.5)
 !
-      ZF(:) = 1 / (1+ ZZETA(:)*ZZETA(:)) 
+      ZF(:) = 1 / (1+ ZZETA(:)*ZZETA(:))
       ZPSIM(:) =  ZPSIM(:)*ZF(:) + ZPSIC(:)*(1-ZF(:))
       ZPSIH(:) =  ZPSIH(:)*ZF(:) + ZPSIC(:)*(1-ZF(:))
-      ZPSIQ(:) =  ZPSIH(:) 
+      ZPSIQ(:) =  ZPSIH(:)
 !
       ZKHIC(:) = (1 - 12.87 * ZZETAST(:))**0.33
       ZPSIC(:) =  1.5 * LOG ((1+ZKHIC(:)+ZKHIC(:)*ZKHIC(:))/3)                 &
                     - (3**0.5)*ATAN((2*ZKHIC(:)+1)/(3**0.5))                     &
-                    + XPI/(3**0.5)  
+                    + XPI/(3**0.5)
 !
-      ZF(:) = 1 / (1+ ZZETAST(:)*ZZETAST(:)) 
+      ZF(:) = 1 / (1+ ZZETAST(:)*ZZETAST(:))
       ZPSIMSTAND(:) =  ZPSIMSTAND(:)*ZF(:) + ZPSIC(:)*(1-ZF(:))
       ZPSIHSTAND(:) =  ZPSIHSTAND(:)*ZF(:) + ZPSIC(:)*(1-ZF(:))
 !
@@ -286,7 +286,7 @@ ZBETA = 0.6
 !           ----------------------------------------------
 !
     PZ0SEA(:) = 0.011*PUSTAR(:)*PUSTAR(:)/XG                                 &
-                   +0.11*ZNU(:)/(PUSTAR(:))  
+                   +0.11*ZNU(:)/(PUSTAR(:))
 !
 !
     WHERE(PUSTAR(:) > 0.23)
@@ -294,9 +294,9 @@ ZBETA = 0.6
       ZZ0SEAQ(:) = 0.20*ZNU(:)/(PUSTAR(:)-0.2) + 9E-6
     ELSEWHERE
       ZZ0SEAH(:) = 0.015*PUSTAR(:)*PUSTAR(:)/XG                             &
-                      + 0.18*ZNU(:)/(PUSTAR(:))  
+                      + 0.18*ZNU(:)/(PUSTAR(:))
       ZZ0SEAQ(:) = 0.0205*PUSTAR(:)*PUSTAR(:)/XG                            &
-                      + 0.294*ZNU(:)/(PUSTAR(:))  
+                      + 0.294*ZNU(:)/(PUSTAR(:))
     END WHERE
 !
 !
@@ -305,7 +305,7 @@ ZBETA = 0.6
 !
     PUSTAR(:) = MAX(                                                         &
                     ZDU(:)*XKARMAN / (LOG(PZREF(:)/PZ0SEA(:)) - ZPSIM(:))       &
-                    , 5E-3 )  
+                    , 5E-3 )
 !
     ZTSTAR(:) = ZDT(:)*XKARMAN / (LOG(PZREF(:)/ZZ0SEAH(:)) - ZPSIH(:))
 !

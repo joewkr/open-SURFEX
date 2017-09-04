@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PGD_ISBA_n (CHI, DTCO, DTV, DTZ, GB, IG, ISS, IO, S, K, &
                                   UG, U, USS, GCP, SV, HPROGRAM, OLAND_USE, TPDATE_END)
 !     #########################################
 !
-!!****  *READ_PGD_ISBA_n* - routine to initialise ISBA physiographic variables 
+!!****  *READ_PGD_ISBA_n* - routine to initialise ISBA physiographic variables
 !!
 !!    PURPOSE
 !!    -------
@@ -32,16 +32,16 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      P. Le Moigne  12/2004 : add type of photosynthesis
 !!      B. Decharme      2008 : add XWDRAIN
 !!      B. Decharme   06/2009 : add topographic index statistics
 !!      A.L. Gibelin 04/2009 : dimension NBIOMASS for ISBA-A-gs
 !!      B. Decharme  07/2012  : files of data for permafrost area and for SOC top and sub soil
 !!                   11/2013  : same for groundwater distribution
-!!                   11/2014  : Read XSOILGRID as a series of real 
+!!                   11/2014  : Read XSOILGRID as a series of real
 !!      P. Samuelsson 10/2014 : MEB
-!!    10/2016 B. Decharme : bug surface/groundwater coupling   
+!!    10/2016 B. Decharme : bug surface/groundwater coupling
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -116,7 +116,7 @@ TYPE(GRID_CONF_PROJ_t),INTENT(INOUT) :: GCP
 TYPE(SV_t), INTENT(INOUT) :: SV
 !
 CHARACTER(LEN=6),  INTENT(IN)  :: HPROGRAM ! calling program
-LOGICAL,           INTENT(IN)  :: OLAND_USE ! 
+LOGICAL,           INTENT(IN)  :: OLAND_USE !
 TYPE(DATE), INTENT(IN) :: TPDATE_END
 !
 !*       0.2   Declarations of local variables
@@ -230,7 +230,7 @@ IF (IVERSION>7 .OR. IVERSION==7 .AND. IBUGFIX>=2) THEN
   YRECFM='TR_ML'
   CALL READ_SURF(HPROGRAM,YRECFM,IO%LTR_ML,IRESP)
   !
-ELSE 
+ELSE
   IO%LTR_ML = .FALSE.
 ENDIF
 !
@@ -247,11 +247,11 @@ ELSE
                        YSAND, YSANDFILETYPE, XUNIF_SAND, LIMP_SAND,              &
                        YSOC_TOP, YSOC_SUB, YSOCFILETYPE, XUNIF_SOC_TOP,          &
                        XUNIF_SOC_SUB, LIMP_SOC, YCTI, YCTIFILETYPE, LIMP_CTI,    &
-                       YPERM, YPERMFILETYPE, XUNIF_PERM, LIMP_PERM, GMEB,        &                       
+                       YPERM, YPERMFILETYPE, XUNIF_PERM, LIMP_PERM, GMEB,        &
                        YRUNOFFB, YRUNOFFBFILETYPE, XUNIF_RUNOFFB,                &
                        YWDRAIN,  YWDRAINFILETYPE , XUNIF_WDRAIN, ZSOILGRID,      &
                        YPH, YPHFILETYPE, XUNIF_PH, YFERT, YFERTFILETYPE,         &
-                       XUNIF_FERT                          )  
+                       XUNIF_FERT                          )
   IO%CALBEDO = YALBEDO
   !
 ENDIF
@@ -263,7 +263,7 @@ IF (IVERSION>7 .OR. IVERSION==7 .AND. IBUGFIX>=3) THEN
   YRECFM='RM_PATCH'
   CALL READ_SURF(HPROGRAM,YRECFM,IO%XRM_PATCH,IRESP)
   !
-ELSE 
+ELSE
   IO%XRM_PATCH = 0.0
 ENDIF
 !
@@ -282,7 +282,7 @@ IF(IO%CISBA=='DIF') THEN
       WRITE(YLVL,'(I4)') JLAYER
       YRECFM='SOILGRID'//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))
       CALL READ_SURF(HPROGRAM,YRECFM,IO%XSOILGRID(JLAYER),IRESP)
-    ENDDO    
+    ENDDO
   ELSEIF (IVERSION==7 .AND. IBUGFIX>=2) THEN
     YRECFM='SOILGRID'
     CALL READ_SURF(HPROGRAM,YRECFM,IO%XSOILGRID,IRESP,HDIR='-')
@@ -331,18 +331,18 @@ IF (IVERSION>=8) THEN
     YRECFM='MEB_LITTER'
     CALL READ_SURF(HPROGRAM,YRECFM,IO%LMEB_LITTER,IRESP)
     YRECFM='MEB_GNDRES'
-    CALL READ_SURF(HPROGRAM,YRECFM,IO%LMEB_GNDRES,IRESP)      
+    CALL READ_SURF(HPROGRAM,YRECFM,IO%LMEB_GNDRES,IRESP)
   ELSE
     IO%LFORC_MEASURE=.FALSE.
-    IO%LMEB_LITTER  =.FALSE. 
-    IO%LMEB_GNDRES  =.FALSE.    
+    IO%LMEB_LITTER  =.FALSE.
+    IO%LMEB_GNDRES  =.FALSE.
   ENDIF
 !
 ELSE
   IO%LMEB_PATCH(:)=.FALSE.
   IO%LFORC_MEASURE=.FALSE.
   IO%LMEB_LITTER  =.FALSE.
-  IO%LMEB_GNDRES  =.FALSE.  
+  IO%LMEB_GNDRES  =.FALSE.
 ENDIF
 !
 !
@@ -393,7 +393,7 @@ ELSE
 ENDIF
 !
 IF(IO%LSOCP)THEN
-!  
+!
   ALLOCATE(S%XSOC (IG%NDIM,IO%NGROUND_LAYER))
 !
   YRECFM='SOC_TOP'
@@ -406,7 +406,7 @@ IF(IO%LSOCP)THEN
   END DO
 !
 ELSE
-!  
+!
   ALLOCATE(S%XSOC (0,1))
 !
 ENDIF
@@ -421,14 +421,14 @@ ELSE
 ENDIF
 !
 IF(IO%LPERM)THEN
-!  
+!
   ALLOCATE(K%XPERM (IG%NDIM))
 !
   YRECFM='PERM'
   CALL READ_SURF(HPROGRAM,YRECFM,K%XPERM(:),IRESP)
 !
 ELSE
-!  
+!
   ALLOCATE(K%XPERM (0))
 !
 ENDIF
@@ -496,10 +496,10 @@ ENDIF
 !
 !* topographic index statistics
 !
-IF(IO%CRUNOFF=='SGH ' .AND. IVERSION>=5) THEN 
+IF(IO%CRUNOFF=='SGH ' .AND. IVERSION>=5) THEN
 !
   YRECFM='CTI'
-  CALL READ_SURF(HPROGRAM,YRECFM,IO%LCTI,IRESP)        
+  CALL READ_SURF(HPROGRAM,YRECFM,IO%LCTI,IRESP)
 !
   IF (.NOT.IO%LCTI) CALL ABOR1_SFX("READ_PGD_ISBA_n:WITH CRUNOFF=SGH, CTI MAPS MUST BE GIVEN TO PGD")
   !
@@ -551,12 +551,12 @@ CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'FULL  ','SURF  ','READ ')
   ALLOCATE(GB%XISOPOT(IG%NDIM))
   ALLOCATE(GB%XMONOPOT(IG%NDIM))
   !
-  ZWORK(:,:) = 0.  
+  ZWORK(:,:) = 0.
   YRECFM='E_ISOPOT'
   CALL READ_SURF(HPROGRAM,YRECFM,ZWORK,IRESP)
   CALL PACK_SAME_RANK(IMASK,ZWORK(:,1),GB%XISOPOT(:))
   !
-  ZWORK(:,:) = 0.  
+  ZWORK(:,:) = 0.
   YRECFM='E_MONOPOT'
   CALL READ_SURF(HPROGRAM,YRECFM,ZWORK,IRESP)
   CALL PACK_SAME_RANK(IMASK,ZWORK(:,1),GB%XMONOPOT(:))

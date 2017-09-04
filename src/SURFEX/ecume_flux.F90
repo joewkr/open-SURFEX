@@ -1,24 +1,24 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE ECUME_FLUX(PZ0SEA,PTA,PEXNA,PRHOA,PSST,PEXNS,PQA,PVMOD, &
                             PZREF,PUREF,PPS,PICHCE,OPRECIP,OPWEBB,OPWG,&
                             PQSAT,PSFTH,PSFTQ,PUSTAR,PCD,PCDN,PCH,PCE, &
-                            PRI,PRESA,PRAIN,PZ0HSEA,OPERTFLUX,PPERTFLUX)  
+                            PRI,PRESA,PRAIN,PZ0HSEA,OPERTFLUX,PPERTFLUX)
 !###############################################################################
 !!
 !!****  *ECUME_FLUX*
 !!
 !!    PURPOSE
 !!    -------
-!       Calculate the surface turbulent fluxes of heat, moisture, and momentum 
+!       Calculate the surface turbulent fluxes of heat, moisture, and momentum
 !       over sea surface + corrections due to rainfall & Webb effect.
 !!
 !!**  METHOD
 !!    ------
-!       The estimation of the transfer coefficients relies on the iterative 
+!       The estimation of the transfer coefficients relies on the iterative
 !       computation of the scaling parameters U*/Teta*/q*. The convergence is
 !       supposed to be reached in NITERFL iterations maximum.
 !       The neutral transfer coefficients for momentum/temperature/humidity
@@ -52,7 +52,7 @@
 !!      Modified        09/2012  B. Decharme: CD correction
 !!      Modified        09/2012  B. Decharme: limitation of Ri in surface_ri.F90
 !!      Modified        10/2012  P. Le Moigne: extra inputs for FLake use
-!!      Modified        06/2013  B. Decharme: bug in z0 (output) computation 
+!!      Modified        06/2013  B. Decharme: bug in z0 (output) computation
 !!      Modified        06/2013  J.Escobar : for REAL4/8 add EPSILON management
 !!!
 !-------------------------------------------------------------------------------
@@ -63,7 +63,7 @@
 USE MODD_CSTS,       ONLY : XKARMAN, XG, XSTEFAN, XRD, XRV, &
                             XLVTT, XCL, XCPD, XCPV, XRHOLW, &
                             XTT,XP00
-USE MODD_SURF_PAR,   ONLY : XUNDEF, XSURF_EPSILON                    
+USE MODD_SURF_PAR,   ONLY : XUNDEF, XSURF_EPSILON
 !
 USE MODD_REPROD_OPER,  ONLY : CCHARNOCK
 !
@@ -163,7 +163,7 @@ REAL    :: ZBETAGUST       ! gustiness factor
 REAL    :: ZZBL            !atm. boundary layer depth (m)
 !
 REAL    :: ZCHIC,ZCHIK,ZEPS,ZLOGHS10,ZLOGTS10,ZPI,ZPIS2,ZPSIC,ZPSIK, &
-             ZSQR3,ZZDQ,ZZDTH  
+             ZSQR3,ZZDQ,ZZDTH
 !
 REAL    :: ZALFAC,ZCPLW,ZDQSDT,ZDTMP,ZDWAT,ZP00,ZTAC,ZWW
                                 ! to compute rainfall impact & Webb correction
@@ -263,7 +263,7 @@ ZLR(:) = XLVTT+(XCPV-XCL)*(PTA(:)-XTT)                  !at atm.level
 IF(CCHARNOCK=='OLD')THEN
   ZCHARN(:) = XVCHRNK
 ELSE
-! vary between 0.011 et 0.018 according to Chris Fairall's data as in coare3.0        
+! vary between 0.011 et 0.018 according to Chris Fairall's data as in coare3.0
   ZCHARN(:) = MAX(0.011,MIN(0.018,0.011+0.007*(ZDUWG(:)-10.)/8.))
 ENDIF
 !
@@ -281,13 +281,13 @@ DO JJ=1,NITERFL
       PCDN(JLON) = 1.3013E-03                          &
                   + (-1.2719E-04 * ZDELTAU10N(JLON)   ) &
                   + (+1.3067E-05 * ZDELTAU10N(JLON)**2) &
-                  + (-2.2261E-07 * ZDELTAU10N(JLON)**3)  
+                  + (-2.2261E-07 * ZDELTAU10N(JLON)**3)
     ELSEIF (ZDELTAU10N(JLON) <= 50.0) THEN
       PCDN(JLON) = 1.3633E-03                          &
                   + (-1.3056E-04 * ZDELTAU10N(JLON)   ) &
                   + (+1.6212E-05 * ZDELTAU10N(JLON)**2) &
                   + (-4.8208E-07 * ZDELTAU10N(JLON)**3) &
-                  + (+4.2684E-09 * ZDELTAU10N(JLON)**4)  
+                  + (+4.2684E-09 * ZDELTAU10N(JLON)**4)
     ELSE
       PCDN(JLON) = 1.7828E-03
     ENDIF
@@ -300,7 +300,7 @@ DO JJ=1,NITERFL
                   + (+1.6038E-05 * ZDELTAU10N(JLON)**2) &
                   + (-4.3701E-07 * ZDELTAU10N(JLON)**3) &
                   + (+3.4517E-09 * ZDELTAU10N(JLON)**4) &
-                  + (+3.5763E-12 * ZDELTAU10N(JLON)**5)  
+                  + (+3.5763E-12 * ZDELTAU10N(JLON)**5)
     ELSE
       ZCHN(JLON) = 3.1374E-03
     ENDIF
@@ -312,11 +312,11 @@ DO JJ=1,NITERFL
                   + (-1.1384E-04 * ZDELTAU10N(JLON)   ) &
                   + (+1.1467E-05 * ZDELTAU10N(JLON)**2) &
                   + (-3.9144E-07 * ZDELTAU10N(JLON)**3) &
-                  + (+5.0864E-09 * ZDELTAU10N(JLON)**4)  
+                  + (+5.0864E-09 * ZDELTAU10N(JLON)**4)
     ELSEIF (ZDELTAU10N(JLON) <= 33.0) THEN
       ZCEN(JLON) = -1.3526E-03                         &
                   + (+1.8229E-04 * ZDELTAU10N(JLON)   ) &
-                  + (-2.6995E-06 * ZDELTAU10N(JLON)**2)  
+                  + (-2.6995E-06 * ZDELTAU10N(JLON)**2)
     ELSE
       ZCEN(JLON) = 1.7232E-03
     ENDIF
@@ -340,7 +340,7 @@ DO JJ=1,NITERFL
 !
 ! For U
     ZLMOU = PUREF(JLON)*XG*XKARMAN*(ZTSR(JLON)/(PTA(JLON)) &
-       +ZETV*ZQSR(JLON)/(1.0+ZETV*PQA(JLON)))/MAX(ZUSR(JLON),ZEPS)**2  
+       +ZETV*ZQSR(JLON)/(1.0+ZETV*PQA(JLON)))/MAX(ZUSR(JLON),ZEPS)**2
 ! For T/Q
     ZLMOT = ZLMOU*PZREF(JLON)/PUREF(JLON)
     ZLMOU = MAX(MIN(ZLMOU,ZLMOMAX),ZLMOMIN)
@@ -358,11 +358,11 @@ DO JJ=1,NITERFL
       ZCHIK  = (1.0-16.0*ZLMOU)**0.25
       ZPSIK  = 2.0*LOG((1.0+ZCHIK)/2.0) &
                 +LOG((1.0+ZCHIK**2)/2.0) &
-                -2.0*ATAN(ZCHIK)+ZPIS2  
+                -2.0*ATAN(ZCHIK)+ZPIS2
       ZCHIC  = (1.0-12.87*ZLMOU)**(1.0/3.0)     !for very unstable conditions
       ZPSIC  = 1.5*LOG((ZCHIC**2+ZCHIC+1.0)/3.0)  &
                 -ZSQR3*ATAN((2.0*ZCHIC+1.0)/ZSQR3) &
-                +ZPI/ZSQR3  
+                +ZPI/ZSQR3
       ZPSI_U = ZPSIC+(ZPSIK-ZPSIC)/(1.0+ZLMOU**2)
                                                 !match Kansas & free-conv. forms
     ENDIF
@@ -377,7 +377,7 @@ DO JJ=1,NITERFL
       ZCHIC  = (1.0-12.87*ZLMOT)**(1.0/3.0)     !for very unstable conditions
       ZPSIC  = 1.5*LOG((ZCHIC**2+ZCHIC+1.0)/3.0)  &
                 -ZSQR3*ATAN((2.0*ZCHIC+1.0)/ZSQR3) &
-                +ZPI/ZSQR3  
+                +ZPI/ZSQR3
       ZPSI_T = ZPSIC+(ZPSIK-ZPSIC)/(1.0+ZLMOT**2)
                                                 !match Kansas & free-conv. forms
     ENDIF
@@ -405,10 +405,10 @@ DO JLON=1,SIZE(PTA)
 !
   ZZDTH = 0.5* &
            ((1.0+SIGN(1.0,ZDTH(JLON)))*MAX(ZDTH(JLON),ZEPS) &
-           +(1.0-SIGN(1.0,ZDTH(JLON)))*MIN(ZDTH(JLON),-ZEPS))  
+           +(1.0-SIGN(1.0,ZDTH(JLON)))*MIN(ZDTH(JLON),-ZEPS))
   ZZDQ  = 0.5* &
            ((1.0+SIGN(1.0,ZDQ(JLON)))*MAX(ZDQ(JLON),ZEPS)   &
-           +(1.0-SIGN(1.0,ZDQ(JLON)))*MIN(ZDQ(JLON),-ZEPS))  
+           +(1.0-SIGN(1.0,ZDQ(JLON)))*MIN(ZDQ(JLON),-ZEPS))
   PCD(JLON) = (ZUSR(JLON)/ZDUWG(JLON))**2
   PCH(JLON) = ZUSR(JLON)*ZTSR(JLON)/(ZDUWG(JLON)*ZZDTH)
   PCE(JLON) = ZUSR(JLON)*ZQSR(JLON)/(ZDUWG(JLON)*ZZDQ)
@@ -453,15 +453,15 @@ IF(OPRECIP) THEN
     ZTAC   = PTA(JLON)-XTT
     ZCPLW  = 4224.8482+ZTAC*(-4.707+ZTAC*(0.08499 &
               +ZTAC*(1.2826E-03+ZTAC*(4.7884E-05   &
-              -2.0027E-06*ZTAC))))  
+              -2.0027E-06*ZTAC))))
     ZDWAT  = 2.11E-05*(ZP00/ZPA(JLON)) &
-              *(PTA(JLON)/XTT)**1.94  
+              *(PTA(JLON)/XTT)**1.94
     ZDTMP  = (1.0+3.309E-03*ZTAC-1.44E-06*ZTAC**2) &
-              *0.02411/(PRHOA(JLON)*XCPD)  
+              *0.02411/(PRHOA(JLON)*XCPD)
     ZDQSDT = ZQSATA(JLON)*ZLR(JLON)/(XRD*PTA(JLON)**2)
     ZALFAC = 1.0/(1.0+ZDQSDT*(ZLR(JLON)*ZDWAT)/(ZDTMP*XCPD))
     ZRF(JLON) = ZCPLW*PRAIN(JLON)*ZALFAC*((PSST(JLON)-PTA(JLON)) &
-                 +(PQSAT(JLON)-PQA(JLON))*(ZLR(JLON)*ZDWAT)/(ZDTMP*XCPD))  
+                 +(PQSAT(JLON)-PQA(JLON))*(ZLR(JLON)*ZDWAT)/(ZDTMP*XCPD))
 
   ENDDO
 ENDIF
@@ -476,20 +476,20 @@ IF (OPWEBB) THEN
   DO JLON=1,SIZE(PTA)
     ZWW = -(1.0+ZETV)*(PCE(JLON)*ZDUWG(JLON)*ZDQ(JLON)) &
            -(1.0+(1.0+ZETV)*PQA(JLON))*              &
-           (PCH(JLON)*ZDUWG(JLON)*ZDTH(JLON))/(PTA(JLON))  
+           (PCH(JLON)*ZDUWG(JLON)*ZDTH(JLON))/(PTA(JLON))
     ZEFWEBB(JLON) = PRHOA(JLON)*ZWW*ZLV(JLON)*PQA(JLON)
   ENDDO
 ENDIF
 !
 !-------------------------------------------------------------------------------
 !
-!       7.   FINAL STEP : TOTAL SURFACE FLUXES AND DERIVED DIAGNOSTICS. 
+!       7.   FINAL STEP : TOTAL SURFACE FLUXES AND DERIVED DIAGNOSTICS.
 !       ---------------------------------------------------------------
 !
 !       7.1. Richardson number
 !
  CALL SURFACE_RI(PSST,PQSAT,PEXNS,PEXNA,PTA,ZQSATA, &
-                PZREF,PUREF,ZDIRCOSZW,PVMOD,PRI    )  
+                PZREF,PUREF,ZDIRCOSZW,PVMOD,PRI    )
 !
 !       7.2. Friction velocity which contains correction du to rain
 !

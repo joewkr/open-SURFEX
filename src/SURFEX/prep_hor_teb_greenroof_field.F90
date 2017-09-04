@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_HOR_TEB_GREENROOF_FIELD (DTCO, UG, U, USS, GCP, IO, S, K, P, PEK, TG, TOP,  &
@@ -14,16 +14,16 @@ SUBROUTINE PREP_HOR_TEB_GREENROOF_FIELD (DTCO, UG, U, USS, GCP, IO, S, K, P, PEK
 !
 !!**  METHOD
 !!    ------
-!!     
+!!
 !!    Based on "prep_hor_teb_garden_field"
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson, A. Lemonsu & C. de Munck 
+!!     V. Masson, A. Lemonsu & C. de Munck
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -123,7 +123,7 @@ INTEGER,            INTENT(IN)  :: KPATCH
  CHARACTER(LEN=6)              :: YFILETYPE_SNOW ! type of input file
  CHARACTER(LEN=28)             :: YFILE_SNOW     ! name of file
  CHARACTER(LEN=6)              :: YFILEPGDTYPE_SNOW ! type of input file
- CHARACTER(LEN=28)             :: YFILEPGD_SNOW     ! name of file  
+ CHARACTER(LEN=28)             :: YFILEPGD_SNOW     ! name of file
 REAL, POINTER,     DIMENSION(:,:,:) :: ZFIELDIN=>NULL()       ! field to interpolate horizontally
 !
 TYPE(NSURF_SNOW) :: TNPSNOW
@@ -180,10 +180,10 @@ IF (HSURF=='SN_VEG ') THEN
       YFILE_SNOW        = YFILE
       YFILETYPE_SNOW    = YFILETYPE
       YFILEPGD_SNOW     = YFILEPGD
-      YFILEPGDTYPE_SNOW = YFILEPGDTYPE       
-    ELSE            
+      YFILEPGDTYPE_SNOW = YFILEPGDTYPE
+    ELSE
       GUNIF_SNOW=.TRUE.
-      IF(ALL(XWSNOW_GR==XUNDEF))XWSNOW_GR=0.0  
+      IF(ALL(XWSNOW_GR==XUNDEF))XWSNOW_GR=0.0
     ENDIF
   ENDIF
   !
@@ -218,7 +218,7 @@ IF (HSURF=='SN_VEG ') THEN
     PEK%TSNOW%GRAN2 = TNPSNOW%AL(1)%GRAN2
     PEK%TSNOW%HIST = TNPSNOW%AL(1)%HIST
   ENDIF
-  !                    
+  !
   DEALLOCATE(ZSG1SNOW)
   DEALLOCATE(ZSG2SNOW)
   DEALLOCATE(ZHISTSNOW)
@@ -235,8 +235,8 @@ IF (GUNIF) THEN
 ELSE IF (YFILETYPE=='ASCLLV') THEN
   CALL PREP_TEB_GREENROOF_ASCLLV(DTCO, UG, U, USS, HPROGRAM,HSURF,ILUOUT,ZFIELDIN)
 ELSE IF (YFILETYPE=='GRIB  ') THEN
-  CALL PREP_GRIB_GRID(YFILE,ILUOUT,CINMODEL,CINGRID_TYPE,CINTERP_TYPE,TZTIME_GRIB)            
-  IF (NRANK==NPIO) CALL PREP_TEB_GREENROOF_GRIB(HPROGRAM,HSURF,YFILE,ILUOUT,ZFIELDIN)        
+  CALL PREP_GRIB_GRID(YFILE,ILUOUT,CINMODEL,CINGRID_TYPE,CINTERP_TYPE,TZTIME_GRIB)
+  IF (NRANK==NPIO) CALL PREP_TEB_GREENROOF_GRIB(HPROGRAM,HSURF,YFILE,ILUOUT,ZFIELDIN)
 ELSE IF (YFILETYPE=='MESONH' .OR. YFILETYPE=='ASCII ' .OR. YFILETYPE=='LFI   '.OR. YFILETYPE=='FA    '.OR. YFILETYPE=='AROME ') THEN
    CALL PREP_TEB_GREENROOF_EXTERN(DTCO, IO, U, GCP, &
                                   HPROGRAM,HSURF,YFILE,YFILETYPE,YFILEPGD,YFILEPGDTYPE,ILUOUT,KPATCH,ZFIELDIN)
@@ -291,7 +291,7 @@ IF (1/=INP) THEN
   !
 ELSE
   !
-  ZW(:,:) = ZFIELDOUTP(:,:,1)  
+  ZW(:,:) = ZFIELDOUTP(:,:,1)
   !
 ENDIF
 !
@@ -313,7 +313,7 @@ SELECT CASE (HSURF)
   !
   !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   !
- CASE('WG     ') 
+ CASE('WG     ')
   ALLOCATE(ZF (INI,IO%NGROUND_LAYER))
   !
   !* interpolates on output levels
@@ -347,7 +347,7 @@ SELECT CASE (HSURF)
   !
   !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   !
- CASE('TG     ') 
+ CASE('TG     ')
   IWORK=IO%NGROUND_LAYER
   ALLOCATE(PEK%XTG(INI,IWORK))
   ALLOCATE(ZDG(SIZE(P%XDG,1),IWORK))
@@ -358,13 +358,13 @@ SELECT CASE (HSURF)
   !
 !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   !
- CASE('WR     ') 
+ CASE('WR     ')
   ALLOCATE(PEK%XWR(INI))
   PEK%XWR(:) = ZW(:,1)
   !
   !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   !
- CASE('LAI    ') 
+ CASE('LAI    ')
   !* LAI is updated only if present and pertinent (evolutive LAI) in input file
   WHERE (ZW(:,1)/=XUNDEF) PEK%XLAI(:) = ZW(:,1)
   !
@@ -408,7 +408,7 @@ IF (SIZE(PT1,2)==3) THEN
 !     -----------------------------
 !
        !surface layer (generally 0.01m imposed)
-       PT2(:,1) = PT1(:,1) 
+       PT2(:,1) = PT1(:,1)
        !deep layers
        DO JL=2,IO%NGROUND_LAYER
           PT2(:,JL) = PT1(:,3)
@@ -416,12 +416,12 @@ IF (SIZE(PT1,2)==3) THEN
        !if root layers
        DO JI=1,SIZE(PT1,1)
           DO JL=2,IO%NGROUND_LAYER
-             IF(P%XROOTFRAC(JI,JL)<=1.0)THEN 
+             IF(P%XROOTFRAC(JI,JL)<=1.0)THEN
                 PT2(JI,JL) = PT1(JI,2)
                 EXIT
              ENDIF
           END DO
-       END DO 
+       END DO
 !
 !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ELSE
@@ -439,7 +439,7 @@ ELSE
 !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 END IF
 !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-!  
+!
 IF (LHOOK) CALL DR_HOOK('INIT_FROM_REF_GRID',1,ZHOOK_HANDLE)
 !
 !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

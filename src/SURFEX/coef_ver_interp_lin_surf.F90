@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE COEF_VER_INTERP_LIN_SURF(PZ1,PZ2,KKLIN,PCOEFLIN)
@@ -12,7 +12,7 @@
 !!    -------
 !     This function computes the interpolation coefficient XCOEFLIN
 !     of the level XKLIN of grid PZ1 which is just under the points of
-!     grid PZ2 (respectively called hereafter 'initial' and 'target'), 
+!     grid PZ2 (respectively called hereafter 'initial' and 'target'),
 !     in order to perform linear interpolations between these 2 grids.
 !
 !     CAUTION:
@@ -42,7 +42,7 @@
 !!
 !!    AUTHOR
 !!    ------
-!!      
+!!
 !     V.Masson  Meteo-France
 !!
 !!    MODIFICATIONS
@@ -66,9 +66,9 @@ IMPLICIT NONE
 !*       0.1   Declaration of arguments
 !              ------------------------
 REAL,   DIMENSION(:,:), INTENT(IN)   :: PZ1   ! altitudes of the points of the
-!                                             ! initial grid 
+!                                             ! initial grid
 REAL,   DIMENSION(:,:), INTENT(IN)   :: PZ2   ! altitudes of the points of the
-!                                             ! target grid 
+!                                             ! target grid
 INTEGER, DIMENSION(:,:), INTENT(OUT) :: KKLIN ! number of the level
                                               ! of the data to be interpolated
 !
@@ -123,7 +123,7 @@ DO JK2 = 1,SIZE(PZ2,2)
     !
   ENDDO
 ENDDO
-!$OMP ENDDO 
+!$OMP ENDDO
 IF (LHOOK) CALL DR_HOOK('COEF_VER_INTERP_LIN_SURF_2',1,ZHOOK_HANDLE_OMP)
 !$OMP END PARALLEL
 !
@@ -154,7 +154,7 @@ DO JK2 = 1,SIZE(PZ2,2)
   ENDDO
 !-------------------------------------------------------------------------------
 END DO
-!$OMP END DO 
+!$OMP END DO
 IF (LHOOK) CALL DR_HOOK('COEF_VER_INTERP_LIN_SURF_3',1,ZHOOK_HANDLE_OMP)
 !$OMP END PARALLEL
 !

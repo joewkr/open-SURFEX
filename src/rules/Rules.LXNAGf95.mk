@@ -10,8 +10,8 @@ OPT_PERF0 = -O0
 OPT_PERF2 = -O2
 OPT_CHECK = -C -nan
 #
-OPT       = $(OPT_BASE) $(OPT_PERF2) 
-OPT0      = $(OPT_BASE) $(OPT_PERF0) 
+OPT       = $(OPT_BASE) $(OPT_PERF2)
+OPT0      = $(OPT_BASE) $(OPT_PERF0)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF2)
 #
 ifeq "$(OPTLEVEL)" "DEBUG"
@@ -20,9 +20,9 @@ OPT0      = $(OPT_BASE) $(OPT_PERF0) $(OPT_CHECK)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF0)
 endif
 #
-#            
+#
 F90 = f95
-F90FLAGS      =  $(OPT) 
+F90FLAGS      =  $(OPT)
 F77 = $(F90)
 #F77FLAGS      =  $(OPT) -132 -fixed
 F77FLAGS      =  $(OPT) -fixed
@@ -32,7 +32,7 @@ FX90FLAGS     =  $(OPT) -fixed
 #
 LDFLAGS   =  -Wl,-Xlinker,-noinhibit-exec  -Wl,-Xlinker,-warn-once
 #
-# preprocessing flags 
+# preprocessing flags
 #
 CPP = cpp -P -traditional -Wcomment
 #
@@ -40,7 +40,7 @@ CPPFLAGS_SURFEX    =
 CPPFLAGS_SURCOUCHE = -DMNH_MPI_DOUBLE_PRECISION -DMNH_LINUX -DMNH_MPI_BSEND -DNAGf95
 CPPFLAGS_RAD       =
 CPPFLAGS_NEWLFI    = -DSWAPIO -DLINUX
-CPPFLAGS_MNH       = -DMNH 
+CPPFLAGS_MNH       = -DMNH
 
 #
 # Gribex flags
@@ -91,4 +91,4 @@ mode_fmwrit.mod mode_scatter_ll.mod \
 mode_fmread.mod mode_sum_ll.mod \
 mode_exchange_ll.mod
 #
-$(OBJS1): OPT = $(OPT_BASE) $(OPT_PERF0) -dusty 
+$(OBJS1): OPT = $(OPT_BASE) $(OPT_PERF0) -dusty

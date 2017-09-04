@@ -1,24 +1,24 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-SUBROUTINE SOILSTRESS( HISBA, PF2, KK, PK, PEK, PF2WGHT, PF5        )  
+SUBROUTINE SOILSTRESS( HISBA, PF2, KK, PK, PEK, PF2WGHT, PF5        )
 !     ####################################################################
 !
-!!****  *SOILSTRESS*  
+!!****  *SOILSTRESS*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates the vegetation stress due to soil water
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
 !     Calculates the F2 coefficient.
-!     
+!
 !
 !!    EXTERNAL
 !!    --------
@@ -26,17 +26,17 @@ SUBROUTINE SOILSTRESS( HISBA, PF2, KK, PK, PEK, PF2WGHT, PF5        )
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!    none
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Noilhan and Planton (1989)
 !!    Belair (1995)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -44,10 +44,10 @@ SUBROUTINE SOILSTRESS( HISBA, PF2, KK, PK, PEK, PF2WGHT, PF5        )
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original      13/03/95 
+!!      Original      13/03/95
 !!     (P.Jabouille)  13/11/96    mininum value for ZF1
 !!     (V. Masson)    28/08/98    add PF2 for Calvet (1998) CO2 computations
-!!     (B. Decharme)     07/15    Suppress numerical adjustement for PF2 
+!!     (B. Decharme)     07/15    Suppress numerical adjustement for PF2
 !!     (B. Decharme)     01/17    Suppress soil/vegetation parameters modification
 !!                                for DIF due to the presence of ice to ensure maximum
 !!                                vegetation stress when soil ice is important. Indeed,
@@ -134,11 +134,11 @@ ZWWILT_AVGZ(:)  = 0.
 !               resistance
 !
 ! - For humid soils (> WFC), this factor does not
-!   increase the stomatal resistance                                   
+!   increase the stomatal resistance
 ! - The stomatal resistance should be large
 !   when the soil is very dry (< WILT)
 !
-IF(HISBA =='DIF')THEN      
+IF(HISBA =='DIF')THEN
 !
 ! If using the diffusion option, then calculate transpiration weights
 ! and the mean root-zone soil water stress factor F2:
@@ -177,7 +177,7 @@ IF(HISBA =='DIF')THEN
 !
 !       Net soil water stress for entire root zone:
         PF2(JJ)        = PF2(JJ) + PF2WGHT(JJ,JL)
-!        
+!
       ENDIF
 !
      ENDDO

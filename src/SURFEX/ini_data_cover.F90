@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 #ifdef RS6K
 @PROCESS NOOPTIMIZE
@@ -88,7 +88,7 @@ USE MODD_DATA_COVER,     ONLY : XDATA_TOWN, XDATA_NATURE, XDATA_SEA, XDATA_WATER
                                   XDATA_GC_ST, XDATA_DMAX_ST, TDATA_SEED,           &
                                   TDATA_REAP, XDATA_WATSUP, XDATA_IRRIG,            &
                                   XDATA_LAI_ALL_YEARS, LREAD_DATA_COVER,            &
-                                  XDATA_HC_FLOOR, XDATA_TC_FLOOR, XDATA_D_FLOOR,    & 
+                                  XDATA_HC_FLOOR, XDATA_TC_FLOOR, XDATA_D_FLOOR,    &
                                   XDATA_TCOOL_TARGET, XDATA_THEAT_TARGET,           &
                                   XDATA_F_WASTE_CAN, XDATA_EFF_HEAT, XDATA_QIN,     &
                                   XDATA_QIN_FRAD, XDATA_SHGC, XDATA_U_WIN, XDATA_GR,&
@@ -115,7 +115,7 @@ USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE, NVEGTYPE_OLD, NVEGTYPE_ECOSG,   &
                                   NROCK, NSEA, NWATER, NPERMSNOW, NUT_CPHR, &
                                   NUT_CPMR, NUT_CPLR, NUT_OPHR, NUT_OPMR, &
                                   NUT_OPLR, NUT_LWLR, NUT_LALR, NUT_SPAR, &
-                                  NUT_INDU, NVT_C3W, NVT_C3S, NVT_FLTR, NVT_FLGR 
+                                  NUT_INDU, NVT_C3W, NVT_C3S, NVT_FLTR, NVT_FLGR
 !
 USE MODD_WRITE_COVER_TEX,ONLY : CNAME, CLANG
 !
@@ -201,7 +201,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !            ------------------------
 !
 !-------------------------------------------------------------------------------
-                                
+
 IF (LHOOK) CALL DR_HOOK('INI_DATA_COVER',0,ZHOOK_HANDLE)
 !
 IF (U%LECOSG) THEN
@@ -270,23 +270,23 @@ IF (U%LECOSG) THEN
   NVT_SNOW = 3   ! 3  ! permanent snow and ice
   NVT_BOBD = 4   ! 4  ! boreal broadleaf cold-deciduous summergreen (TREE)
   NVT_TEBD = 5   ! 4  ! temperate broadleaf cold-deciduous summergreen (TREE)
-  NVT_TRBD = 6   ! 4  ! tropical broadleaf deciduous (TREE)  
-  NVT_TEBE = 7   ! 4  ! temperate broadleaf evergreen (TREE)  
+  NVT_TRBD = 6   ! 4  ! tropical broadleaf deciduous (TREE)
+  NVT_TEBE = 7   ! 4  ! temperate broadleaf evergreen (TREE)
   NVT_TRBE = 8   ! 6  ! tropical broadleaf evergreen (EVER)
-  NVT_BONE = 9   ! 5  ! boreal needleleaf evergreen  (CONI)  
+  NVT_BONE = 9   ! 5  ! boreal needleleaf evergreen  (CONI)
   NVT_TENE =10   ! 5  ! temperate needleleaf evergreen (CONI)
-  NVT_BOND =11   ! 5  ! boreal needleleaf cold-deciduous summergreen (CONI)  
+  NVT_BOND =11   ! 5  ! boreal needleleaf cold-deciduous summergreen (CONI)
   NVT_SHRB =12   ! 4  ! shrub (TREE)
   NVT_BOGR =13   !10  ! boreal grass (GRAS)
   NVT_GRAS =14   !10  ! grassland
-  NVT_TROG =15   !11  ! tropical grassland 
+  NVT_TROG =15   !11  ! tropical grassland
   NVT_C3W  =16   ! 7  ! C3W cultures types
   NVT_C3S  =17   ! 7  ! C3S cultures types
   NVT_C4   =18   ! 8  ! C4 cultures types
   NVT_FLTR =19   !12  ! flooded trees
   NVT_FLGR =20   !12  ! flooded grassland
 ELSE
-  NVEGTYPE = NVEGTYPE_OLD 
+  NVEGTYPE = NVEGTYPE_OLD
   NVT_C3W  = 0
   NVT_C3S  = 0
   NVT_FLTR = 0
@@ -359,7 +359,7 @@ XDATA_ROOT_DEPTH(:,:) = XUNDEF
 !
 !-------------------------------------------------------------------------------
 !
-!*    2.4    ice depth for runoff 
+!*    2.4    ice depth for runoff
 !            --------------------
 !
 ALLOCATE(XDATA_DICE(JPCOVER,NVEGTYPE))
@@ -661,16 +661,16 @@ XDATA_CNA_NITRO (:,:) = XUNDEF
 ALLOCATE(TDATA_SEED(JPCOVER,NVEGTYPE))
 !
 TDATA_SEED (:,:)%TDATE%YEAR  = 9999
-TDATA_SEED (:,:)%TDATE%MONTH = NUNDEF                                
-TDATA_SEED (:,:)%TDATE%DAY   = NUNDEF                                
-TDATA_SEED (:,:)%TIME        = 0.                              
+TDATA_SEED (:,:)%TDATE%MONTH = NUNDEF
+TDATA_SEED (:,:)%TDATE%DAY   = NUNDEF
+TDATA_SEED (:,:)%TIME        = 0.
 !
 ALLOCATE(TDATA_REAP(JPCOVER,NVEGTYPE))
 !
 TDATA_REAP (:,:)%TDATE%YEAR  = 9999
-TDATA_REAP (:,:)%TDATE%MONTH = NUNDEF                                
-TDATA_REAP (:,:)%TDATE%DAY   = NUNDEF                                
-TDATA_REAP (:,:)%TIME        = 0.                              
+TDATA_REAP (:,:)%TDATE%MONTH = NUNDEF
+TDATA_REAP (:,:)%TDATE%DAY   = NUNDEF
+TDATA_REAP (:,:)%TIME        = 0.
 !
 !-------------------------------------------------------------------------------
 !
@@ -679,7 +679,7 @@ TDATA_REAP (:,:)%TIME        = 0.
 !
 ALLOCATE(XDATA_IRRIG(JPCOVER,NVEGTYPE))
 !
-XDATA_IRRIG (:,:) = 0.                                
+XDATA_IRRIG (:,:) = 0.
 !
 !-------------------------------------------------------------------------------
 !
@@ -688,12 +688,12 @@ XDATA_IRRIG (:,:) = 0.
 !
 ALLOCATE(XDATA_WATSUP(JPCOVER,NVEGTYPE))
 !
-XDATA_WATSUP (:,:) = 0.                                
+XDATA_WATSUP (:,:) = 0.
 !
 !-------------------------------------------------------------------------------
 !
 !*    2.26   For multi-energy balance (MEB)
-!            ------------------------------                     
+!            ------------------------------
 !
 ALLOCATE(XDATA_GNDLITTER(JPCOVER,36,NVEGTYPE))
 XDATA_GNDLITTER (:,:,:) = XUNDEF
@@ -940,7 +940,7 @@ XDATA_NATVENT     (:) = 0.
 !
 ALLOCATE(XDATA_ROUGH_ROOF (JPCOVER))
 ALLOCATE(XDATA_ROUGH_WALL (JPCOVER))
-XDATA_ROUGH_ROOF(:) = XUNDEF 
+XDATA_ROUGH_ROOF(:) = XUNDEF
 XDATA_ROUGH_WALL(:) = XUNDEF
 !
 ALLOCATE(XDATA_RESIDENTIAL (JPCOVER))
@@ -980,7 +980,7 @@ XDATA_FRAC_PANEL (:) = XUNDEF
 !-------------------------------------------------------------------------------
 !
 !*   4.1   first version of ecoclimap (global)
-!          ----------------------------------- 
+!          -----------------------------------
 !
 !* Global data set
 !
@@ -1053,7 +1053,7 @@ IF (U%LECOSG) THEN
 
   !lai
   DO JDEC = 1,SIZE(XDATA_LAI,2)
-    WHERE(XDATA_VEGTYPE(:,1)>0.) XDATA_LAI(:,JDEC,1) = 0. 
+    WHERE(XDATA_VEGTYPE(:,1)>0.) XDATA_LAI(:,JDEC,1) = 0.
     WHERE(XDATA_VEGTYPE(:,2)>0.) XDATA_LAI(:,JDEC,2) = 0.
     WHERE(XDATA_VEGTYPE(:,3)>0.) XDATA_LAI(:,JDEC,3) = 0.
     WHERE(XDATA_VEGTYPE(:,4)>0.) XDATA_LAI(:,JDEC,4) = 4.
@@ -1096,7 +1096,7 @@ IF (U%LECOSG) THEN
   WHERE(XDATA_VEGTYPE(:,18)>0.) XDATA_ROOT_DEPTH(:,18) = 1.5
   WHERE(XDATA_VEGTYPE(:,19)>0.) XDATA_ROOT_DEPTH(:,19) = 2.0
   WHERE(XDATA_VEGTYPE(:,20)>0.) XDATA_ROOT_DEPTH(:,20) = 1.0
-  
+
   !soil_depth
   WHERE(XDATA_VEGTYPE(:,1)>0.) XDATA_GROUND_DEPTH(:,1) = 1.0
   WHERE(XDATA_VEGTYPE(:,2)>0.) XDATA_GROUND_DEPTH(:,2) = 0.2
@@ -1118,7 +1118,7 @@ IF (U%LECOSG) THEN
   WHERE(XDATA_VEGTYPE(:,18)>0.) XDATA_GROUND_DEPTH(:,18) = 2.0
   WHERE(XDATA_VEGTYPE(:,19)>0.) XDATA_GROUND_DEPTH(:,19) = 2.0
   WHERE(XDATA_VEGTYPE(:,20)>0.) XDATA_GROUND_DEPTH(:,20) = 1.5
- 
+
   !height_trees
   WHERE(XDATA_VEGTYPE(:,4)>0.) XDATA_H_TREE(:,4) = 15.0
   WHERE(XDATA_VEGTYPE(:,5)>0.) XDATA_H_TREE(:,5) = 10.0
@@ -1129,7 +1129,7 @@ IF (U%LECOSG) THEN
   WHERE(XDATA_VEGTYPE(:,10)>0.) XDATA_H_TREE(:,10) = 10.0
   WHERE(XDATA_VEGTYPE(:,11)>0.) XDATA_H_TREE(:,11) = 15.0
   WHERE(XDATA_VEGTYPE(:,12)>0.) XDATA_H_TREE(:,12) = 1.0
-    
+
   !ice_depth
   WHERE(XDATA_VEGTYPE(:,1)>0.) XDATA_DICE(:,1) = 0.5
   WHERE(XDATA_VEGTYPE(:,2)>0.) XDATA_DICE(:,2) = 0.2
@@ -1151,7 +1151,7 @@ IF (U%LECOSG) THEN
   WHERE(XDATA_VEGTYPE(:,18)>0.) XDATA_DICE(:,18) = 1.5
   WHERE(XDATA_VEGTYPE(:,19)>0.) XDATA_DICE(:,19) = 1.5
   WHERE(XDATA_VEGTYPE(:,20)>0.) XDATA_DICE(:,20) = 1.0
-  
+
   DO JCOV = 1,JPCOVER
     DO JVEG = 1,NVEGTYPE
       IF (XDATA_VEGTYPE(JCOV,JVEG)/=0.) THEN
@@ -1160,64 +1160,64 @@ IF (U%LECOSG) THEN
         !alb_soil_vis
         XDATA_ALB_SOIL_VIS(JCOV,:,JVEG) = 0.1
         !alb_veg_nir
-        XDATA_ALB_VEG_NIR(JCOV,:,JVEG) = 0.3  
+        XDATA_ALB_VEG_NIR(JCOV,:,JVEG) = 0.3
         !alb_veg_vis
         XDATA_ALB_VEG_VIS(JCOV,:,JVEG) = 0.1
       ENDIF
     ENDDO
   ENDDO
 
-  WHERE(XDATA_TOWN(:)>0.)  
-    XDATA_ALB_ROOF  (:) = 0.15                                               
-    XDATA_ALB_ROAD  (:) = 0.08                                                
-    XDATA_ALB_WALL  (:) = 0.25                                               
-    XDATA_EMIS_ROOF (:) = 0.90                                               
-    XDATA_EMIS_ROAD (:) = 0.94                                              
-    XDATA_EMIS_WALL (:) = 0.85                           
-    XDATA_HC_ROOF (:,1) = 2.11 * 1.E6                             
-    XDATA_HC_ROOF (:,2) = 0.28 * 1.E6                                 
-    XDATA_HC_ROOF (:,3) = 0.29 * 1.E6                                         
-    XDATA_TC_ROOF (:,1) = 1.5100                                           
-    XDATA_TC_ROOF (:,2) = 0.0800                                          
-    XDATA_TC_ROOF (:,3) = 0.0500                                           
-    XDATA_D_ROOF  (:,1) = 0.050                                         
-    XDATA_D_ROOF  (:,2) = 0.400                                          
-    XDATA_D_ROOF  (:,3) = 0.100                                      
-    XDATA_HC_ROAD (:,1) = 1.94 * 1.E6                                    
-    XDATA_HC_ROAD (:,2) = 1.28 * 1.E6                                  
-    XDATA_HC_ROAD (:,3) = 1.28 * 1.E6                                 
-    XDATA_TC_ROAD (:,1) = 0.7454                                 
-    XDATA_TC_ROAD (:,2) = 0.2513                                
-    XDATA_TC_ROAD (:,3) = 0.2513                              
-    XDATA_D_ROAD  (:,1) = 0.050                            
-    XDATA_D_ROAD  (:,2) = 0.100                            
-    XDATA_D_ROAD  (:,3) = 1.000                         
-    XDATA_HC_WALL (:,1) = 1.55 * 1.E6                        
-    XDATA_HC_WALL (:,2) = 1.55 * 1.E6                         
-    XDATA_HC_WALL (:,3) = 0.29 * 1.E6                   
-    XDATA_TC_WALL (:,1) = 0.9338  
+  WHERE(XDATA_TOWN(:)>0.)
+    XDATA_ALB_ROOF  (:) = 0.15
+    XDATA_ALB_ROAD  (:) = 0.08
+    XDATA_ALB_WALL  (:) = 0.25
+    XDATA_EMIS_ROOF (:) = 0.90
+    XDATA_EMIS_ROAD (:) = 0.94
+    XDATA_EMIS_WALL (:) = 0.85
+    XDATA_HC_ROOF (:,1) = 2.11 * 1.E6
+    XDATA_HC_ROOF (:,2) = 0.28 * 1.E6
+    XDATA_HC_ROOF (:,3) = 0.29 * 1.E6
+    XDATA_TC_ROOF (:,1) = 1.5100
+    XDATA_TC_ROOF (:,2) = 0.0800
+    XDATA_TC_ROOF (:,3) = 0.0500
+    XDATA_D_ROOF  (:,1) = 0.050
+    XDATA_D_ROOF  (:,2) = 0.400
+    XDATA_D_ROOF  (:,3) = 0.100
+    XDATA_HC_ROAD (:,1) = 1.94 * 1.E6
+    XDATA_HC_ROAD (:,2) = 1.28 * 1.E6
+    XDATA_HC_ROAD (:,3) = 1.28 * 1.E6
+    XDATA_TC_ROAD (:,1) = 0.7454
+    XDATA_TC_ROAD (:,2) = 0.2513
+    XDATA_TC_ROAD (:,3) = 0.2513
+    XDATA_D_ROAD  (:,1) = 0.050
+    XDATA_D_ROAD  (:,2) = 0.100
+    XDATA_D_ROAD  (:,3) = 1.000
+    XDATA_HC_WALL (:,1) = 1.55 * 1.E6
+    XDATA_HC_WALL (:,2) = 1.55 * 1.E6
+    XDATA_HC_WALL (:,3) = 0.29 * 1.E6
+    XDATA_TC_WALL (:,1) = 0.9338
     XDATA_TC_WALL (:,2) = 0.9338
-    XDATA_TC_WALL (:,3) = 0.0500    
-    XDATA_D_WALL  (:,1) = 0.020   
+    XDATA_TC_WALL (:,3) = 0.0500
+    XDATA_D_WALL  (:,1) = 0.020
     XDATA_D_WALL  (:,2) = 0.125
     XDATA_D_WALL  (:,3) = 0.050
     XDATA_H_TRAFFIC (:) =10.
     XDATA_LE_TRAFFIC(:) = 0.
-    XDATA_H_INDUSTRY(:) = 5.                                              
+    XDATA_H_INDUSTRY(:) = 5.
     XDATA_LE_INDUSTRY(:)= 0.
   END WHERE
   !
-  WHERE(XDATA_VEGTYPE(:,8)>0.) 
-    XDATA_WATSUP(:,8) = 0.   
+  WHERE(XDATA_VEGTYPE(:,8)>0.)
+    XDATA_WATSUP(:,8) = 0.
     XDATA_IRRIG (:,8) = 0.00
   END WHERE
-  !                                               
-  WHERE(XDATA_VEGTYPE(:,9)>0.) 
-    XDATA_WATSUP(:,9) = 30.   
-    XDATA_IRRIG (:,9) = 1.00  
+  !
+  WHERE(XDATA_VEGTYPE(:,9)>0.)
+    XDATA_WATSUP(:,9) = 30.
+    XDATA_IRRIG (:,9) = 1.00
     TDATA_SEED  (:,9)%TDATE%DAY   = 10
     TDATA_SEED  (:,9)%TDATE%MONTH = 05
-    TDATA_REAP  (:,9)%TDATE%DAY   = 01                                                
+    TDATA_REAP  (:,9)%TDATE%DAY   = 01
     TDATA_REAP  (:,9)%TDATE%MONTH = 08
   END WHERE
   !
@@ -1243,7 +1243,7 @@ IF (U%LECOSG) THEN
   ALLOCATE(NWATER(2))
 ELSE
   ALLOCATE(NSEA(3))
-  ALLOCATE(NWATER(2))        
+  ALLOCATE(NWATER(2))
 ENDIF
 !
 NSEA(:) = 0
@@ -1261,7 +1261,7 @@ DO JCOV = 1, JPCOVER
     ICPT_SEA = ICPT_SEA + 1
     IF(ICPT_SEA>SIZE(NSEA))THEN
       CALL ABOR1_SFX('INI_DATA_COVER: problem with ecoclimap param : ICPT_SEA > SIZE(NSEA) ')
-    ENDIF    
+    ENDIF
     NSEA(ICPT_SEA) = JCOV
   ENDIF
   !
@@ -1277,7 +1277,7 @@ DO JCOV = 1, JPCOVER
   !
   XDATA_CAN_HW_RATIO(JCOV) = 0.5 * XDATA_WALL_O_HOR(JCOV) / (1.-XDATA_BLD (JCOV))
   !
-  !* Building Energy Model variables 
+  !* Building Energy Model variables
   !
   XDATA_HC_FLOOR(JCOV,:) = 2016000.
   XDATA_TC_FLOOR(JCOV,:) = 1.95
@@ -1310,23 +1310,23 @@ DO JCOV = 1, JPCOVER
   XDATA_T_SIZE_MAX(JCOV)   = 301.95
   XDATA_T_SIZE_MIN(JCOV)   = 268.96
   XDATA_SHADE(JCOV)        = 0.0
-  XDATA_NATVENT(JCOV)      = 0.0  
-  XDATA_ROUGH_ROOF(JCOV)   = 1.52  
-  XDATA_ROUGH_WALL(JCOV)   = 1.52  
+  XDATA_NATVENT(JCOV)      = 0.0
+  XDATA_ROUGH_ROOF(JCOV)   = 1.52
+  XDATA_ROUGH_WALL(JCOV)   = 1.52
   XDATA_RESIDENTIAL(JCOV)  = 1.
   !
   XDATA_EMIS_PANEL (JCOV) = 0.9
   XDATA_ALB_PANEL  (JCOV) = 0.1
   XDATA_EFF_PANEL  (JCOV) = 0.14
   XDATA_FRAC_PANEL (JCOV) = 0.
-  !  
+  !
   IF (XDATA_GARDEN(JCOV)/=0.) THEN
     DO JVEG=1,NVEGTYPE
       IF (XDATA_VEGTYPE(JCOV,JVEG)/=0.) THEN
         XDATA_ALB_SOIL_NIR(JCOV,:,JVEG) = 0.3
         XDATA_ALB_SOIL_VIS(JCOV,:,JVEG) = 0.1
         XDATA_ALB_VEG_NIR (JCOV,:,JVEG) = 0.3
-        XDATA_ALB_VEG_VIS (JCOV,:,JVEG) = 0.1    
+        XDATA_ALB_VEG_VIS (JCOV,:,JVEG) = 0.1
       ENDIF
     ENDDO
   ENDIF
@@ -1335,7 +1335,7 @@ END DO
 !
 IF(ICPT_SEA<SIZE(NSEA))THEN
   CALL ABOR1_SFX('INI_DATA_COVER: problem with ecoclimap param : ICPT_SEA < SIZE(NSEA) ')
-ENDIF    
+ENDIF
 IF(ICPT_WATER<SIZE(NWATER))THEN
   CALL ABOR1_SFX('INI_DATA_COVER: problem with ecoclimap param : ICPT_WATER < SIZE(NWATER) ')
 ENDIF
@@ -1397,7 +1397,7 @@ IF (U%LECOSG) THEN
   CNAMES(20,2) = 'Zones urbaines'
   CNAMES(21,2) = 'Mer et oceans'
   CNAMES(22,2) = 'Lacs'
-  CNAMES(23,2) = 'Rivieres'        
+  CNAMES(23,2) = 'Rivieres'
 
 ELSE
 
@@ -1414,8 +1414,8 @@ ELSE
 !
   CNAMES(10,1) = 'S-America cool ENF'
   CNAMES(11,1) = 'Boreal ENF'
-  CNAMES(12,1) = 'Asia subtropical ENF' 
-  CNAMES(13,1) = 'American Continental ENF' 
+  CNAMES(12,1) = 'Asia subtropical ENF'
+  CNAMES(13,1) = 'American Continental ENF'
   CNAMES(14,1) = 'American Subtropical ENF'
   CNAMES(15,1) = 'American Cool Marine ENF'
 
@@ -1890,7 +1890,7 @@ ELSE
   CNAMES(531,1)='S SPAIN IRR CROPS1'
   CNAMES(532,1)='NIL VALLEY CROPS6'
 
-!bare land      
+!bare land
   CNAMES(533,1)='BARE ROCK1'
   CNAMES(534,1)='BARE ROCK2'
   CNAMES(535,1)='SANDY DESERT1'
@@ -1908,7 +1908,7 @@ ELSE
   CNAMES(547,1)='BARE LAND12'
   CNAMES(548,1)='PERMANENT SNOW1'
 
-!Estuaries and swamp areas      
+!Estuaries and swamp areas
   CNAMES(549,1)='WADDEN SEA'
   CNAMES(550,1)='ESTUARY1'
   CNAMES(551,1)='ESTUARY2'
@@ -1935,7 +1935,7 @@ ELSE
   CNAMES(570,1)='TEMPERATE SUBURBAN7'
   CNAMES(571,1)='WARM SUBURBAN3'
 
-!added classes of permanent crops      
+!added classes of permanent crops
   CNAMES(572,1)='SPANISH VINEYARDS1'
   CNAMES(573,1)='LANGUEDOC VINEYARDS1'
 
@@ -2432,7 +2432,7 @@ ELSE
   CNAMES(531,2)='S SPAIN IRR CROPS1'
   CNAMES(532,2)='NIL VALLEY CROPS6'
 
-!bare land      
+!bare land
   CNAMES(533,2)='BARE ROCK1'
   CNAMES(534,2)='BARE ROCK2'
   CNAMES(535,2)='SANDY DESERT1'
@@ -2450,7 +2450,7 @@ ELSE
   CNAMES(547,2)='BARE LAND12'
   CNAMES(548,2)='PERMANENT SNOW1'
 
-!Estuaries and swamp areas      
+!Estuaries and swamp areas
   CNAMES(549,2)='WADDEN SEA'
   CNAMES(550,2)='ESTUARY1'
   CNAMES(551,2)='ESTUARY2'
@@ -2477,7 +2477,7 @@ ELSE
   CNAMES(570,2)='TEMPERATE SUBURBAN7'
   CNAMES(571,2)='WARM SUBURBAN3'
 
-!added classes of permanent crops      
+!added classes of permanent crops
   CNAMES(572,2)='SPANISH VINEYARDS1'
   CNAMES(573,2)='LANGUEDOC VINEYARDS1'
 ENDIF

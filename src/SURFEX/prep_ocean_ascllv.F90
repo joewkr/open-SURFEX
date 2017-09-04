@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
 SUBROUTINE PREP_OCEAN_ASCLLV (DTCO, UG, U, HPROGRAM,HSURF,HFILE, KLUOUT,PFIELD)
@@ -15,18 +15,18 @@ SUBROUTINE PREP_OCEAN_ASCLLV (DTCO, UG, U, HPROGRAM,HSURF,HFILE, KLUOUT,PFIELD)
 !!**  METHOD
 !!    ------
 !!   Read the input file which must be ascii typed, lat,lon,depth, value
-!!   Version 1: 
+!!   Version 1:
 !!              The data must be on the same grid as the pgd and on the same
 !!              vertical grid as prescribed in oceanvergrid.f90
 !!              NDEPTH= a definirtn nlev=NOCKMAX (modd_ocean_gridn)
-!!              
+!!
 !!  Version 2: (not done yet)
 !!              - dummy or namlist for nb verticals levels
-!!              - file prescribing the vertical grid 
+!!              - file prescribing the vertical grid
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -80,7 +80,7 @@ TYPE(SURF_ATM_t), INTENT(INOUT) :: U
  CHARACTER(LEN=7),   INTENT(IN)  :: HSURF     ! type of field
  CHARACTER(LEN=28),  INTENT(IN)  :: HFILE     ! file name
 INTEGER,            INTENT(IN)  :: KLUOUT    ! output listing logical unit
-!CHARACTER(LEN=28),  INTENT(IN), OPTIONAL   :: HNCVARNAME!var to read 
+!CHARACTER(LEN=28),  INTENT(IN), OPTIONAL   :: HNCVARNAME!var to read
 REAL, POINTER, DIMENSION(:,:,:)   :: PFIELD    ! field to interpolate horizontally
 !
 !
@@ -111,7 +111,7 @@ IF (.NOT.ALLOCATED(NNUM)) THEN
   IF (NRANK/=NPIO) THEN
     IF (ALLOCATED(NINDEX)) DEALLOCATE(NINDEX)
     ALLOCATE(NINDEX(U%NDIM_FULL))
-  ENDIF  
+  ENDIF
   IF (NRANK==NPIO) THEN
     INB(:) = 0
     DO JJ=1,U%NDIM_FULL
@@ -120,16 +120,16 @@ IF (.NOT.ALLOCATED(NNUM)) THEN
     ENDDO
   ENDIF
   IF (NPROC>1) THEN
-#ifdef SFX_MPI          
+#ifdef SFX_MPI
     CALL MPI_BCAST(NINDEX,SIZE(NINDEX)*KIND(NINDEX)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(NNUM,SIZE(NNUM)*KIND(NNUM)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(UG%NGRID_FULL_PAR,KIND(UG%NGRID_FULL_PAR)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
 #endif
     IF (NRANK/=NPIO) ALLOCATE(UG%XGRID_FULL_PAR(UG%NGRID_FULL_PAR))
-#ifdef SFX_MPI    
+#ifdef SFX_MPI
     CALL MPI_BCAST(UG%XGRID_FULL_PAR,&
-      SIZE(UG%XGRID_FULL_PAR)*KIND(UG%XGRID_FULL_PAR)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)   
-#endif 
+      SIZE(UG%XGRID_FULL_PAR)*KIND(UG%XGRID_FULL_PAR)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+#endif
   ENDIF
 ENDIF
 !
@@ -173,14 +173,14 @@ WRITE(KLUOUT,*) "IL (dim)=", IL
 
 DO JI=1,NL
   DO JK=1,NOCKMAX
-    READ(IGLB,*,END=99) ZLAT(JI),ZLON(JI), ZDEPTH(JK), & 
-    ZFIELDR(JI,JK,1,1), ZFIELDR(JI,JK,2,1),ZFIELDR(JI,JK,3,1), & 
+    READ(IGLB,*,END=99) ZLAT(JI),ZLON(JI), ZDEPTH(JK), &
+    ZFIELDR(JI,JK,1,1), ZFIELDR(JI,JK,2,1),ZFIELDR(JI,JK,3,1), &
     ZFIELDR(JI,JK,4,1)
   END DO
 END DO
 
 
- 
+
 !      3. Close the file
 
 99 CONTINUE
@@ -191,13 +191,13 @@ WRITE(KLUOUT,*) MINVAL(ZFIELDR), MAXVAL(ZFIELDR)
 !
 ! Get the correct varaibles
 SELECT CASE (HSURF)
-  CASE('TEMP_OC') 
+  CASE('TEMP_OC')
   ZFIELD(:,:,1) = ZFIELDR(:,:,1,1)
-  CASE('SALT_OC') 
+  CASE('SALT_OC')
   ZFIELD(:,:,1) = ZFIELDR(:,:,2,1)
-  CASE('UCUR_OC') 
+  CASE('UCUR_OC')
   ZFIELD(:,:,1) = ZFIELDR(:,:,3,1)
-  CASE('VCUR_OC') 
+  CASE('VCUR_OC')
   ZFIELD(:,:,1) = ZFIELDR(:,:,4,1)
 END SELECT
 

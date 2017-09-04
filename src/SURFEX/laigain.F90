@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE LAIGAIN(PBSLAI, PEK, PBIOMASS)
 !   ######################################################################
-!!****  *LAIGAIN*  
+!!****  *LAIGAIN*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates the time change in LAI due to assimilation
 !     of CO2. This in turn changes the dry biomass of the canopy.
-!              
+!
 !!**  METHOD
 !!    ------
 !     Calvet at al (1998)
@@ -23,14 +23,14 @@
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    MODD_CO2V_PAR
 !!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Calvet et al. (1998)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -39,7 +39,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    27/10/97 
+!!      Original    27/10/97
 !!      V. Masson   01/03/03 daily assimilation.
 !!      P Le Moigne 09/2005 AGS modifs of L. Jarlan
 !!      S Lafont    03/2011 R%XANDAY(:,1) calcul move to lailoss, nitro_decline

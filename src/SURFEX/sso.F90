@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE SSO (U, UG, USS, OSSO, OSSO_ANIS)
@@ -12,7 +12,7 @@
 !!    METHOD
 !!    ------
 !!    See Lott and Miller, 1997, QJRMS 101-127
-!!   
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -153,7 +153,7 @@ ELSE
 ENDIF
 !
  CALL GATHER_AND_WRITE_MPI(U%XSEA,ZSEA)
- CALL GATHER_AND_WRITE_MPI(UG%G%XMESH_SIZE,ZMESH_SIZE) 
+ CALL GATHER_AND_WRITE_MPI(UG%G%XMESH_SIZE,ZMESH_SIZE)
  CALL GATHER_AND_WRITE_MPI(XSSQO,ZSSQO)
 !
 ALLOCATE(ISSQO(SIZE(XSSQO,1),NSSO,NSSO))
@@ -298,7 +298,7 @@ IF (NRANK==NPIO) THEN
 
           IF (.NOT. (JPREV>=NSSO+1 .OR. IL==0)) THEN
             ZDZSDX(1:JISS,JJSS) = ( ZSSQO(JL,JISS,JJSS) - ZSSQO(IL,IPREV,JJSS)) &
-                                    / FLOAT(JPREV) / ZDXEFF  
+                                    / FLOAT(JPREV) / ZDXEFF
             !
             GDZSDX(1:JISS,JJSS) = .TRUE.
           END IF
@@ -319,7 +319,7 @@ IF (NRANK==NPIO) THEN
     END DO
     !
     !----------------------------------------------------------------------------
-    !        
+    !
     !*    4.     Computations of the gradients along y
     !            -------------------------------------
     !
@@ -380,7 +380,7 @@ IF (NRANK==NPIO) THEN
         IMAXJ = MIN(JJSS+JNEXT-1,NSSO)
 !
         ZDZSDY(JISS,JJSS:IMAXJ) = ( ZSSQO(IL,JISS,INEXT) - ZSSQO(JL,JISS,JJSS)) &
-                                    / FLOAT(JNEXT) / ZDYEFF 
+                                    / FLOAT(JNEXT) / ZDYEFF
        !
         GDZSDY(JISS,JJSS:IMAXJ) = .TRUE.
 !
@@ -405,7 +405,7 @@ IF (NRANK==NPIO) THEN
 
           IF (.NOT. (JPREV>=NSSO+1 .OR. IL==0)) THEN
             ZDZSDY(JISS,1:JJSS) = ( ZSSQO(JL,JISS,JJSS) - ZSSQO(IL,JISS,IPREV)) &
-                                    / FLOAT(JPREV) / ZDYEFF 
+                                    / FLOAT(JPREV) / ZDYEFF
 !
             GDZSDY(JISS,1:JJSS) = .TRUE.
           END IF
@@ -450,30 +450,30 @@ IF (NRANK==NPIO) THEN
     !*    5.3    term Hxx
     !            --------
     !
-    ZHXX0(JL) = SUM(ZDZSDX(:,:)*ZDZSDX(:,:),MASK=GDZSDX(:,:).AND.GDZSDY(:,:))/ICOUNT  
+    ZHXX0(JL) = SUM(ZDZSDX(:,:)*ZDZSDX(:,:),MASK=GDZSDX(:,:).AND.GDZSDY(:,:))/ICOUNT
     !
     !*    5.4    term Hyy
     !            --------
     !
-    ZHYY0(JL) = SUM(ZDZSDY(:,:)*ZDZSDY(:,:),MASK=GDZSDX(:,:).AND.GDZSDY(:,:))/ICOUNT 
+    ZHYY0(JL) = SUM(ZDZSDY(:,:)*ZDZSDY(:,:),MASK=GDZSDX(:,:).AND.GDZSDY(:,:))/ICOUNT
     !
     !*    5.5    term Hxy
     !            --------
     !
-    ZHXY0(JL) = SUM(ZDZSDX(:,:)*ZDZSDY(:,:),MASK=GDZSDX(:,:).AND.GDZSDY(:,:))/ICOUNT  
+    ZHXY0(JL) = SUM(ZDZSDX(:,:)*ZDZSDY(:,:),MASK=GDZSDX(:,:).AND.GDZSDY(:,:))/ICOUNT
     !
     !-------------------------------------------------------------------------------
     !
     !*    6.     Next MESONH grid point
     !            ----------------------
     !
-  END DO    
+  END DO
   !
 ELSE
   !
   ALLOCATE(ZHXX0(0),ZHYY0(0),ZHXY0(0))
   !
-ENDIF    
+ENDIF
 !
 DEALLOCATE(ZSSQO,ISSQOT)
 DEALLOCATE(ZSEA)

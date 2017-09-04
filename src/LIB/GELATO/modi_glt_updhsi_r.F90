@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,25 +28,25 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ======================== MODULE modi_glt_updhsi_r =========================
 ! =======================================================================
 !
 ! Goal:
 ! -----
-!   Update the thickness of a sea ice cover, knowing the different 
+!   Update the thickness of a sea ice cover, knowing the different
 ! fluxes at the top and bottom of the slab.
 !
 ! Created : 2001/07 (D. Salas y Melia)
-!           Taken out from thermo_ice routine.  
+!           Taken out from thermo_ice routine.
 ! Modified: 2009/06 (D. Salas y Melia)
 !           Reduced grid
 ! Modified: (A. Voldoire)
@@ -57,7 +57,7 @@
 ! ---------------------- BEGIN MODULE modi_glt_updhsi_r ---------------------
 !
 !THXS_SFX!MODULE modi_glt_updhsi_r
-!THXS_SFX!INTERFACE 
+!THXS_SFX!INTERFACE
 !THXS_SFX!!
 !THXS_SFX!SUBROUTINE glt_updhsi_r  &
 !THXS_SFX!        ( pcondb,pqtopmelt,pdhmelt,tpmxl,tpdia,tptfl,tpsit,tpsil )
@@ -143,7 +143,7 @@ SUBROUTINE glt_updhsi_r  &
 ! ==================
 !
 ! .. Enthalpy transfer between melted ice and ocean
-! 
+!
   zqtio2(:,:) = 0.
 !
 ! .. Total available flux (zqfac) and flux affecting the ocean (zqtio)
@@ -176,10 +176,10 @@ SUBROUTINE glt_updhsi_r  &
 !
 !
 !
-! 2. Treat sea ice temperatures exceeding melting point 
+! 2. Treat sea ice temperatures exceeding melting point
 ! ======================================================
 !
-!   1) For every level, compute the energy flux that is necessary to 
+!   1) For every level, compute the energy flux that is necessary to
 ! bring sea ice temperature down to tice_m
 !   2) Melt part of the concerned level
 !   3) If the level has melted completely, the rest of the energy is sent
@@ -198,11 +198,11 @@ SUBROUTINE glt_updhsi_r  &
 !!write(noutlu,*) 'pdhmelt(jl,2,:) = ',pdhmelt(jl,2,:)
 !!write(noutlu,*) '(6) qfac =',zqfac
 !!write(noutlu,*) 'zqfac(2,:) = ',zqfac(2,:)
-! pdhmelt > 0 means that sea ice gltools_enthalpy is at its maximum 
+! pdhmelt > 0 means that sea ice gltools_enthalpy is at its maximum
 ! (i.e. sea ice has melted completely); sea ice gltools_enthalpy goes to the mixed layer
     WHERE( pdhmelt(jl,:,:)>0. )
       zqtio2(:,:) = zqtio2(:,:) +  &
-        ( rhoice * zdhi(jl,:,:) * tpsil(jl,:,:)%ent + pdhmelt(jl,:,:) ) / dtt 
+        ( rhoice * zdhi(jl,:,:) * tpsil(jl,:,:)%ent + pdhmelt(jl,:,:) ) / dtt
       zdhi(jl,:,:) = 0.
 !      zqfac(:,:) = zqfac(:,:) + pdhmelt(jl,:,:)/dtt
     ENDWHERE
@@ -229,13 +229,13 @@ SUBROUTINE glt_updhsi_r  &
 !
   END DO
 !
-! .. Diagnose top melting (Melting Rate Top) - negative if melting occurs 
+! .. Diagnose top melting (Melting Rate Top) - negative if melting occurs
 ! [kg.m-2.s-1]
 !
   tpdia(:)%mrt =  &
     rhoice*SUM(  &
       tpsit(:,:)%fsi*( SUM( zdhi(:,:,:),DIM=1 )-tpsit(:,:)%hsi ), DIM=1 )/dtt
-! 
+!
 !
 !
 ! 3. Case of basal sea ice melting
@@ -260,7 +260,7 @@ SUBROUTINE glt_updhsi_r  &
 ! No problem in melting current ice layer: all zqfac was used.
       WHERE ( zdhi(jl,:,:)>=0. )
         zqfac(:,:) = 0.
-! 
+!
 ! Current ice layer melting was not enough to use all of qmelt ;
 ! zqfac will be used to melt all of or part of next ice level.
       ELSEWHERE
@@ -274,11 +274,11 @@ SUBROUTINE glt_updhsi_r  &
 !
   END DO
 !
-! 
+!
 ! 3.2. Update snow thickness
 ! --------------------------
 !
-! .. If zqfac is still positive, it means all the sea ice has melted. All the 
+! .. If zqfac is still positive, it means all the sea ice has melted. All the
 ! snow must disappear. All of/part of it contributes to reducing zqfac, the
 ! rest will go to the mixed layer.
 !
@@ -300,7 +300,7 @@ SUBROUTINE glt_updhsi_r  &
 !
 !
 !
-! 4. Correct temperature vertical profiles 
+! 4. Correct temperature vertical profiles
 ! =========================================
 !
 ! 4.1. Case of sea ice melting
@@ -327,7 +327,7 @@ SUBROUTINE glt_updhsi_r  &
 ! ------------------------------
 !
 ! .. AR5 diagnostic: compute the rate of congelation at the base of the ice
-! slab due to the bottom conduction heat flux separately from other 
+! slab due to the bottom conduction heat flux separately from other
 ! processes (reproduce what is in glt_frzvtp_r, but for pcondb alone)
 ! [kg.m-2.s-1]
   tpdia(:)%cgl = 0.
@@ -341,10 +341,10 @@ SUBROUTINE glt_updhsi_r  &
 !
   CALL glt_frzvtp_r( tpmxl,tpsit,zqfac,zhsi,zssi,tpsil )
 !
-! .. Sea ice freezing 
+! .. Sea ice freezing
 !   - zqfac was completely used: set it to 0.
 !   - reference salinity is computed by glt_frzvtp_r
-  WHERE( zqfac(:,:)<0. ) 
+  WHERE( zqfac(:,:)<0. )
     zqfac(:,:) = 0.
   ENDWHERE
 !
@@ -357,10 +357,10 @@ SUBROUTINE glt_updhsi_r  &
 !
 ! 5. Energy conservation
 ! =======================
-! 
+!
 ! 5.1. Flux sent to the mixed layer due to residual zqfac and zqtio
 ! ------------------------------------------------------------------
-! 
+!
 !!write(noutlu,*) '(avant) tio =',tptfl(:)%tio
 !!write(noutlu,*) '(avant)qfac =',zqfac
 !!write(noutlu,*) '(avant)qtio2=',zqtio2
@@ -377,14 +377,14 @@ SUBROUTINE glt_updhsi_r  &
 !!write(noutlu,*) '(apres) tio =',tptfl(:)%tio
 !
 !
-! 5.2. Compute involved fluxes of snow 
+! 5.2. Compute involved fluxes of snow
 ! ------------------------------------
 !
 ! .. Variation of snow mass due to vertical freezing/melting
 !
 ! If the ice has melted completely, the snow (if any) should go to the ocean
 !
-  WHERE ( tpsit(:,:)%hsi<epsil1 .AND. tpsit(:,:)%fsi>=epsil1 ) 
+  WHERE ( tpsit(:,:)%hsi<epsil1 .AND. tpsit(:,:)%fsi>=epsil1 )
     zhsn(:,:) = 0.
   ENDWHERE
   zdmsn(:,:) = tpsit(:,:)%rsn *  &
@@ -395,7 +395,7 @@ SUBROUTINE glt_updhsi_r  &
 ! -------------------------------------
 !
 ! Before going to the mixed layer, snow has been warmed up to gltools_enthalpy=0
-! Not needed anymore, done directly in glt_updtfl_r 
+! Not needed anymore, done directly in glt_updtfl_r
 !  zent0(:,:) = 0.
 !
 !
@@ -414,7 +414,7 @@ SUBROUTINE glt_updhsi_r  &
 !
 ! .. We tried to separate congelation from ocean-heat flux melting at the
 ! bottom of the sea ice slab. However, it may turn out that the diagnosed
-! sea ice mass vertical rate due to ocean-heat flux is positive. In this 
+! sea ice mass vertical rate due to ocean-heat flux is positive. In this
 ! case we set it to zero and increase the congelation ice growth rate.
 !
   tpdia(:)%mrb = SUM( zdmsi(:,:),DIM=1 )/dtt - tpdia(:)%cgl - tpdia(:)%mrt
@@ -430,7 +430,7 @@ SUBROUTINE glt_updhsi_r  &
 !
 ! .. Update ice layer thickness
 !
-  tpsit(:,:)%hsi = zhsi(:,:) 
+  tpsit(:,:)%hsi = zhsi(:,:)
 !
 ! .. Update snow layer thickness
 !
@@ -444,7 +444,7 @@ SUBROUTINE glt_updhsi_r  &
 ! 6.3. Reinitialize a sea ice type in case of total melting
 ! ---------------------------------------------------------
 !
-  WHERE ( tpsit(:,:)%hsi<epsil1 .AND. tpsit(:,:)%fsi>=epsil1 ) 
+  WHERE ( tpsit(:,:)%hsi<epsil1 .AND. tpsit(:,:)%fsi>=epsil1 )
     tpsit(:,:)%esi = .FALSE.
     tpsit(:,:)%fsi = 0.
     tpsit(:,:)%hsi = 0.
@@ -454,19 +454,19 @@ SUBROUTINE glt_updhsi_r  &
   ENDWHERE
 !
   IF ( niceage==1 ) THEN
-    WHERE ( tpsit(:,:)%hsi<epsil1 .AND. tpsit(:,:)%fsi>=epsil1 ) 
+    WHERE ( tpsit(:,:)%hsi<epsil1 .AND. tpsit(:,:)%fsi>=epsil1 )
       tpsit(:,:)%age = 0.
     ENDWHERE
   ENDIF
 !
   IF ( nicesal==1 ) THEN
-    WHERE ( tpsit(:,:)%hsi<epsil1 .AND. tpsit(:,:)%fsi>=epsil1 ) 
+    WHERE ( tpsit(:,:)%hsi<epsil1 .AND. tpsit(:,:)%fsi>=epsil1 )
       tpsit(:,:)%ssi = 0.
     ENDWHERE
   ENDIF
 !
   IF ( nmponds==1 ) THEN
-    WHERE ( tpsit(:,:)%hsi<epsil1 .AND. tpsit(:,:)%fsi>=epsil1 ) 
+    WHERE ( tpsit(:,:)%hsi<epsil1 .AND. tpsit(:,:)%fsi>=epsil1 )
       tpsit(:,:)%vmp = 0.
     ENDWHERE
   ENDIF

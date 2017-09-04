@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_TEB_GARDEN_EXTERN (DTCO, IO, U, GCP, &
@@ -17,11 +17,11 @@ SUBROUTINE PREP_TEB_GARDEN_EXTERN (DTCO, IO, U, GCP, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -96,7 +96,7 @@ INTEGER                             :: JPATCH         ! loop counter for patch
 INTEGER                             :: ITEB_PATCH     ! number of TEB patches in file
 INTEGER                             :: IVERSION       ! SURFEX version
 INTEGER                             :: IBUGFIX        ! SURFEX bug version
-LOGICAL                         :: GTEB      ! flag if TEB fields are present 
+LOGICAL                         :: GTEB      ! flag if TEB fields are present
 LOGICAL                         :: GOLD_NAME      ! old name flag for temperatures
 LOGICAL                         :: GGARDEN   ! T if gardens are present in the file
 LOGICAL                         :: GDIM
@@ -179,11 +179,11 @@ SELECT CASE(HSURF)
     ELSE
       YSURF = HSURF
     END IF
-    YSURF=ADJUSTL(YSURF)  
+    YSURF=ADJUSTL(YSURF)
 !* reading of the profile and its depth definition
      CALL READ_EXTERN_ISBA(U, DTCO, GCP, IO, HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,KLUOUT,INI,&
                            HSURF,YSURF,ZFIELD,ZD)
-! 
+!
      IF (NRANK==NPIO) THEN
 
        ALLOCATE(ZFIELD1(SIZE(ZFIELD,1),SIZE(ZFIELD,2)))
@@ -217,13 +217,13 @@ SELECT CASE(HSURF)
      IF (GTEB) CALL READ_SURF(HFILEPGDTYPE,'GARDEN',GGARDEN,IRESP,HDIR='-')
      CALL CLOSE_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE)
      IF (GGARDEN) THEN
-       IPATCH = 1    
+       IPATCH = 1
        YRECFM = 'GD_WR'
        IF (GOLD_NAME) YRECFM = 'TWN_WR'
        YRECFM = YPATCH//YRECFM
        CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'TOWN  ')
-     ELSE          
-       IPATCH = 0  
+     ELSE
+       IPATCH = 0
        YRECFM = 'PATCH_NUMBER'
        CALL OPEN_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE,'NATURE')
        CALL READ_SURF(HFILEPGDTYPE,YRECFM,IPATCH,IRESP,HDIR='-')

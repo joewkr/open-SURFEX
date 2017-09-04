@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PREP_TEB_GARDEN_CONF(HPROGRAM,HVAR,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,&
@@ -81,8 +81,8 @@ LOGICAL,           INTENT(OUT) :: OUNIF       ! flag for prescribed uniform fiel
 !*       0.2   Declarations of local variables
 !              -------------------------------
 !
-INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears 
-                                    ! at the open of the file in LFI  routines 
+INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears
+                                    ! at the open of the file in LFI  routines
 INTEGER           :: ILUNAM         ! Logical unit of namelist file
 !
  CHARACTER(LEN=28) :: YNAMELIST      ! namelist file
@@ -147,8 +147,8 @@ SELECT CASE (HVAR)
     IF ( LEN_TRIM(CTYPE_HUG )>0       .AND. &
            LEN_TRIM(CFILE_HUG_SURF_GD)>0   .AND. &
            LEN_TRIM(CFILE_HUG_ROOT_GD)>0   .AND. &
-           LEN_TRIM(CFILE_HUG_DEEP_GD)>0         ) THEN  
-       HFILETYPE = CTYPE_HUG 
+           LEN_TRIM(CFILE_HUG_DEEP_GD)>0         ) THEN
+       HFILETYPE = CTYPE_HUG
     END IF
     IF (HVAR=='WGI    ' .AND. HFILETYPE=='ASCLLV') THEN
        OUNIF = .TRUE.
@@ -159,8 +159,8 @@ SELECT CASE (HVAR)
     IF ( LEN_TRIM(CTYPE_TG )>0       .AND. &
            LEN_TRIM(CFILE_TG_SURF_GD)>0   .AND. &
            LEN_TRIM(CFILE_TG_ROOT_GD)>0   .AND. &
-           LEN_TRIM(CFILE_TG_DEEP_GD)>0         ) THEN  
-       HFILETYPE = CTYPE_TG 
+           LEN_TRIM(CFILE_TG_DEEP_GD)>0         ) THEN
+       HFILETYPE = CTYPE_TG
     END IF
 END SELECT
 !
@@ -231,7 +231,7 @@ IF (LEN_TRIM(HFILETYPE)==0 .AND. .NOT. OUNIF) THEN
       XHUGI_SURF_GD = 0.
       XHUGI_ROOT_GD = 0.
       XHUGI_DEEP_GD = 0.
-    ENDIF                                         
+    ENDIF
     OUNIF = .TRUE.
     IF (LHOOK) CALL DR_HOOK('READ_PREP_TEB_GARDEN_CONF',1,ZHOOK_HANDLE)
     RETURN

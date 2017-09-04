@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_TEB_GREENROOF (DTCO, UG, U, USS, GCP, TG, TOP, IO, S, K, P, PEK,  &
@@ -18,11 +18,11 @@ SUBROUTINE PREP_TEB_GREENROOF (DTCO, UG, U, USS, GCP, TG, TOP, IO, S, K, P, PEK,
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!      A. Lemonsu & C. de Munck 
+!!      A. Lemonsu & C. de Munck
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -143,7 +143,7 @@ IF (LHOOK) CALL DR_HOOK('PREP_TEB_GREENROOF',0,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------------
 !
-!*      3.    Physical limitations: 
+!*      3.    Physical limitations:
 !
 ! 3.1  If whole ice reservoir is empty (grib from ecmwf case) and surface temperature is
 !      lower than -10C, then ice content is maximum and water content minimum
@@ -210,7 +210,7 @@ ELSEIF (IO%CPHOTO == 'NIT' .OR. IO%CPHOTO == 'NCB') THEN
    ALLOCATE(PEK%XBIOMASS(SIZE(PEK%XLAI),IO%NNBIOMASS))
    PEK%XBIOMASS(:,1) = PEK%XLAI(:) * P%XBSLAI_NITRO(:)
    PEK%XBIOMASS(:,2) = MAX( 0., (PEK%XBIOMASS(:,1)/ (XCC_NIT/10.**XCA_NIT))  &
-                              **(1.0/(1.0-XCA_NIT)) - PEK%XBIOMASS(:,1) )  
+                              **(1.0/(1.0-XCA_NIT)) - PEK%XBIOMASS(:,1) )
    PEK%XBIOMASS(:,3:IO%NNBIOMASS) = 0.
 !
    ALLOCATE(PEK%XRESP_BIOMASS(SIZE(PEK%XLAI),IO%NNBIOMASS))

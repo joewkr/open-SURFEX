@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_COVER_n (DTCO, U, &
@@ -8,11 +8,11 @@
 !     ################################
 !
 !!****  *READ_COVER_n* - routine to read a file for
-!!                         physiographic data file of model _n 
+!!                         physiographic data file of model _n
 !!
 !!    PURPOSE
 !!    -------
-!!       The purpose of this routine is to initialise the 
+!!       The purpose of this routine is to initialise the
 !!       physiographic data file.
 !!
 !!
@@ -20,13 +20,13 @@
 !!    ------
 !!      The data are read in the initial surface file :
 !!        - 2D physiographic data fields
-!!          
+!!
 !!      It does not read the grid definition. This should have been
 !!      read already.
 !!
 !!    EXTERNAL
 !!    --------
-!!      
+!!
 !!
 !!
 !!    IMPLICIT ARGUMENTS
@@ -81,7 +81,7 @@ TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 !
 
 INTEGER           :: IRESP          ! Error code after redding
-! 
+!
 INTEGER           :: IVERSION       ! surface version
 !
 LOGICAL :: GREAD_ALL

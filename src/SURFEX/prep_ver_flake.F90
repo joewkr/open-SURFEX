@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_VER_FLAKE (F)
@@ -16,7 +16,7 @@ SUBROUTINE PREP_VER_FLAKE (F)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -26,7 +26,7 @@ SUBROUTINE PREP_VER_FLAKE (F)
 !!    -------------
 !!      Original    01/2004
 !!      09.2010, E. Kourzeneva: Make not possible to shift the lake profile
-!!                              in vertical, just to shift the lake surface 
+!!                              in vertical, just to shift the lake surface
 !!                              temperature and then to set the default lake profile
 !!------------------------------------------------------------------
 !

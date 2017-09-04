@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODE_COTWO
@@ -13,19 +13,19 @@
 !
 !!**  METHOD
 !!    ------
-!!    
+!!
 !!    EXTERNAL
 !!    --------
-!!       
+!!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!    REFERENCE
 !!    ---------
 !!
 !!    AUTHOR
 !!    ------
-!!      A. Boone                 * Meteo France *       
+!!      A. Boone                 * Meteo France *
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -49,15 +49,15 @@ CONTAINS
 SUBROUTINE GAULEG(PX1,PX2,PX,PW,KN)
 !
 !
-!!****  *GAULEG*  
+!!****  *GAULEG*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates the Gaussian weights for integration of net assimilation
 !     and stomatal conductance over the canopy depth
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -70,12 +70,12 @@ SUBROUTINE GAULEG(PX1,PX2,PX,PW,KN)
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!    MODD_CST
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Calvet et al. (1998) For. Agri. Met.
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -84,7 +84,7 @@ SUBROUTINE GAULEG(PX1,PX2,PX,PW,KN)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    27/10/97 
+!!      Original    27/10/97
 !!
 !-------------------------------------------------------------------------------
 !
@@ -106,7 +106,7 @@ INTEGER,             INTENT(IN)   :: KN
 !                                    weights are evaluated/needed
 !
 REAL,                INTENT(IN)   :: PX1, PX2
-!                                    mathematical/numerical values needed for 
+!                                    mathematical/numerical values needed for
 !                                    weight computation
 !
 REAL, DIMENSION(KN), INTENT(OUT)  :: PX, PW
@@ -121,9 +121,9 @@ REAL, PARAMETER                             :: PPEPS = 3.0E-14
 !
 INTEGER JI,JJ,JK                             ! loop indexes
 !
-INTEGER IM                                   ! 
+INTEGER IM                                   !
 !
-REAL ZXM, ZXL, ZZ, ZP1, ZP2, ZP3, ZPP, ZZ1   ! dummy variables needed for 
+REAL ZXM, ZXL, ZZ, ZP1, ZP2, ZP3, ZPP, ZZ1   ! dummy variables needed for
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !                                              computation of the gaussian weights
@@ -137,7 +137,7 @@ IF (LHOOK) CALL DR_HOOK('GAULEG',0,ZHOOK_HANDLE)
 IM  = (KN+1)/2
 ZXM = 0.50*(PX2+PX1)
 ZXL = 0.50*(PX2-PX1)
-!      
+!
 IM_POINT_LOOP: DO JI = 1,IM
    ZZ  = COS(XPI*(FLOAT(JI)-.250)/(FLOAT(KN)+.50))
 !

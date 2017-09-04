@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,25 +28,25 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ======================= MODULE modi_glt_thermo_end_r ======================
 ! =======================================================================
 !
 !
-! * Previous calls to other thermodynamic subroutines may have led to 
+! * Previous calls to other thermodynamic subroutines may have led to
 ! disruptions in ice types_glt classification, for several reasons :
 !       - an ice type has grown in thickness, moving to the next class.
 !       - an ice type has disappeared totally because of lateral or
 !         (and) vertical melting.
-!       - sea ice may has grown on an open water surface. 
+!       - sea ice may has grown on an open water surface.
 !
 ! * The goal of the present subroutine is to assess which ice type(s)
 ! are now in the different classes. If necessary, merge them, as well
@@ -71,14 +71,14 @@
 !THXS_SFX!
 !THXS_SFX!! --- INTENT(in) arguments.
 !THXS_SFX!  TYPE(t_dom), DIMENSION(np), INTENT(in) ::  &
-!THXS_SFX!        tpdom           
+!THXS_SFX!        tpdom
 !THXS_SFX!  TYPE(t_mxl), DIMENSION(np), INTENT(in) ::  &
 !THXS_SFX!        tpml
 !THXS_SFX!  TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::  &
 !THXS_SFX!        tpldsit
 !THXS_SFX!  TYPE(t_vtp), DIMENSION(nl,nt,np), INTENT(in) ::  &
 !THXS_SFX!        tpldsil
-!THXS_SFX!        
+!THXS_SFX!
 !THXS_SFX!! --- INTENT(inout) arguments.
 !THXS_SFX!  TYPE(t_sit), DIMENSION(nt,np), INTENT(inout) ::  &
 !THXS_SFX!        tpsit
@@ -119,14 +119,14 @@ SUBROUTINE glt_thermo_end_r( tpdom,tpml,tpldsit,tpldsil,tpsit,tpsil )
 !
 ! --- INTENT(in) arguments.
   TYPE(t_dom), DIMENSION(np), INTENT(in) ::  &
-        tpdom           
+        tpdom
   TYPE(t_mxl), DIMENSION(np), INTENT(in) ::  &
         tpml
   TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::  &
         tpldsit
   TYPE(t_vtp), DIMENSION(nl,nt,np), INTENT(in) ::  &
         tpldsil
-!        
+!
 ! --- INTENT(inout) arguments.
   TYPE(t_sit), DIMENSION(nt,np), INTENT(inout) ::  &
         tpsit
@@ -147,7 +147,7 @@ SUBROUTINE glt_thermo_end_r( tpdom,tpml,tpldsit,tpldsil,tpsit,tpsil )
         tzsit
   TYPE(t_vtp), DIMENSION(:,:,:,:), ALLOCATABLE ::  &
         tzsil
-!        
+!
 !
 !
 ! 2. Initializations
@@ -156,7 +156,7 @@ SUBROUTINE glt_thermo_end_r( tpdom,tpml,tpldsit,tpldsil,tpsit,tpsil )
 ! 2.1. Welcome message
 ! ---------------------
 !
-  IF (lp1) THEN  
+  IF (lp1) THEN
     WRITE(noutlu,*) ' '
     WRITE(noutlu,*) '**** LEVEL 4 - SUBROUTINE THERMO_END_R'
     WRITE(noutlu,*) ' '
@@ -180,18 +180,18 @@ SUBROUTINE glt_thermo_end_r( tpdom,tpml,tpldsit,tpldsil,tpsit,tpsil )
 ! gathered in class number jk = ]thick(jk), thickl(jk+1)] at (jp)
 ! grid point.
 !
-!  - Initialize inbth_in_cl. 
+!  - Initialize inbth_in_cl.
 !
   inbth_in_cl(:,:) = 0
 !
 ! .. Include first ice formed in leads into sea ice types_glt count, then
-! sea ice that was already present. 
+! sea ice that was already present.
 !
   DO jk = 1,nt
     DO jh = 1,nt
       WHERE (tpldsit(jk,:)%esi .AND. thick(jh)<tpldsit(jk,:)%hsi    &
       .AND. tpldsit(jk,:)%hsi<=thick(jh+1))
-        inbth_in_cl(jh,:) = inbth_in_cl(jh,:) + 1 
+        inbth_in_cl(jh,:) = inbth_in_cl(jh,:) + 1
       ENDWHERE
       WHERE (tpsit(jk,:)%esi .AND. thick(jh)<tpsit(jk,:)%hsi        &
       .AND. tpsit(jk,:)%hsi<=thick(jh+1))
@@ -200,18 +200,18 @@ SUBROUTINE glt_thermo_end_r( tpdom,tpml,tpldsit,tpldsil,tpsit,tpsil )
     END DO
   END DO
 !
-! .. Determine (on the whole domain) what is the maximum number of sea 
+! .. Determine (on the whole domain) what is the maximum number of sea
 ! ice types_glt gathered in the same class.
 !
   intype = MAXVAL(inbth_in_cl(:,:))
 !
-! .. Allocate memory to the arrays that contains all ice types_glt existing 
+! .. Allocate memory to the arrays that contains all ice types_glt existing
 ! on the domain (formatted input to gltools_mixice_r subroutine).
 !
   ALLOCATE(tzsit(intype,nt,np))
   ALLOCATE(tzsil(intype,nl,nt,np))
 !
-! .. Re-initialize inbth_in_cl(:,:) 
+! .. Re-initialize inbth_in_cl(:,:)
 !
   inbth_in_cl(:,:) = 0
 !
@@ -245,7 +245,7 @@ SUBROUTINE glt_thermo_end_r( tpdom,tpml,tpldsit,tpldsil,tpsit,tpsil )
         thick(jh)<tpldsit(jk,jp)%hsi .AND.  &
         tpldsit(jk,jp)%hsi<=thick(jh+1)) THEN
 !
-          inbth_in_cl(jh,jp) = inbth_in_cl(jh,jp) + 1 
+          inbth_in_cl(jh,jp) = inbth_in_cl(jh,jp) + 1
           it = inbth_in_cl(jh,jp)
 !
           tzsit(it,jh,jp)%esi = tpldsit(jk,jp)%esi
@@ -300,7 +300,7 @@ SUBROUTINE glt_thermo_end_r( tpdom,tpml,tpldsit,tpldsil,tpsit,tpsil )
 ! -----------------------
 !
   IF ( niceage==1 ) THEN
-      WHERE ( tpsit(:,:)%fsi>epsil1 ) 
+      WHERE ( tpsit(:,:)%fsi>epsil1 )
         tpsit(:,:)%age = tpsit(:,:)%age + dtt
       ENDWHERE
   ENDIF
@@ -322,6 +322,6 @@ SUBROUTINE glt_thermo_end_r( tpdom,tpml,tpldsit,tpldsil,tpsit,tpsil )
   ENDIF
 !
 END SUBROUTINE glt_thermo_end_r
-!                                                                        
-! -------------------- END SUBROUTINE glt_thermo_end_r ---------------------- 
+!
+! -------------------- END SUBROUTINE glt_thermo_end_r ----------------------
 ! -----------------------------------------------------------------------

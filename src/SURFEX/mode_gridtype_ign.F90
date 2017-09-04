@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##############################
       MODULE MODE_GRIDTYPE_IGN
@@ -104,7 +104,7 @@ END SUBROUTINE PUT_GRIDTYPE_IGN
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    10/2007 
+!!      Original    10/2007
 !!      07/2011     add maximum domain dimension for output (B. Decharme)
 !-------------------------------------------------------------------------------
 !
@@ -201,17 +201,17 @@ END SUBROUTINE GET_GRIDTYPE_IGN
 !!
 !!     REFERENCE
 !!     ---------
-!!     NOTE TECHNIQUE IGN NT/G 71 : 
+!!     NOTE TECHNIQUE IGN NT/G 71 :
 !!        PROJECTION CARTOGRAPHIQUE CONIQUE COMFORME DE LAMBERT
 !!        (www.ign.fr)
-!!       
+!!
 !!     AUTHOR
 !!     ------
 !!      E. Martin   *Meteo-France*
 !!
 !!     MODIFICATION
 !!     ------------
-!!       Original  10/2007        
+!!       Original  10/2007
 !       S.Lafont remplace exposant reel 2.0 par exposant entier 2
 !-------------------------------------------------------------------------------
 !
@@ -225,13 +225,13 @@ IMPLICIT NONE
 !
 !*     0.1    Declarations of arguments and results
 !
-INTEGER,              INTENT(IN) :: KLAMBERT  ! Lambert type           
+INTEGER,              INTENT(IN) :: KLAMBERT  ! Lambert type
 REAL, DIMENSION(:),   INTENT(IN) :: PX,PY
-                                           ! given conformal coordinates of the 
+                                           ! given conformal coordinates of the
                                            ! processed points (meters);
-REAL, DIMENSION(:),   INTENT(OUT):: PLAT,PLON    
-                                           ! returned geographic latitudes and 
-                                           ! longitudes of the processed points 
+REAL, DIMENSION(:),   INTENT(OUT):: PLAT,PLON
+                                           ! returned geographic latitudes and
+                                           ! longitudes of the processed points
                                            ! (degrees).
 !
 !*     0.2    Declarations of local variables
@@ -239,7 +239,7 @@ REAL, DIMENSION(SIZE(PX)) :: ZGAMMA
 REAL, DIMENSION(SIZE(PX)) :: ZR               ! length of arc meridian line projection
 REAL, DIMENSION(SIZE(PX)) :: ZLATISO          ! Isometric latitude
 REAL :: ZLAT0            ! For iteration
-! 
+!
 INTEGER                         :: J, JJ
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -248,7 +248,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !               -----------
 !
       IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_IGN:LATLON_IGN',0,ZHOOK_HANDLE)
-      ZR(:)    =SQRT( (PX(:)-XXS(KLAMBERT))**2 + (PY(:)-XYS(KLAMBERT))**2 ) 
+      ZR(:)    =SQRT( (PX(:)-XXS(KLAMBERT))**2 + (PY(:)-XYS(KLAMBERT))**2 )
       ZGAMMA(:)= ATAN ( (PX(:)-XXS(KLAMBERT)) / (XYS(KLAMBERT)-PY(:)) )
 !
 !*       2.     LONGITUDE
@@ -258,21 +258,21 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !*       3.     LATITUDE
 !               --------
       ZLATISO(:)=-1./XN(KLAMBERT) * ALOG(ABS(ZR(:)/XC(KLAMBERT)))
-!   
+!
 !$OMP PARALLEL DO PRIVATE(JJ,J,ZLAT0)
       DO JJ=1,SIZE(PLAT)
         ZLAT0  =2. * ATAN (EXP(ZLATISO(JJ))) - XPI/2.
         DO J=1, 1000
          PLAT(JJ) = 2. * ATAN(                                               &
            ( (1+XECC(KLAMBERT)*SIN(ZLAT0))/(1-XECC(KLAMBERT)*SIN(ZLAT0)) )**(XECC(KLAMBERT)/2.)       &
-             *EXP(ZLATISO(JJ)) )  -XPI/2.  
+             *EXP(ZLATISO(JJ)) )  -XPI/2.
 !
          IF (ABS(PLAT(JJ) - ZLAT0) < XCVGLAT ) EXIT
          ZLAT0=PLAT(JJ)
         ENDDO
       ENDDO
 !$OMP END PARALLEL DO
-!      
+!
       PLAT(:)=PLAT(:) *180./XPI
 IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_IGN:LATLON_IGN',1,ZHOOK_HANDLE)
 !---------------------------------------------------------------------------------
@@ -287,12 +287,12 @@ END SUBROUTINE LATLON_IGN
        SUBROUTINE XY_IGN(KLAMBERT,PX,PY,PLAT,PLON)
 !      ################################################
 !
-!!****  *XY_IGN * - Routine to compute Lambert coordinates   
+!!****  *XY_IGN * - Routine to compute Lambert coordinates
 !!
 !!
 !!     PURPOSE
 !!     -------
-!        This routine computes the Lambert coordinates              
+!        This routine computes the Lambert coordinates
 !      of an array given in latitude-longitude coordinates
 !
 !
@@ -307,18 +307,18 @@ END SUBROUTINE LATLON_IGN
 !!
 !!     REFERENCE
 !!     ---------
-!!     NOTE TECHNIQUE IGN NT/G 71 : 
+!!     NOTE TECHNIQUE IGN NT/G 71 :
 !!        PROJECTION CARTOGRAPHIQUE CONIQUE COMFORME DE LAMBERT
 !!        (www.ign.fr)
-!!       
+!!
 !!     AUTHOR
 !!     ------
 !!      E. Martin   *Meteo-France*
 !!
 !!     MODIFICATION
 !!     ------------
-!!       Original  10/2007        
-!!       
+!!       Original  10/2007
+!!
 !-------------------------------------------------------------------------------
 !
 !*     0.     DECLARATIONS
@@ -331,13 +331,13 @@ IMPLICIT NONE
 !
 !*     0.1    Declarations of arguments and results
 !
-INTEGER,              INTENT(IN) :: KLAMBERT  ! Lambert type           
-REAL, DIMENSION(:),   INTENT(IN) :: PLAT,PLON    
-                                           ! given geographic latitudes and 
-                                           ! longitudes of the processed points 
+INTEGER,              INTENT(IN) :: KLAMBERT  ! Lambert type
+REAL, DIMENSION(:),   INTENT(IN) :: PLAT,PLON
+                                           ! given geographic latitudes and
+                                           ! longitudes of the processed points
                                            ! (degrees).
 REAL, DIMENSION(:),   INTENT(OUT):: PX,PY
-                                           ! returned Lambert coordinates of the 
+                                           ! returned Lambert coordinates of the
                                            ! processed points (meters);
 !
 !*     0.2    Declarations of local variables
@@ -381,7 +381,7 @@ DO JJ=1,SIZE(PLON)
 !*       2.     Calcul of the isometric latitude :
 !               ----------------------------------
   !
-  ZWRK   = SIN(ZLATRAD) * XECC(KLAMBERT)  
+  ZWRK   = SIN(ZLATRAD) * XECC(KLAMBERT)
   !
   ZLATFI  = LOG(TAN(ZPI4 + ZLATRAD / 2.)) + ( (LOG(1-ZWRK)-LOG(1+ZWRK)) * ZECC2)
   !
@@ -393,7 +393,7 @@ DO JJ=1,SIZE(PLON)
   ZGAMMA  = XN(KLAMBERT) * ZLONRAD
   !
   PX(JJ) = XXS(KLAMBERT) + SIN(ZGAMMA) * ZR
-  PY(JJ) = XYS(KLAMBERT) - COS(ZGAMMA) * ZR   
+  PY(JJ) = XYS(KLAMBERT) - COS(ZGAMMA) * ZR
   !
 ENDDO
 !$OMP END DO
@@ -417,20 +417,20 @@ END SUBROUTINE XY_IGN
 !!
 !!     PURPOSE
 !!     -------
-!      Calculation of the Map factor 
+!      Calculation of the Map factor
 !      (ratio dist lambert / dist ellipsoide)
 !
 !!     REFERENCE
 !!     ---------
 !!     IGN formula
-!!       
+!!
 !!     AUTHOR
 !!     ------
 !!      E. Martin *Meteo-France*
 !!
 !!     MODIFICATION
 !!     ------------
-!!       Original  10/2007 
+!!       Original  10/2007
 !       S.Lafont remplace exposant reel 2.0 par exposant entier 2
 !!
 !-------------------------------------------------------------------------------
@@ -452,7 +452,7 @@ REAL, DIMENSION(:),   INTENT(IN) :: PY     ! Y lambert coordinate
 REAL, DIMENSION(:),   INTENT(OUT):: PMAP   ! map factor
 !
 !*     0.2    Declarations of local variables
-! 
+!
 !
 REAL, DIMENSION(SIZE(PX))       :: ZLAT0    ! latitude for iteration
 REAL, DIMENSION(SIZE(PX))       :: ZLAT     ! latitude
@@ -469,19 +469,19 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !               -----------
 !
       IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_IGN:MAP_FACTOR_IGN',0,ZHOOK_HANDLE)
-      ZR(:)    =SQRT( (PX(:)-XXS(KLAMBERT))**2 + (PY(:)-XYS(KLAMBERT))**2 ) 
+      ZR(:)    =SQRT( (PX(:)-XXS(KLAMBERT))**2 + (PY(:)-XYS(KLAMBERT))**2 )
       ZLATISO(:)=-1./XN(KLAMBERT) * ALOG(ABS(ZR(:)/XC(KLAMBERT)))
       ZLAT0(:)  =2. * ATAN (EXP(ZLATISO(:))) - XPI/2.
-!      
+!
       DO J=1, 100
          ZLAT(:) = 2. * ATAN(                                               &
            ( (1+XECC(KLAMBERT)*SIN(ZLAT0(:))) / (1-XECC(KLAMBERT)*SIN(ZLAT0(:))) )**(XECC(KLAMBERT)/2.)  &
-             *EXP(ZLATISO(:)) )  -XPI/2.  
+             *EXP(ZLATISO(:)) )  -XPI/2.
 !
          IF (MAXVAL(ABS(ZLAT(:) - ZLAT0(:))) < XCVGLAT ) EXIT
          ZLAT0(:)=ZLAT(:)
       ENDDO
-!      
+!
 !
 !*       2.     MAP FACTOR
 !               ----------

@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_NAM_PGD_DUMMY(HPROGRAM, KDUMMY_NBR, HDUMMY_NAME, HDUMMY_AREA, &
-                                      HDUMMY_ATYPE, HDUMMY_FILE, HDUMMY_FILETYPE      )  
+                                      HDUMMY_ATYPE, HDUMMY_FILE, HDUMMY_FILETYPE      )
 !     ##############################################################
 !
 !!**** *READ_NAM_PGD_DUMMY* reads namelist NAM_DUMMY_PGD
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -107,7 +107,7 @@ INTEGER                             :: NDUMMY_NBR
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 NAMELIST/NAM_DUMMY_PGD/ NDUMMY_NBR, CDUMMY_NAME, CDUMMY_AREA,       &
-                          CDUMMY_ATYPE, CDUMMY_FILE, CDUMMY_FILETYPE  
+                          CDUMMY_ATYPE, CDUMMY_FILE, CDUMMY_FILETYPE
 !-------------------------------------------------------------------------------
 !
 !*    1.      Initializations of defaults

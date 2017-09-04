@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_TEB_GREENROOF_GRIB(HPROGRAM,HSURF,HFILE,KLUOUT,PFIELD)
@@ -17,11 +17,11 @@ SUBROUTINE PREP_TEB_GREENROOF_GRIB(HPROGRAM,HSURF,HFILE,KLUOUT,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!    A. Lemonsu & C. de Munck 
+!!    A. Lemonsu & C. de Munck
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -114,7 +114,7 @@ SELECT CASE(HSURF)
 
 !*      3.3    Profile of soil ice content
 
-  CASE('WGI   ')    
+  CASE('WGI   ')
      !* reading of the profile and its depth definition
      SELECT CASE(CINMODEL)
        CASE('ECMWF ')

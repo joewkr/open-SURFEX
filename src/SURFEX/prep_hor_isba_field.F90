@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_HOR_ISBA_FIELD (DTCO, UG, U, USS, GCP, IG, IO, S, NK, NP, NPE, TPTIME,  &
@@ -17,11 +17,11 @@ SUBROUTINE PREP_HOR_ISBA_FIELD (DTCO, UG, U, USS, GCP, IG, IO, S, NK, NP, NPE, T
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -57,7 +57,7 @@ USE MODD_GRID_CONF_PROJ_n, ONLY : GRID_CONF_PROJ_t
 USE MODD_PREP,     ONLY : CINGRID_TYPE, CINTERP_TYPE, XZS_LS, &
                           XLAT_OUT, XLON_OUT, XX_OUT, XY_OUT, &
                           LINTERP, CMASK
-USE MODD_GRID_GRIB, ONLY : CINMODEL  
+USE MODD_GRID_GRIB, ONLY : CINMODEL
 !
 USE MODD_PREP_ISBA, ONLY : XGRID_SOIL, NGRID_LEVEL, LSNOW_IDEAL,    &
                            XWSNOW, XRSNOW, XTSNOW, XLWCSNOW, XASNOW,  &
@@ -134,7 +134,7 @@ LOGICAL, OPTIONAL,  INTENT(INOUT):: OKEY
  CHARACTER(LEN=6)              :: YFILETYPE_SNOW ! type of input file
  CHARACTER(LEN=28)             :: YFILE_SNOW     ! name of file
  CHARACTER(LEN=6)              :: YFILEPGDTYPE_SNOW ! type of input file
- CHARACTER(LEN=28)             :: YFILEPGD_SNOW     ! name of file 
+ CHARACTER(LEN=28)             :: YFILEPGD_SNOW     ! name of file
  CHARACTER(LEN=6)              :: YFILEPGDTYPE ! type of input file
  CHARACTER(LEN=28)             :: YFILEPGD     ! name of file
 REAL, POINTER, DIMENSION(:,:,:) :: ZFIELDIN   ! field to interpolate horizontally
@@ -215,7 +215,7 @@ IF (HSURF=='SN_VEG ') THEN
       YFILE_SNOW        = YFILE
       YFILETYPE_SNOW    = YFILETYPE
       YFILEPGD_SNOW     = YFILEPGD
-      YFILEPGDTYPE_SNOW = YFILEPGDTYPE       
+      YFILEPGDTYPE_SNOW = YFILEPGDTYPE
     ELSE
       GUNIF_SNOW=.TRUE.
       IF(ALL(XWSNOW==XUNDEF))XWSNOW=0.0
@@ -293,8 +293,8 @@ IF (YDCTL%LPART1) THEN
   ELSE IF (YFILETYPE=='ASCLLV') THEN
     CALL PREP_ISBA_ASCLLV(DTCO, UG, U, USS, HPROGRAM,HSURF,ILUOUT,ZFIELDIN)
   ELSE IF (YFILETYPE=='GRIB  ') THEN
-    CALL PREP_GRIB_GRID(YFILE,ILUOUT,CINMODEL,CINGRID_TYPE,CINTERP_TYPE,TZTIME_GRIB)        
-    IF (NRANK==NPIO) CALL PREP_ISBA_GRIB(HPROGRAM,HSURF,YFILE,ILUOUT,ZFIELDIN)        
+    CALL PREP_GRIB_GRID(YFILE,ILUOUT,CINMODEL,CINGRID_TYPE,CINTERP_TYPE,TZTIME_GRIB)
+    IF (NRANK==NPIO) CALL PREP_ISBA_GRIB(HPROGRAM,HSURF,YFILE,ILUOUT,ZFIELDIN)
   ELSE IF (YFILETYPE=='MESONH' .OR. YFILETYPE=='ASCII ' .OR. YFILETYPE=='LFI   '&
           .OR.YFILETYPE=='FA    '.OR. YFILETYPE=='AROME ') THEN
     CALL PREP_ISBA_EXTERN(DTCO, IO, U, GCP, HPROGRAM,HSURF,YFILE,YFILETYPE,YFILEPGD,YFILEPGDTYPE,ILUOUT,ZFIELDIN,OKEY)
@@ -410,7 +410,7 @@ IF (YDCTL%LPART5) THEN
   !
   !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   !
-    CASE('ZS     ') 
+    CASE('ZS     ')
       ALLOCATE(XZS_LS(INI))
       XZS_LS(:) = ZFIELDOUTP(:,1,1)
       DEALLOCATE(ZFIELDOUTP)
@@ -477,7 +477,7 @@ IF (YDCTL%LPART5) THEN
           IWORK(1:PK%NSIZE_P)=PK%NWG_LAYER(:)
         ELSE
           IWORK(1:PK%NSIZE_P)=2
-        ENDIF  
+        ENDIF
         DO JI=1,PK%NSIZE_P
           IF(IWORK(JI)==NUNDEF)CYCLE
           INL=IWORK(JI)
@@ -498,7 +498,7 @@ IF (YDCTL%LPART5) THEN
     !
     !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     !
-    CASE('TG     ') 
+    CASE('TG     ')
       IF(IO%LTEMP_ARP)THEN
         INL=IO%NTEMPLAYER_ARP
       ELSE
@@ -516,7 +516,7 @@ IF (YDCTL%LPART5) THEN
         IF (IO%CISBA=='2-L'.OR.IO%CISBA=='3-L') THEN
           ZDG(:,1) = 0.01
           ZDG(:,2) = 0.40                    ! deep temperature for force-restore taken at 20cm
-          IF(IO%CISBA=='3-L') ZDG(:,3) = 5.00   ! climatological temperature, usually not used       
+          IF(IO%CISBA=='3-L') ZDG(:,3) = 5.00   ! climatological temperature, usually not used
           IF(IO%LTEMP_ARP)THEN
             ZDG(:,3) = 1.0
             DO JL=4,INL
@@ -540,12 +540,12 @@ IF (YDCTL%LPART5) THEN
       DO JP = 1,IO%NPATCH
         ALLOCATE(NPE%AL(JP)%XWR(NP%AL(JP)%NSIZE_P))
         NPE%AL(JP)%XWR(:) = ZW%AL(JP)%ZOUT(:,1)
-        
+
       ENDDO
     !
     !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     !
-    CASE('WRL    ') 
+    CASE('WRL    ')
       DO JP = 1,IO%NPATCH
         ALLOCATE(NPE%AL(JP)%XWRL(NP%AL(JP)%NSIZE_P))
         NPE%AL(JP)%XWRL(:) = ZW%AL(JP)%ZOUT(:,1)
@@ -553,7 +553,7 @@ IF (YDCTL%LPART5) THEN
      !
     !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     !
-    CASE('WRLI   ') 
+    CASE('WRLI   ')
       DO JP = 1,IO%NPATCH
         ALLOCATE(NPE%AL(JP)%XWRLI(NP%AL(JP)%NSIZE_P))
         NPE%AL(JP)%XWRLI(:) = ZW%AL(JP)%ZOUT(:,1)
@@ -561,7 +561,7 @@ IF (YDCTL%LPART5) THEN
     !
     !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     !
-    CASE('WRVN   ') 
+    CASE('WRVN   ')
       DO JP = 1,IO%NPATCH
         ALLOCATE(NPE%AL(JP)%XWRVN(NP%AL(JP)%NSIZE_P))
         NPE%AL(JP)%XWRVN(:) = ZW%AL(JP)%ZOUT(:,1)
@@ -569,7 +569,7 @@ IF (YDCTL%LPART5) THEN
     !
     !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     !
-    CASE('TV     ') 
+    CASE('TV     ')
       DO JP = 1,IO%NPATCH
         ALLOCATE(NPE%AL(JP)%XTV(NP%AL(JP)%NSIZE_P))
         NPE%AL(JP)%XTV(:) = ZW%AL(JP)%ZOUT(:,1)
@@ -577,7 +577,7 @@ IF (YDCTL%LPART5) THEN
     !
     !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     !
-    CASE('TL     ') 
+    CASE('TL     ')
       DO JP = 1,IO%NPATCH
         ALLOCATE(NPE%AL(JP)%XTL(NP%AL(JP)%NSIZE_P))
         NPE%AL(JP)%XTL(:) = ZW%AL(JP)%ZOUT(:,1)
@@ -585,7 +585,7 @@ IF (YDCTL%LPART5) THEN
     !
     !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     !
-    CASE('TC     ') 
+    CASE('TC     ')
       DO JP = 1,IO%NPATCH
         ALLOCATE(NPE%AL(JP)%XTC(NP%AL(JP)%NSIZE_P))
         NPE%AL(JP)%XTC(:) = ZW%AL(JP)%ZOUT(:,1)
@@ -593,7 +593,7 @@ IF (YDCTL%LPART5) THEN
     !
     !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     !
-    CASE('QC     ') 
+    CASE('QC     ')
       DO JP = 1,IO%NPATCH
         ALLOCATE(NPE%AL(JP)%XQC(NP%AL(JP)%NSIZE_P))
         NPE%AL(JP)%XQC(:) = ZW%AL(JP)%ZOUT(:,1)
@@ -601,7 +601,7 @@ IF (YDCTL%LPART5) THEN
     !
     !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     !
-    CASE('LAI    ') 
+    CASE('LAI    ')
     !* LAI is updated only if present and pertinent (evolutive LAI) in input file
       DO JP = 1,IO%NPATCH
         IF (ANY(ZW%AL(JP)%ZOUT(:,:)/=XUNDEF)) THEN
@@ -612,7 +612,7 @@ IF (YDCTL%LPART5) THEN
     !
     !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     !
-    CASE('ICE_STO') 
+    CASE('ICE_STO')
       DO JP = 1,IO%NPATCH
         ALLOCATE(NPE%AL(JP)%XICE_STO(NP%AL(JP)%NSIZE_P))
         NPE%AL(JP)%XICE_STO(:) = ZW%AL(JP)%ZOUT(:,1)
@@ -680,7 +680,7 @@ IF (SIZE(PT1,2)==3) THEN
       ILAYER2=0
     ENDIF
     !* historical 2L or 3L ISBA version
-    PT2(:,1:ILAYER1) = PT1(:,1:ILAYER1) 
+    PT2(:,1:ILAYER1) = PT1(:,1:ILAYER1)
     !* Possible LTEMP_ARP case
     IF(ILAYER2>0)THEN
       DO JL=ILAYER1+1,ILAYER2
@@ -691,13 +691,13 @@ IF (SIZE(PT1,2)==3) THEN
   ELSEIF(IO%CISBA=='DIF')THEN
 
     !surface layer (generally 0.01m imposed)
-    PT2(:,1) = PT1(:,1) 
+    PT2(:,1) = PT1(:,1)
     !second layer
     PT2(:,2) = 0.25*PT1(:,1)+0.75*PT1(:,2)
     !others layers
     DO JI=1,SIZE(PT1,1)
       DO JL=3,IO%NGROUND_LAYER
-        IF(PD2(JI,JL)<=PK%XDG2(JI))THEN 
+        IF(PD2(JI,JL)<=PK%XDG2(JI))THEN
           !root layers
           PT2(JI,JL) = PT1(JI,2)
         ELSE
@@ -705,9 +705,9 @@ IF (SIZE(PT1,2)==3) THEN
           PT2(JI,JL) = PT1(JI,3)
         ENDIF
       END DO
-    END DO 
-  END IF    
-!  
+    END DO
+  END IF
+!
 !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ELSE
 !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

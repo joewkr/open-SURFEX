@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE HORIBL_SURF_INIT(PILA1,PILO1,PILA2,PILO2,KINLA,KINLO,KOLEN,&
                            PXOUT,PYOUT,OINTERP,OGLOBLON,OGLOBN,OGLOBS,&
                            KO,KINLO_OUT,POLA,POLO,PILO1_OUT,&
-                           PILO2_OUT,PLA,PILATARRAY )  
+                           PILO2_OUT,PLA,PILATARRAY )
 !   ###########################################################################
 !
 !!****  *HORIBL_SURF_INIT* - horitontal bilinear interpolation
@@ -110,9 +110,9 @@ USE MODI_ABOR1_SFX
 IMPLICIT NONE
 !
 !*      0.1. Declaration of arguments
-!         
+!
 REAL,                      INTENT(IN)  :: PILA1   ! Lat. (y) of first input point KDGSA
-REAL,                      INTENT(IN)  :: PILO1   ! Lon. (x) of first input point 
+REAL,                      INTENT(IN)  :: PILO1   ! Lon. (x) of first input point
 REAL,                      INTENT(IN)  :: PILA2   ! Lat. (y) of last input point KDGEN
 REAL,                      INTENT(IN)  :: PILO2   ! Lon. (x) of last input point
 INTEGER,                   INTENT(IN)  :: KINLA   ! Number of parallels
@@ -121,7 +121,7 @@ INTEGER,                   INTENT(IN)  :: KOLEN   ! size of output array
 REAL,    DIMENSION(:), INTENT(IN)  :: PXOUT   ! X (lon.) of output points
 REAL,    DIMENSION(:), INTENT(IN)  :: PYOUT   ! Y (lat.) of output points
 LOGICAL, DIMENSION(:), INTENT(IN)  :: OINTERP ! .true. where physical value is needed
-! 
+!
 LOGICAL, INTENT(OUT)  :: OGLOBLON  ! True if the map is circular
 LOGICAL, INTENT(OUT)  :: OGLOBN    ! True if the map has the north pole
 LOGICAL, INTENT(OUT)  :: OGLOBS    ! True if the map has the south pole
@@ -190,8 +190,8 @@ IF (PILO2_OUT < PILO1_OUT) PILO1_OUT = PILO1_OUT - 360.
 !                      i
 !  Lon(i) = Lon1 + ------------- . (Lon2 - Lon1)
 !                   Npts(Lat)-1
-! Where i goes from 0 to Npts(Lat)-1. The result of this is that the last point of 
-! each parallel is located at Lon2. This is not the case for reduced grid where the 
+! Where i goes from 0 to Npts(Lat)-1. The result of this is that the last point of
+! each parallel is located at Lon2. This is not the case for reduced grid where the
 ! position of the last point depends upon the number of points of the parallel. For
 ! reduced grid, the right formula to use is the following :
 !                       i
@@ -302,7 +302,7 @@ DO JL = 1, KOLEN
   IF (.NOT.OGLOBS) THEN
     KO(JL,1:2) = MIN(KO(JL,1:2),IINLA)
     KO(JL,3:4) = MAX(KO(JL,3:4),1)
-  ENDIF  
+  ENDIF
   !
   IF (PRESENT(PILATARRAY)) THEN
     !
@@ -349,7 +349,7 @@ DO JL = 1, KOLEN
     END IF
   ENDIF
   !
-  IF ((KO(JL,4)<1).OR.ANY((KO(JL,:)>IINLA))) THEN  
+  IF ((KO(JL,4)<1).OR.ANY((KO(JL,:)>IINLA))) THEN
     CALL ABOR1_SFX('HORIBLE_SURF_INIT: INPUT DOMAIN SMALLER THAN OUTPUT ONE - LATITUDE')
   END IF
   !

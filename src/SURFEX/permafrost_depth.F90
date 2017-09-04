@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODI_PERMAFROST_DEPTH
 !
@@ -42,11 +42,11 @@ END MODULE MODI_PERMAFROST_DEPTH
 SUBROUTINE PERMAFROST_DEPTH_1D (KNI,KPATCH,PPERM,PSOILDEPTH)
 !     ###################################################
 !
-!!****  *PERMAFROST_DEPTH*  
+!!****  *PERMAFROST_DEPTH*
 !!
 !!    PURPOSE
 !!    -------
-! 
+!
 !     Extended  ground depth to 12m over permafrost area
 !
 !!**  METHOD
@@ -62,17 +62,17 @@ SUBROUTINE PERMAFROST_DEPTH_1D (KNI,KPATCH,PPERM,PSOILDEPTH)
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
-!!      B. Decharme     
+!!      B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    30/08/12 
+!!      Original    30/08/12
 !-------------------------------------------------------------------------------
 !
 USE MODD_SURF_PAR, ONLY : XUNDEF
@@ -123,11 +123,11 @@ END SUBROUTINE PERMAFROST_DEPTH_1D
 SUBROUTINE PERMAFROST_DEPTH_2D (KNI,KPATCH,PPERM,PSOILDEPTH)
 !     ###################################################
 !
-!!****  *PERMAFROST_DEPTH*  
+!!****  *PERMAFROST_DEPTH*
 !!
 !!    PURPOSE
 !!    -------
-! 
+!
 !     Extended  ground depth to 12m over permafrost area
 !
 !!**  METHOD
@@ -143,17 +143,17 @@ SUBROUTINE PERMAFROST_DEPTH_2D (KNI,KPATCH,PPERM,PSOILDEPTH)
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
-!!      B. Decharme     
+!!      B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    30/08/12 
+!!      Original    30/08/12
 !-------------------------------------------------------------------------------
 !
 USE MODD_SURF_PAR, ONLY : XUNDEF

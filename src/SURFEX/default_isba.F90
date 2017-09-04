@@ -1,8 +1,8 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!     ######### 
+!     #########
       SUBROUTINE DEFAULT_ISBA(PTSTEP, POUT_TSTEP,                        &
                               HRUNOFF, HSCOND,                           &
                               HC1DRY, HSOILFRZ, HDIFSFCOND, HSNOWRES,    &
@@ -39,9 +39,9 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!      B.Decharme  04/2013 delete HTOPREG (never used)
-!!                          water table / surface coupling 
+!!                          water table / surface coupling
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -66,13 +66,13 @@ CHARACTER(LEN=4),  INTENT(OUT) :: HSCOND   ! Thermal conductivity
 !                                          ! for explicit computation of CG
 CHARACTER(LEN=4),  INTENT(OUT) :: HC1DRY   ! C1 formulation for dry soils
 !                                          ! 'DEF ' = DEFault: Giard-Bazile formulation
-!                                          ! 'GB93' = Giordani 1993, Braud 1993 
+!                                          ! 'GB93' = Giordani 1993, Braud 1993
 !                                          !discontinuous at WILT
 CHARACTER(LEN=3),  INTENT(OUT) :: HSOILFRZ ! soil freezing-physics option
-!                                          ! 'DEF' = Default (Boone et al. 2000; 
+!                                          ! 'DEF' = Default (Boone et al. 2000;
 !                                          !        Giard and Bazile 2000)
 !                                          ! 'LWT' = Phase changes as above,
-!                                          !         but relation between unfrozen 
+!                                          !         but relation between unfrozen
 !                                          !         water and temperature considered
 !                            NOTE that when using the YISBA='DIF' multi-layer soil option,
 !                            the 'LWT' method is used. It is only an option
@@ -112,19 +112,19 @@ LOGICAL, INTENT(OUT) ::          OSOC      ! SOIL ORGANIC CARBON PROFILE OPTION
 CHARACTER(LEN=3), INTENT(OUT) :: HRAIN     ! Rainfall spatial distribution
                                            ! 'DEF' = No rainfall spatial distribution
                                            ! 'SGH' = Rainfall exponential spatial distribution
-                                           ! 
-! 
+                                           !
+!
 CHARACTER(LEN=3), INTENT(OUT) :: HHORT     ! Horton runoff
                                            ! 'DEF' = no Horton runoff
                                            ! 'SGH' = Horton runoff
-!                                         
-LOGICAL, INTENT(OUT)          :: OGLACIER  ! True = Over permanent snow and ice, 
-!                                                   initialise WGI=WSAT, 
+!
+LOGICAL, INTENT(OUT)          :: OGLACIER  ! True = Over permanent snow and ice,
+!                                                   initialise WGI=WSAT,
 !                                                   Hsnow>=3.3m and allow 0.8<SNOALB<0.85
                                            ! False = No specific treatment
 LOGICAL, INTENT(OUT)          :: OCANOPY_DRAG ! T: drag activated in SBL scheme within the canopy
 !
-LOGICAL, INTENT(OUT)          :: OVEGUPD   ! T: update vegetation parameters 
+LOGICAL, INTENT(OUT)          :: OVEGUPD   ! T: update vegetation parameters
                                            !    every decade
                                            ! F: keep vegetation parameters
                                            !    constant in time
@@ -132,7 +132,7 @@ LOGICAL, INTENT(OUT)          :: OVEGUPD   ! T: update vegetation parameters
 LOGICAL, INTENT(OUT)          :: OSPINUPCARBS ! T: carbon spinup soil
 LOGICAL, INTENT(OUT)          :: OSPINUPCARBW ! T: carbon spinup wood
 REAL,    INTENT(OUT)          :: PSPINMAXS    ! max number of times CARBON_SOIL subroutine is called
-REAL,    INTENT(OUT)          :: PSPINMAXW    ! max number of times the wood is accelerated 
+REAL,    INTENT(OUT)          :: PSPINMAXW    ! max number of times the wood is accelerated
 REAL,    INTENT(OUT)          :: PCO2_START   ! Pre-industrial CO2 concentration
 REAL,    INTENT(OUT)          :: PCO2_END     ! Begin-transient CO2 concentration
 INTEGER, INTENT(OUT)          :: KNBYEARSPINS ! nbr years needed to reaches soil equilibrium

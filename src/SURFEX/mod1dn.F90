@@ -1,23 +1,23 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE MOD1D_n (DGO, O, OR, PLAT, S, &
                         HPROGRAM, PTIME, PEMIS, PDIR_ALB, PSCA_ALB, &
-                        PLW, PSCA_SW, PDIR_SW, PSFTH, PSFTQ, PSFU, PSFV, PRAIN )           
+                        PLW, PSCA_SW, PDIR_SW, PSFTH, PSFTQ, PSFU, PSFV, PRAIN )
 !     #######################################################################
 !
-!!****  *MOD1D_n*  
+!!****  *MOD1D_n*
 !!
 !!    PURPOSE
 !!    -------
-!     Source that exchanges Fluxes and SST between SURFEX (coupling_seaflux) 
-!     and the oceanic 1D model in TKE eqations (mixtl_n) 
-!     
+!     Source that exchanges Fluxes and SST between SURFEX (coupling_seaflux)
+!     and the oceanic 1D model in TKE eqations (mixtl_n)
+!
 !!**  METHOD
 !!    ------
-!     Change turbulent fluxes in solar, non solar, and fresh water fluxes 
+!     Change turbulent fluxes in solar, non solar, and fresh water fluxes
 !     with the oceanic convention for orientation of fluxes
 !     The stress of wind is exchange between SURFEX and TKE model
 !
@@ -25,15 +25,15 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
-!!     C. Lebeaupin  *Météo-France* 
+!!     C. Lebeaupin  *Météo-France*
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -132,11 +132,11 @@ IF (GCALLMIXT) THEN
   DO JPT=1,SIZE(PSFTH)
  !SW Flux up
     ZSWU(JPT,:)= PDIR_SW(JPT,:) * PDIR_ALB(JPT,:) + PSCA_SW(JPT,:)*PSCA_ALB(JPT,:)
- !Net solar flux  
+ !Net solar flux
     ZFSOL(JPT)=(SUM(PDIR_SW(JPT,:))+SUM(PSCA_SW(JPT,:))-SUM(ZSWU(JPT,:)))/(XRHOSW*XCPSW)
  !Calcul flux LW UP
     ZLWU(JPT)= PEMIS(JPT)*XSTEFAN*S%XSST(JPT)**4 + (1-PEMIS(JPT))*PLW(JPT)
-   
+
     IF (S%XSST(JPT)<=(XTT-2)) THEN
       ZFNSOL(JPT)=(PLW(JPT)-ZLWU(JPT)-PSFTH(JPT)-(XLSTT*PSFTQ(JPT)))/(XRHOSW*XCPSW)
       ZSFTEAU(JPT)=PSFTQ(JPT)/XRHOSWREF
@@ -144,7 +144,7 @@ IF (GCALLMIXT) THEN
       ZLV(JPT)=XLVTT+(XCPV-XCL)*(S%XSST(JPT)-XTT)
       ZFNSOL(JPT)=(PLW(JPT)-ZLWU(JPT)-PSFTH(JPT)-(ZLV(JPT)*PSFTQ(JPT)))/(XRHOSW*XCPSW)
       ZSFTEAU(JPT)=(PSFTQ(JPT)-PRAIN(JPT))/XRHOSWREF
-    ENDIF  
+    ENDIF
   ENDDO
 !__________________________________________________________________________
 !
@@ -163,7 +163,7 @@ IF (GCALLMIXT) THEN
 !---------------------------------------------------------------------------
 !        3. Coupling with SURFEX by SST (and relative wind) evolution
 !
-  IF (O%LPROGSST) THEN 
+  IF (O%LPROGSST) THEN
     S%XSST(:)=ZSEATEMP(:)
     !WRITE(ILUOUT,*) '**SST CHANGED FOR THE ',NOCTCOUNT,'TIME BY FIRST LEVEL OCEANIC MODEL TEMPERATURE AT ', ITIME,' s **'
   ENDIF

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_SEAICE (UG, DTCO, DTS, O, OR, KLAT, S, U, GCP, &
@@ -17,11 +17,11 @@ SUBROUTINE PREP_SEAICE (UG, DTCO, DTS, O, OR, KLAT, S, U, GCP, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     S. Sénési 
+!!     S. Sénési
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -50,7 +50,7 @@ USE MODE_PREP_CTL, ONLY : PREP_CTL
 USE MODN_PREP_SEAFLUX,   ONLY : CPREP_SEAICE_SCHEME => CSEAICE_SCHEME
 USE MODI_PREP_HOR_SEAFLUX_FIELD
 !
-USE MODD_GLT_PARAM, ONLY : nl, nt, nx, ny, nxglo, nyglo 
+USE MODD_GLT_PARAM, ONLY : nl, nt, nx, ny, nxglo, nyglo
 USE MODI_GLTOOLS_ALLOC
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -83,7 +83,7 @@ CHARACTER(LEN=6),   INTENT(IN)  :: HPGDFILETYPE! type of the Atmospheric file
 !
 !*      0.2    declarations of local variables
 !
-INTEGER :: IK,IL  ! loop counter on ice categories and layers 
+INTEGER :: IK,IL  ! loop counter on ice categories and layers
 INTEGER :: JMTH,INMTH
 INTEGER :: ILUOUT
 LOGICAL :: GFOUND         ! Return code when searching namelist
@@ -117,15 +117,15 @@ ENDIF
 !
 !*      2.     Reading and horizontal interpolations of Seaice cover
 !
-IF (S%LHANDLE_SIC) THEN 
+IF (S%LHANDLE_SIC) THEN
    CALL PREP_HOR_SEAFLUX_FIELD(DTCO, UG, U, GCP, DTS, O, OR, KLAT, S, &
                                HPROGRAM,'SIC    ',HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,YDCTL)
 ENDIF
 !
 !-------------------------------------------------------------------------------------
 !
-!*      3.     Optional preparation of interpolation of monthly sea ice cover and sea 
-!              ice thickness 
+!*      3.     Optional preparation of interpolation of monthly sea ice cover and sea
+!              ice thickness
 !
 S%LINTERPOL_SIC=.FALSE.
 IF(TRIM(S%CINTERPOL_SIC)/='NONE')THEN
@@ -161,7 +161,7 @@ IF(S%LINTERPOL_SIT)THEN
 ENDIF
 !-------------------------------------------------------------------------------------
 !
-!*      Creating default initial state for Gelato 
+!*      Creating default initial state for Gelato
 !
 !
 CALL GET_TYPE_DIM_n(DTCO, U, 'SEA   ',nx)
@@ -176,29 +176,29 @@ S%TGLT%ust(:,1)=0.
 !
 !*       G2     Prognostic fields with space and ice-category dimension(s) :
 !
-! sea ice age 
+! sea ice age
 S%TGLT%sit(:,:,1)%age=0.
-! melt pond volume 
+! melt pond volume
 S%TGLT%sit(:,:,1)%vmp=0.
-! sea ice surface albedo 
+! sea ice surface albedo
 S%TGLT%sit(:,:,1)%asn=0.
-! sea ice fraction 
+! sea ice fraction
 S%TGLT%sit(:,:,1)%fsi=0.
-! sea ice thickness 
+! sea ice thickness
 S%TGLT%sit(:,:,1)%hsi=1.*S%TGLT%sit(:,:,1)%fsi
-! sea ice salinity 
+! sea ice salinity
 S%TGLT%sit(:,:,1)%ssi=0.
-! sea ice surface temperature 
+! sea ice surface temperature
 S%TGLT%sit(:,:,1)%tsf=260.
-! snow thickness 
+! snow thickness
 S%TGLT%sit(:,:,1)%hsn=0.
-! snow density 
+! snow density
 S%TGLT%sit(:,:,1)%rsn=100.
 !
 !*       G3     Prognostic fields with space, ice-category and layer dimensions :
 !
 ! sea ice vertical gltools_enthalpy profile for all types and levels
-S%TGLT%sil(:,:,:,1)%ent=-1000. 
+S%TGLT%sil(:,:,:,1)%ent=-1000.
 !
 IF (LHOOK) CALL DR_HOOK('PREP_SEAICE',1,ZHOOK_HANDLE)
 !

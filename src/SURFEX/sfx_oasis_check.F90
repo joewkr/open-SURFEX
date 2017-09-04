@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########
 SUBROUTINE SFX_OASIS_CHECK (IO, U, KLUOUT)
@@ -93,16 +93,16 @@ IF(LCPL_CALVING)THEN
     WRITE(KLUOUT,*)'but LGLACIER in not activated in NAM_ISBAn         '
     WRITE(KLUOUT,*)'Please check your SURFEX namelist                  '
     WRITE(KLUOUT,*)'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    CALL ABOR1_SFX('SFX_OASIS_CHECK: Calving flux is asked by SFX - OASIS coupling')            
-  ENDIF  
-ENDIF  
+    CALL ABOR1_SFX('SFX_OASIS_CHECK: Calving flux is asked by SFX - OASIS coupling')
+  ENDIF
+ENDIF
 !
 !
 IF(LCPL_GW.AND.IO%CISBA/='DIF')THEN
    WRITE(KLUOUT,*)'SFX_OASIS_CHECK: Water table depth / surface coupling requires ISBA-DF'
    CALL ABOR1_SFX('SFX_OASIS_CHECK: ISBA-DF is required for SFX - Groundwater coupling')
-ENDIF   
-IF(.NOT.LCPL_GW.AND.IO%CISBA=='DIF'.AND.IO%LWTD)THEN           
+ENDIF
+IF(.NOT.LCPL_GW.AND.IO%CISBA=='DIF'.AND.IO%LWTD)THEN
       WRITE(KLUOUT,*)'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
       WRITE(KLUOUT,*)'!!! A groundwater map is specified and LAND coupling    !!!'
       WRITE(KLUOUT,*)'!!!  is activated but not groundwater/surface coupling  !!!'
@@ -111,14 +111,14 @@ IF(.NOT.LCPL_GW.AND.IO%CISBA=='DIF'.AND.IO%LWTD)THEN
       WRITE(KLUOUT,*)'!!!                                                     !!!'
       WRITE(KLUOUT,*)'!!! Use NAM_SFX_LAND_CPL with CWTD and CFWTD            !!!'
       WRITE(KLUOUT,*)'!!!  if you want this coupling via OASIS                !!!'
-      WRITE(KLUOUT,*)'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'  
+      WRITE(KLUOUT,*)'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
 ENDIF
 !
 !
 IF(LWATER.AND.(U%CWATER=='NONE '.OR.U%CWATER=='FLAKE'))THEN
   WRITE(KLUOUT,*)'LWATER = ',LWATER,'   CWATER = ',U%CWATER
-  WRITE(KLUOUT,*)'! Inland water should not be added to sea mask in case CWATER is NONE or FLAKE !!!'     
-  WRITE(KLUOUT,*)'! Change CWATER or put LWATER=.FALSE. in NAM_SFX_SEA_CPL !!!'     
+  WRITE(KLUOUT,*)'! Inland water should not be added to sea mask in case CWATER is NONE or FLAKE !!!'
+  WRITE(KLUOUT,*)'! Change CWATER or put LWATER=.FALSE. in NAM_SFX_SEA_CPL !!!'
   CALL ABOR1_SFX('SFX_OASIS_READ_NAM: LWATER and CWATER not consistent')
 ENDIF
 !

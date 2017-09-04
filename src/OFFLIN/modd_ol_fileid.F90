@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 
 !     ######################
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -48,7 +48,7 @@ IMPLICIT NONE
                                          'Forc_RAIN.nc               ',&
                                          'Forc_SNOW.nc               ',&
                                          'Forc_WIND.nc               ',&
-                                         'Forc_DIR.nc                ',& 
+                                         'Forc_DIR.nc                ',&
                                          'Forc_CO2.nc                ',&
                                          'SXPOST.nc                  ',&
                                          'LAND_USE.nc                ',&
@@ -81,13 +81,13 @@ IMPLICIT NONE
                                          'TEB_CANOPY.OUT.nc          ',&
                                          'TEB_DIAG_CUMUL.OUT.nc      ',&
                                          'SURF_ATM.OUT.nc            ',&
-                                         'SURF_ATM_DIAGNOSTICS.OUT.nc'/)  
+                                         'SURF_ATM_DIAGNOSTICS.OUT.nc'/)
 INTEGER, DIMENSION(25) :: XNETCDF_FILEID_OUT
 !
  CHARACTER(LEN=20), DIMENSION(:), ALLOCATABLE :: XVAR_TO_FILEIN !contains names
                                                                 !of variables to write
 INTEGER*4, DIMENSION(:), ALLOCATABLE :: XID_IN, XID_VARIN  !contains ids of
-                                                           !opened files for each 
+                                                           !opened files for each
                                                            !variable to write
 INTEGER :: XIN
 INTEGER :: XCOUNT

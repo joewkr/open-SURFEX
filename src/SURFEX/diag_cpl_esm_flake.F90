@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-       SUBROUTINE DIAG_CPL_ESM_FLAKE (F,PTSTEP,PRAIN,PSNOW,PSFTQ)  
+       SUBROUTINE DIAG_CPL_ESM_FLAKE (F,PTSTEP,PRAIN,PSNOW,PSFTQ)
 !     #####################################################################
 !
-!!****  *DIAG_CPL_ESM_FLAKE * - Computes diagnostics over sea for 
+!!****  *DIAG_CPL_ESM_FLAKE * - Computes diagnostics over sea for
 !!                                Earth system model coupling
 !!
 !!    PURPOSE
@@ -17,11 +17,11 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     B. Decharme 
+!!     B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -62,8 +62,8 @@ IF (LHOOK) CALL DR_HOOK('DIAG_CPL_ESM_FLAKE',0,ZHOOK_HANDLE)
 F%XCPL_FLAKE_EVAP(:) = F%XCPL_FLAKE_EVAP(:) + PTSTEP * PSFTQ(:)
 !
 !* Precip (kg/m2)
-! 
-F%XCPL_FLAKE_RAIN(:) = F%XCPL_FLAKE_RAIN(:) + PTSTEP * PRAIN(:) 
+!
+F%XCPL_FLAKE_RAIN(:) = F%XCPL_FLAKE_RAIN(:) + PTSTEP * PRAIN(:)
 F%XCPL_FLAKE_SNOW(:) = F%XCPL_FLAKE_SNOW(:) + PTSTEP * PSNOW(:)
 !
 IF (LHOOK) CALL DR_HOOK('DIAG_CPL_ESM_FLAKE',1,ZHOOK_HANDLE)

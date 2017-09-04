@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_HOR_OCEAN_FIELDS (DTCO, UG, U, GCP, O, OR, KLAT, PSEABATHY, &
@@ -18,11 +18,11 @@ SUBROUTINE PREP_HOR_OCEAN_FIELDS (DTCO, UG, U, GCP, O, OR, KLAT, PSEABATHY, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     C. Lebeaupin Brossier 
+!!     C. Lebeaupin Brossier
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -134,10 +134,10 @@ IF (IL/=0) THEN
   ALLOCATE(O%XDTFNSOL   (SIZE(O%XSEAT,1)))
   O%XDTFNSOL(:) = XUNDEF
   ALLOCATE(O%XDTFSOL    (SIZE(O%XSEAT,1),NOCKMIN:NOCKMAX))
-  O%XDTFSOL(:,:)= XUNDEF  
+  O%XDTFSOL(:,:)= XUNDEF
 !!----------------------------------------------------------------------------
 !!
-!!*      6.     Treatment of bathymetry indice and 
+!!*      6.     Treatment of bathymetry indice and
 !!              apply bathy mask
   DO J=1,IL
     DO JLEV=IK1+1,NOCKMAX
@@ -154,8 +154,8 @@ IF (IL/=0) THEN
         !
         OR%XSEAU_REL(J,JLEV)  = XUNDEF
         OR%XSEAV_REL(J,JLEV)  = XUNDEF
-        !        
-      ENDIF 
+        !
+      ENDIF
     ENDDO
   ENDDO
 !

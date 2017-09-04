@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################
       MODULE MODD_DATA_TEB_n
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -40,9 +40,9 @@ IMPLICIT NONE
 
 TYPE DATA_TEB_t
 !
-  LOGICAL :: LDATA_BLDTYPE 
+  LOGICAL :: LDATA_BLDTYPE
   LOGICAL :: LDATA_BLD_AGE
-  LOGICAL :: LDATA_USETYPE 
+  LOGICAL :: LDATA_USETYPE
   LOGICAL :: LDATA_GARDEN
   LOGICAL :: LDATA_GREENROOF
   LOGICAL :: LDATA_ROAD_DIR
@@ -105,7 +105,7 @@ TYPE DATA_TEB_t
   REAL, POINTER, DIMENSION(:,:) :: XPAR_HC_ROOF      ! roof layers heat capacity        (J/K/m3)
   REAL, POINTER, DIMENSION(:,:) :: XPAR_TC_ROOF      ! roof layers thermal conductivity (W/K/m)
   REAL, POINTER, DIMENSION(:,:) :: XPAR_D_ROOF       ! depth of roof layers             (m)
-  REAL, POINTER, DIMENSION(:)   :: XPAR_ROUGH_ROOF   ! outside roof roughness coef 
+  REAL, POINTER, DIMENSION(:)   :: XPAR_ROUGH_ROOF   ! outside roof roughness coef
 !
 !
 ! Road parameters
@@ -131,7 +131,7 @@ TYPE DATA_TEB_t
 !                                                  ! heat fluxes due to traffic       (W/m2)
   REAL, POINTER, DIMENSION(:)   :: XPAR_LE_TRAFFIC   ! anthropogenic latent
 !                                                  ! heat fluxes due to traffic       (W/m2)
-  REAL, POINTER, DIMENSION(:)   :: XPAR_H_INDUSTRY   ! anthropogenic sensible                   
+  REAL, POINTER, DIMENSION(:)   :: XPAR_H_INDUSTRY   ! anthropogenic sensible
 !                                                  ! heat fluxes due to factories     (W/m2)
   REAL, POINTER, DIMENSION(:)   :: XPAR_LE_INDUSTRY  ! anthropogenic latent
 !                                                  ! heat fluxes due to factories     (W/m2)

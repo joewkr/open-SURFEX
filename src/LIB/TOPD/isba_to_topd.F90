@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
       SUBROUTINE ISBA_TO_TOPD(PVARI,PVART)
 !     #######################
 !
-!!****  *ISBA_TO_TOPD*  
+!!****  *ISBA_TO_TOPD*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     
-!         
-!     
+!
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,12 +24,12 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -60,7 +60,7 @@ REAL, DIMENSION(:,:), INTENT(OUT)   :: PVART   ! variable for TOPODYN grid
 !
 !*      0.2    declarations of local variables
 !
-INTEGER            :: JJ, JI             ! loop control 
+INTEGER            :: JJ, JI             ! loop control
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('ISBA_TO_TOPD',0,ZHOOK_HANDLE)

@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_SURF_ATM_DATE (&
                                      HPROGRAM,HINIT,KLUOUT,            &
                                       HATMFILE,HATMFILETYPE,            &
-                                      KYEAR,KMONTH,KDAY,PTIME,TPTIME    )  
+                                      KYEAR,KMONTH,KDAY,PTIME,TPTIME    )
 !     #######################################################
 !
 !!****  *READ_SURF_ATM_DATE* - routine to initialise the date TPTIME
@@ -34,7 +34,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!      P. Le Moigne 10/2005, Phasage Arome
 !-------------------------------------------------------------------------------
 !
@@ -106,21 +106,21 @@ YFILEPGDINTYPE = '      '
 !  ---------------
 !
 IF (TPTIME%TDATE%YEAR==NUNDEF.OR.TPTIME%TDATE%MONTH==NUNDEF &
-      .OR.TPTIME%TDATE%DAY==NUNDEF.OR.TPTIME%TIME==XUNDEF) THEN  
+      .OR.TPTIME%TDATE%DAY==NUNDEF.OR.TPTIME%TIME==XUNDEF) THEN
 !
   CALL READ_PREP_SURF_ATM_CONF(HPROGRAM,YFILE,YFILETYPE,YFILEPGD,YFILEPGDTYPE,&
                                HATMFILE,HATMFILETYPE,YFILEPGDIN,YFILEPGDINTYPE,KLUOUT)
 !
   IF (LEN_TRIM(YFILETYPE)/=0) &
     CALL READ_PREP_FILE_DATE(&
-                             HPROGRAM,YFILE,YFILETYPE,TPTIME,KLUOUT)  
+                             HPROGRAM,YFILE,YFILETYPE,TPTIME,KLUOUT)
 END IF
 !
 !* If no file and no date in the namelist, test if atmospheric date
 !------------------------------------------------------------------
 !
 IF (LEN_TRIM(YFILE)==0 .AND. (TPTIME%TDATE%YEAR==XUNDEF.OR.TPTIME%TDATE%MONTH==XUNDEF &
-                               .OR.TPTIME%TDATE%DAY==XUNDEF.OR.TPTIME%TIME==XUNDEF)) THEN  
+                               .OR.TPTIME%TDATE%DAY==XUNDEF.OR.TPTIME%TIME==XUNDEF)) THEN
 !
   IF (KYEAR /= NUNDEF .AND. KMONTH /= NUNDEF .AND. KDAY /= NUNDEF .AND. PTIME /= XUNDEF) THEN
     TPTIME%TDATE%YEAR = KYEAR
@@ -137,11 +137,11 @@ IF (LEN_TRIM(YFILE)==0 .AND. (TPTIME%TDATE%YEAR==XUNDEF.OR.TPTIME%TDATE%MONTH==X
 END IF
 !
 !* Test of date coherence?
-!------------------------ 
+!------------------------
 !
 IF (KYEAR /= NUNDEF .AND. KMONTH /= NUNDEF .AND. KDAY /= NUNDEF .AND. PTIME /= XUNDEF) THEN
   IF (KYEAR /= TPTIME%TDATE%YEAR .OR. KMONTH /= TPTIME%TDATE%MONTH &
-         .OR. KDAY /= TPTIME%TDATE%DAY .AND. PTIME /= TPTIME%TIME) THEN  
+         .OR. KDAY /= TPTIME%TDATE%DAY .AND. PTIME /= TPTIME%TIME) THEN
     WRITE(UNIT=KLUOUT, FMT=*) 'WARNING in READ_SURF_ATM_DATE'
     WRITE(UNIT=KLUOUT, FMT=*) 'ATMOSPHERIC AND SURFACE DATES ARE NOT THE SAME'
 
@@ -159,7 +159,7 @@ IF (KYEAR /= NUNDEF .AND. KMONTH /= NUNDEF .AND. KDAY /= NUNDEF .AND. PTIME /= X
     WRITE(UNIT=KLUOUT, FMT=*)'SAME ATMOSPHERIC AND SURFACE DATES'
     WRITE(UNIT=KLUOUT, FMT=*)'DATE in READ_SURF_ATM_DATE:'
     WRITE(UNIT=KLUOUT, FMT='(" YEAR=",I4," MONTH=",I4," DAY=",I4)') &
-                                        KYEAR,KMONTH,KDAY  
+                                        KYEAR,KMONTH,KDAY
     WRITE(UNIT=KLUOUT, FMT='(" TIME=",E13.6)') PTIME
   ENDIF
 ENDIF

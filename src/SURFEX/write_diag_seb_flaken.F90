@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITE_DIAG_SEB_FLAKE_n (DTCO, DUO, U, CHF, DFO, D, DC, HPROGRAM)
@@ -14,7 +14,7 @@
 !!
 !!**  METHOD
 !!    ------
-!!          
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -167,7 +167,7 @@ IF (DFO%LSURF_BUDGET) THEN
     YRECFM='LWU_WAT'
     YCOMMENT='upward long wave radiation'//' (W/m2)'
     CALL WRITE_SURF(DUO%CSELECT,HPROGRAM,YRECFM,D%XLWU(:),IRESP,HCOMMENT=YCOMMENT)
-    !  
+    !
     IF (LALLOW_ADD_DIM)  THEN
       !
       YRECFM='SWD_WAT'
@@ -178,10 +178,10 @@ IF (DFO%LSURF_BUDGET) THEN
       YRECFM='SWU_WAT'
       YCOMMENT='X_Y_'//YRECFM//' (W/m2)'
       CALL WRITE_SURF(DUO%CSELECT,&
-           HPROGRAM,YRECFM,D%XSWBD(:,:),IRESP,HCOMMENT=YCOMMENT, HNAM_DIM=YSWBAND_DIM_NAME)  
+           HPROGRAM,YRECFM,D%XSWBD(:,:),IRESP,HCOMMENT=YCOMMENT, HNAM_DIM=YSWBAND_DIM_NAME)
       !
     ELSE
-      !    
+      !
       DO JSW=1, SIZE(D%XSWBD,2)
         YNUM=ACHAR(48+JSW)
         !
@@ -218,7 +218,7 @@ IF (DFO%LSURF_BUDGET.OR.DFO%LSURF_BUDGETC) THEN
   YRECFM='WSN_WAT'
   YCOMMENT='snow water equivalent over tile water (-)'
   CALL WRITE_SURF(DUO%CSELECT,HPROGRAM,YRECFM,D%XSWE(:),IRESP,HCOMMENT=YCOMMENT)
-!        
+!
 ENDIF
 !
 !

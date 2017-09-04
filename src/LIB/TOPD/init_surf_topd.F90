@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-------------------------------------------------------------------------------
 !     #############################################################
@@ -15,8 +15,8 @@
 !!**  METHOD
 !!    ------
 !!    The routine open and read the namelists NAM_COUPL_TOPD and NAM_TOPD,
-!! calculates the number of catchments concerned, the different time step 
-!! variables and all the variables nedded for coupling with Topmodel. 
+!! calculates the number of catchments concerned, the different time step
+!! variables and all the variables nedded for coupling with Topmodel.
 !!
 !!    EXTERNAL
 !!    --------
@@ -93,14 +93,14 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('INIT_SURF_TOPD',0,ZHOOK_HANDLE)
 !
 IF (LCOUPL_TOPD) THEN
-  IF (NPROC>1) CALL ABOR1_SFX('INIT_SURF_TOPD: TOPD CANNOT RUN WITH MORE THAN 1 MPI TASK') 
+  IF (NPROC>1) CALL ABOR1_SFX('INIT_SURF_TOPD: TOPD CANNOT RUN WITH MORE THAN 1 MPI TASK')
   IF (NBLOCKTOT>1) CALL ABOR1_SFX("INIT_SURF_TOPD: TOPD CANNOT RUN WITH NUMEROUS OPENMP BLOCKS")
   IF (NPE%AL(1)%TSNOW%SCHEME/='3-L') &
         CALL ABOR1_SFX("INIT_SURF_TOPD: coupling with topmodel only runs with TSNOW%SCHEME=3-L")
 ENDIF
 !
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
-!            
+!
 !         1.   Reads the namelists
 !              --------------------
 !

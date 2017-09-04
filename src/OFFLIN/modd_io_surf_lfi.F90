@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODD_IO_SURF_LFI
 !     ##################
 !
-!!****  *MODD_IO_SURF_LFI - 
+!!****  *MODD_IO_SURF_LFI -
 !!
 !!    PURPOSE
 !!    -------
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -25,7 +25,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!    
+!!
 USE MODD_SURF_PAR, ONLY : NUNDEF
 !
 !*       0.   DECLARATIONS
@@ -59,7 +59,7 @@ INTEGER :: NJB = NUNDEF                 ! horizontal indexes of the grid (any fi
 INTEGER :: NJE = NUNDEF                 ! horizontal indexes of the grid (any file, including auxilliary file in PREP)
 INTEGER :: NIU_SURF = NUNDEF
 INTEGER :: NIB_SURF = NUNDEF
-INTEGER :: NIE_SURF = NUNDEF 
+INTEGER :: NIE_SURF = NUNDEF
 INTEGER :: NJU_SURF = NUNDEF
 INTEGER :: NJB_SURF = NUNDEF
 INTEGER :: NJE_SURF = NUNDEF

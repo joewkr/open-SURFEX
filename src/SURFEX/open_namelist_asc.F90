@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################
       SUBROUTINE OPEN_NAMELIST_ASC(HPROGRAM,KLUNAM,HFILE)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !       10/2014 : abort if namelist file does not exist E. Martin
 !-------------------------------------------------------------------------------
 !
@@ -74,7 +74,7 @@ KLUNAM=11
 INQUIRE(FILE=YNAM,EXIST=LLEXIST)
 IF (LLEXIST) THEN
   OPEN(KLUNAM,FILE=YNAM,ACTION='READ',FORM="FORMATTED",POSITION="REWIND")
-  ELSE 
+  ELSE
     CALL ABOR1_SFX ('ERROR WHILE OPENING '//YNAM//' THIS FILE IS MISSING'// &
                   ' IN THE RUN DIRECTORY')
 ENDIF

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
       SUBROUTINE READ_NAM_GRID_LONLATVAL(PGRID_FULL_PAR,KDIM_FULL,HPROGRAM,KGRID_PAR,KL,PGRID_PAR,HDIR)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    10/2007 
+!!      Original    10/2007
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -95,7 +95,7 @@ NAMELIST/NAM_LONLATVAL/NPOINTS,XX,XY,XDX,XDY
 !------------------------------------------------------------------------------
 !
 !*       1.    opening of namelist
-! 
+!
 IF (LHOOK) CALL DR_HOOK('READ_NAM_GRID_LONLATVAL',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !
@@ -156,7 +156,7 @@ ELSE
   CALL READ_AND_SEND_MPI(ZDX0,ZDX)
   CALL READ_AND_SEND_MPI(ZDY0,ZDY)
   !
-  DEALLOCATE(ZX0,ZY0,ZDX0,ZDY0)  
+  DEALLOCATE(ZX0,ZY0,ZDX0,ZDY0)
   !
 ENDIF
 !---------------------------------------------------------------------------

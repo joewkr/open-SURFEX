@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_SEAFLUX_PAR (DTCO, DTS, KDIM, UG, U, USS, HPROGRAM)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -113,7 +113,7 @@ LOGICAL                        :: LSST_DATA
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 NAMELIST/NAM_DATA_SEAFLUX/NTIME_SST, LSST_DATA, XUNIF_SST, CFNAM_SST, CFTYP_SST, &
-                            NYEAR_SST, NMONTH_SST, NDAY_SST, XTIME_SST  
+                            NYEAR_SST, NMONTH_SST, NDAY_SST, XTIME_SST
 !-------------------------------------------------------------------------------
 !
 !*    1.      Initializations
@@ -167,13 +167,13 @@ CATYPE = 'ARI'
 DO JTIME=1,NTIME_SST
   CALL PGD_FIELD(DTCO, UG, U, USS, &
                  HPROGRAM,'SST: sea surface temperature','SEA',CFNAM_SST(JTIME),   &
-                   CFTYP_SST(JTIME),XUNIF_SST(JTIME),DTS%XDATA_SST(:,JTIME))  
-!                 
+                   CFTYP_SST(JTIME),XUNIF_SST(JTIME),DTS%XDATA_SST(:,JTIME))
+!
   DTS%TDATA_SST(JTIME)%TDATE%YEAR  = NYEAR_SST(JTIME)
   DTS%TDATA_SST(JTIME)%TDATE%MONTH = NMONTH_SST(JTIME)
   DTS%TDATA_SST(JTIME)%TDATE%DAY   = NDAY_SST(JTIME)
   DTS%TDATA_SST(JTIME)%TIME        = XTIME_SST(JTIME)
-!  
+!
 END DO
 IF (LHOOK) CALL DR_HOOK('PGD_SEAFLUX_PAR',1,ZHOOK_HANDLE)
 !

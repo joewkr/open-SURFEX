@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################################
       SUBROUTINE LATLONMASK_CONF_PROJ(KGRID_PAR,PGRID_PAR,OLATLONMASK)
@@ -19,7 +19,7 @@
 !!   1) test if the points of the mask are in the domain
 !!
 !!   2) fills the mask points corresponding to points scanning
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -38,7 +38,7 @@
 !!
 !!    MODIFICATION
 !!    ------------
-!!      
+!!
 !!      Original        19/07/95
 !----------------------------------------------------------------------------
 !
@@ -89,7 +89,7 @@ REAL, DIMENSION(720)              :: ZLON_MASK! mask points longitudes
 REAL, DIMENSION(720)              :: ZLAT_MASK! mask points latitudes
 REAL                              :: ZLAT0    ! reference latitude
 REAL                              :: ZLON0    ! reference longitude
-REAL                              :: ZRPK     ! projection parameter 
+REAL                              :: ZRPK     ! projection parameter
 !                                             !   K=1 : stereographic north pole
 !                                             ! 0<K<1 : Lambert, north hemisphere
 !                                             !   K=0 : Mercator
@@ -165,7 +165,7 @@ ZLON_MASK(:)= (/ (  JLON     /2. - 0.25 , JLON=1,720 ) /)
 !
  CALL GET_GRIDTYPE_CONF_PROJ(PGRID_PAR,                   &
                               PLAT0=ZLAT0,PLON0=ZLON0,PRPK=ZRPK,        &
-                              PBETA=ZBETA,PLATOR=ZLATOR,PLONOR=ZLONOR   )  
+                              PBETA=ZBETA,PLATOR=ZLATOR,PLONOR=ZLONOR   )
 !
 ZLON_MASK(:)=ZLON_MASK(:)+NINT((ZLON0-ZLON_MASK(:))/360.)*360.
 !
@@ -183,7 +183,7 @@ END DO
 !            ----------------------------
 !
 WHERE (        ZX_MASK(:,:) >= ZXMIN .AND. ZX_MASK(:,:) <= ZXMAX   &
-           .AND. ZY_MASK(:,:) >= ZYMIN .AND. ZY_MASK(:,:) <= ZYMAX )  
+           .AND. ZY_MASK(:,:) >= ZYMIN .AND. ZY_MASK(:,:) <= ZYMAX )
   OLATLONMASK(:,:) = .TRUE.
 END WHERE
 !
@@ -193,7 +193,7 @@ END WHERE
 !            --------------------------------------------------
 !
  CALL LATLON_CONF_PROJ(ZLAT0,ZLON0,ZRPK,ZBETA,ZLATOR,ZLONOR, &
-                      ZXCORNER,ZYCORNER,ZLAT,ZLON           )  
+                      ZXCORNER,ZYCORNER,ZLAT,ZLON           )
 !
 !*      7.   Longitudes between 0. and 360.
 !            ------------------------------
@@ -273,13 +273,13 @@ WHERE (ICOUNT1(:,:) > 0 .AND. ICOUNT2(:,:) > 0)
   OLATLONMASK(:,:) = .TRUE.
 END WHERE
 !
-ZLAT_MASK(1:360)= (/ ( (JLAT-180)/2. - 0.25 , JLAT=1,360 ) /) 
+ZLAT_MASK(1:360)= (/ ( (JLAT-180)/2. - 0.25 , JLAT=1,360 ) /)
 !
 DO JLON=1,720
   DO JLAT=1,360
     IF ( (ICOUNT1(JLON,JLAT) > 0 .OR. OLATLONMASK(JLON,JLAT)) .AND.  IVERB > 1) &
       WRITE(*,'(2(I3,1X),2(F6.2,1X),2(F8.0,1X),L1)') JLON,JLAT,ZLON_MASK(JLON),ZLAT_MASK(JLAT), &
-                ZX_MASK(JLON,JLAT),ZY_MASK(JLON,JLAT),OLATLONMASK(JLON,JLAT)  
+                ZX_MASK(JLON,JLAT),ZY_MASK(JLON,JLAT),OLATLONMASK(JLON,JLAT)
 
   END DO
 END DO

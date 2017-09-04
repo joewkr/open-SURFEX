@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_ISBA_OROGRAPHY_n (DTCO, UG, U, USS, SB, NAG, CHI, NCHI, DTV, ID, NGB, GB, &
@@ -13,10 +13,10 @@ SUBROUTINE COUPLING_ISBA_OROGRAPHY_n (DTCO, UG, U, USS, SB, NAG, CHI, NCHI, DTV,
                                       PSFTS, PSFCO2, PSFU, PSFV, PTRAD, PDIR_ALB, PSCA_ALB,   &
                                       PEMIS, PTSURF, PZ0, PZ0H, PQSURF, PPEW_A_COEF,          &
                                       PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF,     &
-                                      PPEQ_B_COEF, HTEST   )  
+                                      PPEQ_B_COEF, HTEST   )
 !     ###############################################################################
 !
-!!****  *COUPLING_ISBA_OROGRAPHY_n * - Parameterizes effects of subgrid 
+!!****  *COUPLING_ISBA_OROGRAPHY_n * - Parameterizes effects of subgrid
 !!     orography on radiative and energy fluxes
 !!
 !!    PURPOSE
@@ -27,11 +27,11 @@ SUBROUTINE COUPLING_ISBA_OROGRAPHY_n (DTCO, UG, U, USS, SB, NAG, CHI, NCHI, DTV,
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -86,7 +86,7 @@ TYPE(DATA_ISBA_t), INTENT(INOUT) :: DTV
 TYPE(ISBA_DIAG_t), INTENT(INOUT) :: ID
 TYPE(GR_BIOG_NP_t), INTENT(INOUT) :: NGB
 TYPE(GR_BIOG_t), INTENT(INOUT) :: GB
-TYPE(SSO_t), INTENT(INOUT) :: ISS 
+TYPE(SSO_t), INTENT(INOUT) :: ISS
 TYPE(SSO_NP_t), INTENT(INOUT) :: NISS
 TYPE(GRID_t), INTENT(INOUT) :: IG
 TYPE(GRID_NP_t), INTENT(INOUT) :: NIG
@@ -204,7 +204,7 @@ INTEGER                         :: JSV     ! loop on scalar variables
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !-------------------------------------------------------------------------------------
-!        
+!
 !*      1.     Goes from atmospheric orography to surface orography
 !              ----------------------------------------------------
 !
@@ -223,7 +223,7 @@ IF(LVERTSHIFT)THEN
   ZLW  (:) = XUNDEF
   ZRAIN(:) = XUNDEF
   ZSNOW(:) = XUNDEF
-!     
+!
    CALL FORCING_VERT_SHIFT(PZS, S%XZS, PTA, PQA, PPA, PRHOA, PLW, PRAIN, PSNOW, &
                            ZTA, ZQA, ZPA, ZRHOA, ZLW, ZRAIN, ZSNOW         )
 !
@@ -253,12 +253,12 @@ ENDIF
 !              ----------------------------
 !
 IF(LNOSOF)THEN
-!        
+!
 !  No modifications to conserve mass and energy with atmosphere
 !
    Z3D_TOT_SURF    (:) = 0.
    Z3D_TOT_SURF_INV(:) = 0.
-!   
+!
    ZSCA_SW(:,:) = PSCA_SW(:,:)
    ZDIR_SW(:,:) = PDIR_SW(:,:)
 !
@@ -273,7 +273,7 @@ ELSE
 !
 !* Therefore, this increase of surface will lead to modify the
 !  radiative and energy fluxes (none conservative).
-!  
+!
 !* Note that momentum fluxes are not modified, because the
 !  effect of subgrid orography is already taken into account
 !  in the effective roughness length (none conservative).
@@ -303,7 +303,7 @@ ELSE
 !  incoming LW radiation per m2 of actual surface
 !
    ZLW(:) =  ZLW(:)                                   *     Z3D_TOT_SURF_INV(:) &
-          + XSTEFAN*S%XEMIS_NAT(:)*S%XTSRAD_NAT(:)**4 * (1.-Z3D_TOT_SURF_INV(:))  
+          + XSTEFAN*S%XEMIS_NAT(:)*S%XTSRAD_NAT(:)**4 * (1.-Z3D_TOT_SURF_INV(:))
 !
 !  liquid precipitation per m2 of actual surface
 !
@@ -329,11 +329,11 @@ ENDIF
                              ZSCA_SW, PSW_BANDS, ZPS, ZPA, PSFTQ, PSFTH, PSFTS, PSFCO2,&
                              PSFU, PSFV, PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF, PZ0,&
                              PZ0H, PQSURF, PPEW_A_COEF, PPEW_B_COEF, PPET_A_COEF,      &
-                             PPEQ_A_COEF, ZPET_B_COEF, ZPEQ_B_COEF, 'OK'   )  
+                             PPEQ_A_COEF, ZPET_B_COEF, ZPEQ_B_COEF, 'OK'   )
 !
 !-------------------------------------------------------------------------------------
 !
-!*      4.     Optional modification of turbulent energy and gaz fluxes 
+!*      4.     Optional modification of turbulent energy and gaz fluxes
 !              --------------------------------------------------------
 !
 IF(.NOT.LNOSOF)THEN

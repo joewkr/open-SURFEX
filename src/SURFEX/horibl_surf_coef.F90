@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE HORIBL_SURF_COEF(KOLEN,OINTERP,OGLOBLON,PILO1,PILO2,POLO,&
-                                KO,KINLO,KP,PLOP  )  
+                                KO,KINLO,KP,PLOP  )
 !   ###########################################################################
 !
 !!****  *HORIBL_SURF_COEF* - horitontal bilinear interpolation
@@ -108,7 +108,7 @@ USE MODI_ABOR1_SFX
 IMPLICIT NONE
 !
 !*      0.1. Declaration of arguments
-!         
+!
 INTEGER,                   INTENT(IN)  :: KOLEN   ! size of output array
 LOGICAL, DIMENSION(:), INTENT(IN)  :: OINTERP ! .true. where physical value is needed
 !
@@ -121,12 +121,12 @@ INTEGER, DIMENSION(:,:), INTENT(IN) :: KO
 INTEGER, DIMENSION(:), INTENT(IN) :: KINLO     ! Extended KINLO
 !
 ! Posiiton in the array of the twelwe surrounding points
-INTEGER, DIMENSION(:,:), INTENT(OUT) :: KP  
+INTEGER, DIMENSION(:,:), INTENT(OUT) :: KP
   ! Latitudes and longitudes of the surrounding points
-REAL, DIMENSION(:,:), INTENT(OUT) :: PLOP  
+REAL, DIMENSION(:,:), INTENT(OUT) :: PLOP
 !
 !*      0.2. Declaration of local variables
-!            
+!
  ! Variables used to perform the interpolation
 REAL                               :: ZIDLO    ! Delta longitude
 INTEGER, DIMENSION(:), ALLOCATABLE :: IOFS     ! Offset of each parallel in the array
@@ -199,14 +199,14 @@ DO JL = 1, KOLEN
 !
       ! 3.1.5. southern
   ZIDLO = (PILO2 - PILO1) / (KINLO(KO(JL,4)))
-  KP(JL,11) = INT((POLO(JL) - PILO1) / ZIDLO) 
-  KP(JL,12) = KP(JL,11) + 1 
+  KP(JL,11) = INT((POLO(JL) - PILO1) / ZIDLO)
+  KP(JL,12) = KP(JL,11) + 1
   IF (.NOT.OGLOBLON) KP(JL,12) = MIN(KINLO(KO(JL,4))-1,KP(JL,12))
   PLOP(JL,11) = PILO1 + KP(JL,11) * ZIDLO
   PLOP(JL,12) = PLOP(JL,11) + ZIDLO
 !
       ! 3.1.6. check position of points
-  IF (OGLOBLON) THEN 
+  IF (OGLOBLON) THEN
     IS1 = -2
     IS2 = 1
   ELSE
@@ -217,7 +217,7 @@ DO JL = 1, KOLEN
   IF ((KP(JL,1) <IS1) .OR. (KP(JL,2) >KINLO(KO(JL,1))+IS2) .OR. &
       (KP(JL,3) <IS1) .OR. (KP(JL,6) >KINLO(KO(JL,2))+IS2) .OR. &
       (KP(JL,7) <IS1) .OR. (KP(JL,10)>KINLO(KO(JL,3))+IS2) .OR. &
-      (KP(JL,11)<IS1) .OR. (KP(JL,12)>KINLO(KO(JL,4))+IS2)) THEN  
+      (KP(JL,11)<IS1) .OR. (KP(JL,12)>KINLO(KO(JL,4))+IS2)) THEN
     CALL ABOR1_SFX('HORIBLE_SURF: INPUT DOMAIN SMALLER THAN OUTPUT ONE - LONGITUDE GLOBAL')
   END IF
 !

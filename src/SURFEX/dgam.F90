@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !######################################################################
 !######################################################################
@@ -223,7 +223,7 @@ IF ( PX==0. ) THEN
     PG     = 1./ZAA
   ELSEIF (PA==0.) THEN
     KFLGST = 3
-    KFLG   = 2    
+    KFLG   = 2
     PGSTAR = 1.
     PG     = ZAINF
   ELSEIF (PA>0.) THEN
@@ -279,7 +279,7 @@ IF (JMA>0 .AND. ZAEPS/=0.) THEN
   IF (JMA/=1) THEN
     ZALGP1 = ZALGP1 + DLGA(1.-ZAEPS) - DLGA(ZFMA-ZAEPS)
   ENDIF
- 
+
 ELSEIF ( JMA<=0 ) THEN
   !10 deb
   ZALGP1 = DLGA(ZAP1)
@@ -289,11 +289,11 @@ ENDIF
 ! 20 deb
 ZALGEP1 = ZALGP1
 !
-!Map: 
+!Map:
 ! PA<=ZALPHA
 !   !
-!   PX>1.5 
-!     PA <0., ==0., >0. 
+!   PX>1.5
+!     PA <0., ==0., >0.
 !     RETURN
 !     !
 !   PA<-0.5
@@ -312,10 +312,10 @@ ZALGEP1 = ZALGP1
 ! 60 deb
 IF ( PA<=ZALPHA ) THEN
   !
-  IF ( PX>1.5 ) THEN 
+  IF ( PX>1.5 ) THEN
     !
     ! EVALUATION OF G(A,X) FOR X.GT.1.5 AND A.LE.ALPHA(X) BY
-    ! MEANS OF THE LEGENDRE CONTINUED FRACTION      
+    ! MEANS OF THE LEGENDRE CONTINUED FRACTION
     !
     !240 deb
     PGSTAR = 1.
@@ -363,12 +363,12 @@ IF ( PA<=ZALPHA ) THEN
       !  200 deb (200 est la fin de 180)
       CALL CODE200(JMA, PX, PA, ZAEPS, ZSGA, ZSGGA, ZAA, ZALX, &
                    ZALG, ZALGP1, ZAINF, PGSTAR, KFLGST, GRET)
-      !  
+      !
       IF ( GRET ) THEN
         IF (LHOOK) CALL DR_HOOK('DGAM',1,ZHOOK_HANDLE)
         RETURN
       ENDIF
-      !      
+      !
     ELSEIF ( PA==0. ) THEN
       !
       ! 270 deb
@@ -391,13 +391,13 @@ IF ( PA<=ZALPHA ) THEN
       PG = EXP(ZALG)
       PGSTAR = 1. - PG
       ! 280 end
-      ! 
-    ENDIF 
+      !
+    ENDIF
     !
     IF (LHOOK) CALL DR_HOOK('DGAM',1,ZHOOK_HANDLE)
-    RETURN    
+    RETURN
     !
-  ENDIF ! end  PX>1.5 
+  ENDIF ! end  PX>1.5
   !
   !
   IF ( PA<-0.5 ) THEN
@@ -449,7 +449,7 @@ IF ( PA<=ZALPHA ) THEN
     !
   ENDIF
   !
-  IF ( PA<0.5 ) THEN 
+  IF ( PA<0.5 ) THEN
     !
     ! 70 deb
     ZSUMM = XC(29)
@@ -562,7 +562,7 @@ IF ( PA<=ZALPHA ) THEN
   ENDIF
   !
   IF (LHOOK) CALL DR_HOOK('DGAM',1,ZHOOK_HANDLE)
-  RETURN  
+  RETURN
   ! 120 end
   !
 ENDIF
@@ -678,7 +678,7 @@ ORET = .FALSE.
 PGSTAR = 1.
 !
 IF ( KMA>=0 .AND. PAEPS==0. ) THEN
-  ORET = .TRUE.        
+  ORET = .TRUE.
   IF ( LHOOK ) CALL DR_HOOK('DGAM:CODE200',1,ZHOOK_HANDLE)
   RETURN
 ENDIF
@@ -693,7 +693,7 @@ IF ( ZT<-XALPREC .OR. ZT>=XTOP ) THEN
     PGSTAR = -ZSGT*PAINF
   ENDIF
   !
-  ORET = .TRUE.        
+  ORET = .TRUE.
   IF ( LHOOK ) CALL DR_HOOK('DGAM:CODE200',1,ZHOOK_HANDLE)
   RETURN
   !

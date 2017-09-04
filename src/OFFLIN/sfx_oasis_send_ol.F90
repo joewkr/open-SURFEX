@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########
 SUBROUTINE SFX_OASIS_SEND_OL (F, IM, S, U, W, &
@@ -165,14 +165,14 @@ IF(GSEND_LAND)THEN
   ZLAND_RUNOFF  (:) = XUNDEF
   ZLAND_DRAIN   (:) = XUNDEF
   ZLAND_CALVING (:) = XUNDEF
-  ZLAND_WATFLD  (:) = XUNDEF  
+  ZLAND_WATFLD  (:) = XUNDEF
 ENDIF
 !
 IF(GSEND_LAKE)THEN
   ZLAKE_EVAP (:) = XUNDEF
   ZLAKE_RAIN (:) = XUNDEF
   ZLAKE_SNOW (:) = XUNDEF
-  ZSEA_WATF  (:) = XUNDEF  
+  ZSEA_WATF  (:) = XUNDEF
 ENDIF
 !
 IF(GSEND_SEA)THEN
@@ -242,7 +242,7 @@ ENDIF
                       ZLAKE_EVAP,ZLAKE_RAIN,ZLAKE_SNOW,ZLAKE_WATF,          &
                       ZSEA_FWSU,ZSEA_FWSV,ZSEA_HEAT,ZSEA_SNET,ZSEA_WIND,    &
                       ZSEA_FWSM,ZSEA_EVAP,ZSEA_RAIN,ZSEA_SNOW,ZSEA_WATF,    &
-                      ZSEAICE_HEAT,ZSEAICE_SNET,ZSEAICE_EVAP                )                   
+                      ZSEAICE_HEAT,ZSEAICE_SNET,ZSEAICE_EVAP                )
 !
 !-------------------------------------------------------------------------------
 !

@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE OL_READ_ATM (&
                          HSURF_FILETYPE, HFORCING_FILETYPE, KFORC_STEP,    &
                           PTA,PQA,PWIND,PDIR_SW,PSCA_SW,PLW,PSNOW,PRAIN,PPS,&
-                          PCO2,PDIR,OLIMIT_QAIR                             )  
+                          PCO2,PDIR,OLIMIT_QAIR                             )
 !**************************************************************************
 !
 !!    PURPOSE
@@ -40,9 +40,9 @@ SUBROUTINE OL_READ_ATM (&
 !!    -------------
 !!      Original     06/2003
 !!      P. Le Moigne 10/2004: set XCOUNT to 2 because of revised temporal loop in offline.f90:
-!!                            time evolution is done at the end of isba time step so first 
+!!                            time evolution is done at the end of isba time step so first
 !!                            isba computation is done on first forcing time step
-!!      P. Le Moigne 10/2005: consistency checking between orographies read from forcing 
+!!      P. Le Moigne 10/2005: consistency checking between orographies read from forcing
 !!                            file and from initial file
 !!      B. Decharme  01/2009: Optional, limitation of Qair (<= Qsat(tair))
 !
@@ -51,9 +51,9 @@ SUBROUTINE OL_READ_ATM (&
 !
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 USE MODD_IO_SURF_OL, ONLY : XSTART,XCOUNT,XSTRIDE,LPARTR
-!         
+!
 USE MODI_OL_READ_ATM_NETCDF
-USE MODI_OL_READ_ATM_ASCII 
+USE MODI_OL_READ_ATM_ASCII
 USE MODI_OL_READ_ATM_BINARY
 !
 USE MODE_THERMOS
@@ -108,27 +108,27 @@ IF      (HFORCING_FILETYPE == 'NETCDF') THEN
   CALL OL_READ_ATM_NETCDF(&
                            HSURF_FILETYPE,                                   &
                            PTA,PQA,PWIND,PDIR_SW,PSCA_SW,PLW,PSNOW,PRAIN,PPS,&
-                           PCO2,PDIR                                         )  
+                           PCO2,PDIR                                         )
 ELSE IF (HFORCING_FILETYPE == 'ASCII ') THEN
   CALL OL_READ_ATM_ASCII  (KFORC_STEP,                       &
                            PTA,PQA,PWIND,PDIR_SW,PSCA_SW,PLW,PSNOW,PRAIN,PPS,&
-                           PCO2,PDIR                                         )  
+                           PCO2,PDIR                                         )
 ELSE IF (HFORCING_FILETYPE == 'BINARY') THEN
   CALL OL_READ_ATM_BINARY (KFORC_STEP,                       &
                            PTA,PQA,PWIND,PDIR_SW,PSCA_SW,PLW,PSNOW,PRAIN,PPS,&
-                           PCO2,PDIR                                         )  
+                           PCO2,PDIR                                         )
 ENDIF
 !
 ! Assume Qair <= Qsat_air
 !
 IF(OLIMIT_QAIR)THEN
-!  
+!
   INI  = SIZE(PTA,1)
   IFRC = SIZE(PTA,2)
   INB  = 0
 !
-  DO JFRC=1,IFRC    
-     DO JJ=1,INI     
+  DO JFRC=1,IFRC
+     DO JJ=1,INI
         IF(PTA(JJ,JFRC)>0.0.AND.PTA(JJ,JFRC)/=XUNDEF)THEN
            INB             = INB+1
            ZWORK1(JJ,JFRC) = PTA(JJ,JFRC)
@@ -141,15 +141,15 @@ IF(OLIMIT_QAIR)THEN
         ENDIF
      ENDDO
   ENDDO
-!  
+!
   IF(INB==0 .AND. INI/=0)THEN
     CALL ABOR1_SFX('OL_READ_ATM: THE FORCING IS UNDEFINED')
   ENDIF
 !
   ZQSAT(:,:) = QSAT(ZWORK1(:,:),ZWORK2(:,:))
-!  
+!
   PQA(:,:) = MIN(PQA(:,:),ZQSAT(:,:))
-!  
+!
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('OL_READ_ATM',1,ZHOOK_HANDLE)

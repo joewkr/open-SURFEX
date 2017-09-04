@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE SOILTEMP_ARP_PAR (IO, HPROGRAM)
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -125,7 +125,7 @@ IF(LTEMP_ARP.AND.IO%CISBA=='DIF')THEN
 ENDIF
 !
 IF(LTEMP_ARP)THEN
-  IF(NTEMPLAYER_ARP>NMAX_LAYER)THEN     
+  IF(NTEMPLAYER_ARP>NMAX_LAYER)THEN
     WRITE(ILUOUT,*)'NTEMPLAYER_ARP is too big (>10), NTEMPLAYER_ARP= ',NTEMPLAYER_ARP
     CALL ABOR1_SFX('NTEMPLAYER_ARP is too big (>10)')
   ELSEIF(NTEMPLAYER_ARP<4)THEN
@@ -133,11 +133,11 @@ IF(LTEMP_ARP)THEN
     CALL ABOR1_SFX('NTEMPLAYER_ARP must be at least equal to 4')
   ENDIF
   IF(COUNT(SODELX(1:NTEMPLAYER_ARP)/=XUNDEF)>0.AND. &
-       COUNT(SODELX(1:NTEMPLAYER_ARP)/=XUNDEF)/=NTEMPLAYER_ARP)THEN  
+       COUNT(SODELX(1:NTEMPLAYER_ARP)/=XUNDEF)/=NTEMPLAYER_ARP)THEN
     WRITE(ILUOUT,*)'Number of SODELX imposed values =',COUNT(SODELX(1:NTEMPLAYER_ARP)/=XUNDEF),&
-                     ' /= NTEMPLAYER_ARP= ',NTEMPLAYER_ARP  
+                     ' /= NTEMPLAYER_ARP= ',NTEMPLAYER_ARP
     CALL ABOR1_SFX('SODELX imposed values /= NTEMPLAYER_ARP')
-  ENDIF          
+  ENDIF
 ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -150,18 +150,18 @@ IF(LTEMP_ARP)THEN
   ALLOCATE(IO%XSODELX(NTEMPLAYER_ARP))
 !
   IF(ALL(SODELX(:)==XUNDEF))THEN
-!          
+!
     IO%XSODELX(1)=0.5
     IO%XSODELX(2)=1.5
     IO%XSODELX(3)=4.5
     IO%XSODELX(4)=13.5
     WRITE(ILUOUT,*)'SODELX default values : ',IO%XSODELX(:)
-!    
+!
   ELSE
-!          
+!
     IO%XSODELX(:)=SODELX(1:NTEMPLAYER_ARP)
     WRITE(ILUOUT,*)'SODELX imposed to : ',IO%XSODELX(:)
-!    
+!
   ENDIF
 !
 ELSE

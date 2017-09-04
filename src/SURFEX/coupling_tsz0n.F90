@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_TSZ0_n (DTCO, UG, U, USS, IM, DTZ, NDST, SLT, HPROGRAM, HCOUPLING,   &
@@ -11,10 +11,10 @@ SUBROUTINE COUPLING_TSZ0_n (DTCO, UG, U, USS, IM, DTZ, NDST, SLT, HPROGRAM, HCOU
                             PSFTS, PSFCO2, PSFU, PSFV, PTRAD, PDIR_ALB, PSCA_ALB,   &
                             PEMIS, PTSURF, PZ0, PZ0H, PQSURF, PPEW_A_COEF,          &
                             PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF,     &
-                            PPEQ_B_COEF, HTEST      )  
+                            PPEQ_B_COEF, HTEST      )
 !     ###############################################################################
 !
-!!****  *COUPLING_TSZ0_n * - Call of fluxes from vegetation scheme ISBA but 
+!!****  *COUPLING_TSZ0_n * - Call of fluxes from vegetation scheme ISBA but
 !!        without temporal evolution of the soil/vegetation.
 !!
 !!    PURPOSE
@@ -25,18 +25,18 @@ SUBROUTINE COUPLING_TSZ0_n (DTCO, UG, U, USS, IM, DTZ, NDST, SLT, HPROGRAM, HCOU
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    01/2004
 !!      Modified    09/2012 : J. Escobar , SIZE(PTA) not allowed without-interface , replace by KI
 !!      B. Decharme 04/2013 new coupling variables
-!!      P. LeMoigne 12/2014 bug in "implicit" coefficients 
+!!      P. LeMoigne 12/2014 bug in "implicit" coefficients
 !!------------------------------------------------------------------
 !
 USE MODD_ISBA_n, ONLY : ISBA_P_t, ISBA_PE_t
@@ -57,7 +57,7 @@ USE MODD_CSTS,   ONLY : XP00, XRD, XCPD
 !
 USE MODI_TSZ0
 USE MODI_COUPLING_ISBA_OROGRAPHY_n
-! 
+!
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
 !
@@ -214,7 +214,7 @@ ENDDO
                                 PSCA_SW, PSW_BANDS, PPS, PPA, PSFTQ, PSFTH, PSFTS, PSFCO2,&
                                 PSFU, PSFV, PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF, PZ0,&
                                 PZ0H, PQSURF, PPEW_A_COEF, PPEW_B_COEF, PPET_A_COEF,      &
-                                PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, 'OK'  )  
+                                PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, 'OK'  )
 !
 !
 !*      4.     Removes temporal evolution of ISBA variables
@@ -228,14 +228,14 @@ DO JP = 1,IM%O%NPATCH
   PEK%XTG        (:,:) = ZTG  (1:PK%NSIZE_P,:,JP)
   PEK%XWG        (:,:) = ZWG  (1:PK%NSIZE_P,:,JP)
   PEK%XWGI       (:,:) = ZWGI (1:PK%NSIZE_P,:,JP)
-  PEK%XWR        (:)   = ZWR  (1:PK%NSIZE_P,JP)  
-  PEK%XRESA      (:)   = ZRESA(1:PK%NSIZE_P,JP) 
+  PEK%XWR        (:)   = ZWR  (1:PK%NSIZE_P,JP)
+  PEK%XRESA      (:)   = ZRESA(1:PK%NSIZE_P,JP)
   PEK%TSNOW%WSNOW(:,:) = ZWSNOW(1:PK%NSIZE_P,:,JP)
   PEK%TSNOW%RHO  (:,:) = ZRHOSN(1:PK%NSIZE_P,:,JP)
   PEK%TSNOW%ALB  (:)   = ZALBSN(1:PK%NSIZE_P,JP)
   IF (PEK%TSNOW%SCHEME=='3-L' .OR. PEK%TSNOW%SCHEME=='CRO') THEN
     PEK%TSNOW%HEAT (:,:) = ZHEASN(1:PK%NSIZE_P,:,JP)
-    PEK%TSNOW%EMIS (:)   = ZEMISN(1:PK%NSIZE_P,JP) 
+    PEK%TSNOW%EMIS (:)   = ZEMISN(1:PK%NSIZE_P,JP)
   END IF
 ENDDO
 !

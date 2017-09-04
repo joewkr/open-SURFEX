@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   #############
 FUNCTION CONTROL_MOIST_FUNC (PMOIST,PSAT) RESULT (PMOISTFUNC)
@@ -21,7 +21,7 @@ FUNCTION CONTROL_MOIST_FUNC (PMOIST,PSAT) RESULT (PMOISTFUNC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
@@ -30,7 +30,7 @@ FUNCTION CONTROL_MOIST_FUNC (PMOIST,PSAT) RESULT (PMOISTFUNC)
 !!      Krinner et al., Global Biochemical Cycles, 2005
 !!      Modified for Wfc < W < Wsat following Probert et al., Agricultural Systems, 1998
 !!      Gibelin et al. 2008, AFM
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -40,7 +40,7 @@ FUNCTION CONTROL_MOIST_FUNC (PMOIST,PSAT) RESULT (PMOISTFUNC)
 !!    -------------
 !!      Original    23/06/09
 !!      B. Decharme 05/2012 : Optimization and ISBA-DIF coupling
-!!      
+!!
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS

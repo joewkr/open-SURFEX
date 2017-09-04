@@ -273,7 +273,7 @@ Lorsque le Licencié crée un Logiciel Dérivé, ce Logiciel Dérivé peut
 condition de respecter les obligations de mention des droits sur le
 Logiciel telles que définies à l'article 6.4. Dans le cas où la création du
 Logiciel Dérivé a nécessité une modification du Code Source le licencié
-s'engage à ce que: 
+s'engage à ce que:
 
    1. le Logiciel Modifié correspondant à cette modification soit régi
       par le présent Contrat,
@@ -370,7 +370,7 @@ Concédant et le Licencié.
 
     Article 8 - RESPONSABILITE
 
-8.1 Sous réserve des dispositions de l'article 8.2, le Licencié a la 
+8.1 Sous réserve des dispositions de l'article 8.2, le Licencié a la
 faculté, sous réserve de prouver la faute du Concédant concerné, de
 solliciter la réparation du préjudice direct qu'il subirait du fait du
 Logiciel et dont il apportera la preuve.

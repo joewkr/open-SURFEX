@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
       SUBROUTINE INIT_SEA_n (DTCO, OREAD_BUDGETC, UG, U, GCP, SM, &
@@ -10,7 +10,7 @@
                              PEMIS,PTSRAD,PTSURF,                       &
                              KYEAR, KMONTH,KDAY, PTIME,                 &
                              HATMFILE,HATMFILETYPE,                     &
-                             HTEST                                      )  
+                             HTEST                                      )
 !     #############################################################
 !
 !!****  *INIT_SEA_n* - routine to initialize SEA
@@ -126,14 +126,14 @@ IF (U%CSEA=='NONE  ') THEN
 ELSE IF (U%CSEA=='FLUX  ') THEN
   CALL INIT_IDEAL_FLUX(DGO, DL, DLC, OREAD_BUDGETC, &
                        HPROGRAM,HINIT,KI,KSV,KSW,HSV,PDIR_ALB,PSCA_ALB,  &
-                       PEMIS,PTSRAD,PTSURF,'OK'                    )  
+                       PEMIS,PTSRAD,PTSURF,'OK'                    )
 ELSE IF (U%CSEA=='SEAFLX') THEN
  CALL INIT_SEAFLUX_n(DTCO, OREAD_BUDGETC, UG, U, GCP, SM, &
                      HPROGRAM,HINIT,KI,KSV,KSW,HSV,PCO2,PRHOA,     &
                      PZENITH,PAZIM,PSW_BANDS,PDIR_ALB,PSCA_ALB,    &
                      PEMIS,PTSRAD,PTSURF,                          &
                      KYEAR,KMONTH,KDAY,PTIME,HATMFILE,HATMFILETYPE,&
-                     'OK'                                          )  
+                     'OK'                                          )
 END IF
 IF (LHOOK) CALL DR_HOOK('INIT_SEA_N',1,ZHOOK_HANDLE)
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CH_CONVERSION_FACTOR (PCONVERSION, HCONVERSION,PRHOA)
@@ -15,11 +15,11 @@
 !
 !!**  METHOD
 !!    ------
-!!    
-!!    
+!!
+!!
 !!    AUTHOR
 !!    ------
-!!      S.QUEGUINER 
+!!      S.QUEGUINER
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -59,9 +59,9 @@ PCONVERSION(:) = 1.
 SELECT CASE (HCONVERSION)
   CASE ('MIX') ! flux given ppp*m/s,  conversion to molec/m2/s
     PCONVERSION(:) = XAVOGADRO * PRHOA(:) / XMD
-  CASE ('CON') ! flux given in molecules/cm2/s, conversion to molec/m2/s 
+  CASE ('CON') ! flux given in molecules/cm2/s, conversion to molec/m2/s
     PCONVERSION(:) =  1E4
-  CASE ('MOL') ! flux given in microMol/m2/day, conversion to molec/m2/s  
+  CASE ('MOL') ! flux given in microMol/m2/day, conversion to molec/m2/s
     PCONVERSION(:) = 1E-6 * XAVOGADRO / 86400.
   CASE DEFAULT
     CALL ABOR1_SFX('CH_BUILDEMISSN: UNKNOWN CONVERSION FACTOR')

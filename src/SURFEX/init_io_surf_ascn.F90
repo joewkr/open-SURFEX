@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INIT_IO_SURF_ASC_n (DTCO, U, HMASK,HACTION)
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -28,7 +28,7 @@
 !!
 !!      P. Le Moigne 04/2004: distinguish in and out file name
 !!      P. Le Moigne 04/2006: special HACTION='GTMSK' to initialize
-!!                            a mask different of 'FULL ' in order 
+!!                            a mask different of 'FULL ' in order
 !!                            to read dimensions only.
 !!      S. Faroux 06/2012 : implementations for MPI
 !
@@ -63,8 +63,8 @@ IMPLICIT NONE
 TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
 TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 !
- CHARACTER(LEN=6),  INTENT(IN)  :: HMASK    
- CHARACTER(LEN=5),  INTENT(IN)  :: HACTION    
+ CHARACTER(LEN=6),  INTENT(IN)  :: HMASK
+ CHARACTER(LEN=5),  INTENT(IN)  :: HACTION
 !
 INTEGER                        :: ILU,IRET, IL
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -87,9 +87,9 @@ ENDIF
 !
 IF (HACTION == 'READ ') THEN
   OPEN(UNIT=NUNIT,FILE=CFILEIN,FORM='FORMATTED')
-  ! NFULL must be known even if HMASK/=FULL because it's no longer 
+  ! NFULL must be known even if HMASK/=FULL because it's no longer
   ! updated in init_io_surf_maskn.
-  CMASK = 'FULL ' 
+  CMASK = 'FULL '
   CALL READ_SURF(&
                  'ASCII ','DIM_FULL',NFULL,IRET,HDIR='A')
   CMASK = HMASK
@@ -103,19 +103,19 @@ ELSE
       LCREATED=.TRUE.
     ENDIF
   ENDIF
-  ! NFULL must be known in every case. 
+  ! NFULL must be known in every case.
   CALL GET_DIM_FULL_n(U%NDIM_FULL, NFULL)
   CMASK = HMASK
   CFILE = CFILEOUT
 ENDIF
 !
-! nindex is needed for call to get_size_full_n. In init_index_mpi, 
-! it's not initialized for first readings.  
+! nindex is needed for call to get_size_full_n. In init_index_mpi,
+! it's not initialized for first readings.
 IF (.NOT.ALLOCATED(NINDEX) .AND. NRANK==NPIO) THEN
   ALLOCATE(NINDEX(NFULL))
   NINDEX(:) = 0
 ELSE
-  CALL GET_DIM_FULL_n(U%NDIM_FULL,NFULL)  
+  CALL GET_DIM_FULL_n(U%NDIM_FULL,NFULL)
 ENDIF
 !
 !------------------------------------------------------------------------------

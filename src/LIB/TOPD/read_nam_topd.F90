@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !----------------------------------------------------------------------------!
 !     ##############################################################
@@ -18,13 +18,13 @@
 !!    -------
 !!
 !!    NAM_TOPD is a namelist used to define whether Topmodel coupling
-!!    is performed or not and the time step ratio between hydrological 
+!!    is performed or not and the time step ratio between hydrological
 !!    model and ISBA.
 !!    This routine aims at reading and initialising those variables.
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -75,8 +75,8 @@ INTEGER,                            INTENT(OUT)  :: KNB_TOPD     ! Ratio between
 LOGICAL,                            INTENT(OUT)  :: OSTOCK_TOPD  ! T if use of stock from previous simulation
 INTEGER,                            INTENT(OUT)  :: KNB_STOCK    ! number of time step to read in previous simulation
 INTEGER,                            INTENT(OUT)  :: KNB_RESTART  ! number of time step to write for next simulation
-INTEGER,                            INTENT(OUT)  :: KFREQ_MAPS_WG! 
-INTEGER,                            INTENT(OUT)  :: KFREQ_MAPS_ASAT! 
+INTEGER,                            INTENT(OUT)  :: KFREQ_MAPS_WG!
+INTEGER,                            INTENT(OUT)  :: KFREQ_MAPS_ASAT!
 INTEGER,                            INTENT(OUT)  :: KFREQ_MAPS_RUNOFF
 REAL, DIMENSION(JPCAT),INTENT(OUT)               :: PSPEEDR ! River speed
 REAL, DIMENSION(JPCAT),INTENT(OUT)               :: PSPEEDG ! Ground speed
@@ -107,7 +107,7 @@ LOGICAL                           :: GFOUND    ! flag when namelist is present
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !*    0.3    Declaration of namelists
-!  
+!
 NAMELIST/NAM_TOPD/LBUDGET_TOPD, LSTOCK_TOPD, NNB_TOPD, &
                   NFREQ_MAPS_WG, NFREQ_MAPS_ASAT, NFREQ_MAPS_RUNOFF,&
                   NNB_STP_STOCK, NNB_STP_RESTART, &

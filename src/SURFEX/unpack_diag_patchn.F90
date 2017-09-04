@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE UNPACK_DIAG_PATCH_n(IO, DEK, PK, KMASK, KSIZE, KNPATCH, KPATCH, &
                                PCPL_DRAIN, PCPL_RUNOFF, PCPL_EFLOOD,       &
-                               PCPL_PFLOOD, PCPL_IFLOOD, PCPL_ICEFLUX )  
+                               PCPL_PFLOOD, PCPL_IFLOOD, PCPL_ICEFLUX )
 !##############################################
 !
 !!****  *UNPACK_DIAG_PATCH_n* - unpacks ISBA diagnostics
@@ -18,11 +18,11 @@ SUBROUTINE UNPACK_DIAG_PATCH_n(IO, DEK, PK, KMASK, KSIZE, KNPATCH, KPATCH, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -81,7 +81,7 @@ IF (KNPATCH==1) THEN
     PCPL_EFLOOD(:,KPATCH) = DEK%XLE_FLOOD(:) / PK%XLVTT(:) + DEK%XLEI_FLOOD(:) / PK%XLSTT(:)
     PCPL_PFLOOD(:,KPATCH) = DEK%XPFLOOD(:)
     PCPL_IFLOOD(:,KPATCH) = DEK%XIFLOOD(:)
-  END IF    
+  END IF
   !
   IF(IO%LCPL_RRM.AND.IO%LGLACIER)THEN
     PCPL_ICEFLUX(:,KPATCH) = DEK%XICEFLUX(:)
@@ -110,7 +110,7 @@ ELSE
     DO JI=1,KSIZE
       IMASK  = KMASK(JI)
       PCPL_ICEFLUX(IMASK,KPATCH) = DEK%XICEFLUX(JI)
-    END DO          
+    END DO
   ENDIF
   !
 ENDIF

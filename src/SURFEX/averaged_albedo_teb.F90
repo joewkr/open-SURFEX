@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE AVERAGED_ALBEDO_TEB(TOP, T, TPN, B,  PZENITH, PAZIM, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -78,9 +78,9 @@ REAL, DIMENSION(:), INTENT(OUT):: PSCA_ALB_TOWN ! diffuse albedo
 !*    0.2    Declaration of local variables
 !            ------------------------------
 !
-REAL, DIMENSION(SIZE(T%XBLD)) :: ZDN_ROOF       ! snow fraction 
+REAL, DIMENSION(SIZE(T%XBLD)) :: ZDN_ROOF       ! snow fraction
 REAL, DIMENSION(SIZE(T%XBLD)) :: ZDN_ROAD       ! on the surface
-REAL, DIMENSION(SIZE(T%XBLD)) :: ZDF_ROOF       ! free-snow fraction 
+REAL, DIMENSION(SIZE(T%XBLD)) :: ZDF_ROOF       ! free-snow fraction
 REAL, DIMENSION(SIZE(T%XBLD)) :: ZDF_ROAD       ! on the surface
 LOGICAL, DIMENSION(SIZE(T%XBLD)) :: GMASK       ! .false. (= no snow precip.)
 !

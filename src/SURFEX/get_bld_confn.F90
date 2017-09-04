@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ########################################
       SUBROUTINE GET_BLD_CONF_n (BDD, DTT, &
                                  ODATA_BLDTYPE, ODATA_BLD_AGE, ODATA_USETYPE, &
                 KDESC_ROOF_LAYER, KDESC_ROAD_LAYER, KDESC_WALL_LAYER, &
-                KDESC_FLOOR_LAYER, KDESC_CODE, KDESC_USE, KDESC_AGE, KDESC_BLD)  
+                KDESC_FLOOR_LAYER, KDESC_CODE, KDESC_USE, KDESC_AGE, KDESC_BLD)
 !     ########################################
 !
 !!****  *GET_BLD_CONF_n* - routine to get some ISBA fields

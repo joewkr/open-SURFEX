@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_SNOW_GRIB(HPROGRAM,HSURF,HFILE,KLUOUT,KLAYER,PFIELD)
@@ -16,11 +16,11 @@ SUBROUTINE PREP_SNOW_GRIB(HPROGRAM,HSURF,HFILE,KLUOUT,KLAYER,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -83,7 +83,7 @@ IF (TRIM(HFILE).NE.CGRIB_FILE) CGRIB_FILE=""
 !              ---------------------------------------------
 !
 IF (HSURF(7:8)=='RO') THEN
-  ! 
+  !
   SELECT CASE(HSURF(1:3))
     CASE('DEP')
       ALLOCATE(PFIELD(NNI,1,1))
@@ -132,7 +132,7 @@ ELSE
      WHERE (ZFIELD1D/=XUNDEF) ZFIELD1D(:) = MIN(ZFIELD1D,XTT)
      !* assumes no liquid water in the snow
      ALLOCATE(ZHEAT(SIZE(ZFIELD1D)))
-     CALL READ_GRIB_SNOW_DEN(HFILE,KLUOUT,CINMODEL,ZMASK,ZRHO) 
+     CALL READ_GRIB_SNOW_DEN(HFILE,KLUOUT,CINMODEL,ZMASK,ZRHO)
      WHERE(ZFIELD1D(:)==XUNDEF)ZRHO(:)=XUNDEF
      !
      CALL SNOW_T_WLIQ_TO_HEAT(ZHEAT,ZRHO,ZFIELD1D)
@@ -145,16 +145,16 @@ ELSE
 !
 !*      3.4    Albedo
 !
-  CASE('ALB')    
-    CALL READ_GRIB_SNOW_ALB(HFILE,KLUOUT,CINMODEL,ZMASK,ZFIELD1D)      
+  CASE('ALB')
+    CALL READ_GRIB_SNOW_ALB(HFILE,KLUOUT,CINMODEL,ZMASK,ZFIELD1D)
     ALLOCATE(PFIELD(SIZE(ZFIELD1D),1,1))
     PFIELD(:,1,1)=ZFIELD1D(:)
     DEALLOCATE(ZFIELD1D)
 !
 !*      3.5    Density
 !
-  CASE('RHO')    
-    CALL READ_GRIB_SNOW_DEN(HFILE,KLUOUT,CINMODEL,ZMASK,ZFIELD1D)      
+  CASE('RHO')
+    CALL READ_GRIB_SNOW_DEN(HFILE,KLUOUT,CINMODEL,ZMASK,ZFIELD1D)
     ALLOCATE(PFIELD(SIZE(ZFIELD1D),1,1))
     PFIELD(:,1,1)=ZFIELD1D(:)
     DEALLOCATE(ZFIELD1D)

@@ -1,29 +1,29 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE COARE30_SEAFLUX (S, PMASK,KSIZE_WATER,KSIZE_ICE,     &
-                                PTA,PEXNA,PRHOA,PSST,PEXNS,PQA,     & 
+                                PTA,PEXNA,PRHOA,PSST,PEXNS,PQA,     &
                                 PRAIN,PSNOW,PVMOD,PZREF,PUREF,PPS,  &
                                 PQSAT,PSFTH,PSFTQ,PUSTAR,           &
                                 PCD,PCDN,PCH,PCE,PRI,PRESA,PZ0HSEA  )
 !     ##################################################################
 !
 !
-!!****  *COARE30_SEAFLUX*  
+!!****  *COARE30_SEAFLUX*
 !!
 !!    PURPOSE
 !!    -------
-!     
-!      Calculate the sea surface fluxes with modified bulk algorithm COARE:  
+!
+!      Calculate the sea surface fluxes with modified bulk algorithm COARE:
 !
 !      Calculates the surface fluxes of heat, moisture, and momentum over
-!      sea surface with the simplified COARE 3.0 bulk algorithm from Fairall et al 
+!      sea surface with the simplified COARE 3.0 bulk algorithm from Fairall et al
 !      2003
-!   
+!
 !      based on water_flux computation for sea ice
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -31,20 +31,20 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-!!     
+!!
 !!    AUTHOR
 !!    ------
-!!     C. Lebeaupin  *Météo-France* 
+!!     C. Lebeaupin  *Météo-France*
 !!
 !!    MODIFICATIONS
 !!    -------------
 !!      Original     18/03/2005
 !!      B. Decharme     04/2013 : Pack only input variables
-!!      S. Senesi       01/2014 : When handling sea ice cover, compute open sea flux, 
+!!      S. Senesi       01/2014 : When handling sea ice cover, compute open sea flux,
 !!                                and only where ice cover < 1.
 !-------------------------------------------------------------------------------
 !
@@ -71,9 +71,9 @@ IMPLICIT NONE
 TYPE(SEAFLUX_t), INTENT(INOUT) :: S
 !
 REAL, DIMENSION(:), INTENT(IN)   :: PMASK        ! Either a mask positive for open sea, or a seaice fraction
-INTEGER           , INTENT(IN)   :: KSIZE_WATER  ! number of points with some sea water 
+INTEGER           , INTENT(IN)   :: KSIZE_WATER  ! number of points with some sea water
 INTEGER           , INTENT(IN)   :: KSIZE_ICE    ! number of points with some sea ice
-!                                    
+!
 REAL, DIMENSION(:), INTENT(IN)    :: PTA   ! air temperature at atm. level (K)
 REAL, DIMENSION(:), INTENT(IN)    :: PQA   ! air humidity at atm. level (kg/kg)
 REAL, DIMENSION(:), INTENT(IN)    :: PEXNA ! Exner function at atm. level
@@ -86,7 +86,7 @@ REAL, DIMENSION(:), INTENT(IN)    :: PEXNS ! Exner function at sea surface
 REAL, DIMENSION(:), INTENT(IN)    :: PPS   ! air pressure at sea surface (Pa)
 REAL, DIMENSION(:), INTENT(IN)    :: PRAIN ! precipitation rate (kg/s/m2)
 REAL, DIMENSION(:), INTENT(IN)    :: PSNOW ! snow rate (kg/s/m2)
-!                                                                                 
+!
 !  surface fluxes : latent heat, sensible heat, friction fluxes
 REAL, DIMENSION(:), INTENT(OUT)      :: PSFTH ! heat flux (W/m2)
 REAL, DIMENSION(:), INTENT(OUT)      :: PSFTQ ! water flux (kg/m2/s)
@@ -120,7 +120,7 @@ IR_ICE(:)=0
 J1=0
 J2=0
 !
-IF (S%LHANDLE_SIC) THEN 
+IF (S%LHANDLE_SIC) THEN
    ! Must compute open sea fluxes even over fully ice-covered sea, which may melt partly
    DO JJ=1,SIZE(PSST(:))
       IR_WATER(JJ)= JJ
@@ -178,7 +178,7 @@ REAL, DIMENSION(SIZE(KMASK))      :: ZW_RAIN !precipitation rate (kg/s/m2)
 REAL, DIMENSION(SIZE(KMASK))      :: ZW_SNOW !snow rate (kg/s/m2)
 !
 REAL, DIMENSION(SIZE(KMASK))      :: ZW_Z0SEA! roughness length over the ocean
-!                                                                                 
+!
 !  surface fluxes : latent heat, sensible heat, friction fluxes
 REAL, DIMENSION(SIZE(KMASK))      :: ZW_SFTH ! heat flux (W/m2)
 REAL, DIMENSION(SIZE(KMASK))      :: ZW_SFTQ ! water flux (kg/m2/s)
@@ -204,16 +204,16 @@ DO JJ=1, SIZE(KMASK)
   ZW_EXNA(JJ) = PEXNA(KMASK(JJ))
   ZW_RHOA(JJ) = PRHOA(KMASK(JJ))
   ZW_VMOD(JJ) = PVMOD(KMASK(JJ))
-  ZW_ZREF(JJ) = PZREF(KMASK(JJ)) 
+  ZW_ZREF(JJ) = PZREF(KMASK(JJ))
   ZW_UREF(JJ) = PUREF(KMASK(JJ))
   ZW_SST(JJ)  = PSST(KMASK(JJ))
-  ZW_EXNS(JJ) = PEXNS(KMASK(JJ)) 
+  ZW_EXNS(JJ) = PEXNS(KMASK(JJ))
   ZW_PS(JJ)   = PPS(KMASK(JJ))
   ZW_RAIN(JJ) = PRAIN(KMASK(JJ))
   ZW_SNOW(JJ) = PSNOW(KMASK(JJ))
   ZW_Z0SEA(JJ)= S%XZ0(KMASK(JJ))
 ENDDO
-!  
+!
 ZW_SFTH(:)   = XUNDEF
 ZW_SFTQ(:)   = XUNDEF
 ZW_USTAR(:)  = XUNDEF
@@ -230,32 +230,32 @@ IF (YTYPE=='W') THEN
   !
   CALL COARE30_FLUX(S, ZW_Z0SEA,ZW_TA,ZW_EXNA,ZW_RHOA,ZW_SST,ZW_EXNS,&
         ZW_QA,ZW_VMOD,ZW_ZREF,ZW_UREF,ZW_PS,ZW_QSAT,ZW_SFTH,ZW_SFTQ,ZW_USTAR,&
-        ZW_CD,ZW_CDN,ZW_CH,ZW_CE,ZW_RI,ZW_RESA,ZW_RAIN,ZW_Z0HSEA)   
+        ZW_CD,ZW_CDN,ZW_CH,ZW_CE,ZW_RI,ZW_RESA,ZW_RAIN,ZW_Z0HSEA)
   !
 ELSEIF ( (YTYPE=='I') .AND. (.NOT. S%LHANDLE_SIC)) THEN
   !
   CALL ICE_SEA_FLUX(ZW_Z0SEA,ZW_TA,ZW_EXNA,ZW_RHOA,ZW_SST,ZW_EXNS,ZW_QA,ZW_RAIN,ZW_SNOW,  &
          ZW_VMOD,ZW_ZREF,ZW_UREF,ZW_PS,ZW_QSAT,ZW_SFTH,ZW_SFTQ,ZW_USTAR,ZW_CD, &
-         ZW_CDN,ZW_CH,ZW_RI,ZW_RESA,ZW_Z0HSEA)  
+         ZW_CDN,ZW_CH,ZW_RI,ZW_RESA,ZW_Z0HSEA)
   !
 ENDIF
 !
 DO JJ=1, SIZE(KMASK)
    S%XZ0(KMASK(JJ))  =  ZW_Z0SEA(JJ)
-   PSFTH(KMASK(JJ))   =  ZW_SFTH(JJ) 
-   PSFTQ(KMASK(JJ))   =  ZW_SFTQ(JJ) 
+   PSFTH(KMASK(JJ))   =  ZW_SFTH(JJ)
+   PSFTQ(KMASK(JJ))   =  ZW_SFTQ(JJ)
    PUSTAR(KMASK(JJ))  =  ZW_USTAR(JJ)
    PQSAT(KMASK(JJ))   =  ZW_QSAT(JJ)
-   PCD(KMASK(JJ))     =  ZW_CD(JJ) 
-   PCDN(KMASK(JJ))    =  ZW_CDN(JJ) 
+   PCD(KMASK(JJ))     =  ZW_CD(JJ)
+   PCDN(KMASK(JJ))    =  ZW_CDN(JJ)
    PCH(KMASK(JJ))     =  ZW_CH(JJ)
    PCE(KMASK(JJ))     =  ZW_CE(JJ)
-   PRI(KMASK(JJ))     =  ZW_RI(JJ) 
-   PRESA(KMASK(JJ))   =  ZW_RESA(JJ) 
-   PZ0HSEA(KMASK(JJ)) = ZW_Z0HSEA(JJ) 
+   PRI(KMASK(JJ))     =  ZW_RI(JJ)
+   PRESA(KMASK(JJ))   =  ZW_RESA(JJ)
+   PZ0HSEA(KMASK(JJ)) = ZW_Z0HSEA(JJ)
 END DO
 IF (LHOOK) CALL DR_HOOK('COARE30_SEAFLUX:TREAT_SURF',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE TREAT_SURF
-! 
+!
 END SUBROUTINE COARE30_SEAFLUX

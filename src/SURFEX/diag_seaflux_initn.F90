@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DIAG_SEAFLUX_INIT_n (DOC, DGO, D, DC, OREAD_BUDGETC, S, &
@@ -32,11 +32,11 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!      Modified    01/2006 : sea flux parameterization.
-!!      Modified    08/2009 : cumulative sea flux 
+!!      Modified    08/2009 : cumulative sea flux
 !!      B. decharme 04/2013 : Add EVAP and SUBL diag
-!!      S.Senesi    01/2014 : introduce fractional seaice 
+!!      S.Senesi    01/2014 : introduce fractional seaice
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -53,7 +53,7 @@ USE MODN_IO_OFFLINE,     ONLY : LRESTART
 #endif
 USE MODD_SURF_PAR,       ONLY : XUNDEF
 USE MODD_SFX_OASIS,      ONLY : LCPL_SEA,LCPL_SEAICE
-!  
+!
 USE MODI_READ_SURF
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -95,18 +95,18 @@ IF (DGO%LSURF_BUDGET.OR.DGO%LSURF_BUDGETC) THEN
   !
   ALLOCATE(D%XEVAP   (KLU))
   ALLOCATE(D%XSUBL   (KLU))
-  ALLOCATE(D%XALBT   (KLU))  
+  ALLOCATE(D%XALBT   (KLU))
   !
   D%XEVAP    = XUNDEF
-  D%XSUBL    = XUNDEF  
-  D%XALBT    = XUNDEF  
+  D%XSUBL    = XUNDEF
+  D%XALBT    = XUNDEF
   !
 ELSE
   !
   ALLOCATE(D%XEVAP   (0))
-  ALLOCATE(D%XSUBL   (0))  
-  ALLOCATE(D%XALBT   (0)) 
-  ! 
+  ALLOCATE(D%XSUBL   (0))
+  ALLOCATE(D%XALBT   (0))
+  !
 ENDIF
 !
 ALLOCATE(D%XTSRAD(KLU))
@@ -119,17 +119,17 @@ IF (DGO%LSURF_BUDGETC .OR. (LRESTART .AND. .NOT.DGO%LRESET_BUDGETC)) THEN
 #else
 IF (DGO%LSURF_BUDGETC .OR. .NOT.DGO%LRESET_BUDGETC) THEN
 #endif
-  ! 
-  CALL ALLOC_SURF_BUD(DC,KLU,KLU,KSW)  
+  !
+  CALL ALLOC_SURF_BUD(DC,KLU,KLU,KSW)
   ALLOCATE(DC%XEVAP (KLU))
-  ALLOCATE(DC%XSUBL (KLU))  
+  ALLOCATE(DC%XSUBL (KLU))
   !
   IF (.NOT.OREAD_BUDGETC .OR. OREAD_BUDGETC.AND.DGO%LRESET_BUDGETC) THEN
     CALL INIT_SURF_BUD(DC,0.)
     DC%XEVAP = 0.0
     DC%XSUBL = 0.0
   ELSE
-     CALL READ_SURF(HPROGRAM,'VERSION',IVERSION,IRESP)    
+     CALL READ_SURF(HPROGRAM,'VERSION',IVERSION,IRESP)
      YREC='RNC_SEA'
      CALL READ_SURF(HPROGRAM,YREC,DC%XRN,IRESP)
      YREC='HC_SEA'
@@ -137,7 +137,7 @@ IF (DGO%LSURF_BUDGETC .OR. .NOT.DGO%LRESET_BUDGETC) THEN
      YREC='LEC_SEA'
      CALL READ_SURF(HPROGRAM,YREC,DC%XLE,IRESP)
      YREC='LEIC_SEA'
-     CALL READ_SURF(HPROGRAM,YREC,DC%XLEI,IRESP) 
+     CALL READ_SURF(HPROGRAM,YREC,DC%XLEI,IRESP)
      YREC='GFLUXC_SEA'
      CALL READ_SURF(HPROGRAM,YREC,DC%XGFLUX,IRESP)
      YREC='SWDC_SEA'
@@ -154,7 +154,7 @@ IF (DGO%LSURF_BUDGETC .OR. .NOT.DGO%LRESET_BUDGETC) THEN
      CALL READ_SURF(HPROGRAM,YREC,DC%XFMV,IRESP)
      IF (IVERSION<8)THEN
        DC%XEVAP     = 0.0
-       DC%XSUBL     = 0.0              
+       DC%XSUBL     = 0.0
      ELSE
        !
        YREC='EVAPC_SEA'
@@ -162,7 +162,7 @@ IF (DGO%LSURF_BUDGETC .OR. .NOT.DGO%LRESET_BUDGETC) THEN
        YREC='SUBLC_SEA'
        CALL READ_SURF(HPROGRAM,YREC,DC%XSUBL,IRESP)
      ENDIF
-  ENDIF   
+  ENDIF
 ELSE
   CALL ALLOC_SURF_BUD(DC,0,0,0)
 ENDIF
@@ -193,7 +193,7 @@ ENDIF
 !* Earth system model coupling variables
 !
 IF(LCPL_SEA.OR.S%LHANDLE_SIC)THEN
-!        
+!
   ALLOCATE(S%XCPL_SEA_WIND(KLU))
   ALLOCATE(S%XCPL_SEA_FWSU(KLU))
   ALLOCATE(S%XCPL_SEA_FWSV(KLU))

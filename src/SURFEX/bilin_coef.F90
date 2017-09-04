@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
      SUBROUTINE BILIN_COEF (KLUOUT,PX1,PY1,PX2,PY2,PCX,PCY,KCI,KCJ)
@@ -104,7 +104,7 @@ INTEGER, DIMENSION(:), INTENT(OUT):: KCI, KCJ
 !
 !*       0.2    Declarations of local variables for print on FM file
 !
-! 
+!
 REAL, DIMENSION (SIZE(PX1)+1)        :: ZX       ! X coordinate of left   limit of input meshes
 REAL, DIMENSION (SIZE(PY1)+1)        :: ZY       ! Y coordinate of bottom limit of input meshes
 !
@@ -136,7 +136,7 @@ IF (IIU>1) THEN
   ZX(IIU+1) = 1.5*PX1(IIU)-0.5*PX1(IIU-1)
   DO JJ = 2,IIU
     ZX(JJ) = 0.5*(PX1(JJ-1)+PX1(JJ))
-  ENDDO  
+  ENDDO
 ELSE
   ZX(1)     = PX1(1) - 1.E6 ! uniform field in X direction if only 1 point is
   ZX(2)     = PX1(1) + 1.E6 ! available. Arbitrary mesh length of 2000km assumed

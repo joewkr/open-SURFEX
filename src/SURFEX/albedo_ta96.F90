@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       FUNCTION ALBEDO_TA96(PZENITH) RESULT(PDIR_ALB)
 !     ##################################################################
 !
-!!****  *ALBEDO_TA96*  
+!!****  *ALBEDO_TA96*
 !!
 !!    PURPOSE
 !!    -------
 !       computes the direct albedo over open water
 !
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -20,13 +20,13 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      V. Masson           * Meteo-France *
@@ -35,7 +35,7 @@
 !!    -------------
 !!      Original    19/09/03
 !!                  20/08/14 R. Séférian correction of the zenith solar angle
-!       
+!
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS

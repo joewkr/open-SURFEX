@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INTERPOL_SPLINES(KLUOUT,KCODE,PX,PY,PFIELD,KREP)
@@ -45,7 +45,7 @@
 !!
 !!    Original    19/03/95
 !!    Modification
-!!     25/05/96   (V Masson)  W and IW defined in MODD_SPLINESWORK  
+!!     25/05/96   (V Masson)  W and IW defined in MODD_SPLINESWORK
 !!     04/07/96   (V Masson)  call with 1d dummy arguments
 !!     30/10/96   (V Masson)  add deallocations
 !!     05/08/97   (V Masson)  output listing as dummy argument
@@ -207,7 +207,7 @@ subdomains: DO
          .AND.  ( PX(:) <= ZXDOM(1,1) + (JSDI  +0.5/(IINTER-1))*(ZXDOM(2,1)-ZXDOM(1,1))/ISDI)   &
          .AND.  ( PY(:) >= ZXDOM(1,2) + (JSDJ-1-0.5/(IINTER-1))*(ZXDOM(2,2)-ZXDOM(1,2))/ISDJ)   &
          .AND.  ( PY(:) <= ZXDOM(1,2) + (JSDJ  +0.5/(IINTER-1))*(ZXDOM(2,2)-ZXDOM(1,2))/ISDJ) )            &
-                                                           )  
+                                                           )
     END DO
   END DO
   IF ( (ISDI<ISDMAX) .AND. (ISDJ<ISDMAX) .AND. ANY(NDOMDATA(1:ISDI,1:ISDJ) > IDATAMAX/2) ) THEN
@@ -241,7 +241,7 @@ WRITE(KLUOUT,*) '----------------------------------'
     DO JSDI=1,ISDI
       DO JSDJ=1,ISDJ
         WRITE(KLUOUT,*) '  domain sdi=',JSDI,' sdj=',JSDJ,' : ',     &
-                           NDOMDATA(JSDI,JSDJ),' data points available'  
+                           NDOMDATA(JSDI,JSDJ),' data points available'
       END DO
     END DO
   END IF
@@ -288,7 +288,7 @@ WRITE(KLUOUT,*) '----------------------------------'
 !
       CALL SPLB2C(IIORDER,IIM,ZXDATA,ZG,ZDATA,ZS2,ZP,0,IOPT,ISDI,ISDJ,IINTER,ZXDOM,ZC,KREP)
 !      CALL SPLB2C(IDATA,ZXDATA,ZG,ZDATA,0,0.,ZP,IORDER,IM,IOPT,ISDI,ISDJ,IINTER,ZXDOM, &
-!                   ZC,KREP,IW,W) 
+!                   ZC,KREP,IW,W)
 !
       IOPT=1
 !

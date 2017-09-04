@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
 MODULE MODE_SPLINES
@@ -70,7 +70,7 @@ INTERFACE EISRS1
 END INTERFACE
 INTERFACE SPLV
         MODULE PROCEDURE SPLV
-END INTERFACE 
+END INTERFACE
 INTERFACE SPLS2VI
         MODULE PROCEDURE SPLS2VI
 END INTERFACE
@@ -127,7 +127,7 @@ INTERFACE SPLVPQ
         MODULE PROCEDURE SPLVPQ
 END INTERFACE
 INTERFACE SPLC
-        MODULE PROCEDURE SPLC 
+        MODULE PROCEDURE SPLC
 END INTERFACE
 INTERFACE SPLM
         MODULE PROCEDURE SPLM
@@ -326,7 +326,7 @@ DO I=1,SIZE(A,1)
 ENDDO
 IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:MXMSPL_2',1,ZHOOK_HANDLE)
 
-END SUBROUTINE MXMSPL_2    
+END SUBROUTINE MXMSPL_2
 !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !4. produit simple de matrices 3
 SUBROUTINE MXMSPL_3(A,B,RES)
@@ -385,7 +385,7 @@ DO I=1,N
   JJ=1
   !dans la diagonale, on retient le plus grand élément
   DO J=1,N
-    IF(INDEX(J).NE.0) THEN   
+    IF(INDEX(J).NE.0) THEN
       ELM=ABS(A2(JJ))
       IF (ELM.GT.PIVOT) THEN
         PIVOT=ELM
@@ -397,17 +397,17 @@ DO I=1,N
     JJ=JJ+NP1
   ENDDO
   INDEX(K)=0
-  IF (PIVOT.EQ.0.) THEN 
+  IF (PIVOT.EQ.0.) THEN
     IREP=-1
     IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SMXINV',1,ZHOOK_HANDLE)
-    RETURN 
+    RETURN
   ENDIF
   PIVOT=-A2(KK)
   !elimination
   KJ=K
   NP=N
   DO J=1,N
-    !KJ=K, KJ=K+N, KJ=K+2N ... : avant l'élément pivot, 
+    !KJ=K, KJ=K+N, KJ=K+2N ... : avant l'élément pivot,
     !on se déplace sur les colonnes
     !J=K=3: KJ=K+2N+1, KJ=K+2N+2....!une fois qu'on a passé
     !le pivot, on se déplace sur la ligne, à droite de l'élément pivot
@@ -423,7 +423,7 @@ DO I=1,N
       RI(J)=ELM/PIVOT
       IF (ELM.NE.0.) THEN
         JL=J
-        !JL prend pour valeur les élements de la colonne 
+        !JL prend pour valeur les élements de la colonne
         !du premier en haut au diagonal -1
         DO L=1,J
           !à chaque fois A2 de cet élément est incrémenté
@@ -527,7 +527,7 @@ IF (MOD(ND,2).EQ.0) THEN
   !Calcul de K dans le cas d'un espace de dimension paire
   ISIGNE=(-1)**(1+NORD+ND/2)
 ELSE
-  !Calcul de K dans le cas d'un espace de dimension impair 
+  !Calcul de K dans le cas d'un espace de dimension impair
   ISIGNE=(-1)**(NORD+ND/2)
 ENDIF
 
@@ -579,7 +579,7 @@ IF (MOD(ND,2).EQ.0) THEN
   !Calcul de K dans le cas d'un espace de dimension paire
   ISIGNE=(-1)**(1+NORD+ND/2)
 ELSE
-  !Calcul de K dans le cas d'un espace de dimension impair 
+  !Calcul de K dans le cas d'un espace de dimension impair
   ISIGNE=(-1)**(NORD+ND/2)
 ENDIF
 
@@ -605,8 +605,8 @@ IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SPLK_2',1,ZHOOK_HANDLE)
 
 END SUBROUTINE SPLK_2
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-!8. on cherche l'indice I de la 3ème dimension de AI tel que XE(ID) soit compris 
-!entre AI(ID,1,I) et AI(ID,2,I+1). Il est compris entre 1 et NSD(ID), 
+!8. on cherche l'indice I de la 3ème dimension de AI tel que XE(ID) soit compris
+!entre AI(ID,1,I) et AI(ID,2,I+1). Il est compris entre 1 et NSD(ID),
 !par défaut il est égal à NDSD(ID)
 SUBROUTINE SPLBFIN(ID,NSD,XE,AI,IDX,IDX1)
 !SPLB2E
@@ -636,7 +636,7 @@ DO I=1,NSD(ID)-1
 ENDDO
 IDX=NSD(ID)
 IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SPLBFIN',1,ZHOOK_HANDLE)
-     
+
 END SUBROUTINE SPLBFIN
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !9. X(ND,N) IE(ND,M) : T(N,M) T=produit(X**IE) quand IE est non nul
@@ -820,7 +820,7 @@ IF (NM==1) THEN
     ZE=(ALPHAY*ZXY+(1-ALPHAY)*ZXY1)/SUM_AY
   ELSEIF (IDX1.NE.0 .AND. IDY1.NE.0) THEN
     ZE=(ALPHAX*ALPHAY    *ZXY  + (1-ALPHAX)*    ALPHAY*ZX1Y + &
-         ALPHAX*(1-ALPHAY)*ZXY1 + (1-ALPHAX)*(1-ALPHAY)*ZX1Y1) / SUM_A 
+         ALPHAX*(1-ALPHAY)*ZXY1 + (1-ALPHAX)*(1-ALPHAY)*ZX1Y1) / SUM_A
   ELSE
     ZE=ZXY
   ENDIF
@@ -831,7 +831,7 @@ END SUBROUTINE SPLB2E1
 !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !  APPELEE PAR INTERPOL_SPLINES.F90
 !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-!12. 
+!12.
 SUBROUTINE SPLB2E(NORD,M,NSDI,NSDJ,G,C,XE,ZE)
 
 IMPLICIT NONE
@@ -874,7 +874,7 @@ END SUBROUTINE SPLB2E
 
 ! Calculs EISRS1
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-!13. 
+!13.
 SUBROUTINE TRED2(A,D,E,Z)
 !EISRS1
 IMPLICIT NONE
@@ -919,7 +919,7 @@ IF (N.NE.1) THEN
           !H = somme des carrés de Z / (somme des ABS(Z)) au carré
           H=H+Z(I,K)**2
         ENDDO
-        F=Z(I,L) 
+        F=Z(I,L)
         !SQRT(H) signé par lélément diagonal-1 de la ligne
         G=-SIGN(SQRT(H),F)
         !moyenne des éléments au carrés de la ligne, signée
@@ -992,7 +992,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:TRED2',1,ZHOOK_HANDLE)
 
 END SUBROUTINE TRED2
 !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-!14. 
+!14.
 SUBROUTINE TQL2_2(D,E,Z,IERR)
 !EISRS1
 IMPLICIT NONE
@@ -1028,7 +1028,7 @@ IF (N.NE.1) THEN
       IF (ABS(E(M)).LE.B) EXIT
     ENDDO
     IF (M.NE.L) THEN
-      DO WHILE (ABS(E(L)).GT.B) 
+      DO WHILE (ABS(E(L)).GT.B)
         IF (J.EQ.30) THEN
           IERR=L
           IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:TQL2_2',1,ZHOOK_HANDLE)
@@ -1207,7 +1207,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SPLBVM',1,ZHOOK_HANDLE)
 
 END SUBROUTINE SPLBVM
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-!19. 
+!19.
 SUBROUTINE SPLS2V(BI,WI,N,P,RES)
 !SPLPS2V, SPLP
 IMPLICIT NONE
@@ -1262,7 +1262,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SPLDS2V',1,ZHOOK_HANDLE)
 END SUBROUTINE SPLDS2V
 !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-!21. SPLPS2V procedure 
+!21. SPLPS2V procedure
 SUBROUTINE SPLPS2V(B,W,N,P0,S2,P,IREP)
 !SPLP
 IMPLICIT NONE
@@ -1377,11 +1377,11 @@ ENDDO
 P=SQRT(S2/(RES*N))
 IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SPLPR0',1,ZHOOK_HANDLE)
 
-END SUBROUTINE SPLPR0   
+END SUBROUTINE SPLPR0
 !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !24. RS=N*SOMME((W(I)/(B(I)+N*P))**2)*P**2
 SUBROUTINE SPLRS(B,W,N,P,RES)
-!SPLP, SPLPR, SP0CVQ 
+!SPLP, SPLPR, SP0CVQ
 IMPLICIT NONE
 
 REAL, DIMENSION(:), INTENT(IN) :: B
@@ -1427,7 +1427,7 @@ ENDDO
 RES=2.*N*P*RES
 IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SPLDRS',1,ZHOOK_HANDLE)
 
-END SUBROUTINE SPLDRS   
+END SUBROUTINE SPLDRS
 !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !26. SPLPR procedure: parallèle de splps2v
@@ -1619,7 +1619,7 @@ DO WHILE(IFLAG==0)
     IFLAG=1
     P0=B(1)/N
 
-    !on augmente P0 et on calcul D2VM; quand D2VM est supérieur à 0, 
+    !on augmente P0 et on calcul D2VM; quand D2VM est supérieur à 0,
     !on passe à la suite
     DO NITER=1,NSDMAX
       CALL SPLD2V(B,W,N,P0,D2VM)
@@ -1931,7 +1931,7 @@ IF (DB(IMIN(1)).LE.0)  &
    WRITE(*,FMT='(A31)') "SPLU : VALEUR PROPRE < 0 DE RKR"
 IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SPLU',1,ZHOOK_HANDLE)
 
-END SUBROUTINE SPLU     
+END SUBROUTINE SPLU
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !               GROUPE DES PROCEDURES W
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
@@ -2008,14 +2008,14 @@ END SUBROUTINE SPLVPQ
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !              GROUPE DES PROCEDURES C
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-!36. 
+!36.
 SUBROUTINE SPLC(Q,Z,RK,DS,TTT,RKC,C)
 !SP0NOP, SP0CVQ
 IMPLICIT NONE
 
 REAL, DIMENSION(:,:), INTENT(IN) :: Q !Q(N,N)
 REAL, DIMENSION(:), INTENT(IN) :: Z !Z(N)
-REAL, DIMENSION(:,:), INTENT(IN) :: RK !RK(N,n)  
+REAL, DIMENSION(:,:), INTENT(IN) :: RK !RK(N,n)
 REAL, DIMENSION(:), INTENT(IN) :: DS !DS(N)
 REAL, DIMENSION(:,:), INTENT(IN) :: TTT !TTT(M,N)
 REAL, DIMENSION(:), INTENT(OUT)  :: RKC !RKC(N)
@@ -2039,7 +2039,7 @@ IF (M.NE.0) THEN
 ! Calcul de K*c
   CALL MXMSPL(RK,C(1:N),RKC)
 ! Calcul de z - K*c
-  RKC(:)=Z(:)-RKC(:)   
+  RKC(:)=Z(:)-RKC(:)
 ! Calcul de (Ds-1) * (z-K*c)
   RKC(:)=RKC(:)/DS(:)
 ! Calcul de d = (Tm'*Tm)-1 * Tm' * (Ds-1) * (z-K*c)
@@ -2077,11 +2077,11 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SPLM',1,ZHOOK_HANDLE)
 
 END SUBROUTINE SPLM
-!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc  
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-!38. 
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!38.
 SUBROUTINE SP0NOP(X,G,Z,DS,LISSAGE,LORDRE,IOPT,NORDOPT,M,S2,P,&
-         IW,TTT,R,RK,U,DB,W,RZ,IREP) 
+         IW,TTT,R,RK,U,DB,W,RZ,IREP)
 !SP0CVQ
 IMPLICIT NONE
 
@@ -2123,8 +2123,8 @@ IF (LORDRE.EQ.0) THEN
 !  ---------------------------------------
   IF (IOPT.EQ.0) THEN
 !   Calcul de IW, TTT, R
-    CALL SPLR(NORDOPT,X,DS,IW,TTT,R,IREP)  
-!   Calcul de RK, U, DB    
+    CALL SPLR(NORDOPT,X,DS,IW,TTT,R,IREP)
+!   Calcul de RK, U, DB
     CALL SPLU(NORDOPT,X,G,R,RK,U,DB)
   ENDIF
    !calcul de W, RZ
@@ -2141,7 +2141,7 @@ ELSE
 
 !  Calcul de l'ordre maximal pour le nombre de points n
   CALL SPLM(ND,NORD,M)
-  DO WHILE(N.GT.M) 
+  DO WHILE(N.GT.M)
     NORD=NORD+1
     CALL SPLM(ND,NORD,M)
   ENDDO
@@ -2153,7 +2153,7 @@ ELSE
     !calcul de M
     CALL SPLM(ND,NORD,M)
     CALL SPLR(NORD,X,DS,IW,TTT,R,IREP)
-    CALL SPLU(NORD,X,G,R,RK,U,DB)    
+    CALL SPLU(NORD,X,G,R,RK,U,DB)
     CALL SPLW(Z,R,U,W,RZ)
     CALL SPLP(LISSAGE,N,DB,W,P,S2,IREP)
     MSAVE(NORD)=M
@@ -2195,7 +2195,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SP0NOP',1,ZHOOK_HANDLE)
 END SUBROUTINE SP0NOP
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-!39. 
+!39.
 SUBROUTINE SP0CVQ(NORD,M,X,G,Z,DS,S2,P,LISSAGE,LORDRE,IOPT,C,IREP)
 !SPLB2C
 IMPLICIT NONE
@@ -2255,11 +2255,11 @@ ELSE
 !     Determination de nord opt ou de p pot
 !   -----------------------------------------
   IF (LORDRE.EQ.1 .OR. &
-       LISSAGE.EQ.1 .OR. LISSAGE.EQ.2 .OR. LISSAGE.EQ.10)  THEN 
+       LISSAGE.EQ.1 .OR. LISSAGE.EQ.2 .OR. LISSAGE.EQ.10)  THEN
        !calcul de P en passant par SPLR, SPLU, SPLW, si LORDRE = 0
        !calcul de NORD, M, S2, P si LORDRE=1
     CALL SP0NOP(X,G,Z,DS,LISSAGE,LORDRE,IOPT,NORD,M,S2,P,&
-         IW,TTT,R,RK,U,DB,W,RZ,IREP) 
+         IW,TTT,R,RK,U,DB,W,RZ,IREP)
   ELSEIF (LISSAGE.EQ.0) THEN
     P=0.
   ENDIF
@@ -2273,7 +2273,7 @@ ELSE
       IF (IREP.NE.0 .AND. LHOOK) CALL DR_HOOK('MODE_SPLINES:SP0CVQ',1,ZHOOK_HANDLE)
       IF (IREP.NE.0) RETURN
 !     Calcul de  RK, U, DB
-      CALL SPLU(NORD,X,G,R,RK,U,DB)  
+      CALL SPLU(NORD,X,G,R,RK,U,DB)
     ENDIF
 !---------------------------------------------------------------------
 !   Calcul de W,RZ
@@ -2301,7 +2301,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SP0CVQ',1,ZHOOK_HANDLE)
 END SUBROUTINE SP0CVQ
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-!40. AI(ND,ND,NSDMAX): calcul de AI en fonction de XD, NSD, INTER; 
+!40. AI(ND,ND,NSDMAX): calcul de AI en fonction de XD, NSD, INTER;
 !remarque: on dirait que la deuxième dimension de AI est plutôt 2 que ND
 SUBROUTINE SPLBSD(NSD,INTER,XD,AI)
 !SPLB2C
@@ -2336,8 +2336,8 @@ IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SPLBSD',1,ZHOOK_HANDLE)
 
 END SUBROUTINE SPLBSD
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-!41. récupère les X et Z tels que les valeurs soient toutes comprises entre 
-!A et B, dans XS et ZS. NS est la taille finale des tableaux. 
+!41. récupère les X et Z tels que les valeurs soient toutes comprises entre
+!A et B, dans XS et ZS. NS est la taille finale des tableaux.
 SUBROUTINE SPLBSEL(X,Z,AI,BI,NS,XS,ZS,IREP)
 !SPLB2C
 IMPLICIT NONE
@@ -2361,7 +2361,7 @@ DO J=1,SIZE(X,2)
   I0=0
   DO I=1,SIZE(X,1)
    !il faut que tous les X(I,J) soient compris entre AI et BI
-    IF (X(I,J).LT.AI(I).OR.X(I,J).GT.BI(I)) THEN 
+    IF (X(I,J).LT.AI(I).OR.X(I,J).GT.BI(I)) THEN
       I0=1
       EXIT
     ENDIF
@@ -2389,7 +2389,7 @@ SUBROUTINE SPLB2C(NORD,M,X,G,Z,S2,P,LISSAGE,IOPT,NSDI,NSDJ,&
 !INTERPOL_SPLINES
 IMPLICIT NONE
 
-INTEGER, INTENT(INOUT) :: NORD 
+INTEGER, INTENT(INOUT) :: NORD
 INTEGER, INTENT(INOUT) :: M
 REAL, DIMENSION(:,:), INTENT(IN) :: X !ND,N
 REAL, DIMENSION(:,:), INTENT(IN) :: G ! ND,ND
@@ -2449,11 +2449,11 @@ DO I=1,NSDI
     ENDIF
     !calcul de la spline
     IF (NS(I,J).GT.M) THEN
-       NN=NS(I,J) 
+       NN=NS(I,J)
       !X(ND,NN) ZS(NN) C(NN+M) IW(ND,M) W(7*NN*NN)
       CALL SP0CVQ(NORD,M,XS(:,1:NN,I,J),G,ZS(1:NN,I,J),DS(1:NN),S2,P,&
-        LISSAGE,LORDRE,IOPT,C(1:NN+M,I,J),IREP)   
-    ENDIF 
+        LISSAGE,LORDRE,IOPT,C(1:NN+M,I,J),IREP)
+    ENDIF
   ENDDO
 ENDDO
 IF (LHOOK) CALL DR_HOOK('MODE_SPLINES:SPLB2C',1,ZHOOK_HANDLE)

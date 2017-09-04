@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PREP_ISBA_SNOW(HPROGRAM,HSNOW,KSNOW_LAYER,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,OUNIF)
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!     A. Bogatchev 09/2005 EBA snow option
 !!     V. Vionnet   06/2008 - Flag for snow metamorphism
 !                           - Preparation of uniform snow fields : density, temperture,albedo,grain types
@@ -68,7 +68,7 @@ USE MODD_PREP_ISBA, ONLY : CFILE_SNOW, CTYPE_SNOW, CFILEPGD_SNOW, &
                            XRSNOW_p=>XRSNOW, XASNOW,            &
                            XSG1SNOW_p=>XSG1SNOW, XSG2SNOW_p=>XSG2SNOW, &
                            XHISTSNOW_p=>XHISTSNOW, XAGESNOW_p=>XAGESNOW
-                           
+
 !
 USE MODD_PREP_SNOW, ONLY : LSNOW_FRAC_TOT, NSNOW_LAYER_MAX , LSNOW_PREP_PERM
 !
@@ -104,7 +104,7 @@ INTEGER           :: ILUNAM         ! namelist file logical unit
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 NAMELIST/NAM_PREP_ISBA_SNOW/CSNOW, NSNOW_LAYER, CFILE_SNOW, CTYPE_SNOW,  &
-                            CFILEPGD_SNOW, CTYPEPGD_SNOW,                & 
+                            CFILEPGD_SNOW, CTYPEPGD_SNOW,                &
                             LSNOW_IDEAL, LSNOW_FRAC_TOT,LSNOW_PREP_PERM, &
                             XWSNOW, XZSNOW, XTSNOW, XLWCSNOW, XRSNOW, XASNOW,  &
                             XSG1SNOW, XSG2SNOW, XHISTSNOW, XAGESNOW,     &
@@ -122,7 +122,7 @@ IF (LNAM_READ) THEN
   CFILE_SNOW = '                         '
   CTYPE_SNOW = '      '
   CFILEPGD_SNOW = '                         '
-  CTYPEPGD_SNOW = '      '  
+  CTYPEPGD_SNOW = '      '
   !
   LSNOW_IDEAL = .FALSE.
   LSNOW_FRAC_TOT = .FALSE.
@@ -130,17 +130,17 @@ IF (LNAM_READ) THEN
   !
   XWSNOW(:) = XUNDEF
   XZSNOW(:) = XUNDEF
-  XRSNOW(:) = XUNDEF  
-  XTSNOW(:) = XTT  
+  XRSNOW(:) = XUNDEF
+  XTSNOW(:) = XTT
   XLWCSNOW(:) = 0.
   XASNOW = XANSMIN
   XSG1SNOW(:) = XUNDEF
   XSG2SNOW(:) = XUNDEF
   XHISTSNOW(:) = XUNDEF
-  XAGESNOW(:) = XUNDEF  
+  XAGESNOW(:) = XUNDEF
   !
-  LSWEMAX=.FALSE. 
-  XSWEMAX=500. 
+  LSWEMAX=.FALSE.
+  XSWEMAX=500.
   !
   CALL GET_LUOUT(HPROGRAM,ILUOUT)
   CALL OPEN_NAMELIST(HPROGRAM,ILUNAM)
@@ -200,7 +200,7 @@ IF (LNAM_READ) THEN
     ENDIF
     IF(XRSNOW(1)/=XUNDEF.AND.ANY(XRSNOW(2:NSNOW_LAYER)==XUNDEF))THEN
       WHERE(XRSNOW(2:NSNOW_LAYER)==XUNDEF)XRSNOW(2:NSNOW_LAYER)=XRSNOW(1)
-    ENDIF    
+    ENDIF
   ENDIF
   !
   ALLOCATE(XWSNOW_p(NSNOW_LAYER))
@@ -279,28 +279,28 @@ ENDIF
 LFILE=(LEN_TRIM(CFILE_SNOW)>0.AND.LEN_TRIM(CTYPE_SNOW)>0 &
         .AND.LEN_TRIM(CFILEPGD_SNOW)>0.AND.LEN_TRIM(CTYPEPGD_SNOW)>0)
 !
-IF(PRESENT(HFILE))THEN 
+IF(PRESENT(HFILE))THEN
   IF(LFILE)THEN
      HFILE = CFILE_SNOW
   ELSE
      HFILE = '                         '
   ENDIF
 ENDIF
-IF(PRESENT(HFILETYPE))THEN 
+IF(PRESENT(HFILETYPE))THEN
   IF(LFILE)THEN
      HFILETYPE = CTYPE_SNOW
   ELSE
      HFILETYPE = '      '
   ENDIF
 ENDIF
-IF(PRESENT(HFILEPGDTYPE))THEN 
+IF(PRESENT(HFILEPGDTYPE))THEN
   IF(LFILE)THEN
      HFILEPGDTYPE = CTYPEPGD_SNOW
   ELSE
      HFILEPGDTYPE = '      '
   ENDIF
 ENDIF
-IF(PRESENT(HFILEPGD))THEN 
+IF(PRESENT(HFILEPGD))THEN
   IF(LFILE)THEN
      HFILEPGD = CFILEPGD_SNOW
   ELSE

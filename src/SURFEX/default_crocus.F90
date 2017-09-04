@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_CROCUS(OSNOWDRIFT,OSNOWDRIFT_SUBLIM,OSNOW_ABS_ZENITH,&
-                 HSNOWMETAMO,HSNOWRAD)  
+                 HSNOWMETAMO,HSNOWRAD)
 !     ########################################################################
 !
 !!****  *DEFAULT_ISBA* - routine to set default values for the configuration for Crocus
@@ -49,7 +49,7 @@ IMPLICIT NONE
 !*       0.1   Declarations of arguments
 !              -------------------------
 !
-! Logicals to activate / disactivate snowdrift                                          
+! Logicals to activate / disactivate snowdrift
 LOGICAL, INTENT(OUT)          :: OSNOWDRIFT
 LOGICAL, INTENT(OUT)          :: OSNOWDRIFT_SUBLIM
 LOGICAL, INTENT(OUT)          :: OSNOW_ABS_ZENITH
@@ -60,7 +60,7 @@ LOGICAL, INTENT(OUT)          :: OSNOW_ABS_ZENITH
 !
 !*       0.2   Declarations of local variables
 !              -------------------------------
-!                                          
+!
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 !

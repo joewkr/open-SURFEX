@@ -1,17 +1,17 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#####################################################################
 SUBROUTINE BEM_MORPHO(PBLD, PWALL_O_HOR, PBLD_HEIGHT, PWALL_O_BLD, B)
 !#####################################################################
 !
-!!**** *BEM_MORPHO 
+!!**** *BEM_MORPHO
 !!
 !!    PURPOSE
 !!    -------
 !! compute morphometric parameter of the building for BEM
-!! 
+!!
 !!**  METHOD
 !!    ------
 !!
@@ -51,7 +51,7 @@ REAL, DIMENSION(:),   INTENT(IN)  :: PBLD_HEIGHT  ! Average building height [m]
 REAL, DIMENSION(:),   INTENT(OUT) :: PWALL_O_BLD  ! wall surface per ground building surface [m2(wall)/m2(bld)]
 TYPE(BEM_t), INTENT(INOUT) :: B
 !
-!*      0.2    Declarations of local variables 
+!*      0.2    Declarations of local variables
 !
 REAL, DIMENSION(SIZE(PBLD)):: ZF_AUX2       ! Auxiliar view factor
 !
@@ -118,7 +118,7 @@ WHERE(B%XN_FLOOR > 1.5)
    ZF_AUX2      (:) = (1. - B%XF_FLOOR_MASS(:)) / B%XFLOOR_HW_RATIO(:)
    !
    B%XF_WALL_FLOOR(:) = ZF_AUX2(:) / ( 2.*B%XN_FLOOR(:) )
-   B%XF_WALL_MASS (:) = B%XF_WALL_FLOOR(:) * (2.*B%XN_FLOOR(:)-2.) 
+   B%XF_WALL_MASS (:) = B%XF_WALL_FLOOR(:) * (2.*B%XN_FLOOR(:)-2.)
    B%XF_WALL_WIN  (:) = (1. - ZF_AUX2(:)) * B%XGR(:)
    !
    B%XF_WIN_FLOOR(:) = B%XF_WALL_FLOOR(:)

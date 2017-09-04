@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE SET_SURFEX_FILEIN(HPROGRAM,HMASK)
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    05/2011 
+!!      Original    05/2011
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -89,7 +89,7 @@ IF (LHOOK) CALL DR_HOOK('SET_SURFEX_FILEIN',0,ZHOOK_HANDLE)
 IF(HMASK/='PGD'.AND.HMASK/='PREP') CALL ABOR1_SFX('SET_SURFEX_FILEIN: MASK='//HMASK//' REQUIRES MASK = PGD or PREP')
 !
 IF (HPROGRAM=='ASCII ' ) THEN
-!  
+!
 #ifdef SFX_ASC
   IF(HMASK=='PGD')THEN
     YFILE=CFILEPGD
@@ -97,20 +97,20 @@ IF (HPROGRAM=='ASCII ' ) THEN
     YFILE=CFILEIN_SAVE
   ENDIF
   CALL SET_SURFEX_FILE_NAME_ASC(HNAME_IN=YFILE)
-#endif  
-!  
+#endif
+!
 ENDIF
 !
 IF (HPROGRAM=='FA    ' ) THEN
-! 
+!
 #ifdef SFX_FA
   IF(HMASK=='PGD')THEN
     YFILE=CFILEPGD_FA
   ELSE
     YFILE=CFILEIN_FA_SAVE
-  ENDIF        
+  ENDIF
   CALL SET_SURFEX_FILE_NAME_FA(HNAME_IN=YFILE)
-#endif  
+#endif
 !
 ENDIF
 !
@@ -121,9 +121,9 @@ IF (HPROGRAM=='LFI   ' ) THEN
     YFILE=CFILEPGD_LFI
   ELSE
     YFILE=CFILEIN_LFI_SAVE
-  ENDIF 
+  ENDIF
   CALL SET_SURFEX_FILE_NAME_LFI(HNAME_IN=YFILE)
-#endif  
+#endif
 !
 ENDIF
 !
@@ -134,9 +134,9 @@ IF (HPROGRAM=='NC    ' ) THEN
     YFILE=CFILEPGD_NC
   ELSE
     YFILE=CFILEIN_NC_SAVE
-  ENDIF 
+  ENDIF
   CALL SET_SURFEX_FILE_NAME_NC(HNAME_IN=YFILE)
-#endif  
+#endif
 !
 ENDIF
 
@@ -144,13 +144,13 @@ ENDIF
 IF (HPROGRAM=='AROME ' ) THEN
 #ifdef SFX_ARO
   CALL SET_SURFEX_FILE_NAME_ARO(HMASK)
-#endif  
+#endif
 ENDIF
 !
 IF (HPROGRAM=='MESONH' ) THEN
 #ifdef SFX_MNH
   CALL SET_SURFEX_FILE_NAME_MNH(HMASK)
-#endif  
+#endif
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('SET_SURFEX_FILEIN',1,ZHOOK_HANDLE)

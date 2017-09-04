@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       FUNCTION GAMMAS(PX)  RESULT(PGAMMA)
@@ -72,7 +72,7 @@ ZSTP     =  2.5066282746310005
 ZPI = 3.141592654
 IF (PX.LT.0.) THEN
   ZX = 1.- PX
-ELSE 
+ELSE
   ZX = PX
 END IF
 ZY = ZX

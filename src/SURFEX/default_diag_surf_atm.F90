@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_DIAG_SURF_ATM(K2M, OT2MMW, OSURF_BUDGET, O2M_MIN_ZS, ORAD_BUDGET, &
                                        OCOEF, OSURF_VARS, OSURF_BUDGETC, ORESET_BUDGETC, &
                                        OSELECT, OPROVAR_TO_DIAG, ODIAG_GRID, OFRAC, &
-                                       PDIAG_TSTEP, OSNOWDIMNC, ORESETCUMUL, CSELECT  )                                         
+                                       PDIAG_TSTEP, OSNOWDIMNC, ORESETCUMUL, CSELECT  )
 !     ########################################################################
 !
 !!****  *DEFAULT_DIAG_SURF_ATM* - routine to set default values for the choice of diagnostics
@@ -34,7 +34,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!      Modified    01/2006 : sea flux parameterization.
 !!      B. Decharme   2008    flag for mean grid diag
 !!      B. Decharme   2009    flag for cumulative budget and to write selected diags
@@ -71,7 +71,7 @@ LOGICAL,  INTENT(OUT) :: ORESETCUMUL   ! if true reset cumulated variables at ea
 LOGICAL,  INTENT(OUT) :: ODIAG_GRID    ! flag for mean grid diag
 LOGICAL,  INTENT(OUT) :: OFRAC         ! flag for fractions of tiles
 REAL,     INTENT(OUT) :: PDIAG_TSTEP   ! time-step for writing
-CHARACTER(LEN=12), DIMENSION(200), INTENT(OUT), OPTIONAL :: CSELECT  
+CHARACTER(LEN=12), DIMENSION(200), INTENT(OUT), OPTIONAL :: CSELECT
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !*       0.2   Declarations of local variables

@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #####################
       SUBROUTINE CONTROL_WATER_BUDGET_TOPD (IO, S, U, PWGM, PWG, PDG, PMESH_SIZE, PAVG_MESH_SIZE, PWSAT)
 !     #####################
 !
-!!****  *CONTROL_WATER_BUDGET_TOPD*  
+!!****  *CONTROL_WATER_BUDGET_TOPD*
 !!
 !!    PURPOSE
 !!    -------
 !     To control water budget after topodyn_lat lateral distribution
-!     
-!         
-!     
+!
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,17 +24,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -87,7 +87,7 @@ REAL, DIMENSION(:),   INTENT(IN)    :: PWSAT
 !*      0.2    declarations of local variables
 !
 !
-REAL, DIMENSION(SIZE(PWG,1),3)     :: ZWG_3L, ZWGI_3L, ZDG_3L          
+REAL, DIMENSION(SIZE(PWG,1),3)     :: ZWG_3L, ZWGI_3L, ZDG_3L
 REAL                               :: ZSTOCK_WGM, ZSTOCK_WG
 REAL                               :: ZAVG_DGALL, ZCONTROL_WATER_BUDGET_TOPD
 REAL                               :: ZTMP, ZTMP2
@@ -115,17 +115,17 @@ IF(IO%NPATCH/=1) THEN
   ZAVG_DG(:)  = 0.
   !
   DO JP=1,IO%NPATCH
-    DO JJ=1,SIZE(S%XPATCH,1)     
+    DO JJ=1,SIZE(S%XPATCH,1)
       IF(ZSUMPATCH(JJ) > 0..AND.PWGM(JJ,JP)/=XUNDEF.AND.PWG(JJ,JP)/=XUNDEF.AND.PDG (JJ,JP)/=XUNDEF)THEN
         !
-        ZAVG_WGM(JJ) = ZAVG_WGM(JJ) + S%XPATCH(JJ,JP) * PWGM(JJ,JP) * PDG(JJ,JP) 
-        ZAVG_WG (JJ) = ZAVG_WG (JJ) + S%XPATCH(JJ,JP) * PWG (JJ,JP) * PDG(JJ,JP) 
+        ZAVG_WGM(JJ) = ZAVG_WGM(JJ) + S%XPATCH(JJ,JP) * PWGM(JJ,JP) * PDG(JJ,JP)
+        ZAVG_WG (JJ) = ZAVG_WG (JJ) + S%XPATCH(JJ,JP) * PWG (JJ,JP) * PDG(JJ,JP)
         ZAVG_DG (JJ) = ZAVG_DG (JJ) + S%XPATCH(JJ,JP) * PDG (JJ,JP)
-        !          
+        !
       ENDIF
     ENDDO
-  ENDDO     
-  !     
+  ENDDO
+  !
   WHERE (ZAVG_DG(:)>0.0.AND.ZSUMPATCH(:)>0.)
     ZAVG_WGM(:) = ZAVG_WGM(:) / ZAVG_DG(:)
     ZAVG_WG(:)  = ZAVG_WG(:)  / ZAVG_DG(:)
@@ -133,7 +133,7 @@ IF(IO%NPATCH/=1) THEN
   !
 ELSE
   ZAVG_WGM (:) = PWGM(:,1)
-  ZAVG_WG  (:) = PWG (:,1) 
+  ZAVG_WG  (:) = PWG (:,1)
   ZAVG_DG  (:) = PDG (:,1)
   !
   ZSUMPATCH(:) = 1.0
@@ -174,7 +174,7 @@ IF (ZAVG_DGALL/=0.) THEN
     WHERE (LMODIF)
       ZAVG_WG(:) = MIN(MAX(ZAVG_WG(:) - (ZCONTROL_WATER_BUDGET_TOPD/ZTMP),XWGMIN),PWSAT(:))
     ENDWHERE
-    ! 
+    !
   ENDIF
  !
 ENDIF

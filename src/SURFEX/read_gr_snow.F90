@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_GR_SNOW(HPROGRAM, HSURFTYPE, HPREFIX,     &
-                              KLU, KSIZE_P, KMASK_P, KPATCH, TPSNOW, HDIR, KVERSION, KBUGFIX, KNPATCH)  
+                              KLU, KSIZE_P, KMASK_P, KPATCH, TPSNOW, HDIR, KVERSION, KBUGFIX, KNPATCH)
 !     ##########################################################
 !
 !!****  *READ_GR_SNOW* - routine to read snow surface fields
@@ -15,20 +15,20 @@
 !
 !!**  METHOD
 !!    ------
-!!    
-!!    
+!!
+!!
 !!
 !!    EXTERNAL
 !!    --------
-!!      
-!!       
+!!
+!!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!    REFERENCE
 !!    ---------
-!!      
-!!      
+!!
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -66,7 +66,7 @@ IMPLICIT NONE
                                                       ! snow characteristics
                                                       ! storage in file
  CHARACTER (LEN=3),  INTENT(IN)           :: HPREFIX   ! generic name for patch
-!                                                     ! identification                      
+!                                                     ! identification
 INTEGER,            INTENT(IN)           :: KLU       ! horizontal size of snow var.
 INTEGER,            INTENT(IN)           :: KSIZE_P
 INTEGER, DIMENSION(:), INTENT(IN) :: KMASK_P
@@ -84,7 +84,7 @@ INTEGER, INTENT(IN), OPTIONAL :: KNPATCH
 !
  CHARACTER (LEN=7) :: YFMT0               ! format for writing
  CHARACTER (LEN=100) :: YFMT                ! format for writing
- CHARACTER(LEN=16)   :: YRECFM2 
+ CHARACTER(LEN=16)   :: YRECFM2
  CHARACTER(LEN=12)   :: YRECFM              ! Name of the article to be read
  CHARACTER(LEN=4)    :: YNLAYER     !Format depending on the number of layers
  CHARACTER(LEN=1)    :: YDIR                ! type of reading
@@ -93,7 +93,7 @@ INTEGER, INTENT(IN), OPTIONAL :: KNPATCH
 REAL, DIMENSION(:,:), ALLOCATABLE :: ZWORK
 !
 INTEGER             :: IRESP, JI, JP              ! Error code after redding
-INTEGER             :: ISURFTYPE_LEN, IPAT_LEN     ! 
+INTEGER             :: ISURFTYPE_LEN, IPAT_LEN     !
 INTEGER             :: JL              ! loop counter
 INTEGER             :: IVERSION, IBUGFIX
 INTEGER :: INPATCH
@@ -177,7 +177,7 @@ ENDIF
 IF (KPATCH>0.AND.GDIM) THEN
   WRITE(YPAT,'(I2)') KPATCH
   YPAT = "P"//ADJUSTL(YPAT)
-  IPAT_LEN = LEN_TRIM(ADJUSTL(YPAT))        
+  IPAT_LEN = LEN_TRIM(ADJUSTL(YPAT))
 ELSE
   YPAT = " "
   IPAT_LEN=1
@@ -231,7 +231,7 @@ IF (IVERSION >= 7 .AND. HSURFTYPE=='VEG'.AND.KPATCH==1)  &
 ALLOCATE(ZWORK(KLU,INPATCH))
 !
 IF (TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' &
-                         .OR. TPSNOW%SCHEME=='3-L' .OR. TPSNOW%SCHEME=='CRO') THEN 
+                         .OR. TPSNOW%SCHEME=='3-L' .OR. TPSNOW%SCHEME=='CRO') THEN
   !
   WRITE(YFMT0,'(A5,I1,A1)') ',A1,A',ISURFTYPE_LEN
   !
@@ -267,7 +267,7 @@ IF (TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' &
       !              ------------
       !
       IF (GVERSION) THEN
-        YFMT = "(A2,A1"//YFMT0//')'       
+        YFMT = "(A2,A1"//YFMT0//')'
       ELSE
         YFMT = "(A5"//YFMT0//')'
       ENDIF
@@ -282,7 +282,7 @@ IF (TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' &
       !              -------------------
       !
       IF (GVERSION) THEN
-        YFMT = "(A3"//YFMT0//')'         
+        YFMT = "(A3"//YFMT0//')'
       ELSE
         YFMT = "(A4"//YFMT0//')'
       ENDIF
@@ -292,14 +292,14 @@ IF (TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' &
     ELSE
       !
       DO JL = 1,TPSNOW%NLAYER
-        WHERE (TPSNOW%WSNOW(:,1) >= 0.0) 
+        WHERE (TPSNOW%WSNOW(:,1) >= 0.0)
           TPSNOW%AGE(:,JL) = 0.0
         ELSEWHERE
           TPSNOW%AGE(:,JL) = XUNDEF
         ENDWHERE
       ENDDO
       !
-    END IF    
+    END IF
     !
   ENDIF
   !
@@ -321,7 +321,7 @@ DEALLOCATE(ZWORK)
 IF (LHOOK) CALL DR_HOOK('READ_GR_SNOW_1',1,ZHOOK_HANDLE)
 !
 IF (TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' &
-                         .OR. TPSNOW%SCHEME=='3-L' .OR. TPSNOW%SCHEME=='CRO') THEN 
+                         .OR. TPSNOW%SCHEME=='3-L' .OR. TPSNOW%SCHEME=='CRO') THEN
   !
 !$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)
 IF (LHOOK) CALL DR_HOOK('READ_GR_SNOW_2',0,ZHOOK_HANDLE_OMP)

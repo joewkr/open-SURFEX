@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CO2_INIT_n (IO, S, PK, PEK, KSIZE, PCO2   )
@@ -31,12 +31,12 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    02/2003 
+!!      Original    02/2003
 !!      J.C. Calvet 01/2004 Externalization
 !!      P Le Moigne 11/2004 cotwoinit changed into cotwoinit_n
 !!      P Le Moigne 09/2005 AGS modifs of L. Jarlan
 !!      S Lafont    09/2008 Add initialisation of POI and ABC (needed for TORI)
-!!      A.L. Gibelin 04/2009 : TAU_WOOD for NCB option 
+!!      A.L. Gibelin 04/2009 : TAU_WOOD for NCB option
 !!      A.L. Gibelin 04/2009 : Add carbon spinup
 !!      A.L. Gibelin 07/2009 : Suppress RDK and transform GPP as a diagnostic
 !!      A.L. Gibelin 07/2009 : Suppress PPST and PPSTF as outputs

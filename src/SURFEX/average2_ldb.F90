@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
       SUBROUTINE AVERAGE2_LDB(PPGDARRAY,HTYPE,KSTAT)
 !     #########################
 !
-!!**** *AVERAGE2_LDB* 
+!!**** *AVERAGE2_LDB*
 !!
 !!    PURPOSE
 !!    -------
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -81,7 +81,7 @@ SELECT CASE (HTYPE)
     ALLOCATE(ZBOUND(SIZE(XBOUNDGRADDEPTH_LDB)))
     ZBOUND(:) = XBOUNDGRADDEPTH_LDB(:)
     ALLOCATE(ZCENTR(SIZE(XCENTRGRADDEPTH_LDB)))
-    ZCENTR(:) = XCENTRGRADDEPTH_LDB(:)    
+    ZCENTR(:) = XCENTRGRADDEPTH_LDB(:)
 !
   CASE('S')
     ALLOCATE(ZBOUND(SIZE(XBOUNDGRADSTATUS_LDB)))
@@ -134,7 +134,7 @@ DO JI = 1,SIZE(XSUMVAL,1)
       PPGDARRAY(JI) = 0.
     ELSE
       PPGDARRAY(JI) = ZAVE / ZFRAC
-    ENDIF 
+    ENDIF
     !
   ENDIF
   !

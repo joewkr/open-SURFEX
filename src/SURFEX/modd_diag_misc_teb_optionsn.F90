@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ############################
       MODULE MODD_DIAG_MISC_TEB_OPTIONS_n
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -26,7 +26,7 @@
 !!    MODIFICATIONS
 !!    -------------
 !!      Original       07/10/04
-!!      C de Munck        02/13  adding runoff contributions for teb garden  
+!!      C de Munck        02/13  adding runoff contributions for teb garden
 !!      V. Masson      06/2013 splits module in two
 !
 !

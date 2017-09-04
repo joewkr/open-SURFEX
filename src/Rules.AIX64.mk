@@ -14,7 +14,7 @@ USE_SPLR = YES
             -qinitauto=0 -qdpc=e -qmaxmem=-1 -qnoescape
 OPT_BASE = -g -w -qrealsize=8 -qnoescape -q64 -qextname -NS32648 -qmaxmem=-1 -bbigtoc
 OPT_PERF0 = -O0 -qnooptimize
-OPT_PERF2 = -O2 
+OPT_PERF2 = -O2
 OPT_PERF2 = -O3 -qarch=pwr6 -qstrict
 OPT_CHECK = -C
 OPT_I8    = -qintsize=8
@@ -75,15 +75,15 @@ FX90FLAGS     = $(FCFLAGS_OMP) $(OPT) -qfixed
 #
 
 #
-# vargas / c1a underscore management 
+# vargas / c1a underscore management
 #
 ifneq "$(findstring c1a,$(shell uname -n))" ""
 LDFLAGS   = $(FCFLAGS_OMP) $(OPT) -brename:.fminbits_in_word_,.fminbits_in_word__ -bloadmap:exec.log.out
 else
-LDFLAGS   = $(FCFLAGS_OMP) $(OPT) -brename:.flush,.flush_ 
+LDFLAGS   = $(FCFLAGS_OMP) $(OPT) -brename:.flush,.flush_
 endif
 #
-# preprocessing flags 
+# preprocessing flags
 #
 CPP = /usr/lib/cpp -C -P -qlanglvl=classic
 #
@@ -104,7 +104,7 @@ CNAME_GRIBEX=""
 # Source of MESONH PACKAGE  Distribution                 #
 #                                                        #
 ##########################################################
-#DIR_SURFEX      += ARCH_SRC/surfex 
+#DIR_SURFEX      += ARCH_SRC/surfex
 #DIR_SURCOUCHE   += ARCH_SRC/bug_surcouche
 #
 include Makefile.SURFEX.mk
@@ -127,6 +127,6 @@ OBJS_O1 += spll_aeroopt_get.o
 $(OBJS_O1) : OPT = $(OPT_BASE) $(OPT_PERF1)
 
 #OBJS_O0 += spll_compute_exner_from_ground3d.o  spll_compute_exner_from_ground1d.o spll_modi_set_rsou.o spll_set_rsou.o
-OBJS_O0 += spll_compute_exner_from_ground1d.o 
+OBJS_O0 += spll_compute_exner_from_ground1d.o
 $(OBJS_O0) : OPT = $(OPT_BASE) $(OPT_PERF0)
 #

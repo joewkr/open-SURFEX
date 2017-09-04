@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_ISBA_CANOPY_n (DTCO, UG, U, USS, SB, NAG, CHI, NCHI, DTV, ID, NGB, GB, &
@@ -26,11 +26,11 @@ SUBROUTINE COUPLING_ISBA_CANOPY_n (DTCO, UG, U, USS, SB, NAG, CHI, NCHI, DTV, ID
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -93,7 +93,7 @@ TYPE(DATA_ISBA_t), INTENT(INOUT) :: DTV
 TYPE(ISBA_DIAG_t), INTENT(INOUT) :: ID
 TYPE(GR_BIOG_NP_t), INTENT(INOUT) :: NGB
 TYPE(GR_BIOG_t), INTENT(INOUT) :: GB
-TYPE(SSO_t), INTENT(INOUT) :: ISS 
+TYPE(SSO_t), INTENT(INOUT) :: ISS
 TYPE(SSO_NP_t), INTENT(INOUT) :: NISS
 TYPE(GRID_t), INTENT(INOUT) :: IG
 TYPE(GRID_NP_t), INTENT(INOUT) :: NIG
@@ -370,8 +370,8 @@ ELSE
                      ZZREF, ZPEW_A_COEF,            &
                      ZPEW_B_COEF, ZPET_A_COEF,      &
                      ZPET_B_COEF, ZPEQ_A_COEF,      &
-                     ZPEQ_B_COEF    ) 
-! 
+                     ZPEQ_B_COEF    )
+!
 END IF
 !
 !-------------------------------------------------------------------------------------
@@ -460,7 +460,7 @@ IF (IO%LCANOPY_DRAG) THEN
 !* Total friction due to surface averaged friction and averaged canopy drag
   IF (ID%O%LSURF_BUDGET) THEN
     ID%D%XFMU = PSFU
-    ID%D%XFMV = PSFV          
+    ID%D%XFMV = PSFV
   ENDIF
 END IF
 !

@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE DIAG_MISC_ISBA_n (DMK, KK, PK, PEK, AGK, IO, OSURF_MISC_BUDGET, &
-                             OVOLUMETRIC_SNOWLIQ, PTSTEP, OAGRIP, PTIME, KSIZE  )  
+                             OVOLUMETRIC_SNOWLIQ, PTSTEP, OAGRIP, PTIME, KSIZE  )
 !     ###############################################################################
 !
 !!****  *DIAG_MISC-ISBA_n * - additional diagnostics for ISBA
@@ -17,11 +17,11 @@ SUBROUTINE DIAG_MISC_ISBA_n (DMK, KK, PK, PEK, AGK, IO, OSURF_MISC_BUDGET, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     P. Le Moigne 
+!!     P. Le Moigne
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -48,7 +48,7 @@ USE MODD_ISBA_OPTIONS_n, ONLY : ISBA_OPTIONS_t
 USE MODD_CSTS,       ONLY : XTT, XRHOLW
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 !
-!                                     
+!
 USE MODD_TYPE_SNOW
 !
 USE MODI_COMPUT_COLD_LAYERS_THICK
@@ -69,12 +69,12 @@ TYPE(ISBA_OPTIONS_t), INTENT(INOUT) :: IO
 !
 LOGICAL, INTENT(IN) :: OSURF_MISC_BUDGET
 LOGICAL, INTENT(IN) :: OVOLUMETRIC_SNOWLIQ
-REAL,    INTENT(IN) :: PTSTEP        ! timestep for  accumulated values 
+REAL,    INTENT(IN) :: PTSTEP        ! timestep for  accumulated values
 LOGICAL, INTENT(IN) :: OAGRIP
 REAL,    INTENT(IN) :: PTIME   ! current time since midnight
 INTEGER, INTENT(IN) :: KSIZE
 !
-!    
+!
 !*      0.2    declarations of local variables
 !
 REAL, DIMENSION(SIZE(PEK%XPSN))    :: ZSNOWTEMP
@@ -94,14 +94,14 @@ IF (LHOOK) CALL DR_HOOK('DIAG_MISC_ISBA_N',0,ZHOOK_HANDLE)
 IF (OSURF_MISC_BUDGET) THEN
   !
   DMK%XSWI (:,:)=XUNDEF
-  DMK%XTSWI(:,:)=XUNDEF  
+  DMK%XTSWI(:,:)=XUNDEF
   DO JL=1,SIZE(PEK%XWG,2)
     DO JI=1,SIZE(PEK%XWG,1)
-      IF(PEK%XWG (JI,JL)/=XUNDEF)THEN    
+      IF(PEK%XWG (JI,JL)/=XUNDEF)THEN
         DMK%XSWI (JI,JL) = (PEK%XWG (JI,JL) - KK%XWWILT(JI,JL)) / (KK%XWFC(JI,JL) - KK%XWWILT(JI,JL))
         DMK%XTSWI(JI,JL) = (PEK%XWG (JI,JL) - KK%XWWILT(JI,JL)) / (KK%XWFC(JI,JL) - KK%XWWILT(JI,JL))
       ENDIF
-      IF(PEK%XWGI (JI,JL)/=XUNDEF)THEN    
+      IF(PEK%XWGI (JI,JL)/=XUNDEF)THEN
         DMK%XTSWI(JI,JL) = DMK%XTSWI(JI,JL) +  PEK%XWGI(JI,JL) / (KK%XWFC(JI,JL) - KK%XWWILT(JI,JL))
       ENDIF
     ENDDO
@@ -115,7 +115,7 @@ IF (OSURF_MISC_BUDGET) THEN
   !
   DMK%XTWSNOW=0.
   DMK%XTDSNOW=0.
-  ZSNOWTEMP=0.  
+  ZSNOWTEMP=0.
   !
   IF (PEK%TSNOW%SCHEME/='EBA')THEN
      ZWORKTEMP(:,:) = DMK%XSNOWTEMP(:,:)
@@ -125,7 +125,7 @@ IF (OSURF_MISC_BUDGET) THEN
   !
   DO JL = 1,SIZE(PEK%TSNOW%WSNOW,2)
     DO JI = 1,SIZE(PEK%TSNOW%WSNOW,1)
-      DMK%XTWSNOW(JI) = DMK%XTWSNOW(JI) + PEK%TSNOW%WSNOW(JI,JL)      
+      DMK%XTWSNOW(JI) = DMK%XTWSNOW(JI) + PEK%TSNOW%WSNOW(JI,JL)
       DMK%XTDSNOW(JI) = DMK%XTDSNOW(JI) + ZWORK (JI,JL)
       ZSNOWTEMP  (JI) = ZSNOWTEMP(JI) + ZWORKTEMP(JI,JL) * ZWORK(JI,JL)
     ENDDO
@@ -145,7 +145,7 @@ IF (OSURF_MISC_BUDGET) THEN
   DMK%XFFV   (:) = KK%XFFV  (:)
   DMK%XFSAT  (:) = KK%XFSAT (:)
   DMK%XTTSNOW(:) = ZSNOWTEMP(:)
-  !  
+  !
   IF ( (PEK%TSNOW%SCHEME=='3-L' .OR. PEK%TSNOW%SCHEME=='CRO') .AND. OVOLUMETRIC_SNOWLIQ ) THEN
     !
     WHERE (DMK%XSNOWLIQ(:,:)/=XUNDEF) &
@@ -153,7 +153,7 @@ IF (OSURF_MISC_BUDGET) THEN
     !
   ENDIF
   !
-  ! cosine of solar zenith angle 
+  ! cosine of solar zenith angle
   !
   IF (IO%CPHOTO/='NON'.AND.IO%LTR_ML) THEN
        !
@@ -163,13 +163,13 @@ IF (OSURF_MISC_BUDGET) THEN
          DO JI=1,KSIZE
            !
            IF (PEK%XMUS(JI).NE.0.) THEN
-             DMK%XDFAPARC   (JI) = PEK%XFAPARC   (JI) / PEK%XMUS(JI) 
+             DMK%XDFAPARC   (JI) = PEK%XFAPARC   (JI) / PEK%XMUS(JI)
              DMK%XDFAPIRC   (JI) = PEK%XFAPIRC   (JI) / PEK%XMUS(JI)
              DMK%XDLAI_EFFC (JI) = PEK%XLAI_EFFC (JI) / PEK%XMUS(JI)
            ENDIF
            !
          ENDDO
-         DO JI=1,KSIZE   
+         DO JI=1,KSIZE
            PEK%XFAPARC(JI)   = 0.
            PEK%XFAPIRC(JI)   = 0.
            PEK%XLAI_EFFC(JI) = 0.
@@ -184,8 +184,8 @@ IF (OSURF_MISC_BUDGET) THEN
     ZFLT(:)=0.0
     CALL COMPUT_COLD_LAYERS_THICK(PK%XDG(:,:),PEK%XTG(:,:),ZALT,ZFLT)
     DO JI=1,KSIZE
-      DMK%XALT(JI) =  ZALT(JI) 
-      DMK%XFLT(JI) =  ZFLT(JI)  
+      DMK%XALT(JI) =  ZALT(JI)
+      DMK%XFLT(JI) =  ZFLT(JI)
     ENDDO
   ENDIF
   !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#################################################################
 SUBROUTINE WRITE_GRIDTYPE_GAUSS (HSELECT,HPROGRAM,KLU,KGRID_PAR,PGRID_PAR,KRESP)
@@ -31,7 +31,7 @@ SUBROUTINE WRITE_GRIDTYPE_GAUSS (HSELECT,HPROGRAM,KLU,KGRID_PAR,PGRID_PAR,KRESP)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -95,7 +95,7 @@ ALLOCATE(INLOPA(INLATI))
 !
  CALL GET_GRIDTYPE_GAUSS(PGRID_PAR,INLATI,ZLAPO,ZLOPO,ZCODIL,INLOPA(:),IL,&
                          ZLAT,ZLON,ZLAT_XY,ZLON_XY,ZMESH_SIZE,            &
-                         ZLONINF,ZLATINF,ZLONSUP,ZLATSUP                  )  
+                         ZLONINF,ZLATINF,ZLONSUP,ZLATSUP                  )
 !
 !---------------------------------------------------------------------------
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
     SUBROUTINE MASS_LAYER_E_BUDGET(B, PTSTEP, PFLX_BLD_MA, PDQS_MA, PIMB_MA, PRADHT_IN, &
@@ -8,21 +8,21 @@
                                    PRAD_FL_MA, PCONV_MA_BLD                  )
 !   ##########################################################################
 !
-!!****  *MASS_LAYER_E_BUDGET*  
+!!****  *MASS_LAYER_E_BUDGET*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the evoultion of building floor temperatures
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
-!    6 : equations for evolution of Ts_floor 
+!    6 : equations for evolution of Ts_floor
 !        *************************************************************
 !
-!     dTf_k(t) / dt = 1/(df_k*Cf_k) * (- 2*Kf_k-1*(Tf_k-Tf_k-1)/(df_k-1 +df_k) 
+!     dTf_k(t) / dt = 1/(df_k*Cf_k) * (- 2*Kf_k-1*(Tf_k-Tf_k-1)/(df_k-1 +df_k)
 !                                      - 2*Kf_k  *(Tf_k-Tf_k+1)/(df_k+1 +df_k) )
 !
 !     dTf_1(t) / dt = 1/(df_1*Cf_1) * (- 2*Kw_1*(Tw_1-Tw_2)/(dw_1 +dw_2))
@@ -50,11 +50,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -120,7 +120,7 @@ IF (LHOOK) CALL DR_HOOK('MASS_LAYER_E_BUDGET',0,ZHOOK_HANDLE)
 !
 ! *Convection heat transfer coefficients [W m-2 K-1] from EP Engineering Reference
 !
-ZCHTC_IN_MA(:) = CHTC_VERT_DOE(B%XT_MASS(:,1), B%XTI_BLD(:)) 
+ZCHTC_IN_MA(:) = CHTC_VERT_DOE(B%XT_MASS(:,1), B%XTI_BLD(:))
 DO JJ=1,SIZE(ZCHTC_IN_MA)
    ZCHTC_IN_MA(JJ) = MAX(1., ZCHTC_IN_MA(JJ))
 ENDDO
@@ -128,7 +128,7 @@ ENDDO
  CALL LAYER_E_BUDGET_GET_COEF( B%XT_MASS, PTSTEP, ZIMPL, B%XHC_FLOOR, B%XTC_FLOOR, B%XD_FLOOR/2., &
                               ZA, ZB, ZC, ZY )
 !
-ZTS_MA(:) = B%XT_MASS(:,1) 
+ZTS_MA(:) = B%XT_MASS(:,1)
 
 ZB(:,1) = ZB(:,1) + ZIMPL * 4./3. * ZCHTC_IN_MA(:)
 

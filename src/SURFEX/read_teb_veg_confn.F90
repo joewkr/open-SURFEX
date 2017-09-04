@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_TEB_VEG_CONF_n (CHT, IO, HPROGRAM)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      P Le Moigne 09/2005 AGS modifs of L. Jarlan
 !!      P Le Moigne 09/2005 CSNOWRES option
 !!      Modified by P. Le Moigne (06/2006): seeding and irrigation
@@ -101,7 +101,7 @@ IF (IMI.NE.-1 .AND. LNAM_READ) THEN
  CALL INIT_NAM_TEB_VEG_AGSn(IO)
  CALL INIT_NAM_CH_CONTROLn(CHT)
  CALL INIT_NAM_CH_TEB_VEGn(CHT)
- CALL INIT_NAM_SGH_TEB_VEGn(IO)        
+ CALL INIT_NAM_SGH_TEB_VEGn(IO)
 ENDIF
 
 IF (LNAM_READ) THEN
@@ -116,7 +116,7 @@ IF (LNAM_READ) THEN
  CALL POSNAM(INAM,'NAM_ISBAN',GFOUND,ILUOUT)
  IF (GFOUND) READ(UNIT=INAM,NML=NAM_ISBAn)
  CALL POSNAM(INAM,'NAM_ISBA_AGSN',GFOUND,ILUOUT)
- IF (GFOUND) READ(UNIT=INAM,NML=NAM_ISBA_AGSn) 
+ IF (GFOUND) READ(UNIT=INAM,NML=NAM_ISBA_AGSn)
 ! for the time being, chemistry is not implemented on gardens
 ! CALL POSNAM(INAM,'NAM_CH_ISBAN',GFOUND,ILUOUT)
 ! IF (GFOUND) READ(UNIT=INAM,NML=NAM_CH_ISBAn)
@@ -148,7 +148,7 @@ IF (IMI.NE.-1) THEN
  CALL UPDATE_NAM_TEB_VEG_AGSn(IO)
  CALL UPDATE_NAM_CH_TEB_VEGn(CHT)
  CALL UPDATE_NAM_CH_CONTROLn(CHT)
- CALL UPDATE_NAM_SGH_TEB_VEGn(IO)        
+ CALL UPDATE_NAM_SGH_TEB_VEGn(IO)
 ENDIF
 IF (LHOOK) CALL DR_HOOK('READ_TEB_VEG_CONF_N',1,ZHOOK_HANDLE)
 !

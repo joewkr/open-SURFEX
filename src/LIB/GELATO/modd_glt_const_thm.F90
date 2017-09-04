@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,34 +28,34 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! ======================================================================
 !  This module contains all the parameters used by the thermodynamics
 !  module of GELATO.
 ! ======================================================================
 
-MODULE modd_glt_const_thm 
+MODULE modd_glt_const_thm
 !
 IMPLICIT NONE
 !
 !
-! 1. PRESCRIBED PARAMETERS 
+! 1. PRESCRIBED PARAMETERS
 ! =========================
 !
 ! 1.1. Various constants (time, units, math...)
 ! ----------------------------------------------
-! 
+!
 ! Pi
     REAL, PARAMETER ::  &
         pi = 3.141592653789     ! -
-! First tolerance parameter  
+! First tolerance parameter
     REAL, PARAMETER ::  &
         epsil1 = 1.E-10         ! -
 ! Second tolerance parameter
@@ -73,7 +73,7 @@ IMPLICIT NONE
 ! Number of seconds in one day
     REAL, PARAMETER ::  &
         xday2sec = 86400.       ! -
-! Number of days in one year   
+! Number of days in one year
     REAL, PARAMETER ::  &
         xyear2day = 365.25      ! -
 ! Number of seconds in one month
@@ -100,7 +100,7 @@ REAL, PARAMETER ::  &
 ! 1.3. Thermodynamical constants
 ! -------------------------------
 !
-! Albedo of dry, bare ice ( hsi <=hsicr ) 
+! Albedo of dry, bare ice ( hsi <=hsicr )
 !   - we use a formula adapted from Flato and Brown, JGR (1996)
 ! (the threshold is just computed in glt_updasn_r routine)
 !      alb = xalf1 * hsi^xpow + albw
@@ -110,7 +110,7 @@ REAL, PARAMETER ::  &
     REAL, PARAMETER ::   &
         albi = .71              ! -
 ! Albedo of melting sea ice
-!    REAL, PARAMETER ::  & 
+!    REAL, PARAMETER ::  &
 !        albimlt = .50           ! -
 ! Albedo over melting snow (Curry et al., JGR-A, 2001)
 !    REAL, PARAMETER ::  &
@@ -133,7 +133,7 @@ REAL, PARAMETER ::  &
 ! Beer Lambert's law attenuation coefficient (Ebert et al., JGR-O, 1995)
     REAL, PARAMETER ::  &
         kappa = 1.4             !
-! Lateral melting rate (Maykut, 1987) : Mr = m1 * (tlead - t_f)**m2 
+! Lateral melting rate (Maykut, 1987) : Mr = m1 * (tlead - t_f)**m2
     REAL, PARAMETER ::  &
         xm1 = 1.6E-06           ! m.s^-1.K^-1.36
     REAL, PARAMETER ::  &
@@ -149,12 +149,12 @@ REAL, PARAMETER ::  &
         rhoice = 910.           ! kg/m^3
 ! Maximum density for old snow
     REAL, PARAMETER ::  &
-        rhosnwmax = 300.        ! kg/m^3 
+        rhosnwmax = 300.        ! kg/m^3
 ! Density of fresh snow
     REAL, PARAMETER ::  &
         rhosnwmin = 100.        ! kg/m^3
 ! Ice conductivity (if function of T and S)
-!   - we use a parameterization by Pringle et al., JGR (2007) 
+!   - we use a parameterization by Pringle et al., JGR (2007)
 ! Original parameterization:
 !   rkice(T,S) = rho_sea_ice / rho_pure_ice * ( xrki1 + xrki2*T + xrki3*S/T )
 ! (up to T=-1.8)
@@ -207,7 +207,7 @@ REAL, PARAMETER ::  &
 ! Minimum snowfall that allows to cover a sea ice slab totally
     REAL, PARAMETER ::  &
         wnew = 5.E-2            ! m
-! Concentration threshold to define sea ice extension 
+! Concentration threshold to define sea ice extension
     REAL, PARAMETER ::  &
         xfsic = 0.15            ! [0-1]
 ! Concentration threshold to define sea ice existence
@@ -228,7 +228,7 @@ REAL, PARAMETER ::  &
 ! Melt pond reference temperature
     REAL, PARAMETER ::  &
         tp = -2.                ! C
-! Ratio melt pond depth / melt pond fraction 
+! Ratio melt pond depth / melt pond fraction
     REAL, PARAMETER ::  &
         dpthfrac = 0.8          ! -
 ! Parameters for melt ponds depth/fraction relation
@@ -236,7 +236,7 @@ REAL, PARAMETER ::  &
     REAL, PARAMETER ::  &
         dptfr1 = 0.8, dptfr2 = -1.E-4
 !        dptfr1 = 1.16, dptfr2 = -0.09
-! Maximum ratio melt pond depth / ice thickness 
+! Maximum ratio melt pond depth / ice thickness
     REAL, PARAMETER ::  &
         dpthhi = 0.9            ! -
 ! Drainage rate
@@ -285,4 +285,4 @@ REAL, PARAMETER ::  &
     REAL, PARAMETER ::  &
         rhosw = rhofw + ssw0            ! kg/m^3
 !
-END MODULE modd_glt_const_thm 
+END MODULE modd_glt_const_thm

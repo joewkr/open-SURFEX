@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
       SUBROUTINE READ_TOPD_HEADER_CONNEX(HPROGRAM,HFILE,HFORM,KNMC)
 !     #######################
 !
-!!****  *READ_TOPD_HEADER*  
+!!****  *READ_TOPD_HEADER*
 !!
 !!    PURPOSE
 !!    -------
@@ -21,17 +21,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -63,12 +63,12 @@ IMPLICIT NONE
  CHARACTER(LEN=*),  INTENT(IN)  :: HPROGRAM    !
  CHARACTER(LEN=*),  INTENT(IN)  :: HFILE       ! File to be read
  CHARACTER(LEN=*),  INTENT(IN)  :: HFORM       ! Format of the file to be read
-INTEGER,           INTENT(OUT) :: KNMC     ! number of pixels in a catchment 
+INTEGER,           INTENT(OUT) :: KNMC     ! number of pixels in a catchment
 !
 !*      0.2    declarations of local variables
 !
 !
-INTEGER                   :: JJ ! loop control 
+INTEGER                   :: JJ ! loop control
 INTEGER                   :: ILUOUT      ! Unit of the files
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ READ(NUNIT,*)
 READ(NUNIT,*) KNMC
 !
 DO JJ=1,5
-  READ(NUNIT,*) 
+  READ(NUNIT,*)
 ENDDO
 !
  CALL CLOSE_FILE(HPROGRAM,NUNIT)
@@ -101,4 +101,4 @@ END SUBROUTINE READ_TOPD_HEADER_CONNEX
 
 
 
- 
+

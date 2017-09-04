@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
      SUBROUTINE CH_DEP_TOWN ( PRESA_TOWN,  PUSTAR_TOWN,PTA, PTRAD, PWALL_O_HOR, &
-                                PSV, HSV,  PDEP)  
+                                PSV, HSV,  PDEP)
   !###########################################################
   !
-  !!                   
-  !!                       
+  !!
+  !!
   !!
   !!    PURPOSE
   !!    -------
-  !!      
-  !!    Compute dry deposition velocity for chemical species    
+  !!
+  !!    Compute dry deposition velocity for chemical species
   !!
   !!    AUTHOR
   !!    ------
@@ -21,7 +21,7 @@
   !!
   !!    MODIFICATIONS
   !!    -------------
-  !!      Original      20/02/97 
+  !!      Original      20/02/97
   !!      Modification  21/07/00  (Guenais/Tulet) add deposition on town
   !!      Modification  18/07/03  (Tulet) surface externalization
   !!
@@ -61,16 +61,16 @@
   REAL    :: ZSTOWNRC_O3
   ! donnees pour Rcsoil au O3 Wesely (89)
   ! Hemisphere nord latitudes temperees
-  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZSCMDT 
+  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZSCMDT
   ! Sc(:)hmidt number
   REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZDIFFMOLVAL
   ! Molecular diffusivity
-  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZTOWNRB 
+  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZTOWNRB
   ! snow quasi-laminar  resistance
-  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZTOWNRC 
+  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZTOWNRC
   ! towm surface  resistance
 
-  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZRESTOWN 
+  REAL             , DIMENSION(SIZE(PTRAD,1),SIZE(HSV,1)) :: ZRESTOWN
   !  final town  resistance
   REAL, DIMENSION(SIZE(PTRAD,1))      :: ZTOWN_MAX
   REAL, DIMENSION(SIZE(PTRAD,1))      :: ZTCOR
@@ -98,17 +98,17 @@
   !
   !        1.0  Aerodynamic resistance for the differents COVER TYPE
   !             ----------------------------------------------------
-  !   PRESA_TOWN(:)     ! Aerodynamic resistance for TOWN 
+  !   PRESA_TOWN(:)     ! Aerodynamic resistance for TOWN
   !
   !       2.0  Quasi-laminar resistance (Hicks, 1987)
-  !            ------------------------      
+  !            ------------------------
   !
-       !  
+       !
         !         compute molecular diffusivity for each species (Langevin, 1905)
         !         ----------------------------------------------
         DO JSV=1,SIZE(HSV,1)
         ZDIFFMOLVAL(:,JSV) = 2.22E-05 + 1.46E-07 * (PTRAD(:) - 273.0) * &
-                                     SQRT(18. / XSREALMASSMOLVAL(JSV))  
+                                     SQRT(18. / XSREALMASSMOLVAL(JSV))
         ZSCMDT(:,JSV)=0.15E-4 / ZDIFFMOLVAL(:,JSV)
         ENDDO
         !
@@ -117,7 +117,7 @@
         !         --------
         DO JSV=1,SIZE(HSV,1)
            ZTOWNRB(:,JSV) =  ((ZSCMDT(:,JSV)/0.72)**(2./3.)) &
-                                          / (XKARMAN*ZUSTAR_TOWN(:))  
+                                          / (XKARMAN*ZUSTAR_TOWN(:))
         ENDDO
   !
   !       3.  Surface resistance
@@ -130,33 +130,33 @@
               ZTCOR(:) = MIN(2.5E3, ZTCOR(:))
            END WHERE
 
-           
+
            DO JSV=1,SIZE(HSV,1)
            ZTOWNRC(:,JSV) = ZTCOR(:) + (1.E5*ZSTOWNRC_SO2)/ (XSREALHENRYVAL(JSV,1) * &
-                              EXP(XSREALHENRYVAL(JSV,2)* (1./298. - 1./PTA(:))))   
+                              EXP(XSREALHENRYVAL(JSV,2)* (1./298. - 1./PTA(:))))
            ENDDO
 
-  ! 
+  !
         !        6.0  Compute town resistance
         !             -----------------------
         !
-        DO JSV=1,SIZE(HSV,1) 
+        DO JSV=1,SIZE(HSV,1)
            ZRESTOWN(:,JSV) = PRESA_TOWN(:) + &
-                  ZTOWNRB(:,JSV) + ZTOWNRC(:,JSV)  
+                  ZTOWNRB(:,JSV) + ZTOWNRC(:,JSV)
         ENDDO
            !
            ! Town fraction increased to consider the vertical surfaces of buildings
-           ZTOWN_MAX(:) = 1. +  PWALL_O_HOR(:) 
+           ZTOWN_MAX(:) = 1. +  PWALL_O_HOR(:)
 
 
         !        7.0  Compute final dry deposition velocity on urban area
         !             ---------------------------------------------------
         !
-        DO JSV=1,SIZE(HSV,1) 
+        DO JSV=1,SIZE(HSV,1)
           PDEP(:,JSV) = ZTOWN_MAX(:) / ZRESTOWN(:,JSV)
         ENDDO
 IF (LHOOK) CALL DR_HOOK('CH_DEP_TOWN',1,ZHOOK_HANDLE)
 
-   
+
   !
 END SUBROUTINE CH_DEP_TOWN

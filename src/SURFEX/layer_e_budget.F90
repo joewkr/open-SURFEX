@@ -1,26 +1,26 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
     SUBROUTINE LAYER_E_BUDGET( PT, PTSTEP, PIMPL, PHC, PTC, PD, PA, PB, PC, PY, PDQS )
 !   ##########################################################################
 !
-!!****  *FLOOR_LAYER_E_BUDGET*  
+!!****  *FLOOR_LAYER_E_BUDGET*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the evoultion of building floor temperatures
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
-!    6 : equations for evolution of Ts_floor 
+!    6 : equations for evolution of Ts_floor
 !        *************************************************************
 !
-!     dTf_k(t) / dt = 1/(df_k*Cf_k) * (- 2*Kf_k-1*(Tf_k-Tf_k-1)/(df_k-1 +df_k) 
+!     dTf_k(t) / dt = 1/(df_k*Cf_k) * (- 2*Kf_k-1*(Tf_k-Tf_k-1)/(df_k-1 +df_k)
 !                                      - 2*Kf_k  *(Tf_k-Tf_k+1)/(df_k+1 +df_k) )
 !
 !     dTf_1(t) / dt = 1/(df_1*Cf_1) * (- 2*Kw_1*(Tw_1-Tw_2)/(dw_1 +dw_2))
@@ -48,11 +48,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -60,8 +60,8 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    15/04/09 
-!!                     08/10 (G. Pigeon) computation of residual of energy balance 
+!!      Original    15/04/09
+!!                     08/10 (G. Pigeon) computation of residual of energy balance
 !!                                       modification of the limit condition for
 !!                                       the deep temp. from the deep road temp.
 !!                                       to zero flux condition. idem for sfce T
@@ -82,11 +82,11 @@ IMPLICIT NONE
 REAL, DIMENSION(:,:), INTENT(INOUT) :: PT      ! floor layers temperatures
 REAL,                 INTENT(IN)    :: PTSTEP  ! time step
 REAL, DIMENSION(:,:), INTENT(IN)    :: PHC     ! heat capacity for road layers
-REAL, DIMENSION(:,:), INTENT(IN)    :: PTC     ! thermal conductivity for 
+REAL, DIMENSION(:,:), INTENT(IN)    :: PTC     ! thermal conductivity for
                                                !road layers
 REAL, DIMENSION(:,:), INTENT(IN)  :: PD      ! depth of road layers
-REAL, DIMENSION(:,:), INTENT(IN)  :: PA 
-REAL, DIMENSION(:,:), INTENT(IN)  :: PB 
+REAL, DIMENSION(:,:), INTENT(IN)  :: PA
+REAL, DIMENSION(:,:), INTENT(IN)  :: PB
 REAL, DIMENSION(:,:), INTENT(IN)  :: PC
 REAL, DIMENSION(:,:), INTENT(IN)  :: PY
 REAL, DIMENSION(:), INTENT(OUT) :: PDQS
@@ -151,7 +151,7 @@ DO JLAYER=1,ILAYER
   ENDDO
 END DO
 !
-!        3.2   heat storage flux inside floor 
+!        3.2   heat storage flux inside floor
 !              ------------------------------
 !
 PDQS(:)=(ZPEI(:)-ZEI(:))/PTSTEP

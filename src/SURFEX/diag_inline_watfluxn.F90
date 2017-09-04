@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE DIAG_INLINE_WATFLUX_n (DGO, D, DC, W, &
@@ -9,7 +9,7 @@
                                          PZ0H, PQSAT, PSFTH, PSFTQ, PSFZON, PSFMER, &
                                          PDIR_SW, PSCA_SW, PLW, PDIR_ALB, PSCA_ALB, &
                                          PEMIS, PTRAD, PRAIN, PSNOW, PSFTH_ICE,     &
-                                         PSFTQ_ICE                                  )  
+                                         PSFTQ_ICE                                  )
 !     ###############################################################################
 !
 !!****  *DIAG_INLINE_WATFLUX_n * - computes diagnostics during WATFLUX time-step
@@ -22,11 +22,11 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -53,7 +53,7 @@ USE MODI_CLS_WIND
 USE MODI_DIAG_SURF_BUDGET_WATER
 USE MODI_DIAG_SURF_BUDGETC
 USE MODI_DIAG_CPL_ESM_WATER
-! 
+!
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -119,11 +119,11 @@ D%XTS(:) = W%XTS(:)
 IF (.NOT. W%LSBL) THEN
 !
   IF (DGO%N2M==2) THEN
-    ZH(:)=2.          
+    ZH(:)=2.
     CALL CLS_TQ(PTA, PQA, PPA, PPS, PHT, PCD, PCH, PRI, &
-                W%XTS, PHU, PZ0H, ZH, D%XT2M, D%XQ2M, D%XHU2M )  
-    ZH(:)=10.                
-    CALL CLS_WIND(PZONA, PMERA, PHW, PCD, PCDN, PRI, ZH, D%XZON10M, D%XMER10M )  
+                W%XTS, PHU, PZ0H, ZH, D%XT2M, D%XQ2M, D%XHU2M )
+    ZH(:)=10.
+    CALL CLS_WIND(PZONA, PMERA, PHW, PCD, PCDN, PRI, ZH, D%XZON10M, D%XMER10M )
   END IF
 !
   IF (DGO%N2M>=1) THEN
@@ -156,11 +156,11 @@ ENDIF
 IF (DGO%LSURF_BUDGET.OR.DGO%LSURF_BUDGETC) THEN
   !
   CALL  DIAG_SURF_BUDGET_WATER (D, XTT, W%XTS, PRHOA, PSFTH, PSFTQ, PDIR_SW, PSCA_SW, PLW,  &
-                                PDIR_ALB, PSCA_ALB, PEMIS, PTRAD, PSFZON, PSFMER )  
+                                PDIR_ALB, PSCA_ALB, PEMIS, PTRAD, PSFZON, PSFMER )
   !
 END IF
 !
-IF(DGO%LSURF_BUDGETC) CALL DIAG_SURF_BUDGETC(D, DC, PTSTEP, .TRUE.)  
+IF(DGO%LSURF_BUDGETC) CALL DIAG_SURF_BUDGETC(D, DC, PTSTEP, .TRUE.)
 !
 IF (DGO%LCOEF) THEN
   !
@@ -190,8 +190,8 @@ ENDIF
 IF (LCPL_SEA) THEN
 !
   CALL DIAG_CPL_ESM_WATER(W, D, LCPL_SEAICE, PTSTEP, PSFTQ, PRAIN, PSNOW, PLW, &
-                          PSFTH_ICE, PSFTQ_ICE, PDIR_SW, PSCA_SW )  
-! 
+                          PSFTH_ICE, PSFTQ_ICE, PDIR_SW, PSCA_SW )
+!
 ENDIF
 IF (LHOOK) CALL DR_HOOK('DIAG_INLINE_WATFLUX_N',1,ZHOOK_HANDLE)
 !

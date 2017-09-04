@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
  SUBROUTINE DIAG_INLINE_ISBA_n (DGO, KK, DK, OCANOPY, PTA, PQA, PPA, PPS, PRHOA, PZONA, PMERA, &
-                                  PHT, PHW, PSFTH, PSFTQ, PSFZON, PSFMER, PDIR_SW, PSCA_SW, PLW )  
+                                  PHT, PHW, PSFTH, PSFTQ, PSFZON, PSFMER, PDIR_SW, PSCA_SW, PLW )
 !     ###############################################################################
 !
 !!****  *DIAG_INLINE_ISBA_n * - computes diagnostics during ISBA time-step
@@ -17,11 +17,11 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -86,20 +86,20 @@ IF (LHOOK) CALL DR_HOOK('DIAG_INLINE_ISBA_N',0,ZHOOK_HANDLE)
 ! * Near surface atmospheric variables
 !
 IF (.NOT. OCANOPY) THEN
-  !        
+  !
   IF (DGO%N2M==2) THEN
-    ZH(:)=2.          
+    ZH(:)=2.
     CALL CLS_TQ(PTA, PQA, PPA, PPS, PHT, DK%XCD, DK%XCH, DK%XRI, &
-                DK%XTS, DK%XHU, DK%XZ0H, ZH, DK%XT2M, DK%XQ2M, DK%XHU2M )  
-    ZH(:)=10.                
+                DK%XTS, DK%XHU, DK%XZ0H, ZH, DK%XT2M, DK%XQ2M, DK%XHU2M )
+    ZH(:)=10.
     CALL CLS_WIND(PZONA, PMERA, PHW, DK%XCD, DK%XCDN, DK%XRI, ZH, &
-                 DK%XZON10M, DK%XMER10M  )  
+                 DK%XZON10M, DK%XMER10M  )
   END IF
   !
   IF (DGO%N2M>=1) DK%XWIND10M(:) = SQRT(DK%XZON10M(:)**2 + DK%XMER10M(:)**2)
   !
 ELSE
-  !        
+  !
   IF (DGO%N2M>=1) THEN
     DK%XT2M    = XUNDEF
     DK%XQ2M    = XUNDEF
@@ -108,14 +108,14 @@ ELSE
     DK%XMER10M = XUNDEF
     DK%XWIND10M= XUNDEF
   ENDIF
-  !        
+  !
 ENDIF
 !
 ! * Surface energy budget
 !
 IF (DGO%LSURF_BUDGET.OR.DGO%LSURF_BUDGETC) THEN
    !
-   CALL DIAG_SURF_BUDGET_ISBA(PDIR_SW, PSCA_SW, PLW, KK, DK)          
+   CALL DIAG_SURF_BUDGET_ISBA(PDIR_SW, PSCA_SW, PLW, KK, DK)
    !
    DK%XFMU = PSFZON
    DK%XFMV = PSFMER

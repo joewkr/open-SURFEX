@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-------------------------------------------------------------------------------
 !     ####################
       SUBROUTINE ROUTING(PRO,PDR,KSTEP)
 !     ####################
 !
-!!****  *ROUTING*  
+!!****  *ROUTING*
 !!
 !!    PURPOSE
 !!    -------
 !     To route the runoff and the exfiltration discharge to the catchment outlet
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -23,15 +23,15 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!     
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -81,7 +81,7 @@ INTEGER, INTENT(IN)              :: KSTEP   ! current integration step
 INTEGER                            :: JCAT, JJ, JI ! Loop variables
 INTEGER                            :: JSTEP        ! current or future integration steps
 REAL, DIMENSION(NNCAT,NNB_TOPD_STEP+NNB_STP_RESTART) :: ZRUN_TOROUT,ZDR_TOROUT ! Kg/m2
-                                                   ! water of runoff and drainage resp. still in the river 
+                                                   ! water of runoff and drainage resp. still in the river
                                                    ! and added to the discharge for the current simulation
  CHARACTER(LEN=3)                  :: YSTEP
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -102,7 +102,7 @@ DO JCAT=1,NNCAT
   !
     IF ( PRO(JCAT,JJ) > 0.0 .AND. PRO(JCAT,JJ) < XUNDEF ) THEN
       !
-      JSTEP = INT(XTIME_TOPD(JCAT,JJ) / XTOPD_STEP) + KSTEP 
+      JSTEP = INT(XTIME_TOPD(JCAT,JJ) / XTOPD_STEP) + KSTEP
       !
       IF ( JSTEP.LE.NNB_TOPD_STEP ) THEN
         !
@@ -128,7 +128,7 @@ DO JCAT=1,NNCAT
       IF (JSTEP.LE.NNB_TOPD_STEP) THEN
         !
         XQB_DR(JCAT,JSTEP) = XQB_DR(JCAT,JSTEP) + PDR(JCAT,JJ)
-        XQTOT(JCAT,JSTEP) = XQTOT(JCAT,JSTEP) + PDR(JCAT,JJ) 
+        XQTOT(JCAT,JSTEP) = XQTOT(JCAT,JSTEP) + PDR(JCAT,JJ)
         !
       ELSEIF (JSTEP.LE.NNB_TOPD_STEP+NNB_STP_RESTART) THEN
         !
@@ -138,7 +138,7 @@ DO JCAT=1,NNCAT
     ENDIF
     !
   ENDDO
-  ! 
+  !
   XQB_RUN(JCAT,KSTEP) = XQB_RUN(JCAT,KSTEP) + XRUN_TOROUT(JCAT,KSTEP)
   XQB_DR(JCAT,KSTEP)  = XQB_DR(JCAT,KSTEP)  + XDR_TOROUT(JCAT,KSTEP)
   XQTOT(JCAT,KSTEP)   = XQTOT(JCAT,KSTEP) + XRUN_TOROUT(JCAT,KSTEP) + XDR_TOROUT(JCAT,KSTEP)

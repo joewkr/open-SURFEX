@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_LATLON (UG, U, USS, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -128,7 +128,7 @@ IF (LHOOK) CALL DR_HOOK('READ_LATLON',0,ZHOOK_HANDLE)
 !
  CALL READHEAD(IFILE,ZGLBLATMIN,ZGLBLATMAX,ZGLBLONMIN,ZGLBLONMAX, &
                INBLINE,INBCOL,ZNODATA,ZDLAT,ZDLON,ZLAT,ZLON,IERR,IFACT,&
-               GCOMPRESS)  
+               GCOMPRESS)
 IF (IERR/=0) THEN
   CALL ABOR1_SFX('READ_LATLON: PROBLEM IN FILE HEADER')
 END IF
@@ -199,8 +199,8 @@ DO JLINE=1,INBLINE
     ZVALUE(:) = ZVALUE(:) / FLOAT(IFACT)
 
     CALL PT_BY_PT_TREATMENT(UG, U, USS, &
-                            ILUOUT,ZLAT(JLINE:JLINE),ZLON(JCOL:JCOL),ZVALUE(JCOL:JCOL),&            
-                              HSUBROUTINE                                              )  
+                            ILUOUT,ZLAT(JLINE:JLINE),ZLON(JCOL:JCOL),ZVALUE(JCOL:JCOL),&
+                              HSUBROUTINE                                              )
 !
 !-------------------------------------------------------------------------------
   END DO

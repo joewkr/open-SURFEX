@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE HORIBL_SURF_VALUE(KILEN,KOLEN,PAROUT,OINTERP,PARIN,KLSMIN,&
                                  POLO,POLA,PLA,PLOP,&
-                                 KMASKIN,KLSMOUT )  
+                                 KMASKIN,KLSMOUT )
 !   ###########################################################################
 !
 !!****  *HORIBL_SURF_VALUE* - horitontal bilinear interpolation
@@ -110,7 +110,7 @@ USE MODI_ABOR1_SFX
 IMPLICIT NONE
 !
 !*      0.1. Declaration of arguments
-! 
+!
 INTEGER,                   INTENT(IN)  :: KILEN
 INTEGER,                   INTENT(IN)  :: KOLEN   ! size of output array
 REAL,    DIMENSION(:), INTENT(OUT) :: PAROUT  ! output array
@@ -124,15 +124,15 @@ INTEGER, DIMENSION(:), INTENT(IN), OPTIONAL  :: KMASKIN  ! input land/sea mask
 INTEGER, DIMENSION(:), INTENT(IN), OPTIONAL  :: KLSMOUT ! output land/sea mask
 !
 !*      0.2. Declaration of local variables
-!            
+!
 ! Weights of the latitudes and of the points
 REAL, DIMENSION(4) :: ZWV
-REAL, DIMENSION(12) :: ZWP  
+REAL, DIMENSION(12) :: ZWP
   ! Land/sea mask coefficient for each point : 0 -> point not taken in account,
   !                                            1 -> point taken in account
 REAL, DIMENSION(12) :: ZLSMP
 REAL, DIMENSION(4) :: ZLSMV
-REAL :: ZLSMTOT  
+REAL :: ZLSMTOT
  ! Variables implied in the extension procedure
 LOGICAL :: LDLSM     ! Specify if land/sea mask is present or not
  ! Loop counters
@@ -204,11 +204,11 @@ DO JL = 1, KOLEN
   ZP(3) = PLA(JL,2) - PLA(JL,3)
   !
   ZT = POLA(JL) - PLA(JL,1)
-  ZWV(1) = ZLSMV(1) * (1.+ZLSMV(2)*ZT/ZP(1)) * (1.+ZLSMV(3)*ZT/ZP(2)) * (1.+ZLSMV(4)*ZT/(PLA(JL,1)-PLA(JL,4)))  
+  ZWV(1) = ZLSMV(1) * (1.+ZLSMV(2)*ZT/ZP(1)) * (1.+ZLSMV(3)*ZT/ZP(2)) * (1.+ZLSMV(4)*ZT/(PLA(JL,1)-PLA(JL,4)))
   ZT = POLA(JL) - PLA(JL,2)
-  ZWV(2) = ZLSMV(2) * (1.-ZLSMV(1)*ZT/ZP(1)) * (1.+ZLSMV(3)*ZT/ZP(3)) * (1.+ZLSMV(4)*ZT/(PLA(JL,2)-PLA(JL,4)))  
+  ZWV(2) = ZLSMV(2) * (1.-ZLSMV(1)*ZT/ZP(1)) * (1.+ZLSMV(3)*ZT/ZP(3)) * (1.+ZLSMV(4)*ZT/(PLA(JL,2)-PLA(JL,4)))
   ZT = POLA(JL) - PLA(JL,3)
-  ZWV(3) = ZLSMV(3) * (1.-ZLSMV(1)*ZT/ZP(2)) * (1.-ZLSMV(2)*ZT/ZP(3)) * (1.+ZLSMV(4)*ZT/(PLA(JL,3)-PLA(JL,4))) 
+  ZWV(3) = ZLSMV(3) * (1.-ZLSMV(1)*ZT/ZP(2)) * (1.-ZLSMV(2)*ZT/ZP(3)) * (1.+ZLSMV(4)*ZT/(PLA(JL,3)-PLA(JL,4)))
   ZWV(4) = 1. - ZWV(1) - ZWV(2) - ZWV(3)
 !
   ! 3.3.1 northern
@@ -221,14 +221,14 @@ DO JL = 1, KOLEN
   ! 3.3.2. north
   ZP(1) = PLOP(JL,3) - PLOP(JL,4)
   ZP(2) = PLOP(JL,3) - PLOP(JL,5)
-  ZP(3) = PLOP(JL,4) - PLOP(JL,5) 
+  ZP(3) = PLOP(JL,4) - PLOP(JL,5)
   !
   ZT = POLO(JL) - PLOP(JL,3)
-  ZWP(3) = ZLSMP(3) * (1.+ZLSMP(4)*ZT/ZP(1)) * (1.+ZLSMP(5)*ZT/ZP(2)) * (1.+ZLSMP(6)*ZT/(PLOP(JL,3)-PLOP(JL,6)))  
+  ZWP(3) = ZLSMP(3) * (1.+ZLSMP(4)*ZT/ZP(1)) * (1.+ZLSMP(5)*ZT/ZP(2)) * (1.+ZLSMP(6)*ZT/(PLOP(JL,3)-PLOP(JL,6)))
   ZT = POLO(JL) - PLOP(JL,4)
   ZWP(4) = ZLSMP(4) * (1.-ZLSMP(3)*ZT/ZP(1)) * (1.+ZLSMP(5)*ZT/ZP(3)) * (1.+ZLSMP(6)*ZT/(PLOP(JL,4)-PLOP(JL,6)))
   ZT = POLO(JL) - PLOP(JL,5)
-  ZWP(5) = ZLSMP(5) * (1.-ZLSMP(3)*ZT/ZP(2)) * (1.-ZLSMP(4)*ZT/ZP(3)) * (1.+ZLSMP(6)*ZT/(PLOP(JL,5)-PLOP(JL,6)))  
+  ZWP(5) = ZLSMP(5) * (1.-ZLSMP(3)*ZT/ZP(2)) * (1.-ZLSMP(4)*ZT/ZP(3)) * (1.+ZLSMP(6)*ZT/(PLOP(JL,5)-PLOP(JL,6)))
   ZWP(6) = 1. - ZWP(3) - ZWP(4) - ZWP(5)
 !
   ! 3.3.3. south
@@ -237,14 +237,14 @@ DO JL = 1, KOLEN
   ZP(3) = PLOP(JL,8) - PLOP(JL,9)
   !
   ZT = POLO(JL) - PLOP(JL,7)
-  ZWP(7)  = ZLSMP(7) * (1.+ZLSMP(8)*ZT/ZP(1)) * (1.+ZLSMP(9)*ZT/ZP(2)) * (1.+ZLSMP(10)*ZT/(PLOP(JL,7)-PLOP(JL,10)))  
+  ZWP(7)  = ZLSMP(7) * (1.+ZLSMP(8)*ZT/ZP(1)) * (1.+ZLSMP(9)*ZT/ZP(2)) * (1.+ZLSMP(10)*ZT/(PLOP(JL,7)-PLOP(JL,10)))
   ZT = POLO(JL) - PLOP(JL,8)
-  ZWP(8)  = ZLSMP(8) * (1.-ZLSMP(7)*ZT/ZP(1)) * (1.+ZLSMP(9)*ZT/ZP(3)) * (1.+ZLSMP(10)*ZT/(PLOP(JL,8)-PLOP(JL,10)))  
+  ZWP(8)  = ZLSMP(8) * (1.-ZLSMP(7)*ZT/ZP(1)) * (1.+ZLSMP(9)*ZT/ZP(3)) * (1.+ZLSMP(10)*ZT/(PLOP(JL,8)-PLOP(JL,10)))
   ZT = POLO(JL) - PLOP(JL,9)
-  ZWP(9)  = ZLSMP(9) * (1.-ZLSMP(7)*ZT/ZP(2)) * (1.-ZLSMP(8)*ZT/ZP(3)) * (1.+ZLSMP(10)*ZT/(PLOP(JL,9)-PLOP(JL,10)))  
+  ZWP(9)  = ZLSMP(9) * (1.-ZLSMP(7)*ZT/ZP(2)) * (1.-ZLSMP(8)*ZT/ZP(3)) * (1.+ZLSMP(10)*ZT/(PLOP(JL,9)-PLOP(JL,10)))
   ZWP(10) = 1. - ZWP(7) - ZWP(8) - ZWP(9)
 !
-! In order to exclude undef values from computation of PAROUT, 
+! In order to exclude undef values from computation of PAROUT,
 ! weights w2, w6, w10, w12 and wss which can be numerically very low
 ! because they are residual, are set to 0
 !
@@ -265,9 +265,9 @@ DO JL = 1, KOLEN
     PAROUT(JL) = PAROUT(JL) + ZWP(JI) * PARIN(JL,JI)
   ENDDO
 !
-! For surface fields, the interpoalted value is bounded 
+! For surface fields, the interpoalted value is bounded
 ! by the min max values of the initial field
-  
+
   IF (PRESENT(KMASKIN)) THEN
 
     ZMIN=XUNDEF
@@ -285,7 +285,7 @@ DO JL = 1, KOLEN
       ENDIF
 
     END DO
-    
+
     PAROUT(JL) = MAX(MIN(PAROUT(JL),ZMAX),ZMIN)
 
   ENDIF

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_SNOW_EXTERN (GCP,HPROGRAM,HSURF,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,&
@@ -8,12 +8,12 @@ SUBROUTINE PREP_SNOW_EXTERN (GCP,HPROGRAM,HSURF,HFILE,HFILETYPE,HFILEPGD,HFILEPG
 !     #################################################################################
 !
 !
-!!****  *PREP_SNOW_EXTERN*  
+!!****  *PREP_SNOW_EXTERN*
 !!
 !!    PURPOSE
 !!    -------
 !       Read and prepare initial snow fields from external files
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -21,13 +21,13 @@ SUBROUTINE PREP_SNOW_EXTERN (GCP,HPROGRAM,HSURF,HFILE,HFILETYPE,HFILEPGD,HFILEPG
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
+!!
 !!    AUTHOR
 !!    ------
 !!         * Meteo-France *
@@ -101,7 +101,7 @@ LOGICAL                           :: GTOWN          ! town variables written in 
 CHARACTER(LEN=12)                 :: YRECFM         ! record name
 INTEGER                           :: IRESP          ! error return code
 INTEGER                           :: IVERSION_PGD, IVERSION_PREP       ! SURFEX version
-LOGICAL                           :: GOLD_NAME      ! old name flag 
+LOGICAL                           :: GOLD_NAME      ! old name flag
 INTEGER                           :: IBUGFIX_PGD, IBUGFIX_PREP        ! SURFEX bug version
 INTEGER                           :: IVEGTYPE       ! actual number of vegtypes
 INTEGER                           :: JL         ! loop on snow vertical grids
@@ -130,12 +130,12 @@ YAREA(1:4) = HSURF(7:10)
 IF (YAREA(1:4)=='VEG ') THEN
   IVEGTYPE = NVEGTYPE
   YMASK = 'NATURE'
-  YPREFIX = '   '  
+  YPREFIX = '   '
 ELSE
   IVEGTYPE = 1
   YMASK    = 'TOWN  '
   IPATCH   = 1
-  YPREFIX = '   '  
+  YPREFIX = '   '
 END IF
 !
 !*      1.     Preparation of IO for reading in the file
@@ -167,14 +167,14 @@ ELSE
     IF (YAREA(1:4)=='ROOF') YAREA(1:4) = 'RF  '
     IF (YAREA(1:4)=='ROAD') YAREA(1:4) = 'RD  '
   ENDIF
-  IF (GTOWN) THEN   
+  IF (GTOWN) THEN
     CALL READ_TEB_PATCH(HFILEPGD,HFILEPGDTYPE,IVERSION_PGD,IBUGFIX_PGD,ITEB_PATCH,HDIR='-')
   ELSE
     ITEB_PATCH = 1
-  ENDIF    
+  ENDIF
   IF (ITEB_PATCH>1) THEN
     WRITE(YPREFIX,FMT='(A,I1,A)') 'T',MIN(KTEB_PATCH,ITEB_PATCH),'_'
-  END IF  
+  END IF
 END IF
 !
  CALL CLOSE_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE)
@@ -238,7 +238,7 @@ DO JP = 1,IPATCH
           PFIELD(:,:,JP) = 0.
           DO JL=1,TZSNOW%NLAYER
             PFIELD(:,1,JP) = PFIELD(:,1,JP) + TZSNOW%WSNOW(:,JL)
-          END DO 
+          END DO
           WHERE ( PFIELD(:,1,JP)>XUNDEF ) PFIELD(:,1,JP)=XUNDEF
         ENDIF
   !
@@ -257,11 +257,11 @@ DO JP = 1,IPATCH
   !              ------------------------
   !
     CASE ('DEP')
-      IF (OSNOW_IDEAL.OR.TZSNOW%NLAYER==KLAYER) THEN    
-        IF (JP<=1) ALLOCATE(PFIELD(INI,KLAYER,IPATCH))  
+      IF (OSNOW_IDEAL.OR.TZSNOW%NLAYER==KLAYER) THEN
+        IF (JP<=1) ALLOCATE(PFIELD(INI,KLAYER,IPATCH))
         PFIELD(:,:,JP) = TZSNOW%WSNOW(:,1:KLAYER)/TZSNOW%RHO(:,1:KLAYER)
         WHERE(TZSNOW%WSNOW(:,1:KLAYER)==XUNDEF) PFIELD(:,:,JP)=XUNDEF
-      ELSE     
+      ELSE
         ALLOCATE(ZD(INI))
         ZD(:) = 0.0
         DO JL=1,TZSNOW%NLAYER
@@ -283,7 +283,7 @@ DO JP = 1,IPATCH
   !
       SELECT CASE (TZSNOW%SCHEME)
         CASE ('D95','1-L','EBA')
-          IF (JP<=1) ALLOCATE(PFIELD(INI,1,IPATCH))   
+          IF (JP<=1) ALLOCATE(PFIELD(INI,1,IPATCH))
           !* computes output physical variable
           IF (HSURF(1:3)=='RHO') PFIELD(:,1,JP) = TZSNOW%RHO(:,1)
           IF (HSURF(1:3)=='HEA') THEN
@@ -314,11 +314,11 @@ DO JP = 1,IPATCH
           ELSE
            IF (HSURF(1:3)=='SG1') ZFIELD(:,:) = -20.0
            IF (HSURF(1:3)=='SG2') ZFIELD(:,:) = 80.0
-           IF (HSURF(1:3)=='HIS') ZFIELD(:,:) = 0.0                  
-          ENDIF    
+           IF (HSURF(1:3)=='HIS') ZFIELD(:,:) = 0.0
+          ENDIF
           !
-          IF (OSNOW_IDEAL) THEN 
-            IF (JP<=1) ALLOCATE(PFIELD(INI,KLAYER,IPATCH))                  
+          IF (OSNOW_IDEAL) THEN
+            IF (JP<=1) ALLOCATE(PFIELD(INI,KLAYER,IPATCH))
             PFIELD(:,:,JP) = ZFIELD(:,:)
           ELSE
             !
@@ -353,7 +353,7 @@ DO JP = 1,IPATCH
             ENDDO
             DEALLOCATE(ZDEPTH)
             DEALLOCATE(ZD)
-            !    
+            !
             ! * interpolation of profile onto fine normalized snow grid
             CALL INTERP_GRID_NAT(ZGRID(:,:),ZFIELD(:,:),    &
                                XGRID_SNOW(:), PFIELD(:,:,JP))
@@ -362,7 +362,7 @@ DO JP = 1,IPATCH
           DEALLOCATE(ZFIELD)
 
         END SELECT
-        !* put field form patch to all vegtypes    
+        !* put field form patch to all vegtypes
     END SELECT
   !
   ENDIF

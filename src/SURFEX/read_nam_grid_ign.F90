@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
       SUBROUTINE READ_NAM_GRID_IGN(PGRID_FULL_PAR,KDIM_FULL,HPROGRAM,KGRID_PAR,KL,PGRID_PAR,HDIR)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    10/2007 
+!!      Original    10/2007
 !!      07/2011     add maximum domain dimension for output (B. Decharme)
 !-------------------------------------------------------------------------------
 !
@@ -117,7 +117,7 @@ NAMELIST/NAM_IGN/CLAMBERT,NPOINTS,XX,XY,XDX,XDY,      &
 !------------------------------------------------------------------------------
 !
 !*       1.    opening of namelist
-! 
+!
 IF (LHOOK) CALL DR_HOOK('READ_NAM_GRID_IGN',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !
@@ -149,7 +149,7 @@ IF (HDIR/='H') THEN
   IF (XCELLSIZE/=XUNDEF) THEN
     !
     WRITE(ILUOUT,*) 'Initialisation of IGN Coordinates for a regular grid'
-    !      
+    !
     XDX(:) = XCELLSIZE
     XDY(:) = XCELLSIZE
     !
@@ -206,7 +206,7 @@ IF (HDIR/='H') THEN
   !              ------------
   !
   CALL TEST_NAM_VAR_SURF(ILUOUT,'CLAMBERT',CLAMBERT,'L1 ','L2 ','L3 ',&
-                         'L4 ','L2E','L93' )  
+                         'L4 ','L2E','L93' )
   !
   SELECT CASE (CLAMBERT)
     CASE ('L1 ')
@@ -258,12 +258,12 @@ ELSE
   CALL READ_AND_SEND_MPI(ZDX0,ZDX)
   CALL READ_AND_SEND_MPI(ZDY0,ZDY)
   !
-  DEALLOCATE(ZX0,ZY0,ZDX0,ZDY0)    
+  DEALLOCATE(ZX0,ZY0,ZDX0,ZDY0)
   !
   CALL PUT_GRIDTYPE_IGN(ZGRID_PAR,ILAMBERT,ZX,ZY,ZDX,ZDY,        &
                         IDIMX,IDIMY,ZXALL,ZYALL)
   !
-ENDIF              
+ENDIF
 !
 !---------------------------------------------------------------------------
 DEALLOCATE(ZX)

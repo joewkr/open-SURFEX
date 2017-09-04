@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-      SUBROUTINE AVG_ALBEDO_EMIS_TEB_VEG (PEK, HALBEDO, PTG1, PSW_BANDS, PDIR_ALB,PSCA_ALB, PEMIS, PTSRAD )  
+      SUBROUTINE AVG_ALBEDO_EMIS_TEB_VEG (PEK, HALBEDO, PTG1, PSW_BANDS, PDIR_ALB,PSCA_ALB, PEMIS, PTSRAD )
 !     ###################################################
 !
 !!**** ** computes radiative fields used in TEB_VEG
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -75,7 +75,7 @@ TYPE(ISBA_PE_t), INTENT(INOUT) :: PEK
 !   "MEAN" = constant albedo value for medium soil wetness
 !
 REAL, DIMENSION(:),   INTENT(IN)   :: PTG1        ! soil surface temperature
-REAL, DIMENSION(:),     INTENT(IN)   :: PSW_BANDS   ! middle wavelength of each band 
+REAL, DIMENSION(:),     INTENT(IN)   :: PSW_BANDS   ! middle wavelength of each band
 !
 REAL, DIMENSION(:,:),   INTENT(OUT)  :: PDIR_ALB    ! averaged direct albedo  (per wavelength)
 REAL, DIMENSION(:,:),   INTENT(OUT)  :: PSCA_ALB    ! averaged diffuse albedo (per wavelength)
@@ -100,7 +100,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('AVG_ALBEDO_EMIS_TEB_VEG',0,ZHOOK_HANDLE)
 !
- CALL ALBEDO(HALBEDO, PEK )  
+ CALL ALBEDO(HALBEDO, PEK )
 
 !
 !*    2.      averaged albedo and emis. on natural continental surfaces (with prognostic snow)
@@ -114,7 +114,7 @@ PDIR_ALB(:,:)=0.
 PSCA_ALB(:,:)=0.
 PEMIS   (:)  =0.
 PTSRAD  (:)  =0.
-!   
+!
 !
  CALL ISBA_SNOW_FRAC(PEK%TSNOW%SCHEME, PEK%TSNOW%WSNOW, PEK%TSNOW%RHO, PEK%TSNOW%ALB,  &
                      PEK%XVEG, PEK%XLAI, PEK%XZ0,PEK%XPSN, PEK%XPSNV_A, PEK%XPSNG, PEK%XPSNV )
@@ -123,21 +123,21 @@ WHERE (PEK%XVEG/=XUNDEF)
   !
   ! albedo on this tile
   !
-  ZALBNIR(:) = (1.-PEK%XPSN)*PEK%XALBNIR + PEK%XPSN * PEK%TSNOW%ALB   
-      
-  ZALBVIS(:) = (1.-PEK%XPSN)*PEK%XALBVIS + PEK%XPSN * PEK%TSNOW%ALB   
-      
-  ZALBUV(:)  = (1.-PEK%XPSN)*PEK%XALBUV  + PEK%XPSN * PEK%TSNOW%ALB   
+  ZALBNIR(:) = (1.-PEK%XPSN)*PEK%XALBNIR + PEK%XPSN * PEK%TSNOW%ALB
+
+  ZALBVIS(:) = (1.-PEK%XPSN)*PEK%XALBVIS + PEK%XPSN * PEK%TSNOW%ALB
+
+  ZALBUV(:)  = (1.-PEK%XPSN)*PEK%XALBUV  + PEK%XPSN * PEK%TSNOW%ALB
 END WHERE
 !
 !* albedo for each wavelength
 !
- CALL ALBEDO_FROM_NIR_VIS(PSW_BANDS,ZALBNIR, ZALBVIS, ZALBUV, PDIR_ALB, PSCA_ALB)  
+ CALL ALBEDO_FROM_NIR_VIS(PSW_BANDS,ZALBNIR, ZALBVIS, ZALBUV, PDIR_ALB, PSCA_ALB)
 !
 ! emissivity
 !
 WHERE (PEK%XEMIS/=XUNDEF)
-  PEMIS(:)   = (1.-PEK%XPSN)*PEK%XEMIS + PEK%XPSN *XEMISSN  
+  PEMIS(:)   = (1.-PEK%XPSN)*PEK%XEMIS + PEK%XPSN *XEMISSN
 END WHERE
 !
 !* radiative surface temperature
@@ -148,7 +148,7 @@ ELSE IF (PEK%TSNOW%SCHEME=='3-L' .OR. PEK%TSNOW%SCHEME=='CRO') THEN
   WHERE (PEK%XEMIS/=XUNDEF)
     PTSRAD(:) =( ( (1.-PEK%XPSN)*PEMIS(:)       *PTG1(:)      **4            &
                   +    PEK%XPSN *PEK%TSNOW%EMIS * PEK%TSNOW%TS**4 ) )**0.25  &
-                             / PEMIS(:)**0.25  
+                             / PEMIS(:)**0.25
   END WHERE
 END IF
 !

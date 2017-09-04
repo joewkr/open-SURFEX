@@ -1,6 +1,6 @@
 SUBROUTINE SFX_XIOS_SETUP_OL(YSC, KLUOUT, KYEAR, KMONTH, KDAY, PTIME, PSTEP)
 !
-!**** *SFX_XIOS_SETUP_OL*  - 
+!**** *SFX_XIOS_SETUP_OL*  -
 !
 !     Purpose.
 !     --------
@@ -63,14 +63,14 @@ TYPE(SURFEX_t),  INTENT(INOUT) :: YSC
 INTEGER,            INTENT(IN) :: KLUOUT
 INTEGER(KIND=JPIM), INTENT(IN) :: KYEAR      ! Current Year
 INTEGER(KIND=JPIM), INTENT(IN) :: KMONTH     ! Current Month
-INTEGER(KIND=JPIM), INTENT(IN) :: KDAY       ! Current Day 
+INTEGER(KIND=JPIM), INTENT(IN) :: KDAY       ! Current Day
 REAL              , INTENT(IN) :: PTIME      ! Time in the day
 REAL              , INTENT(IN) :: PSTEP      ! Atmospheric time step
 !
 ! Local variables
 !
 INTEGER                              :: IX, JX
-INTEGER, ALLOCATABLE, DIMENSION(:)   :: IXINDEX ! Index of the grid meshes for the 
+INTEGER, ALLOCATABLE, DIMENSION(:)   :: IXINDEX ! Index of the grid meshes for the
                                        ! current MPI-task  in global 1D grid (start at 0)
 LOGICAL, ALLOCATABLE, DIMENSION(:)   :: GLXMASK ! Cells mask
 REAL,    ALLOCATABLE, DIMENSION(:,:) :: ZCORLON
@@ -78,7 +78,7 @@ REAL,    ALLOCATABLE, DIMENSION(:,:) :: ZCORLAT
 INTEGER, ALLOCATABLE, DIMENSION(:)   :: IMN,IMS,IMW,IMT ! Tile masks, 0-based
 REAL, DIMENSION(:), ALLOCATABLE :: ZX, ZY
 !
-CHARACTER(LEN=10)   :: YGRID      ! grid type 
+CHARACTER(LEN=10)   :: YGRID      ! grid type
 LOGICAL             :: GRECT
 INTEGER             :: IDIM1, IDIM2
 !
@@ -88,7 +88,7 @@ REAL(KIND=JPRB)     :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('SFX_XIOS_SETUP_OL',0,ZHOOK_HANDLE)
 !
 #ifdef WXIOS
-IF (LXIOS) THEN 
+IF (LXIOS) THEN
    !
    LADD_DIM = LALLOW_ADD_DIM
    !
@@ -99,7 +99,7 @@ IF (LXIOS) THEN
 
    JX=0
    DO IX = 1,YSC%U%NDIM_FULL
-      IF ( NINDEX(IX) == NRANK ) THEN 
+      IF ( NINDEX(IX) == NRANK ) THEN
          JX = JX+1
          IF (JX > YSC%U%NSIZE_FULL ) THEN
             CALL ABOR1_SFX('sfx_xios_setup_ol : internal error with XIOS index')
@@ -119,14 +119,14 @@ IF (LXIOS) THEN
    IMS(:) = YSC%U%NR_SEA   -1
    IMW(:) = YSC%U%NR_WATER -1
    IMT(:) = YSC%U%NR_TOWN  -1
-   !   
+   !
    ALLOCATE(ZCORLAT(YSC%U%NSIZE_FULL,4))
    ALLOCATE(ZCORLON(YSC%U%NSIZE_FULL,4))
    CALL GET_MESH_CORNER(YSC%UG, KLUOUT,ZCORLAT(:,:),ZCORLON(:,:))
    !
    IF (LWRITE_COORD.AND.(TRIM(YSC%UG%G%CGRID)=='LONLATVAL'.OR.TRIM(YSC%UG%G%CGRID)=='IGN')) THEN
      IDIM1 = YSC%U%NDIM_FULL
-     IDIM2 = 1     
+     IDIM2 = 1
    ELSE
      CALL GET_SURF_GRID_DIM_n(YSC%UG, YGRID, GRECT, IDIM1, IDIM2)
      IF (TRIM(YSC%UG%G%CGRID)=='IGN') THEN

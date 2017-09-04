@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE FLAKE_ALBEDO( PDIR_SW   , PSCA_SW , KSW,      &
@@ -8,21 +8,21 @@
                                PGLOBAL_SW, PALB                )
 !     ##########################################################################
 !
-!!****  *FLAKE_ALBEDO*  
+!!****  *FLAKE_ALBEDO*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     Calculates  albedo and emissivity 
-!         
+!     Calculates  albedo and emissivity
+!
 !!    EXTERNAL
 !!    --------
 !!
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -51,7 +51,7 @@ REAL, DIMENSION(:,:), INTENT(IN)   :: PSCA_ALB           ! diffuse albedo
 INTEGER,              INTENT(IN)   :: KSW                ! number of short-wave spectral bands
 !
 REAL, DIMENSION(:)  , INTENT(OUT)  :: PGLOBAL_SW         ! global incoming SW rad.
-REAL, DIMENSION(:)  , INTENT(OUT)  :: PALB               ! albedo 
+REAL, DIMENSION(:)  , INTENT(OUT)  :: PALB               ! albedo
 !
 !-------------------------------------------------------------------------------
 !
@@ -79,16 +79,16 @@ IF (LHOOK) CALL DR_HOOK('FLAKE_ALBEDO',0,ZHOOK_HANDLE)
 !
 !* total shortwave upcoming radiation
 !
-  ZSW_UP(:) = 0. 
+  ZSW_UP(:) = 0.
   DO JSWB=1,KSW
     ZSW_UP(:) =  ZSW_UP(:)                            &
                  + PDIR_ALB(:,JSWB) * PDIR_SW(:,JSWB) &
-                 + PSCA_ALB(:,JSWB) * PSCA_SW(:,JSWB)  
+                 + PSCA_ALB(:,JSWB) * PSCA_SW(:,JSWB)
   END DO
 !
 !* global albedo
 !
-  WHERE(PGLOBAL_SW(:)>0.)  
+  WHERE(PGLOBAL_SW(:)>0.)
        PALB(:) = ZSW_UP(:) / PGLOBAL_SW(:)
   ELSEWHERE
        PALB(:) = PDIR_ALB(:,1)

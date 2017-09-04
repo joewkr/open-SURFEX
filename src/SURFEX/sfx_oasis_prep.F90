@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########
 SUBROUTINE SFX_OASIS_PREP (IO, S, UG, U, HPROGRAM, KNPTS, KPARAL)
@@ -32,7 +32,7 @@ SUBROUTINE SFX_OASIS_PREP (IO, S, UG, U, HPROGRAM, KNPTS, KPARAL)
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    10/2013
-!!    10/2016 B. Decharme : bug surface/groundwater coupling 
+!!    10/2016 B. Decharme : bug surface/groundwater coupling
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -191,7 +191,7 @@ IF (NRANK==NPIO) CALL OASIS_START_GRIDS_WRITING(IFLAG)
 !*       1.1    Grid definition for Land surface :
 !               ----------------------------------
 !
-IF(LCPL_LAND)THEN  
+IF(LCPL_LAND)THEN
   !
   ZAREA(:,1) = UG%G%XMESH_SIZE(:) * ZMASK_LAND(:)
   !0 = not masked ; 1 = masked
@@ -209,7 +209,7 @@ IF(LCPL_LAND)THEN
   CALL GATHER_AND_WRITE_MPI(IMASK,IMASK_TOT)
   !
   IF (NRANK==NPIO) THEN
-    CALL OASIS_WRITE_GRID  (YSFX_LAND,U%NDIM_FULL,1,ZLON_TOT(:,:),ZLAT_TOT(:,:))  
+    CALL OASIS_WRITE_GRID  (YSFX_LAND,U%NDIM_FULL,1,ZLON_TOT(:,:),ZLAT_TOT(:,:))
     CALL OASIS_WRITE_CORNER(YSFX_LAND,U%NDIM_FULL,1,INC,ZCORNER_LON_TOT(:,:,:),ZCORNER_LAT_TOT(:,:,:))
     CALL OASIS_WRITE_AREA  (YSFX_LAND,U%NDIM_FULL,1,ZAREA_TOT(:,:))
     CALL OASIS_WRITE_MASK  (YSFX_LAND,U%NDIM_FULL,1,IMASK_TOT(:,:))
@@ -238,7 +238,7 @@ IF(LCPL_LAKE)THEN
   CALL GATHER_AND_WRITE_MPI(IMASK,IMASK_TOT)
   !
   IF (NRANK==NPIO) THEN
-    CALL OASIS_WRITE_GRID  (YSFX_LAKE,U%NDIM_FULL,1,ZLON_TOT(:,:),ZLAT_TOT(:,:))  
+    CALL OASIS_WRITE_GRID  (YSFX_LAKE,U%NDIM_FULL,1,ZLON_TOT(:,:),ZLAT_TOT(:,:))
     CALL OASIS_WRITE_CORNER(YSFX_LAKE,U%NDIM_FULL,1,INC,ZCORNER_LON_TOT(:,:,:),ZCORNER_LAT_TOT(:,:,:))
     CALL OASIS_WRITE_AREA  (YSFX_LAKE,U%NDIM_FULL,1,ZAREA_TOT(:,:))
     CALL OASIS_WRITE_MASK  (YSFX_LAKE,U%NDIM_FULL,1,IMASK_TOT(:,:))
@@ -249,7 +249,7 @@ ENDIF
 !*       1.3    Grid definition for sea/water :
 !               -------------------------------
 !
-IF(LCPL_SEA)THEN     
+IF(LCPL_SEA)THEN
   !
   ZAREA(:,1) = UG%G%XMESH_SIZE(:) * ZMASK_SEA(:)
   !0 = not masked ; 1 = masked
@@ -267,7 +267,7 @@ IF(LCPL_SEA)THEN
   CALL GATHER_AND_WRITE_MPI(IMASK,IMASK_TOT)
   !
   IF (NRANK==NPIO) THEN
-    CALL OASIS_WRITE_GRID  (YSFX_SEA,U%NDIM_FULL,1,ZLON_TOT(:,:),ZLAT_TOT(:,:))  
+    CALL OASIS_WRITE_GRID  (YSFX_SEA,U%NDIM_FULL,1,ZLON_TOT(:,:),ZLAT_TOT(:,:))
     CALL OASIS_WRITE_CORNER(YSFX_SEA,U%NDIM_FULL,1,INC,ZCORNER_LON_TOT(:,:,:),ZCORNER_LAT_TOT(:,:,:))
     CALL OASIS_WRITE_AREA  (YSFX_SEA,U%NDIM_FULL,1,ZAREA_TOT(:,:))
     CALL OASIS_WRITE_MASK  (YSFX_SEA,U%NDIM_FULL,1,IMASK_TOT(:,:))

@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CARBON_SPINUP(TPTIME, IO )
-!  
+!
 !     #######################################################################
 !
 !
-!!****  *CARBON_SPINUP*  
+!!****  *CARBON_SPINUP*
 !!
 !!    PURPOSE
 !!    -------
-!     Number of times the accelerated subroutine is called  
-!     for each time step  
+!     Number of times the accelerated subroutine is called
+!     for each time step
 !!**  METHOD
 !!    ------
 !
@@ -21,12 +21,12 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      R. Alkama           * Meteo-France *
@@ -43,9 +43,9 @@
 USE MODD_TYPE_DATE_SURF
 !
 USE MODD_ISBA_OPTIONS_n, ONLY : ISBA_OPTIONS_t
-!                              
+!
 USE MODI_SPINUP_MAX
-!                              
+!
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
 !
@@ -67,7 +67,7 @@ IF (LHOOK) CALL DR_HOOK('CARBON_SPINUP',0,ZHOOK_HANDLE)
 !
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! number of times CARBON_SOIL subroutine is called for each time step
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 IO%NSPINS =1
 IF ( IO%LSPINUPCARBS .AND. IO%CPHOTO/='NON' .AND. IO%CRESPSL=='CNT' ) THEN
    CALL SPINUP_MAX(IO%XSPINMAXS,IO%NNBYEARSPINS,IO%NNBYEARSOLD,IO%NSPINS)
@@ -89,4 +89,4 @@ IF (LHOOK) CALL DR_HOOK('CARBON_SPINUP',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 !
-END SUBROUTINE 
+END SUBROUTINE

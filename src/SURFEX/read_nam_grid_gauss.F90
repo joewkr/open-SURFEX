@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !################################################################
 SUBROUTINE READ_NAM_GRID_GAUSS(PGRID_FULL_PAR,KDIM_FULL,HPROGRAM,KGRID_PAR,KL,PGRID_PAR,HDIR)
@@ -44,7 +44,7 @@ USE MODD_SURFEX_MPI, ONLY : NRANK, NSIZE_TASK
 !
 USE MODD_CSTS,     ONLY : XPI
 USE MODD_SURF_PAR, ONLY : XUNDEF
-! 
+!
 USE MODE_POS_SURF
 !
 USE MODI_OPEN_NAMELIST
@@ -132,7 +132,7 @@ NAMELIST/NAMRGRI/NRGRI
 !------------------------------------------------------------------------------
 !
 !*       1.    Default values
-! 
+!
 IF (LHOOK) CALL DR_HOOK('READ_NAM_GRID_GAUSS',0,ZHOOK_HANDLE)
 NDGLG = 0
 RMUCEN = 1.
@@ -143,7 +143,7 @@ NRGRI(:) = 0
 !------------------------------------------------------------------------------
 !
 !*       2.    opening of namelist
-! 
+!
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !
 IF (HDIR/='H') THEN
@@ -263,9 +263,9 @@ IF (HDIR/='H') THEN
     ZLATINF(:) = ZYINF(:)
     ZLONSUP(:) = ZXSUP(:)
     ZLATSUP(:) = ZYSUP(:)
-  ELSE        
-    CALL LATLON_GAUSS(ZXINF,ZYINF,KL,ZLOPO,ZLAPO,ZCODIL,ZLONINF,ZLATINF)  
-    CALL LATLON_GAUSS(ZXSUP,ZYSUP,KL,ZLOPO,ZLAPO,ZCODIL,ZLONSUP,ZLATSUP)  
+  ELSE
+    CALL LATLON_GAUSS(ZXINF,ZYINF,KL,ZLOPO,ZLAPO,ZCODIL,ZLONINF,ZLATINF)
+    CALL LATLON_GAUSS(ZXSUP,ZYSUP,KL,ZLOPO,ZLAPO,ZCODIL,ZLONSUP,ZLATSUP)
   ENDIF
   !
   DEALLOCATE(ZXINF)
@@ -282,7 +282,7 @@ IF (HDIR/='H') THEN
   ZMESH_SIZE(:) = XUNDEF
   !
   CALL MESH_SIZE_GAUSS(KL,INLATI,INLOPA,ZLAPO,ZLOPO,ZCODIL,&
-                               ZLAT_XY,ZLON,ZLAT,ZMESH_SIZE)  
+                               ZLAT_XY,ZLON,ZLAT,ZMESH_SIZE)
 !
 ELSE
   !
@@ -292,7 +292,7 @@ ELSE
   !
  CALL GET_GRIDTYPE_GAUSS(PGRID_FULL_PAR,INLATI)
   !
-  ALLOCATE(INLOPA(INLATI))  
+  ALLOCATE(INLOPA(INLATI))
   !
   CALL GET_GRIDTYPE_GAUSS(PGRID_FULL_PAR,KNLATI=INLATI,PLAPO=ZLAPO,&
                           PLOPO=ZLOPO,PCODIL=ZCODIL,KNLOPA=INLOPA, &
@@ -319,7 +319,7 @@ ELSE
   CALL READ_AND_SEND_MPI(ZLATSUP0,ZLATSUP)
   !
   DEALLOCATE(ZLON0,ZLAT0,ZLON_XY0,ZLAT_XY0,ZMESH_SIZE0,ZLONINF0,ZLATINF0,&
-          ZLONSUP0,ZLATSUP0)    
+          ZLONSUP0,ZLATSUP0)
   !
 ENDIF
 !---------------------------------------------------------------------------
@@ -329,7 +329,7 @@ ENDIF
 !
  CALL PUT_GRIDTYPE_GAUSS(ZGRID_PAR,INLATI,ZLAPO,ZLOPO,ZCODIL,INLOPA, &
                           KL,ZLAT,ZLON,ZLAT_XY,ZLON_XY,ZMESH_SIZE,   &
-                          ZLONINF,ZLATINF,ZLONSUP,ZLATSUP            )  
+                          ZLONINF,ZLATINF,ZLONSUP,ZLATSUP            )
 !
 !---------------------------------------------------------------------------
 !

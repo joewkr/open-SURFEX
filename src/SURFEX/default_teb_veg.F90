@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_TEB_VEG(HRUNOFF, HALBEDO, HSCOND,               &
@@ -36,7 +36,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original                 01/2004 
+!!      Original                 01/2004
 !!      C. de Munck & A. Lemonsu  07/2011 ! urban vegetation options
 !-------------------------------------------------------------------------------
 !
@@ -65,7 +65,7 @@ IMPLICIT NONE
  CHARACTER(LEN=3),  INTENT(OUT) :: HRAIN      ! Rainfall spatial distribution ('DEF','SGH')
  CHARACTER(LEN=3),  INTENT(OUT) :: HHORT      ! Horton runoff ('DEF','SGH')
 
-LOGICAL, INTENT(OUT)           :: OGLACIER   ! T= Over permanent snow and ice, initialise WGI=WSAT, 
+LOGICAL, INTENT(OUT)           :: OGLACIER   ! T= Over permanent snow and ice, initialise WGI=WSAT,
 !                                                 Hsnow>=3.3m and allow 0.8<SNOALB<0.85
 !                                            ! F= No specific treatment
 LOGICAL, INTENT(OUT)           :: OCANOPY_DRAG ! T: drag activated in SBL scheme within the canopy

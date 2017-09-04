@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-------------------------------------------------------------------------------
 !     #############################################################
@@ -83,8 +83,8 @@ CHARACTER(LEN=*),  INTENT(IN)     :: HPROGRAM    !
 !
 CHARACTER(LEN=50),DIMENSION(NNCAT) :: CNAME
 INTEGER                   :: IL                     ! number of points
-INTEGER                   :: JJ,JI,JK,JWRK ! loop control 
-INTEGER                   :: JCAT,JMESH,JPIX ! loop control 
+INTEGER                   :: JJ,JI,JK,JWRK ! loop control
+INTEGER                   :: JCAT,JMESH,JPIX ! loop control
 INTEGER                           :: ILUOUT       ! Logical unit for output filr
 INTEGER                           :: IMESHL       !  number of ISBA grid nodes
 INTEGER                           :: ILAMBERT     ! Lambert projection type
@@ -98,7 +98,7 @@ REAL                              :: ZLAT0    ! reference latitude
 REAL                              :: ZLON0    ! reference longitude
 REAL                              :: ZLONMIN,ZLONMAX  ! min and max longitude values (latlon coordinates)
 REAL                              :: ZLATMIN,ZLATMAX  ! min and max latitude values (latlon coordinates)
-REAL                              :: ZRPK     ! projection parameter 
+REAL                              :: ZRPK     ! projection parameter
 !                                             !   K=1 : stereographic north pole
 !                                             ! 0<K<1 : Lambert, north hemisphere
 !                                             !   K=0 : Mercator
@@ -113,7 +113,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('PGD_TOPD',0,ZHOOK_HANDLE)
 !
 CALL GET_LUOUT(HPROGRAM,ILUOUT)
-!  
+!
 CALL READ_NAM_PGD_TOPD(HPROGRAM,LCOUPL_TOPD,CCAT,XF_PARAM_BV,XC_DEPTH_RATIO_BV)
 !
 IF (LCOUPL_TOPD .AND. (HISBA/='3-L'.AND. HISBA/='DIF')) &
@@ -134,7 +134,7 @@ IF (LCOUPL_TOPD) THEN
   !         4.   Compute masks to couple ISBA and TOPODYN grids
   !              -------------------------------------------------------
   !
-  !*      1.      Calcul of the plane coordinates 
+  !*      1.      Calcul of the plane coordinates
   !               -------------------------------
   !
   !*      1.1 Gestion des projections conformes
@@ -147,7 +147,7 @@ IF (LCOUPL_TOPD) THEN
     !
     WRITE(ILUOUT,*) 'GRILLE PROJ CONF (application Cevennes)'
     !
-    !*      1.1.1   lecture des coordonnees X et Y conformes 
+    !*      1.1.1   lecture des coordonnees X et Y conformes
     !               -----------------------------------------
     !
     ALLOCATE(ZXI(KDIM_FULL))
@@ -204,7 +204,7 @@ IF (LCOUPL_TOPD) THEN
         ZYN(JK) = ZYN(JWRK)
       ENDDO
     ENDDO
-    !    
+    !
     !*      1.1.3   calcul des coordonnées géographiques des noeuds de la grille ISBA
     !               -----------------------------------------------------------------
     ALLOCATE(ZLAT(IMESHL))
@@ -218,7 +218,7 @@ IF (LCOUPL_TOPD) THEN
     !
   ELSE IF(HGRID.EQ.'LONLAT REG') THEN
     !
-    WRITE(ILUOUT,*) 'GRILLE LONLAT REG (application AMMA)' 
+    WRITE(ILUOUT,*) 'GRILLE LONLAT REG (application AMMA)'
     !
     ALLOCATE(ZXI(KDIM_FULL))
     ALLOCATE(ZYI(KDIM_FULL))
@@ -274,8 +274,8 @@ IF (LCOUPL_TOPD) THEN
     ENDDO
     !
   ! Modification by Eram Artinian to take into account IGN grid 1
-  ELSE IF (HGRID=='IGN') THEN 
-    WRITE(ILUOUT,*) 'GRILLE IGN (application Bulgarie)' 
+  ELSE IF (HGRID=='IGN') THEN
+    WRITE(ILUOUT,*) 'GRILLE IGN (application Bulgarie)'
     ALLOCATE(ZXN(KDIM_FULL))
     ALLOCATE(ZYN(KDIM_FULL))
     CALL GET_GRIDTYPE_IGN(PGRID_PAR,KLAMBERT=ILAMBERT,&
@@ -285,8 +285,8 @@ IF (LCOUPL_TOPD) THEN
     ALLOCATE(ZLON(IMESHL))
     CALL LATLON_IGN(ILAMBERT,ZXN,ZYN,ZLAT,ZLON)
   !End modification by Eram Artinian to take into account IGN grid
-  ELSE 
-    !       
+  ELSE
+    !
     WRITE(ILUOUT,*) 'ERREUR: TYPE DE GRILLE NON GERE PAR LE CODE'
     CALL ABOR1_SFX("PGD_TOPD: TYPE DE GRILLE NON GERE PAR LE CODE")
     !

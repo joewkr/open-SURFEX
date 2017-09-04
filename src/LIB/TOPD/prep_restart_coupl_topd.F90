@@ -1,30 +1,30 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !######
 SUBROUTINE PREP_RESTART_COUPL_TOPD (UG, U, &
                                     HPROGRAM,KI)
 !###################################################################
 !
-!!****  * PREP_RESTART_COUPL_TOPD*  
+!!****  * PREP_RESTART_COUPL_TOPD*
 !!
 !!    PURPOSE
 !!    -------
-!!   
+!!
 !!    Write all files needed in case of restart of a simulation coupling SURFEX
 !!     and TOPODYN
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      B. Vincendon
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/06/11 
+!!      Original    07/06/11
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -78,7 +78,7 @@ IF (LHOOK) CALL DR_HOOK('PREP_RESTART_COUPL_TOPD',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !
 ! * 1. Write stock files
-!          
+!
 WRITE(ILUOUT,*) 'Write STOCK file'
 !
  CALL OPEN_FILE('ASCII ',NUNIT,HFILE='stocks_sav.txt',HFORM='FORMATTED',HACTION='WRITE')
@@ -86,16 +86,16 @@ DO JSTP = 1,NNB_STP_RESTART
   WRITE(NUNIT,*)  XRUN_TOROUT(1:NNCAT,JSTP+NNB_TOPD_STEP), XDR_TOROUT(1:NNCAT,JSTP+NNB_TOPD_STEP)
 ENDDO
  CALL CLOSE_FILE('ASCII ',NUNIT)
-!  
+!
 ! * 2. Write pixels water content
 !
 WRITE(ILUOUT,*) 'Write pixels water content files'
 !
 YVAR = '_xwtop_sav.map'
  CALL WRITE_FILE_MAP(XWTOPT,YVAR)
-! 
+!
 ! * 3. Write Asat files
-! 
+!
 WRITE(ILUOUT,*) 'Write Asat files'
 !
 ALLOCATE(ZAS(KI))

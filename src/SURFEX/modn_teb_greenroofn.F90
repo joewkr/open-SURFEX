@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODN_TEB_GREENROOF_n
@@ -19,14 +19,14 @@
 !!    REFERENCE
 !!    ---------
 !!    Based on modn_tebn
-!!       
+!!
 !!    AUTHOR
 !!    ------
 !!      C. de Munck & A. Lemonsu    *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/2011                   
+!!      Original    07/2011
 !-------------------------------------------------------------------------------
 !
 !*       0.   DECLARATIONS
@@ -42,7 +42,7 @@ CHARACTER(LEN=4)  :: CSCOND_GR
 CHARACTER(LEN=4)  :: CRUNOFF_GR
 CHARACTER(LEN=3)  :: CKSAT_GR
 LOGICAL           :: LSOC_GR
-CHARACTER(LEN=3)  :: CHORT_GR         
+CHARACTER(LEN=3)  :: CHORT_GR
 !
 NAMELIST/NAM_TEB_GREENROOFn/CRUNOFF_GR,CSCOND_GR,CKSAT_GR,LSOC_GR,CHORT_GR
 !

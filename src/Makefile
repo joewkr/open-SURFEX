@@ -1,7 +1,7 @@
 ####
 #SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 #SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 #SFX_LIC for details. version 1.
 #MAKEFLAGS += -r
 ####
@@ -420,7 +420,7 @@ HDF5_OPTS= --enable-fortran --enable-parallel
 CDF_OPTS= --enable-parallel-tests
 else
 HDF5_OPTS= --enable-fortran
-CDF_OPTS= 
+CDF_OPTS=
 endif
 #
 # Compilation
@@ -444,7 +444,7 @@ CPPFLAGSCDFF= -I${ZLIB_PATH}/include -I${SZIP_PATH}/include -I${HDF5_PATH}/inclu
 LDFLAGSCDFF= -Wl,-rpath,/opt/softs/intel/impi/5.1.2.150/intel64/lib:/opt/softs/intel/compilers_and_libraries_2016.1.150/linux/compiler/lib/intel64:${CDF_PATH}/lib:${HDF5_PATH}/lib:${SZIP_PATH}/lib:${ZLIB_PATH}/lib -L/opt/softs/intel/impi/5.1.2.150/intel64/lib -L/opt/softs/intel/compilers_and_libraries_2016.1.150/linux/compiler/lib/intel64 -L${CDF_PATH}/lib -L${HDF5_PATH}/lib -L${ZLIB_PATH}/lib -L${SZIP_PATH}/lib
 LIBSCDFF= -netcdf -lhdf5_hl -lhdf5 -ldl -lm -lz -L/opt/softs/intel/impi/5.1.2.150/intel64/lib -L/opt/softs/intel/compilers_and_libraries_2016.1.150/linux/compiler/lib/intel64 -L${CDF_PATH}/lib -L${HDF5_PATH}/lib -L${ZLIB_PATH}/lib -L${SZIP_PATH}/lib
 
-$(SZIP_LIB) : 
+$(SZIP_LIB) :
 	 cd $(DIR_SZIP) && ./configure --prefix=${SZIP_PATH} CC="$(CC)" && \
 	 $(MAKE) -j 1 clean && $(MAKE) -j 1 && $(MAKE) -j 1 install && $(MAKE) -j 1 clean
 #
@@ -536,18 +536,18 @@ ifneq "$(XIOS_CDF_OPT)" ""
 #
 xios : $(XIOS_KEY)
 $(XIOS_KEY) : $(CDFF_INC)
-	@echo "export Surfex_CC=\"$(CC) $(CFLAGS_OMP)\"" > $(DIR_XIOS)/arch/arch-Surfex.env  
-	@echo "export Surfex_F90=\"$(F90) $(F90FLAGS)\"" >> $(DIR_XIOS)/arch/arch-Surfex.env  
+	@echo "export Surfex_CC=\"$(CC) $(CFLAGS_OMP)\"" > $(DIR_XIOS)/arch/arch-Surfex.env
+	@echo "export Surfex_F90=\"$(F90) $(F90FLAGS)\"" >> $(DIR_XIOS)/arch/arch-Surfex.env
 	#
-	@echo "OASIS_INCDIR=\"$(INC_OASIS)\"" > $(DIR_XIOS)/arch/arch-Surfex.path  
-	@echo "OASIS_LIBDIR=\"$(LIB_OASIS)\"" >> $(DIR_XIOS)/arch/arch-Surfex.path  
-	@echo "NETCDF_INCDIR=\"$(INC_NETCDF)\"" >> $(DIR_XIOS)/arch/arch-Surfex.path  
-	@echo "NETCDF_LIBDIR=\"$(LIB_NETCDF)\"" >> $(DIR_XIOS)/arch/arch-Surfex.path  
+	@echo "OASIS_INCDIR=\"$(INC_OASIS)\"" > $(DIR_XIOS)/arch/arch-Surfex.path
+	@echo "OASIS_LIBDIR=\"$(LIB_OASIS)\"" >> $(DIR_XIOS)/arch/arch-Surfex.path
+	@echo "NETCDF_INCDIR=\"$(INC_NETCDF)\"" >> $(DIR_XIOS)/arch/arch-Surfex.path
+	@echo "NETCDF_LIBDIR=\"$(LIB_NETCDF)\"" >> $(DIR_XIOS)/arch/arch-Surfex.path
 	#
 	@echo '=> Compiling XIOS -- this may take quite a while (up to ~15 min) :-)'
 	@echo '=>   check progress in $(DIR_XIOS)/make_xios.out'
 	@cd $(DIR_XIOS)  && \
-	  ./make_xios --arch Surfex --netcdf_lib $(XIOS_CDF_OPT) --prod $(ADD_OASIS) > make_xios.out 2>&1 
+	  ./make_xios --arch Surfex --netcdf_lib $(XIOS_CDF_OPT) --prod $(ADD_OASIS) > make_xios.out 2>&1
 	@echo -e '=> Compiling XIOS done\n'
 
 clean_xios :

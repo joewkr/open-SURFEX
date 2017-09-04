@@ -1,21 +1,21 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE SOILGRID(PSOILGRID, PSOILDEPTH, PDG, KWG_LAYER  )
 
 !     ##########################################################################
 !
-!!****  *SOILGRID*  
+!!****  *SOILGRID*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates the soil grid configuration using a reference grid
 !     Also compute the root fraction
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -38,7 +38,7 @@
 !!    Boone et al. (2000)
 !!    Habets et al. (2003)
 !!    Decharme et al. (2011)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      A. Boone           * Meteo-France *
@@ -69,7 +69,7 @@ IMPLICIT NONE
 !*      0.1    declarations of arguments
 !
 REAL,    DIMENSION(:),     INTENT(IN)    :: PSOILGRID   ! reference soil grid          (m)
-REAL,    DIMENSION(:),   INTENT(IN)    :: PSOILDEPTH  ! total soil depth             (m)   
+REAL,    DIMENSION(:),   INTENT(IN)    :: PSOILDEPTH  ! total soil depth             (m)
 REAL,    DIMENSION(:,:), INTENT(OUT)   :: PDG         ! depth of base of soil layers (m)
 INTEGER, DIMENSION(:),   INTENT(OUT)   :: KWG_LAYER   ! last layers for soil moisture
 !
@@ -126,11 +126,11 @@ ELSE
     PDG(:,1)=XUNDEF
   ENDWHERE
   !
-    DO JJ=1,INI 
+    DO JJ=1,INI
       !
       IF( PSOILDEPTH(JJ)==XUNDEF )THEN
         !
-        PDG      (JJ,:) = XUNDEF              
+        PDG      (JJ,:) = XUNDEF
         KWG_LAYER(JJ) = NUNDEF
         !
       ELSE
@@ -139,7 +139,7 @@ ELSE
           !
           PDG      (JJ,JL) = PSOILGRID(JL)
           !
-          IF ( PSOILGRID(JL)-PSOILGRID(JL-1)<=0.3 ) THEN       
+          IF ( PSOILGRID(JL)-PSOILGRID(JL-1)<=0.3 ) THEN
             ZWORK = ABS(PSOILGRID(JL)-PSOILDEPTH(JJ))
             IF(ZWORK<=ZREF(JJ))THEN
               KWG_LAYER(JJ) = JL
@@ -199,13 +199,13 @@ IF(CDGDIF=='ROOT')THEN
         IF(PSOILDEPTH(JJ)<=1.1)THEN
           ZDG_WATER(JJ)=MIN(1.0,PSOILDEPTH(JJ))
         ELSEIF(PSOILDEPTH(JJ)>1.1.AND.PSOILDEPTH(JJ)<=1.25)THEN
-          ZDG_WATER(JJ)=1.25          
+          ZDG_WATER(JJ)=1.25
         ELSEIF(PSOILDEPTH(JJ)>5.50.AND.PSOILDEPTH(JJ)<=8.00)THEN
               ZDG_WATER(JJ)=8.00
         ELSEIF(PSOILDEPTH(JJ)>8.00.AND.PSOILDEPTH(JJ)<XUNDEF)THEN
               ZDG_WATER(JJ)=12.00 ! Permafrost case
         ELSE
-          DO JL=1,NDLIM-1         
+          DO JL=1,NDLIM-1
              IF(PSOILDEPTH(JJ)>ZDLIM(JL).AND.PSOILDEPTH(JJ)<=ZDLIM(JL+1))THEN
                ZDG_WATER(JJ)=MERGE(ZDLIM(JL),ZDLIM(JL+1),PSOILDEPTH(JJ)<(0.8*ZDLIM(JL)+0.2*ZDLIM(JL+1)))
              ENDIF
@@ -225,7 +225,7 @@ ELSE
         ELSEIF(PSOILDEPTH(JJ)>=10.50.AND.PSOILDEPTH(JJ)<XUNDEF)THEN
               ZDG_WATER(JJ)=12.00 ! Permafrost case
         ELSE
-          DO JL=1,NDLIM-1         
+          DO JL=1,NDLIM-1
              IF(PSOILDEPTH(JJ)>=ZDLIM(JL).AND.PSOILDEPTH(JJ)<ZDLIM(JL+1))THEN
                ZDG_WATER(JJ)=MERGE(ZDLIM(JL),ZDLIM(JL+1),PSOILDEPTH(JJ)<(0.4*ZDLIM(JL)+0.6*ZDLIM(JL+1)))
              ENDIF
@@ -242,13 +242,13 @@ ENDIF
     !
     IF(PSOILDEPTH(JJ)==XUNDEF)THEN
       !
-      PDG      (JJ,:) = XUNDEF      
-      KWG_LAYER(JJ) = NUNDEF    
+      PDG      (JJ,:) = XUNDEF
+      KWG_LAYER(JJ) = NUNDEF
       !
     ELSE
       !
       PDG(JJ,:) = PSOILGRID(:)
-      !      
+      !
       LWORK=(ZDG_WATER(JJ)<=1.0.OR.&
              ZDG_WATER(JJ)==1.5.OR.&
              ZDG_WATER(JJ)==2.0.OR.&
@@ -256,15 +256,15 @@ ENDIF
              ZDG_WATER(JJ)==5.0.OR.&
              ZDG_WATER(JJ)==8.0.OR.&
              ZDG_WATER(JJ)==12.0   )
-      ! 
-      IF (LWORK) THEN    
-        DO JL=2,INL      
-          ZWORK = ABS(PSOILGRID(JL)-ZDG_WATER(JJ))                 
+      !
+      IF (LWORK) THEN
+        DO JL=2,INL
+          ZWORK = ABS(PSOILGRID(JL)-ZDG_WATER(JJ))
           IF(ZWORK<=ZREF(JJ))THEN
             KWG_LAYER(JJ)=JL
             ZREF(JJ)=ZWORK
           ENDIF
-        ENDDO           
+        ENDDO
       ENDIF
       !
     ENDIF

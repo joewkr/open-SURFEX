@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #####################
       MODULE MODD_CH_SURF_n
@@ -9,8 +9,8 @@
 !!
 !!    PURPOSE
 !!    -------
-!     
-!   
+!
+!
 !
 !!
 !!**  IMPLICIT ARGUMENTS
@@ -48,10 +48,10 @@ TYPE CH_SURF_t
   CHARACTER(LEN=6), DIMENSION(:), POINTER :: CCH_NAMES ! NAME OF CHEMICAL
   CHARACTER(LEN=6), DIMENSION(:), POINTER :: CAER_NAMES ! NAME OF AEROSOL SPECIES
                                                        ! SPECIES (FOR DIAG ONLY)
-  CHARACTER(LEN=28)             :: CCHEM_SURF_FILE     ! name of general 
+  CHARACTER(LEN=28)             :: CCHEM_SURF_FILE     ! name of general
                                                        ! (chemical) purpose
                                                        ! ASCII input file
-  REAL, DIMENSION(:), POINTER   :: XCONVERSION         ! emission unit 
+  REAL, DIMENSION(:), POINTER   :: XCONVERSION         ! emission unit
                                                        ! conversion factor
   LOGICAL  :: LCH_SURF_EMIS                            ! T : chemical emissions
                                                        ! are used

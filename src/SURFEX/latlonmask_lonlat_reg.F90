@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################################
       SUBROUTINE LATLONMASK_LONLAT_REG(KGRID_PAR,PGRID_PAR,OLATLONMASK)
@@ -19,7 +19,7 @@
 !!   1) test if the points of the mask are in the domain
 !!
 !!   2) fills the mask points corresponding to points scanning
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -38,7 +38,7 @@
 !!
 !!    MODIFICATION
 !!    ------------
-!!      
+!!
 !!      Original        19/07/95
 !----------------------------------------------------------------------------
 !
@@ -79,7 +79,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('LATLONMASK_LONLAT_REG',0,ZHOOK_HANDLE)
  CALL GET_GRIDTYPE_LONLAT_REG(PGRID_PAR,ZLONMIN,ZLONMAX, &
-                               ZLATMIN,ZLATMAX            )  
+                               ZLATMIN,ZLATMAX            )
 !
 !-------------------------------------------------------------------------------
 !
@@ -96,7 +96,7 @@ ZLAT_MASK(:,:)= SPREAD( (/ ( (JLAT-180)/2. - 0.25 , JLAT=1,360 ) /) , DIM=1, NCO
 !
 !-------------------------------------------------------------------------------
 !
-!*      3.   Set definition of longitudes according to grid 
+!*      3.   Set definition of longitudes according to grid
 !            ----------------------------------------------
 !
 ZLON0 = 0.5*(ZLONMIN+ZLONMAX)
@@ -109,7 +109,7 @@ DO JLAT=1,360
     IF (      ZLON_MASK(JLON,JLAT) + 0.25 >= ZLONMIN &
           .AND. ZLON_MASK(JLON,JLAT) - 0.25 <= ZLONMAX &
           .AND. ZLAT_MASK(JLON,JLAT) + 0.25 >= ZLATMIN &
-          .AND. ZLAT_MASK(JLON,JLAT) - 0.25 <= ZLATMAX ) OLATLONMASK(JLON,JLAT) = .TRUE.  
+          .AND. ZLAT_MASK(JLON,JLAT) - 0.25 <= ZLATMAX ) OLATLONMASK(JLON,JLAT) = .TRUE.
   END DO
 END DO
 IF (LHOOK) CALL DR_HOOK('LATLONMASK_LONLAT_REG',1,ZHOOK_HANDLE)

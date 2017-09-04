@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,48 +28,48 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ======================== MODULE modi_glt_updtfl_r =========================
 ! =======================================================================
 !
 ! Goal:
 ! -----
-!   Transform sea ice ablation/accretion or snow ablation into salt, 
+!   Transform sea ice ablation/accretion or snow ablation into salt,
 ! water and heat fluxes directed to the ocean.
 !
 ! Method:
 ! -------
-!   For every category of ice or snow involved in melting / freezing 
+!   For every category of ice or snow involved in melting / freezing
 ! in the grid cell, the following quantities are needed:
 !    - mass (kg.m-2)
 !    - massic gltools_enthalpy (J.kg-1)
-!    - salt (g.kg-1) 
-!   As Gelato can be coupled to rigid lid models (that need a virtual 
-! freshwater flux) or a free-surface model (that need a virtual 
-! freshwater flux and a water mass flux). A heat flux is also 
+!    - salt (g.kg-1)
+!   As Gelato can be coupled to rigid lid models (that need a virtual
+! freshwater flux) or a free-surface model (that need a virtual
+! freshwater flux and a water mass flux). A heat flux is also
 ! computed
-! 
+!
 ! Remarks:
 ! --------
-!   Note that dmass (the provided mass of melted ice or snow) are 
+!   Note that dmass (the provided mass of melted ice or snow) are
 ! in kg.m-2. In the case of sea ice:
 !            (sea ice density) * (fraction) * (thickness variation).
 ! In case of an exchange between the ice and a fresh water flux
 !  (ie snow2ice or sublim), then the provided mass is the masse of fresh water
 !  given to the ice compartment
-! 
+!
 !
 ! Created : 2001/07 (D. Salas y Melia)
-!           Taken out from imod_thermo_ice.f90 routine (rigid lid 
-!           assumption is made). 
+!           Taken out from imod_thermo_ice.f90 routine (rigid lid
+!           assumption is made).
 !
 ! Modified: 2002/10 (D. Salas y Melia)
 !           Introduction of free surface approach.
@@ -85,14 +85,14 @@
 ! ---------------------- BEGIN MODULE modi_glt_updtfl_r ---------------------
 !
 !THXS_SFX!MODULE modi_glt_updtfl_r
-!THXS_SFX!INTERFACE 
+!THXS_SFX!INTERFACE
 !THXS_SFX!!
 !THXS_SFX!SUBROUTINE glt_updtfl_r( hflag,tpmxl,tptfl,pdmass,pent,psalt )
 !THXS_SFX!!
 !THXS_SFX!  USE modd_types_glt
 !THXS_SFX!  USE modd_glt_param
 !THXS_SFX!  CHARACTER(*), INTENT(in) ::  &
-!THXS_SFX!        hflag  
+!THXS_SFX!        hflag
 !THXS_SFX!  TYPE(t_mxl), DIMENSION(np), INTENT(in) ::  &
 !THXS_SFX!        tpmxl
 !THXS_SFX!  TYPE(t_tfl), DIMENSION(np), INTENT(inout) ::  &
@@ -125,7 +125,7 @@ SUBROUTINE glt_updtfl_r( hflag,tpmxl,tptfl,pdmass,pent,psalt )
 ! .. Arguments
 !
   CHARACTER(*), INTENT(in) ::  &
-        hflag  
+        hflag
   TYPE(t_mxl), DIMENSION(np), INTENT(in) ::  &
         tpmxl
   TYPE(t_tfl), DIMENSION(np), INTENT(inout) ::  &
@@ -162,12 +162,12 @@ SUBROUTINE glt_updtfl_r( hflag,tpmxl,tptfl,pdmass,pent,psalt )
 !
 ! .. zsalt is in g.kg-1
 !
-  IF ( PRESENT( psalt ) ) THEN       
+  IF ( PRESENT( psalt ) ) THEN
       zsalt(:,:) = psalt(:,:)
     ELSE
       zsalt(:,:) = 0.
   ENDIF
-  IF ( PRESENT( pent ) ) THEN       
+  IF ( PRESENT( pent ) ) THEN
       zent(:,:) = pent(:,:)
     ELSE
       zent(:,:) = 0.
@@ -206,7 +206,7 @@ SUBROUTINE glt_updtfl_r( hflag,tpmxl,tptfl,pdmass,pent,psalt )
 !   Ice <-> Ocean
   IF ( hflag=='I2O' ) THEN
     IF ( nleviti==1 ) THEN
-! .. Update virtual water flux (concentration/dilution) in kg.m-2.s-1 
+! .. Update virtual water flux (concentration/dilution) in kg.m-2.s-1
       CALL glt_salflx_r( zqsalt2,tpmxl,tptfl,pdmass=pdmass,psalt=zsalt )
 !
 ! .. Salt flux in kg.m-2.s-1
@@ -225,7 +225,7 @@ SUBROUTINE glt_updtfl_r( hflag,tpmxl,tptfl,pdmass,pent,psalt )
   ENDIF
 !
 ! .. Heat flux in W.m-2
-! 
+!
   tptfl(:)%tio = tptfl(:)%tio - zqent(:)
 !
 !

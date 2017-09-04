@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################
       SUBROUTINE ZOOM_PGD_ISBA (CHI, DTCO, DTV, IG, IO, S, K, ISS, UG, U, USS, GCP, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -133,7 +133,7 @@ IF (LHOOK) CALL DR_HOOK('ZOOM_PGD_ISBA',0,ZHOOK_HANDLE)
  CALL OPEN_AUX_IO_SURF(HINIFILE,HINIFILETYPE,'FULL  ')
 !
  CALL READ_SURF(HINIFILETYPE,'VERSION',IVERSION,IRESP)
- CALL READ_SURF(HINIFILETYPE,'BUG',IBUGFIX,IRESP) 
+ CALL READ_SURF(HINIFILETYPE,'BUG',IBUGFIX,IRESP)
  CALL READ_SURF(HINIFILETYPE,'PATCH_NUMBER',IO%NPATCH,IRESP)
 !
 ALLOCATE(IO%LMEB_PATCH(IO%NPATCH))
@@ -147,10 +147,10 @@ IF (IVERSION>=8) THEN
     CALL READ_SURF(HINIFILETYPE,'FORC_MEASURE',IO%LFORC_MEASURE,IRESP)
     CALL READ_SURF(HINIFILETYPE,'MEB_LITTER',IO%LMEB_LITTER,IRESP)
     CALL READ_SURF(HINIFILETYPE,'MEB_GNDRES',IO%LMEB_GNDRES,IRESP)
-  ELSE      
+  ELSE
     IO%LFORC_MEASURE = .FALSE.
     IO%LMEB_LITTER   = .FALSE.
-    IO%LMEB_GNDRES   = .FALSE.    
+    IO%LMEB_GNDRES   = .FALSE.
   ENDIF
   !
 ELSE
@@ -174,7 +174,7 @@ IF (IVERSION>7 .OR. IVERSION==7 .AND. IBUGFIX>=2) THEN
   !
   CALL READ_SURF(HINIFILETYPE,'TR_ML',IO%LTR_ML,IRESP)
   !
-ELSE 
+ELSE
   IO%LTR_ML = .FALSE.
 ENDIF
 !
@@ -225,7 +225,7 @@ ALLOCATE(IG%XLON       (ILU))
 ALLOCATE(IG%XMESH_SIZE (ILU))
 ALLOCATE(ISS%XZ0EFFJPDIR(ILU))
 !
- CALL PACK_PGD(DTCO, U,  HPROGRAM, 'NATURE', IG, S%LCOVER, S%XCOVER, S%XZS  )  
+ CALL PACK_PGD(DTCO, U,  HPROGRAM, 'NATURE', IG, S%LCOVER, S%XCOVER, S%XZS  )
 !
 !------------------------------------------------------------------------------
 !
@@ -262,7 +262,7 @@ ALLOCATE(ZSSO_SLOPE(IL))
  CALL PACK_PGD_ISBA(DTCO, IG%NDIM, ISS, U, HPROGRAM,              &
                      ZAOSIP, ZAOSIM, ZAOSJP, ZAOSJM,              &
                      ZHO2IP, ZHO2IM, ZHO2JP, ZHO2JM,              &
-                     ZSSO_SLOPE                                   )  
+                     ZSSO_SLOPE                                   )
 !
 DEALLOCATE(ZAOSIP)
 DEALLOCATE(ZAOSIM)

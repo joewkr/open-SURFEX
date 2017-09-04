@@ -1,17 +1,17 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_SSO_n (KSIZE_FULL, PSEA, USS, HPROGRAM)
 !     ################################
 !
 !!****  *READ_SSO_n* - routine to read a file for
-!!                         physiographic data file of model _n 
+!!                         physiographic data file of model _n
 !!
 !!    PURPOSE
 !!    -------
-!!       The purpose of this routine is to initialise the 
+!!       The purpose of this routine is to initialise the
 !!       physiographic data file.
 !!
 !!
@@ -19,13 +19,13 @@
 !!    ------
 !!      The data are read in the initial surface file :
 !!        - 2D physiographic data fields
-!!          
+!!
 !!      It does not read the grid definition. This should have been
 !!      read already.
 !!
 !!    EXTERNAL
 !!    --------
-!!      
+!!
 !!
 !!
 !!    IMPLICIT ARGUMENTS
@@ -76,7 +76,7 @@ TYPE(SSO_t), INTENT(INOUT) :: USS
 
 !
 INTEGER           :: IRESP          ! Error code after redding
-! 
+!
  CHARACTER(LEN=12) :: YRECFM         ! Name of the article to be read
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !##################
 MODULE MODI_WRITE_SURF
@@ -9,7 +9,7 @@ MODULE MODI_WRITE_SURF
 !----------------------------------------------------
 !!    MODIFICATIONS
 !!    -------------
-!!      Original       
+!!      Original
 !!      J.Escobar      10/06/2013: replace DOUBLE PRECISION by REAL to handle problem for promotion of real on IBM SP
 !----------------------------------------------------
 !
@@ -23,7 +23,7 @@ MODULE MODI_WRITE_SURF
  CHARACTER(LEN=6),  INTENT(IN) :: HPROGRAM ! calling program
  CHARACTER(LEN=*),  INTENT(IN) :: HREC     ! name of the article to be written
 REAL,              INTENT(IN) :: PFIELD   ! real scalar to be written
-INTEGER,           INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem appears 
+INTEGER,           INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=100),INTENT(IN) :: HCOMMENT ! Comment string
 !
 END SUBROUTINE WRITE_SURFX0
@@ -257,7 +257,7 @@ INCLUDE "mpif.h"
  CHARACTER(LEN=6),  INTENT(IN) :: HPROGRAM ! calling program
  CHARACTER(LEN=*),  INTENT(IN) :: HREC     ! name of the article to be written
 REAL,              INTENT(IN) :: PFIELD   ! real scalar to be written
-INTEGER,           INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem appears 
+INTEGER,           INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=100),INTENT(IN) :: HCOMMENT ! Comment string
 !
 !*      0.2   Declarations of local variables
@@ -360,7 +360,7 @@ END SUBROUTINE WRITE_SURFX0
       SUBROUTINE WRITE_SURFX1 ( HSELECT,HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
 !     #############################################################
 !
-!!****  *WRITEX1* - routine to fill a real 1D array for the externalised surface 
+!!****  *WRITEX1* - routine to fill a real 1D array for the externalised surface
 !
 !
 !
@@ -517,7 +517,7 @@ END SUBROUTINE WRITE_SURFX1
       SUBROUTINE WRITE_SURFX2 ( HSELECT, HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
 !     #############################################################
 !
-!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface 
+!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface
 !
 !
 !
@@ -602,7 +602,7 @@ IF (TRIM(HPROGRAM)=='XIOS') THEN
       CALL WRITE_SURF_XIOS(TRIM(YREC), HCOMMENT, PFIELD2=PFIELD, HAXIS=HNAM_DIM)
 #endif
 ELSE
-  !      
+  !
   YDIR = 'H'
   IF (PRESENT(HDIR)) YDIR = HDIR
   IL1  = SIZE(PFIELD,1)
@@ -680,7 +680,7 @@ END SUBROUTINE WRITE_SURFX2
       SUBROUTINE WRITE_SURFX3 ( HSELECT, HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
 !     #############################################################
 !
-!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface 
+!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface
 !
 !
 !
@@ -765,7 +765,7 @@ IF (TRIM(HPROGRAM)=='XIOS') THEN
       CALL WRITE_SURF_XIOS(TRIM(YREC), HCOMMENT, PFIELD3=PFIELD, HAXIS=HNAM_DIM)
 #endif
 ELSE
-  !      
+  !
   YDIR = 'H'
   IF (PRESENT(HDIR)) YDIR = HDIR
   IL1  = SIZE(PFIELD,1)
@@ -982,7 +982,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_NC
     CALL WRITE_SURF0_NC( HSELECT, YREC,KFIELD,KRESP,HCOMMENT)
 #endif
-  ENDIF  
+  ENDIF
   !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
@@ -1294,7 +1294,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_NC
     CALL WRITE_SURF0_NC( HSELECT, YREC,YFIELD,KRESP,HCOMMENT)
 #endif
-  ENDIF  
+  ENDIF
   !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
@@ -1405,7 +1405,7 @@ ENDIF
 IF (NRANK==NPIO) THEN
   !
 #ifdef SFX_MPI
-  XTIME0 = MPI_WTIME() 
+  XTIME0 = MPI_WTIME()
 #endif
   !
   IF (HPROGRAM=='ASCII ') THEN
@@ -1448,7 +1448,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_NC
     CALL WRITE_SURF0_NC( HSELECT, YREC,OFIELD,KRESP,HCOMMENT)
 #endif
-  ENDIF  
+  ENDIF
   !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
@@ -1759,7 +1759,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_NC
     CALL WRITE_SURFT_NC( HSELECT, YREC,IYEAR,IMONTH,IDAY,ZTIME,KRESP,HCOMMENT)
 #endif
-  ENDIF  
+  ENDIF
   !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)

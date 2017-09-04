@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_GRID_DIM(HGRID,KGRID_PAR,PGRID_PAR,ORECT,KDIM1,KDIM2)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -64,7 +64,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('GET_GRID_DIM',0,ZHOOK_HANDLE)
 SELECT CASE (HGRID)
-!     
+!
   CASE("CONF PROJ ")
     CALL GET_GRID_DIM_CONF_PROJ(KGRID_PAR,PGRID_PAR,ORECT,KDIM1,KDIM2)
 

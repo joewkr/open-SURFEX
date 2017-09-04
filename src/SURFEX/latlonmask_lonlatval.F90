@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################################
       SUBROUTINE LATLONMASK_LONLATVAL(KGRID_PAR,PGRID_PAR,OLATLONMASK)
@@ -16,10 +16,10 @@
 !!
 !!    A simple method is used :
 !!
-!!   XMIN, XMAX, YMIN, YMAX are calculated for the grid 
+!!   XMIN, XMAX, YMIN, YMAX are calculated for the grid
 !!   This domain is extended to account for deformation between lambert and lat lon.
 !!   All lat lon values in this extended domains are set to true in the mask.
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -38,8 +38,8 @@
 !!
 !!    MODIFICATION
 !!    ------------
-!!      
-!!      Original        10/2007  
+!!
+!!      Original        10/2007
 !----------------------------------------------------------------------------
 !
 !*    0.     DECLARATION
@@ -74,8 +74,8 @@ REAL, DIMENSION(720,360)          :: ZLON_MASK! mask points longitudes
 REAL, DIMENSION(720,360)          :: ZLAT_MASK! mask points latitudes
 REAL, DIMENSION(:), ALLOCATABLE   :: ZX       ! X Lambert   coordinate
 REAL, DIMENSION(:), ALLOCATABLE   :: ZY       ! Y Lambert   coordinate
-REAL, DIMENSION(:), ALLOCATABLE   :: ZDX      ! Grid dimension in X 
-REAL, DIMENSION(:), ALLOCATABLE   :: ZDY      ! Grid dimension in Y 
+REAL, DIMENSION(:), ALLOCATABLE   :: ZDX      ! Grid dimension in X
+REAL, DIMENSION(:), ALLOCATABLE   :: ZDY      ! Grid dimension in Y
 !
 INTEGER                           :: IL       ! Number og grid points
 INTEGER                           :: JLAT, JLON
@@ -87,7 +87,7 @@ OLATLONMASK(:,:) = .FALSE.
 !
 !-------------------------------------------------------------------------------
 !
-!*      1.   Limits of the domain in lonlatval coordinates 
+!*      1.   Limits of the domain in lonlatval coordinates
 !            ------------------------------------------------
 !
      CALL GET_GRIDTYPE_LONLATVAL(PGRID_PAR,KL=IL)
@@ -136,7 +136,7 @@ WHERE ((ZLON_MASK(:,:) >= ZXMIN .AND. ZLON_MASK(:,:) <= ZXMAX &
          (ZLAT_MASK(:,:) >= ZYMIN .AND. ZLAT_MASK(:,:) <= ZYMAX &
           .OR. ZLAT_MASK(:,:) <= ZYMIN .AND. ZLAT_MASK(:,:)+0.25 >= ZYMIN &
           .OR. ZLAT_MASK(:,:) >= ZYMAX .AND. ZLAT_MASK(:,:)-0.25 <= ZYMAX &
-          .OR. ZLAT_MASK(:,:)-0.25 <=ZYMIN .AND. ZLAT_MASK(:,:)+0.25 >= ZYMAX))  
+          .OR. ZLAT_MASK(:,:)-0.25 <=ZYMIN .AND. ZLAT_MASK(:,:)+0.25 >= ZYMAX))
   OLATLONMASK(:,:) = .TRUE.
 END WHERE
 IF (LHOOK) CALL DR_HOOK('LATLONMASK_LONLATVAL',1,ZHOOK_HANDLE)

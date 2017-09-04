@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#######################
 MODULE MODI_Z0V_FROM_LAI
@@ -68,7 +68,7 @@ END MODULE MODI_Z0V_FROM_LAI
 !     Calculates vegetation roughness from leaf
 !    area index and type of vegetation
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -78,13 +78,13 @@ END MODULE MODI_Z0V_FROM_LAI
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -93,9 +93,9 @@ END MODULE MODI_Z0V_FROM_LAI
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    25/03/99
-!!      P. Aumond   10/10/2009     Because drag force applied in atmospheric 
+!!      P. Aumond   10/10/2009     Because drag force applied in atmospheric
 !!                                 model, Z0tree -> z0grass
-!!      R. Alkama    05/2012   : Extantion from 12 to 19 vegtypes 
+!!      R. Alkama    05/2012   : Extantion from 12 to 19 vegtypes
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -125,7 +125,7 @@ REAL                            :: ZLAI        ! LAI for vegetated areas
 !
 REAL, DIMENSION(SIZE(PVEGTYPE)) :: ZH_VEG          ! height for each type
 REAL                            :: ZAVG_H      ! averaged height
-REAL                            :: ZZREF       ! reference height        
+REAL                            :: ZZREF       ! reference height
 !
 INTEGER                         :: JTYPE       ! loop counter
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -161,7 +161,7 @@ END FUNCTION Z0V_FROM_LAI_0D
 !     Calculates vegetation roughness from leaf
 !    area index and type of vegetation
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -171,13 +171,13 @@ END FUNCTION Z0V_FROM_LAI_0D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -216,7 +216,7 @@ REAL, DIMENSION(SIZE(PLAI))                  :: ZLAI        ! LAI for vegetated 
 !
 REAL, DIMENSION(SIZE(PLAI),SIZE(PVEGTYPE,2)) :: ZH_VEG          ! height for each type
 REAL, DIMENSION(SIZE(PLAI))                  :: ZAVG_H      ! averaged height
-REAL                                         :: ZZREF       ! reference height        
+REAL                                         :: ZZREF       ! reference height
 !
 INTEGER                                      :: JTYPE       ! loop counter
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -251,7 +251,7 @@ END FUNCTION Z0V_FROM_LAI_1D
 !     Calculates vegetation roughness from leaf
 !    area index and type of vegetation
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -261,13 +261,13 @@ END FUNCTION Z0V_FROM_LAI_1D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -307,7 +307,7 @@ REAL, DIMENSION(SIZE(PLAI,1),SIZE(PLAI,2))                  :: ZLAI     ! LAI fo
 !
 REAL, DIMENSION(SIZE(PLAI,1),SIZE(PLAI,2),SIZE(PVEGTYPE,3)) :: ZH_VEG       ! height for each type
 REAL, DIMENSION(SIZE(PLAI,1),SIZE(PLAI,2))                  :: ZAVG_H   ! averaged height
-REAL                                                        :: ZZREF    ! reference height        
+REAL                                                        :: ZZREF    ! reference height
 !
 INTEGER                                                     :: JTYPE    ! loop counter
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -346,7 +346,7 @@ END FUNCTION Z0V_FROM_LAI_2D
 !     Calculates vegetation roughness from leaf
 !    area index and type of vegetation for each patch
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -356,13 +356,13 @@ END FUNCTION Z0V_FROM_LAI_2D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!        F.Solmon
@@ -371,7 +371,7 @@ END FUNCTION Z0V_FROM_LAI_2D
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    25/03/99
-!!      
+!!
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS

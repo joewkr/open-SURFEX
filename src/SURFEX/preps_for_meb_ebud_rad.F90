@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ############################################################################
 SUBROUTINE PREPS_FOR_MEB_EBUD_RAD(PPS,                                         &
@@ -15,9 +15,9 @@ SUBROUTINE PREPS_FOR_MEB_EBUD_RAD(PPS,                                         &
 !!    -------
 !
 !     Get preliminary estimates of certain parameters needed for energy budget
-!     solution of snowpack, and some other misc inputs needed by radiation 
+!     solution of snowpack, and some other misc inputs needed by radiation
 !     routines for MEB.
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -30,11 +30,11 @@ SUBROUTINE PREPS_FOR_MEB_EBUD_RAD(PPS,                                         &
 !!    ------------------
 !!
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -75,7 +75,7 @@ REAL, DIMENSION(:),   INTENT(IN)    :: PPS
 REAL, DIMENSION(:),   INTENT(IN)    :: PSR
 REAL, DIMENSION(:),   INTENT(IN)    :: PTA
 REAL, DIMENSION(:),   INTENT(IN)    :: PVMOD
-REAL, DIMENSION(:),   INTENT(IN)    :: PPERMSNOWFRAC 
+REAL, DIMENSION(:),   INTENT(IN)    :: PPERMSNOWFRAC
 REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWHEAT
 
 REAL, DIMENSION(:,:), INTENT(INOUT) :: PSNOWSWE, PSNOWAGE, PSNOWRHO
@@ -111,7 +111,7 @@ WHERE(PSNOWRHO(:,:)==XUNDEF)
    PSNOWRHO(:,:) = XRHOSMIN_ES
 ENDWHERE
 !
-PSNOWDZ(:,:)     = PSNOWSWE(:,:)/PSNOWRHO(:,:) ! diagnose current layer thicknesses (m)            
+PSNOWDZ(:,:)     = PSNOWSWE(:,:)/PSNOWRHO(:,:) ! diagnose current layer thicknesses (m)
 !
 ! Local working:
 !
@@ -135,19 +135,19 @@ ENDDO
 !
 PHEATCAPS(:,:)   = SNOW3LSCAP(PSNOWRHO)                    ! J m-3 K-1
 !
-! Snow temperature (K) 
+! Snow temperature (K)
 !
 PSNOWTEMP(:,:)   = XTT + ( ((ZSNOWHEAT(:,:)/MAX(1.E-10,PSNOWDZ(:,:)))  &
-                   + XLMTT*PSNOWRHO(:,:))/PHEATCAPS(:,:) )  
+                   + XLMTT*PSNOWRHO(:,:))/PHEATCAPS(:,:) )
 !
 PSNOWLIQ(:,:)    = MAX(0.0,PSNOWTEMP(:,:)-XTT)*PHEATCAPS(:,:)*         &
-                   PSNOWDZ(:,:)/(XLMTT*XRHOLW) 
+                   PSNOWDZ(:,:)/(XLMTT*XRHOLW)
 
 PSNOWTEMP(:,:)   = MIN(XTT,PSNOWTEMP(:,:))
 
 ! SWE:
 
-PSNOWSWE(:,:)  = PSNOWDZ(:,:)*PSNOWRHO(:,:)             
+PSNOWSWE(:,:)  = PSNOWDZ(:,:)*PSNOWRHO(:,:)
 
  CALL SNOW3LCOMPACTN(PTSTEP,XSNOWDZMIN,PSNOWRHO,PSNOWDZ,PSNOWTEMP,ZSNOW,PSNOWLIQ)
 
@@ -170,7 +170,7 @@ IF (LHOOK) CALL DR_HOOK('PREPS_FOR_MEB_EBUD_RAD',1,ZHOOK_HANDLE)
  CONTAINS
 !####################################################################
 SUBROUTINE SNOW3LFALL(PTSTEP,PSR,PTA,PVMOD,PSNOW,PSNOWRHO,PSNOWDZ,        &
-                      PSNOWHEAT,PSNOWHMASS,PSNOWAGE,PPERMSNOWFRAC)  
+                      PSNOWHEAT,PSNOWHMASS,PSNOWAGE,PPERMSNOWFRAC)
 !
 !!    PURPOSE
 !!    -------
@@ -183,7 +183,7 @@ USE MODD_SNOW_PAR, ONLY : XRHOSMIN_ES, XSNOWDMIN, &
                           XSNOWFALL_A_SN,         &
                           XSNOWFALL_B_SN,         &
                           XSNOWFALL_C_SN
-!                   
+!
 USE MODE_SNOW3L
 !
 IMPLICIT NONE
@@ -212,7 +212,7 @@ REAL, DIMENSION(SIZE(PTA))          :: ZSNOWFALL, ZRHOSNEW,        &
                                        ZSNOW, ZSNOWTEMP,           &
                                        ZSNOWFALL_DELTA, ZSCAP,     &
                                        ZAGENEW
-!                               
+!
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !-------------------------------------------------------------------------------
@@ -251,7 +251,7 @@ ZSCAP    (:)  = SNOW3LSCAP(PSNOWRHO(:,1))
 WHERE (PSR(:) > 0.0 .AND. PSNOWDZ(:,1)>0.)
   ZSNOWTEMP(:)  = XTT + (PSNOWHEAT(:,1) +                              &
                     XLMTT*PSNOWRHO(:,1)*PSNOWDZ(:,1))/                   &
-                    (ZSCAP(:)*MAX(XSNOWDMIN/INLVLS,PSNOWDZ(:,1)))  
+                    (ZSCAP(:)*MAX(XSNOWDMIN/INLVLS,PSNOWDZ(:,1)))
   ZSNOWTEMP(:)  = MIN(XTT, ZSNOWTEMP(:))
 END WHERE
 !
@@ -262,7 +262,7 @@ WHERE (PSR(:) > 0.0)
 ! Snowfall density: Following CROCUS (Pahaut 1976)
 !
    ZRHOSNEW(:)   = MAX(XRHOSMIN_ES, XSNOWFALL_A_SN + XSNOWFALL_B_SN*(PTA(:)-XTT)+         &
-                     XSNOWFALL_C_SN*SQRT(PVMOD(:)))  
+                     XSNOWFALL_C_SN*SQRT(PVMOD(:)))
 !
 !
 ! Fresh snowfall changes the snowpack age,
@@ -282,7 +282,7 @@ WHERE (PSR(:) > 0.0)
 ! equivalent: in uppermost snow layer:
 !
    PSNOWRHO(:,1) = (PSNOWDZ(:,1)*PSNOWRHO(:,1) + ZSNOWFALL(:)*ZRHOSNEW(:))/     &
-                   (PSNOWDZ(:,1)+ZSNOWFALL(:))  
+                   (PSNOWDZ(:,1)+ZSNOWFALL(:))
 !
    PSNOWDZ(:,1)  = PSNOWDZ(:,1) + ZSNOWFALL(:)
 !
@@ -312,16 +312,16 @@ DO JJ=1,INLVLS
    DO JI=1,INI
 !
       PSNOWDZ(JI,JJ)   = ZSNOWFALL_DELTA(JI)*(ZSNOWFALL(JI) /INLVLS) + &
-                        (1.0-ZSNOWFALL_DELTA(JI))*PSNOWDZ(JI,JJ)  
+                        (1.0-ZSNOWFALL_DELTA(JI))*PSNOWDZ(JI,JJ)
 !
       PSNOWHEAT(JI,JJ) = ZSNOWFALL_DELTA(JI)*(PSNOWHMASS(JI)/INLVLS) + &
-                       (1.0-ZSNOWFALL_DELTA(JI))*PSNOWHEAT(JI,JJ)  
+                       (1.0-ZSNOWFALL_DELTA(JI))*PSNOWHEAT(JI,JJ)
 !
       PSNOWRHO(JI,JJ)  = ZSNOWFALL_DELTA(JI)*ZRHOSNEW(JI)            + &
                        (1.0-ZSNOWFALL_DELTA(JI))*PSNOWRHO(JI,JJ)
 !
       PSNOWAGE(JI,JJ)  = ZSNOWFALL_DELTA(JI)*(ZAGENEW(JI)/INLVLS)    + &
-                       (1.0-ZSNOWFALL_DELTA(JI))*PSNOWAGE(JI,JJ)  
+                       (1.0-ZSNOWFALL_DELTA(JI))*PSNOWAGE(JI,JJ)
 !
    ENDDO
 ENDDO
@@ -332,7 +332,7 @@ IF (LHOOK) CALL DR_HOOK('SNOW3LFALL',1,ZHOOK_HANDLE)
 END SUBROUTINE SNOW3LFALL
 !####################################################################
         SUBROUTINE SNOW3LTRANSF(PSNOW,PSNOWDZ,PSNOWDZN,    &
-                                PSNOWRHO,PSNOWHEAT,PSNOWAGE)  
+                                PSNOWRHO,PSNOWHEAT,PSNOWAGE)
 !
 !!    PURPOSE
 !!    -------
@@ -350,7 +350,7 @@ IMPLICIT NONE
 !
 REAL, DIMENSION(:  ), INTENT(IN)    :: PSNOW
 !
-REAL, DIMENSION(:,:), INTENT(INOUT) :: PSNOWDZN  
+REAL, DIMENSION(:,:), INTENT(INOUT) :: PSNOWDZN
 REAL, DIMENSION(:,:), INTENT(INOUT) :: PSNOWHEAT
 REAL, DIMENSION(:,:), INTENT(INOUT) :: PSNOWRHO
 REAL, DIMENSION(:,:), INTENT(INOUT) :: PSNOWDZ
@@ -367,13 +367,13 @@ REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWRHON
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWHEATN
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWAGEN
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWZTOP_NEW
-REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWZBOT_NEW                                       
+REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWZBOT_NEW
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWRHOO
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWHEATO
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWAGEO
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWDZO
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWZTOP_OLD
-REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWZBOT_OLD  
+REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWZBOT_OLD
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWHEAN
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWAGN
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZMASTOTN
@@ -406,7 +406,7 @@ DO JL=1,INLVLS
    ENDDO
 ENDDO
 !
-! initialization of variables describing the initial snowpack 
+! initialization of variables describing the initial snowpack
 !
 ZSNOWDZO  (:,:) = PSNOWDZ  (:,:)
 ZSNOWRHOO (:,:) = PSNOWRHO (:,:)
@@ -456,7 +456,7 @@ DO JL=1,INLVLS
    DO JLO=1, INLVLS
       DO JI=1,INI
         IF((ZSNOWZTOP_OLD(JI,JLO)>ZSNOWZBOT_NEW(JI,JL)).AND.(ZSNOWZBOT_OLD(JI,JLO)<ZSNOWZTOP_NEW(JI,JL)))THEN
-!                
+!
           ZPROPOR = (MIN(ZSNOWZTOP_OLD(JI,JLO), ZSNOWZTOP_NEW(JI,JL)) &
                   -  MAX(ZSNOWZBOT_OLD(JI,JLO), ZSNOWZBOT_NEW(JI,JL)))&
                   / ZSNOWDZO(JI,JLO)
@@ -467,11 +467,11 @@ DO JL=1,INLVLS
           ZSNOWAGN (JI,JL)=ZSNOWAGN (JI,JL)+ZSNOWAGEO (JI,JLO)*ZMASSDZO(JI,JLO)
 !
           ZSNOWHEAN(JI,JL)=ZSNOWHEAN(JI,JL)+ZSNOWHEATO(JI,JLO)*ZPROPOR
-!          
+!
         ENDIF
-      ENDDO 
-    ENDDO 
-ENDDO  
+      ENDDO
+    ENDDO
+ENDDO
 !
 ! the new layer inherits from the weighted average properties of the old ones
 ! heat and mass
@@ -522,16 +522,16 @@ DO JL=1,INLVLS
 
 !
          ZSNOWHEATN(JI,JL) = ZSNOWMIX_DELTA(JI)*(ZSUMHEAT(JI)/INLVLS)  + &
-                             (1.0-ZSNOWMIX_DELTA(JI))*ZSNOWHEATN(JI,JL)  
+                             (1.0-ZSNOWMIX_DELTA(JI))*ZSNOWHEATN(JI,JL)
 !
          PSNOWDZN(JI,JL)   = ZSNOWMIX_DELTA(JI)*(PSNOW(JI)/INLVLS)     + &
-                            (1.0-ZSNOWMIX_DELTA(JI))*PSNOWDZN(JI,JL)  
+                            (1.0-ZSNOWMIX_DELTA(JI))*PSNOWDZN(JI,JL)
 !
          ZSNOWRHON(JI,JL)  = ZSNOWMIX_DELTA(JI)*(ZSUMSWE(JI)/PSNOW(JI)) + &
                             (1.0-ZSNOWMIX_DELTA(JI))*ZSNOWRHON(JI,JL)
 !
          ZSNOWAGEN(JI,JL)  = ZSNOWMIX_DELTA(JI)*(ZSUMAGE(JI)/INLVLS)  + &
-                             (1.0-ZSNOWMIX_DELTA(JI))*ZSNOWAGEN(JI,JL)  
+                             (1.0-ZSNOWMIX_DELTA(JI))*ZSNOWAGEN(JI,JL)
 !
       ENDIF
    ENDDO
@@ -589,22 +589,22 @@ REAL, DIMENSION(:,:), INTENT(IN ), OPTIONAL :: PSNOWDZ_OLD
 INTEGER                           :: JJ, JI
 !
 INTEGER                           :: INLVLS, INI
-!   
+!
 REAL,     DIMENSION(SIZE(PSNOW))  :: ZWORK
 !
 LOGICAL , DIMENSION(SIZE(PSNOW))  :: GREGRID
 
 ! ISBA-ES snow grid parameters
 !
-REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF1  = (/0.25, 0.50, 0.25/) 
-REAL, PARAMETER, DIMENSION(2)     :: ZSGCOEF2  = (/0.05, 0.34/)       
-!      
-REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF   = (/0.3, 0.4, 0.3/) 
+REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF1  = (/0.25, 0.50, 0.25/)
+REAL, PARAMETER, DIMENSION(2)     :: ZSGCOEF2  = (/0.05, 0.34/)
+!
+REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF   = (/0.3, 0.4, 0.3/)
 !
 ! Minimum total snow depth at which surface layer thickness is constant:
 !
 REAL, PARAMETER                   :: ZSNOWTRANS = 0.20                ! (m)
-!      
+!
 ! Minimum snow depth by layer for 6-L or 12-L configuration :
 !
 REAL, PARAMETER                   ::  ZDZ1=0.01
@@ -638,7 +638,7 @@ GREGRID(:) = .TRUE.
 ! 1. Calculate current grid for 3-layer (default) configuration):
 ! ---------------------------------------------------------------
 ! Based on formulation of Lynch-Stieglitz (1994)
-! except for 3 modifications: 
+! except for 3 modifications:
 ! i) smooth transition here at ZSNOWTRANS
 ! ii) constant ratio for very thin snow:
 ! iii) ratio of layer 2 to surface layer <= 10
@@ -669,7 +669,7 @@ ELSEIF(INLVLS == 3)THEN
 !
 ! When using simple finite differences, limit the thickness
 ! factor between the top and 2nd layers to at most 10
-! 
+!
       PSNOWDZ(:,2) = MIN(10*ZSGCOEF2(1),  PSNOWDZ(:,2))
       PSNOWDZ(:,3) = PSNOW(:) - PSNOWDZ(:,2) - PSNOWDZ(:,1)
    END WHERE
@@ -691,11 +691,11 @@ ELSEIF(INLVLS == 6)THEN
                & PSNOWDZ_OLD(:,6) > ZCOEF2 * MIN(ZDZN1,PSNOW(:)/INLVLS)
   ENDIF
 !
-  WHERE(GREGRID(:))  
-!      top layers 
-       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS) 
-       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS) 
-!      last layers 
+  WHERE(GREGRID(:))
+!      top layers
+       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS)
+       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS)
+!      last layers
        PSNOWDZ(:,6) = MIN(ZDZN1,PSNOW(:)/INLVLS)
 !      remaining snow for remaining layers
        ZWORK(:)     = PSNOW(:) - PSNOWDZ(:,1) - PSNOWDZ(:,2) - PSNOWDZ(:,6)
@@ -705,8 +705,8 @@ ELSEIF(INLVLS == 6)THEN
 !      layer 3 tickness >= layer 2 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,3)-PSNOWDZ(:,2))
        PSNOWDZ(:,3)=PSNOWDZ(:,3)-ZWORK(:)
-       PSNOWDZ(:,4)=PSNOWDZ(:,4)+ZWORK(:) 
-!      layer 5 tickness >= layer 6 tickness  
+       PSNOWDZ(:,4)=PSNOWDZ(:,4)+ZWORK(:)
+!      layer 5 tickness >= layer 6 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,5)-PSNOWDZ(:,6))
        PSNOWDZ(:,5)=PSNOWDZ(:,5)-ZWORK(:)
        PSNOWDZ(:,4)=PSNOWDZ(:,4)+ZWORK(:)
@@ -725,15 +725,15 @@ ELSEIF(INLVLS == 9)THEN
                & PSNOWDZ_OLD(:,2) < ZCOEF1 * MIN(ZDZ2 ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:,2) > ZCOEF2 * MIN(ZDZ2 ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:,9) < ZCOEF1 * MIN(ZDZN0,PSNOW(:)/INLVLS) .OR. &
-               & PSNOWDZ_OLD(:,9) > ZCOEF2 * MIN(ZDZN0,PSNOW(:)/INLVLS) 
+               & PSNOWDZ_OLD(:,9) > ZCOEF2 * MIN(ZDZN0,PSNOW(:)/INLVLS)
   ENDIF
-!             
-  WHERE(GREGRID(:))  
-!      top layers 
-       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS) 
-       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS) 
+!
+  WHERE(GREGRID(:))
+!      top layers
+       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS)
+       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS)
        PSNOWDZ(:,3) = MIN(ZDZ3,PSNOW(:)/INLVLS)
-!      last layers 
+!      last layers
        PSNOWDZ(:,9)= MIN(ZDZN0,PSNOW(:)/INLVLS)
        PSNOWDZ(:,8)= MIN(ZDZN1,PSNOW(:)/INLVLS)
        PSNOWDZ(:,7)= MIN(ZDZN2,PSNOW(:)/INLVLS)
@@ -746,8 +746,8 @@ ELSEIF(INLVLS == 9)THEN
 !      layer 4 tickness >= layer 3 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,4)-PSNOWDZ(:,3))
        PSNOWDZ(:,4)=PSNOWDZ(:,4)-ZWORK(:)
-       PSNOWDZ(:,5)=PSNOWDZ(:,5)+ZWORK(:) 
-!      layer 6 tickness >= layer 7 tickness  
+       PSNOWDZ(:,5)=PSNOWDZ(:,5)+ZWORK(:)
+!      layer 6 tickness >= layer 7 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,6)-PSNOWDZ(:,7))
        PSNOWDZ(:,6)=PSNOWDZ(:,6)-ZWORK(:)
        PSNOWDZ(:,5)=PSNOWDZ(:,5)+ZWORK(:)
@@ -766,17 +766,17 @@ ELSEIF(INLVLS == 12)THEN
                & PSNOWDZ_OLD(:, 2) < ZCOEF1 * MIN(ZDZ2 ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:, 2) > ZCOEF2 * MIN(ZDZ2 ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:,12) < ZCOEF1 * MIN(ZDZN0,PSNOW(:)/INLVLS) .OR. &
-               & PSNOWDZ_OLD(:,12) > ZCOEF2 * MIN(ZDZN0,PSNOW(:)/INLVLS) 
+               & PSNOWDZ_OLD(:,12) > ZCOEF2 * MIN(ZDZN0,PSNOW(:)/INLVLS)
   ENDIF
-!             
-  WHERE(GREGRID(:))  
-!      top layers 
-       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS) 
-       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS) 
+!
+  WHERE(GREGRID(:))
+!      top layers
+       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS)
+       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS)
        PSNOWDZ(:,3) = MIN(ZDZ3,PSNOW(:)/INLVLS)
        PSNOWDZ(:,4) = MIN(ZDZ4,PSNOW(:)/INLVLS)
        PSNOWDZ(:,5) = MIN(ZDZ5,PSNOW(:)/INLVLS)
-!      last layers 
+!      last layers
        PSNOWDZ(:,12)= MIN(ZDZN0,PSNOW(:)/INLVLS)
        PSNOWDZ(:,11)= MIN(ZDZN1,PSNOW(:)/INLVLS)
        PSNOWDZ(:,10)= MIN(ZDZN2,PSNOW(:)/INLVLS)
@@ -791,8 +791,8 @@ ELSEIF(INLVLS == 12)THEN
 !      layer 6 tickness >= layer 5 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,6)-PSNOWDZ(:,5))
        PSNOWDZ(:,6)=PSNOWDZ(:,6)-ZWORK(:)
-       PSNOWDZ(:,7)=PSNOWDZ(:,7)+ZWORK(:) 
-!      layer 8 tickness >= layer 9 tickness  
+       PSNOWDZ(:,7)=PSNOWDZ(:,7)+ZWORK(:)
+!      layer 8 tickness >= layer 9 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,8)-PSNOWDZ(:,9))
        PSNOWDZ(:,8)=PSNOWDZ(:,8)-ZWORK(:)
        PSNOWDZ(:,7)=PSNOWDZ(:,7)+ZWORK(:)
@@ -800,7 +800,7 @@ ELSEIF(INLVLS == 12)THEN
 !
 ! 4. Calculate other non-optimized grid :
 ! ---------------------------------------
-! 
+!
 ELSEIF(INLVLS<10.AND.INLVLS/=3.AND.INLVLS/=6.AND.INLVLS/=9) THEN
 !
   DO JJ=1,INLVLS
@@ -812,7 +812,7 @@ ELSEIF(INLVLS<10.AND.INLVLS/=3.AND.INLVLS/=6.AND.INLVLS/=9) THEN
   PSNOWDZ(:,INLVLS) = PSNOWDZ(:,INLVLS) + (PSNOWDZ(:,1) - MIN(0.05, PSNOWDZ(:,1)))
   PSNOWDZ(:,1)      = MIN(0.05, PSNOWDZ(:,1))
 !
-ELSE !(INLVLS>=10 and /=12)  
+ELSE !(INLVLS>=10 and /=12)
 !
 ! critere a satisfaire pour remaillage
 !
@@ -822,23 +822,23 @@ ELSE !(INLVLS>=10 and /=12)
                & PSNOWDZ_OLD(:,     2) < ZCOEF1 * MIN(ZDZ2         ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:,     2) > ZCOEF2 * MIN(ZDZ2         ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:,INLVLS) < ZCOEF1 * MIN(0.05*PSNOW(:),PSNOW(:)/INLVLS) .OR. &
-               & PSNOWDZ_OLD(:,INLVLS) > ZCOEF2 * MIN(0.05*PSNOW(:),PSNOW(:)/INLVLS) 
+               & PSNOWDZ_OLD(:,INLVLS) > ZCOEF2 * MIN(0.05*PSNOW(:),PSNOW(:)/INLVLS)
   ENDIF
 !
-  WHERE(GREGRID(:))  
-       PSNOWDZ(:,1     ) = MIN(ZDZ1         ,PSNOW(:)/INLVLS) 
-       PSNOWDZ(:,2     ) = MIN(ZDZ2         ,PSNOW(:)/INLVLS) 
+  WHERE(GREGRID(:))
+       PSNOWDZ(:,1     ) = MIN(ZDZ1         ,PSNOW(:)/INLVLS)
+       PSNOWDZ(:,2     ) = MIN(ZDZ2         ,PSNOW(:)/INLVLS)
        PSNOWDZ(:,3     ) = MIN(ZDZ3         ,PSNOW(:)/INLVLS)
        PSNOWDZ(:,4     ) = MIN(ZDZ4         ,PSNOW(:)/INLVLS)
-       PSNOWDZ(:,5     ) = MIN(ZDZ5         ,PSNOW(:)/INLVLS)          
-       PSNOWDZ(:,INLVLS) = MIN(0.05*PSNOW(:),PSNOW(:)/INLVLS) 
+       PSNOWDZ(:,5     ) = MIN(ZDZ5         ,PSNOW(:)/INLVLS)
+       PSNOWDZ(:,INLVLS) = MIN(0.05*PSNOW(:),PSNOW(:)/INLVLS)
   ENDWHERE
 !
   DO JJ=6,INLVLS-1,1
      DO JI=1,INI
-        IF(GREGRID(JI))THEN           
+        IF(GREGRID(JI))THEN
           ZWORK(JI) = PSNOWDZ(JI,1)+PSNOWDZ(JI,2)+PSNOWDZ(JI,3)+PSNOWDZ(JI,4)+PSNOWDZ(JI,5)
-          PSNOWDZ(JI,JJ) = (PSNOW(JI)-ZWORK(JI)-PSNOWDZ(JI,INLVLS))/(INLVLS-6) 
+          PSNOWDZ(JI,JJ) = (PSNOW(JI)-ZWORK(JI)-PSNOWDZ(JI,INLVLS))/(INLVLS-6)
         ENDIF
      ENDDO
   ENDDO
@@ -849,9 +849,9 @@ DO JJ=1,INLVLS
    DO JI=1,INI
       IF(PSNOW(JI)==XUNDEF)THEN
          PSNOWDZ(JI,JJ) = XUNDEF
-      ELSEIF(.NOT.GREGRID(JI))THEN           
+      ELSEIF(.NOT.GREGRID(JI))THEN
          PSNOWDZ(JI,JJ)=PSNOWDZ_OLD(JI,JJ)
-      ENDIF      
+      ENDIF
    ENDDO
 ENDDO
 !
@@ -859,7 +859,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LGRID_2D',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE SNOW3LGRID
 !####################################################################
-SUBROUTINE SNOW3LCOMPACTN(PTSTEP,PSNOWDZMIN,PSNOWRHO,PSNOWDZ,PSNOWTEMP,PSNOW,PSNOWLIQ)  
+SUBROUTINE SNOW3LCOMPACTN(PTSTEP,PSNOWDZMIN,PSNOWRHO,PSNOWDZ,PSNOWTEMP,PSNOW,PSNOWLIQ)
 !
 !!    PURPOSE
 !!    -------
@@ -868,7 +868,7 @@ SUBROUTINE SNOW3LCOMPACTN(PTSTEP,PSNOWDZMIN,PSNOWRHO,PSNOWDZ,PSNOWTEMP,PSNOW,PSN
 !     in proportion to density increases. Method
 !     of Brun et al (1989) and Vionnet et al. (2012)
 !
-!     
+!
 USE MODD_SURF_PAR, ONLY : XUNDEF
 !
 USE MODD_CSTS,     ONLY : XTT, XG
@@ -947,22 +947,22 @@ ZF1(:,:) = 1.0/(XVVISC5+10.*MIN(1.0,PSNOWLIQ(:,:)/ZWHOLDMAX(:,:)))
 !
 DO JJ=1,INLVLS
    DO JI=1,INI
-!   
+!
       IF(PSNOWRHO(JI,JJ) < XRHOSMAX_ES)THEN
-!   
+!
 !       temperature dependence limited to 10K: Schleef et al. (2014)
         ZTEMP     (JI,JJ) = XVVISC4*MIN(10.,ABS(XTT-PSNOWTEMP(JI,JJ)))
-!        
+!
 !       Calculate snow viscocity: Brun et al. (1989), Vionnet et al. (2012)
         ZVISCOCITY(JI,JJ) = XVVISC1*ZF1(JI,JJ)*EXP(XVVISC3*PSNOWRHO(JI,JJ)+ZTEMP(JI,JJ))*PSNOWRHO(JI,JJ)/XVRO11
 !
 !       Calculate snow density:
         ZSNOWRHO2(JI,JJ) = PSNOWRHO(JI,JJ) + PSNOWRHO(JI,JJ)*PTSTEP &
                          * ( (XG*ZSMASS(JI,JJ)/ZVISCOCITY(JI,JJ)) )
-!         
+!
 !       Conserve mass by decreasing grid thicknesses in response to density increases
-        PSNOWDZ(JI,JJ) = PSNOWDZ(JI,JJ)*(PSNOWRHO(JI,JJ)/ZSNOWRHO2(JI,JJ))  
-!        
+        PSNOWDZ(JI,JJ) = PSNOWDZ(JI,JJ)*(PSNOWRHO(JI,JJ)/ZSNOWRHO2(JI,JJ))
+!
       ENDIF
 !
    ENDDO

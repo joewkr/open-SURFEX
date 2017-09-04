@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE DIAG_MISC_FLAKE_n (DMF, F)
@@ -16,11 +16,11 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     P. Le Moigne 
+!!     P. Le Moigne
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -70,13 +70,13 @@ IF (DMF%LWATER_PROFILE) THEN
          ZCSI(IZW,:) = (DMF%XZW_PROFILE(IZW) - F%XH_ML(:))/(F%XWATER_DEPTH(:) - F%XH_ML(:))
       END WHERE
       ZSHAPE(IZW,:) = (40./3.*F%XCT-20./3.)*ZCSI(IZW,:)   +     (18.-30.*F%XCT)*ZCSI(IZW,:)**2 &
-                       + (20.*F%XCT-12.)   *ZCSI(IZW,:)**3+(5./3.-10./3.*F%XCT)*ZCSI(IZW,:)**4  
+                       + (20.*F%XCT-12.)   *ZCSI(IZW,:)**3+(5./3.-10./3.*F%XCT)*ZCSI(IZW,:)**4
    END DO
 !
    DO IZW=1,SIZE(DMF%XZW_PROFILE)
       WHERE (F%XH_ML(:) >= DMF%XZW_PROFILE(IZW))
-         DMF%XTW_PROFILE(IZW,:) =  F%XT_WML(:) 
-      ELSEWHERE (F%XWATER_DEPTH(:) >= DMF%XZW_PROFILE(IZW)) 
+         DMF%XTW_PROFILE(IZW,:) =  F%XT_WML(:)
+      ELSEWHERE (F%XWATER_DEPTH(:) >= DMF%XZW_PROFILE(IZW))
          DMF%XTW_PROFILE(IZW,:) = F%XT_WML(:) - (F%XT_WML(:) - F%XT_BOT(:)) * ZSHAPE(IZW,:)
       END WHERE
    END DO

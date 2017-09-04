@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE COUPLING_DST_n (DSTK, KK, PK, PEK, DK, &
        HPROGRAM,                 &!I [char] Type of ISBA version
@@ -11,13 +11,13 @@ SUBROUTINE COUPLING_DST_n (DSTK, KK, PK, PEK, DK, &
        PRHOA,                    &!I [kg/m3] atmospheric density
        PPA,                      &!I [K] Atmospheric pressure
        PTA,                      &!I [K] Atmospheric temperature
-       PU,                       &!I [m/s] zonal wind at atmospheric height 
+       PU,                       &!I [m/s] zonal wind at atmospheric height
        PUREF,                    &!I [m] reference height of wind
        PV,                       &!I [m/s] meridional wind at atmospheric height
        PZREF,                    &!I [m] reference height of wind
        PSFDST                    &!O [kg/m2/sec] flux of dust
-       )  
-  
+       )
+
 !PURPOSE
 !-------
 !Recieve a full vector for a given patch containing dust emitter surface points
@@ -28,7 +28,7 @@ SUBROUTINE COUPLING_DST_n (DSTK, KK, PK, PEK, DK, &
 !AUTHOR
 !-------
 !ALF GRINI <alf.grini@cnrm.meteo.fr>  2005
-! Modification P. Tulet introduce friction velocity for mode repartition upon 
+! Modification P. Tulet introduce friction velocity for mode repartition upon
 ! Alfaro et al, 1998 (Geo. Res. Lett.)
 !
 !!      Modified    09/2012  : J. Escobar , SIZE(PTA) not allowed without-interface , replace by KI
@@ -39,8 +39,8 @@ USE MODD_DIAG_n, ONLY : DIAG_t
 !
 USE MODD_DST_n, ONLY : DST_t
 !
-USE MODD_CSTS, ONLY : XRD                      ! [J/K/kg] The universal gas constant  
-       
+USE MODD_CSTS, ONLY : XRD                      ! [J/K/kg] The universal gas constant
+
 
 USE MODD_DST_SURF
 
@@ -49,7 +49,7 @@ USE MODI_CLS_WIND
 USE MODI_CLS_T
 
 USE MODI_DUSTFLUX_GET     ! Dust mobilization routines
-USE MODI_DUSTFLUX_GET_MB  ! Dust mobilization routines (M. Mokhtari)  
+USE MODI_DUSTFLUX_GET_MB  ! Dust mobilization routines (M. Mokhtari)
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -72,12 +72,12 @@ REAL, DIMENSION(KI), INTENT(IN)    :: PQA            !I [kg/kg] atmospheric spec
 REAL, DIMENSION(KI), INTENT(IN)    :: PRHOA          !I [kg/m3] atmospheric density
 REAL, DIMENSION(KI), INTENT(IN)    :: PPA            !I [K] Atmospheric pressure
 REAL, DIMENSION(KI), INTENT(IN)    :: PTA            !I [K] Atmospheric temperature
-REAL, DIMENSION(KI), INTENT(IN)    :: PU             !I [m/s] zonal wind at atmospheric height 
+REAL, DIMENSION(KI), INTENT(IN)    :: PU             !I [m/s] zonal wind at atmospheric height
 REAL, DIMENSION(KI), INTENT(IN)    :: PUREF          !I [m] reference height of wind
 REAL, DIMENSION(KI), INTENT(IN)    :: PV             !I [m/s] meridional wind at atmospheric height
 REAL, DIMENSION(KI), INTENT(IN)    :: PZREF          !I [m] reference height of wind
 REAL, DIMENSION(KI,KDST), INTENT(OUT) :: PSFDST      !O [kg/m2/sec] flux of dust for a patch
-  
+
 !LOCAL VARIABLES
 REAL, DIMENSION(KI,NVEGNO_DST,NDSTMDE) :: ZSFDST_TILE  ![kg/m2] flux of dust for each vegetation types and each mode
 INTEGER                            :: JVEG           ![idx] counter for vegetation types
@@ -100,21 +100,21 @@ DO JVEG=1,NVEGNO_DST
    CALL TREAT_SURF(  &
       DSTK%NSIZE_PATCH_DST(JVEG),  &!I[idx] number of dust emitter points in patch
       DSTK%NR_PATCH_DST (:,JVEG)   &!I[idx] index translator from patch to dustemitter
-            )  
-   
+            )
+
 ENDDO  !Loop on dust emitter vegetation
-  
+
 !Average dust flux from the two vegetation "tiles"
 !Make sure you do this correctly so that area is OK.
 !Need to have this as kg/m2/sec from PATCH because
 !afterwards this is weighted by fraction of patch
  CALL AVG_FLUX_DST(NVEGNO_DST)
-  
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 IF (LHOOK) CALL DR_HOOK('COUPLING_DST_N',1,ZHOOK_HANDLE)
 !
 CONTAINS
-    
+
 SUBROUTINE TREAT_SURF(KSIZE,KMASK)
 !
 USE MODD_DIAG_n, ONLY : DIAG_t
@@ -148,8 +148,8 @@ REAL, DIMENSION(KSIZE) :: ZP_USTAR      ![m/s] wind friction speed
 !
 REAL, DIMENSION(KSIZE) :: ZP_Z0_EROD    ![m] roughness length for erodible surface
 REAL, DIMENSION(KSIZE) :: ZP_DST_EROD      !Erodable Surface (COVER004=1 and COVER005=0.01)
-REAL, DIMENSION(KSIZE,3) :: ZP_MSS_FRC_SRC ![%] dust mode fraction of emitted mass 
-REAL, DIMENSION(KSIZE) :: ZP_INTER ![%] dust mode fraction of emitted mass 
+REAL, DIMENSION(KSIZE,3) :: ZP_MSS_FRC_SRC ![%] dust mode fraction of emitted mass
+REAL, DIMENSION(KSIZE) :: ZP_INTER ![%] dust mode fraction of emitted mass
 REAL, DIMENSION(KSIZE) :: ZP_CD_DST     ! drag coefficient uses by DEAD
 REAL, DIMENSION(KSIZE) :: ZH               ! 10m (wind altitude)
 !
@@ -168,12 +168,12 @@ REAL, DIMENSION(KSIZE) :: ZP_CD         !I [] drag coefficient for momentum from
 REAL, DIMENSION(KSIZE) :: ZP_CH         !I [] drag coefficient for heat
 REAL, DIMENSION(KSIZE) :: ZP_CDN        ![-] drag coefficient neutral atm
 REAL, DIMENSION(KSIZE) :: ZP_RI         !I [-] Richardson number
-REAL, DIMENSION(KSIZE) :: ZP_Z0H        ![frc] Z0 heat with snow 
+REAL, DIMENSION(KSIZE) :: ZP_Z0H        ![frc] Z0 heat with snow
 !
 REAL, DIMENSION(5)   :: ZSEUIL
 REAL, DIMENSION(6,2) :: ZPCEN
 INTEGER                :: JJ, JS            !Counter for vector points
-INTEGER                :: JMODE         
+INTEGER                :: JMODE
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
 IF (LHOOK) CALL DR_HOOK('COUPLING_DST_n:TREAT_SURF',0,ZHOOK_HANDLE)
@@ -181,21 +181,21 @@ IF (LHOOK) CALL DR_HOOK('COUPLING_DST_n:TREAT_SURF',0,ZHOOK_HANDLE)
 !Pack patch-vectors to dust emitter vectors
 !i.e. allocate memory for the packed (dust emitter) vectors
 DO JJ=1,KSIZE
-  ZP_CLAY(JJ) = KK%XCLAY(KMASK(JJ),1)  
+  ZP_CLAY(JJ) = KK%XCLAY(KMASK(JJ),1)
   ZP_PS  (JJ) = PPS     (KMASK(JJ))
   ZP_TS  (JJ) = DK%XTS  (KMASK(JJ))
   ZP_QA  (JJ) = PQA     (KMASK(JJ))
   ZP_RHOA(JJ) = PRHOA   (KMASK(JJ))
   ZP_SAND(JJ) = KK%XSAND(KMASK(JJ),1)
-  ZP_PA  (JJ) = PPA     (KMASK(JJ)) 
-  ZP_TA  (JJ) = PTA     (KMASK(JJ)) 
+  ZP_PA  (JJ) = PPA     (KMASK(JJ))
+  ZP_TA  (JJ) = PTA     (KMASK(JJ))
   ZP_TG  (JJ) = PEK%XTG (KMASK(JJ),1)
   ZP_U   (JJ) = PU      (KMASK(JJ))
-  ZP_UREF(JJ) = PUREF   (KMASK(JJ)) 
+  ZP_UREF(JJ) = PUREF   (KMASK(JJ))
   ZP_V   (JJ) = PV      (KMASK(JJ))
   ZP_WG  (JJ) = PEK%XWG (KMASK(JJ),1)
-  ZP_WSAT(JJ) = KK%XWSAT(KMASK(JJ),1)                      
-  ZP_ZREF(JJ) = PZREF   (KMASK(JJ))    
+  ZP_WSAT(JJ) = KK%XWSAT(KMASK(JJ),1)
+  ZP_ZREF(JJ) = PZREF   (KMASK(JJ))
   ZP_CD  (JJ) = DK%XCD  (KMASK(JJ))
   ZP_CDN (JJ) = DK%XCDN (KMASK(JJ))
   ZP_CH  (JJ) = DK%XCH  (KMASK(JJ))
@@ -217,12 +217,12 @@ ZP_CD_DST(:) = ZP_CD(:)
 IF (CVERMOD/='CMDVER') THEN
   !Re-calculate the drag over the dust emitter (erodable) surface. Since we
   !don't use the roughness length of the patch, but rather use specific roughness
-  !lengths of dust emitter surfaces, the drag changes.  
+  !lengths of dust emitter surfaces, the drag changes.
   CALL SURFACE_CD(ZP_RI, ZP_ZREF, ZP_UREF, ZP_Z0_EROD, ZP_Z0H, ZP_CD_DST, ZP_CDN)
 ENDIF
 !
 !Get total wind speed
-ZP_VMOD(:) = SQRT(ZP_U(:)**2 + ZP_V(:)**2)  
+ZP_VMOD(:) = SQRT(ZP_U(:)**2 + ZP_V(:)**2)
 !
 ZP_USTAR(:) =  SQRT(ZP_CD_DST(:))*ZP_VMOD
 !Get zonal friction speed (m/s)
@@ -244,7 +244,7 @@ ZP_RHOA_2M(:) = ZP_PS(:)/(ZP_T2M(:)*XRD)
 !
 !Get wind speed at 10m heigh
 ZP_WIND10M(:) = SQRT(ZP_ZON10M(:)**2 + ZP_MER10M(:)**2)
-!     
+!
 !the erodible surface
 ZP_WIND10M(:) = MAX(ZP_WIND10M(:), 1E-2)
 !
@@ -259,8 +259,8 @@ IF (CVERMOD=='CMDVER') THEN
        ZP_CLAY,                       & !I [frc] mass fraction of clay
        ZP_SAND,                       & !I [frc] mass fraction of sand
        ZP_DST_EROD,                   & !I [frc] erodabilitC) de la surface (cover004 = 1 et cocer005=0.5)
-       ZP_WIND10M,                    & !I [m/s] wind at 10m 
-       ZP_SFDST,                      & !O [kg/m2/sec] flux of dust 
+       ZP_WIND10M,                    & !I [m/s] wind at 10m
+       ZP_SFDST,                      & !O [kg/m2/sec] flux of dust
        KSIZE                          & !I [nbr] number of points for which we do calculation
        )
   !
@@ -274,12 +274,12 @@ ELSE
            ZP_WSAT,                         &!I [m3/m3] saturation water volumetric content
            ZP_CLAY,                         &!I [frc] mass fraction of clay
            ZP_SAND,                         &!I [frc] mass fraction of sand
-           ZP_WIND10M,                      &!I [m/s] wind at 10m 
-           ZP_SFDST,                        &!O [kg/m2/sec] flux of dust 
+           ZP_WIND10M,                      &!I [m/s] wind at 10m
+           ZP_SFDST,                        &!O [kg/m2/sec] flux of dust
            KSIZE                            &!I [nbr] number of points for which we do calculation
            )
-ENDIF  
-    
+ENDIF
+
 ZP_MSS_FRC_SRC(:,:) = 0.
 
 IF (CEMISPARAM_DST == "EXPLI" .OR. CEMISPARAM_DST == "AMMA ") THEN
@@ -294,10 +294,10 @@ IF (CEMISPARAM_DST == "EXPLI" .OR. CEMISPARAM_DST == "AMMA ") THEN
     ZPCEN(:,1)  = (/0., 0., 0.01, 0.08, 0.15, 0.15/)
     ZPCEN(:,2)  = (/0., 0., 0.36, 0.43, 0.76, 0.76/)
     ! Case of u* < 35E-2 m/s
-    ! only coarse mode is activated 
+    ! only coarse mode is activated
     ! mode 1 = 0
     ! mode 2 = 0
-    ! mode 3 = 100      
+    ! mode 3 = 100
     ! Case of  35E-2 m/s < u* < 42E-2 m/s
     !  0 % < mode 1 < 1 %
     !  0 % < mode 2 < 36 %
@@ -310,7 +310,7 @@ IF (CEMISPARAM_DST == "EXPLI" .OR. CEMISPARAM_DST == "AMMA ") THEN
     !  8 % < mode 1 < 15 %
     !  43 % < mode 2 < 76 %
     !  9  % < mode 3 < 49 %
-    ! Case of  u* > 66E-2 m/s 
+    ! Case of  u* > 66E-2 m/s
     !   mode 1 = 15 %
     !   mode 2 = 76 %
     !   mode 3 = 9 %
@@ -321,23 +321,23 @@ IF (CEMISPARAM_DST == "EXPLI" .OR. CEMISPARAM_DST == "AMMA ") THEN
     ZPCEN(:,1) = (/0., 0., 0.0023, 0.0185, 0.0345, 0.0345/)
     ZPCEN(:,2) = (/0., 0., 0.0077, 0.0615, 0.1155, 0.1155/)
     ! Case of u* < 35E-2 m/s
-    ! only coarse mode is activated 
+    ! only coarse mode is activated
     ! mode 1 = 0
     ! mode 2 = 0
-    ! mode 3 = 100 
+    ! mode 3 = 100
     ! Case of  35E-2 m/s < u* < 42E-2 m/s
     !  0 % < mode 1 < 0.23 %
     !  0 % < mode 2 < 0.77 %
-    !  99 % < mode 3 < 100 % 
+    !  99 % < mode 3 < 100 %
     ! Case of  42E-2 m/s < u* < 50E-2 m/s
     !  0.23 % < mode 1 < 1.85 %
     !  0.77 % < mode 2 < 6.15 %
-    !  92 % < mode 3 < 99 %    
+    !  92 % < mode 3 < 99 %
     ! Case of  50E-2 m/s < u* < 66E-2 m/s
     !  1.85 % < mode 1 < 3.45 %
     !  6.15 % < mode 2 < 11.55 %
     !  85  % < mode 3 < 92 %
-    ! Case of  u* > 66E-2 m/s 
+    ! Case of  u* > 66E-2 m/s
     !   mode 1 = 15 %
     !   mode 2 = 76 %
     !   mode 3 = 9 %
@@ -347,18 +347,18 @@ IF (CEMISPARAM_DST == "EXPLI" .OR. CEMISPARAM_DST == "AMMA ") THEN
     WHERE (ZP_USTAR(:) >= ZSEUIL(JS) .AND. ZP_USTAR(:) < ZSEUIL(JS+1))
       ZP_INTER(:)         = (ZP_USTAR(:) - ZSEUIL(JS)) / (ZSEUIL(JS+1) - ZSEUIL(JS))
       ZP_MSS_FRC_SRC(:,1) = ZPCEN(JS,1) + (ZPCEN(JS+1,1) - ZPCEN(JS,1)) * ZP_INTER(:)
-      ZP_MSS_FRC_SRC(:,2) = ZPCEN(JS,2) + (ZPCEN(JS+1,2) - ZPCEN(JS,2)) * ZP_INTER(:) 
+      ZP_MSS_FRC_SRC(:,2) = ZPCEN(JS,2) + (ZPCEN(JS+1,2) - ZPCEN(JS,2)) * ZP_INTER(:)
     END WHERE
   ENDDO
 
   WHERE (ZP_USTAR(:) >= ZSEUIL(SIZE(ZSEUIL)))
-    ZP_MSS_FRC_SRC(:,1) = ZPCEN(SIZE(ZSEUIL)+1,1) 
+    ZP_MSS_FRC_SRC(:,1) = ZPCEN(SIZE(ZSEUIL)+1,1)
     ZP_MSS_FRC_SRC(:,2) = ZPCEN(SIZE(ZSEUIL)+1,2)
   END WHERE
 
   ZP_MSS_FRC_SRC(:,3) = 1. - ZP_MSS_FRC_SRC(:,1) - ZP_MSS_FRC_SRC(:,2)
 
-ELSE 
+ELSE
   DO JMODE = 1,NDSTMDE
     ZP_MSS_FRC_SRC(:,JORDER_DST(JMODE)) = DSTK%XMSS_FRC_SRC(JMODE)
   ENDDO
@@ -381,11 +381,11 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('COUPLING_DST_n:TREAT_SURF',1,ZHOOK_HANDLE)
 
 END SUBROUTINE TREAT_SURF
-   
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 SUBROUTINE AVG_FLUX_DST(   &
     KTILE                  & ! Number of different dust emitter vegetations
-           )  
+           )
 
 ! Purpose: Average all fluxes from independent dust emitter surfaces (KTILE)
 ! Remember: XP_VEGTYPE_PATCH is m^2_{emittersurface}/m^{nature}
@@ -419,30 +419,30 @@ DO JMODE=1,NDSTMDE
   ELSE
     JSV_IDX = (JMODE-1)*NMOMENT + 2  !Counter for scalar variable
   END IF
-        
+
   !Start loop on number of dust emitter surfaces
   DO JJ=1,KTILE
     !Loop on points inside patch
     DO II=1,KI
-               
+
       !Get sum of vegetation fraction in this patch
       !fxm: VERY BAD LOOP ORDER
       VEGFRAC_IN_PATCH = SUM(PK%XVEGTYPE_PATCH(II,:))
-               
-      !Get production of flux by adding up the contribution 
+
+      !Get production of flux by adding up the contribution
       !from the different tiles (here, "tiles" are dust emitter surfaces)
-      PSFDST(II,JSV_IDX) = PSFDST(II,JSV_IDX)                  & ![kg/m^2_{patch}/sec] dust flux per patch 
+      PSFDST(II,JSV_IDX) = PSFDST(II,JSV_IDX)                  & ![kg/m^2_{patch}/sec] dust flux per patch
                            + (ZSFDST_TILE(II,JJ,JMODE)         & ![kg/m^2_{emittersurface}/sec] Dust flux per surface area of dust emitter surface
                            * PK%XVEGTYPE_PATCH(II,DSTK%NVT_DST(JJ))  & ![frc] m^2_{emittersurface}/m^2_{nature}
-                           / VEGFRAC_IN_PATCH )                  ![frc] m^2_{patch}/m^2_{nature}  
+                           / VEGFRAC_IN_PATCH )                  ![frc] m^2_{patch}/m^2_{nature}
     ENDDO !loop on point in patch
   ENDDO    !loop on different dust emitter surfaces
-         
+
 ENDDO !Loop on modes
 
 IF (LHOOK) CALL DR_HOOK('AVG_FLUX_DST',1,ZHOOK_HANDLE)
-      
+
 END SUBROUTINE AVG_FLUX_DST
-    
+
 END SUBROUTINE COUPLING_DST_n
 

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_HOR_FLAKE_FIELD (DTCO, UG, U, USS, GCP, KLAT, F, &
@@ -18,7 +18,7 @@ SUBROUTINE PREP_HOR_FLAKE_FIELD (DTCO, UG, U, USS, GCP, KLAT, F, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -28,8 +28,8 @@ SUBROUTINE PREP_HOR_FLAKE_FIELD (DTCO, UG, U, USS, GCP, KLAT, F, &
 !!    -------------
 !!      Original    01/2004
 !!      P. Le Moigne 10/2005, Phasage Arome
-!!      E. Kourzeneva 09/2010, Make possible to interpolate 
-!!                             only lake surface temperature, 
+!!      E. Kourzeneva 09/2010, Make possible to interpolate
+!!                             only lake surface temperature,
 !!                             but not profiles
 !!------------------------------------------------------------------
 !
@@ -46,7 +46,7 @@ USE MODD_TYPE_DATE_SURF, ONLY : DATE_TIME
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC
 USE MODD_PREP,         ONLY : CINGRID_TYPE, CINTERP_TYPE, XZS_LS, XLAT_OUT, XLON_OUT, &
                                XX_OUT, XY_OUT, CMASK
-USE MODD_GRID_GRIB, ONLY : CINMODEL 
+USE MODD_GRID_GRIB, ONLY : CINMODEL
 !
 USE MODD_CSTS,       ONLY : XTT
 USE MODD_PREP_FLAKE, ONLY : LCLIM_LAKE
@@ -97,7 +97,7 @@ LOGICAL, OPTIONAL, INTENT(OUT) :: ONOVALUE  ! flag for the not given value
  CHARACTER(LEN=28)             :: YFILE     ! name of file
  CHARACTER(LEN=6)              :: YFILEPGDTYPE ! type of input file
  CHARACTER(LEN=28)             :: YFILEPGD     ! name of file
- TYPE (DATE_TIME)                :: TZTIME_GRIB    ! current date and time 
+ TYPE (DATE_TIME)                :: TZTIME_GRIB    ! current date and time
 REAL, POINTER, DIMENSION(:,:) :: ZFIELDIN=>NULL()  ! field to interpolate horizontally
 REAL, ALLOCATABLE, DIMENSION(:,:) :: ZFIELDOUT ! field interpolated   horizontally
 INTEGER                       :: ILUOUT    ! output listing logical unit
@@ -135,7 +135,7 @@ IF (.NOT. GDEFAULT) THEN
     CALL PREP_FLAKE_ASCLLV(DTCO, UG, U, USS, HPROGRAM,HSURF,ILUOUT,ZFIELDIN)
   ELSE IF (YFILETYPE=='GRIB  ') THEN
     CALL PREP_GRIB_GRID(YFILE,ILUOUT,CINMODEL,CINGRID_TYPE,CINTERP_TYPE,TZTIME_GRIB)
-    IF (NRANK==NPIO) CALL PREP_FLAKE_GRIB(HPROGRAM,HSURF,YFILE,ILUOUT,ZFIELDIN)            
+    IF (NRANK==NPIO) CALL PREP_FLAKE_GRIB(HPROGRAM,HSURF,YFILE,ILUOUT,ZFIELDIN)
   ELSE IF (YFILETYPE=='MESONH' .OR. YFILETYPE=='ASCII ' .OR. YFILETYPE=='LFI   '.OR. YFILETYPE=='FA    ') THEN
     CALL PREP_FLAKE_EXTERN(GCP,HPROGRAM,HSURF,YFILE,YFILETYPE,YFILEPGD,YFILEPGDTYPE,ILUOUT,ZFIELDIN)
   ELSE IF (YFILETYPE=='BUFFER') THEN
@@ -161,7 +161,7 @@ ENDIF
   !ALLOCATE(ZFIELDOUT(SIZE(XLAT),SIZE(ZFIELDIN,2)))
   ALLOCATE(ZFIELDOUT(KLAT,1))
 !
-!Impossible to interpolate lake profiles, only the lake surface temperature! 
+!Impossible to interpolate lake profiles, only the lake surface temperature!
 !But in uniform case and 1 point case
   IF(GUNIF .OR. KLAT.EQ.1) THEN
     CALL HOR_INTERPOL(DTCO, U, GCP, ILUOUT,ZFIELDIN,ZFIELDOUT)
@@ -174,7 +174,7 @@ ENDIF
 !*      5.     Return to historical variable
 !
   SELECT CASE (HSURF)
-   CASE('ZS     ') 
+   CASE('ZS     ')
     ALLOCATE(XZS_LS(SIZE(ZFIELDOUT,1)))
     XZS_LS(:) = ZFIELDOUT(:,1)
    CASE('TS     ')
@@ -224,10 +224,10 @@ END IF
 IF (GDEFAULT) THEN
 !
 !*      7.    Initial values of FLAKE variables are computed from TS
-!             when uniform values are not prescribed 
+!             when uniform values are not prescribed
   IF (HSURF(1:2)/='ZS') WRITE(ILUOUT,*) 'NO FILE FOR FIELD ',HSURF, &
                                         ': UNIFORM DEFAULT FIELD IS PRESCRIBED'
-  
+
 END IF
 !
 IF (LHOOK) CALL DR_HOOK('PREP_HOR_FLAKE_FIELD',1,ZHOOK_HANDLE)

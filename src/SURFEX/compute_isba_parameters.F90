@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
 SUBROUTINE COMPUTE_ISBA_PARAMETERS (DTCO, OREAD_BUDGETC, UG, U, &
@@ -9,7 +9,7 @@ SUBROUTINE COMPUTE_ISBA_PARAMETERS (DTCO, OREAD_BUDGETC, UG, U, &
                                     NDST, SLT, SV, HPROGRAM,HINIT,OLAND_USE,   &
                                     KI,KSV,KSW,HSV,PCO2,PRHOA,                 &
                                     PZENITH,PSW_BANDS,PDIR_ALB,PSCA_ALB,       &
-                                    PEMIS,PTSRAD,PTSURF, HTEST             )  
+                                    PEMIS,PTSRAD,PTSURF, HTEST             )
 !#############################################################
 !
 !!****  *COMPUTE_ISBA_PARAMETERS_n* - routine to initialize ISBA
@@ -39,7 +39,7 @@ SUBROUTINE COMPUTE_ISBA_PARAMETERS (DTCO, OREAD_BUDGETC, UG, U, &
 !!    -------------
 !!      Original    01/2004
 !!      Modified by P. Le Moigne (11/2004): miscellaneous diagnostics
-!!      Modified by P. Le Moigne (06/2006): seeding and irrigation    
+!!      Modified by P. Le Moigne (06/2006): seeding and irrigation
 !!      Modified by B. Decharme    (2008) : SGH and Flooding scheme
 !!      Modified by B. Decharme  (01/2009): optional deep soil temperature as in Arpege
 !!      Modified by R. Hamdi     (01/2009): Cp and L
@@ -47,7 +47,7 @@ SUBROUTINE COMPUTE_ISBA_PARAMETERS (DTCO, OREAD_BUDGETC, UG, U, &
 !!      Modified by P. Le Moigne (01/2009): Beljaars sso
 !!      Modified by B. Decharme  (08/2009): Active Trip coupling variable if Earth System Model
 !!      A.L. Gibelin   04/09 : change BSLAI_NITRO initialisation
-!!      A.L. Gibelin   04/09 : modifications for CENTURY model 
+!!      A.L. Gibelin   04/09 : modifications for CENTURY model
 !!      A.L. Gibelin   06/09 : soil carbon initialisation
 !!      Modified by B. Decharme  (09/2012): Bug in exponential profile calculation with DIF
 !!      F. Bouttier    08/13 : apply random perturbation patterns for ensembles
@@ -58,7 +58,7 @@ SUBROUTINE COMPUTE_ISBA_PARAMETERS (DTCO, OREAD_BUDGETC, UG, U, &
 !!                                          water table / Surface coupling
 !!      P. Samuelsson  02/14 : MEB
 !!      B. Decharme    01/16 : Bug when vegetation veg, z0 and emis are imposed whith interactive vegetation
-!!      B. Decharme   10/2016  bug surface/groundwater coupling 
+!!      B. Decharme   10/2016  bug surface/groundwater coupling
 !!
 !-------------------------------------------------------------------------------
 !
@@ -237,7 +237,7 @@ INTEGER           :: IDECADE, IDECADE2  ! decade of simulation
 INTEGER           :: JP  ! loop counter on tiles
 INTEGER           :: ISIZE_LMEB_PATCH  ! Number of patches with MEB=true
 !
-LOGICAL :: GDIM, GCAS1, GCAS2, GCAS3 
+LOGICAL :: GDIM, GCAS1, GCAS2, GCAS3
 INTEGER :: JVEG, IVERSION, IBUGFIX, IMASK, JMAXLOC
 !
  CHARACTER(LEN=4)  :: YLVL
@@ -259,7 +259,7 @@ END IF
 !----------------------------------------------------------------------------------
 !----------------------------------------------------------------------------------
 !
-!    PART 1 : Arrays of vegtypes & patches 
+!    PART 1 : Arrays of vegtypes & patches
 !    -------------------------------------
 !
 ! We need XVEGTYPE, XPATCH and XVEGTYPE_PATCH with dimension "PATCH" for some
@@ -285,12 +285,12 @@ ALLOCATE(S%XVEGTYPE_PATCH(KI,NVEGTYPE,IO%NPATCH))
 ! "PATCH"
 IF (IO%XRM_PATCH/=0.) THEN
   !
-  WRITE(ILUOUT,*) " REMOVE PATCH below 5 % add to dominant patch " 
+  WRITE(ILUOUT,*) " REMOVE PATCH below 5 % add to dominant patch "
   ! remove small fraction of PATCHES and add to MAIN PATCH
   DO JI = 1,KI
-    !1) find most present patch maximum value 
+    !1) find most present patch maximum value
     JMAXLOC = MAXVAL(MAXLOC(S%XPATCH(JI,:)))
-    !2) FIND small value of cover 
+    !2) FIND small value of cover
     DO JP = 1,IO%NPATCH
       IF ( S%XPATCH(JI,JP)<IO%XRM_PATCH ) THEN
         S%XPATCH(JI,JMAXLOC) = S%XPATCH(JI,JMAXLOC) + S%XPATCH(JI,JP)
@@ -328,7 +328,7 @@ ENDIF
 !
 !
 !*       Soil carbon
-!        -----------                        
+!        -----------
 !
 IF (HINIT == 'ALL' .AND. IO%CRESPSL=='CNT' .AND. IO%CPHOTO == 'NCB') CALL CARBON_INIT
 !
@@ -341,18 +341,18 @@ IF (HINIT == 'ALL' .AND. IO%CRESPSL=='CNT' .AND. IO%CPHOTO == 'NCB') CALL CARBON
 ! loop on patches
 DO JP = 1, IO%NPATCH
   !
-  KK => NK%AL(JP)  
+  KK => NK%AL(JP)
   PK => NP%AL(JP)
   PEK => NPE%AL(JP)
   AGK => NAG%AL(JP)
   ISSK => NISS%AL(JP)
   !
-  ! dimension of the patch 
+  ! dimension of the patch
   PK%NSIZE_P = COUNT(S%XPATCH(:,JP) > 0.0)
   !
   ! mask of the patch in tile nature
   ALLOCATE(PK%NR_P    (PK%NSIZE_P))
-  CALL GET_1D_MASK(PK%NSIZE_P, KI, S%XPATCH(:,JP), PK%NR_P) 
+  CALL GET_1D_MASK(PK%NSIZE_P, KI, S%XPATCH(:,JP), PK%NR_P)
   !
   ! the array of vegtypes, patches and vegtypes by patches reduced on this patches
   ALLOCATE(KK%XVEGTYPE(PK%NSIZE_P,NVEGTYPE))
@@ -415,7 +415,7 @@ DO JP = 1, IO%NPATCH
   ! in init_veg_pgd_n, things needed also by garden and greenroof
   CALL INIT_VEG_PGD_n(ISSK, DTI, IO, S, K, KK, PK, PEK, AGK, KI,  &
                       HPROGRAM, 'NATURE', ILUOUT, PK%NSIZE_P, S%TTIME%TDATE%MONTH, &
-                      LDEEPSOIL, LPHYSDOMC, XTDEEP_CLI, XGAMMAT_CLI,   & 
+                      LDEEPSOIL, LPHYSDOMC, XTDEEP_CLI, XGAMMAT_CLI,   &
                       LAGRIP, XTHRESHOLD, HINIT, PCO2, PRHOA        )
   !
   !-------------------------------------------------------------------------------
@@ -431,7 +431,7 @@ DO JP = 1, IO%NPATCH
     ALLOCATE(KK%XMUF(0))
   ENDIF
   !
-  ALLOCATE(KK%XFSAT(PK%NSIZE_P))  
+  ALLOCATE(KK%XFSAT(PK%NSIZE_P))
   KK%XFSAT(:) = 0.0
   !
   ! * Initialize flood scheme :
@@ -443,7 +443,7 @@ DO JP = 1, IO%NPATCH
   ALLOCATE(KK%XFFV    (PK%NSIZE_P))
   ALLOCATE(KK%XFFROZEN(PK%NSIZE_P))
   ALLOCATE(KK%XALBF   (PK%NSIZE_P))
-  ALLOCATE(KK%XEMISF  (PK%NSIZE_P)) 
+  ALLOCATE(KK%XEMISF  (PK%NSIZE_P))
   KK%XFFLOOD       = 0.0
   KK%XPIFLOOD      = 0.0
   KK%XFF           = 0.0
@@ -451,7 +451,7 @@ DO JP = 1, IO%NPATCH
   KK%XFFV          = 0.0
   KK%XFFROZEN      = 0.0
   KK%XALBF         = 0.0
-  KK%XEMISF        = 0.0  
+  KK%XEMISF        = 0.0
   !
 ENDDO
 !
@@ -460,10 +460,10 @@ IF (DTI%LDATA_CONDSAT) DEALLOCATE(DTI%XPAR_CONDSAT)
 !----------------------------------------------------------------------------------
 !----------------------------------------------------------------------------------
 !
-!    PART 4 : Initialization not depending on patches 
+!    PART 4 : Initialization not depending on patches
 !    ------------------------------------------------
 !
-! Fields needed also unpacked 
+! Fields needed also unpacked
 !
 IF(IO%CRAIN=='SGH')THEN
   ALLOCATE(K%XMUF(KI))
@@ -510,8 +510,8 @@ IF (KSV /= 0) THEN
       ALLOCATE (DSTK%XSFDST (PK%NSIZE_P, CHI%SVI%NDSTEQ))  !Output array
       ALLOCATE (DSTK%XSFDSTM(PK%NSIZE_P, CHI%SVI%NDSTEQ))  !Output array
       DSTK%XSFDST (:,:)  = 0.
-      DSTK%XSFDSTM(:,:) = 0.     
-      CALL INIT_DST(DSTK, U, HPROGRAM, PK%NSIZE_P, PK%NR_P, PK%XVEGTYPE_PATCH)    
+      DSTK%XSFDSTM(:,:) = 0.
+      CALL INIT_DST(DSTK, U, HPROGRAM, PK%NSIZE_P, PK%NR_P, PK%XVEGTYPE_PATCH)
     ELSE
       ALLOCATE(DSTK%XSFDST (0,0))
       ALLOCATE(DSTK%XSFDSTM(0,0))
@@ -539,14 +539,14 @@ ENDIF
 !
 IF(IO%CISBA=='DIF' .AND. IO%CKSAT=='SGH') THEN
   !
-  WRITE(ILUOUT,*)'THE KSAT EXP PROFILE WITH ISBA-DF IS NOT PHYSIC AND HAS BEEN REMOVED FOR NOW' 
-  WRITE(ILUOUT,*)'A NEW PHYSICAL APPROACH WILL BE DEVELLOPED ACCOUNTING FOR COMPACTION IN ALL ' 
-  WRITE(ILUOUT,*)'HYDRODYNAMIC PARAMETERS (WSAT, PSISAT, KSAT, B) AND NOT ONLY IN KSAT        ' 
+  WRITE(ILUOUT,*)'THE KSAT EXP PROFILE WITH ISBA-DF IS NOT PHYSIC AND HAS BEEN REMOVED FOR NOW'
+  WRITE(ILUOUT,*)'A NEW PHYSICAL APPROACH WILL BE DEVELLOPED ACCOUNTING FOR COMPACTION IN ALL '
+  WRITE(ILUOUT,*)'HYDRODYNAMIC PARAMETERS (WSAT, PSISAT, KSAT, B) AND NOT ONLY IN KSAT        '
   CALL ABOR1_SFX('CKSAT=SGH is not physic with ISBA-DF and has been removed for now')
-  !    
+  !
 ENDIF
-!  
-IF(IO%CISBA=='DIF' .AND. IO%LSOC)THEN   
+!
+IF(IO%CISBA=='DIF' .AND. IO%LSOC)THEN
   !
   IF(.NOT.IO%LSOCP)THEN
     WRITE(ILUOUT,*)'LSOC = T can be activated only if SOC data given in PGD fields'
@@ -569,7 +569,7 @@ ZF   (:,:) = XUNDEF
 ZM   (:)   = XUNDEF
 !
 !CRUNOFF used in hydro_sgh and isba_sgh_update
-IF( IO%CRUNOFF=='SGH '.AND. HINIT/='PRE' .AND. .NOT.LASSIM ) THEN 
+IF( IO%CRUNOFF=='SGH '.AND. HINIT/='PRE' .AND. .NOT.LASSIM ) THEN
   !
   ! Subsurface flow by layer (m/s)
   DO JP = 1,IO%NPATCH
@@ -581,7 +581,7 @@ IF( IO%CRUNOFF=='SGH '.AND. HINIT/='PRE' .AND. .NOT.LASSIM ) THEN
       ALLOCATE(PK%XTOPQS(0,0))
     ENDIF
   ENDDO
-  !  
+  !
   ALLOCATE(S%XTAB_FSAT(KI,NDIMTAB))
   ALLOCATE(S%XTAB_WTOP(KI,NDIMTAB))
   ALLOCATE(S%XTAB_QTOP(KI,NDIMTAB))
@@ -592,23 +592,23 @@ IF( IO%CRUNOFF=='SGH '.AND. HINIT/='PRE' .AND. .NOT.LASSIM ) THEN
   WHERE(K%XCLAY(:,1)==XUNDEF.AND.S%XTI_MEAN(:)/=XUNDEF) S%XTI_MEAN(:)=XUNDEF
   CALL INIT_TOP(IO, S, K, NK, NP, ILUOUT, ZM )
   !
-ELSE                  
-  !  
+ELSE
+  !
   DO JP = 1,IO%NPATCH
     PK => NP%AL(JP)
     ALLOCATE(PK%XTOPQS(0,0))
-  ENDDO  
-  !  
+  ENDDO
+  !
   ALLOCATE(S%XTAB_FSAT(0,0))
   ALLOCATE(S%XTAB_WTOP(0,0))
   ALLOCATE(S%XTAB_QTOP(0,0))
-  !                  
-ENDIF  
+  !
+ENDIF
 !
 !
 !Exponential decay for ISBA-FR option
 !CKSAT used in hydro_soil.F90 and soil.F90
-IF ( IO%CISBA/='DIF' .AND. HINIT/='PRE' .AND. .NOT.LASSIM ) THEN 
+IF ( IO%CISBA/='DIF' .AND. HINIT/='PRE' .AND. .NOT.LASSIM ) THEN
   !
   GCAS1 = (IO%CKSAT=='EXP' .AND. IO%CISBA=='3-L')
   GCAS2 = (IO%CKSAT=='SGH')
@@ -641,7 +641,7 @@ IF ( IO%CISBA/='DIF' .AND. HINIT/='PRE' .AND. .NOT.LASSIM ) THEN
     !
     ! definition of ZF functions of options
     !
-    ! Exponential decay factor calculate using soil properties 
+    ! Exponential decay factor calculate using soil properties
     ! (eq. 11, Decharme et al., J. Hydrometeor, 2006)
     DO JP = 1,IO%NPATCH
       PK => NP%AL(JP)
@@ -654,27 +654,27 @@ IF ( IO%CISBA/='DIF' .AND. HINIT/='PRE' .AND. .NOT.LASSIM ) THEN
         ELSEIF ( GCAS1 ) THEN
           ZF(JI,JP) = S%XF_PARAM(IMASK)
          ENDIF
-      ENDDO 
+      ENDDO
     ENDDO
     !
     DO JP = 1,IO%NPATCH
       PK => NP%AL(JP)
       !
-      WHERE ( ZF(1:PK%NSIZE_P,JP)==XUNDEF.AND.PK%XDG(:,2)/=XUNDEF ) 
+      WHERE ( ZF(1:PK%NSIZE_P,JP)==XUNDEF.AND.PK%XDG(:,2)/=XUNDEF )
         ZF(1:PK%NSIZE_P,JP) = 4.0/PK%XDG(:,2)
       ENDWHERE
       ZF(1:PK%NSIZE_P,JP) = MIN(ZF(1:PK%NSIZE_P,JP),XF_DECAY)
       !
       ZC_DEPTH_RATIO(1:PK%NSIZE_P) = 1.
-#ifdef TOPD      
+#ifdef TOPD
       IF (ALLOCATED(XC_DEPTH_RATIO)) THEN
         CALL PACK_SAME_RANK(PK%NR_P,XC_DEPTH_RATIO,ZC_DEPTH_RATIO(1:PK%NSIZE_P))
       ENDIF
-#endif      
+#endif
       CALL EXP_DECAY_SOIL_FR(IO%CISBA, ZF(1:PK%NSIZE_P,JP), PK, ZC_DEPTH_RATIO(1:PK%NSIZE_P))
     ENDDO
     !
-    IF ( GCAS2 ) THEN 
+    IF ( GCAS2 ) THEN
       !
       DO JI = 1,NP%AL(1)%NSIZE_P
         IMASK = NP%AL(1)%NR_P(JI)
@@ -684,7 +684,7 @@ IF ( IO%CISBA/='DIF' .AND. HINIT/='PRE' .AND. .NOT.LASSIM ) THEN
     ENDIF
     !
   ENDIF
-  ! 
+  !
 ENDIF
 !
 !
@@ -696,7 +696,7 @@ IO%LFLOOD   = .FALSE.
 IO%LWTD     = .FALSE.
 !
 IF(LCPL_LAND)THEN
-!    
+!
   IO%LCPL_RRM = .TRUE.
 !
   IF(LCPL_GW)THEN
@@ -722,12 +722,12 @@ IF(LCPL_LAND)THEN
      ALLOCATE(S%XCPL_IFLOOD(KI))
      S%XCPL_EFLOOD(:)= 0.0
      S%XCPL_PFLOOD(:)= 0.0
-     S%XCPL_IFLOOD(:)= 0.0    
+     S%XCPL_IFLOOD(:)= 0.0
   ELSE
     ALLOCATE(S%XCPL_EFLOOD(0))
     ALLOCATE(S%XCPL_PFLOOD(0))
-    ALLOCATE(S%XCPL_IFLOOD(0))     
-  ENDIF     
+    ALLOCATE(S%XCPL_IFLOOD(0))
+  ENDIF
 !
 ELSE
 !
@@ -758,7 +758,7 @@ IF (LCPL_LAND) THEN
     !
     ALLOCATE(K%XFFLOOD (0))
     ALLOCATE(K%XPIFLOOD(0))
-    !   
+    !
   ENDIF
   !
 ELSE
@@ -767,7 +767,7 @@ ELSE
   ALLOCATE(K%XWTD (0))
   ALLOCATE(K%XFFLOOD (0))
   ALLOCATE(K%XPIFLOOD(0))
-  !   
+  !
 ENDIF
 !
 ! * Check some key :
@@ -791,7 +791,7 @@ ENDIF
 !        PART 7:  We packed needed fields and free unless ones
 !        -----------------------------------------------------
 !
-! 
+!
 DO JP = 1,IO%NPATCH
   !
   KK => NK%AL(JP)
@@ -812,13 +812,13 @@ DO JP = 1,IO%NPATCH
   CALL PACK_SAME_RANK(PK%NR_P,K%XWWILT,KK%XWWILT)
   CALL PACK_SAME_RANK(PK%NR_P,K%XWFC,KK%XWFC)
   CALL PACK_SAME_RANK(PK%NR_P,K%XWSAT,KK%XWSAT)
-  !  
+  !
   IF (IO%CISBA=='2-L' .OR. IO%CISBA=='3-L') THEN
-    ALLOCATE(KK%XCGSAT(PK%NSIZE_P))          
+    ALLOCATE(KK%XCGSAT(PK%NSIZE_P))
     ALLOCATE(KK%XC4B  (PK%NSIZE_P))
     ALLOCATE(KK%XACOEF(PK%NSIZE_P))
     ALLOCATE(KK%XPCOEF(PK%NSIZE_P))
-    CALL PACK_SAME_RANK(PK%NR_P,K%XCGSAT,KK%XCGSAT)    
+    CALL PACK_SAME_RANK(PK%NR_P,K%XCGSAT,KK%XCGSAT)
     CALL PACK_SAME_RANK(PK%NR_P,K%XC4B,  KK%XC4B)
     CALL PACK_SAME_RANK(PK%NR_P,K%XACOEF,KK%XACOEF)
     CALL PACK_SAME_RANK(PK%NR_P,K%XPCOEF,KK%XPCOEF)
@@ -869,7 +869,7 @@ K%XBCOEF   => NULL()
 K%XCGSAT => NULL()
 K%XC4B   => NULL()
 K%XACOEF => NULL()
-K%XPCOEF => NULL()  
+K%XPCOEF => NULL()
 !
 K%XHCAPSOIL => NULL()
 K%XCONDDRY  => NULL()
@@ -915,7 +915,7 @@ IF (HINIT=='PRE' .AND. NPE%AL(1)%TSNOW%SCHEME.NE.'3-L' .AND. &
 !
 !
 !*       Extrapolation of the prognostic and semi-prognostic fields
-!                           LAND USE case 
+!                           LAND USE case
 !               -------------------------------------
 !
 IF (OLAND_USE) THEN
@@ -924,7 +924,7 @@ IF (OLAND_USE) THEN
   CALL READ_SURF(HPROGRAM,'BUG',IBUGFIX,IRESP)
   GDIM = (IVERSION>8 .OR. IVERSION==8 .AND. IBUGFIX>0)
   IF (GDIM) CALL READ_SURF(HPROGRAM,'SPLIT_PATCH',GDIM,IRESP)
-  !  
+  !
   ALLOCATE(ZWORK(KI,IO%NPATCH))
   !
   !* read old patch fraction
@@ -955,7 +955,7 @@ IF (OLAND_USE) THEN
   DEALLOCATE(ZWORK)
   !
    CALL INIT_ISBA_LANDUSE(DTCO, UG, U, IO, NK, NP, NPE, IG%XMESH_SIZE, &
-                          HPROGRAM)  
+                          HPROGRAM)
 END IF
 !
 !
@@ -1049,7 +1049,7 @@ S%XEMIS_NAT (:) = XUNDEF
 !
  CALL AVERAGED_ALBEDO_EMIS_ISBA(IO, S, NK, NP, NPE,                           &
                                 PZENITH, ZTG1, PSW_BANDS, PDIR_ALB, PSCA_ALB, &
-                                S%XEMIS_NAT, ZTSRAD_NAT, ZTSURF_NAT        )  
+                                S%XEMIS_NAT, ZTSRAD_NAT, ZTSURF_NAT        )
 !
 PEMIS  = S%XEMIS_NAT
 PTSRAD = ZTSRAD_NAT

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
       SUBROUTINE PGD_ECOCLIMAP2_DATA (KYEAR, PDATA_VEGTYPE, &
@@ -43,7 +43,7 @@
 USE MODD_SURF_PAR,       ONLY : XUNDEF, NUNDEF
 !
 USE MODD_DATA_COVER,     ONLY : TDATA_SEED, TDATA_REAP, XDATA_WATSUP, XDATA_IRRIG,&
-                                  LDATA_IRRIG, XDATA_VEGTYPE, LCLIM_LAI  
+                                  LDATA_IRRIG, XDATA_VEGTYPE, LCLIM_LAI
 
 !
 
@@ -96,7 +96,7 @@ INTEGER, DIMENSION(:), ALLOCATABLE   :: IVALUE   ! value of a record of data poi
 !
  CHARACTER(LEN=28)        :: YIRRIG   ! file name for irrigation
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
-!                                        
+!
 NAMELIST/NAM_ECOCLIMAP2/  YIRRIG, LCLIM_LAI
 !-------------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ NAMELIST/NAM_ECOCLIMAP2/  YIRRIG, LCLIM_LAI
 !*    1.      Read namelist
 !  -------------------------------------
 !
-!* Initializations 
+!* Initializations
 !
 IF (LHOOK) CALL DR_HOOK('PGD_ECOCLIMAP2_DATA',0,ZHOOK_HANDLE)
 YIRRIG         = '                          '
@@ -135,7 +135,7 @@ IF (GFOUND) READ(UNIT=ILUNAM,NML=NAM_ECOCLIMAP2)
 !
 !
 !*   3.    second version of ecoclimap (europe)
-!          ----------------------------------- 
+!          -----------------------------------
 !
 !
 !*   3.1.   read the irrigation data
@@ -144,10 +144,10 @@ IF (GFOUND) READ(UNIT=ILUNAM,NML=NAM_ECOCLIMAP2)
 IERR=0
 
 IF (LEN_TRIM(YIRRIG)>0) THEN
-ALLOCATE(IVALUE(7))    
+ALLOCATE(IVALUE(7))
 
- CALL OPEN_FILE(HPROGRAM,IGLB,YIRRIG,'FORMATTED',HACTION='READ') 
-               
+ CALL OPEN_FILE(HPROGRAM,IGLB,YIRRIG,'FORMATTED',HACTION='READ')
+
 DO JCOVER=301,JPCOVER
   READ(IGLB,FMT='(7I4)') IVALUE
   IF (XDATA_VEGTYPE(JCOVER,NVT_IRR).NE.0) THEN
@@ -161,7 +161,7 @@ DO JCOVER=301,JPCOVER
   !
   IF (XDATA_VEGTYPE(JCOVER,NVT_IRR).NE.0 .AND. &
       (IVALUE(2).EQ.0 .OR. IVALUE(3).EQ.0 .OR. IVALUE(4).EQ.0 .OR. &
-      IVALUE(5).EQ.0 .OR. IVALUE(6).EQ.0 .OR. IVALUE(7).EQ.0)) THEN    
+      IVALUE(5).EQ.0 .OR. IVALUE(6).EQ.0 .OR. IVALUE(7).EQ.0)) THEN
       WRITE(ILUOUT,*)'**************************************************'
       WRITE(ILUOUT,*)'* error, missing data in ',YIRRIG,' for          *'
       WRITE(ILUOUT,*)'* the class ',JCOVER,'.                          *'
@@ -170,7 +170,7 @@ DO JCOVER=301,JPCOVER
    ENDIF
    IF (XDATA_VEGTYPE(JCOVER,NVT_IRR).EQ.0 .AND. &
       (IVALUE(2).NE.0 .OR. IVALUE(3).NE.0 .OR. IVALUE(4).NE.0 .OR. &
-      IVALUE(5).NE.0 .OR. IVALUE(6).NE.0 .OR. IVALUE(7).NE.0)) THEN    
+      IVALUE(5).NE.0 .OR. IVALUE(6).NE.0 .OR. IVALUE(7).NE.0)) THEN
       WRITE(ILUOUT,*)'**************************************************'
       WRITE(ILUOUT,*)'* error, too many data in ',YIRRIG,' for         *'
       WRITE(ILUOUT,*)'* the class ',JCOVER,'.                          *'
@@ -178,7 +178,7 @@ DO JCOVER=301,JPCOVER
      IERR=1
    ENDIF
 ENDDO
-                
+
  CALL CLOSE_FILE(HPROGRAM,IGLB)
 
 IF (IERR.EQ.1) CALL ABOR1_SFX('PGD_ECOCLIMAP2_DATA (3)')

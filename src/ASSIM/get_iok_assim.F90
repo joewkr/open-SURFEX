@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE GET_IOK_ASSIM(HREC,KOK)
 !
@@ -31,8 +31,8 @@ DO J = 1,SIZE(CVAR)
 ENDDO
 !
 IF (KOK==0) THEN
-  DO J = 1,SIZE(COBS)   
-    ILEN = LEN_TRIM(COBS(J)) 
+  DO J = 1,SIZE(COBS)
+    ILEN = LEN_TRIM(COBS(J))
     IF (TRIM(HREC(1:ILEN))==TRIM(COBS(J))) THEN
       KOK = 1
       EXIT

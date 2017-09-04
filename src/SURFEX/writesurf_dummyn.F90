@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_DUMMY_n (HSELECT, DUU, HPROGRAM)
@@ -42,7 +42,7 @@ IMPLICIT NONE
 !
 TYPE(DUMMY_SURF_FIELDS_t), INTENT(INOUT) :: DUU
 !
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     ! 
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     !
 !
 !*       0.2   Declarations of local variables
 !              -------------------------------
@@ -80,7 +80,7 @@ DO JDUMMY=1,DUU%NDUMMY_NBR
   YSTRING20=DUU%CDUMMY_NAME(JDUMMY)
   YSTRING03=DUU%CDUMMY_AREA(JDUMMY)
   YCOMMENT='X_Y_'//YRECFM//YSTRING20//YSTRING03//  &
-             '                                                             '  
+             '                                                             '
   CALL WRITE_SURF(HSELECT, &
                  HPROGRAM,YRECFM,DUU%XDUMMY_FIELDS(:,JDUMMY),IRESP,HCOMMENT=YCOMMENT)
 END DO

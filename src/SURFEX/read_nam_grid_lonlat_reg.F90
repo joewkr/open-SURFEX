@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
       SUBROUTINE READ_NAM_GRID_LONLAT_REG(PGRID_FULL_PAR,KDIM_FULL,HPROGRAM,KGRID_PAR,KL,PGRID_PAR,HDIR)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -94,7 +94,7 @@ NAMELIST/NAM_LONLAT_REG/XLONMIN, XLONMAX, XLATMIN, XLATMAX, NLON, NLAT
 !------------------------------------------------------------------------------
 !
 !*       1.    opening of namelist
-! 
+!
 IF (LHOOK) CALL DR_HOOK('READ_NAM_GRID_LONLAT_REG',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !
@@ -128,7 +128,7 @@ IF (HDIR/='H') THEN
   ALLOCATE(ZLON(KL))
   !
   CALL LATLON_LONLAT_REG(XLONMIN,XLONMAX,XLATMIN,XLATMAX,&
-                         NLON,NLAT,ZLON,ZLAT             )  
+                         NLON,NLAT,ZLON,ZLAT             )
   !
 ELSE
   !
@@ -146,10 +146,10 @@ ELSE
   !
   DEALLOCATE(ZLON0,ZLAT0)
   !
-ENDIF 
+ENDIF
 !
  CALL PUT_GRIDTYPE_LONLAT_REG(ZGRID_PAR,XLONMIN,XLONMAX,XLATMIN,XLATMAX, &
-                               NLON,NLAT,KL,ZLON,ZLAT                     )  
+                               NLON,NLAT,KL,ZLON,ZLAT                     )
 !
 DEALLOCATE(ZLAT)
 DEALLOCATE(ZLON)

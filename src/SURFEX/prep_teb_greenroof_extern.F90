@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_TEB_GREENROOF_EXTERN (DTCO, IO, U, GCP, &
@@ -18,11 +18,11 @@ SUBROUTINE PREP_TEB_GREENROOF_EXTERN (DTCO, IO, U, GCP, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!    A. Lemonsu & C. de Munck 
+!!    A. Lemonsu & C. de Munck
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -98,7 +98,7 @@ INTEGER                             :: ITEB_PATCH     ! number of TEB patches in
 INTEGER                             :: IVERSION       ! SURFEX version
 INTEGER                             :: IBUGFIX        ! SURFEX bug version
 LOGICAL                         :: GTEB           ! flag if TEB fields are present
-LOGICAL                         :: GOLD_NAME      ! old name flag for temperatures 
+LOGICAL                         :: GOLD_NAME      ! old name flag for temperatures
 LOGICAL                         :: GGREENROOF     ! T if gardens are present in the file
 LOGICAL                         :: GDIM
 !
@@ -176,8 +176,8 @@ SELECT CASE(HSURF)
     IF (GTEB) CALL READ_SURF(HFILEPGDTYPE,'LGREENROOF',GGREENROOF,IRESP,HDIR='-')
     CALL CLOSE_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE)
     IF (GGREENROOF) THEN
-      YSURF = 'GR_'//HSURF(1:3)  
-      YSURF=YPATCH//YSURF      
+      YSURF = 'GR_'//HSURF(1:3)
+      YSURF=YPATCH//YSURF
     ELSE
       YSURF = HSURF
     END IF
@@ -185,7 +185,7 @@ SELECT CASE(HSURF)
 !* reading of the profile and its depth definition
      CALL READ_EXTERN_ISBA(U, DTCO, GCP, IO, HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,KLUOUT,INI,&
                            HSURF,YSURF,ZFIELD,ZD)
-! 
+!
      IF (NRANK==NPIO) THEN
 
        ALLOCATE(ZFIELD1(SIZE(ZFIELD,1),SIZE(ZFIELD,2)))
@@ -219,7 +219,7 @@ SELECT CASE(HSURF)
      IF (GTEB) CALL READ_SURF(HFILEPGDTYPE,'LGREENROOF',GGREENROOF,IRESP,HDIR='-')
      CALL CLOSE_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE)
      IF (GGREENROOF) THEN
-       IPATCH = 1             
+       IPATCH = 1
        YRECFM = 'GD_WR'
        YRECFM=YPATCH//YRECFM
        CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'TOWN  ')
@@ -236,14 +236,14 @@ SELECT CASE(HSURF)
      CALL READ_SURF(HFILETYPE,'VERSION',IVERSION,IRESP)
      CALL READ_SURF(HFILETYPE,'BUG',IBUGFIX,IRESP)
      GDIM = (IVERSION>8 .OR. IVERSION==8 .AND. IBUGFIX>0)
-     IF (GDIM) CALL READ_SURF(HFILETYPE,'SPLIT_PATCH',GDIM,IRESP)     
+     IF (GDIM) CALL READ_SURF(HFILETYPE,'SPLIT_PATCH',GDIM,IRESP)
      YRECFM=ADJUSTL(YRECFM)
      ALLOCATE(ZFIELD(INI,1,IPATCH))
      IF (GGREENROOF) THEN
        CALL READ_SURF(HFILETYPE,YRECFM,ZFIELD(:,1,:),IRESP,HDIR='E')
      ELSE
        CALL MAKE_CHOICE_ARRAY(HFILETYPE, IPATCH, GDIM, YRECFM, ZFIELD(:,1,:),HDIR='E')
-     ENDIF     
+     ENDIF
      CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
      CALL PUT_ON_ALL_VEGTYPES(INI,1,1,NVEGTYPE,ZFIELD,PFIELD)
      DEALLOCATE(ZFIELD)

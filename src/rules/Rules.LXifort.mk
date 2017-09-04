@@ -8,9 +8,9 @@
 OPT_BASE  =  -g -traceback -noauto -convert big_endian -assume byterecl -fpic -O2 -fp-model strict -ftz -r8 -openmp -openmp-threadprivate compat
 
 #
-OPT_PERF0 = 
-OPT_PERF2 = 
-OPT_CHECK = 
+OPT_PERF0 =
+OPT_PERF2 =
+OPT_CHECK =
 OPT_I8    = -i8
 #
 #
@@ -29,8 +29,8 @@ LFI_INT           ?=4
 endif
 #
 #
-OPT       = $(OPT_BASE) $(OPT_PERF2) 
-OPT0      = $(OPT_BASE) $(OPT_PERF0) 
+OPT       = $(OPT_BASE) $(OPT_PERF2)
+OPT0      = $(OPT_BASE) $(OPT_PERF0)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF2)
 #
 ifeq "$(OPTLEVEL)" "DEBUG"
@@ -39,23 +39,23 @@ OPT0      = $(OPT_BASE) $(OPT_PERF0) $(OPT_CHECK)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF0)
 endif
 #
-#  
+#
 FC = ifort
 #ifeq "$(VER_MPI)" "MPIAUTO"
 #F90 = mpif90
-#else         
+#else
 F90 = ifort
 #endif
 #
-F90FLAGS      =  $(OPT) 
+F90FLAGS      =  $(OPT)
 F77 = $(F90)
-F77FLAGS      =  $(OPT) 
+F77FLAGS      =  $(OPT)
 FX90 = $(F90)
-FX90FLAGS     =  $(OPT) 
+FX90FLAGS     =  $(OPT)
 #
 LDFLAGS   =   -pc 64 -fp-stack-check -openmp -openmp-threadprivate compat -convert big_endian -assume byterecl
 #
-# preprocessing flags 
+# preprocessing flags
 #
 CPP = cpp -P -traditional -Wcomment
 #

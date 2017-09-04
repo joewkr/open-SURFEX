@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_TEB_GRIB(HPROGRAM,HSURF,HFILE,KLUOUT,PFIELD)
@@ -16,11 +16,11 @@ SUBROUTINE PREP_TEB_GRIB(HPROGRAM,HSURF,HFILE,KLUOUT,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -106,18 +106,18 @@ SELECT CASE(HSURF)
        CASE('ARPEGE','ALADIN','MOCAGE')
          CALL READ_GRIB_TG_METEO_FRANCE(HFILE,KLUOUT,CINMODEL,ZMASK,ZFIELD,ZD)
        CASE('HIRLAM')
-         CALL READ_GRIB_TG_HIRLAM(HFILE,KLUOUT,CINMODEL,ZMASK,ZFIELD,ZD)           
+         CALL READ_GRIB_TG_HIRLAM(HFILE,KLUOUT,CINMODEL,ZMASK,ZFIELD,ZD)
      END SELECT
      !* if deep road temperature is prescribed
      IF (XTI_ROAD/=XUNDEF) THEN
-       ZFIELD(:,2:) = XTI_ROAD 
+       ZFIELD(:,2:) = XTI_ROAD
      END IF
      CALL TEB_PROFILE_GRIB(XGRID_ROAD)
 !
 !*      3.bis  Profile of temperatures in floors
 !              --------------------------------
 
-  CASE('T_FLOOR')    
+  CASE('T_FLOOR')
      !* reading of the profile and its depth definition
      SELECT CASE(CINMODEL)
        CASE('ECMWF ','ARPEGE','ALADIN','MOCAGE','HIRLAM')
@@ -125,7 +125,7 @@ SELECT CASE(HSURF)
      END SELECT
      !* if deep road temperature is prescribed
      IF (XTI_ROAD/=XUNDEF) THEN
-       ZFIELD(:,2:) = XTI_ROAD 
+       ZFIELD(:,2:) = XTI_ROAD
      END IF
      CALL TEB_PROFILE_GRIB(XGRID_FLOOR)
 !
@@ -148,14 +148,14 @@ SELECT CASE(HSURF)
 !*      5.     Profile of temperatures in roofs
 !              --------------------------------
 !
-  CASE('T_ROOF')    
+  CASE('T_ROOF')
      CALL READ_GRIB_T_TEB(HFILE,KLUOUT,CINMODEL,ZTI_BLD,ZMASK,ZFIELD,ZD)
      CALL TEB_PROFILE_GRIB(XGRID_ROOF)
 !
 !*      5.bis    Profile of temperatures in thermal mass
 !              -----------------------------------------
 !
-  CASE('T_MASS')    
+  CASE('T_MASS')
      ALLOCATE(PFIELD(NNI,3))
      PFIELD(:,:) = ZTI_BLD
 !
@@ -185,7 +185,7 @@ SELECT CASE(HSURF)
 !*      9.     Deep road temperature
 !              ---------------------
 
-  CASE('TI_ROAD')    
+  CASE('TI_ROAD')
      IF (XTI_ROAD==XUNDEF) THEN
        CALL READ_GRIB_T2_LAND(HFILE,KLUOUT,CINMODEL,ZMASK,ZFIELD1D)
        ALLOCATE(PFIELD(SIZE(ZFIELD1D),1))
@@ -200,7 +200,7 @@ SELECT CASE(HSURF)
 !*      9.     Building temperatures/moisture
 !              --------------------
 
-  CASE('TI_BLD ')    
+  CASE('TI_BLD ')
      ALLOCATE(PFIELD(NNI,1))
      PFIELD = ZTI_BLD
 

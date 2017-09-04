@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ####################
       SUBROUTINE TOPD_TO_ISBA_SLOPE (PSSO_SLOPE, KI)
 !     ####################
 !
-!!****  *TOPD_TO_ISBA*  
+!!****  *TOPD_TO_ISBA*
 !!
 !!    PURPOSE
 !!    -------
-!    
-!     
-!         
-!     
+!
+!
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,17 +24,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -69,7 +69,7 @@ INTEGER, INTENT(IN)                 :: KI      ! Grid dimensions
 !*      0.2    declarations of local variables
 !
 !
-INTEGER                :: JCAT,JPIX,JJ          ! loop control 
+INTEGER                :: JCAT,JPIX,JJ          ! loop control
 REAL, DIMENSION(KI)    :: ZCOUNT                ! TOPO pixel number in an ISBA pixel
                                                 ! on the full grid
 REAL, DIMENSION(KI)    :: ZSSO_SLOPE

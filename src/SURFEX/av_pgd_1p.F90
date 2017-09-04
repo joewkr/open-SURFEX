@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODI_AV_PGD_1P
@@ -133,7 +133,7 @@ END MODULE MODI_AV_PGD_1P
 !!    MODIFICATION
 !!    ------------
 !
-!     F.Solmon patch modif: remove the case 'veg' as veg is defined for patches 
+!     F.Solmon patch modif: remove the case 'veg' as veg is defined for patches
 !
 !!    Original    15/12/97
 !!    V. Masson   01/2004  Externalization
@@ -249,7 +249,7 @@ IF (HATYPE=='ARI' .OR. HATYPE=='INV' .OR. HATYPE=='CDN') THEN
       ELSEIF (HATYPE=='INV') THEN
         ZVAL(:) = 1./PDATA(JJ)
       ELSEIF (HATYPE=='CDN') THEN
-        ZVAL(:) = 1./(LOG(ZDZ(:)/PDATA(JJ)))**2 
+        ZVAL(:) = 1./(LOG(ZDZ(:)/PDATA(JJ)))**2
       ENDIF
       !
       DO JI = 1,SIZE(KMASK)
@@ -345,7 +345,7 @@ IF (LHOOK) CALL DR_HOOK('MODI_AV_PGD_1P:AV_PGD_1D_1P',0,ZHOOK_HANDLE)
 !
 END SELECT
 IF (LHOOK) CALL DR_HOOK('MODI_AV_PGD_1P:AV_PGD_1D_1P_4',1,ZHOOK_HANDLE)
-! 
+!
 !
 !-------------------------------------------------------------------------------
 !
@@ -356,7 +356,7 @@ END SUBROUTINE AV_PGD_1D_1P
                                      KNPATCH,KPATCH,PDZ,KDECADE)
 !     ################################################################
 !
-!!**** *AV_PATCH_PGD* average for each surface patch a secondary physiographic 
+!!**** *AV_PATCH_PGD* average for each surface patch a secondary physiographic
 !!                    variable from the
 !!              fractions of coverage class.
 !!
@@ -391,7 +391,7 @@ END SUBROUTINE AV_PGD_1D_1P
 !!    AUTHOR
 !!    ------
 !!
-!!    F.Solmon /V. Masson       
+!!    F.Solmon /V. Masson
 !!
 !!    MODIFICATION
 !!    ------------
@@ -414,7 +414,7 @@ USE MODD_SURF_PAR,       ONLY : XUNDEF
 !
 USE MODE_AV_PGD
 !
-USE MODI_VEGTYPE_TO_PATCH 
+USE MODI_VEGTYPE_TO_PATCH
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -536,7 +536,7 @@ DO JCOVER=1,ICOVER
         ZVAL(:) = 1. / PDATA(JJ,JVEG)
       ELSEIF (HATYPE=='CDN') THEN
         DO JI=1,SIZE(ZVAL)
-          ZVAL(JI) = 1./(LOG(ZDZ(JI)/PDATA(JJ,JVEG)))**2 
+          ZVAL(JI) = 1./(LOG(ZDZ(JI)/PDATA(JJ,JVEG)))**2
         ENDDO
       ELSE
         CALL ABOR1_SFX('AV_1PATCH_PGD_1D: (1) AVERAGING TYPE NOT ALLOWED')
@@ -547,7 +547,7 @@ DO JCOVER=1,ICOVER
         IMASK = KMASK(JI)
 
         IF (PCOVER(IMASK,JCOVER)/=0.) THEN
-          ZCOVER_WEIGHT =  PCOVER(IMASK,JCOVER) * ZWEIGHT(JCOVER,JVEG)      
+          ZCOVER_WEIGHT =  PCOVER(IMASK,JCOVER) * ZWEIGHT(JCOVER,JVEG)
           ZSUM_COVER_WEIGHT_PATCH(JI) = ZSUM_COVER_WEIGHT_PATCH(JI) + ZCOVER_WEIGHT
           ZWORK(JI) = ZWORK(JI) + ZVAL(JI) * ZCOVER_WEIGHT
         ENDIF
@@ -560,7 +560,7 @@ DO JCOVER=1,ICOVER
 ENDDO
 !
 !-------------------------------------------------------------------------------
-  
+
 !
 !*    4.1    Selection of averaging type
 !            ---------------------------
@@ -573,7 +573,7 @@ ENDDO
 !            --------------------
 !
   CASE ('ARI')
-!   
+!
     DO JI=1,SIZE(PFIELD)
       IF (ZSUM_COVER_WEIGHT_PATCH(JI)>0.) PFIELD(JI) =  ZWORK(JI) / ZSUM_COVER_WEIGHT_PATCH(JI)
     ENDDO
@@ -610,7 +610,7 @@ END SELECT
 IF (LHOOK) CALL DR_HOOK('MODI_AV_PGD_1P:AV_1PATCH_PGD_1D_1P',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
-!   
+!
 END SUBROUTINE AV_PATCH_PGD_1D_1P
 !
 !     ################################################################

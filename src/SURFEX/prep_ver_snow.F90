@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_VER_SNOW(TPSNOW,PZS_LS,PZS,PTG_LS,PTG,KDEEP_SOIL)
@@ -17,11 +17,11 @@ SUBROUTINE PREP_VER_SNOW(TPSNOW,PZS_LS,PZS,PTG_LS,PTG,KDEEP_SOIL)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -110,7 +110,7 @@ END SELECT
 !
 ALLOCATE(ZTSNOW(SIZE(TPSNOW%WSNOW,1),SIZE(TPSNOW%WSNOW,2)))
 DO JL=1,TPSNOW%NLAYER
-  ZTSNOW(:,JL) = ZTSNOW_LS(:,JL) + XT_CLIM_GRAD  * (PZS(:) - PZS_LS(:))  
+  ZTSNOW(:,JL) = ZTSNOW_LS(:,JL) + XT_CLIM_GRAD  * (PZS(:) - PZS_LS(:))
 END DO
 !
 !-------------------------------------------------------------------------------------
@@ -122,7 +122,7 @@ END DO
 !
 ALLOCATE(ZWSNOW(SIZE(TPSNOW%WSNOW,1),SIZE(TPSNOW%WSNOW,2)))
 !
-ZWSNOW(:,:) = ZWSNOW_LS(:,:) 
+ZWSNOW(:,:) = ZWSNOW_LS(:,:)
 !
 IF (PRESENT(PTG)) THEN
   DO JL=1,TPSNOW%NLAYER
@@ -159,7 +159,7 @@ WHERE(TPSNOW%WSNOW(:,:)/=XUNDEF) TPSNOW%WSNOW = ZWSNOW
 IF (PRESENT(PTG)) THEN
 
   ALLOCATE(ZZSFREEZE(SIZE(TPSNOW%WSNOW,1)))
-  ZZSFREEZE(:) = PZS + (XTT - PTG(:,KDEEP_SOIL)) / XT_CLIM_GRAD  
+  ZZSFREEZE(:) = PZS + (XTT - PTG(:,KDEEP_SOIL)) / XT_CLIM_GRAD
 !
 !*       5.2   Amount and Temperature of new snow (only if soil temperatures are provided)
 !              ----------------------------------
@@ -179,7 +179,7 @@ IF (PRESENT(PTG)) THEN
 !              ----------------------------------------------------
 !
   DO JL=1,TPSNOW%NLAYER
-    WHERE(TPSNOW%WSNOW(:,JL)/=XUNDEF .AND. ZWSNOW_LS(:,JL)==0. .AND. (PZS(:)-PZS_LS(:))>1000. )  
+    WHERE(TPSNOW%WSNOW(:,JL)/=XUNDEF .AND. ZWSNOW_LS(:,JL)==0. .AND. (PZS(:)-PZS_LS(:))>1000. )
       TPSNOW%WSNOW(:,JL) = ZWSNOW2(:,JL)
       ZTSNOW      (:,JL) = ZTSNOW2(:,JL)
     END WHERE
@@ -229,7 +229,7 @@ SELECT CASE(TPSNOW%SCHEME)
       ELSEWHERE
         TPSNOW%WSNOW(:,JL) = XUNDEF
       END WHERE
-    END DO   
+    END DO
     DEALLOCATE(ZDTOT)
     DEALLOCATE(ZDZSN)
 END SELECT

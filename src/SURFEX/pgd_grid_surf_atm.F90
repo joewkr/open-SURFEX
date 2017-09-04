@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################
       SUBROUTINE PGD_GRID_SURF_ATM (UG, U, GCP, HPROGRAM,HFILE,HFILETYPE,OGRID,HDIR)
@@ -12,7 +12,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -43,7 +43,7 @@ USE MODD_SURFEX_MPI, ONLY : NRANK
 !
 USE MODD_SURF_ATM_GRID_n, ONLY : SURF_ATM_GRID_t
 USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
-USE MODD_GRID_CONF_PROJ_n, ONLY :GRID_CONF_PROJ_t 
+USE MODD_GRID_CONF_PROJ_n, ONLY :GRID_CONF_PROJ_t
 !
 USE MODD_SURF_PAR,        ONLY : NVERSION, NBUGFIX
 USE MODD_SURF_CONF,       ONLY : CPROGNAME
@@ -88,7 +88,7 @@ IF (PRESENT(HDIR)) YDIR=HDIR
 !
 CPROGNAME=HPROGRAM
 !
-!*    1.      Set default constant values 
+!*    1.      Set default constant values
 !             ---------------------------
 !
  CALL SURF_VERSION
@@ -101,7 +101,7 @@ CPROGNAME=HPROGRAM
 !             -----------------------------
 !
  CALL PGD_GRID(UG, U, GCP, HPROGRAM,HFILE,HFILETYPE,OGRID,YDIR)
-! 
+!
 IF (LHOOK) CALL DR_HOOK('PGD_GRID_SURF_ATM',1,ZHOOK_HANDLE)
 !_______________________________________________________________________________
 !

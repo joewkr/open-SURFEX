@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE OPEN_FILE_LFI(KUNIT,HFILE,HFORM,HACTION,HACCESS,HPOSITION,KRECL)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !       10/2014 : test if file exist for 'read' E. Martin
 !-------------------------------------------------------------------------------
 !
@@ -82,14 +82,14 @@ ENDIF
 
 IF (HFORM=='FORMATTED') THEN
   OPEN(UNIT=KUNIT,FILE=HFILE,ACTION=HACTION,   &
-         FORM=HFORM, POSITION=HPOSITION, ERR=100 )  
-ELSE 
+         FORM=HFORM, POSITION=HPOSITION, ERR=100 )
+ELSE
   IF (HACCESS=='DIRECT') THEN
     OPEN(UNIT=KUNIT,FILE=HFILE,ACTION=HACTION,                       &
-                   FORM=HFORM,ACCESS=HACCESS,RECL=KRECL, ERR=100       )  
+                   FORM=HFORM,ACCESS=HACCESS,RECL=KRECL, ERR=100       )
   ELSE
     OPEN(UNIT=KUNIT,FILE=HFILE,ACTION=HACTION, &
-           FORM=HFORM, ACCESS=HACCESS,ERR=100           )  
+           FORM=HFORM, ACCESS=HACCESS,ERR=100           )
   END IF
 END IF
 !

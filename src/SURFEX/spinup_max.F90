@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE SPINUP_MAX(PSPINMAX,KNBYEARSPIN,KNBYEARSOLD,KSPIN)
-  
+
 !     #######################################################################
 !
 !
-!!****  *SPINUP_MAX*  
+!!****  *SPINUP_MAX*
 !!
 !!    PURPOSE
 !!    -------
-!!    Number of times the accelerated subroutine is called  
-!!     
+!!    Number of times the accelerated subroutine is called
+!!
 !!**  METHOD
 !!    ------
 !!
@@ -21,12 +21,12 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      R. Alkama           * Meteo-France *
@@ -55,9 +55,9 @@ REAL,    INTENT(IN)              :: PSPINMAX  ! max number of times the accelera
 
 INTEGER, INTENT(IN)              :: KNBYEARSPIN ! spinup duration in years
                                                 ! nbr of years needed to reach the equilibrium
-INTEGER, INTENT(IN)              :: KNBYEARSOLD 
-INTEGER, INTENT(OUT)             :: KSPIN        
-!                                         
+INTEGER, INTENT(IN)              :: KNBYEARSOLD
+INTEGER, INTENT(OUT)             :: KSPIN
+!
 !
 !*      0.2    declarations of local variables
 !
@@ -106,7 +106,7 @@ ELSE IF (KNBYEARSOLD > IMAX .AND. KNBYEARSOLD <= IDECREASE)THEN
 ELSE
    !
    KSPIN = 1
-   !   
+   !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('SPINUP_MAX',1,ZHOOK_HANDLE)
@@ -114,4 +114,4 @@ IF (LHOOK) CALL DR_HOOK('SPINUP_MAX',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 !
-END SUBROUTINE 
+END SUBROUTINE

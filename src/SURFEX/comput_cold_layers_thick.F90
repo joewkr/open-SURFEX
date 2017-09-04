@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE COMPUT_COLD_LAYERS_THICK(PDG,PTG,PALT,PFLT)
 !     ###############################################################################
@@ -9,7 +9,7 @@ SUBROUTINE COMPUT_COLD_LAYERS_THICK(PDG,PTG,PALT,PFLT)
 !!
 !!    PURPOSE
 !!    -------
-!! Comput active layer (ALT) and frozen layer (FLT) theaknesses 
+!! Comput active layer (ALT) and frozen layer (FLT) theaknesses
 !! using linear interpolation between two nodes :
 !!       ALT = depth to zero centigrade isotherm in permafrost
 !!       FLT = depth to zero centigrade isotherm in non-permafrost
@@ -19,11 +19,11 @@ SUBROUTINE COMPUT_COLD_LAYERS_THICK(PDG,PTG,PALT,PFLT)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     B. Decharme 
+!!     B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -96,7 +96,7 @@ DO JL=2,INL-1
       IF(PTG(JI,JL-1)<XTT.AND.PTG(JI,JL)<XTT.AND.PTG(JI,JL+1)>=XTT)THEN
         IUP_FLT  (JI)=JL
         IDOWN_FLT(JI)=JL+1
-      ENDIF      
+      ENDIF
    ENDDO
 ENDDO
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################
       MODULE MODE_SURF_SNOW_FRAC
@@ -11,7 +11,7 @@
 !!
 !!    PURPOSE
 !!    -------
-!    
+!
 !      The purpose of this routine is to store here all routines to compute
 !     snow fractions for the TEB scheme. This allows to insure a coherent
 !     way in retrieving snow fraction or snow contents.
@@ -19,7 +19,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!       NONE          
+!!       NONE
 !!
 !!    REFERENCE
 !!    ---------
@@ -171,7 +171,7 @@ END FUNCTION SNOW_FRAC_NAT
 !
 USE MODD_SNOW_PAR, ONLY : XWCRN
 !
-REAL, DIMENSION(:), INTENT(IN)  :: PWSNOW_ROAD ! snow amount over roads (kg/m2) 
+REAL, DIMENSION(:), INTENT(IN)  :: PWSNOW_ROAD ! snow amount over roads (kg/m2)
 LOGICAL, DIMENSION(:), INTENT(IN)  :: OSNOW    ! T: snow-fall is occuring
 REAL, DIMENSION(:), INTENT(OUT) :: PDN_ROAD    ! snow fraction over roads
 REAL, DIMENSION(:), INTENT(OUT) :: PDF_ROAD    ! snow-free fraction over roads
@@ -201,7 +201,7 @@ END SUBROUTINE SNOW_FRAC_ROAD
 !
 USE MODD_SNOW_PAR, ONLY : XWCRN
 !
-REAL, DIMENSION(:), INTENT(IN)  :: PWSNOW_ROOF ! snow amount over roofs (kg/m2) 
+REAL, DIMENSION(:), INTENT(IN)  :: PWSNOW_ROOF ! snow amount over roofs (kg/m2)
 LOGICAL, DIMENSION(:), INTENT(IN)  :: OSNOW    ! T: snow-fall is occuring
 REAL, DIMENSION(:), INTENT(OUT) :: PDN_ROOF    ! snow fraction over roofs
 REAL, DIMENSION(:), INTENT(OUT) :: PDF_ROOF    ! snow-free fraction over roofs
@@ -289,7 +289,7 @@ END FUNCTION SNOW_FRAC_VEG_2D
       FUNCTION SNOW_FRAC_GROUND_1D(PWSNOW) RESULT(BIDON)
 !     ##################################################
 !
-REAL :: BIDON      
+REAL :: BIDON
 REAL, DIMENSION(:), INTENT(IN)  :: PWSNOW ! snow amount over natural areas (kg/m2)
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('MODE_SURF_SNOW_FRAC:SNOW_FRAC_GROUND_1D',0,ZHOOK_HANDLE)

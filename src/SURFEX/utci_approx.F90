@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !~ *************************************************************
 FUNCTION UTCI_APPROX(PTA,PEHPA,PTMRT,PVA) RESULT(PUTCI_APPROX)
 !~ *************************************************************
 !~ ****!
-!!****  *UTCI_APPROX*  
+!!****  *UTCI_APPROX*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the Universal Thermal and Climate Index Equivalent temperature
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
-!     UTCI method ~ computed by a 6th order approximating polynomial from the 4 Input paramters 
+!     UTCI method ~ computed by a 6th order approximating polynomial from the 4 Input paramters
 !     ~  UTCI_approx, Version a 0.002, October 2009
 !     ~  Copyright (C) 2009  Peter Broede
 !
@@ -30,17 +30,17 @@ FUNCTION UTCI_APPROX(PTA,PEHPA,PTMRT,PVA) RESULT(PUTCI_APPROX)
 !!    ---------
 !!   www.utci.org
 !~ DOUBLE PRECISION Function value is the UTCI in degree Celsius
-!~ computed by a 6th order approximating polynomial from the 4 Input paramters 
-!~ 
+!~ computed by a 6th order approximating polynomial from the 4 Input paramters
+!~
 !~ Input parameters (all of type DOUBLE PRECISION)
 !~ - Ta       : air temperature, degree Celsius
 !~ - ehPa    : water vapour presure, hPa=hecto Pascal
 !~ - Tmrt   : mean radiant temperature, degree Celsius
 !~ - va10m  : wind speed 10 m above ground level in m)s
-!~ 
+!~
 !~  UTCI_approx, Version a 0.002, October 2009
 !~  Copyright (C) 2009  Peter Broede
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -69,10 +69,10 @@ REAL, DIMENSION(7,7,7,7) :: ZZ
 REAL :: Z0, Z1, Z2, Z3, Z4, Z5, Z6, ZF, ZS
 ZS(Z0,Z1,Z2,Z3,Z4,Z5,Z6,ZF) = Z0 + Z1*ZF + Z2*ZF**2 + Z3*ZF**3 + Z4*ZF**4 + Z5*ZF**5 + Z6*ZF**6
 REAL, DIMENSION(SIZE(PTA),7) :: ZC_TA, ZC_VA, ZC_TMRT, ZC_PA
-INTEGER :: J1, J2, J3, J4, JJ                             
+INTEGER :: J1, J2, J3, J4, JJ
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
-!    
+!
 IF (LHOOK) CALL DR_HOOK('UTCI_APPROX',0,ZHOOK_HANDLE)
 !
 ZZ(:,:,:,:)=0.
@@ -140,7 +140,7 @@ ZZ(2,4,3,1)   = 1.62897058D-09
 ZZ(2,5,1,1:2) = (/ 3.94367674D-08,-1.18566247D-09/)
 ZZ(2,5,2,1)   = 3.34678041D-10
 ! Pa / D_Tmrt**5
-ZZ(2,6,1,1)   = -1.15606447D-10 
+ZZ(2,6,1,1)   = -1.15606447D-10
 ! Pa**2 / va
 ZZ(3,1,1,1:5) = (/-2.80626406D+00, 5.48712484D-01,-3.99428410D-03,-9.54009191D-04, 1.93090978D-05/)
 ZZ(3,1,2,1:4) = (/-3.08806365D-01, 1.16952364D-02, 4.95271903D-04,-1.90710882D-05/)
@@ -161,16 +161,16 @@ ZZ(3,4,1,1:2) = (/-4.36497725D-06, 1.68737969D-07/)
 ZZ(3,4,2,1)   = 2.67489271D-08
 ! Pa**2 / D_Tmrt**4
 ZZ(3,5,1,1) =  3.23926897D-09
-! Pa**3 / va 
+! Pa**3 / va
 ZZ(4,1,1,1:4) = (/-3.53874123D-02, -2.21201190D-01, 1.55126038D-02, -2.63917279D-04/)
 ZZ(4,1,2,1:3) = (/4.53433455D-02, -4.32943862D-03, 1.45389826D-04/)
 ZZ(4,1,3,1:2) = (/2.17508610D-04, -6.66724702D-05/)
 ZZ(4,1,4,1)   = 3.33217140D-05
-! Pa**3 / D_Tmrt / va 
+! Pa**3 / D_Tmrt / va
 ZZ(4,2,1,1:3) = (/-2.26921615D-03, 3.80261982D-04, -5.45314314D-09/)
 ZZ(4,2,2,1:2) = (/-7.96355448D-04, 2.53458034D-05/)
 ZZ(4,2,3,1)   = -6.31223658D-06
-! Pa**3 / D_Tmrt**2 / va 
+! Pa**3 / D_Tmrt**2 / va
 ZZ(4,3,1,1:2) = (/3.02122035D-04, -4.77403547D-06/)
 ZZ(4,3,2,1)   = 1.73825715D-06
 ! Pa**3 / D_Tmrt**3
@@ -211,7 +211,7 @@ DO J4 = 1,7
         !               +ZC_TA(JJ,6)*PTA(JJ)**5+ZC_TA(JJ,7)*PTA(JJ)**6
         ZC_VA(JJ,J2) = ZS(ZC_TA(JJ,1),ZC_TA(JJ,2),ZC_TA(JJ,3),ZC_TA(JJ,4),ZC_TA(JJ,5),ZC_TA(JJ,6),ZC_TA(JJ,7),PTA(JJ))
       ENDDO
-    ENDDO 
+    ENDDO
     DO JJ=1,SIZE(PTA)
       !ZC_TMRT(JJ,J3) = ZC_VA(JJ,1)+ZC_VA(JJ,2)*PVA(JJ)+ZC_VA(JJ,3)*PVA(JJ)**2+ZC_VA(JJ,4)*PVA(JJ)**3+ZC_VA(JJ,5)*PVA(JJ)**4 &
       !               +ZC_VA(JJ,6)*PVA(JJ)**5+ZC_VA(JJ,7)*PVA(JJ)**6

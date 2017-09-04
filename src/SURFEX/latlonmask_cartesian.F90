@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################################
       SUBROUTINE LATLONMASK_CARTESIAN(KGRID_PAR,PGRID_PAR,OLATLONMASK)
@@ -19,7 +19,7 @@
 !!   1) test if the points of the mask are in the domain
 !!
 !!   2) fills the mask points corresponding to points scanning
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -38,7 +38,7 @@
 !!
 !!    MODIFICATION
 !!    ------------
-!!      
+!!
 !!      Original        19/07/95
 !----------------------------------------------------------------------------
 !
@@ -94,7 +94,7 @@ ZLON_MASK(:,:)=ZLON_MASK(:,:)+NINT((ZLON0-ZLON_MASK(:,:))/360.)*360.
 !
 !
 WHERE (        ZLON_MASK(:,:) -0.25 <= ZLON0 .AND. ZLON0 <= ZLON_MASK(:,:) +0.25 &
-           .AND. ZLAT_MASK(:,:) -0.25 <= ZLON0 .AND. ZLAT0 <= ZLAT_MASK(:,:) +0.25 )  
+           .AND. ZLAT_MASK(:,:) -0.25 <= ZLON0 .AND. ZLAT0 <= ZLAT_MASK(:,:) +0.25 )
   OLATLONMASK(:,:) = .TRUE.
 END WHERE
 IF (LHOOK) CALL DR_HOOK('LATLONMASK_CARTESIAN',1,ZHOOK_HANDLE)

@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE AVERAGE1_LDB(UG,KLUOUT,KNBLINES,PLAT,PLON,PVALUE,HTYPE,PNODATA)
 !     #######################################################
 !
-!!**** *AVERAGE1_LDB* 
+!!**** *AVERAGE1_LDB*
 !!
 !!    PURPOSE
 !!    -------
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -73,7 +73,7 @@ REAL, OPTIONAL, INTENT(IN) :: PNODATA
 REAL, DIMENSION(:), ALLOCATABLE :: ZBOUND
 !
 INTEGER, DIMENSION(NOVMX,SIZE(PLAT)) :: IINDEX ! mesh index of all input points
-                                         ! 0 indicates the point is out of the domain                              
+                                         ! 0 indicates the point is out of the domain
 !
 REAL, DIMENSION(SIZE(PLAT)) :: ZVALUE
 REAL :: ZNODATA
@@ -85,7 +85,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !*    1.     Get position
 !            ------------
-!     
+!
 IF (LHOOK) CALL DR_HOOK('AVERAGE1_LDB',0,ZHOOK_HANDLE)
 !
 SELECT CASE (HTYPE)
@@ -116,7 +116,7 @@ ENDIF
 !
 !*    2.     Loop on all input data points
 !            -----------------------------
-!    
+!
 bloop: &
 DO JL = 1 , SIZE(PLAT)
 !
@@ -124,7 +124,7 @@ DO JL = 1 , SIZE(PLAT)
 !
 !*    3.     Tests on position
 !            -----------------
-!     
+!
     IF (IINDEX(JOV,JL)==0) CYCLE bloop
 !
 !*    4.     Test on value meaning

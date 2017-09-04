@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE Z0EFF (HSNOW_SCHEME, &
@@ -13,14 +13,14 @@
 
 !   ############################################################################
 !
-!!****  *Z0EFF*  
+!!****  *Z0EFF*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates the z0eff for momentum fluxes according to wind direction.
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -32,13 +32,13 @@
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Mascart et al. (1995)
 !!    Belair (1995)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -46,7 +46,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    13/03/95 
+!!      Original    13/03/95
 !!      (J.Stein)   15/11/95  use the potential temperature to compute Ri
 !!                            and PVMOD instead of ZVMOD
 !!      (P.Lacarrere)15/03/96 replace * PEXNS by / PEXNS
@@ -84,7 +84,7 @@ IMPLICIT NONE
 !
  CHARACTER(LEN=*), INTENT(IN) :: HSNOW_SCHEME
 !
-LOGICAL, INTENT(IN)             :: OMEB           ! True = patch with multi-energy balance 
+LOGICAL, INTENT(IN)             :: OMEB           ! True = patch with multi-energy balance
 !                                                 ! False = patch with classical ISBA
 REAL, DIMENSION(:), INTENT(IN)  :: PALFA          ! wind direction from J axis (clockwise)
 REAL, DIMENSION(:), INTENT(IN)  :: PZREF          ! height of atmospheric level
@@ -164,37 +164,37 @@ PZ0_WITH_SNOW(:)  = PZ0(:)
 PZ0H_WITH_SNOW(:) = PZ0(:) / PZ0_O_Z0H(:)
 !
 IF(HSNOW_SCHEME=='EBA') THEN
-!        
+!
    WHERE (PPSN(:)>0.)
 !
-!!!!!Flooding scheme not implemented with this option 
+!!!!!Flooding scheme not implemented with this option
       PZ0_WITH_SNOW(:) = PZ0_WITH_SNOW(:) + ( Z0CR - PZ0(:))* &
-        PWSNOW(:)/(PWSNOW(:) + XWCRN*(1.0+ZUZ0CN*PZ0(:)))  
-!        
-   END WHERE 
+        PWSNOW(:)/(PWSNOW(:) + XWCRN*(1.0+ZUZ0CN*PZ0(:)))
+!
+   END WHERE
 
 
-   IF (LALDZ0H) THEN  
+   IF (LALDZ0H) THEN
      WHERE (PPSN(:)>0.)
          PZ0H_WITH_SNOW(:) = PZ0H_WITH_SNOW(:) + ( Z0CR - PZ0H_WITH_SNOW(:))* &
-           PWSNOW(:)/(PWSNOW(:) + XWCRN*(1.0+ZUZ0CN*PZ0H_WITH_SNOW(:)))   
-     END WHERE  
-  END IF   
-    
-!        
+           PWSNOW(:)/(PWSNOW(:) + XWCRN*(1.0+ZUZ0CN*PZ0H_WITH_SNOW(:)))
+     END WHERE
+  END IF
+
+!
 ELSE
-!        
+!
    WHERE (PPSN(:)>0..OR.PFF(:)>0.)
-!        
+!
       ZWORK(:) =  (            PPSN(:) /(LOG(PUREF(:)/XZ0SN       ))**2 ) &
                 + (            PFF (:) /(LOG(PUREF(:)/PZ0_FLOOD(:)))**2 ) &
-                + ((1.-PPSN(:)-PFF (:))/(LOG(PUREF(:)/PZ0(:)      ))**2 )  
+                + ((1.-PPSN(:)-PFF (:))/(LOG(PUREF(:)/PZ0(:)      ))**2 )
 !
       PZ0_WITH_SNOW(:) = PUREF(:) /EXP( SQRT( 1./ZWORK(:) ) )
 !
       ZWORK(:) =  (            PPSN(:) /(LOG(PZREF(:)/XZ0HSN                      ))**2 ) &
                 + (            PFF (:) /(LOG(PZREF(:)/(PZ0_FLOOD(:)/ PZ0_O_Z0H(:))))**2 ) &
-                + ((1.-PPSN(:)-PFF (:))/(LOG(PZREF(:)/(PZ0(:)/PZ0_O_Z0H(:))       ))**2 )  
+                + ((1.-PPSN(:)-PFF (:))/(LOG(PZREF(:)/(PZ0(:)/PZ0_O_Z0H(:))       ))**2 )
 !
       PZ0H_WITH_SNOW(:) = PZREF(:) /EXP( SQRT( 1./ZWORK(:) ) )
 !
@@ -232,7 +232,7 @@ IF(OMEB)THEN
   PZ0H_MEBV(:) = PZ0_MEBV(:)/PZ0_O_Z0H(:)
 ! for nordic forest, z0h=z0m according to M&#195;&#182;lder (tested in Hirlam):
 !
-! PZ0H_MEBV(:) = PZ0_MEBV(:)   
+! PZ0H_MEBV(:) = PZ0_MEBV(:)
 !
 ! roughness length for heat over MEB snow part of path
   ZWORK(:) =  (     PPALPHAN(:) /(LOG(PZREF(:)/XZ0HSN          ))**2 ) &

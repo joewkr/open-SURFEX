@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_FLAKE_ASCLLV (DTCO, UG, U, USS, &
@@ -17,11 +17,11 @@ SUBROUTINE PREP_FLAKE_ASCLLV (DTCO, UG, U, USS, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     P. Le Moigne 
+!!     P. Le Moigne
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -90,7 +90,7 @@ IF (.NOT.ALLOCATED(NNUM)) THEN
   IF (NRANK/=NPIO) THEN
     IF (ALLOCATED(NINDEX)) DEALLOCATE(NINDEX)
     ALLOCATE(NINDEX(U%NDIM_FULL))
-  ENDIF  
+  ENDIF
   IF (NRANK==NPIO) THEN
     INB(:) = 0
     DO JJ=1,U%NDIM_FULL
@@ -99,16 +99,16 @@ IF (.NOT.ALLOCATED(NNUM)) THEN
     ENDDO
   ENDIF
   IF (NPROC>1) THEN
-#ifdef SFX_MPI          
+#ifdef SFX_MPI
     CALL MPI_BCAST(NINDEX,SIZE(NINDEX)*KIND(NINDEX)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(NNUM,SIZE(NNUM)*KIND(NNUM)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(UG%NGRID_FULL_PAR,KIND(UG%NGRID_FULL_PAR)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
 #endif
     IF (NRANK/=NPIO) ALLOCATE(UG%XGRID_FULL_PAR(UG%NGRID_FULL_PAR))
-#ifdef SFX_MPI    
+#ifdef SFX_MPI
     CALL MPI_BCAST(UG%XGRID_FULL_PAR,&
-      SIZE(UG%XGRID_FULL_PAR)*KIND(UG%XGRID_FULL_PAR)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)   
-#endif 
+      SIZE(UG%XGRID_FULL_PAR)*KIND(UG%XGRID_FULL_PAR)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
+#endif
   ENDIF
 ENDIF
 !
@@ -137,7 +137,7 @@ SELECT CASE(HSURF)
   CASE('TS     ')
 
     CALL PGD_FIELD(DTCO, UG, U, USS, HPROGRAM,'TS_WATER: temperature','WAT',CFILE_FLAKE,   &
-                        CTYPE,XUNDEF,ZFIELD(:))  
+                        CTYPE,XUNDEF,ZFIELD(:))
 
     ALLOCATE(PFIELD(IL,1))
     PFIELD(:,1) = ZFIELD(:)

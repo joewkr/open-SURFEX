@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,14 +28,14 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ====================== MODULE modi_gltools_readnam ======================
 ! =======================================================================
@@ -91,7 +91,7 @@ CHARACTER(6), PARAMETER ::  &
 CHARACTER(80) ::  &
   ypar,yval,yinsfld
 CHARACTER(80), DIMENSION(:), ALLOCATABLE ::  &
-  ylistfld 
+  ylistfld
 CHARACTER(1000) ::  &
   yfldin
 INTEGER ::  &
@@ -99,17 +99,17 @@ INTEGER ::  &
 LOGICAL :: &
   gmandatory,gread
 INTEGER, DIMENSION(:), ALLOCATABLE ::  &
-  ilistfound 
+  ilistfound
 REAL :: zjl
 !
 !
 !
-! 1. Initializations 
+! 1. Initializations
 ! ===================
 !
 !  Init default values
 !
-dttave= 365. ! days 
+dttave= 365. ! days
 gread=.TRUE.
 !
 !
@@ -147,14 +147,14 @@ IF (gread) THEN
   IF (lp1) WRITE(*,*) '        glt_gelato : READING NAMELIST ' // TRIM(ADJUSTL(ypinpfile))
   IF (lp1) WRITE(*,*) '       ----------------------------------------'
 !
-! .. The list of all parameters available from glt_gelato 
+! .. The list of all parameters available from glt_gelato
 ! (for definitions of these parameters, see dmod_param)
 !
   yfldin=  &
     'nmkinit nrstout nrstgl4 nthermo ndynami  &
 &  nadvect ntimers ndyncor ncdlssh niceage  &
 &  nicesal nmponds nsnwrad nleviti nsalflx  &
-&  nextqoc nicesub cnflxin' 
+&  nextqoc nicesub cnflxin'
   yfldin=TRIM(yfldin) // ' ' //  &
     'cfsidmp chsidmp  &
 &  xfsidmpeft xhsidmpeft'
@@ -195,7 +195,7 @@ IF (gread) THEN
   iok=0
   icount=0
 !
-  DO WHILE ( iok==0 ) 
+  DO WHILE ( iok==0 )
     CALL gltools_nextval( iparlu,ylistfld,ilistfound,iok,ypar,yval )
 !
 !
@@ -241,9 +241,9 @@ IF (gread) THEN
     CASE('dttave')  ; READ( yval,* ) dttave
     CASE('navedia') ; READ( yval,* ) navedia
     CASE('ninsdia') ; READ( yval,* ) ninsdia
-    CASE('ndiamax') ; READ( yval,* ) ndiamax 
-      ! Caller program (e.g. Surfex) may have already allocate cinsfld  
-      ! differently when settings Gelato hard defaults 
+    CASE('ndiamax') ; READ( yval,* ) ndiamax
+      ! Caller program (e.g. Surfex) may have already allocate cinsfld
+      ! differently when settings Gelato hard defaults
       IF (ALLOCATED(cinsfld)) DEALLOCATE(cinsfld)
       ALLOCATE( cinsfld(ndiamax) )
       cinsfld(:) = ''
@@ -272,13 +272,13 @@ IF (gread) THEN
 ! 2.5. Number of ice categories
 ! -----------------------------
 !
-    CASE('nt')    ; 
-       READ( yval,* ) nt ; 
-       ! Caller program (e.g. Surfex) may have already allocate thick  
-       ! differently when settings Gelato hard defaults 
-       IF (ALLOCATED(thick)) DEALLOCATE(thick)  
+    CASE('nt')    ;
+       READ( yval,* ) nt ;
+       ! Caller program (e.g. Surfex) may have already allocate thick
+       ! differently when settings Gelato hard defaults
+       IF (ALLOCATED(thick)) DEALLOCATE(thick)
        ALLOCATE( thick(nt+1) )
-    CASE('thick') 
+    CASE('thick')
       IF ( ALLOCATED(thick) ) THEN
           READ( yval,*,END=100 ) thick
         ELSE
@@ -352,10 +352,10 @@ IF (gread) THEN
 ! 2.12. End of case select
 ! -------------------------
 !
-    CASE DEFAULT 
+    CASE DEFAULT
       IF (lwg) WRITE(*,110) TRIM(ypar)
 !
-    END SELECT 
+    END SELECT
   END DO
 !
 !
@@ -377,10 +377,10 @@ ENDIF
 !
 SELECT CASE ( TRIM(cnflxin) )
 !
-CASE('mixed')  ; nnflxin = 0 
+CASE('mixed')  ; nnflxin = 0
   if (lp1) WRITE(*,*) 'We are using single physics (one input flux)'
 CASE('double') ; nnflxin = 1
-  IF (lp1) WRITE(*,*) 'We are using double physics (two input fluxes)'  
+  IF (lp1) WRITE(*,*) 'We are using double physics (two input fluxes)'
 CASE('multi')  ; nnflxin = nt
   IF (lp1) WRITE(*,*) 'We are using multiple physics (one flux per ice cat + water)'
 CASE DEFAULT
@@ -399,8 +399,8 @@ nl = nilay + nslay
 !
 ! .. thickness of the different levels at t and w points (from top to bottom)
 !
-! Caller program (e.g. Surfex) may have already allocate some   
-! arrays differently when settings Gelato hard defaults 
+! Caller program (e.g. Surfex) may have already allocate some
+! arrays differently when settings Gelato hard defaults
 IF (ALLOCATED(sf3t)) DEALLOCATE(sf3t)
 ALLOCATE( sf3t(nilay) )
 IF (ALLOCATED(e3w)) DEALLOCATE(e3w)
@@ -460,7 +460,7 @@ SELECT CASE ( TRIM(cdiafmt) )
 !
   CASE('GELATO','VMAR5')
     ndiap1=0 ; ndiap2=0 ; ndiap3=0 ; ndiapx=0
-    DO jl=1,LEN( TRIM(cdialev) ) 
+    DO jl=1,LEN( TRIM(cdialev) )
       ytag=cdialev(jl:jl)
       SELECT CASE ( ytag )
         CASE('1') ; ndiap1=1
@@ -470,8 +470,8 @@ SELECT CASE ( TRIM(cdiafmt) )
         CASE DEFAULT
           IF (lwg) THEN
             WRITE(*,*) ' '
-            WRITE(*,*) '              glt_gelato FATAL ERROR' 
-            WRITE(*,*) '            **********************' 
+            WRITE(*,*) '              glt_gelato FATAL ERROR'
+            WRITE(*,*) '            **********************'
             WRITE(*,*) ' Diagnostic code = '//ytag//' in cdialev ignored.'
             WRITE(*,*) '  (illegal with glt_output format = '//TRIM(cdiafmt)//')'
             WRITE(*,*) ' We stop.'
@@ -483,19 +483,19 @@ SELECT CASE ( TRIM(cdiafmt) )
     ndiap1=1 ; ndiap2=1 ; ndiap3=1 ; ndiapx=1
     IF (lwg) THEN
       WRITE(*,*) ' '
-      WRITE(*,*) '              Using XIOS for diagnostics output' 
+      WRITE(*,*) '              Using XIOS for diagnostics output'
       WRITE(*,*) ' '
     ENDIF
   CASE DEFAULT
     IF (lwg) THEN
       WRITE(*,*) ' '
-      WRITE(*,*) '              glt_gelato FATAL ERROR' 
-      WRITE(*,*) '            **********************' 
-      WRITE(*,*) ' cdiafmt was set to '//cdiafmt//' in gltpar.' 
+      WRITE(*,*) '              glt_gelato FATAL ERROR'
+      WRITE(*,*) '            **********************'
+      WRITE(*,*) ' cdiafmt was set to '//cdiafmt//' in gltpar.'
       WRITE(*,*) ' Only GELATO and VMAR5 are legal. We stop.'
     ENDIF
     STOP
-END SELECT  
+END SELECT
 !
 !
 ! 3.4. Parameters for sea ice incremental remapping
@@ -525,7 +525,7 @@ ntd=0        ! Will disable sit_d array allocation and use of constraint data
 IF ( TRIM(cfsidmp)=='DAMP' .OR. TRIM(cfsidmp)=='PRESCRIBE' ) THEN
   ntd=1      ! Will enable sit_d array allocation and trigger constraint
 ELSE IF ( TRIM(cfsidmp)/='NONE' ) THEN
-  WRITE(*,*) "cfsidmp must be 'DAMP' or 'PRESCRIBE'" 
+  WRITE(*,*) "cfsidmp must be 'DAMP' or 'PRESCRIBE'"
   WRITE(*,*) " - You specified cfsidmp=" // TRIM(cfsidmp)
   STOP
 ENDIF
@@ -534,7 +534,7 @@ IF ( TRIM(chsidmp)=='DAMP_ADD' .OR. TRIM(chsidmp)=='DAMP_FAC' .OR.  &
      TRIM(chsidmp)=='PRESCRIBE' ) THEN
   ntd=1
 ELSE IF ( TRIM(chsidmp)/='NONE' ) THEN
-  WRITE(*,*) "chsidmp must be 'DAMP_ADD', 'DAMP_FAC'' or 'PRESCRIBE'" 
+  WRITE(*,*) "chsidmp must be 'DAMP_ADD', 'DAMP_FAC'' or 'PRESCRIBE'"
   WRITE(*,*) " - You specified chsidmp=" // TRIM(chsidmp)
   STOP
 ENDIF
@@ -560,7 +560,7 @@ ENDIF
 STOP
 !
 200 CONTINUE
-! 
+!
 IF (lwg) THEN
   WRITE(*,*) "*** GELATO/readnam : &
 & dimension of 'cinsfld' not consistent with nt, &

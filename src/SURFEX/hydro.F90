@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE HYDRO(IO, KK, PK, PEK, AG, DEK, DMK, OMEB, PTSTEP, PVEG, &
@@ -9,7 +9,7 @@
                        PDELPHASEG, PDELPHASEG_SFC               )
 !     #####################################################################
 !
-!!****  *HYDRO*  
+!!****  *HYDRO*
 !!
 !!    PURPOSE
 !!    -------
@@ -20,8 +20,8 @@
 !     water of the snow canopy (Ws), and also of the albedo and density of
 !     the snow (i.e., SNOWALB and SNOWRHO).  Also determine the runoff and drainage
 !     into the soil.
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -31,16 +31,16 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Noilhan and Planton (1989)
 !!    Belair (1995)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -49,7 +49,7 @@
 !!    MODIFICATIONS
 !!    -------------
 !!
-!!      Original    14/03/95 
+!!      Original    14/03/95
 !!                  31/08/98 (V. Masson and F. Habets) add Dumenil et Todini
 !!                           runoff scheme
 !!                  31/08/98 (V. Masson and A. Boone) add the third soil-water
@@ -96,10 +96,10 @@ USE MODD_COUPLING_TOPD, ONLY : LCOUPL_TOPD, XAS_NATURE, XATOP, XRUNOFF_TOP, NMAS
 USE MODI_HYDRO_VEG
 USE MODI_HYDRO_SNOW
 USE MODI_HYDRO_SOIL
-USE MODI_HYDRO_SOILDIF                                          
+USE MODI_HYDRO_SOILDIF
 USE MODI_HYDRO_SGH
-USE MODI_ICE_SOILDIF              
-USE MODI_ICE_SOILFR              
+USE MODI_ICE_SOILDIF
+USE MODI_ICE_SOILFR
 !
 USE MODE_THERMOS
 !
@@ -119,26 +119,26 @@ TYPE(AGRI_t), INTENT(INOUT) :: AG
 TYPE(DIAG_EVAP_ISBA_t), INTENT(INOUT) :: DEK
 TYPE(DIAG_MISC_ISBA_t), INTENT(INOUT) :: DMK
 !
-LOGICAL, INTENT(IN)                :: OMEB   ! True  = patch with multi-energy balance 
+LOGICAL, INTENT(IN)                :: OMEB   ! True  = patch with multi-energy balance
 !                                            ! False = patch with classical (composite) ISBA
 REAL, INTENT(IN)                    :: PTSTEP
 !                                      timestep of the integration
 !
 REAL, DIMENSION(:), INTENT(IN)    :: PVEG, PWRMAX
-!                                      PVEG = fraction of vegetation 
+!                                      PVEG = fraction of vegetation
 !                                      PWRMAX = maximum equivalent water content
 !                                               in the vegetation canopy
 !
 REAL, DIMENSION(:), INTENT(IN)    :: PSNOW_THRUFAL, PEVAPCOR, PSUBVCOR
-!                                    PSNOW_THRUFAL = rate that liquid water leaves snow pack: 
+!                                    PSNOW_THRUFAL = rate that liquid water leaves snow pack:
 !                                               *ISBA-ES* [kg/(m2 s)]
 !                                    PEVAPCOR = correction if evaporation from snow exceeds
 !                                               actual amount on the surface [kg/(m2 s)]
-!                                    PSUBVCOR = correction if sublimation from snow intercepted 
-!                                               on the MEB canopy exceeds snow available as it 
+!                                    PSUBVCOR = correction if sublimation from snow intercepted
+!                                               on the MEB canopy exceeds snow available as it
 !                                               disappears [kg/(m2 s)]
 !
-REAL, DIMENSION(:), INTENT(IN)    :: PPS, PF2                                       
+REAL, DIMENSION(:), INTENT(IN)    :: PPS, PF2
 !                                    PPS  = surface pressure (Pa)
 !                                    PF2  = total water stress factor (-)
 !
@@ -161,7 +161,7 @@ REAL   ,DIMENSION(:),INTENT(IN)    :: PIRRIG_GR ! ground irrigation rate (kg/m2/
 !*      0.2    declarations of local variables
 !
 !
-INTEGER                         :: JJ, JL      ! loop control                                       
+INTEGER                         :: JJ, JL      ! loop control
 INTEGER                         :: INDT, JDT   ! Time splitting indicies
 INTEGER                         :: INJ, INL, IDEKTH ! (ISBA-DF option)
 !
@@ -171,10 +171,10 @@ REAL                            :: ZTSTEP      ! maximum time split time step (<
 REAL, DIMENSION(SIZE(PVEG))     :: ZPG, ZPG_MELT, ZDUNNE,                            &
                                    ZLEV, ZLEG, ZLEGI, ZLETR, ZPSNV,                  &
                                    ZRR, ZDG3, ZWG3, ZWSAT_AVG, ZWWILT_AVG, ZWFC_AVG, &
-                                   ZRUNOFF, ZDRAIN, ZHORTON, ZEVAPCOR, ZQSB 
+                                   ZRUNOFF, ZDRAIN, ZHORTON, ZEVAPCOR, ZQSB
 !                                      Prognostic variables of ISBA at 't-dt'
 !                                      ZPG = total water reaching the ground
-!                                      ZPG_MELT = snowmelt reaching the ground 
+!                                      ZPG_MELT = snowmelt reaching the ground
 !                                      ZDUNNE  = Dunne runoff
 !                                 ZLEV, ZLEG, ZLEGI, ZLETR = Evapotranspiration amounts
 !                                      from the non-explicit snow area *ISBA-ES*
@@ -189,9 +189,9 @@ REAL, DIMENSION(SIZE(PVEG))     :: ZPG, ZPG_MELT, ZDUNNE,                       
 !                                               actual amount on the surface [m/s]
 !
 REAL, DIMENSION(SIZE(PVEG))     :: ZDWGI1, ZDWGI2, ZKSFC_IVEG
-!                                      ZDWGI1 = surface layer liquid water equivalent 
+!                                      ZDWGI1 = surface layer liquid water equivalent
 !                                               volumetric ice content time tendency
-!                                      ZDWGI2 = deep-soil layer liquid water equivalent 
+!                                      ZDWGI2 = deep-soil layer liquid water equivalent
 !                                               volumetric ice content time tendency
 !                                      ZKSFC_IVEG = non-dimensional vegetation insolation coefficient
 !
@@ -204,7 +204,7 @@ REAL, DIMENSION(SIZE(PEK%XWG,1),SIZE(PEK%XWG,2)) :: ZQSAT, ZQSATI, ZTI, ZPS
 !
 REAL, DIMENSION(SIZE(PEK%XWG,1),SIZE(PEK%XWG,2)) :: ZWGI0
 !                                      ZWGI0 = initial soil ice content (m3 m-3) before update
-!                                              for budget diagnostics     
+!                                              for budget diagnostics
 !
 !*      0.3    declarations of local parameters
 !
@@ -260,7 +260,7 @@ ZF2(:) = MAX(XDENOM_MIN,PF2(:))
 IF(OMEB)THEN
 !
 ! MEB uses explicit snow scheme by default, but fluxes already aggregated
-! for snow and floods so no need to multiply by fractions here. 
+! for snow and floods so no need to multiply by fractions here.
 !
    ZLEV(:)          = DEK%XLEV(:)
    ZLETR(:)         = DEK%XLETR(:)
@@ -289,7 +289,7 @@ ELSE
       ZPSNV(:)         = PEK%XPSNV(:)+KK%XFFV(:)
    ENDIF
 !
-   ZEVAPCOR(:)         = PEVAPCOR(:) 
+   ZEVAPCOR(:)         = PEVAPCOR(:)
 
 ENDIF
 !
@@ -300,13 +300,13 @@ ENDIF
 ! the Diffusion option is in force, the relevant
 ! calculation is done later within this routine.
 !
-IF(IO%CISBA == '2-L' .OR. IO%CISBA == '3-L')THEN  
+IF(IO%CISBA == '2-L' .OR. IO%CISBA == '3-L')THEN
    ZWSAT_AVG(:)     = KK%XWSAT(:,1)
    ZWWILT_AVG(:)    = KK%XWWILT(:,1)
    ZWFC_AVG(:)      = KK%XWFC(:,1)
 ENDIF
 !
-IF (IO%CISBA == '3-L') THEN                                   
+IF (IO%CISBA == '3-L') THEN
    ZDG3(:) = PK%XDG(:,3)
    ZWG3(:) = PEK%XWG(:,3)
 ELSE
@@ -331,9 +331,9 @@ IF(.NOT.OMEB)THEN ! Canopy Int & Irrig Already accounted for if MEB in use.
    IF (ASSOCIATED(AG%LIRRIGATE)) THEN
      IF (SIZE(AG%LIRRIGATE)>0) THEN
        WHERE (AG%LIRRIGATE(:) .AND. PEK%XIRRIG(:)>0. .AND. PEK%XIRRIG(:) /= XUNDEF .AND. (PF2(:)<AG%XTHRESHOLDSPT(:)) )
-         DEK%XIRRIG_FLUX(:) = PEK%XWATSUP(:) / XDAY           
+         DEK%XIRRIG_FLUX(:) = PEK%XWATSUP(:) / XDAY
          ZRR   (:) = ZRR(:) + PEK%XWATSUP(:) / XDAY
-         AG%LIRRIDAY(:)    = .TRUE.           
+         AG%LIRRIDAY(:)    = .TRUE.
        END WHERE
      ENDIF
    ENDIF
@@ -341,7 +341,7 @@ IF(.NOT.OMEB)THEN ! Canopy Int & Irrig Already accounted for if MEB in use.
 !* interception reservoir and dripping computation
 !
    CALL HYDRO_VEG(IO%CRAIN, PTSTEP, KK%XMUF, ZRR, ZLEV, ZLETR, PVEG, &
-                  ZPSNV,  PEK%XWR(:), PWRMAX, ZPG, DEK%XDRIP, DEK%XRRVEG, PK%XLVTT  ) 
+                  ZPSNV,  PEK%XWR(:), PWRMAX, ZPG, DEK%XDRIP, DEK%XRRVEG, PK%XLVTT  )
 !
 ELSE
 !
@@ -362,13 +362,13 @@ ZPG(:) = ZPG(:) + PIRRIG_GR(:)
 !
 !-------------------------------------------------------------------------------
 !
-!*       2.     EVOLUTION OF THE EQUIVALENT WATER CONTENT snowSWE 
+!*       2.     EVOLUTION OF THE EQUIVALENT WATER CONTENT snowSWE
 !               -------------------------------------------------
 !
-!*       3.     EVOLUTION OF SNOW ALBEDO 
+!*       3.     EVOLUTION OF SNOW ALBEDO
 !               ------------------------
 !
-!*       4.     EVOLUTION OF SNOW DENSITY 
+!*       4.     EVOLUTION OF SNOW DENSITY
 !               -------------------------
 !
 ! Boone and Etchevers '3-L' snow option
@@ -398,7 +398,7 @@ ENDIF
 ! - Horton runoff : Direct or exponential precipitation distribution
 ! - Floodplains interception and infiltration
 !
- CALL HYDRO_SGH(IO, KK, PK, PEK, DEK, DMK, PTSTEP, ZPG, ZPG_MELT, ZDUNNE )         
+ CALL HYDRO_SGH(IO, KK, PK, PEK, DEK, DMK, PTSTEP, ZPG, ZPG_MELT, ZDUNNE )
 !
 !-------------------------------------------------------------------------------
 !
@@ -411,17 +411,17 @@ ENDIF
 !*       8.     DRAINAGE FROM THE DEEP SOIL
 !               ---------------------------
 !
-!*      9.     RUN-OFF 
+!*      9.     RUN-OFF
 !               -------
-!                                     when the soil water exceeds saturation, 
+!                                     when the soil water exceeds saturation,
 !                                     there is fast-time-response runoff
 !
 !
 ! -----------------------------------------------------------------
 ! Time splitting parameter for *very large time steps* since Richard
-! and/or soil freezing equations are very non-linear 
+! and/or soil freezing equations are very non-linear
 ! NOTE for NWP/GCM type applications, the time step is generally not split
-! (usually just for offline applications with a time step on order of 
+! (usually just for offline applications with a time step on order of
 ! 15 minutes to an hour for example)
 ! ------------------------------------------------------------------
 !
@@ -433,14 +433,14 @@ ENDIF
 ZTSTEP  = PTSTEP/REAL(INDT)
 !
 ! ------------------------------------------------------------------
-! The values for the two coefficients (multiplied by VEG and LAI) 
-! in the expression below are from 
+! The values for the two coefficients (multiplied by VEG and LAI)
+! in the expression below are from
 ! Giard and Bazile (2000), Mon. Wea. Rev.: they model the effect of insolation due to
 ! vegetation cover. This used by both 'DEF' (code blocks 3.-4.) and 'DIF' options.
 ! ------------------------------------------------------------------
 !
 WHERE(PEK%XLAI(:)/=XUNDEF .AND. PVEG(:)/=0.)
-    ZKSFC_IVEG(:) = (1.0-ZINSOLFRZ_VEG*PVEG(:)) * MIN(MAX(1.0-(PEK%XLAI(:)/ZINSOLFRZ_LAI),0.0),1.0)    
+    ZKSFC_IVEG(:) = (1.0-ZINSOLFRZ_VEG*PVEG(:)) * MIN(MAX(1.0-(PEK%XLAI(:)/ZINSOLFRZ_LAI),0.0),1.0)
 ELSEWHERE
     ZKSFC_IVEG(:) = 1.0 ! No vegetation
 ENDWHERE
@@ -448,7 +448,7 @@ ENDWHERE
 !
 ZWGI0 (:,:) = PEK%XWGI(:,:) ! save initial ice content before phase changes and sublimation
 !
-IF (IO%CISBA=='DIF') THEN                
+IF (IO%CISBA=='DIF') THEN
 !
   INJ = SIZE(PK%XDG(:,:),1)
   INL = MAXVAL(PK%NWG_LAYER(:))
@@ -484,7 +484,7 @@ IF (IO%CISBA=='DIF') THEN
   ZLEGI   (:) = ZLEGI   (:)        /(XRHOLW*PK%XLSTT(:))
 !
   DO JDT = 1,INDT
-!                      
+!
     CALL HYDRO_SOILDIF(IO, KK, PK, PEK, ZTSTEP, ZPG, ZLETR, ZLEG, ZEVAPCOR,  &
                        PF2WGHT, PPS, ZQSAT, ZQSATI, ZDRAIN, ZHORTON, INL, ZQSB )
 !
@@ -524,7 +524,7 @@ ELSE
 !
     DEK%XDRAIN (:)  = DEK%XDRAIN (:) + ZDRAIN (:)/REAL(INDT)
     DEK%XRUNOFF(:)  = DEK%XRUNOFF(:) + ZRUNOFF(:)/REAL(INDT)
-!    
+!
   ENDDO
 !
 ! Output diagnostics:
@@ -552,7 +552,7 @@ ELSE
             ! ZDUNNE contains only saturated pixels on mesh so only catchment
             XRUNOFF_TOP(NMASKT_PATCH(JJ)) = XRUNOFF_TOP(NMASKT_PATCH(JJ)) + &
                                             ZDUNNE(JJ)*XATOP(NMASKT_PATCH(JJ))*PTSTEP
-          ENDIF  
+          ENDIF
         ENDIF
       ENDIF
       ! ZDUNNE concerns all the mesh so not only catchment =>*XATOP

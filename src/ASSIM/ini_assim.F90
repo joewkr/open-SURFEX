@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-      SUBROUTINE INI_ASSIM 
+      SUBROUTINE INI_ASSIM
 !     ####################
 !
 !!****  *INI_ASSIM * - routine to initialize the module MODD_ASSIM
@@ -11,25 +11,25 @@
 !!    PURPOSE
 !!    -------
 !       The purpose of this routine is to initialize variables in module MODD_ASSIM.
-!      
+!
 !
 !!**  METHOD
 !!    ------
-!!      The various constants are set to their numerical values 
-!!     
+!!      The various constants are set to their numerical values
+!!
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!      Module MODD_ASSIM     : contains constants for soil assimilation
 !!
-!! 
+!!
 !!    AUTHOR
 !!    ------
 !!      J.-F. Mahfouf       * Meteo France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    21/05/09 
+!!      Original    21/05/09
 !!
 !-------------------------------------------------------------------------------
 !
@@ -48,7 +48,7 @@ USE MODD_ASSIM, ONLY : LFGEL, LCLIM, XSODELX, NTVGLA, XRD1, XRTINER, XWCRIN, &
                        XG2WSAT, XADWR, XREPS1, XREPS2, XREPS3, NIDJ, XREPSM, &
                        XRCDTR
 !
-USE MODD_CSTS,  ONLY : XPI 
+USE MODD_CSTS,  ONLY : XPI
 !
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -57,7 +57,7 @@ USE PARKIND1  ,ONLY : JPRB
 IMPLICIT NONE
 INTEGER :: J
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
-!  
+!
 !**-----------------------------------------------------------------------
 !**  - 1 - Initialisations, diagnostics.
 !**        ----------------------------
@@ -74,7 +74,7 @@ IF (LHOOK) CALL DR_HOOK('INI_ASSIM',0,ZHOOK_HANDLE)
 LFGEL = .TRUE.
 LCLIM = .TRUE.
 !
-!  Characteristics of ice and sea 
+!  Characteristics of ice and sea
 !SODELX(0:9): DISCRETISATION VERTICALE DU SOL (MAXI 10 COUCHES)
 !           : SOIL VERTICAL DISCRETIZATION (MAX 10 LAYERS)
 !GCONV      : FACTEUR DE CHANGEMENT D'UNITE (MASSE VOL. DE L'EAU LIQUIDE)
@@ -105,8 +105,8 @@ XRTINER = 5.
 XWCRIN  = 10.
 XWPMX   = 100.
 XWSMX   = 20.
-XTMERGL = 271.23 
-XRZHZ0G = 1.0 
+XTMERGL = 271.23
+XRZHZ0G = 1.0
 !
 !nactex, canali
 !  NSEAICE : utilsation limite glace SSM/I (et nb de jours de retard possible)
@@ -118,9 +118,9 @@ XRZHZ0G = 1.0
 NSEAICE = 0
 !
 XRWPIA   = 0.025
-XRWPIB   = 2.  
+XRWPIB   = 2.
 XRSNSA   = 0.025
-XRSNSB   = 1.0 
+XRSNSB   = 1.0
 !
 !yomcli
 !  SALBN,SALBX,SALBM,SALBG,SALBB,SALBD : albedo
@@ -239,7 +239,7 @@ XV10MX    = 10.
 XSMU0     = 7.
 !
 ! PARAMETERS TO SWITCH ON CASMSWI - SPATIAL SMOOTHING OF SWI (SOIL WETNESS INDEX)
-! THEN CHANGING OF Wp ( TOTAL SOIL WATER CONTENT) IN CANARI OI. 
+! THEN CHANGING OF Wp ( TOTAL SOIL WATER CONTENT) IN CANARI OI.
 ! CASMSWI IS CALLED BY CANARI
 !
 L_SM_WP  = .FALSE.
@@ -272,7 +272,7 @@ XADWR    = XGWFC*(XRARGR**XEWFC) - XGWWILT*(XRARGR**XEWWILT)
 !
 ! Low threshold values
 !
-XREPS1   = 1.E-3 
+XREPS1   = 1.E-3
 XREPS2   = 1.E-1
 XREPS3   = 1.E-13
 !
@@ -288,4 +288,4 @@ IF (LHOOK) CALL DR_HOOK('INI_ASSIM',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 !
-END SUBROUTINE INI_ASSIM 
+END SUBROUTINE INI_ASSIM

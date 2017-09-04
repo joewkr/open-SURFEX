@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,38 +28,38 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ===================== MODULE mode_gltools_enthalpy ======================
 ! =======================================================================
 !
 ! Goal:
 ! -----
-!   This module contains two functions that allow to compute sea ice or 
-! snow massic gltools_enthalpy (J.kg-1) from temperature (and salinity in the 
+!   This module contains two functions that allow to compute sea ice or
+! snow massic gltools_enthalpy (J.kg-1) from temperature (and salinity in the
 ! case of sea ice).
 !   - enthalpy3d:
-!   In addition to temperature, salinity profile can also be passed 
+!   In addition to temperature, salinity profile can also be passed
 ! to the routine (optionally).
 !   - enthalpy0d:
 !   Computes gltools_enthalpy at only one point. As we are not dealing with a
 ! vertical profile, we do not know a priori if we are dealing with snow
-! or ice. Hence for glt_enthalpy0d the salinity argument is compulsory. If 
+! or ice. Hence for glt_enthalpy0d the salinity argument is compulsory. If
 ! salinity is 0, we know that we are dealing with snow.
 !
 ! Created : 12/2009 (D. Salas y Melia)
-! Modified: 02/2010 (D. Salas y Melia) 
+! Modified: 02/2010 (D. Salas y Melia)
 !   Introduction of glt_enthalpy1d and glt_enthalpy2d (to avoid CALL glt_enthalpy0d
 !   in loops)
-!  
-! ----------------- BEGIN MODULE mode_gltools_enthalpy -------------------- 
+!
+! ----------------- BEGIN MODULE mode_gltools_enthalpy --------------------
 !
 MODULE mode_gltools_enthalpy
 INTERFACE
@@ -125,7 +125,7 @@ END MODULE mode_gltools_enthalpy
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE glt_aventh ---------------------------
 !
-!  Computes the total gltools_enthalpy (J.m-2) of sea-ice and snow (separately) 
+!  Computes the total gltools_enthalpy (J.m-2) of sea-ice and snow (separately)
 ! in an ice-snow slab
 !
 SUBROUTINE glt_aventh(tpsit,tpsil,pentsi,pentsn)
@@ -195,7 +195,7 @@ FUNCTION glt_enthalpy0d(pt,ps)
 !
   ztice_m = -mu * ps
 !
-! 
+!
 ! 2. If the slab is salty ice
 ! ============================
 !
@@ -218,7 +218,7 @@ FUNCTION glt_enthalpy0d(pt,ps)
 !
   ELSE
 !
-! 
+!
 ! 3. If the slab is pure ice
 ! ===========================
 !
@@ -228,7 +228,7 @@ FUNCTION glt_enthalpy0d(pt,ps)
       glt_enthalpy0d = 0.
     ENDIF
 !
-  ENDIF   
+  ENDIF
 !
 END FUNCTION glt_enthalpy0d
 !
@@ -276,7 +276,7 @@ do jp=1,np
 !
     ztice_m(jp) = -mu * ps(jp)
 !
-! 
+!
 ! 2. Enthalpy of the sea ice part of the slab
 ! ============================================
 !
@@ -348,7 +348,7 @@ FUNCTION glt_enthalpy2d(pt,ps)
 !
   ztice_m(:,:) = -mu * ps(:,:)
 !
-! 
+!
 ! 2. Enthalpy of the sea ice part of the slab
 ! ============================================
 !
@@ -379,7 +379,7 @@ END FUNCTION glt_enthalpy2d
 ! -----------------------------------------------------------------------
 ! ------------------------ FUNCTION glt_enthalpy3d --------------------------
 !
-!   The input arguments are sea ice vertical temperature profile, in 
+!   The input arguments are sea ice vertical temperature profile, in
 ! Celsius and, if available, vertical salinity profile (g.kg-1).
 !
 FUNCTION glt_enthalpy3d(pvtp,pvsp)
@@ -409,11 +409,11 @@ FUNCTION glt_enthalpy3d(pvtp,pvsp)
   IF ( PRESENT(pvsp) ) THEN
       ztice_m(:,:,:) = -mu * pvsp(:,:,:)
     ELSE
-      ztice_m(1:nilay,:,:) = -mu * sice 
+      ztice_m(1:nilay,:,:) = -mu * sice
       ztice_m(nilay+1:nl,:,:) = 0.
   ENDIF
 !
-! 
+!
 ! 2. Enthalpy of the sea ice part of the slab
 ! ============================================
 !
@@ -427,7 +427,7 @@ FUNCTION glt_enthalpy3d(pvtp,pvsp)
         glt_enthalpy3d(jl,:,:) =  &
           cpice0*( pvtp(jl,:,:)-ztice_m(jl,:,:) ) -  &
           xmhofusn0*( 1.-ztice_m(jl,:,:)/pvtp(jl,:,:) )
-      ELSEWHERE    
+      ELSEWHERE
 ! If temperature is melting point
         glt_enthalpy3d(jl,:,:) = 0.
     ENDWHERE
@@ -444,9 +444,9 @@ FUNCTION glt_enthalpy3d(pvtp,pvsp)
 !
   DO jl=nilay+1,nl
     glt_enthalpy3d(jl,:,:) = cpice0*pvtp(jl,:,:)-xmhofusn0
-  END DO 
+  END DO
 !
 END FUNCTION glt_enthalpy3d
 !
-! ----------------------- END FUNCTION glt_enthalpy3d ----------------------- 
+! ----------------------- END FUNCTION glt_enthalpy3d -----------------------
 ! -----------------------------------------------------------------------

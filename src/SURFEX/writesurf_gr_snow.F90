@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_GR_SNOW (OSNOWDIMNC, HSELECT, HPROGRAM, HSURFTYPE, &
@@ -17,20 +17,20 @@
 !
 !!**  METHOD
 !!    ------
-!!    
-!!    
+!!
+!!
 !!
 !!    EXTERNAL
 !!    --------
 !!
-!!       
+!!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -64,7 +64,7 @@ IMPLICIT NONE
 !
 LOGICAL, INTENT(IN) :: OSNOWDIMNC
 !
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT 
+ CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
 !
  CHARACTER (LEN=6),  INTENT(IN) :: HPROGRAM   ! program
  CHARACTER (LEN=*),  INTENT(IN) :: HSURFTYPE  ! generic name used for
@@ -74,7 +74,7 @@ LOGICAL, INTENT(IN) :: OSNOWDIMNC
                                              ! patch identification
 INTEGER,            INTENT(IN)    :: KI      ! horizontal size of snow var.
 INTEGER, DIMENSION(:), INTENT(IN) :: KMASK_P
-INTEGER,            INTENT(IN) :: KPATCH    ! number of tiles                                             
+INTEGER,            INTENT(IN) :: KPATCH    ! number of tiles
 TYPE(SURF_SNOW),    INTENT(IN) :: TPSNOW     ! snow characteristics
 REAL, DIMENSION(:,:,:), INTENT(INOUT) :: PWSN_WR
 REAL, DIMENSION(:,:,:), INTENT(INOUT) :: PRHO_WR
@@ -91,14 +91,14 @@ REAL, DIMENSION(:,:), INTENT(INOUT) :: PALB_WR
  CHARACTER(LEN=12)   :: YRECFM         ! Name of the article to be read
  CHARACTER(LEN=100)  :: YCOMMENT       ! Comment string
  CHARACTER(LEN=4)    :: YNLAYER        ! String depending on the number of layer : less
-                                       !than 10 or more    
+                                       !than 10 or more
  CHARACTER(LEN=3) :: YPAT
 !
 INTEGER             :: ISURFTYPE_LEN, IPAT_LEN, IFACT
 INTEGER             :: IRESP          ! IRESP  : return-code if a problem appears
 INTEGER             :: JL, JP         ! loop counter
 !
-LOGICAL             :: GSNOW          ! T --> snow exists somewhere                                  
+LOGICAL             :: GSNOW          ! T --> snow exists somewhere
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
@@ -176,14 +176,14 @@ IF ( OSNOWDIMNC .AND. HPROGRAM=='OFFLIN' ) THEN
     WRITE(YFMT,'(A5,I1,A1)') '(A4,A',ISURFTYPE_LEN,')'
     WRITE(YRECFM,YFMT) 'WSN_',HSURFTYPE
     YRECFM=ADJUSTL(HPREFIX//YRECFM)
-    WRITE(YFMT,'(A5,I1,A4)') '(A9,A',ISURFTYPE_LEN,',A8)'    
+    WRITE(YFMT,'(A5,I1,A4)') '(A9,A',ISURFTYPE_LEN,',A8)'
     WRITE(YCOMMENT,YFMT) 'X_Y_WSNOW',HSURFTYPE,' (kg/m2)'
     CALL  WRITE_FIELD_2D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,KPATCH,KMASK_P,TPSNOW%WSNOW(:,:),&
             KI,'snow_layer',PWSN_WR)
     !
     WRITE(YFMT,'(A5,I1,A1)') '(A4,A',ISURFTYPE_LEN,')'
     WRITE(YRECFM,YFMT) 'RSN_',HSURFTYPE
-    YRECFM=ADJUSTL(HPREFIX//YRECFM)  
+    YRECFM=ADJUSTL(HPREFIX//YRECFM)
     WRITE(YFMT,'(A5,I1,A4)') '(A9,A',ISURFTYPE_LEN,',A8)'
     WRITE(YCOMMENT,YFMT) 'X_Y_RSNOW',HSURFTYPE,' (kg/m2)'
     CALL  WRITE_FIELD_2D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,KPATCH,KMASK_P,TPSNOW%RHO(:,:),&
@@ -195,7 +195,7 @@ IF ( OSNOWDIMNC .AND. HPROGRAM=='OFFLIN' ) THEN
     !
     WRITE(YFMT,'(A5,I1,A1)') '(A4,A',ISURFTYPE_LEN,')'
     WRITE(YRECFM,YFMT) 'HSN_',HSURFTYPE
-    YRECFM=ADJUSTL(HPREFIX//YRECFM) 
+    YRECFM=ADJUSTL(HPREFIX//YRECFM)
     WRITE(YFMT,'(A5,I1,A4)') '(A9,A',ISURFTYPE_LEN,',A8)'
     WRITE(YCOMMENT,YFMT) 'X_Y_HSNOW',HSURFTYPE,' (kg/m2)'
     CALL  WRITE_FIELD_2D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,KPATCH,KMASK_P,TPSNOW%HEAT(:,:),&
@@ -203,7 +203,7 @@ IF ( OSNOWDIMNC .AND. HPROGRAM=='OFFLIN' ) THEN
     !
     WRITE(YFMT,'(A5,I1,A1)') '(A4,A',ISURFTYPE_LEN,')'
     WRITE(YRECFM,YFMT) 'ASN_',HSURFTYPE
-    YRECFM=ADJUSTL(HPREFIX//YRECFM) 
+    YRECFM=ADJUSTL(HPREFIX//YRECFM)
     WRITE(YFMT,'(A5,I1,A4)') '(A8,A',ISURFTYPE_LEN,',A8)'
     WRITE(YCOMMENT,YFMT) 'X_Y_SAGE',HSURFTYPE,' (kg/m2)'
     CALL  WRITE_FIELD_2D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,KPATCH,KMASK_P,TPSNOW%AGE(:,:),&
@@ -215,24 +215,24 @@ IF ( OSNOWDIMNC .AND. HPROGRAM=='OFFLIN' ) THEN
     !
     WRITE(YFMT,'(A5,I1,A1)') '(A4,A',ISURFTYPE_LEN,')'
     WRITE(YRECFM,YFMT) 'SG1_',HSURFTYPE
-    YRECFM=ADJUSTL(HPREFIX//YRECFM)  
+    YRECFM=ADJUSTL(HPREFIX//YRECFM)
     WRITE(YFMT,'(A5,I1,A4)') '(A7,A',ISURFTYPE_LEN,',A8)'
     WRITE(YCOMMENT,YFMT) 'X_Y_SG1',HSURFTYPE,' (kg/m2)'
     CALL  WRITE_FIELD_2D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,KPATCH,KMASK_P,TPSNOW%GRAN1(:,:),&
             KI,'snow_layer',PSG1_WR)
-    !  
+    !
     WRITE(YFMT,'(A5,I1,A1)') '(A4,A',ISURFTYPE_LEN,')'
     WRITE(YRECFM,YFMT) 'SG2_',HSURFTYPE
-    YRECFM=ADJUSTL(HPREFIX//YRECFM)  
-    WRITE(YFMT,'(A5,I1,A4)') '(A7,A',ISURFTYPE_LEN,',A8)'  
+    YRECFM=ADJUSTL(HPREFIX//YRECFM)
+    WRITE(YFMT,'(A5,I1,A4)') '(A7,A',ISURFTYPE_LEN,',A8)'
     WRITE(YCOMMENT,YFMT) 'X_Y_SG2',HSURFTYPE,' (kg/m2)'
     CALL  WRITE_FIELD_2D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,KPATCH,KMASK_P,TPSNOW%GRAN2(:,:),&
             KI,'snow_layer',PSG2_WR)
-    !  
+    !
     WRITE(YFMT,'(A5,I1,A1)') '(A4,A',ISURFTYPE_LEN,')'
     WRITE(YRECFM,YFMT) 'SHI_',HSURFTYPE
-    YRECFM=ADJUSTL(HPREFIX//YRECFM)  
-    WRITE(YFMT,'(A5,I1,A4)') '(A8,A',ISURFTYPE_LEN,',A8)'  
+    YRECFM=ADJUSTL(HPREFIX//YRECFM)
+    WRITE(YFMT,'(A5,I1,A4)') '(A8,A',ISURFTYPE_LEN,',A8)'
     WRITE(YCOMMENT,YFMT) 'X_Y_HIST',HSURFTYPE,' (kg/m2)'
     CALL  WRITE_FIELD_2D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,KPATCH,KMASK_P,TPSNOW%HIST(:,:),&
             KI,'snow_layer',PHIS_WR)
@@ -287,7 +287,7 @@ ELSE
     IF (TPSNOW%SCHEME=='3-L' .OR. TPSNOW%SCHEME=='CRO') THEN
       !
       !*       9.    Heat content
-      !              ------------         
+      !              ------------
       !
       WRITE(YFMT,'(A5,I1,A6)')     '(A4,A',ISURFTYPE_LEN,','//YNLAYER//')'
       WRITE(YRECFM,YFMT) 'HSN_',HSURFTYPE,JL

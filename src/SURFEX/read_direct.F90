@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_DIRECT (UG, U, USS, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -104,7 +104,7 @@ LOGICAL, OPTIONAL, INTENT(IN) :: OMULTITYPE
  CHARACTER(LEN=100):: YSTRING          ! string
  CHARACTER(LEN=88 ):: YSTRING1         ! part of string STRING
 !
- CHARACTER(LEN=2), DIMENSION(1) :: YCPT16 ! value of a data point 
+ CHARACTER(LEN=2), DIMENSION(1) :: YCPT16 ! value of a data point
  CHARACTER(LEN=4), DIMENSION(:), ALLOCATABLE :: YCPT32
 !
  CHARACTER,        DIMENSION(:), ALLOCATABLE :: YVALUE8 ! value of a data point
@@ -134,9 +134,9 @@ REAL, DIMENSION(:), POINTER :: ZLAT   ! latitude of data points
 REAL, DIMENSION(:), POINTER :: ZLON   ! longitude of data points
 REAL(KIND=4), DIMENSION(:), ALLOCATABLE :: ZVALUE32 ! value of a data point
 REAL,         DIMENSION(:), ALLOCATABLE :: ZINTER     ! value of a record of data points
-REAL,         DIMENSION(:), ALLOCATABLE :: ZVALUE_WORK        ! value of a valid data points 
-REAL,         DIMENSION(:), ALLOCATABLE :: ZLAT_WORK          ! latitude  of a valid data points 
-REAL,         DIMENSION(:), ALLOCATABLE :: ZLON_WORK          ! longitude of a valid data points 
+REAL,         DIMENSION(:), ALLOCATABLE :: ZVALUE_WORK        ! value of a valid data points
+REAL,         DIMENSION(:), ALLOCATABLE :: ZLAT_WORK          ! latitude  of a valid data points
+REAL,         DIMENSION(:), ALLOCATABLE :: ZLON_WORK          ! longitude of a valid data points
 !
 INTEGER          :: IINDEX           ! index of a character in string STRING1
 INTEGER          :: IBITS             ! number of bits of a record in the
@@ -229,7 +229,7 @@ IF (IINDEX/=0) IBITS=64
 !
  CALL READHEAD(IGLBHDR,ZGLBLATMIN,ZGLBLATMAX,ZGLBLONMIN,ZGLBLONMAX, &
                INBLINE,INBCOL,ZNODATA,ZDLAT,ZDLON,ZLAT,ZLON,IERR,IFACT,&
-               GCOMPRESS)  
+               GCOMPRESS)
 IF (IERR/=0) CALL ABOR1_SFX('READ_DIRECT: PB IN FILE HEADER')
 !
 IF (GCOMPRESS .AND. (YTYPE/='INTEGER' .OR. IBITS/=16)) &
@@ -240,16 +240,16 @@ IF (PRESENT(OMULTITYPE)) GMULTITYPE = OMULTITYPE
 !
 IF (GMULTITYPE) THEN
   DEALLOCATE(NSIZE_ALL)
-  ALLOCATE(NSIZE_ALL(U%NDIM_FULL,SUM(NTYPE)))  
+  ALLOCATE(NSIZE_ALL(U%NDIM_FULL,SUM(NTYPE)))
   NSIZE_ALL(:,:) = 0
   IF (CATYPE=='MAJ') THEN
     DEALLOCATE(NVALNBR,NVALCOUNT,XVALLIST)
     ALLOCATE(NVALNBR  (U%NDIM_FULL,SUM(NTYPE)))
     ALLOCATE(NVALCOUNT(U%NDIM_FULL,JPVALMAX,SUM(NTYPE)))
-    ALLOCATE(XVALLIST (U%NDIM_FULL,JPVALMAX,SUM(NTYPE)))    
+    ALLOCATE(XVALLIST (U%NDIM_FULL,JPVALMAX,SUM(NTYPE)))
     NVALNBR  (:,:)   = 0
     NVALCOUNT(:,:,:) = 0
-    XVALLIST (:,:,:) = XUNDEF    
+    XVALLIST (:,:,:) = XUNDEF
   ELSE
     DEALLOCATE(XALL)
     ALLOCATE(XALL     (U%NDIM_FULL,SUM(NTYPE),1))
@@ -277,7 +277,7 @@ ENDIF
 ! ires c'est le nombre de lignes qu'on lit dans un demi degré (multiple de 60)
 INB_LINE_READ = INBLINE / ((ZGLBLATMAX-ZGLBLATMIN)*2.)
 IF (INB_LINE_READ>60) INB_LINE_READ = MAX(INB_LINE_READ/3,60)
-! on lit toujours 60 lignes d'un coup 
+! on lit toujours 60 lignes d'un coup
 ISIZE = INB_LINE_READ * INBCOL
 !
 ALLOCATE(ZLAT_WORK  (ISIZE))
@@ -312,7 +312,7 @@ IF (GCOMPRESS) THEN
   ALLOCATE(ICPT0 (INBLINE))
 ENDIF
 !
-IF (YTYPE=='INTEGER' .AND. IBITS== 8) THEN  
+IF (YTYPE=='INTEGER' .AND. IBITS== 8) THEN
   ALLOCATE (YVALUE8 (INBCOL))
 ELSEIF (YTYPE=='INTEGER' .AND. IBITS==16) THEN
   ALLOCATE (YVALUE16(INBCOL))
@@ -336,7 +336,7 @@ IF (GCOMPRESS) THEN
 ENDIF
 !
  CALL OPEN_FILE(HPROGRAM,IGLB,YFILENAME,'UNFORMATTED',           &
-                 HACTION='READ',HACCESS=YACCESS,KRECL=IRECLENGTH ) 
+                 HACTION='READ',HACCESS=YACCESS,KRECL=IRECLENGTH )
 !
 ! we read numbers of elements by line of the grid at the beginning
 IF (GCOMPRESS) THEN
@@ -381,7 +381,7 @@ INODATA = ZNODATA
 INODATA2 = ISHFTC(INODATA,8)
 ZNODATA2 = INODATA2
 !
-DO 
+DO
   !
   !the file is read from the top to the bottom (quicker)
   JL = JL - 1
@@ -434,7 +434,7 @@ DO
     !            -------------
     !
     IREC = JLINE
-    ! 
+    !
     !*   10.2    Reading the correct data type and conversion into real
     !            ------------------------------------------------------
     !
@@ -460,9 +460,9 @@ DO
         ZVALUE(:)=YVALUE16(:)
       ENDIF
       !
-      IF (ICPT==0.AND..NOT.GCOMPRESS) THEN 
+      IF (ICPT==0.AND..NOT.GCOMPRESS) THEN
         IF ( (HFIELD(1:5)=="COVER" .AND. (ANY(ZVALUE>JPCOVER.AND.ZVALUE/=ZNODATA) .OR. &
-                        ANY(ZVALUE<0..AND.ZVALUE/=ZNODATA) .OR. ALL(ZVALUE==256.)) ) .OR. & 
+                        ANY(ZVALUE<0..AND.ZVALUE/=ZNODATA) .OR. ALL(ZVALUE==256.)) ) .OR. &
              (ZNODATA/=0 .AND. (ALL(ZVALUE==ZNODATA2))) .OR. &
             ((HFIELD(1:4)=="SAND" .OR. HFIELD(1:4)=="CLAY") .AND. &
                 (ANY(ZVALUE>100..AND.ZVALUE/=ZNODATA) .OR. ANY(ZVALUE<0..AND.ZVALUE/=ZNODATA)) ) .OR. &
@@ -476,7 +476,7 @@ DO
           IF (NRANK==NPIO) THEN
             WRITE(ILUOUT,*) '*******************************************************************'
             WRITE(ILUOUT,*) 'Architecture of the machine needs to swap LITTLE_ENDIAN_ARCH to ', &
-                             LITTLE_ENDIAN_ARCH  
+                             LITTLE_ENDIAN_ARCH
             WRITE(ILUOUT,*) '*******************************************************************'
           ENDIF
           JL = IPAS + 1 !back to first lat
@@ -499,7 +499,7 @@ DO
       READ(IGLB,REC=IREC) YVALUE32R(:)
       ZVALUE(:)=YVALUE32R(:)
       !
-      IF (ICPT==0) THEN      
+      IF (ICPT==0) THEN
         IF (      ANY(ABS(ZVALUE)>0. .AND. ABS(ZVALUE)<1.E-50) &
              .OR. ANY(ABS(ZVALUE)>1.E20)                       ) THEN
           ICPT = ICPT + 1
@@ -516,15 +516,15 @@ DO
           CALL REFRESH_PGDWORK(HSUBROUTINE)
           EXIT
         ENDIF
-      END IF      
+      END IF
       !
     ELSE IF (YTYPE=='REAL   ' .AND. IBITS==64) THEN
       READ(IGLB,REC=IREC) YVALUE64(:)
       ZVALUE(:)=YVALUE64(:)
       !
-      IF (ICPT==0) THEN      
+      IF (ICPT==0) THEN
         IF (      ANY(ABS(ZVALUE)>0. .AND. ABS(ZVALUE)<1.E-50) &
-               .OR. ANY(ABS(ZVALUE)>1.E20)                       ) THEN  
+               .OR. ANY(ABS(ZVALUE)>1.E20)                       ) THEN
           ICPT = ICPT + 1
           IF (GSWAP) CALL ABOR1_SFX('READ_DIRECT: SWAP ALREADY DONE, CANNOT BE REDONE')
           LITTLE_ENDIAN_ARCH = .NOT. LITTLE_ENDIAN_ARCH
@@ -532,7 +532,7 @@ DO
           IF (NRANK==NPIO) THEN
             WRITE(ILUOUT,*) '*******************************************************************'
             WRITE(ILUOUT,*) 'Architecture of the machine needs to swap LITTLE_ENDIAN_ARCH to ', &
-                             LITTLE_ENDIAN_ARCH  
+                             LITTLE_ENDIAN_ARCH
             WRITE(ILUOUT,*) '*******************************************************************'
           ENDIF
           JL = IPAS + 1
@@ -629,12 +629,12 @@ DO
           ZLAT_WORK  (IWORK) = ZLAT  (JLINE)
           ZLON_WORK  (IWORK) = ZLON  (ICOLINDEX)
           ZVALUE_WORK(IWORK) = ZVALUE(ICOLINDEX)
-          ! 
+          !
         END DO
         !-------------------------------------------------------------------------------
         !
         IF (.NOT.GMULTITYPE.AND.IFACT/=1) THEN
-          WHERE(ZVALUE_WORK(1:IWORK)/=ZNODATA) 
+          WHERE(ZVALUE_WORK(1:IWORK)/=ZNODATA)
             ZVALUE_WORK(1:IWORK)=ZVALUE_WORK(1:IWORK)/FLOAT(IFACT)
           END WHERE
         ENDIF
@@ -646,7 +646,7 @@ DO
           CALL PT_BY_PT_TREATMENT(UG, U, USS, &
                                   ILUOUT, ZLAT_WORK(1:IWORK),ZLON_WORK(1:IWORK), &
                                   ZVALUE_WORK(1:IWORK),                          &
-                                  HSUBROUTINE, OMULTITYPE=GMULTITYPE, KFACT=IFACT)  
+                                  HSUBROUTINE, OMULTITYPE=GMULTITYPE, KFACT=IFACT)
 !
 !-------------------------------------------------------------------------------
       END DO

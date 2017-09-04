@@ -22,7 +22,7 @@ SUBROUTINE MY_FORC(HEXPER,HYEAR,HYEAR2,KNI,KNPTS,             &
 !!
 !
 !----------------------------------------------------------------------------
-!      
+!
 !*    0.     Declaration of dummy arguments
 !            ------------------------------
 !
@@ -52,7 +52,7 @@ INTEGER, INTENT(INOUT)       :: KYEAR     ! year  of simulation begining
 INTEGER, INTENT(OUT)         :: KMONTH    ! month of simulation begining
 INTEGER, INTENT(OUT)         :: KDAY      ! day   of simulation begining
 REAL,    INTENT(OUT)         :: PTIME     ! time  of simulation begining (s)
-REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PCO2      ! CO2 concentration (kg/m3) 
+REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PCO2      ! CO2 concentration (kg/m3)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PDIR_SW   ! Solar direct   radiation (W/m2)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PSCA_SW   ! Solar diffused radiation (W/m2)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PLW       ! Longwave radiation (W/m2)
@@ -121,12 +121,12 @@ SELECT CASE (HEXPER)
                                   PLON, PLAT, PZS, PZREF, PUREF,             &
                                   PTA, PQA, PPS, PWINDSPEED, PWINDDIR,       &
                                   PDIR_SW, PSCA_SW, PLW, PRAIN, PSNOW, PCO2  )
-        CASE ('SAFRAN     ') 
+        CASE ('SAFRAN     ')
                 CALL MY_FORC_SAFRAN(HEXPER,HYEAR,HYEAR2,KNI,KNPTS,              &
                                   KMONTH,KDAY,PTIME,                         &
                                   PLON, PLAT, PZS, PZREF, PUREF,             &
                                   PTA, PQA, PPS, PWINDSPEED, PWINDDIR,       &
-                                  PDIR_SW, PSCA_SW, PLW, PRAIN, PSNOW, PCO2  )                              
+                                  PDIR_SW, PSCA_SW, PLW, PRAIN, PSNOW, PCO2  )
         CASE DEFAULT
                 PRINT*,' HEXPER = ',HEXPER
                 PRINT*,' EXPERIMENT HEXPER NOT DEFINED '

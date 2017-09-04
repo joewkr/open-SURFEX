@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_VER_TEB_VEG (P, PEK, IO, PZS)
@@ -16,11 +16,11 @@ SUBROUTINE PREP_VER_TEB_VEG (P, PEK, IO, PZS)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -88,7 +88,7 @@ ZTG_LS(:,:) = PEK%XTG(:,:)
 !
 DO JL=1,SIZE(PEK%XTG,2)
   WHERE(PEK%XTG(:,JL)/=XUNDEF) &
-    PEK%XTG(:,JL) = PEK%XTG(:,JL) + XT_CLIM_GRAD  * (PZS - XZS_LS)  
+    PEK%XTG(:,JL) = PEK%XTG(:,JL) + XT_CLIM_GRAD  * (PZS - XZS_LS)
 END DO
 !
 !-------------------------------------------------------------------------------------
@@ -109,13 +109,13 @@ DO JL=1,IWORK
   ! altitude where deep soil freezes (diurnal surface response is not treated)
   ZZSFREEZE(:) = PZS + (XTT - PEK%XTG(:,JL)) / XT_CLIM_GRAD
   !
-  WHERE(PEK%XTG(:,JL)/=XUNDEF) 
+  WHERE(PEK%XTG(:,JL)/=XUNDEF)
     !
     WHERE (ZTG_LS(:,JL) < XTT)
       !
       WHERE (PZS <= XZS_LS)
         !
-        WHERE (PZS > ZZSFREEZE) 
+        WHERE (PZS > ZZSFREEZE)
           ZDW(:) = ZWGI_CLIM_GRAD(:,JL) * (PZS - XZS_LS)
         ELSEWHERE
           ZDW(:) = ZWGI_CLIM_GRAD(:,JL) * (ZZSFREEZE - XZS_LS) + ZGRADX * (PZS - ZZSFREEZE)
@@ -143,16 +143,16 @@ DO JL=1,IWORK
     !
     ZWGTOT(:) = XUNDEF
     !
-    WHERE(PEK%XWG(:,JL)/=XUNDEF)         
+    WHERE(PEK%XWG(:,JL)/=XUNDEF)
       ZWGTOT(:) = PEK%XWG(:,JL) + PEK%XWGI(:,JL)
-    ENDWHERE        
+    ENDWHERE
     !
-    WHERE(PEK%XWG(:,JL)/=XUNDEF)      
+    WHERE(PEK%XWG(:,JL)/=XUNDEF)
       PEK%XWGI(:,JL) = PEK%XWGI(:,JL) + ZDW(:)
       PEK%XWG (:,JL) = PEK%XWG (:,JL) - ZDW(:)
     ENDWHERE
     !
-    WHERE (PEK%XWGI(:,JL) < 0..AND.PEK%XWGI(:,JL)/=XUNDEF) 
+    WHERE (PEK%XWGI(:,JL) < 0..AND.PEK%XWGI(:,JL)/=XUNDEF)
       PEK%XWGI(:,JL) = 0.
       PEK%XWG (:,JL) = ZWGTOT(:)
     END WHERE
@@ -174,7 +174,7 @@ END DO
 !
 !* limits in force-restore case
 !
-IF (IO%CISBA=='3-L') THEN 
+IF (IO%CISBA=='3-L') THEN
   WHERE (PEK%XWGI(:,3) /= XUNDEF)
     PEK%XWG (:,3) = PEK%XWG(:,3)+PEK%XWGI(:,3)
     PEK%XWGI(:,3) = 0.

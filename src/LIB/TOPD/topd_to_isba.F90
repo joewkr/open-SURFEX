@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ####################
       SUBROUTINE TOPD_TO_ISBA (K, UG, U, KI,KSTEP,GTOPD)
 !     ####################
 !
-!!****  *TOPD_TO_ISBA*  
+!!****  *TOPD_TO_ISBA*
 !!
 !!    PURPOSE
 !!    -------
-!    
-!     
-!         
-!     
+!
+!
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,17 +24,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -83,14 +83,14 @@ TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 !
 INTEGER, INTENT(IN)                 :: KI      ! Grid dimensions
 INTEGER, INTENT(IN)                 :: KSTEP   ! Topodyn current time step
-LOGICAL, DIMENSION(:), INTENT(INOUT)   :: GTOPD     ! 
+LOGICAL, DIMENSION(:), INTENT(INOUT)   :: GTOPD     !
 !
 !*      0.2    declarations of local variables
 !
 !
-INTEGER                   :: JJ, JI , JMESH, JCAT         ! loop control 
+INTEGER                   :: JJ, JI , JMESH, JCAT         ! loop control
 REAL, DIMENSION(KI)       :: ZW              ! TOPODYN water content on ISBA grid (mm)
-REAL, DIMENSION(KI)       :: ZWSAT_FULL      ! Water content at saturation on the layer 2 
+REAL, DIMENSION(KI)       :: ZWSAT_FULL      ! Water content at saturation on the layer 2
                                           ! on the full grid
 REAL, DIMENSION(KI)       :: ZWG_OLD
 REAL, DIMENSION(KI)       :: ZDG_FULL
@@ -140,9 +140,9 @@ DO JMESH=1,KI
     JCAT_IN=JCAT
     IF (GTOPD(JCAT).AND. NNBV_IN_MESH(JMESH,JCAT) /=0.) THEN
      IF (XBV_IN_MESH(JMESH,JCAT)>=UG%G%XMESH_SIZE(JMESH)*0.75.AND. ZCOUNT(JMESH,JCAT)/=0.) THEN ! catchment covers totaly mesh
-     ZW(JMESH) = ZW_CAT(JMESH,JCAT) / ZCOUNT(JMESH,JCAT) 
+     ZW(JMESH) = ZW_CAT(JMESH,JCAT) / ZCOUNT(JMESH,JCAT)
      ELSEIF(ZCOUNT(JMESH,JCAT)/=0.)THEN
-      ZW(JMESH) = ZW_CAT(JMESH,JCAT) /  ZCOUNT(JMESH,JCAT) 
+      ZW(JMESH) = ZW_CAT(JMESH,JCAT) /  ZCOUNT(JMESH,JCAT)
      ENDIF
 
     ELSE

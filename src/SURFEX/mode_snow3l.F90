@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODE_SNOW3L
@@ -19,14 +19,14 @@
 !!
 !!    EXTERNAL
 !!    --------
-!!       
+!!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!    REFERENCE
 !!    ---------
 !!    Boone and Etchevers, J. HydroMeteor., 2001
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -41,15 +41,15 @@
 !!                              - New algorithm to compute snow grid :
 !                       10 layers
 !!                              - Routine to aggregate snow grain type
-!                       from 2 layers    
+!                       from 2 layers
 !!                              _ Routine to compute average grain
-!                       type when snow depth< 3 cm. 
+!                       type when snow depth< 3 cm.
 !     S. Morin          02/2011 - Add routines for Crocus
 !     A. Boone          02/2012 - Add optimization of do-loops.
 !     C. Carmagnola     12/2012 - Add the case CSNOWMETAMO!='B92' in subroutine SNOW3LAVGRAIN and in function SNOW3LDIFTYP
 !     M. Lafaysse       01/2013 - Remove SNOWCROWLIQMAX routines (not used)
 !     M. Lafaysse       08/2013 - simplification of routine SNOW3LAVGRAIN (logical GDENDRITIC)
-!     B. Decharme       07/2013 - SNOW3LGRID cleanning 
+!     B. Decharme       07/2013 - SNOW3LGRID cleanning
 !                                 New algorithm to compute snow grid for 6-L or 12-L
 !     A. Boone          10/2014 - Added snow thermal conductivity routines
 !     B. Decharme       01/2015 - Added optical snow grain size diameter
@@ -171,11 +171,11 @@ ZSNOWRHO(:,:,:) = MIN(XRHOSMAX_ES, PSNOWRHO(:,:,:))
 ! Maximum ratio of liquid to SWE:
 !
 ZHOLDMAXR(:,:,:) = XWSNOWHOLDMAX1 + (XWSNOWHOLDMAX2-XWSNOWHOLDMAX1)*    &
-                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:,:,:))/XSNOWRHOHOLD 
+                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:,:,:))/XSNOWRHOHOLD
 !
 ! Maximum liquid water holding capacity of the snow (kg/m3):
 !
-PWLIQMAX(:,:,:) = ZHOLDMAXR(:,:,:)*ZSNOWRHO(:,:,:)           
+PWLIQMAX(:,:,:) = ZHOLDMAXR(:,:,:)*ZSNOWRHO(:,:,:)
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LWLIQMAX_3D',1,ZHOOK_HANDLE)
 !
 END FUNCTION SNOW3LWLIQMAX_3D
@@ -214,11 +214,11 @@ ZSNOWRHO(:,:) = MIN(XRHOSMAX_ES, PSNOWRHO(:,:))
 ! Maximum ratio of liquid to SWE:
 !
 ZHOLDMAXR(:,:) = XWSNOWHOLDMAX1 + (XWSNOWHOLDMAX2-XWSNOWHOLDMAX1)*    &
-                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:,:))/XSNOWRHOHOLD 
+                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:,:))/XSNOWRHOHOLD
 !
 ! Maximum liquid water holding capacity of the snow (kg/m3):
 !
-PWLIQMAX(:,:) = ZHOLDMAXR(:,:)*ZSNOWRHO(:,:)               
+PWLIQMAX(:,:) = ZHOLDMAXR(:,:)*ZSNOWRHO(:,:)
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LWLIQMAX_2D',1,ZHOOK_HANDLE)
 !
 END FUNCTION SNOW3LWLIQMAX_2D
@@ -257,11 +257,11 @@ ZSNOWRHO(:) = MIN(XRHOSMAX_ES, PSNOWRHO(:))
 ! Maximum ratio of liquid to SWE:
 !
 ZHOLDMAXR(:) = XWSNOWHOLDMAX1 + (XWSNOWHOLDMAX2-XWSNOWHOLDMAX1)*    &
-                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:))/XSNOWRHOHOLD 
+                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:))/XSNOWRHOHOLD
 !
 ! Maximum liquid water holding capacity of the snow (kg/m3):
 !
-PWLIQMAX(:) = ZHOLDMAXR(:)*ZSNOWRHO(:)                
+PWLIQMAX(:) = ZHOLDMAXR(:)*ZSNOWRHO(:)
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LWLIQMAX_1D',1,ZHOOK_HANDLE)
 !
 END FUNCTION SNOW3LWLIQMAX_1D
@@ -304,7 +304,7 @@ ZSNOWRHO(:,:,:) = MIN(XRHOSMAX_ES, PSNOWRHO(:,:,:))
 ! Maximum ratio of liquid to SWE:
 !
 ZHOLDMAXR(:,:,:) = XWSNOWHOLDMAX1 + (XWSNOWHOLDMAX2-XWSNOWHOLDMAX1)*    &
-                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:,:,:))/XSNOWRHOHOLD 
+                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:,:,:))/XSNOWRHOHOLD
 !
 ! Maximum liquid water holding capacity of the snow (m):
 !
@@ -348,7 +348,7 @@ ZSNOWRHO(:,:) = MIN(XRHOSMAX_ES, PSNOWRHO(:,:))
 ! Maximum ratio of liquid to SWE:
 !
 ZHOLDMAXR(:,:) = XWSNOWHOLDMAX1 + (XWSNOWHOLDMAX2-XWSNOWHOLDMAX1)*    &
-                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:,:))/XSNOWRHOHOLD 
+                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:,:))/XSNOWRHOHOLD
 !
 ! Maximum liquid water holding capacity of the snow (m):
 !
@@ -366,7 +366,7 @@ END FUNCTION SNOW3LHOLD_2D
 !
 USE MODD_CSTS,     ONLY : XRHOLW
 USE MODD_SNOW_PAR, ONLY : XRHOSMAX_ES, XSNOWRHOHOLD,     &
-                          XWSNOWHOLDMAX2, XWSNOWHOLDMAX1 
+                          XWSNOWHOLDMAX2, XWSNOWHOLDMAX1
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -392,11 +392,11 @@ ZSNOWRHO(:) = MIN(XRHOSMAX_ES, PSNOWRHO(:))
 ! Maximum ratio of liquid to SWE:
 !
 ZHOLDMAXR(:) = XWSNOWHOLDMAX1 + (XWSNOWHOLDMAX2-XWSNOWHOLDMAX1)*     &
-                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:))/XSNOWRHOHOLD 
+                  MAX(0.,XSNOWRHOHOLD-ZSNOWRHO(:))/XSNOWRHOHOLD
 !
 ! Maximum liquid water holding capacity of the snow (m):
 !
-PWHOLDMAX(:) = ZHOLDMAXR(:)*PSNOWDZ(:)*ZSNOWRHO(:)/XRHOLW               
+PWHOLDMAX(:) = ZHOLDMAXR(:)*PSNOWDZ(:)*ZSNOWRHO(:)/XRHOLW
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LHOLD_1D',1,ZHOOK_HANDLE)
 !
 END FUNCTION SNOW3LHOLD_1D
@@ -436,11 +436,11 @@ ZSNOWRHO = MIN(XRHOSMAX_ES, PSNOWRHO)
 ! Maximum ratio of liquid to SWE:
 !
 ZHOLDMAXR = XWSNOWHOLDMAX1 + (XWSNOWHOLDMAX2-XWSNOWHOLDMAX1) *     &
-                             MAX(0.,XSNOWRHOHOLD-ZSNOWRHO)/XSNOWRHOHOLD 
+                             MAX(0.,XSNOWRHOHOLD-ZSNOWRHO)/XSNOWRHOHOLD
 !
 ! Maximum liquid water holding capacity of the snow (m):
 !
-PWHOLDMAX = ZHOLDMAXR*PSNOWDZ*ZSNOWRHO/XRHOLW              
+PWHOLDMAX = ZHOLDMAXR*PSNOWDZ*ZSNOWRHO/XRHOLW
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LHOLD_0D',1,ZHOOK_HANDLE)
 !
 END FUNCTION SNOW3LHOLD_0D
@@ -467,8 +467,8 @@ REAL, DIMENSION(:,:,:), INTENT(IN)                 :: PSNOWDZ, PSNOWLIQ, PSNOWRH
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2),SIZE(PSNOWRHO,3)) :: PWHOLDMAX
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
-! computation of water holding capacity based on Crocus, 
-!taking into account the conversion between wet and dry density - 
+! computation of water holding capacity based on Crocus,
+!taking into account the conversion between wet and dry density -
 !S. Morin/V. Vionnet 2010 12 09
 
 ! PWHOLDMAX is expressed in m water for each layer
@@ -512,8 +512,8 @@ REAL, DIMENSION(:,:), INTENT(IN)                   :: PSNOWDZ, PSNOWRHO, PSNOWLI
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: PWHOLDMAX
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
-! computation of water holding capacity based on Crocus, 
-!taking into account the conversion between wet and dry density - 
+! computation of water holding capacity based on Crocus,
+!taking into account the conversion between wet and dry density -
 !S. Morin/V. Vionnet 2010 12 09
 
 ! PWHOLDMAX is expressed in m water for each layer
@@ -558,7 +558,7 @@ REAL, DIMENSION(:), INTENT(IN)                     :: PSNOWDZ, PSNOWRHO, PSNOWLI
 REAL, DIMENSION(SIZE(PSNOWRHO))                    :: PWHOLDMAX
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
-! computation of water holding capacity based on Crocus, 
+! computation of water holding capacity based on Crocus,
 !taking into account the conversion between wet and dry density -
 !S. Morin/V. Vionnet 2010 12 09
 
@@ -602,8 +602,8 @@ REAL, INTENT(IN)        :: PSNOWDZ, PSNOWRHO, PSNOWLIQ
 REAL                    :: PWHOLDMAX
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
-! computation of water holding capacity based on Crocus, 
-!taking into account the conversion between wet and dry density - 
+! computation of water holding capacity based on Crocus,
+!taking into account the conversion between wet and dry density -
 !S. Morin/V. Vionnet 2010 12 09
 
 ! PWHOLDMAX is expressed in m water for each layer
@@ -741,9 +741,9 @@ END FUNCTION SNOW3LSCAP_0D
 !####################################################################
 !####################################################################
 !####################################################################
-      FUNCTION SNOW3L_MARBOUTY(PSNOWRHO,PSNOWTEMP,PGRADT) RESULT(PDANGL) 
+      FUNCTION SNOW3L_MARBOUTY(PSNOWRHO,PSNOWTEMP,PGRADT) RESULT(PDANGL)
 !**** *ZDANGL* - CROISSANCE DES GRAINS NON DENDRITIQUES ET ANGULEUX .
-!              - GROWTH RATES FOR NON DENDRITIC GRAINS WITH SPHERICITY=0 
+!              - GROWTH RATES FOR NON DENDRITIC GRAINS WITH SPHERICITY=0
 
 
 !     OBJET.
@@ -760,7 +760,7 @@ END FUNCTION SNOW3LSCAP_0D
 
 !     METHODE.
 !     --------
-!     THE FUNCTION RETURN A VALUE BETWEEN 0 AND 1 WHICH IS USED IN THE DETERMINATION OF THE 
+!     THE FUNCTION RETURN A VALUE BETWEEN 0 AND 1 WHICH IS USED IN THE DETERMINATION OF THE
 !     GROWTH RATE FOR THE CONSIDERED LAYER.
 !     THIS VALUE (WITHOUT UNIT) IS THE PRODUCT OF 3 FUNCTIONS (WHICH HAVE THEIR SOLUTIONS BETWEEN 0 AND 1) :
 !     F(TEMPERATURE) * H(DENSITY) * G(TEMPERATURE GRADIENT)
@@ -770,7 +770,7 @@ END FUNCTION SNOW3LSCAP_0D
 
 !     REFERENCES.
 !     -----------
-!        MARBOUTY D (1980) AN EXPERIMENTAL STUDY OF TEMPERATURE GRADIENT 
+!        MARBOUTY D (1980) AN EXPERIMENTAL STUDY OF TEMPERATURE GRADIENT
 !                          METAMORPHISM J GLACIOLOGY
 
 !     AUTEURS.
@@ -781,10 +781,10 @@ END FUNCTION SNOW3LSCAP_0D
 !     --------------
 !        08/95: YANNICK DANIELOU - CODAGE A LA NORME DOCTOR.
 !        03/06: JM WILLEMET      - F90 AND SI UNITS
-!        01/08: JM WILLEMET      - ERROR ON THE FORMULATION OF G FUNCTION (WITH GRADIENT) IS CORRECTED 
+!        01/08: JM WILLEMET      - ERROR ON THE FORMULATION OF G FUNCTION (WITH GRADIENT) IS CORRECTED
 
 USE MODD_CSTS, ONLY : XTT
-USE MODD_SNOW_METAMO  
+USE MODD_SNOW_METAMO
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -850,8 +850,8 @@ ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3L_MARBOUTY',1,ZHOOK_HANDLE)
 !
-END FUNCTION SNOW3L_MARBOUTY     
-!       
+END FUNCTION SNOW3L_MARBOUTY
+!
 !####################################################################
 !####################################################################
 !####################################################################
@@ -893,22 +893,22 @@ REAL, DIMENSION(:,:), INTENT(IN ), OPTIONAL :: PSNOWDZ_OLD
 INTEGER                           :: JJ, JI
 !
 INTEGER                           :: INLVLS, INI
-!   
+!
 REAL,     DIMENSION(SIZE(PSNOW))  :: ZWORK
 !
 LOGICAL , DIMENSION(SIZE(PSNOW))  :: GREGRID
 
 ! ISBA-ES snow grid parameters
 !
-REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF1  = (/0.25, 0.50, 0.25/) 
-REAL, PARAMETER, DIMENSION(2)     :: ZSGCOEF2  = (/0.05, 0.34/)       
-!      
-REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF   = (/0.3, 0.4, 0.3/) 
+REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF1  = (/0.25, 0.50, 0.25/)
+REAL, PARAMETER, DIMENSION(2)     :: ZSGCOEF2  = (/0.05, 0.34/)
+!
+REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF   = (/0.3, 0.4, 0.3/)
 !
 ! Minimum total snow depth at which surface layer thickness is constant:
 !
 REAL, PARAMETER                   :: ZSNOWTRANS = 0.20                ! (m)
-!      
+!
 ! Minimum snow depth by layer for 6-L or 12-L configuration :
 !
 REAL, PARAMETER                   ::  ZDZ1=0.01
@@ -942,7 +942,7 @@ GREGRID(:) = .TRUE.
 ! 1. Calculate current grid for 3-layer (default) configuration):
 ! ---------------------------------------------------------------
 ! Based on formulation of Lynch-Stieglitz (1994)
-! except for 3 modifications: 
+! except for 3 modifications:
 ! i) smooth transition here at ZSNOWTRANS
 ! ii) constant ratio for very thin snow:
 ! iii) ratio of layer 2 to surface layer <= 10
@@ -973,7 +973,7 @@ ELSEIF(INLVLS == 3)THEN
 !
 ! When using simple finite differences, limit the thickness
 ! factor between the top and 2nd layers to at most 10
-! 
+!
       PSNOWDZ(:,2) = MIN(10*ZSGCOEF2(1),  PSNOWDZ(:,2))
       PSNOWDZ(:,3) = PSNOW(:) - PSNOWDZ(:,2) - PSNOWDZ(:,1)
    END WHERE
@@ -995,11 +995,11 @@ ELSEIF(INLVLS == 6)THEN
                & PSNOWDZ_OLD(:,6) > ZCOEF2 * MIN(ZDZN1,PSNOW(:)/INLVLS)
   ENDIF
 !
-  WHERE(GREGRID(:))  
-!      top layers 
-       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS) 
-       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS) 
-!      last layers 
+  WHERE(GREGRID(:))
+!      top layers
+       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS)
+       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS)
+!      last layers
        PSNOWDZ(:,6) = MIN(ZDZN1,PSNOW(:)/INLVLS)
 !      remaining snow for remaining layers
        ZWORK(:)     = PSNOW(:) - PSNOWDZ(:,1) - PSNOWDZ(:,2) - PSNOWDZ(:,6)
@@ -1009,8 +1009,8 @@ ELSEIF(INLVLS == 6)THEN
 !      layer 3 tickness >= layer 2 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,3)-PSNOWDZ(:,2))
        PSNOWDZ(:,3)=PSNOWDZ(:,3)-ZWORK(:)
-       PSNOWDZ(:,4)=PSNOWDZ(:,4)+ZWORK(:) 
-!      layer 5 tickness >= layer 6 tickness  
+       PSNOWDZ(:,4)=PSNOWDZ(:,4)+ZWORK(:)
+!      layer 5 tickness >= layer 6 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,5)-PSNOWDZ(:,6))
        PSNOWDZ(:,5)=PSNOWDZ(:,5)-ZWORK(:)
        PSNOWDZ(:,4)=PSNOWDZ(:,4)+ZWORK(:)
@@ -1029,15 +1029,15 @@ ELSEIF(INLVLS == 9)THEN
                & PSNOWDZ_OLD(:,2) < ZCOEF1 * MIN(ZDZ2 ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:,2) > ZCOEF2 * MIN(ZDZ2 ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:,9) < ZCOEF1 * MIN(ZDZN0,PSNOW(:)/INLVLS) .OR. &
-               & PSNOWDZ_OLD(:,9) > ZCOEF2 * MIN(ZDZN0,PSNOW(:)/INLVLS) 
+               & PSNOWDZ_OLD(:,9) > ZCOEF2 * MIN(ZDZN0,PSNOW(:)/INLVLS)
   ENDIF
-!             
-  WHERE(GREGRID(:))  
-!      top layers 
-       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS) 
-       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS) 
+!
+  WHERE(GREGRID(:))
+!      top layers
+       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS)
+       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS)
        PSNOWDZ(:,3) = MIN(ZDZ3,PSNOW(:)/INLVLS)
-!      last layers 
+!      last layers
        PSNOWDZ(:,9)= MIN(ZDZN0,PSNOW(:)/INLVLS)
        PSNOWDZ(:,8)= MIN(ZDZN1,PSNOW(:)/INLVLS)
        PSNOWDZ(:,7)= MIN(ZDZN2,PSNOW(:)/INLVLS)
@@ -1050,8 +1050,8 @@ ELSEIF(INLVLS == 9)THEN
 !      layer 4 tickness >= layer 3 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,4)-PSNOWDZ(:,3))
        PSNOWDZ(:,4)=PSNOWDZ(:,4)-ZWORK(:)
-       PSNOWDZ(:,5)=PSNOWDZ(:,5)+ZWORK(:) 
-!      layer 6 tickness >= layer 7 tickness  
+       PSNOWDZ(:,5)=PSNOWDZ(:,5)+ZWORK(:)
+!      layer 6 tickness >= layer 7 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,6)-PSNOWDZ(:,7))
        PSNOWDZ(:,6)=PSNOWDZ(:,6)-ZWORK(:)
        PSNOWDZ(:,5)=PSNOWDZ(:,5)+ZWORK(:)
@@ -1070,17 +1070,17 @@ ELSEIF(INLVLS == 12)THEN
                & PSNOWDZ_OLD(:, 2) < ZCOEF1 * MIN(ZDZ2 ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:, 2) > ZCOEF2 * MIN(ZDZ2 ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:,12) < ZCOEF1 * MIN(ZDZN0,PSNOW(:)/INLVLS) .OR. &
-               & PSNOWDZ_OLD(:,12) > ZCOEF2 * MIN(ZDZN0,PSNOW(:)/INLVLS) 
+               & PSNOWDZ_OLD(:,12) > ZCOEF2 * MIN(ZDZN0,PSNOW(:)/INLVLS)
   ENDIF
-!             
-  WHERE(GREGRID(:))  
-!      top layers 
-       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS) 
-       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS) 
+!
+  WHERE(GREGRID(:))
+!      top layers
+       PSNOWDZ(:,1) = MIN(ZDZ1,PSNOW(:)/INLVLS)
+       PSNOWDZ(:,2) = MIN(ZDZ2,PSNOW(:)/INLVLS)
        PSNOWDZ(:,3) = MIN(ZDZ3,PSNOW(:)/INLVLS)
        PSNOWDZ(:,4) = MIN(ZDZ4,PSNOW(:)/INLVLS)
        PSNOWDZ(:,5) = MIN(ZDZ5,PSNOW(:)/INLVLS)
-!      last layers 
+!      last layers
        PSNOWDZ(:,12)= MIN(ZDZN0,PSNOW(:)/INLVLS)
        PSNOWDZ(:,11)= MIN(ZDZN1,PSNOW(:)/INLVLS)
        PSNOWDZ(:,10)= MIN(ZDZN2,PSNOW(:)/INLVLS)
@@ -1095,8 +1095,8 @@ ELSEIF(INLVLS == 12)THEN
 !      layer 6 tickness >= layer 5 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,6)-PSNOWDZ(:,5))
        PSNOWDZ(:,6)=PSNOWDZ(:,6)-ZWORK(:)
-       PSNOWDZ(:,7)=PSNOWDZ(:,7)+ZWORK(:) 
-!      layer 8 tickness >= layer 9 tickness  
+       PSNOWDZ(:,7)=PSNOWDZ(:,7)+ZWORK(:)
+!      layer 8 tickness >= layer 9 tickness
        ZWORK(:)=MIN(0.0,PSNOWDZ(:,8)-PSNOWDZ(:,9))
        PSNOWDZ(:,8)=PSNOWDZ(:,8)-ZWORK(:)
        PSNOWDZ(:,7)=PSNOWDZ(:,7)+ZWORK(:)
@@ -1104,7 +1104,7 @@ ELSEIF(INLVLS == 12)THEN
 !
 ! 4. Calculate other non-optimized grid :
 ! ---------------------------------------
-! 
+!
 ELSEIF(INLVLS<10.AND.INLVLS/=3.AND.INLVLS/=6.AND.INLVLS/=9) THEN
 !
   DO JJ=1,INLVLS
@@ -1116,7 +1116,7 @@ ELSEIF(INLVLS<10.AND.INLVLS/=3.AND.INLVLS/=6.AND.INLVLS/=9) THEN
   PSNOWDZ(:,INLVLS) = PSNOWDZ(:,INLVLS) + (PSNOWDZ(:,1) - MIN(0.05, PSNOWDZ(:,1)))
   PSNOWDZ(:,1)      = MIN(0.05, PSNOWDZ(:,1))
 !
-ELSE !(INLVLS>=10 and /=12)  
+ELSE !(INLVLS>=10 and /=12)
 !
 ! critere a satisfaire pour remaillage
 !
@@ -1126,23 +1126,23 @@ ELSE !(INLVLS>=10 and /=12)
                & PSNOWDZ_OLD(:,     2) < ZCOEF1 * MIN(ZDZ2         ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:,     2) > ZCOEF2 * MIN(ZDZ2         ,PSNOW(:)/INLVLS) .OR. &
                & PSNOWDZ_OLD(:,INLVLS) < ZCOEF1 * MIN(0.05*PSNOW(:),PSNOW(:)/INLVLS) .OR. &
-               & PSNOWDZ_OLD(:,INLVLS) > ZCOEF2 * MIN(0.05*PSNOW(:),PSNOW(:)/INLVLS) 
+               & PSNOWDZ_OLD(:,INLVLS) > ZCOEF2 * MIN(0.05*PSNOW(:),PSNOW(:)/INLVLS)
   ENDIF
 !
-  WHERE(GREGRID(:))  
-       PSNOWDZ(:,1     ) = MIN(ZDZ1         ,PSNOW(:)/INLVLS) 
-       PSNOWDZ(:,2     ) = MIN(ZDZ2         ,PSNOW(:)/INLVLS) 
+  WHERE(GREGRID(:))
+       PSNOWDZ(:,1     ) = MIN(ZDZ1         ,PSNOW(:)/INLVLS)
+       PSNOWDZ(:,2     ) = MIN(ZDZ2         ,PSNOW(:)/INLVLS)
        PSNOWDZ(:,3     ) = MIN(ZDZ3         ,PSNOW(:)/INLVLS)
        PSNOWDZ(:,4     ) = MIN(ZDZ4         ,PSNOW(:)/INLVLS)
-       PSNOWDZ(:,5     ) = MIN(ZDZ5         ,PSNOW(:)/INLVLS)          
-       PSNOWDZ(:,INLVLS) = MIN(0.05*PSNOW(:),PSNOW(:)/INLVLS) 
+       PSNOWDZ(:,5     ) = MIN(ZDZ5         ,PSNOW(:)/INLVLS)
+       PSNOWDZ(:,INLVLS) = MIN(0.05*PSNOW(:),PSNOW(:)/INLVLS)
   ENDWHERE
 !
   DO JJ=6,INLVLS-1,1
      DO JI=1,INI
-        IF(GREGRID(JI))THEN           
+        IF(GREGRID(JI))THEN
           ZWORK(JI) = PSNOWDZ(JI,1)+PSNOWDZ(JI,2)+PSNOWDZ(JI,3)+PSNOWDZ(JI,4)+PSNOWDZ(JI,5)
-          PSNOWDZ(JI,JJ) = (PSNOW(JI)-ZWORK(JI)-PSNOWDZ(JI,INLVLS))/(INLVLS-6) 
+          PSNOWDZ(JI,JJ) = (PSNOW(JI)-ZWORK(JI)-PSNOWDZ(JI,INLVLS))/(INLVLS-6)
         ENDIF
      ENDDO
   ENDDO
@@ -1153,9 +1153,9 @@ DO JJ=1,INLVLS
    DO JI=1,INI
       IF(PSNOW(JI)==XUNDEF)THEN
          PSNOWDZ(JI,JJ) = XUNDEF
-      ELSEIF(.NOT.GREGRID(JI))THEN           
+      ELSEIF(.NOT.GREGRID(JI))THEN
          PSNOWDZ(JI,JJ)=PSNOWDZ_OLD(JI,JJ)
-      ENDIF      
+      ENDIF
    ENDDO
 ENDDO
 !
@@ -1211,15 +1211,15 @@ LOGICAL                           :: GREGRID
 
 ! ISBA-ES snow grid parameters
 !
-REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF1  = (/0.25, 0.50, 0.25/) 
-REAL, PARAMETER, DIMENSION(2)     :: ZSGCOEF2  = (/0.05, 0.34/)       
-!      
-REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF   = (/0.3, 0.4, 0.3/) 
+REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF1  = (/0.25, 0.50, 0.25/)
+REAL, PARAMETER, DIMENSION(2)     :: ZSGCOEF2  = (/0.05, 0.34/)
+!
+REAL, PARAMETER, DIMENSION(3)     :: ZSGCOEF   = (/0.3, 0.4, 0.3/)
 !
 ! Minimum total snow depth at which surface layer thickness is constant:
 !
 REAL, PARAMETER                   :: ZSNOWTRANS  = 0.20                ! (m)
-!      
+!
 ! Minimum snow depth by layer for 6-L or 12-L configuration :
 !
 REAL, PARAMETER                   ::  ZDZ1=0.01
@@ -1251,7 +1251,7 @@ GREGRID = .TRUE.
 ! 1. Calculate current grid for 3-layer (default) configuration):
 ! ---------------------------------------------------------------
 ! Based on formulation of Lynch-Stieglitz (1994)
-! except for 3 modifications: 
+! except for 3 modifications:
 ! i) smooth transition here at ZSNOWTRANS
 ! ii) constant ratio for very thin snow:
 ! iii) ratio of layer 2 to surface layer <= 10
@@ -1280,7 +1280,7 @@ ELSEIF(INLVLS == 3)THEN
 !
 ! When using simple finite differences, limit the thickness
 ! factor between the top and 2nd layers to at most 10
-! 
+!
       PSNOWDZ(2) = MIN(10*ZSGCOEF2(1),  PSNOWDZ(2))
       PSNOWDZ(3) = PSNOW - PSNOWDZ(2) - PSNOWDZ(1)
    END IF
@@ -1303,10 +1303,10 @@ ELSEIF(INLVLS == 6)THEN
   ENDIF
 !
   IF(GREGRID)THEN
-!      top layers 
-       PSNOWDZ(1) = MIN(ZDZ1,PSNOW/INLVLS) 
-       PSNOWDZ(2) = MIN(ZDZ2,PSNOW/INLVLS) 
-!      last layers 
+!      top layers
+       PSNOWDZ(1) = MIN(ZDZ1,PSNOW/INLVLS)
+       PSNOWDZ(2) = MIN(ZDZ2,PSNOW/INLVLS)
+!      last layers
        PSNOWDZ(6) = MIN(ZDZN1,PSNOW/INLVLS)
 !      remaining snow for remaining layers
        ZWORK      = PSNOW - PSNOWDZ(1) - PSNOWDZ(2) - PSNOWDZ(6)
@@ -1317,7 +1317,7 @@ ELSEIF(INLVLS == 6)THEN
        ZWORK=MIN(0.0,PSNOWDZ(3)-PSNOWDZ(2))
        PSNOWDZ(3)=PSNOWDZ(3)-ZWORK
        PSNOWDZ(4)=PSNOWDZ(4)+ZWORK
-!      layer 5 tickness >= layer 6 tickness  
+!      layer 5 tickness >= layer 6 tickness
        ZWORK=MIN(0.0,PSNOWDZ(5)-PSNOWDZ(6))
        PSNOWDZ(5)=PSNOWDZ(5)-ZWORK
        PSNOWDZ(4)=PSNOWDZ(4)+ZWORK
@@ -1336,15 +1336,15 @@ ELSEIF(INLVLS == 9)THEN
                & PSNOWDZ_OLD(2) < ZCOEF1 * MIN(ZDZ2 ,PSNOW/INLVLS) .OR. &
                & PSNOWDZ_OLD(2) > ZCOEF2 * MIN(ZDZ2 ,PSNOW/INLVLS) .OR. &
                & PSNOWDZ_OLD(9) < ZCOEF1 * MIN(ZDZN0,PSNOW/INLVLS) .OR. &
-               & PSNOWDZ_OLD(9) > ZCOEF2 * MIN(ZDZN0,PSNOW/INLVLS) 
+               & PSNOWDZ_OLD(9) > ZCOEF2 * MIN(ZDZN0,PSNOW/INLVLS)
   ENDIF
-!             
+!
   IF(GREGRID)THEN
-!      top layers 
-       PSNOWDZ(1) = MIN(ZDZ1,PSNOW/INLVLS) 
-       PSNOWDZ(2) = MIN(ZDZ2,PSNOW/INLVLS) 
+!      top layers
+       PSNOWDZ(1) = MIN(ZDZ1,PSNOW/INLVLS)
+       PSNOWDZ(2) = MIN(ZDZ2,PSNOW/INLVLS)
        PSNOWDZ(3) = MIN(ZDZ3,PSNOW/INLVLS)
-!      last layers 
+!      last layers
        PSNOWDZ(9)= MIN(ZDZN0,PSNOW/INLVLS)
        PSNOWDZ(8)= MIN(ZDZN1,PSNOW/INLVLS)
        PSNOWDZ(7)= MIN(ZDZN2,PSNOW/INLVLS)
@@ -1358,7 +1358,7 @@ ELSEIF(INLVLS == 9)THEN
        ZWORK=MIN(0.0,PSNOWDZ(4)-PSNOWDZ(3))
        PSNOWDZ(4)=PSNOWDZ(4)-ZWORK
        PSNOWDZ(5)=PSNOWDZ(5)+ZWORK
-!      layer 6 tickness >= layer 7 tickness  
+!      layer 6 tickness >= layer 7 tickness
        ZWORK=MIN(0.0,PSNOWDZ(6)-PSNOWDZ(7))
        PSNOWDZ(6)=PSNOWDZ(6)-ZWORK
        PSNOWDZ(5)=PSNOWDZ(5)+ZWORK
@@ -1377,17 +1377,17 @@ ELSEIF(INLVLS == 12)THEN
                & PSNOWDZ_OLD(2)  < ZCOEF1 * MIN(ZDZ2 ,PSNOW/INLVLS) .OR. &
                & PSNOWDZ_OLD(2)  > ZCOEF2 * MIN(ZDZ2 ,PSNOW/INLVLS) .OR. &
                & PSNOWDZ_OLD(12) < ZCOEF1 * MIN(ZDZN0,PSNOW/INLVLS) .OR. &
-               & PSNOWDZ_OLD(12) > ZCOEF2 * MIN(ZDZN0,PSNOW/INLVLS) 
+               & PSNOWDZ_OLD(12) > ZCOEF2 * MIN(ZDZN0,PSNOW/INLVLS)
   ENDIF
 !
   IF (GREGRID)THEN
-!    top layers 
-     PSNOWDZ(1) = MIN(ZDZ1,PSNOW/INLVLS) 
-     PSNOWDZ(2) = MIN(ZDZ2,PSNOW/INLVLS) 
+!    top layers
+     PSNOWDZ(1) = MIN(ZDZ1,PSNOW/INLVLS)
+     PSNOWDZ(2) = MIN(ZDZ2,PSNOW/INLVLS)
      PSNOWDZ(3) = MIN(ZDZ3,PSNOW/INLVLS)
      PSNOWDZ(4) = MIN(ZDZ4,PSNOW/INLVLS)
      PSNOWDZ(5) = MIN(ZDZ5,PSNOW/INLVLS)
-!    last layers 
+!    last layers
      PSNOWDZ(12)= MIN(ZDZN0,PSNOW/INLVLS)
      PSNOWDZ(11)= MIN(ZDZN1,PSNOW/INLVLS)
      PSNOWDZ(10)= MIN(ZDZN2,PSNOW/INLVLS)
@@ -1402,8 +1402,8 @@ ELSEIF(INLVLS == 12)THEN
 !    layer 6 tickness >= layer 5 tickness
      ZWORK=MIN(0.0,PSNOWDZ(6)-PSNOWDZ(5))
      PSNOWDZ(6)=PSNOWDZ(6)-ZWORK
-     PSNOWDZ(7)=PSNOWDZ(7)+ZWORK 
-!    layer 8 tickness >= layer 9 tickness  
+     PSNOWDZ(7)=PSNOWDZ(7)+ZWORK
+!    layer 8 tickness >= layer 9 tickness
      ZWORK=MIN(0.0,PSNOWDZ(8)-PSNOWDZ(9))
      PSNOWDZ(8)=PSNOWDZ(8)-ZWORK
      PSNOWDZ(7)=PSNOWDZ(7)+ZWORK
@@ -1411,9 +1411,9 @@ ELSEIF(INLVLS == 12)THEN
 !
 ! 4. Calculate other non-optimized grid to allow CROCUS PREP :
 ! ------------------------------------------------------------
-! 
+!
 ELSE IF(INLVLS<10.AND.INLVLS/=3.AND.INLVLS/=6.AND.INLVLS/=9) THEN
-!        
+!
   DO JJ=1,INLVLS
      PSNOWDZ(JJ)  = PSNOW/INLVLS
   ENDDO
@@ -1421,7 +1421,7 @@ ELSE IF(INLVLS<10.AND.INLVLS/=3.AND.INLVLS/=6.AND.INLVLS/=9) THEN
   PSNOWDZ(INLVLS) = PSNOWDZ(INLVLS) + (PSNOWDZ(1) - MIN(0.05, PSNOWDZ(1)))
   PSNOWDZ(1)      = MIN(0.05, PSNOWDZ(1))
 !
-ELSE   
+ELSE
 !
   IF(PRESENT(PSNOWDZ_OLD))THEN
     GREGRID    = PSNOWDZ_OLD(     1) < ZCOEF1 * MIN(ZDZ1      ,PSNOW/INLVLS) .OR. &
@@ -1429,19 +1429,19 @@ ELSE
                & PSNOWDZ_OLD(     2) < ZCOEF1 * MIN(ZDZ2      ,PSNOW/INLVLS) .OR. &
                & PSNOWDZ_OLD(     2) > ZCOEF2 * MIN(ZDZ2      ,PSNOW/INLVLS) .OR. &
                & PSNOWDZ_OLD(INLVLS) < ZCOEF1 * MIN(0.05*PSNOW,PSNOW/INLVLS) .OR. &
-               & PSNOWDZ_OLD(INLVLS) > ZCOEF2 * MIN(0.05*PSNOW,PSNOW/INLVLS) 
+               & PSNOWDZ_OLD(INLVLS) > ZCOEF2 * MIN(0.05*PSNOW,PSNOW/INLVLS)
   ENDIF
 !
   IF (GREGRID)THEN
-     PSNOWDZ(     1) = MIN(ZDZ1      ,PSNOW/INLVLS) 
+     PSNOWDZ(     1) = MIN(ZDZ1      ,PSNOW/INLVLS)
      PSNOWDZ(     2) = MIN(ZDZ2      ,PSNOW/INLVLS)
      PSNOWDZ(     3) = MIN(ZDZ3      ,PSNOW/INLVLS)
      PSNOWDZ(     4) = MIN(ZDZ4      ,PSNOW/INLVLS)
      PSNOWDZ(     5) = MIN(ZDZ5      ,PSNOW/INLVLS)
-     PSNOWDZ(INLVLS) = MIN(0.05*PSNOW,PSNOW/INLVLS) 
-     ZWORK = SUM(PSNOWDZ(1:5))          
+     PSNOWDZ(INLVLS) = MIN(0.05*PSNOW,PSNOW/INLVLS)
+     ZWORK = SUM(PSNOWDZ(1:5))
      DO JJ=6,INLVLS-1,1
-        PSNOWDZ(JJ) = (PSNOW - ZWORK -PSNOWDZ(INLVLS))/(INLVLS-6) 
+        PSNOWDZ(JJ) = (PSNOW - ZWORK -PSNOWDZ(INLVLS))/(INLVLS-6)
      END DO
   ENDIF
 !
@@ -1463,7 +1463,7 @@ END SUBROUTINE SNOW3LGRID_1D
 !###################################################################################
 SUBROUTINE SNOW3LAGREG(PSNOWDZN,PSNOWDZ,PSNOWRHO,PSNOWGRAN1, PSNOWGRAN2, &
                        PSNOWHIST,PSNOWGRAN1N,PSNOWGRAN2N,PSNOWHISTN,     &
-                       KL1,KL2,PSNOWDDZ                        ) 
+                       KL1,KL2,PSNOWDDZ                        )
 !
 USE MODD_SNOW_METAMO
 !
@@ -1472,28 +1472,28 @@ USE PARKIND1  ,ONLY : JPRB
 !
 IMPLICIT NONE
 !
-!       0.1 declarations of arguments        
-!        
-REAL, DIMENSION(:), INTENT(IN)  :: PSNOWDZN,PSNOWDZ,PSNOWRHO,PSNOWDDZ  
-!                                                    
-REAL, DIMENSION(:), INTENT(IN)  :: PSNOWGRAN1,PSNOWGRAN2,PSNOWHIST 
-REAL, DIMENSION(:), INTENT(OUT) :: PSNOWGRAN1N,PSNOWGRAN2N,PSNOWHISTN                                              
+!       0.1 declarations of arguments
+!
+REAL, DIMENSION(:), INTENT(IN)  :: PSNOWDZN,PSNOWDZ,PSNOWRHO,PSNOWDDZ
+!
+REAL, DIMENSION(:), INTENT(IN)  :: PSNOWGRAN1,PSNOWGRAN2,PSNOWHIST
+REAL, DIMENSION(:), INTENT(OUT) :: PSNOWGRAN1N,PSNOWGRAN2N,PSNOWHISTN
 !
 INTEGER, INTENT(IN) :: KL1  ! Indice couche de reference (i)
-INTEGER, INTENT(IN) :: KL2 ! Indice de la couche (i-1 ou i+1) dont une 
+INTEGER, INTENT(IN) :: KL2 ! Indice de la couche (i-1 ou i+1) dont une
                                 ! partie est aggregee à la couche (i)
 !
 !       0.2 declaration of local variables
-!        
+!
 REAL, DIMENSION(SIZE(PSNOWRHO,1)) :: ZSNOWRHO
 REAL, DIMENSION(SIZE(PSNOWRHO,1)) :: ZDIAMD,ZDIAMV,ZSPHERD,ZSPHERV,&
-                                     ZDIAMN,ZSPHERN,ZDENT 
+                                     ZDIAMN,ZSPHERN,ZDENT
 !
 REAL :: ZDELTA, ZCOMP
 !
 INTEGER :: IDENT, IVIEU, IL
 !
-REAL(KIND=JPRB) :: ZHOOK_HANDLE 
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LAGREG',0,ZHOOK_HANDLE)
 !
@@ -1519,15 +1519,15 @@ ENDIF
 !
 IF (  PSNOWGRAN1(KL1)*PSNOWGRAN1(KL2)>0.0 .OR. &
     ( PSNOWGRAN1(KL1)==0.0 .AND. PSNOWGRAN1(KL2)>=0.0 ) .OR. &
-    ( PSNOWGRAN1(KL2)==0.0 .AND. PSNOWGRAN1(KL1)>=0.0 ) ) THEN 
+    ( PSNOWGRAN1(KL2)==0.0 .AND. PSNOWGRAN1(KL1)>=0.0 ) ) THEN
   !
   !code original vincent          PSNOWGRAN1N(KL1)=(PSNOWGRAN1(KL1)*PSNOWRHO(KL1)&
   !code original vincent        *(PSNOWDZN(KL1)-(1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))-ZDELTA*&
   !code original vincent        ABS(PSNOWDDZ(KL2)))+PSNOWGRAN1(KL2)*                   &
-  !code original vincent        PSNOWRHO(KL2)*((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+        &   
+  !code original vincent        PSNOWRHO(KL2)*((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+        &
   !code original vincent        ZDELTA*ABS(PSNOWDDZ(KL2))))/((PSNOWDZN(KL1)-(1.0-ZDELTA)&
   !code original vincent        *ABS(PSNOWDDZ(KL1))-ZDELTA*ABS(PSNOWDDZ(KL2)))*        &
-  !code original vincent        PSNOWRHO(KL1)+((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+        &   
+  !code original vincent        PSNOWRHO(KL1)+((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+        &
   !code original vincent        ZDELTA*ABS(PSNOWDDZ(KL2)))*PSNOWRHO(KL2))
   !code original vincent !
   !code original vincent          PSNOWGRAN2N(KL1)=(PSNOWGRAN2(KL1)*PSNOWRHO(KL1) &
@@ -1536,38 +1536,38 @@ IF (  PSNOWGRAN1(KL1)*PSNOWGRAN1(KL2)>0.0 .OR. &
   !code original vincent        PSNOWRHO(KL2)*((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))        &
   !code original vincent        +ZDELTA*ABS(PSNOWDDZ(KL2))))/((PSNOWDZN(KL1)-(1.0-ZDELTA)&
   !code original vincent        *ABS(PSNOWDDZ(KL1))-ZDELTA*ABS(PSNOWDDZ(KL2)))*        &
-  !code original vincent        PSNOWRHO(KL1)+((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+        &   
+  !code original vincent        PSNOWRHO(KL1)+((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+        &
   !code original vincent        ZDELTA*ABS(PSNOWDDZ(KL2)))*PSNOWRHO(KL2))
-  !     
+  !
   !plm
   CALL GET_AGREG(KL1,KL2,PSNOWGRAN1(KL1),PSNOWGRAN1(KL2),PSNOWGRAN1N(KL1))
   !
   CALL GET_AGREG(KL1,KL2,PSNOWGRAN2(KL1),PSNOWGRAN2(KL2),PSNOWGRAN2N(KL1))
   !
   !plm
-  !     
+  !
 ELSE
   !
   !       2.2 Different types
-  !        
+  !
   IF ( PSNOWGRAN1(KL1)<0.0 ) THEN
     IDENT = KL1
     IVIEU = KL2
   ELSE
     IDENT = KL2
     IVIEU = KL1
-  ENDIF  
-  !                        
+  ENDIF
+  !
   ZDIAMD (KL1) = - PSNOWGRAN1(IDENT)/XGRAN * XDIAET + ( 1.0 + PSNOWGRAN1(IDENT)/XGRAN ) * &
                  ( PSNOWGRAN2(IDENT)/XGRAN * XDIAGF + ( 1.0 - PSNOWGRAN2(IDENT)/XGRAN ) * XDIAFP )
   !
-  ZSPHERD(KL1) = PSNOWGRAN2(IDENT)/XGRAN                
+  ZSPHERD(KL1) = PSNOWGRAN2(IDENT)/XGRAN
   ZDIAMV (KL1) = PSNOWGRAN2(IVIEU)
   ZSPHERV(KL1) = PSNOWGRAN1(IVIEU)/XGRAN
   !IF(KL1==1)THEN
   !write(*,*) 'ZDD1',ZDIAMD(1),'ZSD1',ZSPHERD(1)
   !write(*,*) 'ZDV1',ZDIAMV(1),'ZSV1',ZSPHERV(1)
-  !ENDIF       
+  !ENDIF
   !
   IF ( IDENT==KL1 ) THEN
     !code original vincent        ZDIAMN(KL1)= (ZDIAMD(KL1)*PSNOWRHO(IDENT)*&
@@ -1576,59 +1576,59 @@ ELSE
     !code original vincent            (1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))-ZDELTA*ABS(PSNOWDDZ(KL2))))/&
     !code original vincent            ((PSNOWDZN(KL1)-(1.0-ZDELTA)*                                    &
     !code original vincent            ABS(PSNOWDDZ(KL1))-ZDELTA*ABS(PSNOWDDZ(KL2)))*            &
-    !code original vincent            PSNOWRHO(KL1)+((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+          &   
+    !code original vincent            PSNOWRHO(KL1)+((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+          &
     !code original vincent            ZDELTA*ABS(PSNOWDDZ(KL2)))*PSNOWRHO(KL2))
     !
     !plm
     CALL GET_AGREG(IDENT,IVIEU,ZDIAMD(KL1),ZDIAMV(KL1),ZDIAMN(KL1))
     !
     !plm
-    !         
+    !
     !code original vincent        ZSPHERN(KL1)= (ZSPHERD(KL1)*PSNOWRHO(IDENT)*&
     !code original vincent            (PSNOWDZN(IDENT)-(1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))-ZDELTA*      &
     !code original vincent            ABS(PSNOWDDZ(KL2)))+ZSPHERV(KL1)*PSNOWRHO(IVIEU)*(       &
     !code original vincent            (1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))-ZDELTA*ABS(PSNOWDDZ(KL2))))/&
     !code original vincent            ((PSNOWDZN(KL1)-(1.0-ZDELTA)*                                    &
     !code original vincent            ABS(PSNOWDDZ(KL1))-ZDELTA*ABS(PSNOWDDZ(KL2)))*            &
-    !code original vincent            PSNOWRHO(KL1)+((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+          &   
+    !code original vincent            PSNOWRHO(KL1)+((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+          &
     !code original vincent            ZDELTA*ABS(PSNOWDDZ(KL2)))*PSNOWRHO(KL2))
 
     !plm
-    CALL GET_AGREG(IDENT,IVIEU,ZSPHERD(KL1),ZSPHERV(KL1),ZSPHERN(KL1))   
+    CALL GET_AGREG(IDENT,IVIEU,ZSPHERD(KL1),ZSPHERV(KL1),ZSPHERN(KL1))
     !plm
     !
   ELSE
     !code original vincent        ZDIAMN(KL1)= (ZDIAMD(KL1)*PSNOWRHO(IDENT)*&
     !code original vincent            ((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+ZDELTA*ABS(PSNOWDDZ(KL2)))&
-    !code original vincent            +ZDIAMV(KL1)*PSNOWRHO(IVIEU)*(PSNOWDZN(IVIEU)-(1.0-ZDELTA)*  & 
+    !code original vincent            +ZDIAMV(KL1)*PSNOWRHO(IVIEU)*(PSNOWDZN(IVIEU)-(1.0-ZDELTA)*  &
     !code original vincent            ABS(PSNOWDDZ(KL1))-ZDELTA*ABS(PSNOWDDZ(KL2))))/&
     !code original vincent            ((PSNOWDZN(KL1)-(1.0-ZDELTA)*                          &
     !code original vincent            ABS(PSNOWDDZ(KL1))-ZDELTA*ABS(PSNOWDDZ(KL2)))*    &
     !code original vincent            PSNOWRHO(KL1)+((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+   &
     !code original vincent            ZDELTA*ABS(PSNOWDDZ(KL2)))*PSNOWRHO(KL2))
-    !code original vincent!            
+    !code original vincent!
     !code original vincent         ZSPHERN(KL1)= (ZSPHERD(KL1)*PSNOWRHO(IDENT)*&
     !code original vincent            ((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+ZDELTA*ABS(PSNOWDDZ(KL2)))&
-    !code original vincent            +ZSPHERV(KL1)*PSNOWRHO(IVIEU)*(PSNOWDZN(IVIEU)-(1.0-ZDELTA)* & 
+    !code original vincent            +ZSPHERV(KL1)*PSNOWRHO(IVIEU)*(PSNOWDZN(IVIEU)-(1.0-ZDELTA)* &
     !code original vincent            ABS(PSNOWDDZ(KL1))-ZDELTA*ABS(PSNOWDDZ(KL2))))/&
     !code original vincent            ((PSNOWDZN(KL1)-(1.0-ZDELTA)*                                    &
     !code original vincent            ABS(PSNOWDDZ(KL1))-ZDELTA*ABS(PSNOWDDZ(KL2)))*            &
-    !code original vincent            PSNOWRHO(KL1)+((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+          &   
+    !code original vincent            PSNOWRHO(KL1)+((1.0-ZDELTA)*ABS(PSNOWDDZ(KL1))+          &
     !code original vincent            ZDELTA*ABS(PSNOWDDZ(KL2)))*PSNOWRHO(KL2))
     !plm
     !
     CALL GET_AGREG(IVIEU,IDENT,ZDIAMV(KL1),ZDIAMD(KL1),ZDIAMN(KL1))
-    !           
+    !
     CALL GET_AGREG(IVIEU,IDENT,ZSPHERV(KL1),ZSPHERD(KL1),ZSPHERN(KL1))
     !plm
     !
   ENDIF
-  !       
+  !
   ZCOMP = ZSPHERN(KL1) * XDIAGF + ( 1.-ZSPHERN(KL1) ) * XDIAFP
   IF( ZDIAMN(KL1) < ZCOMP ) THEN
     !
-    ZDENT(KL1) = ( ZDIAMN(KL1) - ZCOMP ) / ( XDIAET - ZCOMP ) 
-    !IF(KL1==1) write(*,*) 'ZDENT',ZDENT(1)   
+    ZDENT(KL1) = ( ZDIAMN(KL1) - ZCOMP ) / ( XDIAET - ZCOMP )
+    !IF(KL1==1) write(*,*) 'ZDENT',ZDENT(1)
     PSNOWGRAN1N(KL1) = - XGRAN * ZDENT  (KL1)
     PSNOWGRAN2N(KL1) =   XGRAN * ZSPHERN(KL1)
     !
@@ -1638,12 +1638,12 @@ ELSE
     PSNOWGRAN2N(KL1) = ZDIAMN(KL1)
     !
   ENDIF
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LAGREG',1,ZHOOK_HANDLE)
 !
-!       3. Update snow grains parameters : GRAN1, GRAN2        
+!       3. Update snow grains parameters : GRAN1, GRAN2
 !        PSNOWGRAN1(KL1)=ZSNOWGRAN1(KL1)
 !        PSNOWGRAN2(KL1)=ZSNOWGRAN2(KL1)
 !
@@ -1662,21 +1662,21 @@ IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LAGREG:GET_AGREG',0,ZHOOK_HANDLE)
 PFIELD = ( PFIELD1 * PSNOWRHO(KID1) * ( PSNOWDZN(KID1) - ABS(PSNOWDDZ(IL)) ) &
          + PFIELD2 * PSNOWRHO(KID2) * ABS(PSNOWDDZ(IL))                        ) / &
          (           PSNOWRHO (KL1) * ( PSNOWDZN (KL1) - ABS(PSNOWDDZ(IL)) ) + &
-                     PSNOWRHO (KL2) * ABS(PSNOWDDZ(IL))                        ) 
+                     PSNOWRHO (KL2) * ABS(PSNOWDDZ(IL))                        )
 !
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LAGREG:GET_AGREG',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE GET_AGREG
 !
-END SUBROUTINE SNOW3LAGREG    
-!###############################################################################    
+END SUBROUTINE SNOW3LAGREG
+!###############################################################################
 !###############################################################################
 !
-!       
+!
 !ajout EB : ajout des arguments "N" pour faire idem variables d'origine
 SUBROUTINE SNOW3LAVGRAIN(PSNOWGRAN1,PSNOWGRAN2,PSNOWHIST,                &
                          PSNOWGRAN1N,PSNOWGRAN2N,PSNOWHISTN,PNDENT,PNVIEU,&
-                         HSNOWMETAMO) 
+                         HSNOWMETAMO)
 !
 USE MODD_SNOW_METAMO, ONLY : XVDIAM6, XUEPSI
 !
@@ -1685,18 +1685,18 @@ USE PARKIND1  ,ONLY : JPRB
 !
 IMPLICIT NONE
 !
-!       0.1 declarations of arguments        
-!        
-REAL, DIMENSION(:,:), INTENT(INOUT)  :: PSNOWGRAN1,PSNOWGRAN2,PSNOWHIST 
-! ajout EB
-REAL, DIMENSION(:,:), INTENT(INOUT)  :: PSNOWGRAN1N,PSNOWGRAN2N,PSNOWHISTN 
+!       0.1 declarations of arguments
 !
-REAL, DIMENSION(:), INTENT(IN)    :: PNDENT, PNVIEU          
+REAL, DIMENSION(:,:), INTENT(INOUT)  :: PSNOWGRAN1,PSNOWGRAN2,PSNOWHIST
+! ajout EB
+REAL, DIMENSION(:,:), INTENT(INOUT)  :: PSNOWGRAN1N,PSNOWGRAN2N,PSNOWHISTN
+!
+REAL, DIMENSION(:), INTENT(IN)    :: PNDENT, PNVIEU
 !
 CHARACTER(3), INTENT(IN)              :: HSNOWMETAMO
 !       0.2 declaration of local variables
 !
-REAL, DIMENSION(SIZE(PSNOWGRAN1,1)) :: ZGRAN1, ZGRAN2, ZHIST 
+REAL, DIMENSION(SIZE(PSNOWGRAN1,1)) :: ZGRAN1, ZGRAN2, ZHIST
 !
 LOGICAL, DIMENSION(SIZE(PSNOWGRAN1,1),SIZE(PSNOWGRAN1,2)) :: GDENDRITIC
 !
@@ -1704,24 +1704,24 @@ INTEGER :: JI, JL
 INTEGER :: INLVLS, INI
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
-!         
-!       0.3 initialization         
+!
+!       0.3 initialization
 !
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LAVGRAIN',0,ZHOOK_HANDLE)
 !
-INLVLS    = SIZE(PSNOWGRAN1,2) 
+INLVLS    = SIZE(PSNOWGRAN1,2)
 INI       = SIZE(PSNOWGRAN1,1)
 !
 ZGRAN1(:) = 0.0
 ZGRAN2(:) = 0.0
 ZHIST (:) = 0.0
-!     
+!
 DO JI = 1,INI
   !
   IF ( PNDENT(JI)==0.0 .AND. PNVIEU(JI)==0.0 ) THEN
     !
     ZGRAN1(JI) = 1.0
-    ZGRAN2(JI) = 1.0 
+    ZGRAN2(JI) = 1.0
     ZHIST (JI) = 1.0
     !
   ELSE
@@ -1743,24 +1743,24 @@ DO JI = 1,INI
         ENDIF
       ENDDO
       !
-      PSNOWGRAN1N(JI,:) = ZGRAN1(JI) / PNDENT(JI)   
+      PSNOWGRAN1N(JI,:) = ZGRAN1(JI) / PNDENT(JI)
       PSNOWGRAN2N(JI,:) = ZGRAN2(JI) / PNDENT(JI)
       PSNOWHISTN (JI,:) = 0.0
       !
-    ELSE                              ! more non dendritic than dendritic snow layers  
+    ELSE                              ! more non dendritic than dendritic snow layers
       !
       DO JL = 1,INLVLS
         IF ( .NOT.GDENDRITIC(JI,JL) ) THEN
           ZGRAN1(JI) = ZGRAN1(JI) + PSNOWGRAN1(JI,JL)
           ZGRAN2(JI) = ZGRAN2(JI) + PSNOWGRAN2(JI,JL)
-          ZHIST (JI) = ZHIST (JI) + PSNOWHIST (JI,JL) 
+          ZHIST (JI) = ZHIST (JI) + PSNOWHIST (JI,JL)
         ENDIF
       ENDDO
       !
       PSNOWGRAN1N(JI,:) = ZGRAN1(JI) / PNVIEU(JI)
       PSNOWGRAN2N(JI,:) = ZGRAN2(JI) / PNVIEU(JI)
       PSNOWHISTN (JI,:) = ZHIST (JI) / PNVIEU(JI)
-      !    
+      !
     ENDIF
     !
   ENDIF
@@ -1768,12 +1768,12 @@ DO JI = 1,INI
 ENDDO
 
 
- 
+
 !
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LAVGRAIN',1,ZHOOK_HANDLE)
 !
-END SUBROUTINE SNOW3LAVGRAIN         
-!        
+END SUBROUTINE SNOW3LAVGRAIN
+!
 !####################################################################
 !####################################################################
 !####################################################################
@@ -1798,7 +1798,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !*      0.2    calcul de la difference entre type de grains
 IF (LHOOK) CALL DR_HOOK('MODE_SNOW3L:SNOW3LDIFTYP',0,ZHOOK_HANDLE)
 !
-IF ( HSNOWMETAMO=='B92' ) THEN 
+IF ( HSNOWMETAMO=='B92' ) THEN
   !
   IF ( ( PGRAIN1<0.  .AND. PGRAIN2>=0.) .OR. ( PGRAIN1>=0. .AND. PGRAIN2<0. ) ) THEN
     ZDIFTYPE = 200.
@@ -1811,17 +1811,17 @@ IF ( HSNOWMETAMO=='B92' ) THEN
 ELSE
   !
   ZCOEF3 = XVDIAM6 * (4.-PGRAIN3) - XUEPSI
-  ZCOEF4 = XVDIAM6 * (4.-PGRAIN4) - XUEPSI 
+  ZCOEF4 = XVDIAM6 * (4.-PGRAIN4) - XUEPSI
   IF ( ( PGRAIN1<ZCOEF3 .AND. PGRAIN2>=ZCOEF4 ) .OR. ( PGRAIN1>=ZCOEF3 .AND. PGRAIN2<ZCOEF4 ) ) THEN
     ZDIFTYPE = 200.
   ELSEIF ( PGRAIN1<ZCOEF3 ) THEN
     ZDIFTYPE = ABS( (PGRAIN3-PGRAIN4)*XGRAN ) * .5 + &
                ABS( ( (PGRAIN1/XVDIAM6 - 4. + PGRAIN3) / (PGRAIN3 - 3.) - &
                       (PGRAIN2/XVDIAM6 - 4. + PGRAIN4) / (PGRAIN4 - 3.) ) * XGRAN ) * .5
-             
+
   ELSE
     ZDIFTYPE = ABS( (PGRAIN3-PGRAIN4)*XGRAN )      + ABS( ZCOEF3-ZCOEF4 ) * 5. * 10000.
-  ENDIF  
+  ENDIF
   !
 ENDIF
 !
@@ -1884,7 +1884,7 @@ DO JST_NEW = 1,KNLVLS_NEW
   ZHISTMOYN   = 0.
   ZAGEMOYN    = 0.
   !
-  ! lopp over the ols snow layers 
+  ! lopp over the ols snow layers
   DO JST_OLD = 1,KNLVLS_OLD
     !
     IF( PSNOWZTOP_OLD(JST_OLD)<=PSNOWZBOT_NEW(JST_NEW) ) THEN
@@ -1893,10 +1893,10 @@ DO JST_NEW = 1,KNLVLS_NEW
       ! JST_OLD higher than JJ_NEW ==> no contribution
     ELSE
       ! old layer contributes to the new one
-      ! computation of its contributing ratio and mass/heat 
+      ! computation of its contributing ratio and mass/heat
       ZPROPOR = ( MIN( PSNOWZTOP_OLD(JST_OLD), PSNOWZTOP_NEW(JST_NEW) )   &
                 - MAX( PSNOWZBOT_OLD(JST_OLD), PSNOWZBOT_NEW(JST_NEW) ) ) &
-                 / PSNOWDZO(JST_OLD) 
+                 / PSNOWDZO(JST_OLD)
       ZMASDZ_OLD = ZPROPOR * PSNOWRHOO(JST_OLD) * PSNOWDZO(JST_OLD)
       !
       ZMASTOTN    = ZMASTOTN + ZMASDZ_OLD
@@ -1909,8 +1909,8 @@ DO JST_NEW = 1,KNLVLS_NEW
         ! contribution to the grain optical size and then to the albedo
         IF ( PSNOWGRAN1O(JST_OLD)<0. ) THEN
           ZDIAM = -PSNOWGRAN1O(JST_OLD)*XD1/XX + (1.+PSNOWGRAN1O(JST_OLD)/XX) * &
-                 ( PSNOWGRAN2O(JST_OLD)*XD2/XX + (1.-PSNOWGRAN2O(JST_OLD)/XX)*XD3 ) 
-          ZDIAM = ZDIAM/10000.      
+                 ( PSNOWGRAN2O(JST_OLD)*XD2/XX + (1.-PSNOWGRAN2O(JST_OLD)/XX)*XD3 )
+          ZDIAM = ZDIAM/10000.
           ZDENTMOYN  = ZDENTMOYN  - ZMASDZ_OLD * PSNOWGRAN1O(JST_OLD) / XX
           ZSPHERMOYN = ZSPHERMOYN + ZMASDZ_OLD * PSNOWGRAN2O(JST_OLD) / XX
         ELSE
@@ -1933,7 +1933,7 @@ DO JST_NEW = 1,KNLVLS_NEW
     ENDIF
     !
   ENDDO
-  ! 
+  !
   ! the new layer inherits from the weihted average properties of the old ones
   ! heat and mass
   PSNOWHEATN(JST_NEW) = ZSNOWHEAN
@@ -1946,7 +1946,7 @@ DO JST_NEW = 1,KNLVLS_NEW
   !
   IF ( HSNOWMETAMO=='B92' ) THEN
     !
-    ! size between D2 and D3 and dendricity < 0         
+    ! size between D2 and D3 and dendricity < 0
     ! sphericity is firts preserved, if possible. If not,
     ! denditricity =0
     PSNOWGRAN1N(JST_NEW) = -XX * ZDENTMOYN
@@ -1984,7 +1984,7 @@ DO JST_NEW = 1,KNLVLS_NEW
       !
       ! dendritic snow
       ! inconsistency with ZDIAM ==>  dendricity = 0
-      ! size between D2 and D3 and dendricity == 0          
+      ! size between D2 and D3 and dendricity == 0
       PSNOWGRAN1N(JST_NEW) = XX * ZSPHERMOYN
       PSNOWGRAN2N(JST_NEW) = ZDIAM
       !
@@ -2000,7 +2000,7 @@ DO JST_NEW = 1,KNLVLS_NEW
   PSNOWHISTN(JST_NEW) = NINT( ZHISTMOYN/ZMASTOTN )
   PSNOWAGEN (JST_NEW) = ZAGEMOYN / ZMASTOTN
   !
-ENDDO     
+ENDDO
 !
 IF (LHOOK) CALL DR_HOOK('GET_MASS_HEAT',1,ZHOOK_HANDLE)
 !
@@ -2029,11 +2029,11 @@ IF ( HSNOWMETAMO=='B92' ) THEN
   !
   IF( PSNOWGRAN1<0. ) THEN
     PDIAM = -PSNOWGRAN1*XD1/XX + (1.+PSNOWGRAN1/XX) * &
-           ( PSNOWGRAN2*XD2/XX + (1.-PSNOWGRAN2/XX) * XD3 ) 
-    PDIAM = PDIAM/10000.      
-  ELSE 
+           ( PSNOWGRAN2*XD2/XX + (1.-PSNOWGRAN2/XX) * XD3 )
+    PDIAM = PDIAM/10000.
+  ELSE
     PDIAM = PSNOWGRAN2*PSNOWGRAN1/XX + &
-            MAX( 0.0004, 0.5*PSNOWGRAN2 ) * ( 1.-PSNOWGRAN1/XX )      
+            MAX( 0.0004, 0.5*PSNOWGRAN2 ) * ( 1.-PSNOWGRAN1/XX )
   ENDIF
   !
 ELSE
@@ -2108,9 +2108,9 @@ ZOPTICALPATH1    = ZBETA1*PSNOWDZ
 ZOPTICALPATH2    = ZBETA2*PSNOWDZ
 ZOPTICALPATH3    = XUNDEF
 !
-IF(PSPECTRALALBEDO(3)==XUNDEF)THEN 
+IF(PSPECTRALALBEDO(3)==XUNDEF)THEN
    PCOEF         = XSW_WGHT_VIS*(1.0-PSPECTRALALBEDO(1))*EXP(-ZOPTICALPATH1*ZPROJLAT) &
-                 + XSW_WGHT_NIR*(1.0-PSPECTRALALBEDO(2))*EXP(-ZOPTICALPATH2*ZPROJLAT) 
+                 + XSW_WGHT_NIR*(1.0-PSPECTRALALBEDO(2))*EXP(-ZOPTICALPATH2*ZPROJLAT)
 ELSE
    ZOPTICALPATH3 = ZBETA3*PSNOWDZ
    PCOEF         = XVSPEC1*(1.0-PSPECTRALALBEDO(1))*EXP(-ZOPTICALPATH1*ZPROJLAT) &
@@ -2187,7 +2187,7 @@ ZOPTICALPATH3(:)    = XUNDEF
 !
 WHERE(PSPECTRALALBEDO(:,3)==XUNDEF)
    PCOEF(:)         = XSW_WGHT_VIS*(1.0-PSPECTRALALBEDO(:,1))*EXP(-ZOPTICALPATH1(:)*ZPROJLAT(:)) &
-                    + XSW_WGHT_NIR*(1.0-PSPECTRALALBEDO(:,2))*EXP(-ZOPTICALPATH2(:)*ZPROJLAT(:)) 
+                    + XSW_WGHT_NIR*(1.0-PSPECTRALALBEDO(:,2))*EXP(-ZOPTICALPATH2(:)*ZPROJLAT(:))
 ELSEWHERE
    ZOPTICALPATH3(:) = ZBETA3(:)*PSNOWDZ(:)
    PCOEF(:)         = XVSPEC1*(1.0-PSPECTRALALBEDO(:,1))*EXP(-ZOPTICALPATH1(:)*ZPROJLAT(:)) &
@@ -2264,7 +2264,7 @@ ZOPTICALPATH3(:,:)    = XUNDEF
 !
 WHERE(PSPECTRALALBEDO(:,:,3)==XUNDEF)
    PCOEF(:,:)         = XSW_WGHT_VIS*(1.0-PSPECTRALALBEDO(:,:,1))*EXP(-ZOPTICALPATH1(:,:)*ZPROJLAT(:,:)) &
-                      + XSW_WGHT_NIR*(1.0-PSPECTRALALBEDO(:,:,2))*EXP(-ZOPTICALPATH2(:,:)*ZPROJLAT(:,:)) 
+                      + XSW_WGHT_NIR*(1.0-PSPECTRALALBEDO(:,:,2))*EXP(-ZOPTICALPATH2(:,:)*ZPROJLAT(:,:))
 ELSEWHERE
    ZOPTICALPATH3(:,:) = ZBETA3(:,:)*PSNOWDZ(:,:)
    PCOEF(:,:)         = XVSPEC1*(1.0-PSPECTRALALBEDO(:,:,1))*EXP(-ZOPTICALPATH1(:,:)*ZPROJLAT(:,:)) &
@@ -2284,7 +2284,7 @@ END FUNCTION SNOW3LRADABS_2D
 !!    PURPOSE
 !!    -------
 !     Calculate snow thermal conductivity from
-!     Sun et al. 1999, J. of Geophys. Res., 104, 19587-19579 (vapor) 
+!     Sun et al. 1999, J. of Geophys. Res., 104, 19587-19579 (vapor)
 !     and Yen, 1981, CRREL Rep 81-10 (snow)
 !     or Anderson, 1976, NOAA Tech. Rep. NWS 19 (snow).
 !
@@ -2295,7 +2295,7 @@ USE MODD_SNOW_PAR, ONLY : XVRKZ6, XSNOWTHRMCOND1, &
                           XSNOWTHRMCOND2,         &
                           XSNOWTHRMCOND_AVAP,     &
                           XSNOWTHRMCOND_BVAP,     &
-                          XSNOWTHRMCOND_CVAP 
+                          XSNOWTHRMCOND_CVAP
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -2365,7 +2365,7 @@ FUNCTION SNOW3LDOPT_2D(PSNOWRHO,PSNOWAGE) RESULT(PDOPT)
 !!    -------
 !     Calculate the optical grain diameter.
 !
-USE MODD_SNOW_PAR, ONLY : XDSGRAIN_MAX,XSNOW_AGRAIN, & 
+USE MODD_SNOW_PAR, ONLY : XDSGRAIN_MAX,XSNOW_AGRAIN, &
                           XSNOW_BGRAIN,XSNOW_CGRAIN
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -2402,7 +2402,7 @@ FUNCTION SNOW3LDOPT_1D(PSNOWRHO,PSNOWAGE) RESULT(PDOPT)
 !!    -------
 !     Calculate the optical grain diameter.
 !
-USE MODD_SNOW_PAR, ONLY : XDSGRAIN_MAX,XSNOW_AGRAIN, & 
+USE MODD_SNOW_PAR, ONLY : XDSGRAIN_MAX,XSNOW_AGRAIN, &
                           XSNOW_BGRAIN,XSNOW_CGRAIN
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -2439,7 +2439,7 @@ FUNCTION SNOW3LDOPT_0D(PSNOWRHO,PSNOWAGE) RESULT(PDOPT)
 !!    -------
 !     Calculate the optical grain diameter.
 !
-USE MODD_SNOW_PAR, ONLY : XDSGRAIN_MAX,XSNOW_AGRAIN, & 
+USE MODD_SNOW_PAR, ONLY : XDSGRAIN_MAX,XSNOW_AGRAIN, &
                           XSNOW_BGRAIN,XSNOW_CGRAIN
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -2473,12 +2473,12 @@ END FUNCTION SNOW3LDOPT_0D
 !####################################################################
 !####################################################################
 SUBROUTINE SNOW3LALB(PALBEDOSC,PSPECTRALALBEDO,PSNOWRHO,PSNOWAGE,   &
-                     PPERMSNOWFRAC,PPS)  
+                     PPERMSNOWFRAC,PPS)
 !
 !!    PURPOSE
 !!    -------
 !     Calculate the snow surface albedo. Use the method of
-!     CROCUS with 3 spectral albedo depending on snow density 
+!     CROCUS with 3 spectral albedo depending on snow density
 !     and age
 !
 !

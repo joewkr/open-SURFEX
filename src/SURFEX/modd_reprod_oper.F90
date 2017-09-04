@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######################
       MODULE MODD_REPROD_OPER
@@ -11,11 +11,11 @@
 !!    PURPOSE
 !!    -------
 !       The purpose of this declarative module is to specify temporary
-!       old parameters related to the surface parameterization ISBA 
+!       old parameters related to the surface parameterization ISBA
 !       to ensure reproductibility with previous oper cycle
 !
 !!
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -23,7 +23,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original       04/2013                      
+!!      Original       04/2013
 !-------------------------------------------------------------------------------
 !
 !*       0.   DECLARATIONS
@@ -37,14 +37,14 @@ IMPLICIT NONE
 !
 ! * Tropical evergreen forest parameter
 !
-!XEVERG_RSMIN : old = 250. (Manzi 1993) but observations range 
-!               from 140 to 180. According to Delire et al. (1997) and 
+!XEVERG_RSMIN : old = 250. (Manzi 1993) but observations range
+!               from 140 to 180. According to Delire et al. (1997) and
 !               new tests over 6 local sites, 175. is recommended
 !               Should be the default after check with AROME/ALADIN
 !
 REAL             :: XEVERG_RSMIN
 !
-!XEVERG_VEG : old = 0.99 (Manzi 1993) but according to Delire et al. (1997) and 
+!XEVERG_VEG : old = 0.99 (Manzi 1993) but according to Delire et al. (1997) and
 !             new tests over 6 local sites, 1.0 is recommended because 0.99
 !             induces unrealistic bare soil evaporation for Tropical forest
 !             Should be the default after check with AROME/ALADIN
@@ -53,7 +53,7 @@ REAL             :: XEVERG_VEG
 !
 ! * Soil depth average
 !
-!CDGAVG : old         = 'ARI' Arithmetic average for all depths 
+!CDGAVG : old         = 'ARI' Arithmetic average for all depths
 !         recommended = 'INV' Harmonic average for all depths
 !
 CHARACTER(LEN=3) :: CDGAVG

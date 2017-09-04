@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 ! ######spl
 MODULE MODE_DSTMBLUTL ! [mdl] Mobilization utilities
@@ -13,7 +13,7 @@ IMPLICIT NONE
 CONTAINS
 !
 !----------------------------------------------------------------------------------------
-SUBROUTINE WND_FRC_THR_SLT_GET(PDNS_MDP, PDP, PWND_FRC_THR_SLT)  
+SUBROUTINE WND_FRC_THR_SLT_GET(PDNS_MDP, PDP, PWND_FRC_THR_SLT)
 ! Purpose: Compute dry threshold friction velocity for saltation
 !++grini use dstgrd ! [mdl] Dust grid sizes
 !++grini use pmgrid ! [mdl] Spatial resolution parameters
@@ -28,7 +28,7 @@ IMPLICIT NONE
 !++grini real,intent(in)::dns_aer(dst_nbr) ! [kg m-3] Particle density
 !++grini real,intent(in)::dmt_aer(dst_nbr) ! [m] Particle diameter
 REAL, DIMENSION(:), INTENT(IN)   :: PDNS_MDP        ! [kg m-3] Midlayer density
-REAL, INTENT(IN)  :: PDP   
+REAL, INTENT(IN)  :: PDP
 ! Output
 REAL, DIMENSION(:), INTENT(OUT) :: PWND_FRC_THR_SLT ! [m s-1] Threshold friction velocity for saltation
 !
@@ -39,7 +39,7 @@ REAL :: ZICF_FCT    ! Interparticle cohesive forces factor for saltation calcula
 REAL :: ZTMP        ! Factor in saltation computation
 INTEGER :: I        ! [idx] Counting index
 !
-REAL(KIND=JPRB) :: ZHOOK_HANDLE   
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:WND_FRC_THR_SLT_GET',0,ZHOOK_HANDLE)
 !
@@ -54,12 +54,12 @@ IF (ZRYN < 0.03d0) THEN
   CALL ABOR1_SFX('MODE_DSTMBLUTL:WND_FRC_THR_SLT_GET: RYN < 0.03')
 ELSEIF (ZRYN < 10.0d0) THEN
   ZRYN1 = -1.0d0 + 1.928d0 * (ZRYN**0.0922d0) ! [frc] IvW82 p. 114 (3), MaB95 p. 16417 (6)
-  ZRYN1 = 0.1291d0 * 0.1291d0 / ZRYN1          ! [frc] 
+  ZRYN1 = 0.1291d0 * 0.1291d0 / ZRYN1          ! [frc]
 ELSE
   ZRYN1 = 1.0d0 - 0.0858d0 * EXP(-0.0617d0*(ZRYN-10.0d0)) ! [frc] IvW82 p. 114 (3), MaB95 p. 16417 (7)
   ZRYN1 = 0.120d0 **2 * ZRYN1**2               ! [frc]
   !ryn1=0.129*0.129*ryn1*ryn1 dans le cas mm, à vérifier
-ENDIF 
+ENDIF
 !
 ! This method minimizes the number of square root computations performed
 ZTMP = SQRT (ZICF_FCT*ZDNS_FCT*ZRYN1)
@@ -88,7 +88,7 @@ REAL,    DIMENSION(:), INTENT(OUT):: PGWC_SFC ! [kg kg-1] Gravimetric water cont
 ! Local
 REAL, DIMENSION(SIZE(PVWC_SAT)) :: ZDNS_BLK_DRY ! [kg m-3] Bulk density of dry surface soil
 INTEGER :: I
-REAL(KIND=JPRB) :: ZHOOK_HANDLE 
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
 ! Main Code
 IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:VWC2GWC',0,ZHOOK_HANDLE)
 !
@@ -105,9 +105,9 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:VWC2GWC',1,ZHOOK_HANDLE)
 END SUBROUTINE VWC2GWC
 !
-!----------------------------------------------------------------------------------------  
-SUBROUTINE FRC_THR_NCR_WTR_GET(OFLG_MBL, PGWC_THR, PGWC_SFC, PFRC_THR_NCR_WTR)   
-! Purpose: Compute factor by which soil moisture increases threshold friction velocity 
+!----------------------------------------------------------------------------------------
+SUBROUTINE FRC_THR_NCR_WTR_GET(OFLG_MBL, PGWC_THR, PGWC_SFC, PFRC_THR_NCR_WTR)
+! Purpose: Compute factor by which soil moisture increases threshold friction velocity
 ! This parameterization is based on FMB99
 !++alfgr use pmgrid ! [mdl] Spatial resolution parameters
 IMPLICIT NONE
@@ -119,7 +119,7 @@ REAL,    DIMENSION(:), INTENT(IN) :: PGWC_SFC         ! [kg kg-1] Gravimetric wa
 REAL,    DIMENSION(:), INTENT(OUT):: PFRC_THR_NCR_WTR ! [frc] Factor by which moisture increases threshold friction velocity
 ! Local
 INTEGER :: I ! [idx] Counting index
-REAL(KIND=JPRB) :: ZHOOK_HANDLE 
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
 IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FRC_THR_NCR_WTR_GET',0,ZHOOK_HANDLE)
 ! Main Code
@@ -139,8 +139,8 @@ ENDDO
 ! frc_thr_ncr_wtr(lon_idx)=1.0d0 ! [frc]
 IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FRC_THR_NCR_WTR_GET',1,ZHOOK_HANDLE)
 END SUBROUTINE FRC_THR_NCR_WTR_GET
-!  
-!----------------------------------------------------------------------------------------  
+!
+!----------------------------------------------------------------------------------------
 !++alfgr fxm: Fix this so that we can actually use rgh_mmn_mbl different for grid cells
 SUBROUTINE FRC_THR_NCR_DRG_GET(PRGH_MMN_MBL, PRGH_MMN_SMT, PFRC_THR_NCR_DRG)
 ! Purpose: Compute factor by which surface roughness increases threshold friction velocity
@@ -156,7 +156,7 @@ REAL, INTENT(IN) :: PRGH_MMN_SMT                   ! [m] Smooth roughness length
 REAL, INTENT(OUT):: PFRC_THR_NCR_DRG ! [frc] Factor by which roughness increases threshold friction velocity
 ! Local
 REAL :: ZWND_FRC_FSH_FRC     ! [frc] Efficient fraction of wind friction
-REAL(KIND=JPRB) :: ZHOOK_HANDLE 
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FRC_THR_NCR_DRG_GET',0,ZHOOK_HANDLE)
 ! Main Code
@@ -192,9 +192,9 @@ REAL,    DIMENSION(:), INTENT(OUT):: PWND_FRC_SLT     ! O [m s-1] Saltating fric
 REAL :: ZWND_RFR_DLT     ! [m s-1] Reference windspeed excess over threshold
 REAL :: ZWND_FRC_SLT_DLT ! [m s-1] Friction velocity increase from saltation
 INTEGER :: I             ! [idx] Counting index
-REAL(KIND=JPRB) :: ZHOOK_HANDLE 
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
-IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:WND_FRC_SLT_GET',0,ZHOOK_HANDLE)   
+IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:WND_FRC_SLT_GET',0,ZHOOK_HANDLE)
 ! Main Code
 ! Compute saltating friction velocity, accounting for "Owen's effect"
 PWND_FRC_SLT(:) = PWND_FRC(:) ! [m s-1] Saltating friction velocity
@@ -204,9 +204,9 @@ DO I = 1, SIZE(PWND_FRC)
     ! Saltation roughens the boundary layer, AKA "Owen's effect"
     ! GMB98 p. 6206 Fig. 1 shows observed/computed u* dependence on observed U(1 m)
     ! GMB98 p. 6209 (12) has u* in cm s-1 and U, Ut in m s-1, personal communication, D. Gillette, 19990529
-    ! With everything in MKS, the 0.3 coefficient in GMB98 (12) becomes 0.003 
-    ! Increase in friction velocity due to saltation varies as square of 
-    ! difference between reference wind speed and reference threshold speed 
+    ! With everything in MKS, the 0.3 coefficient in GMB98 (12) becomes 0.003
+    ! Increase in friction velocity due to saltation varies as square of
+    ! difference between reference wind speed and reference threshold speed
     ZWND_RFR_DLT     = PWND_RFR(I) - PWND_RFR_THR_SLT(I)
     ZWND_FRC_SLT_DLT = 0.003d0 * ZWND_RFR_DLT**2          ! [m s-1] Friction velocity increase from saltation GMB98 p. 6209
     PWND_FRC_SLT(I)  = PWND_FRC_SLT(I) + ZWND_FRC_SLT_DLT ! [m s-1] Saltating friction velocity
@@ -236,9 +236,9 @@ REAL,    DIMENSION(:), INTENT(OUT):: PFLX_MSS_HRZ_SLT_TTL ! O [kg m-1 s-1] Verti
 ! Local
 REAL :: ZWND_FRC_RAT ! [frc] Ratio of wind friction threshold to wind friction
 INTEGER :: I    ! [idx] Counting index for lon
-REAL(KIND=JPRB) :: ZHOOK_HANDLE 
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
-IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FLX_MSS_HRZ_SLT_TTL_WHI79_GET',0,ZHOOK_HANDLE)   
+IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FLX_MSS_HRZ_SLT_TTL_WHI79_GET',0,ZHOOK_HANDLE)
 ! Main Code
 ! Initialize output
 PFLX_MSS_HRZ_SLT_TTL(:) = 0.0d0 ! [kg m-1 s-1]
@@ -252,11 +252,11 @@ DO I = 1, SIZE(PDNS_MDP)
   ENDIF
 ENDDO
 
-IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FLX_MSS_HRZ_SLT_TTL_WHI79_GET',1,ZHOOK_HANDLE) 
+IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FLX_MSS_HRZ_SLT_TTL_WHI79_GET',1,ZHOOK_HANDLE)
 END SUBROUTINE FLX_MSS_HRZ_SLT_TTL_WHI79_GET
-! 
+!
 !----------------------------------------------------------------------------------------
-SUBROUTINE FLX_MSS_VRT_DST_TTL_MAB95_GET(OFLG_MBL, PMSS_FRC_CLY, PFLX_MSS_HRZ_SLT_TTL, & 
+SUBROUTINE FLX_MSS_VRT_DST_TTL_MAB95_GET(OFLG_MBL, PMSS_FRC_CLY, PFLX_MSS_HRZ_SLT_TTL, &
                         PDST_SLT_FLX_RAT_TTL, PFLX_MSS_VRT_DST_TTL)
 ! Purpose: Diagnose total vertical mass flux of dust from vertically integrated streamwise mass flux
 ! Theory: Uses clay-based method proposed by Marticorena & Bergametti (1995)
@@ -275,9 +275,9 @@ REAL,    DIMENSION(:), INTENT(OUT):: PFLX_MSS_VRT_DST_TTL ! O [kg m-2 s-1] Total
 ! Local
 REAL :: ZMSS_FRC_CLY_VLD ! [frc] Mass fraction clay limited to 0.20
 INTEGER :: I             ! [idx] Counting index for lon
-REAL(KIND=JPRB) :: ZHOOK_HANDLE 
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
-IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FLX_MSS_VRT_DST_TTL_MAB95_GET',0,ZHOOK_HANDLE)  
+IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FLX_MSS_VRT_DST_TTL_MAB95_GET',0,ZHOOK_HANDLE)
 !
 DO I = 1, SIZE(PMSS_FRC_CLY)
   IF (OFLG_MBL(I)) THEN
@@ -289,7 +289,7 @@ DO I = 1, SIZE(PMSS_FRC_CLY)
   ENDIF
 ENDDO
 !
-IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FLX_MSS_VRT_DST_TTL_MAB95_GET',1,ZHOOK_HANDLE) 
+IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FLX_MSS_VRT_DST_TTL_MAB95_GET',1,ZHOOK_HANDLE)
 END SUBROUTINE FLX_MSS_VRT_DST_TTL_MAB95_GET
 !
 !----------------------------------------------------------------------------------------
@@ -311,9 +311,9 @@ REAL,    DIMENSION(:), INTENT(OUT):: PFLX_MSS_VRT_DST_TTL ! O [kg m-2 s-1] Total
 REAL, DIMENSION(SIZE(PDNS_MDP)) :: ZROP_ROA  ! [frc] ratio of particle densite to Midlayer density
 REAL :: ZEXPDD, ZLNDS, ZBETA, ZBGXG
 INTEGER :: I
-REAL(KIND=JPRB) :: ZHOOK_HANDLE 
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
-IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FLX_MSS_VRT_DST_AUST_GET',0,ZHOOK_HANDLE)  
+IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:FLX_MSS_VRT_DST_AUST_GET',0,ZHOOK_HANDLE)
 !
 ! Initialize some variables
 ZEXPDD = EXP(-140.7d0 * XDMT_ERO_OPT + 0.37d0)
@@ -323,7 +323,7 @@ ZBGXG  = ZBETA * XGAMA * XG
 !
 DO I = 1, SIZE(PDNS_MDP)
   IF (OFLG_MBL(I)) THEN
-    ZROP_ROA(I) = XDNS_SLT / PDNS_MDP(I) 
+    ZROP_ROA(I) = XDNS_SLT / PDNS_MDP(I)
     PDST_SLT_FLX_RAT_TTL(I) =          & ! [mm/m]
       (2.0d0/3.0d0) * ZBGXG * ZROP_ROA(I) / (PWND_FRC_THR_SLT(I)**2.0d0)
     PFLX_MSS_VRT_DST_TTL(I) = 1.0d-3 * & ! [kg m-1 s-1]
@@ -359,9 +359,9 @@ REAL :: ZDM1, ZDM2
 INTEGER :: IMOD  ! Counter for number of mode
 INTEGER :: IDP   ! Counter for number of particle
 INTEGER :: ITEX  ! Counter for number of texture
-REAL(KIND=JPRB) :: ZHOOK_HANDLE 
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
-IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:DISTRIBUTION',0,ZHOOK_HANDLE)  
+IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:DISTRIBUTION',0,ZHOOK_HANDLE)
 !
 !1 Sand
 !2 Loamy Sand
@@ -387,21 +387,21 @@ ZDMED (1,:) = (/  10., 10.,  5.,  5., 2.5, 2.5, 2.5,  1.,  1., 0.5, 0.5, 2.5/)
 ZDMED (2,:) = (/ 100.,100.,100.,100., 75., 75., 50., 50., 10., 10., 10., 75./)
 ZDMED (3,:) = (/1000.,690.,520.,520.,520.,210.,210.,125.,100.,100.,100.,520./)
 !
-DO ITEX = 1, SIZE(PZS0) 
+DO ITEX = 1, SIZE(PZS0)
   PZS0(ITEX) =1E-6*ZDMED(3,ITEX)/30.0
 ENDDO
 !
 ! Initialisation pour IDP = 1
 PDP  (1) = 0.1          ! ?m
 ZDPLN(1) = LOG(PDP(1))  ! ?m
-! 
+!
 DO IDP = 2, SIZE(PDSRLV,2)
   ZDPLN(IDP) = ZDPLN(IDP-1) + PDLNDP
   PDP  (IDP) = EXP(ZDPLN(IDP))
 END DO
 !
-! calcul pour chaque particule 
-! Boucle NDP 
+! calcul pour chaque particule
+! Boucle NDP
 ! Initialisation
 ! surface basale totale
 ZSP(:) = 0.d0
@@ -413,22 +413,22 @@ DO ITEX = 1, SIZE(PDSRLV,1)
       ZDM1 = ZMFRAC(IMOD,ITEX) / (SQRT(2.d0*XPI) * LOG(ZSIGMA(IMOD,ITEX)))
       ZDM2 = EXP((LOG(PDP(IDP)) - LOG(ZDMED(IMOD,ITEX)))**2. / (-2.d0 * (LOG(ZSIGMA(IMOD,ITEX)))**2.d0))
       ZDMLN(IDP) = ZDMLN(IDP) + ZDM1*ZDM2
-    END DO 
-    ! Calcul de la surface basale occup?e par chaque particule de diam?tre Dp  
+    END DO
+    ! Calcul de la surface basale occup?e par chaque particule de diam?tre Dp
     ZDS(ITEX,IDP) = 3.d0 * ZDMLN(IDP) * PDLNDP / (2.* XDNS_SLT * PDP(IDP))
     ! Calcul de la surface basale totale Sp= (somme (ds(Dp)):
     ZSP(ITEX) = ZSP(ITEX) + ZDS(ITEX,IDP)
   ENDDO
-ENDDO 
+ENDDO
 !
 ! Calcul de la distribution de surface relative des particules
 DO ITEX = 1, SIZE(PZS0)
   DO IDP = 1, SIZE(PDSRLV,2)
     PDSRLV(ITEX,IDP) = ZDS(ITEX,IDP) / ZSP(ITEX)
-    ENDDO 
-END DO 
-! 
-IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:DISTRIBUTION',1,ZHOOK_HANDLE)  
+    ENDDO
+END DO
+!
+IF (LHOOK) CALL DR_HOOK('MODE_DSTMBLUTL:DISTRIBUTION',1,ZHOOK_HANDLE)
 END SUBROUTINE DISTRIBUTION
 !
 END MODULE MODE_DSTMBLUTL

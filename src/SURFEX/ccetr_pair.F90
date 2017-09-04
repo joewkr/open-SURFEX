@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######
 !
    SUBROUTINE CCETR_PAIR(KNIV, PABC, PABC_SUP, PIA, PXMUS, PB_DR, POMEGA_DR,&
                         POMEGA_DF, PB_DF, PLAI, PALB_VEG, PALB_SOIL,        &
                         PFD_SKY, PFD_VEG, PTR, PXIA, PLAI_EFF               )
-   
+
 !
 !!***   *CCETR_PAIR* ***
 !!
@@ -17,28 +17,28 @@
 !!
 !!**  METHOD
 !!    ------
-!!    Carrer et al. 
+!!    Carrer et al.
 !!
 !!    EXTERNAL
 !!    --------
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------      
+!!    ------------------
 !!    USE MODD_CO2V_PAR
 !!
 !!    REFERENCE
 !!    ---------
 !!    Carrer et al. 2013
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      D. Carrer           * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/04/11 
-!!      LAI_EFF corrected 07/2013 
+!!      Original    01/04/11
+!!      LAI_EFF corrected 07/2013
 !-------------------------------------------------------------------------------
 !
 USE MODD_CSTS,       ONLY : XI0
@@ -92,11 +92,11 @@ IF (LHOOK) CALL DR_HOOK('CCETR_PAIR',0,ZHOOK_HANDLE)
 !
 PLAI_EFF(:) = 0.
 !
-!Angular projection of the leaves 
-!  0.5                    : spherical distribution 
+!Angular projection of the leaves
+!  0.5                    : spherical distribution
 !  (2./!PI)*sin(zs*!Dtor) : vertical distribution
 !  cos(zs*!Dtor)          : horizontal distribution
-ZGT_SUP = 0.5 
+ZGT_SUP = 0.5
 ZGT_INF = 0.5
 !
 IF (PABC.GT.0.8) THEN
@@ -142,8 +142,8 @@ WHERE (PIA(:)>0.) PXIA(:) = (1-PALB_VEG(:))*(1.-PTR(:))*PIA(:)
 !
 IF (KNIV .EQ. 1) THEN
   DO I=1,SIZE(PIA)
-    IF (PIA(I)>0.) THEN  
-      ! -- reflection of surface ---   
+    IF (PIA(I)>0.) THEN
+      ! -- reflection of surface ---
       ! transmittance diffuse up - all layer
       ZTDF(I) = EXP(-ZB_DF(I)*POMEGA_DF(I)*(1.-ZABC(I))*PLAI(I))
       PXIA(I)= PXIA(I) + (1.-PALB_VEG(I))*(1.-PALB_VEG(I))*PALB_SOIL(I)*(1.-ZTDF(I))*PTR(I)*PIA(I)
@@ -154,4 +154,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('CCETR_PAIR',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE CCETR_PAIR
- 
+

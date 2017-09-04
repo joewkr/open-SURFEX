@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-      SUBROUTINE INI_CSTS 
+      SUBROUTINE INI_CSTS
 !     ##################
 !
 !!****  *INI_CSTS * - routine to initialize the module MODD_CST
@@ -12,12 +12,12 @@
 !!    -------
 !       The purpose of this routine is to initialize  the physical constants
 !     stored in  module MODD_CST.
-!      
+!
 !
 !!**  METHOD
 !!    ------
-!!      The physical constants are set to their numerical values 
-!!     
+!!      The physical constants are set to their numerical values
+!!
 !!
 !!    EXTERNAL
 !!    --------
@@ -30,7 +30,7 @@
 !!    REFERENCE
 !!    ---------
 !!      Book2 of the documentation (module MODD_CST, routine INI_CSTS)
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -38,7 +38,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    18/05/94 
+!!      Original    18/05/94
 !!      J. Stein    02/01/95  add the volumic mass of liquid water
 !!      J.-P. Pinty 13/12/95  add the water vapor pressure over solid ice
 !!      J. Stein    29/06/97  add XTH00
@@ -66,7 +66,7 @@ USE MODI_INI_OCEAN_CSTS
 USE MODI_INI_SURF_CSTS
 !
 IMPLICIT NONE
-!  
+!
 !-------------------------------------------------------------------------------
 !
 !*       1.     FUNDAMENTAL CONSTANTS
@@ -129,7 +129,7 @@ XTH00 = 300.
 !               -------------------
 !
 !JUAN OVERFLOW XSTEFAN = 2.* XPI**5 * XBOLTZ**4 / (15.* XLIGHTSPEED**2 * XPLANCK**3)
-XSTEFAN = ( 2.* XPI**5 / 15. ) * ( (XBOLTZ / XPLANCK)* XBOLTZ ) * (XBOLTZ/(XLIGHTSPEED*XPLANCK))**2 
+XSTEFAN = ( 2.* XPI**5 / 15. ) * ( (XBOLTZ / XPLANCK)* XBOLTZ ) * (XBOLTZ/(XLIGHTSPEED*XPLANCK))**2
 XI0     = 1370.
 !
 !-------------------------------------------------------------------------------
@@ -184,4 +184,4 @@ IF (LHOOK) CALL DR_HOOK('INI_CSTS',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 !
-END SUBROUTINE INI_CSTS 
+END SUBROUTINE INI_CSTS

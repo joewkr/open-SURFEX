@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_CHEMISTRY (CHE, DTCO, UG, U, USS, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -115,7 +115,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 NAMELIST/NAM_CH_EMIS_PGD/ NEMIS_PGD_NBR,CEMIS_PGD_NAME,NEMIS_PGD_TIME,&
        CEMIS_PGD_COMMENT,CEMIS_PGD_AREA,CEMIS_PGD_ATYPE,CEMIS_PGD_FILE,&
-       CEMIS_PGD_FILETYPE  
+       CEMIS_PGD_FILETYPE
 !-------------------------------------------------------------------------------
 !
 !*    1.      Initializations of defaults
@@ -123,7 +123,7 @@ NAMELIST/NAM_CH_EMIS_PGD/ NEMIS_PGD_NBR,CEMIS_PGD_NAME,NEMIS_PGD_TIME,&
 !
 !
 IF (LHOOK) CALL DR_HOOK('PGD_CHEMISTRY',0,ZHOOK_HANDLE)
-NEMIS_PGD_NBR = 0  
+NEMIS_PGD_NBR = 0
 CEMIS_PGD_NAME(:)    = '                           '
 NEMIS_PGD_TIME(:)    = 0
 CEMIS_PGD_COMMENT(:) = ''
@@ -202,9 +202,9 @@ DO JNBR=1,CHE%NEMIS_NBR
   !*    4.1     Computes the field on the surface points where it is defined
   CALL PGD_FIELD(DTCO, UG, U, USS, &
                  HPROGRAM,CHE%CEMIS_NAME(JNBR),CHE%CEMIS_AREA(JNBR),CEMIS_PGD_FILE(JNBR), &
-                   CEMIS_PGD_FILETYPE(JNBR),XUNDEF,ZEMIS_FIELD(:)             )  
+                   CEMIS_PGD_FILETYPE(JNBR),XUNDEF,ZEMIS_FIELD(:)             )
   CATYPE = 'ARI'
-  
+
 !*    4.2     Expends field on all surface points
   ILU=0
   CALL GET_SURF_MASK_n(DTCO, U, &
@@ -213,12 +213,12 @@ DO JNBR=1,CHE%NEMIS_NBR
   DEALLOCATE(ZEMIS_FIELD)
   DEALLOCATE(IMASK)
 
-  
-!*    4.3      Weights field on all surface points 
+
+!*    4.3      Weights field on all surface points
 !              (zero weight where field is not defined)
   SELECT CASE (CHE%CEMIS_AREA(JNBR))
     CASE ('LAN')
-      CHE%XEMIS_FIELDS(:,JNBR) = (U%XNATURE(:)+U%XTOWN(:))*ZEMIS_FIELDS(:) 
+      CHE%XEMIS_FIELDS(:,JNBR) = (U%XNATURE(:)+U%XTOWN(:))*ZEMIS_FIELDS(:)
     CASE ('SEA')
       CHE%XEMIS_FIELDS(:,JNBR) = U%XSEA*ZEMIS_FIELDS(:)
     CASE ('ALL')
@@ -232,7 +232,7 @@ IF (LHOOK) CALL DR_HOOK('PGD_CHEMISTRY',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 !
-!*    5.      Expends 
+!*    5.      Expends
 !             ------------
 !
 

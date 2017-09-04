@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODD_OCEAN_REL_n
@@ -8,7 +8,7 @@
 !
 !     Author : P. Peyrille
 !!    Date: 01/2012
-!! 
+!!
 !!  declaration of relaxation field, flag for ocean model
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -24,9 +24,9 @@ TYPE OCEAN_REL_t
 !
  LOGICAL                            :: LREL_CUR   ! flag for  relxation on current
  LOGICAL                            :: LREL_TS    ! flag for relaxation on ocean temperature
- LOGICAL                            :: LFLUX_NULL ! Flag for testing zero  incoming flux at the surface 
+ LOGICAL                            :: LFLUX_NULL ! Flag for testing zero  incoming flux at the surface
 !
- LOGICAL                            :: LFLX_CORR  ! Flag for  flux  correction 
+ LOGICAL                            :: LFLX_CORR  ! Flag for  flux  correction
  LOGICAL                            :: LDIAPYCNAL ! Flag for diapycnal mixing activation
 !
  REAL, POINTER, DIMENSION(:,:) :: XSEAU_REL  ! ref. U current  profile (C)

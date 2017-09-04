@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################
       SUBROUTINE AVERAGE2_CTI
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -41,7 +41,7 @@
 USE MODD_SURF_PAR, ONLY : XUNDEF
 USE MODD_PGDWORK,       ONLY : NSIZE, XSUMVAL, XPREC, &
                                XMEAN_WORK, XSTD_WORK, XSKEW_WORK, &
-                               XMIN_WORK, XMAX_WORK 
+                               XMIN_WORK, XMAX_WORK
 !
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -79,7 +79,7 @@ WHERE (NSIZE(:,1)>=36)
 !*    2.     Standard deviation
 !            ------------------
 !
-  WHERE (XMAX_WORK(:)-XMIN_WORK(:)>=1.0) 
+  WHERE (XMAX_WORK(:)-XMIN_WORK(:)>=1.0)
     XSTD_WORK(:) = SQRT( MAX(0.,XSUMVAL(:,2)/NSIZE(:,1) - XMEAN_WORK(:)*XMEAN_WORK(:)) )
   ELSEWHERE
     XSTD_WORK(:) = 0.0
@@ -91,9 +91,9 @@ WHERE (NSIZE(:,1)>=36)
 !            --------
 !
   WHERE(XSTD_WORK(:)>0.0)
-!          
+!
         XSKEW_WORK(:) = XSUMVAL(:,3)-ZSIZE(:)*XMEAN_WORK(:)*XMEAN_WORK(:)*XMEAN_WORK(:) &
-                       -3.0*ZSIZE(:)*XMEAN_WORK(:)*XSTD_WORK(:)*XSTD_WORK(:)  
+                       -3.0*ZSIZE(:)*XMEAN_WORK(:)*XSTD_WORK(:)*XSTD_WORK(:)
 !
         XSKEW_WORK(:) = XSKEW_WORK(:)/(ZSIZE(:)*XSTD_WORK(:)*XSTD_WORK(:)*XSTD_WORK(:))
 !
@@ -115,15 +115,15 @@ DO JI = 1,SIZE(XMEAN_WORK,1)
       XMIN_WORK(JI) = ZINT + ANINT((XMIN_WORK(JI)-ZINT)*XPREC)/XPREC
 
     ZINT = AINT(XMAX_WORK(JI))
-    IF (XMAX_WORK(JI)/=ZINT) &      
+    IF (XMAX_WORK(JI)/=ZINT) &
       XMAX_WORK(JI) = ZINT + ANINT((XMAX_WORK(JI)-ZINT)*XPREC)/XPREC
 
     ZINT = AINT(XSTD_WORK(JI))
-    IF (XSTD_WORK(JI)/=ZINT) &      
+    IF (XSTD_WORK(JI)/=ZINT) &
     XSTD_WORK(JI) = ZINT + ANINT((XSTD_WORK(JI)-ZINT)*XPREC)/XPREC
 
     ZINT = AINT(XSKEW_WORK(JI))
-    IF (XSKEW_WORK(JI)/=ZINT) &      
+    IF (XSKEW_WORK(JI)/=ZINT) &
     XSKEW_WORK(JI) = ZINT + ANINT((XSKEW_WORK(JI)-ZINT)*XPREC)/XPREC
 !
   ENDIF

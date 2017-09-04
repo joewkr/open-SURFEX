@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#######################
 MODULE MODI_EMIS_FROM_VEG
@@ -57,7 +57,7 @@ END MODULE MODI_EMIS_FROM_VEG
 !!    -------
 !
 !     Calculates averaged emissivity on natural surfaces
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -67,13 +67,13 @@ END MODULE MODI_EMIS_FROM_VEG
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -114,10 +114,10 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('MODI_EMIS_FROM_VEG:EMIS_FROM_VEG_0D',0,ZHOOK_HANDLE)
 ZEMISSOIL =   XEMISSN   *     PVEGTYPE(NVT_SNOW) &
-              + XEMISSOIL * (1.-PVEGTYPE(NVT_SNOW))  
+              + XEMISSOIL * (1.-PVEGTYPE(NVT_SNOW))
 !
 PEMIS   =   XEMISVEG  *     PVEG     &
-            + ZEMISSOIL * (1.-PVEG)  
+            + ZEMISSOIL * (1.-PVEG)
 IF (LHOOK) CALL DR_HOOK('MODI_EMIS_FROM_VEG:EMIS_FROM_VEG_0D',1,ZHOOK_HANDLE)
 !
 !-----------------------------------------------------------------
@@ -132,7 +132,7 @@ END FUNCTION EMIS_FROM_VEG_0D
 !!    -------
 !
 !     Calculates averaged emissivity on natural surfaces
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -142,13 +142,13 @@ END FUNCTION EMIS_FROM_VEG_0D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -189,10 +189,10 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('MODI_EMIS_FROM_VEG:EMIS_FROM_VEG_1D',0,ZHOOK_HANDLE)
 ZEMISSOIL(:) =   XEMISSN   *     PVEGTYPE(:,NVT_SNOW) &
-                + XEMISSOIL * (1.-PVEGTYPE(:,NVT_SNOW))  
+                + XEMISSOIL * (1.-PVEGTYPE(:,NVT_SNOW))
 !
 PEMIS(:)   =   XEMISVEG  *     PVEG(:)     &
-               + ZEMISSOIL * (1.-PVEG(:))  
+               + ZEMISSOIL * (1.-PVEG(:))
 IF (LHOOK) CALL DR_HOOK('MODI_EMIS_FROM_VEG:EMIS_FROM_VEG_1D',1,ZHOOK_HANDLE)
 !
 !-----------------------------------------------------------------
@@ -207,7 +207,7 @@ END FUNCTION EMIS_FROM_VEG_1D
 !!    -------
 !
 !     Calculates averaged emissivity on natural surfaces
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -217,13 +217,13 @@ END FUNCTION EMIS_FROM_VEG_1D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -265,10 +265,10 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('MODI_EMIS_FROM_VEG:EMIS_FROM_VEG_2D',0,ZHOOK_HANDLE)
 ZEMISSOIL(:,:) =   XEMISSN   *     PVEGTYPE(:,:,NVT_SNOW) &
-                   + XEMISSOIL * (1.-PVEGTYPE(:,:,NVT_SNOW))  
+                   + XEMISSOIL * (1.-PVEGTYPE(:,:,NVT_SNOW))
 !
 PEMIS(:,:)   =   XEMISVEG  *     PVEG(:,:)     &
-                 + ZEMISSOIL * (1.-PVEG(:,:))  
+                 + ZEMISSOIL * (1.-PVEG(:,:))
 !
 WHERE (PVEG(:,:) == XUNDEF)
   PEMIS(:,:) = XUNDEF
@@ -286,7 +286,7 @@ END FUNCTION EMIS_FROM_VEG_2D
 !!    -------
 !
 !     Calculates averaged emissivity on natural surfaces
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -296,13 +296,13 @@ END FUNCTION EMIS_FROM_VEG_2D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -350,7 +350,7 @@ PEMIS(:) = XUNDEF
 DO JJ = 1,SIZE(PEMIS)
   IF (PVEG(JJ)/=XUNDEF) THEN
     IF (JJ/=NVT_SNOW) THEN
-      PEMIS(JJ) = XEMISVEG * PVEG(JJ) + XEMISSOIL * (1.-PVEG(JJ))  
+      PEMIS(JJ) = XEMISVEG * PVEG(JJ) + XEMISSOIL * (1.-PVEG(JJ))
     ELSE
       PEMIS(JJ) = XEMISSN
     ENDIF

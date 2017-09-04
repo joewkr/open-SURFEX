@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_ISBA (DTCO, UG, U, USS, GCP, SB, IG, IO, S, NK, NP, NPE,  &
@@ -17,11 +17,11 @@ SUBROUTINE PREP_ISBA (DTCO, UG, U, USS, GCP, SB, IG, IO, S, NK, NP, NPE,  &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -32,7 +32,7 @@ SUBROUTINE PREP_ISBA (DTCO, UG, U, USS, GCP, SB, IG, IO, S, NK, NP, NPE,  &
 !!                                          temperature
 !!      Modified by B. Decharme  (03/2009): Consistency with Arpege permanent
 !!                                          snow/ice treatment
-!!      A.L. Gibelin 04/2009 : BIOMASS and RESP_BIOMASS arrays 
+!!      A.L. Gibelin 04/2009 : BIOMASS and RESP_BIOMASS arrays
 !!      A.L. Gibelin 06/2009 : Soil carbon variables for CNT option
 !!      Modified by S. Riette    (06/2009): PREP_ISBA_CANOPY has no more arg.
 !!      Modified by S. Riette    (04/2010): ecmwf ice content is computed during
@@ -41,7 +41,7 @@ SUBROUTINE PREP_ISBA (DTCO, UG, U, USS, GCP, SB, IG, IO, S, NK, NP, NPE,  &
 !!                              bug in biomass prognostic fields calculation
 !!      B. Decharme  (06/2013): XPSNV_A for EBA snow scheme not allocated
 !!      M. Lafaysse (04/2014) : LSNOW_PREP_PERM
-!!      B. Decharme  (04/2013): Good computation for coherence between soil temp and 
+!!      B. Decharme  (04/2013): Good computation for coherence between soil temp and
 !!                              liquid/solid water with DIF (results don't change)
 !!                              if lglacier in input file, do not initialize again
 !!      P. Samuelsson            (10/2014): MEB
@@ -61,7 +61,7 @@ USE MODD_ISBA_n, ONLY : ISBA_S_t, ISBA_NK_t, ISBA_K_t, ISBA_NP_t, ISBA_P_t, &
                         ISBA_NPE_t, ISBA_PE_t
 !
 USE MODN_PREP_ISBA
-USE MODN_PREP_ISBA_SNOW, ONLY : LSWEMAX, XSWEMAX 
+USE MODN_PREP_ISBA_SNOW, ONLY : LSWEMAX, XSWEMAX
 !
 USE MODD_DATA_COVER_PAR, ONLY : NVT_SNOW
 USE MODD_SNOW_PAR,    ONLY : XEMISSN
@@ -71,7 +71,7 @@ USE MODD_SURF_PAR,    ONLY : XUNDEF
 !
 USE MODD_READ_NAMELIST,  ONLY : LNAM_READ
 USE MODD_SURF_ATM,       ONLY : LVERTSHIFT
-!          
+!
 USE MODD_DEEPSOIL,    ONLY : LPHYSDOMC
 USE MODD_CSTS,        ONLY : XTT, XG, XLMTT
 USE MODD_PREP,        ONLY : XZS_LS
@@ -271,7 +271,7 @@ ENDIF
 IF (YDCTL%LPART6) THEN
 !-------------------------------------------------------------------------------------
 !
-!*      3.    Physical limitation: 
+!*      3.    Physical limitation:
 !
   DO JP=1,IO%NPATCH
     PEK => NPE%AL(JP)
@@ -319,19 +319,19 @@ IF (YDCTL%LPART6) THEN
     DO JP = 1,IO%NPATCH
       NPE%AL(JP)%TSNOW%WSNOW(:,:)=0.
     ENDDO
-  ENDIF 
-!------------------------------------------------------------------------------------- 
-! 
-!*      4.b     Possibility for setting an upper limit on the initial snow water equivalent field 
+  ENDIF
+!-------------------------------------------------------------------------------------
 !
-  IF (LSWEMAX) THEN 
+!*      4.b     Possibility for setting an upper limit on the initial snow water equivalent field
+!
+  IF (LSWEMAX) THEN
     DO JP = 1,IO%NPATCH
-      SMAX = MAXVAL(NPE%AL(JP)%TSNOW%WSNOW(:,:)) 
-      WRITE(*,*) ' MAX(Snow content (kg/m2)): ', SMAX 
-      WRITE(*,*) ' Set MAX to', XSWEMAX, '(kg/m2)' 
-      NPE%AL(JP)%TSNOW%WSNOW(:,:) = MIN(NPE%AL(JP)%TSNOW%WSNOW(:,:),XSWEMAX) 
-      SMAX = MAXVAL(NPE%AL(JP)%TSNOW%WSNOW(:,:)) 
-      WRITE(*,*) ' MAX(Snow content (kg/m2)): ', SMAX 
+      SMAX = MAXVAL(NPE%AL(JP)%TSNOW%WSNOW(:,:))
+      WRITE(*,*) ' MAX(Snow content (kg/m2)): ', SMAX
+      WRITE(*,*) ' Set MAX to', XSWEMAX, '(kg/m2)'
+      NPE%AL(JP)%TSNOW%WSNOW(:,:) = MIN(NPE%AL(JP)%TSNOW%WSNOW(:,:),XSWEMAX)
+      SMAX = MAXVAL(NPE%AL(JP)%TSNOW%WSNOW(:,:))
+      WRITE(*,*) ' MAX(Snow content (kg/m2)): ', SMAX
     ENDDO
   ENDIF
 !
@@ -352,11 +352,11 @@ IF (YDCTL%LPART6) THEN
         DO JJ=1,PK%NSIZE_P
           !
           IF(PEK%XWG(JJ,JL)/=XUNDEF)THEN
-!     
+!
 !         total soil moisture
             ZWTOT = PEK%XWG(JJ,JL)+PEK%XWGI(JJ,JL)
             ZWTOT = MIN(ZWTOT,KK%XWSAT(JJ,JL))
-!                
+!
 !           total matric potential
 !           psi=mpotsat*(w/wsat)**(-bcoef)
             ZWORK   = ZWTOT/KK%XWSAT(JJ,JL)
@@ -371,10 +371,10 @@ IF (YDCTL%LPART6) THEN
             ZWL           = KK%XWSAT(JJ,JL)*EXP(-ZLOG/KK%XBCOEF(JJ,JL))
             ZWL           = MAX(ZWL,XWGMIN)
             PEK%XWG(JJ,JL) = MIN(ZWL,ZWTOT )
-!        
-!         soil ice computation    
+!
+!         soil ice computation
             PEK%XWGI(JJ,JL) = MAX(0.0,ZWTOT-PEK%XWG(JJ,JL))
-! 
+!
 !         supress numerical artefact
             IF(PEK%XTG(JJ,JL)>=XTT)THEN
               PEK%XWG (JJ,JL) = MIN(PEK%XWG(JJ,JL)+PEK%XWGI(JJ,JL),KK%XWSAT(JJ,JL))
@@ -382,8 +382,8 @@ IF (YDCTL%LPART6) THEN
             ENDIF
 !
           ENDIF
-        ENDDO        
-      ENDDO        
+        ENDDO
+      ENDDO
     ENDDO
   ENDIF
 !

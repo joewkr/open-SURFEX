@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
     SUBROUTINE FLOOR_LAYER_E_BUDGET(B, PTSTEP, PFLX_BLD_FL, PDQS_FL, PIMB_FL, PRADHT_IN,  &
@@ -8,21 +8,21 @@
                                     PRAD_FL_MA, PCONV_FL_BLD                  )
 !   ##########################################################################
 !
-!!****  *FLOOR_LAYER_E_BUDGET*  
+!!****  *FLOOR_LAYER_E_BUDGET*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the evoultion of building floor temperatures
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
-!    6 : equations for evolution of Ts_floor 
+!    6 : equations for evolution of Ts_floor
 !        *************************************************************
 !
-!     dTf_k(t) / dt = 1/(df_k*Cf_k) * (- 2*Kf_k-1*(Tf_k-Tf_k-1)/(df_k-1 +df_k) 
+!     dTf_k(t) / dt = 1/(df_k*Cf_k) * (- 2*Kf_k-1*(Tf_k-Tf_k-1)/(df_k-1 +df_k)
 !                                      - 2*Kf_k  *(Tf_k-Tf_k+1)/(df_k+1 +df_k) )
 !
 !     dTf_1(t) / dt = 1/(df_1*Cf_1) * (- 2*Kw_1*(Tw_1-Tw_2)/(dw_1 +dw_2))
@@ -50,11 +50,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -62,8 +62,8 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    15/04/09 
-!!      G. Pigeon      08/10 computation of residual of energy balance 
+!!      Original    15/04/09
+!!      G. Pigeon      08/10 computation of residual of energy balance
 !!                           modification of the limit condition for
 !!                           the deep temp. from the deep road temp.
 !!                           to zero flux condition. idem for sfce T
@@ -136,7 +136,7 @@ ENDDO
  CALL LAYER_E_BUDGET_GET_COEF( B%XT_FLOOR, PTSTEP, ZIMPL, B%XHC_FLOOR, B%XTC_FLOOR, B%XD_FLOOR, &
                               ZA, ZB, ZC, ZY )
 !
-ZTS_FL(:) = B%XT_FLOOR(:,1) 
+ZTS_FL(:) = B%XT_FLOOR(:,1)
 
 ZB(:,1) = ZB(:,1) + ZIMPL * (ZCHTC_IN_FL(:)*4./3. + PRADHT_IN(:) * B%XF_FLOOR_MASS(:))
 

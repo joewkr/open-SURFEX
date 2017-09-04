@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
@@ -9,7 +9,7 @@
                                       KYEAR,KMONTH,KDAY,KH,KM,PQTOT)
 !     #######################
 !
-!!****  *WRITE_DISCHARGE_FILE*  
+!!****  *WRITE_DISCHARGE_FILE*
 !!
 !!    PURPOSE
 !!    -------
@@ -23,17 +23,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -75,7 +75,7 @@ REAL, DIMENSION(:,:) , INTENT(IN)  :: PQTOT      ! Discharge to be writen
 !
 !*      0.2    declarations of local variables
 !
-INTEGER                   :: JJ,JCAT ! loop control 
+INTEGER                   :: JJ,JCAT ! loop control
 INTEGER                   :: ILUOUT      ! Unit of the files
 !
  CHARACTER(LEN=28) :: YFILE

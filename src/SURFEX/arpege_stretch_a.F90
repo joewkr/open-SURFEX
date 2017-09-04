@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################################################################
 SUBROUTINE ARPEGE_STRETCH_A(KN,PLAP,PLOP,PCOEF,PLAR,PLOR,PLAC,PLOC)
@@ -18,7 +18,7 @@ SUBROUTINE ARPEGE_STRETCH_A(KN,PLAP,PLOP,PCOEF,PLAR,PLOR,PLAC,PLOC)
 !!   The projection is defined in two steps :
 !!    1. A rotation to place the stretching pole at the north pole
 !!    2. The stretching
-!!   This routine is a basic implementation of the informations founded in 
+!!   This routine is a basic implementation of the informations founded in
 !!     'Note de travail Arpege n#3'
 !!     'Transformation de coordonnees'
 !!     J.F.Geleyn 1988
@@ -36,7 +36,7 @@ SUBROUTINE ARPEGE_STRETCH_A(KN,PLAP,PLOP,PCOEF,PLAR,PLOR,PLAC,PLOC)
 !!   REFERENCE
 !!   ---------
 !!
-!!   This routine is based on : 
+!!   This routine is based on :
 !!     'Note de travail ARPEGE' number 3
 !!     by J.F. GELEYN (may 1988)
 !!
@@ -85,9 +85,9 @@ USE PARKIND1  ,ONLY : JPRB
   REAL                             :: ZSINLAS       ! Sine of point's pseudo-latitude
   REAL                             :: ZSINLOS       ! Sine of point's pseudo-longitude
   REAL                             :: ZCOSLOS       ! Cosine of point's pseudo-lon.
-  REAL                             :: ZA,ZB,ZD      ! Dummy variables used for 
+  REAL                             :: ZA,ZB,ZD      ! Dummy variables used for
   REAL                             :: ZX,ZY         ! computations
-!  
+!
   INTEGER                          :: JLOOP1        ! Dummy loop counter
   REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !

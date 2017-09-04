@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
       MODULE MODD_BUDGET_COUPL_ROUT
@@ -15,11 +15,11 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
-!!                
+!!
 !!    AUTHOR
 !!    ------
 !!      B. Vincendon *Meteo France*
@@ -52,7 +52,7 @@ REAL,ALLOCATABLE,DIMENSION(:) :: XB_SWE1, XB_SWE2, XB_SWE3, XB_SWETOT ! snow mel
 ! Values at the previous time step
 REAL,ALLOCATABLE,DIMENSION(:) :: XB_WRM
 REAL,ALLOCATABLE,DIMENSION(:) :: XB_EVAPM
-REAL,ALLOCATABLE,DIMENSION(:) :: XB_RUNOFF_TOPDM,XB_RUNOFF_ISBAM 
+REAL,ALLOCATABLE,DIMENSION(:) :: XB_RUNOFF_TOPDM,XB_RUNOFF_ISBAM
 REAL,ALLOCATABLE,DIMENSION(:) :: XB_HORTONM
 REAL,ALLOCATABLE,DIMENSION(:) :: XB_DRAINM
 REAL,ALLOCATABLE,DIMENSION(:) :: XB_WG2M, XB_WG3M, XB_WGTOTM
@@ -62,8 +62,8 @@ REAL,ALLOCATABLE,DIMENSION(:) :: XB_SWE1M, XB_SWE2M, XB_SWE3M, XB_SWETOTM
 ! Useful
 REAL,ALLOCATABLE,DIMENSION(:)   :: XB_DG2, XB_DG3
 REAL,ALLOCATABLE,DIMENSION(:)   :: XB_MESH_SIZE
-REAL,ALLOCATABLE,DIMENSION(:,:) :: XB_ABV_BYMESH !fraction de chaque BV ds chaque maille 
-REAL,ALLOCATABLE,DIMENSION(:)   :: XB_ATOP_BYMESH!fraction de tous BV ds chaque maille 
+REAL,ALLOCATABLE,DIMENSION(:,:) :: XB_ABV_BYMESH !fraction de chaque BV ds chaque maille
+REAL,ALLOCATABLE,DIMENSION(:)   :: XB_ATOP_BYMESH!fraction de tous BV ds chaque maille
 !
 ! Variable to keep and write budget terms
 REAL, ALLOCATABLE, DIMENSION(:,:,:) :: XB_VAR_BV
@@ -71,7 +71,7 @@ REAL, ALLOCATABLE, DIMENSION(:,:,:) :: XB_VAR_NOBV
 REAL,ALLOCATABLE,  DIMENSION(:,:)   :: XB_VAR_TOT
 REAL, ALLOCATABLE, DIMENSION(:,:,:) :: XB_VAR_Q
 !
-CHARACTER(LEN=6),ALLOCATABLE,  DIMENSION(:)     :: YB_VAR  
+CHARACTER(LEN=6),ALLOCATABLE,  DIMENSION(:)     :: YB_VAR
 !
 ! Discharge variables
 !
@@ -83,6 +83,6 @@ REAL, ALLOCATABLE, DIMENSION(:)  :: XB_STOCK_DR
 REAL, ALLOCATABLE, DIMENSION(:)  :: XB_QTOTM,XB_QRUNM
 REAL, ALLOCATABLE, DIMENSION(:)  :: XB_QDRM
 !
-CHARACTER(LEN=6),ALLOCATABLE,  DIMENSION(:)  :: YB_VARQ  
+CHARACTER(LEN=6),ALLOCATABLE,  DIMENSION(:)  :: YB_VARQ
 !
 END MODULE MODD_BUDGET_COUPL_ROUT

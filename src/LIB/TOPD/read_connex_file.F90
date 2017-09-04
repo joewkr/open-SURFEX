@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
-!     #######################     
+!     #######################
       SUBROUTINE READ_CONNEX_FILE(HPROGRAM,HFILE,HFORM,KNMC,PCONN,KLINE)
 !     #######################
 !
-!!****  *READ_CONNEX_FILE*  
+!!****  *READ_CONNEX_FILE*
 !!
 !!    PURPOSE
 !!    -------
@@ -21,17 +21,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -72,7 +72,7 @@ INTEGER, DIMENSION(:),INTENT(OUT)  :: KLINE    ! second index of the pixel in th
 !*      0.2    declarations of local variables
 !
 !
-INTEGER                   :: JJ          ! loop control 
+INTEGER                   :: JJ          ! loop control
 INTEGER                   :: ILUOUT      ! Unit of the files
 INTEGER                   :: IINDEX      ! index of the pixel in the topo domain
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -88,7 +88,7 @@ IF (LHOOK) CALL DR_HOOK('READ_CONNEX_FILE',0,ZHOOK_HANDLE)
 WRITE(ILUOUT,*) 'Open ',HFILE,'debut'
 !
 DO JJ=1,7
-  READ(NUNIT,*) 
+  READ(NUNIT,*)
 ENDDO
 !
 DO JJ=1,KNMC
@@ -98,7 +98,7 @@ DO JJ=1,KNMC
   KLINE(IINDEX) = JJ
   !
 ENDDO
-!   
+!
 120   CALL CLOSE_FILE(HPROGRAM,NUNIT)
 !
 IF (LHOOK) CALL DR_HOOK('READ_CONNEX_FILE',1,ZHOOK_HANDLE)

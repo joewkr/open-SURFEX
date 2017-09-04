@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_IDEAL_FLUX(KFORCF, KFORCT, PTIMEF, PTIMET,   &
@@ -125,7 +125,7 @@ HUSTARTYPE = 'Z0   '
 !              ----------------
 !
 PZ0M = 0.01              ! unit in meters
-!      
+!
 !----------------------------------------------------------------------------------
 !
 !*       6.    Friction (used if XUSTARTYPE = 'USTAR')
@@ -151,7 +151,7 @@ PTSRAD(:) = XTT            ! radiative surface temperature, (unit is K)
 !
 PALB      = 0.             ! albedo, no unit
 PEMIS     = 1.             ! emissivity, no unit
-!      
+!
 IF (LHOOK) CALL DR_HOOK('DEFAULT_IDEAL_FLUX',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_IDEAL_FLUX

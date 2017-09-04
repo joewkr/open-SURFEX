@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE VEGETATION_EVOL(IO, DTI, PK, PEK, OAGRIP, PTSTEP, KMONTH, KDAY, PTIME, &
-                               PLAT, PRHOA, P_CO2, ISSK, PRESP_BIOMASS_INST, PSWDIR)  
+                               PLAT, PRHOA, P_CO2, ISSK, PRESP_BIOMASS_INST, PSWDIR)
 !   ###############################################################
 !!****  *VEGETATION EVOL*
 !!
@@ -13,7 +13,7 @@
 !
 !     performs the time evolution of vegetation parameters
 !     at solar midnight in the case of interactive vegetation (ISBA-Ags)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -23,13 +23,13 @@
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -37,16 +37,16 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/03/03 
-!!      P. Le Moigne 12/2004 : NIT version 
+!!      Original    01/03/03
+!!      P. Le Moigne 12/2004 : NIT version
 !!      P Le Moigne  09/2005 : AGS modifs of L. Jarlan
 !!      A.L. Gibelin 04/2009 : BIOMASS and RESP_BIOMASS arrays
-!!      A.L. Gibelin 04/2009 : Add NCB option 
+!!      A.L. Gibelin 04/2009 : Add NCB option
 !!      D. Carrer    01/2012 : representation of nitrogen dilution fct of CO2 (from Calvet et al. 2008)
 !!      B. Decharme  05/2012 : Optimization and ISBA-DIF coupling
 !!      C. Delire    01/2014 : IBIS respiration for tropical evergreen
-!!      R. Seferian  05/2015 : expanding of Nitrogen dilution option to the complete formulation proposed by Yin et al. GCB 2002 
-!!Seferian & Delire  06/2015 : accouting for living woody biomass respiration (expanding work of E Joetzjer to all woody PFTs) 
+!!      R. Seferian  05/2015 : expanding of Nitrogen dilution option to the complete formulation proposed by Yin et al. GCB 2002
+!!Seferian & Delire  06/2015 : accouting for living woody biomass respiration (expanding work of E Joetzjer to all woody PFTs)
 !!      B. Decharme    01/16 : Bug when vegetation veg, z0 and emis are imposed whith interactive vegetation
 !-------------------------------------------------------------------------------
 !
@@ -115,7 +115,7 @@ REAL, PARAMETER                   :: ZCOEF2 = 25.0
 REAL, PARAMETER                   :: ZDEPTH = 1.0   !Temp depth m
 !
 REAL, PARAMETER                   :: ZWOOD_IBIS=0.0125
-REAL, PARAMETER                   :: ZROOT_IBIS=1.25 
+REAL, PARAMETER                   :: ZROOT_IBIS=1.25
 REAL, PARAMETER                   :: ZCIBIS1   =3500.
 REAL, PARAMETER                   :: ZCIBIS2   =1./288.
 REAL, PARAMETER                   :: ZNDAY     =365.
@@ -132,12 +132,12 @@ REAL, PARAMETER                   :: ZDECIDUS   = 0.75        !Coef for decidus 
 !*      0.3    declarations of local variables
 !
 REAL, DIMENSION(SIZE(PEK%XRESP_BIOMASS,1),SIZE(PEK%XRESP_BIOMASS,2)) :: ZRESP_BIOMASS_LAST ! biomass at t-1 (kg_DM/m2/day)
-REAL,    DIMENSION(SIZE(PEK%XLAI,1))    :: ZBIOMASS_LEAF   ! temporary leaf biomass 
+REAL,    DIMENSION(SIZE(PEK%XLAI,1))    :: ZBIOMASS_LEAF   ! temporary leaf biomass
 REAL,    DIMENSION(SIZE(PEK%XLAI,1))    :: ZBSLAI_NITRO    ! (Calvet et al. 2008) ratio of biomass to LAI
                                                      ! with representation of nitrogen dilution
-REAL,    DIMENSION(SIZE(PEK%XLAI,1)) :: ZCO2, ZCNA_NITRO   ! fct of CO2        
+REAL,    DIMENSION(SIZE(PEK%XLAI,1)) :: ZCO2, ZCNA_NITRO   ! fct of CO2
 REAL,    DIMENSION(SIZE(PEK%XLAI,1)) :: ZPARAM
-REAL,    DIMENSION(SIZE(PEK%XLAI,1)) :: ZHTREE, ZSAPFRAC   ! tree height & sap fraction used for estimation of 
+REAL,    DIMENSION(SIZE(PEK%XLAI,1)) :: ZHTREE, ZSAPFRAC   ! tree height & sap fraction used for estimation of
                                                      ! sapwood fraction
 !
 REAL                              :: ZLOG2, ZWORK
@@ -200,10 +200,10 @@ ENDIF
 ZBIOMASS_LEAF(:) = PEK%XBIOMASS(:,1)
 !
 IF (GMASK) THEN
-  !        
+  !
   PK%XINCREASE (:,:) = 0.0
   PK%XTURNOVER(:,:) = 0.0
-  ZBSLAI_NITRO(:  ) = PK%XBSLAI_NITRO(:) 
+  ZBSLAI_NITRO(:  ) = PK%XBSLAI_NITRO(:)
   !
   IF(IO%LNITRO_DILU)THEN
 !
@@ -211,19 +211,19 @@ IF (GMASK) THEN
 !       We use the temperature of the second layer of the soil (<40cm)
 !       since the parametrization employs a daily temperature
 !
-    IF(IO%CISBA/='DIF')THEN        
+    IF(IO%CISBA/='DIF')THEN
       ZTG_VEG(:) = PEK%XTG(:,2)
-    ELSE 
+    ELSE
       DO JI=1,INI
          IDEPTH=PK%NWG_LAYER(JI)
          ZDG_SOIL(JI)=MIN(ZDEPTH_VEG,PK%XDG(JI,IDEPTH))
-      ENDDO  
+      ENDDO
       DO JL=1,INL
-        DO JI=1,INI     
-          ZWGHT_SOIL=MIN(PK%XDZG(JI,JL),MAX(0.0,ZDG_SOIL(JI)-PK%XDG(JI,JL)+PK%XDZG(JI,JL)))        
+        DO JI=1,INI
+          ZWGHT_SOIL=MIN(PK%XDZG(JI,JL),MAX(0.0,ZDG_SOIL(JI)-PK%XDG(JI,JL)+PK%XDZG(JI,JL)))
           ZTG_VEG(JI)=ZTG_VEG(JI)+PEK%XTG(JI,JL)*ZWGHT_SOIL/ZDG_SOIL(JI)
         ENDDO
-      ENDDO 
+      ENDDO
     ENDIF
 !
     ZPARAM(:) = 0.0
@@ -235,8 +235,8 @@ IF (GMASK) THEN
                               + (1 - XDILUDEC(JTYPE)) * (1.1 * ZPHOTON * XPARCF * PSWDIR(JI) &
                               + (ZTG_VEG(JI)-XTT)/ZTEMP_VEG - 0.33 * ZFERT(JI))
         ZPARAM(JI) = ZPARAM(JI) + ZPARAM_TYPE(JI,JTYPE) * PK%XVEGTYPE_PATCH(JI,JTYPE)
-      ENDDO 
-    ENDDO  
+      ENDDO
+    ENDDO
 
     WHERE((PEK%XCE_NITRO(:)*PEK%XCNA_NITRO(:)+PEK%XCF_NITRO(:))/=0.0.AND.PEK%XCNA_NITRO(:)/=0.0)
       ZCO2        (:) = P_CO2(:)*(XMD/(1.E-6*XMCO2))  ! (ppmm ->  ppm)
@@ -246,13 +246,13 @@ IF (GMASK) THEN
     ENDWHERE
 !
   ENDIF
-!    
+!
   IF(ANY(PEK%XLAI(:)/=XUNDEF))THEN
     CALL NITRO_DECLINE(IO, PK, PEK, GWOOD, ZBSLAI_NITRO, PLAT, ZBIOMASS_LEAF)
     CALL LAIGAIN(ZBSLAI_NITRO, PEK, ZBIOMASS_LEAF)
   ENDIF
-  !  
-  ! reinitialise  PEK%XANDAY(:) and PEK%XANFM(:) 
+  !
+  ! reinitialise  PEK%XANDAY(:) and PEK%XANFM(:)
   PEK%XANDAY(:)=0.0
   PEK%XANFM(:) =0.0
   !
@@ -263,68 +263,68 @@ ENDIF
 !
 ZTG_VEG(:) = PEK%XTG(:,1)
 !
-IF(IO%CISBA/='DIF')THEN        
+IF(IO%CISBA/='DIF')THEN
   ZTG_SOIL(:) = PEK%XTG(:,2)
-ELSE       
+ELSE
   DO JI=1,INI
     IDEPTH=PK%NWG_LAYER(JI)
     ZDG_SOIL(JI)=MIN(ZDEPTH,PK%XDG(JI,IDEPTH))
-  ENDDO  
+  ENDDO
   DO JL=1,INL
-    DO JI=1,INI     
-      ZWGHT_SOIL=MIN(PK%XDZG(JI,JL),MAX(0.0,ZDG_SOIL(JI)-PK%XDG(JI,JL)+PK%XDZG(JI,JL)))        
+    DO JI=1,INI
+      ZWGHT_SOIL=MIN(PK%XDZG(JI,JL),MAX(0.0,ZDG_SOIL(JI)-PK%XDG(JI,JL)+PK%XDZG(JI,JL)))
       ZTG_SOIL(JI)=ZTG_SOIL(JI)+PEK%XTG(JI,JL)*ZWGHT_SOIL/ZDG_SOIL(JI)
     ENDDO
-  ENDDO 
+  ENDDO
 ENDIF
 !
 !
 ! * Respiration of structural biomass pools
 !
 WHERE(GWOOD(:))
-  ! IBIS respiration with either respiration factor rwood=0.0125 - otherwise rroot=1.25 
-  ! (Kucharik et al, 2000, eq 6-8) Soil temp in K         
+  ! IBIS respiration with either respiration factor rwood=0.0125 - otherwise rroot=1.25
+  ! (Kucharik et al, 2000, eq 6-8) Soil temp in K
   PEK%XRESP_BIOMASS(:,2) = PEK%XRESP_BIOMASS(:,2) + PEK%XBIOMASS(:,2) * PTSTEP &
-                              * MAX(0.,ZROOT_IBIS*EXP(ZCIBIS1*(ZCIBIS2-1./ZTG_VEG(:)))/(ZNDAY*XDAY)) 
-ELSEWHERE 
+                              * MAX(0.,ZROOT_IBIS*EXP(ZCIBIS1*(ZCIBIS2-1./ZTG_VEG(:)))/(ZNDAY*XDAY))
+ELSEWHERE
   PEK%XRESP_BIOMASS(:,2) = PEK%XRESP_BIOMASS(:,2) + PEK%XBIOMASS(:,2) * XRESPFACTOR_NIT    &
-                              * EXP((ZLOG2/ZCOEF1)*(ZTG_VEG(:)-XTT-ZCOEF2)) * PTSTEP  
-  ! before optimization                   * 2.0**((PEK%XTG(:,2)-XTT-ZCOEF2)/ZCOEF1) * PTSTEP               
+                              * EXP((ZLOG2/ZCOEF1)*(ZTG_VEG(:)-XTT-ZCOEF2)) * PTSTEP
+  ! before optimization                   * 2.0**((PEK%XTG(:,2)-XTT-ZCOEF2)/ZCOEF1) * PTSTEP
 ENDWHERE
 !
 IF (IO%CPHOTO == 'NIT') THEN
   !
   PEK%XRESP_BIOMASS(:,3) = PEK%XRESP_BIOMASS(:,3) + PEK%XBIOMASS(:,3) * XRESPFACTOR_NIT &
-                            * EXP((ZLOG2/ZCOEF1)*(ZTG_SOIL(:)-XTT-ZCOEF2)) * PTSTEP  
-  ! before optimization                   * 2.0**((PEK%XTG(:,2)-XTT-ZCOEF2)/ZCOEF1) * PTSTEP               
+                            * EXP((ZLOG2/ZCOEF1)*(ZTG_SOIL(:)-XTT-ZCOEF2)) * PTSTEP
+  ! before optimization                   * 2.0**((PEK%XTG(:,2)-XTT-ZCOEF2)/ZCOEF1) * PTSTEP
   !
 ELSEIF (IO%CPHOTO == 'NCB') THEN
   !
   PEK%XRESP_BIOMASS(:,2) = MIN(PEK%XRESP_BIOMASS(:,2), PEK%XBIOMASS(:,2))
-  ! 
+  !
   PEK%XRESP_BIOMASS(:,3) = PEK%XRESP_BIOMASS(:,3) + PEK%XBIOMASS(:,3) * &
-            MAX( 0., XCOEFF_MAINT_RESP_ZERO * (1. + XSLOPE_MAINT_RESP*(ZTG_VEG(:)-XTT))) * PTSTEP  
+            MAX( 0., XCOEFF_MAINT_RESP_ZERO * (1. + XSLOPE_MAINT_RESP*(ZTG_VEG(:)-XTT))) * PTSTEP
   PEK%XRESP_BIOMASS(:,3) = MIN(PEK%XRESP_BIOMASS(:,3), PEK%XBIOMASS(:,3))
-  ! 
+  !
   WHERE(GWOOD(:))
     ! Resp IBIS (Soil temp in K)
     PEK%XRESP_BIOMASS(:,4) = PEK%XRESP_BIOMASS(:,4) + PEK%XBIOMASS(:,4) * PTSTEP &
                         * MAX(0.,ZROOT_IBIS * EXP(ZCIBIS1*(ZCIBIS2-1./ZTG_SOIL(:)))/(ZNDAY*XDAY))
-  ELSEWHERE 
+  ELSEWHERE
     PEK%XRESP_BIOMASS(:,4) = PEK%XRESP_BIOMASS(:,4) + PEK%XBIOMASS(:,4) * &
-             MAX( 0., XCOEFF_MAINT_RESP_ZERO * (1. + XSLOPE_MAINT_RESP*(ZTG_SOIL(:)-XTT))) * PTSTEP  
+             MAX( 0., XCOEFF_MAINT_RESP_ZERO * (1. + XSLOPE_MAINT_RESP*(ZTG_SOIL(:)-XTT))) * PTSTEP
   ENDWHERE
   !
   PEK%XRESP_BIOMASS(:,4) = MIN(PEK%XRESP_BIOMASS(:,4), PEK%XBIOMASS(:,4))
   !
   WHERE( (GWOOD(:)).AND.(PEK%XBIOMASS(:,5)>0.) )
-    ! IBIS estimation of sapwood fraction based on the height of tree, sapspeed and 
-    ! max transpiration rates. Conversion from DM to C. To be changed with DGVM.  (Soil temp in K)        
+    ! IBIS estimation of sapwood fraction based on the height of tree, sapspeed and
+    ! max transpiration rates. Conversion from DM to C. To be changed with DGVM.  (Soil temp in K)
     ZHTREE(:) = 2.5*0.75*(PEK%XBIOMASS(:,1)+PEK%XBIOMASS(:,2)+PEK%XBIOMASS(:,3)+&
                           PEK%XBIOMASS(:,4)+PEK%XBIOMASS(:,5)+PEK%XBIOMASS(:,6))*0.4
     ZSAPFRAC(:) = MIN(0.5, MAX(0.05,0.0025/25.*ZHTREE(:)*0.75*400/(PEK%XBIOMASS(:,5)*0.4)))
     !ZSAPFRAC(:) = 0.5
-    
+
     PEK%XRESP_BIOMASS(:,5) = PEK%XRESP_BIOMASS(:,5) + PEK%XBIOMASS(:,5) * ZSAPFRAC(:) * PTSTEP &
                                * MAX(0.,ZWOOD_IBIS*EXP(ZCIBIS1*(ZCIBIS2-1./ZTG_VEG(:)))/(ZNDAY*XDAY))
     PEK%XRESP_BIOMASS(:,5) = MIN(PEK%XRESP_BIOMASS(:,5), PEK%XBIOMASS(:,5))
@@ -338,7 +338,7 @@ ENDIF
 !
 DO JL=2,SIZE(PEK%XRESP_BIOMASS(:,:),2)
    PRESP_BIOMASS_INST(:,JL) = (PEK%XRESP_BIOMASS(:,JL) - ZRESP_BIOMASS_LAST(:,JL)) &
-                                 * XPCCO2*XMCO2/(PTSTEP*PRHOA(:)*XMC)                              
+                                 * XPCCO2*XMCO2/(PTSTEP*PRHOA(:)*XMC)
 ENDDO
 !
 !*      3.     Agricultural practices
@@ -350,7 +350,7 @@ IF (OAGRIP) THEN
   WHERE ( PEK%TSEED(:)%TDATE%MONTH /= NUNDEF .AND. ( KMONTH < PEK%TSEED(:)%TDATE%MONTH .OR. &
          (KMONTH == PEK%TSEED(:)%TDATE%MONTH .AND. KDAY < PEK%TSEED(:)%TDATE%DAY) ) )  GMASK_AGRI(:) = .TRUE.
   WHERE ( PEK%TREAP(:)%TDATE%MONTH /= NUNDEF .AND. ( KMONTH > PEK%TREAP(:)%TDATE%MONTH .OR. &
-         (KMONTH == PEK%TREAP(:)%TDATE%MONTH .AND. KDAY >= PEK%TREAP(:)%TDATE%DAY) ) ) GMASK_AGRI(:) = .TRUE. 
+         (KMONTH == PEK%TREAP(:)%TDATE%MONTH .AND. KDAY >= PEK%TREAP(:)%TDATE%DAY) ) ) GMASK_AGRI(:) = .TRUE.
   !
   WHERE (GMASK_AGRI(:))
     PEK%XLAI(:)             = PEK%XLAIMIN(:)
@@ -367,7 +367,7 @@ IF (OAGRIP) THEN
   !
   IF (IO%CPHOTO == 'NCB') THEN
     !
-    WHERE (GMASK_AGRI(:)) 
+    WHERE (GMASK_AGRI(:))
       PEK%XBIOMASS(:,4)       = 0.0
       PEK%XBIOMASS(:,5)       = 0.0
       PEK%XBIOMASS(:,6)       = 0.0
@@ -386,7 +386,7 @@ IF (GMASK) THEN
   ! Evolution of vegetation fraction and roughness length due to LAI change
   IF(.NOT.DTI%LIMP_Z0) THEN
     WHERE( PEK%XVEG(:) > 0. ) &
-      PEK%XZ0 (:) = Z0V_FROM_LAI(PEK%XLAI(:),PK%XH_TREE(:),PK%XVEGTYPE_PATCH(:,:),IO%LAGRI_TO_GRASS) 
+      PEK%XZ0 (:) = Z0V_FROM_LAI(PEK%XLAI(:),PK%XH_TREE(:),PK%XVEGTYPE_PATCH(:,:),IO%LAGRI_TO_GRASS)
   ENDIF
   IF(.NOT.DTI%LIMP_VEG) THEN
     WHERE( PEK%XVEG(:) > 0. ) &
@@ -398,7 +398,7 @@ IF (GMASK) THEN
     WHERE( PEK%XVEG(:) > 0. ) PEK%XEMIS(:)= EMIS_FROM_VEG(PEK%XVEG(:),PK%XVEGTYPE_PATCH(:,:))
   ENDIF
   !
-  CALL ALBEDO(IO%CALBEDO, PEK )  
+  CALL ALBEDO(IO%CALBEDO, PEK )
   !
   ! Evolution of effective roughness length due to new surface roughness length
   !

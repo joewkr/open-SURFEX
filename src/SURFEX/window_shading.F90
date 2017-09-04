@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
 SUBROUTINE WINDOW_SHADING(PSHGC, PSHGC_SH, O_SHADE, PALB_WALL,      &
@@ -9,19 +9,19 @@ SUBROUTINE WINDOW_SHADING(PSHGC, PSHGC_SH, O_SHADE, PALB_WALL,      &
 !
 !
 !
-!!****  *WINDOW_SHADING*  
+!!****  *WINDOW_SHADING*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the radiative properties of the window in case of shading
 !     devices active
-!         
-!     
+!
+!
 !!**  METHOD
 !!     ------
-!!     
-!!    apply radiative properties coming from namelist input (SHGC_SH)  
+!!
+!!    apply radiative properties coming from namelist input (SHGC_SH)
 !!
 !!    EXTERNAL
 !!    --------
@@ -32,12 +32,12 @@ SUBROUTINE WINDOW_SHADING(PSHGC, PSHGC_SH, O_SHADE, PALB_WALL,      &
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!   EnergyPlus Engineering Reference V7, 2012, p. 217.
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -58,7 +58,7 @@ REAL,    DIMENSION(:), INTENT(IN) :: PSHGC     !Window solar heat gain coefficie
 REAL,    DIMENSION(:), INTENT(IN) :: PSHGC_SH  !Window + shading solar heat gain coefficient
 LOGICAL, DIMENSION(:), INTENT(IN) :: O_SHADE   !use of shadings TRUE -> shadings ;
                                                !FALSE -> no shading
-REAL, DIMENSION(:), INTENT(IN)  :: PALB_WALL !albedo of the wall     
+REAL, DIMENSION(:), INTENT(IN)  :: PALB_WALL !albedo of the wall
 REAL, DIMENSION(:), INTENT(IN)  :: PABS_WIN  !Window absorptivity
 REAL, DIMENSION(:), INTENT(OUT) :: PABS_WINSH!Window absorptivity after shading
 REAL, DIMENSION(:), INTENT(OUT) :: PALB_WIN  !Albedo of the ensemble window + shading
@@ -75,7 +75,7 @@ WHERE(O_SHADE)
   PALB_WIN  (:) = PALB_WALL(:)
 ELSE WHERE
   PTRAN_WIN(:) = PTRAN_WIN(:)
-  PABS_WINSH(:) = PABS_WIN(:)                                
+  PABS_WINSH(:) = PABS_WIN(:)
   PALB_WIN  (:) = 1. - PABS_WIN(:) - PTRAN_WIN(:)
 END WHERE
 !

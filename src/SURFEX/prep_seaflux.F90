@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_SEAFLUX (DTCO, UG, U, GCP, SG, SB, S, DTS, O, OR, &
@@ -17,19 +17,19 @@ SUBROUTINE PREP_SEAFLUX (DTCO, UG, U, GCP, SG, SB, S, DTS, O, OR, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     S. Malardel 
+!!     S. Malardel
 !!
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    01/2004
 !!      S. Riette   06/2009 PREP_SEAFLUX_SBL has no more argument
 !!      Modified    07/2012, P. Le Moigne : CMO1D phasing
-!!      Modified    01/2014, S. Senesi : introduce sea-ice model 
-!!      Modified    01/2015, R. Séférian : introduce ocean surface albedo 
+!!      Modified    01/2014, S. Senesi : introduce sea-ice model
+!!      Modified    01/2015, R. Séférian : introduce ocean surface albedo
 !!      P. Marguinaud10/2014, Support for a 2-part PREP
 !!------------------------------------------------------------------
 !
@@ -147,7 +147,7 @@ CALL PREP_HOR_SEAFLUX_FIELD(DTCO, UG, U, GCP, DTS, O, OR, SIZE(SG%XLAT), S, &
 !
 !*      2.1.3   Sea-ice
 !
-IF (CSEAICE_SCHEME /= 'NONE  ') THEN 
+IF (CSEAICE_SCHEME /= 'NONE  ') THEN
    CALL PREP_SEAICE(UG, DTCO, DTS, O, OR, SIZE(SG%XLAT), S, U, GCP, &
                     HPROGRAM,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,YDCTL)
 ENDIF

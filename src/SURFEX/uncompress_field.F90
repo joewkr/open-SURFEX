@@ -1,7 +1,7 @@
 SUBROUTINE UNCOMPRESS_FIELD(KLONG,PSEUIL,PFIELD_IN,PFIELD_OUT)
 
 IMPLICIT NONE
- 
+
 INTEGER*4, INTENT(IN) :: KLONG
 REAL, INTENT(IN) :: PSEUIL
 REAL, DIMENSION(:), INTENT(IN) :: PFIELD_IN
@@ -15,8 +15,8 @@ I = 1
 PFIELD_OUT(:) = 0.
 !
 ! boucle sur les colonnes
-DO 
-           
+DO
+
   ! si on a dépassé la dernière colonne, on sort de la boucle
   IF (ICPT>=KLONG) EXIT
 

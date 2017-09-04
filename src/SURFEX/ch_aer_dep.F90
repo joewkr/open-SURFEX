@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
      SUBROUTINE CH_AER_DEP (PSVT, PFSVT,  PUSTAR, &
-                      PRESA, PTA, PRHODREF)  
+                      PRESA, PTA, PRHODREF)
 !###########################################################
   !
-  !!                   
-  !!                       
+  !!
+  !!
   !!
   !!    PURPOSE
   !!    -------
-  !!      
-  !!    Compute dry deposition velocity for aerosol species 
+  !!
+  !!    Compute dry deposition velocity for aerosol species
   !!
   !!    AUTHOR
   !!    ------
@@ -53,7 +53,7 @@
   !*       0.2   Declarations of local variables :
   !
   REAL , DIMENSION(SIZE(PSVT,1), JPIN) :: ZRD ! surface  resistance
-  REAL , DIMENSION(SIZE(PSVT,1), JPIN) :: ZVD  
+  REAL , DIMENSION(SIZE(PSVT,1), JPIN) :: ZVD
   REAL , DIMENSION(SIZE(PSVT,1), JPIN) :: Stn ! Stockes number
   REAL , DIMENSION(SIZE(PSVT,1), JPIN) :: Sc
   REAL , DIMENSION(SIZE(PSVT,1))      :: WCn
@@ -131,7 +131,7 @@ END DO
       !Sc(:,JN)= ZNU(:)/Dg(:,JN)
       Sc(:,JN)= ZNU(:)/zdsg(:,JN)
   END DO
-!Scale for convective velocity 
+!Scale for convective velocity
 ! WCn(:) = MAX((PTKE(:) - 4.65* ZUSTAR(:)**2)/0.3, 1.E-20)
 
 
@@ -152,7 +152,7 @@ DO JT=1,SIZE(PSVT,1)
       ZTMP1=0.
       ZTMP2=0.
       ZTMP3=0.
-      ZTMP4=0.  
+      ZTMP4=0.
       Stn(JT,JN)= zvsg(JT,JN)*ZUSTAR(JT)**2/(ZG*ZNU(JT))
       ZTMP1=Sc(JT,JN)**(-2./3.)
       ZTMP2=(-3./Stn(JT,JN))
@@ -162,16 +162,16 @@ DO JT=1,SIZE(PSVT,1)
         ZTMP3=0.
       ENDIF
       ZTMP4=ZTMP1+ZTMP3
-     
+
      !ZRD(:,JN) = (Sc(:,JN)**(-2./3.)+ 10**(-3./Stn(:,JN)))&
      !      * (1 + 0.24 * WCn(:)**2 /ZUSTAR(:)**2) &
-     !      * ZUSTAR(:)  
+     !      * ZUSTAR(:)
      !ZRD(:,JN) = ZUSTAR(:) * (Sc(:,JN)**(-2./3.)+ &
-     !                           10**(-3./Stn(:,JN)))   
-     ZRD(JT,JN) = ZUSTAR(JT) * ZTMP4                                
-     ZRD(JT,JN) = MAX(ZRD(JT,JN),1.E-10) 
-     ZRD(JT,JN) = 1. / ZRD(JT,JN) 
-     ZWORK(JT,JN)= ZRESA(JT) + ZRD(JT,JN) + ZRESA(JT)*ZRD(JT,JN)*zvs(JT,JN)  
+     !                           10**(-3./Stn(:,JN)))
+     ZRD(JT,JN) = ZUSTAR(JT) * ZTMP4
+     ZRD(JT,JN) = MAX(ZRD(JT,JN),1.E-10)
+     ZRD(JT,JN) = 1. / ZRD(JT,JN)
+     ZWORK(JT,JN)= ZRESA(JT) + ZRD(JT,JN) + ZRESA(JT)*ZRD(JT,JN)*zvs(JT,JN)
      ZWORK(JT,JN)= MAX(ZWORK(JT,JN), 1.E-10)
      ZWORK(JT,JN)= zvs(JT,JN) + 1./ ZWORK(JT,JN)
         !         deposition velocity for each cover type
@@ -181,7 +181,7 @@ DO JT=1,SIZE(PSVT,1)
  ELSE
    ZVD(JT,:) = 0.
  END IF
-ENDDO  
+ENDDO
 
 M6I=0
 M6J=0

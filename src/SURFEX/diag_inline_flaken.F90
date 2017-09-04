@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE DIAG_INLINE_FLAKE_n (DGO, D, DC, F, &
@@ -9,7 +9,7 @@
                                        PCD, PCDN, PCH, PRI, PHU,                  &
                                        PZ0H, PQSAT, PSFTH, PSFTQ, PSFZON, PSFMER, &
                                        PDIR_SW, PSCA_SW, PLW, PDIR_ALB, PSCA_ALB, &
-                                       PLE, PLEI, PSUBL, PLWUP, PALB, PSWE        )  
+                                       PLE, PLEI, PSUBL, PLWUP, PALB, PSWE        )
 !     ###############################################################################
 !
 !!****  *DIAG_INLINE_FLAKE_n * - computes diagnostics during FLAKE time-step
@@ -22,11 +22,11 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -119,11 +119,11 @@ D%XTS(:) = F%XTS(:)
 IF (.NOT. F%LSBL) THEN
 !
   IF (DGO%N2M==2) THEN
-    ZH(:)=2.          
+    ZH(:)=2.
     CALL CLS_TQ(PTA, PQA, PPA, PPS, PHT, PCD, PCH, PRI, &
-                  F%XTS, PHU, PZ0H, ZH, D%XT2M, D%XQ2M, D%XHU2M )  
-    ZH(:)=10.                
-    CALL CLS_WIND(PZONA, PMERA, PHW, PCD, PCDN, PRI, ZH, D%XZON10M, D%XMER10M )  
+                  F%XTS, PHU, PZ0H, ZH, D%XT2M, D%XQ2M, D%XHU2M )
+    ZH(:)=10.
+    CALL CLS_WIND(PZONA, PMERA, PHW, PCD, PCDN, PRI, ZH, D%XZON10M, D%XMER10M )
   END IF
 !
   IF (DGO%N2M>=1) THEN
@@ -164,12 +164,12 @@ IF (DGO%LSURF_BUDGET.OR.DGO%LSURF_BUDGETC) THEN
   D%XSWE (:) = PSWE (:)
   !
   CALL  DIAG_SURF_BUDGET_FLAKE (D, PRHOA, PSFTH, PDIR_SW, PSCA_SW, PLW, &
-                                PDIR_ALB, PSCA_ALB, PLWUP, PSFZON, PSFMER )  
+                                PDIR_ALB, PSCA_ALB, PLWUP, PSFZON, PSFMER )
   !
 END IF
 !
 IF(DGO%LSURF_BUDGETC)THEN
-  CALL DIAG_SURF_BUDGETC(D, DC, PTSTEP, .TRUE.)  
+  CALL DIAG_SURF_BUDGETC(D, DC, PTSTEP, .TRUE.)
 ENDIF
 !
 IF (DGO%LCOEF) THEN
@@ -200,7 +200,7 @@ END IF
 IF (LCPL_LAKE) THEN
 !
   CALL DIAG_CPL_ESM_FLAKE(F,PTSTEP,PRAIN,PSNOW,PSFTQ)
-! 
+!
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('DIAG_INLINE_FLAKE_N',1,ZHOOK_HANDLE)

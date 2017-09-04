@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
       SUBROUTINE REGULAR_GRID_SPAWN(U,KLUOUT,                               &
@@ -31,11 +31,11 @@
 !!
 !!    AUTHOR
 !!    ------
-!!	V. Masson   *Meteo France*	
+!!	V. Masson   *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!        M.Moge    04/2015  Parallelization using routines from MNH/SURCOUCHE
 !!        M.Moge    06/2015  bug fix for reproductibility using UPDATE_NHALO1D
 !!        M.Moge    01/2016  bug fix for parallel execution with SPLIT2
@@ -188,13 +188,13 @@ END IF
 IF ( KXOR+KXSIZE-1 > KIMAX1 ) THEN
   WRITE(KLUOUT,*) 'spawned domain is not contained in the input domain'
   WRITE(KLUOUT,*) 'IXOR = ', KXOR, ' IXSIZE = ', KXSIZE,&
-                    ' with NIMAX(file) = ', KIMAX1  
+                    ' with NIMAX(file) = ', KIMAX1
   CALL ABOR1_SFX('REGULAR_GRID_SPAWN: (1) SPAWNED DOMAIN NOT CONTAINED IN INPUT DOMAIN')
 END IF
 IF ( KYOR+KYSIZE-1 > KJMAX1 ) THEN
   WRITE(KLUOUT,*) 'spawned domain is not contained in the input domain'
   WRITE(KLUOUT,*) 'IYOR = ', KYOR, ' IYSIZE = ', KYSIZE,&
-                    ' with NJMAX(file) = ', KJMAX1  
+                    ' with NJMAX(file) = ', KJMAX1
   CALL ABOR1_SFX('REGULAR_GRID_SPAWN: (2) SPAWNED DOMAIN NOT CONTAINED IN INPUT DOMAIN')
 END IF
 #endif
@@ -234,7 +234,7 @@ ENDDO
 ! partition son domain on father grid (with global coordinates on father grid)
 !
 ! we have to add one point on the west and south sides -> hence the "- 1"
-! Warning : we cannot just call SPLIT2(KXSIZE, KYSIZE, 1, NPROC, TZCOARSESONSPLIT, YSPLITTING) as it would not 
+! Warning : we cannot just call SPLIT2(KXSIZE, KYSIZE, 1, NPROC, TZCOARSESONSPLIT, YSPLITTING) as it would not
 !           necessarily split the son domain the same way the father domain was splitted
 !           example : if father domain is 30x40 and son domain is 6x5 (in father grid dimensions) then
 !                     with NPROC = 2, SPLIT2 will split father domain along Y dimension -> 30x20 local domains
@@ -336,7 +336,7 @@ ENDDO
       TZCRSPDSENDTAB(J)%NCARD = ICARD
       TZCRSPDSENDTAB(J)%NCARDDIF = ICARDDIF
     ENDDO
-  ELSE 
+  ELSE
     !il faut tout de meme mettre un element de taille 0 dans TZCRSPDSENDTAB
     !sinon SEND_RECV_FIELD plante en 02
     ALLOCATE( TZCRSPDSENDTAB(1) )
@@ -523,7 +523,7 @@ END IF
     ZYHAT2_F( 1,TZRECV(IP)%NYOR:TZRECV(IP)%NYEND, 1) = ZYHAT1_3D( 1,TZSEND(IP)%NYOR:TZSEND(IP)%NYEND, 1)
 !  ENDDO
   ENDIF
-  ! 
+  !
   ! We need one halo point on the east and north sides of each local subdomain to do a proper interpolation
   !
   ALLOCATE( ZXHAT2_F_TMP(IXDIM_C+1) )

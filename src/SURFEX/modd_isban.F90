@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !##################
 MODULE MODD_ISBA_n
@@ -14,7 +14,7 @@ MODULE MODD_ISBA_n
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -26,14 +26,14 @@ MODULE MODD_ISBA_n
 !!    MODIFICATIONS
 !!    -------------
 !!      Original       20/09/02
-!!      A.L. Gibelin    04/2009 : BIOMASS and RESP_BIOMASS arrays 
-!!      A.L. Gibelin    04/2009 : TAU_WOOD for NCB option 
+!!      A.L. Gibelin    04/2009 : BIOMASS and RESP_BIOMASS arrays
+!!      A.L. Gibelin    04/2009 : TAU_WOOD for NCB option
 !!      A.L. Gibelin    05/2009 : Add carbon spinup
 !!      A.L. Gibelin    06/2009 : Soil carbon variables for CNT option
 !!      A.L. Gibelin    07/2009 : Suppress RDK and transform GPP as a diagnostic
 !!      A.L. Gibelin    07/2009 : Suppress PPST and PPSTF as outputs
 !!      P. Samuelsson   02/2012 : MEB
-!!      B. Decharme    10/2016  bug surface/groundwater coupling 
+!!      B. Decharme    10/2016  bug surface/groundwater coupling
 !!
 !-------------------------------------------------------------------------------
 !
@@ -84,7 +84,7 @@ REAL, POINTER, DIMENSION(:) :: XF_PARAM
 REAL, POINTER, DIMENSION(:) :: XC_DEPTH_RATIO
 !
 ! - Coupling with river routing model
-!  
+!
 REAL, POINTER, DIMENSION(:)  :: XCPL_DRAIN   ! Surface runoff
 REAL, POINTER, DIMENSION(:)  :: XCPL_RUNOFF  ! Deep drainage or gourdwater recharge
 REAL, POINTER, DIMENSION(:)  :: XCPL_ICEFLUX ! Calving flux
@@ -143,37 +143,37 @@ REAL, POINTER, DIMENSION(:,:)    :: XCLAY          ! clay fraction              
 !
 REAL, POINTER, DIMENSION(:)      :: XPERM          ! permafrost distribution                 (-)
 !
-REAL, POINTER, DIMENSION(:)      :: XRUNOFFB       ! sub-grid dt92 surface runoff slope parameter (-)  
+REAL, POINTER, DIMENSION(:)      :: XRUNOFFB       ! sub-grid dt92 surface runoff slope parameter (-)
 REAL, POINTER, DIMENSION(:)      :: XWDRAIN        ! continuous drainage parameter           (-)
 !
 !
-REAL, POINTER, DIMENSION(:)      :: XTDEEP         ! prescribed deep soil temperature 
+REAL, POINTER, DIMENSION(:)      :: XTDEEP         ! prescribed deep soil temperature
 !                                                  ! (optional)
 REAL, POINTER, DIMENSION(:)      :: XGAMMAT        ! 'Force-Restore' timescale when using a
 !                                                  ! prescribed lower boundary temperature   (1/days)
 !
 REAL, POINTER, DIMENSION(:,:)    :: XMPOTSAT       ! matric potential at saturation          (m)
 REAL, POINTER, DIMENSION(:,:)    :: XBCOEF         ! soil water CH78 b-parameter             (-)
-REAL, POINTER, DIMENSION(:,:)    :: XWWILT         ! wilting point volumetric water content 
+REAL, POINTER, DIMENSION(:,:)    :: XWWILT         ! wilting point volumetric water content
 !                                                  ! profile                                 (m3/m3)
 REAL, POINTER, DIMENSION(:,:)    :: XWFC           ! field capacity volumetric water content
 !                                                  ! profile                                 (m3/m3)
-REAL, POINTER, DIMENSION(:,:)    :: XWSAT          ! porosity profile                        (m3/m3) 
+REAL, POINTER, DIMENSION(:,:)    :: XWSAT          ! porosity profile                        (m3/m3)
 !
-REAL, POINTER, DIMENSION(:)      :: XCGSAT         ! soil thermal inertia coefficient at 
+REAL, POINTER, DIMENSION(:)      :: XCGSAT         ! soil thermal inertia coefficient at
 !                                                  ! saturation
-REAL, POINTER, DIMENSION(:)      :: XC4B           ! 'Force-Restore' sub-surface vertical 
+REAL, POINTER, DIMENSION(:)      :: XC4B           ! 'Force-Restore' sub-surface vertical
 !                                                  ! diffusion coefficient (slope parameter) (-)
-REAL, POINTER, DIMENSION(:)      :: XACOEF         ! 'Force-Restore' surface vertical 
+REAL, POINTER, DIMENSION(:)      :: XACOEF         ! 'Force-Restore' surface vertical
 !                                                  ! diffusion coefficient                   (-)
-REAL, POINTER, DIMENSION(:)      :: XPCOEF         ! 'Force-Restore' surface vertical 
+REAL, POINTER, DIMENSION(:)      :: XPCOEF         ! 'Force-Restore' surface vertical
 !                                                  ! diffusion coefficient                   (-)
 REAL, POINTER, DIMENSION(:,:)    :: XHCAPSOIL      ! soil heat capacity                      (J/K/m3)
 REAL, POINTER, DIMENSION(:,:)    :: XCONDDRY       ! soil dry thermal conductivity           (W/m/K)
 REAL, POINTER, DIMENSION(:,:)    :: XCONDSLD       ! soil solids thermal conductivity        (W/m/K)
 !
 ! - Water table depth coupling
-!  
+!
 REAL, POINTER, DIMENSION(:)  :: XFWTD         ! grid-cell fraction of water table rise
 REAL, POINTER, DIMENSION(:)  :: XWTD          ! water table depth (negative below soil surface) (m)
 !
@@ -199,7 +199,7 @@ REAL, POINTER, DIMENSION(:)  :: XPIFLOOD     ! flood potential infiltration (kg/
 !
 ! - Flood scheme
 !
-REAL, POINTER, DIMENSION(:) :: XFF         ! Total Flood fraction  
+REAL, POINTER, DIMENSION(:) :: XFF         ! Total Flood fraction
 REAL, POINTER, DIMENSION(:) :: XFFG        ! Flood fraction over ground
 REAL, POINTER, DIMENSION(:) :: XFFV        ! Flood fraction over vegetation
 REAL, POINTER, DIMENSION(:) :: XFFROZEN    ! Fraction of frozen floodplains
@@ -226,42 +226,42 @@ REAL, POINTER, DIMENSION(:)    :: XPATCH         ! fraction of each tile/patch  
 !
 REAL, POINTER, DIMENSION(:,:)  :: XVEGTYPE_PATCH ! fraction of each vegetation type for
 !
-INTEGER, POINTER, DIMENSION(:) :: NR_P    ! patch/tile mask  
+INTEGER, POINTER, DIMENSION(:) :: NR_P    ! patch/tile mask
 !
 REAL, POINTER, DIMENSION(:)    :: XPATCH_OLD     ! fraction of each tile/patchfor land use (-)
 !
 !
 REAL, POINTER, DIMENSION(:)    :: XANMAX         ! maximum photosynthesis rate             (
-REAL, POINTER, DIMENSION(:)    :: XFZERO         ! ideal value of F, no photo- 
-!                                                ! respiration or saturation deficit  
-REAL, POINTER, DIMENSION(:)    :: XEPSO          ! maximum initial quantum use             
+REAL, POINTER, DIMENSION(:)    :: XFZERO         ! ideal value of F, no photo-
+!                                                ! respiration or saturation deficit
+REAL, POINTER, DIMENSION(:)    :: XEPSO          ! maximum initial quantum use
 !                                                ! efficiency                              (mg J-1 PAR)
 REAL, POINTER, DIMENSION(:)    :: XGAMM          ! CO2 conpensation concentration          (ppm)
-REAL, POINTER, DIMENSION(:)    :: XQDGAMM        ! Log of Q10 function for CO2 conpensation 
+REAL, POINTER, DIMENSION(:)    :: XQDGAMM        ! Log of Q10 function for CO2 conpensation
 !                                               ! concentration                           (-)
 REAL, POINTER, DIMENSION(:)    :: XQDGMES        ! Log of Q10 function for mesophyll conductance  (-)
-REAL, POINTER, DIMENSION(:)    :: XT1GMES        ! reference temperature for computing 
-!                                                ! compensation concentration function for 
+REAL, POINTER, DIMENSION(:)    :: XT1GMES        ! reference temperature for computing
+!                                                ! compensation concentration function for
 !                                                ! mesophyll conductance: minimum
 !                                                ! temperature                             (K)
-REAL, POINTER, DIMENSION(:)    :: XT2GMES        ! reference temperature for computing 
-!                                                ! compensation concentration function for 
+REAL, POINTER, DIMENSION(:)    :: XT2GMES        ! reference temperature for computing
+!                                                ! compensation concentration function for
 !                                                ! mesophyll conductance: maximum
 !                                                ! temperature                             (K)
 REAL, POINTER, DIMENSION(:)    :: XAMAX          ! leaf photosynthetic capacity            (mg m-2 s-1)
-REAL, POINTER, DIMENSION(:)    :: XQDAMAX        ! Log of Q10 function for leaf photosynthetic 
+REAL, POINTER, DIMENSION(:)    :: XQDAMAX        ! Log of Q10 function for leaf photosynthetic
 !                                                ! capacity                                (-)
-REAL, POINTER, DIMENSION(:)    :: XT1AMAX        ! reference temperature for computing 
-!                                                ! compensation concentration function for 
+REAL, POINTER, DIMENSION(:)    :: XT1AMAX        ! reference temperature for computing
+!                                                ! compensation concentration function for
 !                                                ! leaf photosynthetic capacity: minimum
 !                                                ! temperature                             (K)
-REAL, POINTER, DIMENSION(:)    :: XT2AMAX        ! reference temperature for computing 
-!                                                ! compensation concentration function for 
+REAL, POINTER, DIMENSION(:)    :: XT2AMAX        ! reference temperature for computing
+!                                                ! compensation concentration function for
 !                                                ! leaf photosynthetic capacity: maximum
 !                                                ! temperature                             (K)
-REAL, POINTER, DIMENSION(:)    :: XAH            ! coefficients for herbaceous water stress 
+REAL, POINTER, DIMENSION(:)    :: XAH            ! coefficients for herbaceous water stress
 !                                                ! response (offensive or defensive)       (log(mm/s))
-REAL, POINTER, DIMENSION(:)    :: XBH            ! coefficients for herbaceous water stress 
+REAL, POINTER, DIMENSION(:)    :: XBH            ! coefficients for herbaceous water stress
 !                                                ! response (offensive or defensive)
 REAL, POINTER, DIMENSION(:)    :: XTAU_WOOD      ! residence time in woody biomass         (s)
 REAL, POINTER, DIMENSION(:,:)   :: XINCREASE     ! biomass increase                     (kg/m2/day)
@@ -273,14 +273,14 @@ REAL, POINTER, DIMENSION(:,:)  :: XCONDSAT       ! hydraulic conductivity at sat
 !
 REAL, POINTER, DIMENSION(:)      :: XTAUICE        ! soil freezing characteristic timescale  (s)
 !
-REAL, POINTER, DIMENSION(:)    :: XC1SAT         ! 'Force-Restore' C1 coefficient at 
+REAL, POINTER, DIMENSION(:)    :: XC1SAT         ! 'Force-Restore' C1 coefficient at
 !                                                ! saturation                              (-)
 REAL, POINTER, DIMENSION(:)    :: XC2REF         ! 'Force-Restore' reference value of C2   (-)
 REAL, POINTER, DIMENSION(:,:)  :: XC3            ! 'Force-Restore' C3 drainage coefficient (m)
-REAL, POINTER, DIMENSION(:)    :: XC4REF         ! 'Force-Restore' sub-surface vertical 
+REAL, POINTER, DIMENSION(:)    :: XC4REF         ! 'Force-Restore' sub-surface vertical
 !                                                ! for lateral drainage ('DIF' option)
 !
-REAL, POINTER, DIMENSION(:)    :: XBSLAI_NITRO   ! biomass/LAI ratio from nitrogen 
+REAL, POINTER, DIMENSION(:)    :: XBSLAI_NITRO   ! biomass/LAI ratio from nitrogen
 !                                                  ! decline theory                        (kg/m2)
 ! * Soil thermal characteristics
 !
@@ -307,9 +307,9 @@ REAL, POINTER, DIMENSION(:)  :: XKSAT_ICE        ! hydraulic conductivity at sat
 REAL, POINTER, DIMENSION(:,:) :: XTOPQS  ! Topmodel subsurface flow by layer (m/s)
 !
 REAL, POINTER, DIMENSION(:,:) :: XDG           ! soil layer depth                  (m)
-!                                                ! NOTE: in Force-Restore mode, the 
+!                                                ! NOTE: in Force-Restore mode, the
 !                                                ! uppermost layer depth is superficial
-!                                                ! and is only explicitly used for soil 
+!                                                ! and is only explicitly used for soil
 !                                                ! water phase changes                     (m)
 !
 REAL, POINTER, DIMENSION(:,:)  :: XDG_OLD      ! For land use
@@ -345,17 +345,17 @@ TYPE ISBA_PE_t
 ! - Soil and vegetation heat and water:
 !
 REAL, POINTER, DIMENSION(:,:) :: XWG           ! soil volumetric water content profile   (m3/m3)
-REAL, POINTER, DIMENSION(:,:) :: XWGI          ! soil liquid water equivalent volumetric 
+REAL, POINTER, DIMENSION(:,:) :: XWGI          ! soil liquid water equivalent volumetric
 !                                                ! ice content profile                     (m3/m3)
 REAL, POINTER, DIMENSION(:)   :: XWR           ! liquid water retained on the
 !                                                ! foliage of the vegetation
 !                                                ! canopy                                  (kg/m2)
-REAL, POINTER, DIMENSION(:,:) :: XTG           ! surface and sub-surface soil 
+REAL, POINTER, DIMENSION(:,:) :: XTG           ! surface and sub-surface soil
 !                                                ! temperature profile                     (K)
 !
 ! - Snow Cover:
 !
-TYPE(SURF_SNOW) :: TSNOW                         ! snow state: 
+TYPE(SURF_SNOW) :: TSNOW                         ! snow state:
 !                                                ! scheme type/option                      (-)
 !                                                ! number of layers                        (-)
 !                                                ! snow (& liq. water) content             (kg/m2)
@@ -392,14 +392,14 @@ REAL, POINTER, DIMENSION(:) :: XFAPIRC       ! Fapir of vegetation (cumul)
 REAL, POINTER, DIMENSION(:) :: XLAI_EFFC     ! Effective LAI (cumul)
 REAL, POINTER, DIMENSION(:) :: XMUS          ! cos zenithal angle (cumul)
 !
-REAL, POINTER, DIMENSION(:,:) :: XRESP_BIOMASS    ! daily cumulated respiration of 
+REAL, POINTER, DIMENSION(:,:) :: XRESP_BIOMASS    ! daily cumulated respiration of
 !                                                   ! biomass                              (kg/m2/s)
-REAL, POINTER, DIMENSION(:,:) :: XBIOMASS         ! biomass of previous day              (kg/m2) 
+REAL, POINTER, DIMENSION(:,:) :: XBIOMASS         ! biomass of previous day              (kg/m2)
 !
 ! - Soil carbon (ISBA-CC, YRESPSL = 'CNT')
 !
 REAL, POINTER, DIMENSION(:,:,:) :: XLITTER          ! litter pools                         (gC/m2)
-REAL, POINTER, DIMENSION(:,:)   :: XSOILCARB        ! soil carbon pools                    (gC/m2) 
+REAL, POINTER, DIMENSION(:,:)   :: XSOILCARB        ! soil carbon pools                    (gC/m2)
 REAL, POINTER, DIMENSION(:,:)   :: XLIGNIN_STRUC    ! ratio Lignin/Carbon in structural
 !                                                       litter                               (gC/m2)
 !
@@ -423,26 +423,26 @@ REAL, POINTER, DIMENSION(:) :: XRSMIN        ! minimum stomatal resistance      
 REAL, POINTER, DIMENSION(:) :: XGAMMA        ! coefficient for the calculation
 !                                              ! of the surface stomatal
 !                                              ! resistance
-REAL, POINTER, DIMENSION(:) :: XWRMAX_CF     ! coefficient for maximum water 
-!                                              ! interception 
+REAL, POINTER, DIMENSION(:) :: XWRMAX_CF     ! coefficient for maximum water
+!                                              ! interception
 !                                              ! storage capacity on the vegetation      (-)
 REAL, POINTER, DIMENSION(:) :: XRGL          ! maximum solar radiation
-!                                              ! usable in photosynthesis      
+!                                              ! usable in photosynthesis
 REAL, POINTER, DIMENSION(:) :: XCV           ! vegetation thermal inertia coefficient  (K m2/J)
 REAL, POINTER, DIMENSION(:)    :: XLAIMIN    ! minimum LAI (Leaf Area Index)           (m2/m2)
 REAL, POINTER, DIMENSION(:)    :: XSEFOLD    ! e-folding time for senescence           (s)
 REAL, POINTER, DIMENSION(:)    :: XGMES      ! mesophyll conductance                   (m s-1)
 REAL, POINTER, DIMENSION(:)    :: XGC        ! cuticular conductance                   (m s-1)
-REAL, POINTER, DIMENSION(:)    :: XF2I       ! critical normilized soil water 
+REAL, POINTER, DIMENSION(:)    :: XF2I       ! critical normilized soil water
 !                                              ! content for stress parameterisation
 REAL, POINTER, DIMENSION(:)    :: XBSLAI     ! ratio d(biomass)/d(lai)                 (kg/m2)
 !
-REAL, POINTER, DIMENSION(:)    :: XCE_NITRO  ! leaf aera ratio sensitivity to 
+REAL, POINTER, DIMENSION(:)    :: XCE_NITRO  ! leaf aera ratio sensitivity to
 !                                            ! nitrogen concentration                (m2/kg)
 REAL, POINTER, DIMENSION(:)    :: XCF_NITRO  ! lethal minimum value of leaf area
 !                                              ! ratio                                 (m2/kg)
-REAL, POINTER, DIMENSION(:)    :: XCNA_NITRO ! nitrogen concentration of active 
-!                                              ! biomass       
+REAL, POINTER, DIMENSION(:)    :: XCNA_NITRO ! nitrogen concentration of active
+!                                              ! biomass
 LOGICAL, POINTER, DIMENSION(:) :: LSTRESS    ! vegetation response type to water
 !                                              ! stress (true:defensive false:offensive) (-)
 !
@@ -512,7 +512,7 @@ NULLIFY(YISBA_S%XPH)
 NULLIFY(YISBA_S%XFERT)
 !
 NULLIFY(YISBA_S%XABC)
-NULLIFY(YISBA_S%XPOI) 
+NULLIFY(YISBA_S%XPOI)
 !
 NULLIFY(YISBA_S%XFRACSOC)
 NULLIFY(YISBA_S%XTAB_FSAT)
@@ -565,22 +565,22 @@ NULLIFY(YISBA_K%XPERM)
 NULLIFY(YISBA_K%XRUNOFFB)
 NULLIFY(YISBA_K%XWDRAIN)
 !
-NULLIFY(YISBA_K%XTDEEP)  
+NULLIFY(YISBA_K%XTDEEP)
 NULLIFY(YISBA_K%XGAMMAT)
 NULLIFY(YISBA_K%XMPOTSAT)
 NULLIFY(YISBA_K%XBCOEF)
 NULLIFY(YISBA_K%XWWILT)
-NULLIFY(YISBA_K%XWFC)  
+NULLIFY(YISBA_K%XWFC)
 NULLIFY(YISBA_K%XWSAT)
 NULLIFY(YISBA_K%XCGSAT)
 NULLIFY(YISBA_K%XC4B)
 NULLIFY(YISBA_K%XACOEF)
-NULLIFY(YISBA_K%XPCOEF)  
+NULLIFY(YISBA_K%XPCOEF)
 NULLIFY(YISBA_K%XHCAPSOIL)
 NULLIFY(YISBA_K%XCONDDRY)
 NULLIFY(YISBA_K%XCONDSLD)
 NULLIFY(YISBA_K%XFWTD)
-NULLIFY(YISBA_K%XWTD)   
+NULLIFY(YISBA_K%XWTD)
 NULLIFY(YISBA_K%XALBNIR_DRY)
 NULLIFY(YISBA_K%XALBVIS_DRY)
 NULLIFY(YISBA_K%XALBUV_DRY)
@@ -592,7 +592,7 @@ NULLIFY(YISBA_K%XKANISO)
 NULLIFY(YISBA_K%XMUF)
 NULLIFY(YISBA_K%XFSAT)
 NULLIFY(YISBA_K%XFFLOOD)
-NULLIFY(YISBA_K%XPIFLOOD)  
+NULLIFY(YISBA_K%XPIFLOOD)
 NULLIFY(YISBA_K%XFF)
 NULLIFY(YISBA_K%XFFG)
 NULLIFY(YISBA_K%XFFV)
@@ -616,7 +616,7 @@ YISBA_P%NSIZE_P = 0
 NULLIFY(YISBA_P%XPATCH)
 NULLIFY(YISBA_P%XVEGTYPE_PATCH)
 NULLIFY(YISBA_P%NR_P)
-NULLIFY(YISBA_P%XPATCH_OLD)  
+NULLIFY(YISBA_P%XPATCH_OLD)
 NULLIFY(YISBA_P%XANMAX)
 NULLIFY(YISBA_P%XFZERO)
 NULLIFY(YISBA_P%XEPSO)
@@ -633,7 +633,7 @@ NULLIFY(YISBA_P%XAH)
 NULLIFY(YISBA_P%XBH)
 NULLIFY(YISBA_P%XTAU_WOOD)
 NULLIFY(YISBA_P%XINCREASE)
-NULLIFY(YISBA_P%XTURNOVER) 
+NULLIFY(YISBA_P%XTURNOVER)
 NULLIFY(YISBA_P%XCONDSAT)
 NULLIFY(YISBA_P%XTAUICE)
 NULLIFY(YISBA_P%XC1SAT)
@@ -660,7 +660,7 @@ NULLIFY(YISBA_P%XROOTFRAC)
 NULLIFY(YISBA_P%XD_ICE)
 NULLIFY(YISBA_P%XH_TREE)
 NULLIFY(YISBA_P%XZ0_O_Z0H)
-NULLIFY(YISBA_P%XRE25)  
+NULLIFY(YISBA_P%XRE25)
 NULLIFY(YISBA_P%XDMAX)
 !
 NULLIFY(YISBA_P%XRED_NOISE)
@@ -675,14 +675,14 @@ TYPE(ISBA_PE_t), INTENT(INOUT) :: YISBA_PE
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK("MODD_ISBA_N:ISBA_PE_INIT",0,ZHOOK_HANDLE)
 !
-NULLIFY(YISBA_PE%XLAI)  
+NULLIFY(YISBA_PE%XLAI)
 NULLIFY(YISBA_PE%XVEG)
 NULLIFY(YISBA_PE%XEMIS)
 NULLIFY(YISBA_PE%XZ0)
 NULLIFY(YISBA_PE%XRSMIN)
 NULLIFY(YISBA_PE%XGAMMA)
 NULLIFY(YISBA_PE%XWRMAX_CF)
-NULLIFY(YISBA_PE%XRGL)  
+NULLIFY(YISBA_PE%XRGL)
 NULLIFY(YISBA_PE%XCV)
 NULLIFY(YISBA_PE%XLAIMIN)
 NULLIFY(YISBA_PE%XSEFOLD)
@@ -731,8 +731,8 @@ NULLIFY(YISBA_PE%XANFM)
 NULLIFY(YISBA_PE%XLE)
 NULLIFY(YISBA_PE%XFAPARC)
 NULLIFY(YISBA_PE%XFAPIRC)
-NULLIFY(YISBA_PE%XLAI_EFFC)  
-NULLIFY(YISBA_PE%XMUS)   
+NULLIFY(YISBA_PE%XLAI_EFFC)
+NULLIFY(YISBA_PE%XMUS)
 NULLIFY(YISBA_PE%XRESP_BIOMASS)
 NULLIFY(YISBA_PE%XBIOMASS)
 NULLIFY(YISBA_PE%XLITTER)

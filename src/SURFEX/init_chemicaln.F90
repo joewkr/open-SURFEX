@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
 SUBROUTINE INIT_CHEMICAL_n(KLUOUT, KSV, HSV, SV, HCH_NAMES, HAER_NAMES, &
-                           HDSTNAMES, HSLTNAMES     )  
+                           HDSTNAMES, HSLTNAMES     )
 !#############################################################
 !
 !!****  *INIT_CHEMICAL_n* - routine to initialize CHEMICAL SPECIES
@@ -62,7 +62,7 @@ INTEGER,                          INTENT(IN) :: KSV      ! number of scalars
  CHARACTER(LEN=6), DIMENSION(KSV), INTENT(IN) :: HSV      ! name of all scalar variables
  TYPE(SV_t), INTENT(INOUT) :: SV
  CHARACTER(LEN=6), DIMENSION(:), POINTER :: HCH_NAMES
- CHARACTER(LEN=6), DIMENSION(:), POINTER :: HAER_NAMES     
+ CHARACTER(LEN=6), DIMENSION(:), POINTER :: HAER_NAMES
 
  CHARACTER(LEN=6), DIMENSION(:), POINTER, OPTIONAL :: HDSTNAMES
  CHARACTER(LEN=6), DIMENSION(:), POINTER, OPTIONAL :: HSLTNAMES
@@ -82,7 +82,7 @@ IF (LHOOK) CALL DR_HOOK('INIT_CHEMICAL_n',0,ZHOOK_HANDLE)
 IF (KSV /= 0) THEN
   !
   ALLOCATE(SV%CSV(KSV))
-  CALL CH_INIT_NAMES(KLUOUT, HSV, SV, LVARSIGI, LVARSIGJ    )  
+  CALL CH_INIT_NAMES(KLUOUT, HSV, SV, LVARSIGI, LVARSIGJ    )
 
   IF (SV%NBEQ > 0 ) THEN
     ALLOCATE(HCH_NAMES(SV%NBEQ))
@@ -107,8 +107,8 @@ IF (KSV /= 0) THEN
          SV%NSV_DSTBEG,            &!O [idx] first dust related scalar variable
          SV%NSV_DSTEND,            &!O [idx] last dust related scalar variable
          LVARSIG_DST,           &!O type of standard deviation (fixed or variable)
-         LRGFIX_DST             &!O type of mean radius (fixed or variable)        
-         )  
+         LRGFIX_DST             &!O type of mean radius (fixed or variable)
+         )
 
   IF (PRESENT(HDSTNAMES)) THEN
     IF (SV%NDSTEQ >=1) THEN
@@ -117,7 +117,7 @@ IF (KSV /= 0) THEN
             SV%NSV_DSTBEG,           &!I [idx] index of first dust related variable in scalar list
             SV%NSV_DSTEND,           &!I [idx] index of last dust related variable in scalar list
             LVARSIG_DST,          &!I type of standard deviation (fixed or variable)
-            LRGFIX_DST,           &!O type of mean radius (fixed or variable)        
+            LRGFIX_DST,           &!O type of mean radius (fixed or variable)
             NDST_MDEBEG,          &!O [idx] index of mass for first mode in scalar list
             NDSTMDE               &!O [nbr] number of modes to be transported
             )
@@ -130,15 +130,15 @@ IF (KSV /= 0) THEN
 
   CALL DSLT_INIT_NAMES(         &
           KLUOUT,               &!I [idx] index of writing unit
-         'SLTM',                &          
+         'SLTM',                &
           HSV,                  &!I [char] list of scalar variables
-          JPMODE_SLT,           &          
+          JPMODE_SLT,           &
           SV%NSLTEQ,               &!O [nbr] number of sea salt related tracers
           SV%NSV_SLTBEG,           &!O [idx] first sea salt related scalar variable
           SV%NSV_SLTEND,           &!O [idx] last sea salt related scalar variable
           LVARSIG_SLT,          &!O type of standard deviation (fixed or variable)
-          LRGFIX_SLT            &!O type of mean radius (fixed or variable)        
-          )  
+          LRGFIX_SLT            &!O type of mean radius (fixed or variable)
+          )
 
   IF (PRESENT(HSLTNAMES)) THEN
     IF (SV%NSLTEQ >=1) THEN
@@ -150,7 +150,7 @@ IF (KSV /= 0) THEN
             LRGFIX_SLT,           &!O type of mean radius (fixed or variable)
             NSLT_MDEBEG,          &!O [idx] index of mass for first mode in scalar list
             NSLTMDE               &!O [nbr] number of modes to be transported
-            )  
+            )
       IF(.NOT. ASSOCIATED(HSLTNAMES)) ALLOCATE (HSLTNAMES(SV%NSLTEQ))
       HSLTNAMES(:) = SV%CSV(SV%NSV_SLTBEG:SV%NSV_SLTEND)
     ENDIF

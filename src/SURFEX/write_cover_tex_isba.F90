@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITE_COVER_TEX_ISBA(KPATCH,KLAYER,HISBA)
@@ -33,8 +33,8 @@
 !!    ------------
 !!
 !!    Original    08/01/98
-!!       
-!!    R. Alkama    05/2012 : from 12 to 19 vegtype 
+!!
+!!    R. Alkama    05/2012 : from 12 to 19 vegtype
 !----------------------------------------------------------------------------
 !
 !*    0.     DECLARATION
@@ -48,15 +48,15 @@ USE MODD_WRITE_COVER_TEX,ONLY : NTEX, CNAME, CLANG, NLINES
 USE MODD_SURF_PAR,       ONLY : XUNDEF
 USE MODD_DATA_COVER,     ONLY : XDATA_NATURE,                            &
                                   XDATA_VEGTYPE, XDATA_H_TREE, XDATA_LAI,  &
-                                  XDATA_ROOT_DEPTH, XDATA_GROUND_DEPTH  
-                                  
-USE MODD_DATA_COVER_PAR, ONLY : JPCOVER, NVEGTYPE, NVT_NO, NVT_ROCK,      & 
+                                  XDATA_ROOT_DEPTH, XDATA_GROUND_DEPTH
+
+USE MODD_DATA_COVER_PAR, ONLY : JPCOVER, NVEGTYPE, NVT_NO, NVT_ROCK,      &
                                   NVT_SNOW, NVT_TEBD, NVT_BONE, NVT_TRBE, &
                                   NVT_C3, NVT_C4, NVT_IRR, NVT_GRAS,      &
                                   NVT_TROG,NVT_PARK, NVT_TRBD, NVT_TEBE,  &
                                   NVT_TENE, NVT_BOBD, NVT_BOND, NVT_BOGR, &
                                   NVT_SHRB, NVT_C3W, NVT_C3S, NVT_FLTR,   &
-                                  NVT_FLGR 
+                                  NVT_FLGR
 !
 USE MODD_REPROD_OPER,    ONLY : XEVERG_VEG, XEVERG_RSMIN
 !
@@ -106,7 +106,7 @@ GLINE=.FALSE.
 !
 I=0
 
-DO 
+DO
 
   IF (I==JPCOVER) EXIT
 
@@ -123,7 +123,7 @@ DO
 !* WARNING: check the cover type order in ini_data_cover routine
 !
   IF (CLANG=='EN') THEN
-    WRITE(NTEX, '("&&bare&rocks&snow&broad.d&needl.e&ever-&C3&C4&irr.&grass&grass&irr. ")', ADVANCE='NO') 
+    WRITE(NTEX, '("&&bare&rocks&snow&broad.d&needl.e&ever-&C3&C4&irr.&grass&grass&irr. ")', ADVANCE='NO')
     WRITE(NTEX, '("broad.d&broad.e&needl.e&broad.d&needl.d&grass&shrubs\\")')
     WRITE(NTEX, '("&&land&&&temp.&boreal&green&crops&crops&crops&C3&C4&grass&trop. ")', ADVANCE='NO')
     WRITE(NTEX, '("temp.&temp.&boreal&boreal&boreal&broad.\\")')
@@ -136,9 +136,9 @@ DO
   WRITE(NTEX,*) '\hline'
   WRITE(NTEX,*) '\hline'
   IP=0
-  DO 
+  DO
 
-    IF (I==JPCOVER) EXIT 
+    IF (I==JPCOVER) EXIT
     I=I+1
     IF (XDATA_NATURE(I)>0.) THEN
       IP=IP+1
@@ -158,8 +158,8 @@ DO
           YDATA_VEGTYPE(6 ),' & ',YDATA_VEGTYPE(7 ),' & ',YDATA_VEGTYPE(8 ),' & ',&
           YDATA_VEGTYPE(9 ),' & ',YDATA_VEGTYPE(10),' & ',YDATA_VEGTYPE(11),' & ',&
           YDATA_VEGTYPE(12),' & ',YDATA_VEGTYPE(13),' & ',YDATA_VEGTYPE(14),' & ',&
-          YDATA_VEGTYPE(15),' & ',YDATA_VEGTYPE(16),' & ',YDATA_VEGTYPE(17),' & ',&          
-          YDATA_VEGTYPE(18),' & ',YDATA_VEGTYPE(19),' \\'  
+          YDATA_VEGTYPE(15),' & ',YDATA_VEGTYPE(16),' & ',YDATA_VEGTYPE(17),' & ',&
+          YDATA_VEGTYPE(18),' & ',YDATA_VEGTYPE(19),' \\'
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
     END IF
@@ -212,7 +212,7 @@ END DO
     WRITE(NTEX,*) '\end{tabular}'
     WRITE(NTEX,*) '\smallskip\'
     WRITE(NTEX,*) 'where $h_{allen} = e^{(lai-3.5)/1.3}$\'
-    WRITE(NTEX,*) 'The roughness length is deduced: $z_{0} = 0.13 h_{veg}$\' 
+    WRITE(NTEX,*) 'The roughness length is deduced: $z_{0} = 0.13 h_{veg}$\'
     WRITE(NTEX,*) 'When averaging is needed, it is performed according to the'
     WRITE(NTEX,*) '$1/{\rm ln}^2(\frac{z_{0}}{10})$ quantities.'
     WRITE(NTEX,*) "\bigskip\"
@@ -364,19 +364,19 @@ DO JVEGTYPE=1,NVEGTYPE
   IF (I==JPCOVER) EXIT
   !
   IF (JVEGTYPE==NVT_ROCK) YPATCH = (/ 'rocks                        ',   &
-                                        'les rochers                  ' /)  
+                                        'les rochers                  ' /)
   IF (JVEGTYPE==NVT_SNOW) THEN
      YPATCH(1) = 'permanent snow and ice       '
      YPATCH(2) = "les neiges \'eternelles     "
   END IF
   IF (JVEGTYPE==NVT_NO  ) YPATCH = (/ 'bare soil                    ',   &
-                                        'le sol nu                    ' /)  
+                                        'le sol nu                    ' /)
   IF (JVEGTYPE==NVT_GRAS) YPATCH = (/ 'grasslands                   ',   &
                                         'les prairies                 ' /)
   IF (JVEGTYPE==NVT_BOGR) YPATCH = (/ 'tundra and boreal grass      ',   &
                                         'les prairies boreale         ' /)
   IF (JVEGTYPE==NVT_TROG) YPATCH = (/ 'tropical grasslands          ',   &
-                                        'les prairies tropicales      ' /)  
+                                        'les prairies tropicales      ' /)
   IF (JVEGTYPE==NVT_PARK) THEN
      YPATCH(1) = 'irrigated grass              '
      YPATCH(2) = "les pelouses irrigu\'ees    "
@@ -390,13 +390,13 @@ DO JVEGTYPE=1,NVEGTYPE
      YPATCH(2) = "les prairies inondees    "
   END IF
   IF (JVEGTYPE==NVT_C3)   YPATCH = (/ 'C3 crops                     ',   &
-                                        'les cultures C3              ' /)  
+                                        'les cultures C3              ' /)
   IF (JVEGTYPE==NVT_C3W)  YPATCH = (/ 'C3W crops                    ',   &
-                                        'les cultures C3 dhiver       ' /)  
+                                        'les cultures C3 dhiver       ' /)
   IF (JVEGTYPE==NVT_C3S)  YPATCH = (/ 'C3S crops                    ',   &
-                                        'les cultures C3 dete         ' /)  
+                                        'les cultures C3 dete         ' /)
   IF (JVEGTYPE==NVT_C4)   YPATCH = (/ 'C4 crops                     ',   &
-                                        'les cultures C4              ' /)  
+                                        'les cultures C4              ' /)
   IF (JVEGTYPE==NVT_IRR ) THEN
     YPATCH(1) = 'irrigated crops              '
     YPATCH(2) = "les cultures irrigu\'ees    "
@@ -524,7 +524,7 @@ DO JVEGTYPE=1,NVEGTYPE
       ELSE IF (JVEGTYPE==NVT_SHRB) THEN
         WRITE(YFMT,'(A2,I1,A1,I1,A1)') '(F',NB(XDATA_H_TREE(I,NVT_SHRB)),'.',DEC(XDATA_H_TREE(I,NVT_SHRB)),')'
         WRITE(YSTRING6, FMT=YFMT) XDATA_H_TREE(I,NVT_SHRB)
-        YDATA_VEGPARAM(3) = YSTRING6        
+        YDATA_VEGPARAM(3) = YSTRING6
       ELSE
         YDATA_VEGPARAM(3) = '       '
       END IF
@@ -537,17 +537,17 @@ DO JVEGTYPE=1,NVEGTYPE
               YDATA_MONTH(3 ),' & ',YDATA_MONTH(4 ), ' & ',YDATA_MONTH(5),' & ', &
               YDATA_MONTH(6 ),' & ',YDATA_MONTH(7 ), ' & ',YDATA_MONTH(8),' & ', &
               YDATA_MONTH(9 ),' & ',YDATA_MONTH(10),' & ',YDATA_MONTH(11),' & ', &
-              YDATA_MONTH(12),' & ',YDATA_VEGPARAM(1),' & ',YDATA_VEGPARAM(2),' & ',YDATA_VEGPARAM(3),' \\'  
+              YDATA_MONTH(12),' & ',YDATA_VEGPARAM(1),' & ',YDATA_VEGPARAM(2),' & ',YDATA_VEGPARAM(3),' \\'
       ELSE IF (JVEGTYPE==NVT_ROCK .OR. JVEGTYPE==NVT_SNOW .OR. JVEGTYPE==NVT_NO) THEN
         WRITE(NTEX, FMT=*) &
-            I,' & ',CNAME(I),' & ',YDATA_VEGPARAM(1),' & ',YDATA_VEGPARAM(2),' \\'  
+            I,' & ',CNAME(I),' & ',YDATA_VEGPARAM(1),' & ',YDATA_VEGPARAM(2),' \\'
       ELSE
         WRITE(NTEX, FMT=*) &
             I,' & ',CNAME(I),' & ',YDATA_MONTH(1), ' & ',YDATA_MONTH(2), ' & ', &
               YDATA_MONTH(3),' & ',YDATA_MONTH(4), ' & ',YDATA_MONTH(5), ' & ', &
               YDATA_MONTH(6),' & ',YDATA_MONTH(7), ' & ',YDATA_MONTH(8), ' & ', &
               YDATA_MONTH(9),' & ',YDATA_MONTH(10),' & ',YDATA_MONTH(11),' & ', &
-              YDATA_MONTH(12),' & ',YDATA_VEGPARAM(1),' & ',YDATA_VEGPARAM(2),' \\'  
+              YDATA_MONTH(12),' & ',YDATA_VEGPARAM(1),' & ',YDATA_VEGPARAM(2),' \\'
       END IF
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.

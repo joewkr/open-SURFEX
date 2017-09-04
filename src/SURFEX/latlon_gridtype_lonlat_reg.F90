@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################################################################
       SUBROUTINE LATLON_GRIDTYPE_LONLAT_REG(G,KL,PDIR)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -78,7 +78,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('LATLON_GRIDTYPE_LONLAT_REG',0,ZHOOK_HANDLE)
  CALL GET_GRIDTYPE_LONLAT_REG(G%XGRID_PAR,ZLONMIN,ZLONMAX,                    &
-                               ZLATMIN,ZLATMAX,ILON,ILAT,PLON=G%XLON,PLAT=G%XLAT )  
+                               ZLATMIN,ZLATMAX,ILON,ILAT,PLON=G%XLON,PLAT=G%XLAT )
 !
 !-----------------------------------------------------------------------------
 !
@@ -89,7 +89,7 @@ ZDLAT = (ZLATMAX-ZLATMIN)/FLOAT(ILAT)
 ZDLON = (ZLONMAX-ZLONMIN)/FLOAT(ILON)
 !
 G%XMESH_SIZE(:) = XRADIUS**2 * XPI/180.*(ZDLON)              &
-       * (SIN((G%XLAT(:)+ZDLAT/2.)*XPI/180.)-SIN((G%XLAT(:)-ZDLAT/2.)*XPI/180.))  
+       * (SIN((G%XLAT(:)+ZDLAT/2.)*XPI/180.)-SIN((G%XLAT(:)-ZDLAT/2.)*XPI/180.))
 !
 !-----------------------------------------------------------------------------
 !

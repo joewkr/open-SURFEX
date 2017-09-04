@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE DEALLOC_INLAND_WATER_n ( WM, FM, U)
@@ -16,11 +16,11 @@ SUBROUTINE DEALLOC_INLAND_WATER_n ( WM, FM, U)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -60,7 +60,7 @@ IF (LHOOK) CALL DR_HOOK('DEALLOC_INLAND_WATER_N',0,ZHOOK_HANDLE)
 IF (U%CWATER=='WATFLX') THEN
   CALL DEALLOC_WATFLUX_n(WM)
 ELSE IF (U%CWATER=='FLAKE ') THEN
-  CALL DEALLOC_FLAKE_n(FM)   
+  CALL DEALLOC_FLAKE_n(FM)
 ELSE IF (U%CWATER=='FLUX  ') THEN
   CALL DEALLOC_IDEAL_FLUX
 END IF

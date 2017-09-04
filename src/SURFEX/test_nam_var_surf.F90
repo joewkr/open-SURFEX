@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !############################
 MODULE MODI_TEST_NAM_VAR_SURF
@@ -12,7 +12,7 @@ INTERFACE TEST_NAM_VAR_SURF
                                        HVALUE1,HVALUE2,HVALUE3, &
                                        HVALUE4,HVALUE5,HVALUE6, &
                                        HVALUE7,HVALUE8,HVALUE9, &
-                                       HVALUE10  )  
+                                       HVALUE10  )
 !
 INTEGER,          INTENT(IN)           ::KLUOUT   ! output listing logical unit
  CHARACTER(LEN=*) ,INTENT(IN)           ::HNAME    ! name of the variable to test
@@ -45,7 +45,7 @@ END SUBROUTINE TEST_NAM_VARL0_SURF
                                        KVALUE1,KVALUE2,KVALUE3, &
                                        KVALUE4,KVALUE5,KVALUE6, &
                                        KVALUE7,KVALUE8,KVALUE9, &
-                                       KVALUE10  )  
+                                       KVALUE10  )
 !
 INTEGER,          INTENT(IN)           ::KLUOUT   ! output listing logical unit
  CHARACTER(LEN=*) ,INTENT(IN)           ::HNAME    ! name of the variable to test
@@ -68,7 +68,7 @@ END SUBROUTINE TEST_NAM_VARN0_SURF
                                      PVALUE1,PVALUE2,PVALUE3, &
                                      PVALUE4,PVALUE5,PVALUE6, &
                                      PVALUE7,PVALUE8,PVALUE9, &
-                                     PVALUE10  )  
+                                     PVALUE10  )
 !
 INTEGER,          INTENT(IN)          ::KLUOUT   ! output listing logical unit
  CHARACTER(LEN=*) ,INTENT(IN)          ::HNAME    ! name of the variable to test
@@ -97,7 +97,7 @@ END MODULE MODI_TEST_NAM_VAR_SURF
                                        HVALUE1,HVALUE2,HVALUE3, &
                                        HVALUE4,HVALUE5,HVALUE6, &
                                        HVALUE7,HVALUE8,HVALUE9, &
-                                       HVALUE10  )  
+                                       HVALUE10  )
 !     #########################################################
 !
 !!****  *TEST_NAM_VARC0* - routine to test the value of a character var.
@@ -342,7 +342,7 @@ END SUBROUTINE TEST_NAM_VARL0_SURF
                                        KVALUE1,KVALUE2,KVALUE3, &
                                        KVALUE4,KVALUE5,KVALUE6, &
                                        KVALUE7,KVALUE8,KVALUE9, &
-                                       KVALUE10  )  
+                                       KVALUE10  )
 !     #########################################################
 !
 !!****  *TEST_NAM_VARN0* - routine to test the value of an integer var.
@@ -502,8 +502,8 @@ END SUBROUTINE TEST_NAM_VARN0_SURF
       SUBROUTINE TEST_NAM_VARX0_SURF(KLUOUT,HNAME,PVAR,       &
                                      PVALUE1,PVALUE2,PVALUE3, &
                                      PVALUE4,PVALUE5,PVALUE6, &
-                                     PVALUE7,PVALUE8,PVALUE9, & 
-                                     PVALUE10  )  
+                                     PVALUE7,PVALUE8,PVALUE9, &
+                                     PVALUE10  )
 !     #########################################################
 !
 !!****  *TEST_NAM_VARN0* - routine to test the value of an integer var.

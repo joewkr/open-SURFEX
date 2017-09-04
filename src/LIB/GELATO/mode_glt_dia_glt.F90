@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,19 +28,19 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ========================= MODULE modi_glt_dia_glt =========================
 ! =======================================================================
 !
-! 
+!
 ! * Contains a subroutine that writes model glt_output in Gelato format
 !
 ! --------------------- BEGIN MODULE modi_glt_dia_glt -----------------------
@@ -59,7 +59,7 @@ MODULE mode_glt_dia_glt
 !   TYPE(t_mxl), DIMENSION(nxglo,nyglo), INTENT(in) ::  &
 !         tpml
 !   TYPE(t_tfl), DIMENSION(nxglo,nyglo), INTENT(in) ::  &
-!         tptfl 
+!         tptfl
 !   TYPE(t_blk), DIMENSION(nxglo,nyglo), INTENT(in) ::  &
 !         tpblkw
 !   TYPE(t_blk), DIMENSION(nt,nxglo,nyglo), INTENT(in) ::  &
@@ -72,11 +72,11 @@ MODULE mode_glt_dia_glt
 !         tpdia
 !   REAL, DIMENSION(ndiamax,nxglo,nyglo), INTENT(inout) ::  &
 !         pcumdia
-! END SUBROUTINE wridiag_glt 
+! END SUBROUTINE wridiag_glt
 ! !
 ! END INTERFACE
 
-CONTAINS 
+CONTAINS
 !
 ! ---------------------- END MODULE modi_glt_dia_glt ------------------------
 !
@@ -86,7 +86,7 @@ CONTAINS
 ! ------------------------ SUBROUTINE WRIDIAG_GLT -----------------------
 
 ! * A subroutine that computes interesting quantities from certain
-! icestate variables (statistics) and records them in data files at 
+! icestate variables (statistics) and records them in data files at
 ! every time step.
 
 SUBROUTINE wridiag_glt  &
@@ -109,7 +109,7 @@ SUBROUTINE wridiag_glt  &
   TYPE(t_mxl), DIMENSION(nxglo,nyglo), INTENT(in) ::  &
         tpml
   TYPE(t_tfl), DIMENSION(nxglo,nyglo), INTENT(in) ::  &
-        tptfl 
+        tptfl
   TYPE(t_blk), DIMENSION(nxglo,nyglo), INTENT(in) ::  &
         tpblkw
   TYPE(t_blk), DIMENSION(nt,nxglo,nyglo), INTENT(in) ::  &
@@ -155,7 +155,7 @@ SUBROUTINE wridiag_glt  &
 !
   zwork2(:,:) = 0.
   zwork3(:,:,:) = 0.
-! 
+!
 ! .. Welcome message
 !
   IF (lwg) THEN
@@ -170,8 +170,8 @@ SUBROUTINE wridiag_glt  &
 !
   zfsit(:,:) = glt_iceconcm( tpdom,tpsit )
   zhsit(:,:) = glt_avhicem( tpdom,tpsit )
-  zhsnt(:,:) = glt_avhsnwm( tpdom,tpsit )      
-  zmsnt(:,:) = glt_avmsnwm( tpdom,tpsit )      
+  zhsnt(:,:) = glt_avhsnwm( tpdom,tpsit )
+  zmsnt(:,:) = glt_avmsnwm( tpdom,tpsit )
 !
 ! .. Time counter
 !
@@ -194,7 +194,7 @@ SUBROUTINE wridiag_glt  &
 ! 2. Write first set of diagnostics
 ! ==================================
 !
-  IF ( ndiap1==1 ) THEN 
+  IF ( ndiap1==1 ) THEN
 !
 ! >>> Write sea ice u-velocity field [m.s-1]
 !
@@ -209,10 +209,10 @@ SUBROUTINE wridiag_glt  &
       yword = 'SIVVLSIT'
       tznam = t_def( " ", " ", yword, " ", "V", "VECTOR" )
       CALL gltools_outdia( tpind,tznam,tpdom,zwork2,pcumdia )
-! 
+!
 ! >>> Write sea ice average thickness field [m]
 !
-      zwork2(:,:) = zhsit(:,:)*FLOAT( tpdom(:,:)%tmk ) 
+      zwork2(:,:) = zhsit(:,:)*FLOAT( tpdom(:,:)%tmk )
       yword = 'SIHHHSIW'
       tznam = t_def( " ", " ", yword, " ", "T", "SCALAR" )
       CALL gltools_outdia( tpind,tznam,tpdom,zwork2,pcumdia )
@@ -338,47 +338,47 @@ SUBROUTINE wridiag_glt  &
   ENDIF
 !
 !
-! 
+!
 ! 3. Write second set of diagnostics
 ! ===================================
 !
-! .. Note that the outgoing heat flux affecting ice free areas are 
+! .. Note that the outgoing heat flux affecting ice free areas are
 ! exactly equal to the incoming heat flux in the same zones.
 !
-! NOTES 
+! NOTES
 ! ------
 !  * If you want to compute a complete energy balance on sea ice,
 ! you must compare, on the one hand:
 !    . SITDENIW (gltools_enthalpy change)
 ! And, on the other hand:
-!    . OIHFLUIW + AIHFLUIW + AISNWFIW + AWHFLUWW + AWSNWFWW - 
+!    . OIHFLUIW + AIHFLUIW + AISNWFIW + AWHFLUWW + AWSNWFWW -
 ! ( IOLFLUIW + IOTFLUIW + LOLFLUIW + LOTFLUIW )
-! i.e. 
-! ( ocean heat flux + 
-!   atmospheric heat flux on ice + energy flux due to snowfalls on ice + 
+! i.e.
+! ( ocean heat flux +
+!   atmospheric heat flux on ice + energy flux due to snowfalls on ice +
 !   atmospheric heat flux on water + energy flux due to snowfalls on water )
 ! minus
 ! ( outgoing short wave + non-solar through leads +
 !   outgoing short wave + non-solar through ice )
-!  
+!
 !  - outgoing energy (solar+non-solar) at the bottom of sea ice)
 !
-!  * If you want to compute a complete fresh water balance on sea ice, 
+!  * If you want to compute a complete fresh water balance on sea ice,
 ! you must compare, on the one hand:
-!    ALLFWTOT (all precip-evapo) - LOWFLUIW - IOWFLUIW (outgoing water 
+!    ALLFWTOT (all precip-evapo) - LOWFLUIW - IOWFLUIW (outgoing water
 ! through leads and under sea ice)
 ! And, on the other hand:
-!    SITDSIIW + SIDDSIIW  (sea ice mass change due to glt_thermo + dynamics) 
+!    SITDSIIW + SIDDSIIW  (sea ice mass change due to glt_thermo + dynamics)
 ! + (SITDSNIW + SIDDSNIW) (snow mass changes due to glt_thermo + dynamics)
 ! - (SITDSAIW + SIDDSAIW) (salt mass changes due to glt_thermo + dynamics)
-! 
-!  * The energetic balance due to the (non perfectly conservative) sea 
+!
+!  * The energetic balance due to the (non perfectly conservative) sea
 ! ice advection is also available, see SIDDENIW and SIDDLAIW fields.
 !
 !  * The change in water budget due to dynamics is not implemented yet.
 !
-  IF ( ndiap2==1 ) THEN 
-!  
+  IF ( ndiap2==1 ) THEN
+!
 ! >>> Write ocean heat flux - weighed [W.m-2]
 !
       zwork2(:,:) = tpdia(:,:)%qoi*FLOAT( tpdom(:,:)%tmk )
@@ -440,7 +440,7 @@ SUBROUTINE wridiag_glt  &
 !
 ! >>> Write weighted net FW flux sent by sea ice to the ocean [W.m-2]
 !
-      zwork2(:,:) = tptfl(:,:)%wio 
+      zwork2(:,:) = tptfl(:,:)%wio
       yword = 'IOWFLUIW'
       tznam = t_def( " ", " ", yword, " ", "T", "SCALAR" )
       CALL gltools_outdia( tpind,tznam,tpdom,zwork2,pcumdia )
@@ -580,9 +580,9 @@ SUBROUTINE wridiag_glt  &
       tznam = t_def( " ", " ", yword, " ", "T", "SCALAR" )
       CALL gltools_outdia( tpind,tznam,tpdom,zwork2,pcumdia )
 !
-! >>> Write spare fields 
+! >>> Write spare fields
 !
-      IF ( ANY( ABS( tpdia(:,:)%sp1 ) > epsil2 ) ) THEN 
+      IF ( ANY( ABS( tpdia(:,:)%sp1 ) > epsil2 ) ) THEN
         zwork2(:,:) =   &
           tpdia(:,:)%sp1*FLOAT( tpdom(:,:)%tmk )
         yword = 'FIELDSP1'
@@ -590,7 +590,7 @@ SUBROUTINE wridiag_glt  &
         CALL gltools_outdia( tpind,tznam,tpdom,zwork2,pcumdia )
       ENDIF
 !
-      IF ( ANY( ABS( tpdia(:,:)%sp2 ) > epsil2 ) ) THEN 
+      IF ( ANY( ABS( tpdia(:,:)%sp2 ) > epsil2 ) ) THEN
         zwork2(:,:) =   &
           tpdia(:,:)%sp2*FLOAT( tpdom(:,:)%tmk )
         yword = 'FIELDSP2'
@@ -657,18 +657,18 @@ SUBROUTINE wridiag_glt  &
 ! data
 !
   IF ( tpind%cur==tpind%beg ) THEN
-      IF ( tpind%i2d>ndiamax ) THEN 
+      IF ( tpind%i2d>ndiamax ) THEN
           WRITE( ymess,  &
             FMT='("Number of 2d diagnostic fields=", &
             &  I3,"> ndiamax=",I3,"\n")' ) tpind%i2d,ndiamax
           CALL gltools_glterr( 'imod_results','Check ndiamax in gltpar', 'STOP' )
-      ENDIF 
-      IF ( tpind%i0d>ndiamax ) THEN 
+      ENDIF
+      IF ( tpind%i0d>ndiamax ) THEN
           WRITE( ymess,  &
             FMT='("Number of 0d diagnostic fields=", &
             &  I3,"> ndiamax=",I3,"\n")' ) tpind%i0d,ndiamax
           CALL gltools_glterr( 'imod_results','Check ndiamax in gltpar', 'STOP' )
-      ENDIF 
+      ENDIF
   ENDIF
 !
 !
@@ -678,7 +678,7 @@ SUBROUTINE wridiag_glt  &
 !
 ! 3.1. Compute sea ice totals
 ! ----------------------------
-! 
+!
 ! The following quantities are computed :
 !   - sea ice extent (sum of all grid cells with more than X % ice
 !     concentration)
@@ -692,7 +692,7 @@ SUBROUTINE wridiag_glt  &
   IF ( ndiap3==1 ) THEN
       zehn = SUM(tpdom(:,:)%srf, MASK=(ynhemis.AND.zfsit(:,:)>xfsic)) / 1.E+12
       zehs = SUM(tpdom(:,:)%srf, MASK=(yshemis.AND.zfsit(:,:)>xfsic)) / 1.E+12
-  ENDIF 
+  ENDIF
 !
 ! .. Sea ice area, north and south
 !
@@ -709,7 +709,7 @@ SUBROUTINE wridiag_glt  &
   zwhn = SUM(tpdom(:,:)%srf*zhsnt(:,:), MASK=ynhemis) / 1.E+12
   zwhs = SUM(tpdom(:,:)%srf*zhsnt(:,:), MASK=yshemis) / 1.E+12
 !
-! .. Ice glt_transport through straits (depends on mesh geometry) 
+! .. Ice glt_transport through straits (depends on mesh geometry)
 !
   zfram = 0.
   zbering = 0.
@@ -751,12 +751,12 @@ SUBROUTINE wridiag_glt  &
         ii = ii0
         ij = ij0+ji-1
         zncwest = zncwest +  &
-          iceflx( tpdom,zhsit,tpdia,ii,ij,ii+1,ij )  
+          iceflx( tpdom,zhsit,tpdia,ii,ij,ii+1,ij )
       END DO
       zncwest = -zncwest
 !
 ! Nares Strait (between Ellesmere Land and North Western Greenland)
-!  - we compute the ice flux at the northern boundary of this strait (at its 
+!  - we compute the ice flux at the northern boundary of this strait (at its
 ! Arctic Ocean boundary)
       ii0 = 252
       ij0 = 276
@@ -765,12 +765,12 @@ SUBROUTINE wridiag_glt  &
         ii = ii0
         ij = ij0+ji-1
         znceast = znceast +  &
-          iceflx( tpdom,zhsit,tpdia,ii,ij,ii+1,ij )  
+          iceflx( tpdom,zhsit,tpdia,ii,ij,ii+1,ij )
       END DO
       znceast = -znceast
 !
 ! Barrow Strait (between Prince of Wales I. - south and Bathurst I. - north)
-!  - we compute the ice flux 
+!  - we compute the ice flux
       ii0 = 282
       ij0 = 273
 !
@@ -779,7 +779,7 @@ SUBROUTINE wridiag_glt  &
         ij = ij0+ji-1
         znorthb = znorthb -  &
           iceflx( tpdom,zhsit,tpdia,ii,ij,ii,ij+1 ) +  &
-          iceflx( tpdom,zhsit,tpdia,ii-1,ij,ii,ij )  
+          iceflx( tpdom,zhsit,tpdia,ii-1,ij,ii,ij )
       END DO
       znorthb = -znorthb
 !
@@ -789,28 +789,28 @@ SUBROUTINE wridiag_glt  &
 ! 3.2. Write totals to diagnostic file
 ! -------------------------------------
 !
-  IF ( ndiap3==1 ) THEN 
+  IF ( ndiap3==1 ) THEN
 !
 ! >>> Write north ice extent
 !
           WRITE(n0vilu) 'SIEHNSIG'
           WRITE(n0vilu) zehn
-! 
+!
 ! >>> Write south ice extent
 !
           WRITE(n0vilu) 'SIEHSSIG'
           WRITE(n0vilu) zehs
-! 
+!
 ! >>> Write north ice area
 !
           WRITE(n0vilu) 'SISHNSIG'
           WRITE(n0vilu) zshn
-! 
+!
 ! >>> Write south ice area
 !
           WRITE(n0vilu) 'SISHSSIG'
           WRITE(n0vilu) zshs
-! 
+!
 ! >>> Write north ice volume
 !
           WRITE(n0vilu) 'SIVHNSIG'
@@ -820,7 +820,7 @@ SUBROUTINE wridiag_glt  &
 !
           WRITE(n0vilu) 'SIVHSSIG'
           WRITE(n0vilu) zvhs
-!  
+!
 ! >>> Write north snow volume
 !
           WRITE(n0vilu) 'SIWHNSIG'
@@ -830,27 +830,27 @@ SUBROUTINE wridiag_glt  &
 !
           WRITE(n0vilu) 'SIWHSSIG'
           WRITE(n0vilu) zwhs
-! 
+!
 ! >>> Fram Strait sea ice outflow
 !
           WRITE(n0vilu) 'SIFRAMST'
           WRITE(n0vilu) zfram
-! 
+!
 ! >>> Bering Strait sea ice outflow
 !
           WRITE(n0vilu) 'SIBERING'
           WRITE(n0vilu) zbering
-! 
+!
 ! >>> North Canadian Archipelago (West) sea ice outflow
 !
           WRITE(n0vilu) 'SINCWEST'
           WRITE(n0vilu) zncwest
-! 
+!
 ! >>> North Canadian Archipelago (East) sea ice outflow
 !
           WRITE(n0vilu) 'SINCEAST'
           WRITE(n0vilu) znceast
-! 
+!
 ! >>> North Barents Sea sea ice outflow
 !
           WRITE(n0vilu) 'SINORTHB'
@@ -865,7 +865,7 @@ SUBROUTINE wridiag_glt  &
   IF (lwg) THEN
     WRITE(noutlu,*) '                              North        South'
     WRITE(noutlu,1000) zshn,zshs
-    IF ( ndiap3==1 ) THEN 
+    IF ( ndiap3==1 ) THEN
       WRITE(noutlu,1100) zehn,zehs
     ENDIF
     WRITE(noutlu,1200) zwhn,zwhs
@@ -904,7 +904,7 @@ SUBROUTINE wridiag_glt  &
  WRITE(noutlu,*) ' wri_dia_glt doesn t work in Surfex'
 #endif
 !
-END SUBROUTINE wridiag_glt 
+END SUBROUTINE wridiag_glt
 !
 ! ---------------------- END SUBROUTINE WRIDIAG_GLT -----------------------
 ! -----------------------------------------------------------------------

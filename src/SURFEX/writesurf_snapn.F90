@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_SNAP_n (HSELECT, CHN, HPROGRAM)
@@ -77,13 +77,13 @@ DO JSPEC=1,CHN%NEMIS_NBR
   YCOMMENTUNIT='-'
   YRECFM = "E_"//TRIM(CHN%CEMIS_NAME(JSPEC))//"_M"
   CALL WRITE_SURF_FIELD2D(HSELECT, HPROGRAM,CHN%XSNAP_MONTHLY(:,:,JSPEC),YRECFM,&
-                          YCOMMENT,YCOMMENTUNIT,HDIR='-',HNAM_DIM="Nemis_snap      ")  
+                          YCOMMENT,YCOMMENTUNIT,HDIR='-',HNAM_DIM="Nemis_snap      ")
   YRECFM = "E_"//TRIM(CHN%CEMIS_NAME(JSPEC))//"_D"
   CALL WRITE_SURF_FIELD2D(HSELECT, HPROGRAM,CHN%XSNAP_DAILY(:,:,JSPEC),YRECFM,&
-                          YCOMMENT,YCOMMENTUNIT,HDIR='-',HNAM_DIM="Nemis_snap      ")    
+                          YCOMMENT,YCOMMENTUNIT,HDIR='-',HNAM_DIM="Nemis_snap      ")
   YRECFM = "E_"//TRIM(CHN%CEMIS_NAME(JSPEC))//"_H"
   CALL WRITE_SURF_FIELD2D(HSELECT, HPROGRAM,CHN%XSNAP_HOURLY(:,:,JSPEC),YRECFM,&
-                          YCOMMENT,YCOMMENTUNIT,HDIR='-',HNAM_DIM="Nemis_snap      ")    
+                          YCOMMENT,YCOMMENTUNIT,HDIR='-',HNAM_DIM="Nemis_snap      ")
 ! Writes the potential emission of species for each snap
   DO JSNAP=1,CHN%NEMIS_SNAP
     WRITE(YRECFM,'("SN",I2.2,"_",A7)') JSNAP,CHN%CEMIS_NAME(JSPEC)

@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################################################################
       SUBROUTINE TEB_MORPHO(HPROGRAM, T   )
 !     ###########################################################################################################
 !
-!!****  *TEB_MORPHO* 
+!!****  *TEB_MORPHO*
 !!
 !!    PURPOSE
 !!    -------
@@ -19,7 +19,7 @@
 !!    - in the case of high building fraction (higher than 0.9999)
 !!    - building height
 !!    - in the case of low road fraction
-!!    - in the case of low/hight wall surface ratio 
+!!    - in the case of low/hight wall surface ratio
 !!
 !!    EXTERNAL
 !!    --------
@@ -104,14 +104,14 @@ DO JJ=1,SIZE(T%XBLD)
       T%XGARDEN(JJ) = MIN(T%XGARDEN(JJ), 1.-2.*T%XBLD(JJ))
    ENDIF
    !
-   !*    4.   Control only building in the cell: could occur for high resolution 
-   !          theoretically W_O_H could be 0. -> impose that at least the wall surface is equal to the mesh perimeter x building 
+   !*    4.   Control only building in the cell: could occur for high resolution
+   !          theoretically W_O_H could be 0. -> impose that at least the wall surface is equal to the mesh perimeter x building
    !          height for a mesh size of 100 x 100m; the waste heat is released at the roof level
    !
    IF (T%XBLD(JJ) > ZRANGE_BLD(2)) THEN
       T%XBLD(JJ) = ZRANGE_BLD(2)
       IF (T%XGARDEN(JJ) > 0.) THEN
-         T%XGARDEN(JJ) = 0. 
+         T%XGARDEN(JJ) = 0.
       ENDIF
    ENDIF
    !
@@ -120,7 +120,7 @@ DO JJ=1,SIZE(T%XBLD)
    !          wall surface of the building evaluated considering 1 square building
    !
    IF (T%XWALL_O_HOR(JJ) < 4. * SQRT(T%XBLD(JJ))*T%XBLD_HEIGHT(JJ)/1000.) THEN
-      T%XWALL_O_HOR(JJ) = 4. * SQRT(T%XBLD(JJ))*T%XBLD_HEIGHT(JJ)/1000. 
+      T%XWALL_O_HOR(JJ) = 4. * SQRT(T%XBLD(JJ))*T%XBLD_HEIGHT(JJ)/1000.
    ENDIF
    !
    !*    6.   Control facade surface vs building height, case of too high WALL_O_HOR
@@ -128,7 +128,7 @@ DO JJ=1,SIZE(T%XBLD)
    T%XWALL_O_BLD(JJ) = T%XWALL_O_HOR(JJ)/T%XBLD(JJ)
    !
    IF (T%XWALL_O_BLD(JJ) > (0.4 * T%XBLD_HEIGHT(JJ))) THEN ! <=> side_of_building < 10 m
-      !     
+      !
       ZWALL_O_HOR(JJ) = T%XWALL_O_HOR(JJ)
       ZWALL_O_BLD(JJ) = T%XWALL_O_BLD(JJ)
       !
@@ -174,7 +174,7 @@ DO JJ=1,SIZE(T%XBLD)
 ENDDO
 !
 !
-!*    9.   Compute morphometric parameters 
+!*    9.   Compute morphometric parameters
 !
 T%XCAN_HW_RATIO(:)    = 0.5 * T%XWALL_O_HOR(:) / (1.-T%XBLD(:))
 !

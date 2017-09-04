@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE ALLOCATE_GR_SNOW(TPSNOW,KLU)
 !     ##############################################
 !
-!!****  *ALLOCATE_GR_SNOW* - 
+!!****  *ALLOCATE_GR_SNOW* -
 !!
 !!    PURPOSE
 !!    -------
@@ -16,7 +16,7 @@
 !!    ------
 !!
 !!       TPSNOW%SCHEME must yet be initialized
-!!    
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -31,14 +31,14 @@
 !!
 !!    AUTHOR
 !!    ------
-!!      
+!!
 !!      V.Masson  Meteo-France
 !!
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    20/01/99
 !
-!!     F.Solmon     06/00 Adapt for patch cases 
+!!     F.Solmon     06/00 Adapt for patch cases
 !!     V. Masson    01/2004 Externalization
 !!     A. Bogatchev 09/2005 EBA snow option
 !!     P. Samuelsson 07/2014 Added snow albedos
@@ -75,12 +75,12 @@ IF (TPSNOW%SCHEME=='3-L' .OR. TPSNOW%SCHEME=='CRO' .OR. TPSNOW%SCHEME=='1-L' .OR
   !
   ALLOCATE(TPSNOW%WSNOW  (KLU,TPSNOW%NLAYER))
   ALLOCATE(TPSNOW%RHO    (KLU,TPSNOW%NLAYER))
-  ALLOCATE(TPSNOW%ALB    (KLU))  
-  ALLOCATE(TPSNOW%ALBVIS (KLU))  
-  ALLOCATE(TPSNOW%ALBNIR (KLU))  
-  ALLOCATE(TPSNOW%ALBFIR (KLU))  
+  ALLOCATE(TPSNOW%ALB    (KLU))
+  ALLOCATE(TPSNOW%ALBVIS (KLU))
+  ALLOCATE(TPSNOW%ALBNIR (KLU))
+  ALLOCATE(TPSNOW%ALBFIR (KLU))
   TPSNOW%WSNOW   = 0.
-  TPSNOW%RHO     = XUNDEF  
+  TPSNOW%RHO     = XUNDEF
   TPSNOW%ALB     = XUNDEF
   TPSNOW%ALBVIS  = XUNDEF
   TPSNOW%ALBNIR  = XUNDEF
@@ -97,7 +97,7 @@ IF (TPSNOW%SCHEME=='3-L' .OR. TPSNOW%SCHEME=='CRO' .OR. TPSNOW%SCHEME=='1-L' .OR
       !
       ALLOCATE(TPSNOW%TEMP(KLU,TPSNOW%NLAYER))
       ALLOCATE(TPSNOW%HEAT(KLU,TPSNOW%NLAYER))
-      ALLOCATE(TPSNOW%AGE (KLU,TPSNOW%NLAYER)) 
+      ALLOCATE(TPSNOW%AGE (KLU,TPSNOW%NLAYER))
       TPSNOW%TEMP = XUNDEF
       TPSNOW%HEAT = XUNDEF
       TPSNOW%AGE  = XUNDEF
@@ -105,11 +105,11 @@ IF (TPSNOW%SCHEME=='3-L' .OR. TPSNOW%SCHEME=='CRO' .OR. TPSNOW%SCHEME=='1-L' .OR
       IF(TPSNOW%SCHEME=='CRO') THEN
         !
         ALLOCATE(TPSNOW%GRAN1(KLU,TPSNOW%NLAYER))
-        ALLOCATE(TPSNOW%GRAN2(KLU,TPSNOW%NLAYER))  
-        ALLOCATE(TPSNOW%HIST (KLU,TPSNOW%NLAYER))  
+        ALLOCATE(TPSNOW%GRAN2(KLU,TPSNOW%NLAYER))
+        ALLOCATE(TPSNOW%HIST (KLU,TPSNOW%NLAYER))
         TPSNOW%GRAN1 = XUNDEF
-        TPSNOW%GRAN2 = XUNDEF  
-        TPSNOW%HIST  = XUNDEF  
+        TPSNOW%GRAN2 = XUNDEF
+        TPSNOW%HIST  = XUNDEF
         !
       END IF
       !
@@ -126,12 +126,12 @@ ENDIF
 IF (TPSNOW%SCHEME/='CRO') THEN
   !
   ALLOCATE(TPSNOW%GRAN1(0,0))
-  ALLOCATE(TPSNOW%GRAN2(0,0))  
-  ALLOCATE(TPSNOW%HIST (0,0))  
+  ALLOCATE(TPSNOW%GRAN2(0,0))
+  ALLOCATE(TPSNOW%HIST (0,0))
   !
   IF (TPSNOW%SCHEME/='3-L') THEN
     !
-    ALLOCATE(TPSNOW%TEMP(0,0))    
+    ALLOCATE(TPSNOW%TEMP(0,0))
     ALLOCATE(TPSNOW%HEAT(0,0))
     ALLOCATE(TPSNOW%AGE (0,0))
     !
@@ -154,7 +154,7 @@ IF (TPSNOW%SCHEME/='CRO') THEN
     ENDIF
     !
   ENDIF
-  ! 
+  !
 END IF
 !
 IF (TPSNOW%SCHEME/='1-L') THEN

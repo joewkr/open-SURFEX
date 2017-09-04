@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_IDEAL_CONF_n (DGO, HPROGRAM)
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -88,9 +88,9 @@ IF (LHOOK) CALL DR_HOOK('READ_IDEAL_CONF_N',0,ZHOOK_HANDLE)
 IMI=GET_CURRENT_MODEL_INDEX_SURFEX()
 !
 IF (IMI.NE.-1 .AND. LNAM_READ) CALL INIT_NAM_DIAG_SURFn(DGO)
-! 
+!
 IF (LNAM_READ) THEN
- !        
+ !
  !* open namelist file
  !
  CALL OPEN_NAMELIST(HPROGRAM,INAM)

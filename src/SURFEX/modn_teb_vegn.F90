@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !##################
 MODULE MODN_TEB_VEG_n
@@ -20,14 +20,14 @@ MODULE MODN_TEB_VEG_n
 !!    REFERENCE
 !!    ---------
 !!
-!!       
+!!
 !!    AUTHOR
 !!    ------
 !!      V. Masson    *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004                    
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.   DECLARATIONS
@@ -59,7 +59,7 @@ CHARACTER(LEN=4)  :: CRUNOFF
 CHARACTER(LEN=3)  :: CKSAT
 LOGICAL           :: LSOC
 CHARACTER(LEN=3)  :: CRAIN
-CHARACTER(LEN=3)  :: CHORT         
+CHARACTER(LEN=3)  :: CHORT
 CHARACTER(LEN=28) :: CCHEM_SURF_FILE
 CHARACTER(LEN=6)  :: CCH_DRY_DEP
 !
@@ -68,7 +68,7 @@ REAL              :: XTSTEP
 REAL              :: XCDRAG
 !
 NAMELIST/NAM_ISBAn/CC1DRY,CSCOND,CSOILFRZ,CDIFSFCOND,CSNOWRES,CALBEDO,CCPSURF, &
-                   XTSTEP,XCGMAX,XCDRAG,LGLACIER, LCANOPY_DRAG, LVEGUPD, LPERTSURF  
+                   XTSTEP,XCGMAX,XCDRAG,LGLACIER, LCANOPY_DRAG, LVEGUPD, LPERTSURF
 NAMELIST/NAM_ISBA_AGSn/LNITRO_DILU
 NAMELIST/NAM_SGH_ISBAn/CRUNOFF,CKSAT,LSOC,CRAIN,CHORT
 NAMELIST/NAM_CH_CONTROLn/CCHEM_SURF_FILE
@@ -97,7 +97,7 @@ SUBROUTINE INIT_NAM_TEB_VEGn (TGDO)
   XTSTEP       = TGDO%XTSTEP
   XCGMAX       = TGDO%XCGMAX
   XCDRAG       = TGDO%XCDRAG
-  LVEGUPD      = TGDO%LVEGUPD  
+  LVEGUPD      = TGDO%LVEGUPD
   LCANOPY_DRAG = TGDO%LCANOPY_DRAG
 IF (LHOOK) CALL DR_HOOK('MODN_TEB_VEG_N:INIT_NAM_TEB_VEGN',1,ZHOOK_HANDLE)
 END SUBROUTINE INIT_NAM_TEB_VEGn

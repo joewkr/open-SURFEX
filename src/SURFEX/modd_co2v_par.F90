@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ####################
       MODULE MODD_CO2V_PAR
 !     ####################
 !
-!!*****MODD_CO2V_PAR*  
+!!*****MODD_CO2V_PAR*
 !!
 !!    PURPOSE
 !!    -------
@@ -15,33 +15,33 @@
 !!    the vgegtation cover and for the
 !!    stomatal conductance model of Jacobs.
 !!    (Calvet et al. 1997, Agrig. and For. Met.)
-!!     
-!!    IMPLICIT ARGUMENTS
-!!    ------------------ 
 !!
-!!      
+!!    IMPLICIT ARGUMENTS
+!!    ------------------
+!!
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      A. Boone           * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    26/10/97 
+!!      Original    26/10/97
 !!      Modified    12/03/04  by P LeMoigne: XAMMIN in (kg m-2 s-1)
 !!      Modified    12/03/04  by P LeMoigne: XFZERO taken from Calvet 98
 !!      Modified    18/10/04  by P LeMoigne: XFZERO splitted into 2
 !!      P Le Moigne 09/2005 AGS modifs of L. Jarlan
-!       S. Lafont    03/2009 : change unit of EPSO GAMM ANMAX 
+!       S. Lafont    03/2009 : change unit of EPSO GAMM ANMAX
 !!      A.L. Gibelin 04/2009 : correction of some AGS parameters and suppress
 !!                             useless parameters
 !!      A.L. Gibelin 04/2009 : add parameters for PHOTO='NCB'
 !!      A.L. Gibelin 06/2009 : add parameters for RESPSL='CNT'
 !!      B. Decharme  05/2012 : Add XCC_NITRO and XBIOMASST_LIM (optimization)
 !!      R. Alkama    05/2012 : parameters for 19 vegtype rather than 12
-!!Seferian & Delire  06/2015 : updating XAMAX peding on TRY database Kattge et al. GCB 2011 
+!!Seferian & Delire  06/2015 : updating XAMAX peding on TRY database Kattge et al. GCB 2011
 !!
 !-------------------------------------------------------------------------------
 !
@@ -58,9 +58,9 @@ REAL, PARAMETER                      :: XSPIN_CO2 = 0.1
 !                                       to ramp up CO2 concentration from XCO2_START to XCO2_END
 !
 REAL, PARAMETER                      :: XMCO2 = 44.0E-3, XMC   = 12.0E-3
-!                                       molecular mass of CO2, 
+!                                       molecular mass of CO2,
 !                                       and C (Carbon), respectively
-!                                       (used for conversions in kg) 
+!                                       (used for conversions in kg)
 !
 REAL, PARAMETER                      :: XPARCF = 0.48
 !                                       coefficient: PAR fraction of incoming solar radiation
@@ -72,7 +72,7 @@ REAL, PARAMETER                      :: XPCCO2 = 0.40
 !                                       proportion of Carbon in dry plant biomass (kgC/kgDM)
 !
 REAL, PARAMETER                      :: XIAOPT = 500.,  XDSPOPT = 0.0
-!                                       optimum/initial values for absorbed global 
+!                                       optimum/initial values for absorbed global
 !                                       radiation, saturation deficit, respectively.
 
 REAL, PARAMETER                      :: XXGT = 0.5
@@ -82,7 +82,7 @@ REAL, PARAMETER                      :: XDIFRACF = 0.25
 !                                       used in computation of fraction of diffusion
 !
 REAL, PARAMETER                      :: XXBOMEGA = 0.9442719
-!                                       Factor Assuming the albedo from simple diffusion 
+!                                       Factor Assuming the albedo from simple diffusion
 !                                       of the leaf (PAR) or 'omega'=0.2
 !
 REAL, PARAMETER                      :: XRDCF = 1./9.
@@ -109,7 +109,7 @@ REAL, PARAMETER                      :: XCO2TOH2O = 1.6
 !
 REAL, PARAMETER                      :: XAW = 4.7, XASW = 2.8, XBW = 7.0
 !                                       coefficient of stress universal relationship
-!                                       for Woody species 
+!                                       for Woody species
 !
 REAL, PARAMETER                      :: XDMAXN = 3.0E-2, XDMAXX = 3.0E-1
 !                                       minimum and maximum air deficit stress parameters
@@ -119,18 +119,18 @@ REAL, PARAMETER                      :: XDMAXN = 3.0E-2, XDMAXX = 3.0E-1
 !                      Parameter values [C3,C4] at 25 C:
 !
 REAL, PARAMETER, DIMENSION(2) :: XTOPT   = (/25.0, 35.0/)
-!                                       optimum/initial temperatures for evaluating 
+!                                       optimum/initial temperatures for evaluating
 !                                       compensation points
 !
 REAL, PARAMETER, DIMENSION(2) :: XFZERO1  = (/0.85, 0.50/)   ! AGS LAI
-REAL, PARAMETER, DIMENSION(2) :: XFZERO2  = (/0.95, 0.60/)   ! AST, LST, NIT, NCB 
-!                                       CO2_atm/CO2_int with no photorespiration or saturation deficit, 
-!                                       used only for crops & herbaceous plants       
-REAL, PARAMETER, DIMENSION(2) :: XFZEROTROP  = (/0.74, 0.74/) ! Tropical forests with and without 
-!                                       Carrer et al. radiative transfer                                                                   
+REAL, PARAMETER, DIMENSION(2) :: XFZERO2  = (/0.95, 0.60/)   ! AST, LST, NIT, NCB
+!                                       CO2_atm/CO2_int with no photorespiration or saturation deficit,
+!                                       used only for crops & herbaceous plants
+REAL, PARAMETER, DIMENSION(2) :: XFZEROTROP  = (/0.74, 0.74/) ! Tropical forests with and without
+!                                       Carrer et al. radiative transfer
 !
-REAL, PARAMETER, DIMENSION(2) :: XEPSO   = (/0.017E-6,0.014E-6/) 
-!                                       maximum initial quantum use efficiency 
+REAL, PARAMETER, DIMENSION(2) :: XEPSO   = (/0.017E-6,0.014E-6/)
+!                                       maximum initial quantum use efficiency
 !                                       (kgCO2 J-1 PAR )
 !
 REAL, PARAMETER, DIMENSION(2) :: XGAMM   = (/45.0, 2.8/)
@@ -140,16 +140,16 @@ REAL, PARAMETER, DIMENSION(2) :: XQDGAMM = (/1.5, 1.5/)
 !                                       Q10 function for CO2 conpensation concentration
 !
 REAL, PARAMETER, DIMENSION(2) :: XQDGMES = (/2.0, 2.0/)
-!                                       Q10 function for mesophyll conductance 
+!                                       Q10 function for mesophyll conductance
 !
 REAL, PARAMETER, DIMENSION(2) :: XT1GMES = (/5.0, 13.0/)
 !                                       reference temperature for computing compensation
 !                                       concentration function for mesophyll conductance:
-!                                       minimum temperature 
+!                                       minimum temperature
 !
 REAL, PARAMETER, DIMENSION(2) :: XT2GMES = (/36.0, 36.0/)
 !                                       reference temperature for computing compensation
-!                                       concentration function for mesophyll conductance: 
+!                                       concentration function for mesophyll conductance:
 !                                       maximum temperature
 !
 REAL, PARAMETER, DIMENSION(2) :: XQDAMAX = (/2.0, 2.0/)
@@ -157,7 +157,7 @@ REAL, PARAMETER, DIMENSION(2) :: XQDAMAX = (/2.0, 2.0/)
 !
 REAL, PARAMETER, DIMENSION(2) :: XT1AMAX = (/8.0, 13.0/)
 !                                       reference temperature for computing compensation
-!                                       concentration function for leaf photosynthetic 
+!                                       concentration function for leaf photosynthetic
 !                                       capacity: minimum temperature
 !
 REAL, PARAMETER, DIMENSION(2) :: XT2AMAX = (/38.0, 38.0/)
@@ -179,8 +179,8 @@ REAL, PARAMETER               :: XRESPFACTOR_NIT = 1.16E-7
 !                                maintenance respiration rate (1% per day)
 !                                of structural biomass (Faurie, 1994) [s-1]
 !
-REAL, PARAMETER               :: XCA_NIT = 0.38 
-!                                rate of nitrogen dilution of above-ground biomass at all [CO2] 
+REAL, PARAMETER               :: XCA_NIT = 0.38
+!                                rate of nitrogen dilution of above-ground biomass at all [CO2]
 !                                (Calvet and Soussana 2001, Gibelin et al. 2006)
 !
 REAL, PARAMETER               :: XCC_NIT = 0.753846
@@ -192,7 +192,7 @@ REAL, PARAMETER               :: XCC_NITRO = 0.31425531725
 !                                Old : XCC_NIT/10.**XCA_NIT in nitro_decline.F90
 !
 REAL, PARAMETER               :: XBIOMASST_LIM = 4.7540042445E-2
-!                                threshold value for leaf biomass and total 
+!                                threshold value for leaf biomass and total
 !                                above ground biomass in nitrogen dilution theory
 !                                Old : XCC_NITRO**(1.0/XCA_NIT) in nitro_decline.F90
 !
@@ -235,10 +235,10 @@ REAL, DIMENSION(3)      :: XTAU_SOILCARB
 ! Radiative transfer parameters
 !
 ! single scattering albedo
-REAL, PARAMETER                      :: XSSA_SUP = 0.15 ! single scatering albedo (PAR) for upper layer 
+REAL, PARAMETER                      :: XSSA_SUP = 0.15 ! single scatering albedo (PAR) for upper layer
 REAL, PARAMETER                      :: XSSA_INF = 0.15 ! single scatering albedo (PAR) for lower layer
 !
-REAL, PARAMETER                      :: XSSA_SUP_PIR = 0.80 ! single scatering albedo (PAR) for upper layer 
+REAL, PARAMETER                      :: XSSA_SUP_PIR = 0.80 ! single scatering albedo (PAR) for upper layer
 REAL, PARAMETER                      :: XSSA_INF_PIR = 0.80 ! single scatering albedo (PAR) for lower layer
 
 ! upper layer (calibration should depend on vegetation type...)
@@ -257,7 +257,7 @@ REAL, PARAMETER, DIMENSION(19) :: XXB_INF = &       ! b_sup = 1/omega_sup(zs=0) 
            (/ 1., 1., 1., 4., 2., 4., 1., 1.5, 1.5, 1., 1., 1., 4., 4., 2., 4., 2., 1., 4. /)
 !
 ! (Calvet et al. 2008) coefs for ratio of biomass to LAI with representation of nitrogen dilution fct of CO2
-REAL, PARAMETER, DIMENSION(19) :: XPARAM = &       
+REAL, PARAMETER, DIMENSION(19) :: XPARAM = &
 (/ 0., 0., 0., 2.56, 1.81, 1.81, 1.48, 1.48, 1.48, 1.81, 1.81, 1.81, 2.56, 2.56, 1.81, 2.56, &
   1.81, 1.81, 2.56 /)
 !
@@ -273,7 +273,7 @@ REAL, PARAMETER, DIMENSION(19) :: XDILUDEC = &
 REAL, PARAMETER, DIMENSION(19) :: XAMAX   = &
 (/ 1., 1., 1., 1.3E-6, 1.4E-6, 0.484E-6, 2.2E-6, 1.7E-6, 1.7E-6, 1.7E-6, 1.7E-6, 1.7E-6, &
    0.9E-6, 1.3E-6, 1.4E-6, 1.3E-6, 0.9E-6, 1.7E-6, 1.2E-6/)
-!                                       
+!
 END MODULE MODD_CO2V_PAR
 
 

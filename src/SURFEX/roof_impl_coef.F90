@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ###############################################
 SUBROUTINE ROOF_IMPL_COEF(T, PTSTEP, PTDEEP_A, PTDEEP_B)
@@ -12,8 +12,8 @@ SUBROUTINE ROOF_IMPL_COEF(T, PTSTEP, PTDEEP_A, PTDEEP_B)
 !
 !     Computes the corfficients for implicitation of upper
 !     roof layer with what is above
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
@@ -21,14 +21,14 @@ SUBROUTINE ROOF_IMPL_COEF(T, PTSTEP, PTDEEP_A, PTDEEP_B)
 !  of the roof. One solves the half part of the tridiagonal matrix
 !  fromm bottom to top.
 !
-!!     The classical tridiagonal algorithm is used to invert the 
+!!     The classical tridiagonal algorithm is used to invert the
 !!     implicit operator (from bottom to top only). Its matrix is given by:
 !!
 !!     (  b(1)      c(1)      0        0        0         0        0        0  )
-!!     (  a(2)      b(2)     c(2)      0  ...    0        0        0        0  ) 
-!!     (   0        a(3)     b(3)     c(3)       0        0        0        0  ) 
+!!     (  a(2)      b(2)     c(2)      0  ...    0        0        0        0  )
+!!     (   0        a(3)     b(3)     c(3)       0        0        0        0  )
 !!      .......................................................................
-!!     (   0   ...   0      a(k)      b(k)     c(k)       0   ...  0        0  ) 
+!!     (   0   ...   0      a(k)      b(k)     c(k)       0   ...  0        0  )
 !!      .......................................................................
 !!     (   0         0        0        0        0 ...  a(n-1)   b(n-1)   c(n-1))
 !!     (   0         0        0        0        0 ...     0      a(n)     b(n) )
@@ -63,7 +63,7 @@ IMPLICIT NONE
 TYPE(TEB_t), INTENT(INOUT) :: T
 !
 REAL              ,   INTENT(IN)  :: PTSTEP      ! time step
-REAL, DIMENSION(:),   INTENT(OUT) :: PTDEEP_A, PTDEEP_B     
+REAL, DIMENSION(:),   INTENT(OUT) :: PTDEEP_A, PTDEEP_B
                                               ! Deep soil temperature (prescribed)
 !                                      PTDEEP_A = Deep soil temperature
 !                                                 coefficient depending on flux
@@ -130,7 +130,7 @@ END DO
 ! Implicit coefficients for the heat flux
 !
 PTDEEP_B = ZT  (:,1)
-PTDEEP_A = 1. / ZDET(:) 
+PTDEEP_A = 1. / ZDET(:)
 !
 !* The following lines are here if you want to test the explicit coupling
 !PTDEEP_B = T%XT_ROOF(:,1)

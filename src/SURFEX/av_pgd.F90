@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODI_AV_PGD
@@ -9,7 +9,7 @@ INTERFACE AV_PGD
 !
       SUBROUTINE AV_PGD_2D (DTCO, &
                             PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,PDZ,KDECADE)
-      
+
 !
 USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
 TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
@@ -28,7 +28,7 @@ END SUBROUTINE AV_PGD_2D
 !
       SUBROUTINE AV_PATCH_PGD (DTCO, &
                                PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,PDZ,KDECADE)
-      
+
 !
 USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
 TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
@@ -47,7 +47,7 @@ END SUBROUTINE AV_PATCH_PGD
 !
       SUBROUTINE AV_PGD_1D (DTCO, &
                             PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,PDZ,KDECADE)
-      
+
 !
 USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
 TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
@@ -66,7 +66,7 @@ END SUBROUTINE AV_PGD_1D
 !
       SUBROUTINE AV_PATCH_PGD_1D (DTCO, &
                                   PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,PDZ,KDECADE)
-      
+
 !
 USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
 TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
@@ -84,7 +84,7 @@ INTEGER,                INTENT(IN), OPTIONAL :: KDECADE ! current month
 END SUBROUTINE AV_PATCH_PGD_1D
 !
       SUBROUTINE MAJOR_PATCH_PGD_1D(TFIELD,PCOVER,TDATA,HSFTYPE,HATYPE,OCOVER,KDECADE)
-      
+
 !
 USE MODD_TYPE_DATE_SURF
 TYPE (DATE_TIME), DIMENSION(:,:), INTENT(OUT) :: TFIELD  ! secondary field to construct for each patch
@@ -147,7 +147,7 @@ END MODULE MODI_AV_PGD
 !!    MODIFICATION
 !!    ------------
 !
-!     F.Solmon patch modif: remove the case 'veg' as veg is defined for patches 
+!     F.Solmon patch modif: remove the case 'veg' as veg is defined for patches
 !
 !!    Original    15/12/97
 !!    V. Masson   01/2004  Externalization
@@ -164,10 +164,10 @@ USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
 USE MODD_SURFEX_OMP, ONLY : NBLOCKTOT
 USE MODD_SURFEX_MPI, ONLY : NRANK
 USE MODD_SURF_PAR,       ONLY : XUNDEF
-USE MODD_DATA_COVER,     ONLY : XDATA_BLD_HEIGHT 
+USE MODD_DATA_COVER,     ONLY : XDATA_BLD_HEIGHT
 USE MODD_DATA_COVER_PAR, ONLY : NVT_TEBD, NVT_BONE, NVT_TRBE, XCDREF, NVT_TRBD, &
                                 NVT_TEBE, NVT_TENE, NVT_BOBD, NVT_BOND, NVT_SHRB
-!            
+!
 !
 USE MODE_AV_PGD
 !
@@ -259,7 +259,7 @@ CALL DR_HOOK('MODI_AV_PGD:AV_PGD_1D_1',1,ZHOOK_HANDLE)
 IF (HATYPE=='ARI' .OR. HATYPE=='INV' .OR. HATYPE=='CDN') THEN
   !
   ISIZE_OMP = MAX(1,ICOVER/NBLOCKTOT)
-!!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP) 
+!!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)
  CALL DR_HOOK('MODI_AV_PGD:AV_PGD_1D_2',0,ZHOOK_HANDLE_OMP)
 !!$OMP DO SCHEDULE(STATIC,ISIZE_OMP) PRIVATE(JCOVER,JJ,ZVAL,JI,ZCOVER_WEIGHT) &
 !!$OMP & REDUCTION(+:ZSUM_COVER_WEIGHT,ZWORK)
@@ -273,7 +273,7 @@ IF (HATYPE=='ARI' .OR. HATYPE=='INV' .OR. HATYPE=='CDN') THEN
       ELSEIF (HATYPE=='INV') THEN
         ZVAL(:) = 1./PDATA(JJ)
       ELSEIF (HATYPE=='CDN') THEN
-        ZVAL(:) = 1./(LOG(ZDZ(:)/PDATA(JJ)))**2 
+        ZVAL(:) = 1./(LOG(ZDZ(:)/PDATA(JJ)))**2
       ENDIF
       !
       DO JI = 1,SIZE(PCOVER,1)
@@ -294,7 +294,7 @@ ELSEIF (HATYPE=='MAJ') THEN
 !!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)
 IF (LHOOK) CALL DR_HOOK('MODI_AV_PGD:AV_PGD_1D_3',0,ZHOOK_HANDLE_OMP)
 !$OMP DO SCHEDULE(DYNAMIC,1) PRIVATE(JI,ID0)
-  DO JI = 1,SIZE(PCOVER,1) 
+  DO JI = 1,SIZE(PCOVER,1)
     ID0 = MAXVAL(MAXLOC(PCOVER(JI,:)*ZWEIGHT(:)))
     ZWORK(JI) = PDATA(IMASK(ID0))
     ZSUM_COVER_WEIGHT(JI) = ZSUM_COVER_WEIGHT(JI) + SUM(PCOVER(JI,:)*ZWEIGHT(:))
@@ -370,7 +370,7 @@ IF (LHOOK) CALL DR_HOOK('MODI_AV_PGD:AV_PGD_1D_4',0,ZHOOK_HANDLE)
 !
 END SELECT
 IF (LHOOK) CALL DR_HOOK('MODI_AV_PGD:AV_PGD_1D_4',1,ZHOOK_HANDLE)
-! 
+!
 !
 !-------------------------------------------------------------------------------
 !
@@ -381,7 +381,7 @@ END SUBROUTINE AV_PGD_1D
                                   PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,PDZ,KDECADE)
 !     ################################################################
 !
-!!**** *AV_PATCH_PGD* average for each surface patch a secondary physiographic 
+!!**** *AV_PATCH_PGD* average for each surface patch a secondary physiographic
 !!                    variable from the
 !!              fractions of coverage class.
 !!
@@ -416,7 +416,7 @@ END SUBROUTINE AV_PGD_1D
 !!    AUTHOR
 !!    ------
 !!
-!!    F.Solmon /V. Masson       
+!!    F.Solmon /V. Masson
 !!
 !!    MODIFICATION
 !!    ------------
@@ -439,7 +439,7 @@ USE MODD_DATA_COVER,     ONLY : XDATA_VEG, XDATA_LAI
 USE MODD_DATA_COVER_PAR, ONLY : NVT_TEBD, NVT_BONE, NVT_TRBE, NVEGTYPE, XCDREF, NVT_TRBD, &
                                 NVT_TEBE, NVT_TENE, NVT_BOBD, NVT_BOND, NVT_SHRB
 !
-USE MODI_VEGTYPE_TO_PATCH 
+USE MODI_VEGTYPE_TO_PATCH
 USE MODE_AV_PGD
 !
 !
@@ -563,7 +563,7 @@ DO JCOVER=1,ICOVER
   !
   DO JVEGTYPE=1,NVEGTYPE
     !
-    JPATCH= PATCH_LIST(JVEGTYPE)  
+    JPATCH= PATCH_LIST(JVEGTYPE)
     !
     IF (ZWEIGHT(JCOVER,JVEGTYPE)/=0.) THEN
       !
@@ -573,7 +573,7 @@ DO JCOVER=1,ICOVER
         ZVAL(:) = 1. / PDATA(JJ,JVEGTYPE)
       ELSEIF (HATYPE=='CDN') THEN
         DO JI=1,SIZE(PCOVER,1)
-          ZVAL(JI) = 1./(LOG(ZDZ(JI,JPATCH)/PDATA(JJ,JVEGTYPE)))**2 
+          ZVAL(JI) = 1./(LOG(ZDZ(JI,JPATCH)/PDATA(JJ,JVEGTYPE)))**2
         ENDDO
       ELSE
         CALL ABOR1_SFX('AV_PATCH_PGD_1D: (1) AVERAGING TYPE NOT ALLOWED')
@@ -581,7 +581,7 @@ DO JCOVER=1,ICOVER
       !
       DO JI=1,SIZE(PCOVER,1)
         IF (PCOVER(JI,JCOVER)/=0.) THEN
-          ZCOVER_WEIGHT =  PCOVER(JI,JCOVER) * ZWEIGHT(JCOVER,JVEGTYPE)      
+          ZCOVER_WEIGHT =  PCOVER(JI,JCOVER) * ZWEIGHT(JCOVER,JVEGTYPE)
           ZSUM_COVER_WEIGHT_PATCH(JI,JPATCH) = ZSUM_COVER_WEIGHT_PATCH(JI,JPATCH) + ZCOVER_WEIGHT
           ZWORK(JI,JPATCH) = ZWORK(JI,JPATCH) + ZVAL(JI) * ZCOVER_WEIGHT
         ENDIF
@@ -614,7 +614,7 @@ DO JPATCH=1,IPATCH
 ENDDO
 !
 !-------------------------------------------------------------------------------
-  
+
 !
 !*    4.1    Selection of averaging type
 !            ---------------------------
@@ -627,7 +627,7 @@ ENDDO
 !            --------------------
 !
   CASE ('ARI')
-!   
+!
     DO JPATCH=1,IPATCH
 !cdir nodep
       DO JJ=1,JCOUNT(JPATCH)
@@ -677,7 +677,7 @@ IF (LHOOK) CALL DR_HOOK('MODI_AV_PGD:AV_PATCH_PGD_1D_4',1,ZHOOK_HANDLE)
 !
 !IF (LHOOK) CALL DR_HOOK('MODI_AV_PGD:AV_PATCH_PGD_1D',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
-!   
+!
 END SUBROUTINE AV_PATCH_PGD_1D
 !
 !     ################################################################
@@ -724,7 +724,7 @@ END SUBROUTINE AV_PATCH_PGD_1D
 !!    MODIFICATION
 !!    ------------
 !
-!     F.Solmon patch modif: remove the case 'veg' as veg is defined for patches 
+!     F.Solmon patch modif: remove the case 'veg' as veg is defined for patches
 !
 !!    Original    15/12/97
 !!    V. Masson   01/2004  Externalization
@@ -852,8 +852,8 @@ DO JJ=1,ICOVER
                                        + DTCO%XDATA_VEGTYPE(JJ,NVT_TENE) &
                                        + DTCO%XDATA_VEGTYPE(JJ,NVT_BOBD) &
                                        + DTCO%XDATA_VEGTYPE(JJ,NVT_BOND) &
-                                       + DTCO%XDATA_VEGTYPE(JJ,NVT_SHRB) &                                           
-                                       + DTCO%XDATA_VEGTYPE(JJ,NVT_BONE) )  
+                                       + DTCO%XDATA_VEGTYPE(JJ,NVT_SHRB) &
+                                       + DTCO%XDATA_VEGTYPE(JJ,NVT_BONE) )
 
        CASE('GRT')
          PFIELD(:,:)=0.
@@ -865,8 +865,8 @@ DO JJ=1,ICOVER
                              + DTCO%XDATA_VEGTYPE(JJ,NVT_TENE) &
                              + DTCO%XDATA_VEGTYPE(JJ,NVT_BOBD) &
                              + DTCO%XDATA_VEGTYPE(JJ,NVT_BOND) &
-                             + DTCO%XDATA_VEGTYPE(JJ,NVT_SHRB) &                             
-                             + DTCO%XDATA_VEGTYPE(JJ,NVT_BONE) )  
+                             + DTCO%XDATA_VEGTYPE(JJ,NVT_SHRB) &
+                             + DTCO%XDATA_VEGTYPE(JJ,NVT_BONE) )
 
        CASE DEFAULT
          CALL ABOR1_SFX('AV_PGD: WEIGHTING FUNCTION NOT ALLOWED')
@@ -898,7 +898,7 @@ DO JJ=1,ICOVER
 !
   CASE ('ARI')
 !
-    ZWORK(:,:) = ZWORK(:,:) + ZDATA * ZCOVER_WEIGHT(:,:) 
+    ZWORK(:,:) = ZWORK(:,:) + ZDATA * ZCOVER_WEIGHT(:,:)
 !
 !-------------------------------------------------------------------------------
 !
@@ -979,7 +979,7 @@ END DO
 !
 END SELECT
 IF (LHOOK) CALL DR_HOOK('MODI_AV_PGD:AV_PGD_2D',1,ZHOOK_HANDLE)
-! 
+!
 !
 !-------------------------------------------------------------------------------
 !
@@ -992,7 +992,7 @@ END SUBROUTINE AV_PGD_2D
                                PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,PDZ,KDECADE)
 !     ################################################################
 !
-!!**** *AV_PATCH_PGD* average for each surface patch a secondary physiographic 
+!!**** *AV_PATCH_PGD* average for each surface patch a secondary physiographic
 !!                    variable from the
 !!              fractions of coverage class.
 !!
@@ -1027,7 +1027,7 @@ END SUBROUTINE AV_PGD_2D
 !!    AUTHOR
 !!    ------
 !!
-!!    F.Solmon /V. Masson       
+!!    F.Solmon /V. Masson
 !!
 !!    MODIFICATION
 !!    ------------
@@ -1045,11 +1045,11 @@ END SUBROUTINE AV_PGD_2D
 USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
 !
 USE MODD_SURF_PAR,       ONLY : XUNDEF
-USE MODD_DATA_COVER,     ONLY : XDATA_VEG, XDATA_LAI  
+USE MODD_DATA_COVER,     ONLY : XDATA_VEG, XDATA_LAI
 USE MODD_DATA_COVER_PAR, ONLY : NVT_TEBD, NVT_BONE, NVT_TRBE, NVEGTYPE, XCDREF, NVT_TRBD, &
                                 NVT_TEBE, NVT_TENE, NVT_BOBD, NVT_BOND, NVT_SHRB
 !
-USE MODI_VEGTYPE_TO_PATCH 
+USE MODI_VEGTYPE_TO_PATCH
 !
 !
 !
@@ -1157,53 +1157,53 @@ DO JJ=1,ICOVER
        END DO
 
      CASE('VEG')
-       DO JVEGTYPE=1,NVEGTYPE  
+       DO JVEGTYPE=1,NVEGTYPE
          ZWEIGHT(JVEGTYPE)=DTCO%XDATA_NATURE(JJ)*DTCO%XDATA_VEGTYPE(JJ,JVEGTYPE)*&
-                             XDATA_VEG(JJ,KDECADE,JVEGTYPE)  
+                             XDATA_VEG(JJ,KDECADE,JVEGTYPE)
        END DO
 
      CASE('BAR')
-       DO JVEGTYPE=1,NVEGTYPE  
+       DO JVEGTYPE=1,NVEGTYPE
          ZWEIGHT(JVEGTYPE)=DTCO%XDATA_NATURE(JJ)*DTCO%XDATA_VEGTYPE(JJ,JVEGTYPE)*&
-                             (1.-XDATA_VEG(JJ,KDECADE,JVEGTYPE)) 
+                             (1.-XDATA_VEG(JJ,KDECADE,JVEGTYPE))
        END DO
 
      CASE('GRV')
-       DO JVEGTYPE=1,NVEGTYPE  
+       DO JVEGTYPE=1,NVEGTYPE
          ZWEIGHT(JVEGTYPE)=DTCO%XDATA_TOWN(JJ)*DTCO%XDATA_GARDEN(JJ)*DTCO%XDATA_VEGTYPE(JJ,JVEGTYPE)*&
-                             XDATA_VEG(JJ,KDECADE,JVEGTYPE)  
+                             XDATA_VEG(JJ,KDECADE,JVEGTYPE)
        END DO
 
      CASE('GRB')
-       DO JVEGTYPE=1,NVEGTYPE  
+       DO JVEGTYPE=1,NVEGTYPE
          ZWEIGHT(JVEGTYPE)=DTCO%XDATA_TOWN(JJ)*DTCO%XDATA_GARDEN(JJ)*DTCO%XDATA_VEGTYPE(JJ,JVEGTYPE)*&
                              (1.-XDATA_VEG(JJ,KDECADE,JVEGTYPE))
-       ENDDO 
-       
+       ENDDO
+
      CASE('DVG') ! average only on vegetated area
        ZWEIGHT(:) = 0.0
        DO JVEGTYPE=1,NVEGTYPE
          IF ( SUM(XDATA_LAI(JJ,:,JVEGTYPE)).GT.0.) &
            ZWEIGHT(JVEGTYPE)=DTCO%XDATA_NATURE(JJ)*DTCO%XDATA_VEGTYPE(JJ,JVEGTYPE)
-       END DO     
+       END DO
 
      CASE('GDV') ! average only on vegetated area
-       ZWEIGHT(:) = 0.0             
+       ZWEIGHT(:) = 0.0
        DO JVEGTYPE=1,NVEGTYPE
          IF ( SUM(XDATA_LAI(JJ,:,JVEGTYPE)).GT.0.) &
            ZWEIGHT(JVEGTYPE)=DTCO%XDATA_TOWN(JJ)*DTCO%XDATA_GARDEN(JJ)*DTCO%XDATA_VEGTYPE(JJ,JVEGTYPE)
-       END DO     
+       END DO
 
      CASE('LAI')
-       DO JVEGTYPE=1,NVEGTYPE  
+       DO JVEGTYPE=1,NVEGTYPE
          ZWEIGHT(JVEGTYPE)=DTCO%XDATA_NATURE(JJ)*DTCO%XDATA_VEGTYPE(JJ,JVEGTYPE)*&
-                             XDATA_LAI(JJ,KDECADE,JVEGTYPE)  
+                             XDATA_LAI(JJ,KDECADE,JVEGTYPE)
        END DO
 
      CASE('GRL')
-       DO JVEGTYPE=1,NVEGTYPE  
+       DO JVEGTYPE=1,NVEGTYPE
          ZWEIGHT(JVEGTYPE)=DTCO%XDATA_TOWN(JJ)*DTCO%XDATA_GARDEN(JJ)*DTCO%XDATA_VEGTYPE(JJ,JVEGTYPE)*&
-                             XDATA_LAI(JJ,KDECADE,JVEGTYPE)  
+                             XDATA_LAI(JJ,KDECADE,JVEGTYPE)
        END DO
 
       CASE('TRE')
@@ -1277,19 +1277,19 @@ DO JJ=1,ICOVER
 !
 !*    3.1    Work arrays given for each patch
 !            -----------
-! 
-  ZCOVER_WEIGHT(:,:,:)=0. 
+!
+  ZCOVER_WEIGHT(:,:,:)=0.
   ZCOVER_WEIGHT_PATCH(:,:,:)=0.
- 
+
   DO JVEGTYPE=1,NVEGTYPE
      ZCOVER_WEIGHT(:,:,JVEGTYPE) =  ZCOVER_WEIGHT(:,:,JVEGTYPE) +&
-                                      PCOVER(:,:,JCOVER) * ZWEIGHT(JVEGTYPE)    
+                                      PCOVER(:,:,JCOVER) * ZWEIGHT(JVEGTYPE)
 
      JPATCH= VEGTYPE_TO_PATCH (JVEGTYPE, IPATCH)
-    
+
      ZCOVER_WEIGHT_PATCH(:,:,JPATCH) =  ZCOVER_WEIGHT_PATCH(:,:,JPATCH)+   &
-                                          PCOVER(:,:,JCOVER) * ZWEIGHT(JVEGTYPE)  
-  END DO 
+                                          PCOVER(:,:,JCOVER) * ZWEIGHT(JVEGTYPE)
+  END DO
 
 !
   ZSUM_COVER_WEIGHT_PATCH(:,:,:) = ZSUM_COVER_WEIGHT_PATCH(:,:,:) + ZCOVER_WEIGHT_PATCH(:,:,:)
@@ -1322,10 +1322,10 @@ DO JJ=1,ICOVER
 !
     CASE('INV' )
 !
-     DO JVEGTYPE=1,NVEGTYPE 
+     DO JVEGTYPE=1,NVEGTYPE
        JPATCH=VEGTYPE_TO_PATCH (JVEGTYPE,IPATCH)
        ZWORK(:,:,JPATCH)= ZWORK(:,:,JPATCH) + 1./ ZDATA(JVEGTYPE)* ZCOVER_WEIGHT(:,:,JVEGTYPE)
-     END DO    
+     END DO
 !
 !-------------------------------------------------------------------------------!
 !
@@ -1338,8 +1338,8 @@ DO JJ=1,ICOVER
       DO JVEGTYPE=1,NVEGTYPE
         JPATCH=VEGTYPE_TO_PATCH (JVEGTYPE,IPATCH)
         ZWORK(:,:,JPATCH)= ZWORK(:,:,JPATCH) + 1./(LOG(ZDZ(:,:,JPATCH)/ ZDATA(JVEGTYPE)))**2    &
-                                * ZCOVER_WEIGHT(:,:,JVEGTYPE)  
-      END DO   
+                                * ZCOVER_WEIGHT(:,:,JVEGTYPE)
+      END DO
 !
 !-------------------------------------------------------------------------------
 !

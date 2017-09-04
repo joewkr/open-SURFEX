@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INIT_CPL_GCM_n (U, HPROGRAM,HINIT)
 !     ########################################
 !
-!!****  *INIT_CPL_GCM_n* - routine to read  physical fields into  
+!!****  *INIT_CPL_GCM_n* - routine to read  physical fields into
 !!                         the restart file for ARPEGE/ALADIN run
 !!
 !!    PURPOSE
 !!    -------
-!!       The purpose of this routine is to initialise some 
-!!       physical fields. Indeed, when ARPEGE/ALADIN is used, 
+!!       The purpose of this routine is to initialise some
+!!       physical fields. Indeed, when ARPEGE/ALADIN is used,
 !!       these field is not initialize at the begin of a run.
 !!
 !!
@@ -20,13 +20,13 @@
 !!    ------
 !!      The data are read in the initial surface file :
 !!        - 2D data fields
-!!          
+!!
 !!      It does not read the grid definition. This should have been
 !!      read already.
 !!
 !!    EXTERNAL
 !!    --------
-!!      
+!!
 !!
 !!
 !!    IMPLICIT ARGUMENTS
@@ -77,7 +77,7 @@ TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 !              -------------------------------
 !
 INTEGER           :: IRESP      ! Error code after redding
-! 
+!
 CHARACTER(LEN=12) :: YRECFM     ! Name of the article to be read
 !
 INTEGER           :: IVERSION   ! surface version
@@ -93,13 +93,13 @@ IF (LHOOK) CALL DR_HOOK('INIT_CPL_GCM_N',0,ZHOOK_HANDLE)
 GCPL_GCM = .FALSE.
 !
 IF (HINIT=='PGD') THEN
-!     
+!
    ALLOCATE(U%XRAIN (0))
-   ALLOCATE(U%XSNOW (0))           
-   ALLOCATE(U%XZ0   (0))           
-   ALLOCATE(U%XZ0H  (0))           
-   ALLOCATE(U%XQSURF(0))           
-!     
+   ALLOCATE(U%XSNOW (0))
+   ALLOCATE(U%XZ0   (0))
+   ALLOCATE(U%XZ0H  (0))
+   ALLOCATE(U%XQSURF(0))
+!
 ELSE
 !
    ALLOCATE(U%XRAIN (U%NSIZE_FULL))
@@ -124,7 +124,7 @@ LREAD=(HINIT/='PGD'.AND.HINIT/='PRE'.AND.IVERSION>=8)
 IF (LREAD) THEN
    YRECFM='LCPL_GCM'
    CALL READ_SURF(HPROGRAM,YRECFM,GCPL_GCM,IRESP)
-ENDIF  
+ENDIF
 !
 IF (LREAD.AND.GCPL_GCM) THEN
 !
@@ -143,7 +143,7 @@ IF (LREAD.AND.GCPL_GCM) THEN
    YRECFM='QS_GCM'
    CALL READ_SURF(HPROGRAM,YRECFM,U%XQSURF(:),IRESP)
 !
-ENDIF        
+ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('INIT_CPL_GCM_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------

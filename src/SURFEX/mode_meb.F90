@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################
       MODULE MODE_MEB
@@ -13,12 +13,12 @@
 !
 !!**  METHOD
 !!    ------
-!!    
+!!
 !!    EXTERNAL
 !!    --------
-!!       
+!!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!    REFERENCE
 !!    ---------
@@ -26,7 +26,7 @@
 !!    AUTHOR
 !!    ------
 !!      P. Samuelsson            * SMHI *
-!!      A. Boone                 * Meteo France *       
+!!      A. Boone                 * Meteo France *
 !!      S. Gollvik               * SMHI *
 !!
 !!    MODIFICATIONS
@@ -427,9 +427,9 @@ IMPLICIT NONE
 
 !*      0.1    declarations of arguments
 !
-REAL,    DIMENSION(:,:), INTENT(IN)                 :: PSW_RAD 
-                                                             
-REAL,    DIMENSION(:,:), INTENT(IN)                 :: PCOSZENITH 
+REAL,    DIMENSION(:,:), INTENT(IN)                 :: PSW_RAD
+
+REAL,    DIMENSION(:,:), INTENT(IN)                 :: PCOSZENITH
 
 !
 !*      0.2    declarations of local variables
@@ -440,7 +440,7 @@ REAL,    DIMENSION(SIZE(PSW_RAD,1),SIZE(PSW_RAD,2)) :: ZSWDOWN_DIFF, ZRATIO
 
 !*      0.3    declarations of local parameters
 
-REAL, PARAMETER                                     :: ZSWCNT = 1.0 ! 1.000 if all wavelength SWdown 
+REAL, PARAMETER                                     :: ZSWCNT = 1.0 ! 1.000 if all wavelength SWdown
                                                                     ! 2.083 (=1/0.48) if just visible
 !--------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('MODE_MEB:SWDOWN_DIFF_2D',0,ZHOOK_HANDLE)
@@ -449,7 +449,7 @@ ZRATIO(:,:)       = PSW_RAD(:,:)*(ZSWCNT/XI0)/MAX(0.01,PCOSZENITH(:,:))
 
 ! Numerical Check:
 
-ZRATIO(:,:)       = MIN(1.0, ZRATIO(:,:))                                 
+ZRATIO(:,:)       = MIN(1.0, ZRATIO(:,:))
 
 ZSWDOWN_DIFF(:,:) = 0.165 ! RATIO >= 0.8
 
@@ -485,9 +485,9 @@ IMPLICIT NONE
 
 !*      0.1    declarations of arguments
 !
-REAL,    DIMENSION(:), INTENT(IN)                 :: PSW_RAD 
-                                                             
-REAL,    DIMENSION(:), INTENT(IN)                 :: PCOSZENITH 
+REAL,    DIMENSION(:), INTENT(IN)                 :: PSW_RAD
+
+REAL,    DIMENSION(:), INTENT(IN)                 :: PCOSZENITH
 
 !
 !*      0.2    declarations of local variables
@@ -498,7 +498,7 @@ REAL,    DIMENSION(SIZE(PSW_RAD))                 :: ZSWDOWN_DIFF, ZRATIO
 
 !*      0.3    declarations of local parameters
 
-REAL, PARAMETER                                   :: ZSWCNT = 1.0 ! 1.000 if all wavelength SWdown 
+REAL, PARAMETER                                   :: ZSWCNT = 1.0 ! 1.000 if all wavelength SWdown
                                                                   ! 2.083 (=1/0.48) if just visible
 !
 !--------------------------------------------------------
@@ -508,7 +508,7 @@ ZRATIO(:) = PSW_RAD(:)*(ZSWCNT/XI0)/MAX(0.01,PCOSZENITH(:))
 
 ! Numerical Check:
 
-ZRATIO(:) = MIN(1.0, ZRATIO(:))                                 
+ZRATIO(:) = MIN(1.0, ZRATIO(:))
 
 ZSWDOWN_DIFF(:) = 0.165 ! RATIO >= 0.8
 
@@ -544,9 +544,9 @@ IMPLICIT NONE
 
 !*      0.1    declarations of arguments
 !
-REAL, INTENT(IN)                 :: PSW_RAD 
-                                                             
-REAL, INTENT(IN)                 :: PCOSZENITH 
+REAL, INTENT(IN)                 :: PSW_RAD
+
+REAL, INTENT(IN)                 :: PCOSZENITH
 
 !
 !*      0.2    declarations of local variables
@@ -557,7 +557,7 @@ REAL                             :: ZSWDOWN_DIFF, ZRATIO
 !
 !*      0.3    declarations of local parameters
 !
-REAL, PARAMETER                  :: ZSWCNT = 1.0 ! 1.000 if all wavelength SWdown 
+REAL, PARAMETER                  :: ZSWCNT = 1.0 ! 1.000 if all wavelength SWdown
                                                                   ! 2.083 (=1/0.48) if just visible
 !--------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('MODE_MEB:SWDOWN_DIFF_0D',0,ZHOOK_HANDLE)
@@ -566,7 +566,7 @@ ZRATIO       = PSW_RAD*(ZSWCNT/XI0)/MAX(0.01,PCOSZENITH)
 
 ! Numerical Check:
 
-ZRATIO       = MIN(1.0, ZRATIO)                                 
+ZRATIO       = MIN(1.0, ZRATIO)
 
 ZSWDOWN_DIFF = 0.165 ! RATIO >= 0.8
 
@@ -590,7 +590,7 @@ FUNCTION SNOW_INTERCEPT_EFF_0D(PCHIP,PVELC,PWRVNMAX) RESULT(ZKVN)
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -614,7 +614,7 @@ IMPLICIT NONE
 !*      0.1    declarations of arguments
 !
 REAL,               INTENT(IN)   :: PCHIP, PVELC
-!                                     PCHIP      = view factor (for LW) 
+!                                     PCHIP      = view factor (for LW)
 !                                     PVELC      = wind speed at top of vegetation
 !
 REAL,               INTENT(IN)   :: PWRVNMAX
@@ -644,7 +644,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_MEB:SNOW_INTERCEPT_EFF_0D',0,ZHOOK_HANDLE)
 !
 ! Initialization:
 !
-ZFCP        = 0.0 
+ZFCP        = 0.0
 ZKVN        = 0.0
 !
 ! Snow interception efficiency
@@ -666,7 +666,7 @@ FUNCTION SNOW_INTERCEPT_EFF_1D(PCHIP,PVELC,PWRVNMAX) RESULT(ZKVN)
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -690,7 +690,7 @@ IMPLICIT NONE
 !*      0.1    declarations of arguments
 !
 REAL, DIMENSION(:), INTENT(IN)   :: PCHIP, PVELC
-!                                     PCHIP      = view factor (for LW) 
+!                                     PCHIP      = view factor (for LW)
 !                                     PVELC      = wind speed at top of vegetation
 !
 REAL, DIMENSION(:), INTENT(IN)   :: PWRVNMAX
@@ -720,7 +720,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_MEB:SNOW_INTERCEPT_EFF_1D',0,ZHOOK_HANDLE)
 !
 ! Initialization:
 !
-ZFCP(:)        = 0.0 
+ZFCP(:)        = 0.0
 ZKVN(:)        = 0.0
 !
 ! Snow interception efficiency
@@ -742,7 +742,7 @@ FUNCTION SNOW_INTERCEPT_EFF_2D(PCHIP,PVELC,PWRVNMAX) RESULT(ZKVN)
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -766,7 +766,7 @@ IMPLICIT NONE
 !*      0.1    declarations of arguments
 !
 REAL, DIMENSION(:,:), INTENT(IN)   :: PCHIP, PVELC
-!                                     PCHIP      = view factor (for LW) 
+!                                     PCHIP      = view factor (for LW)
 !                                     PVELC      = wind speed at top of vegetation
 !
 REAL, DIMENSION(:,:), INTENT(IN)   :: PWRVNMAX
@@ -796,7 +796,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_MEB:SNOW_INTERCEPT_EFF_2D',0,ZHOOK_HANDLE)
 !
 ! Initialization:
 !
-ZFCP(:,:)     = 0.0 
+ZFCP(:,:)     = 0.0
 ZKVN(:,:)     = 0.0
 !
 ! Snow interception efficiency
@@ -818,11 +818,11 @@ FUNCTION MEB_SHIELD_FACTOR_0D(PLAI,PPALPHAN) RESULT(PCHIP)
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
-!!  A. Boone                * Meteo France *       
+!!  A. Boone                * Meteo France *
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -848,7 +848,7 @@ REAL,               INTENT(IN)   :: PLAI, PPALPHAN
 !                                   PPALPHAN   = snow/canopy transition coefficient
 !
 REAL                             :: PCHIP
-!                                   PCHIP      = shielding factor (for LW) 
+!                                   PCHIP      = shielding factor (for LW)
 !
 !*      0.2    declarations of local variables
 !
@@ -871,11 +871,11 @@ FUNCTION MEB_SHIELD_FACTOR_1D(PLAI,PPALPHAN) RESULT(PCHIP)
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
-!!  A. Boone                * Meteo France *       
+!!  A. Boone                * Meteo France *
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -901,7 +901,7 @@ REAL, DIMENSION(:), INTENT(IN)   :: PLAI, PPALPHAN
 !                                   PPALPHAN   = snow/canopy transition coefficient
 !
 REAL, DIMENSION(SIZE(PLAI,1))    :: PCHIP
-!                                   PCHIP      = shielding factor (for LW) 
+!                                   PCHIP      = shielding factor (for LW)
 !
 !*      0.2    declarations of local variables
 !
@@ -924,11 +924,11 @@ FUNCTION MEB_SHIELD_FACTOR_2D(PLAI,PPALPHAN) RESULT(PCHIP)
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
-!!  A. Boone                * Meteo France *       
+!!  A. Boone                * Meteo France *
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -954,7 +954,7 @@ REAL, DIMENSION(:,:), INTENT(IN)   :: PLAI, PPALPHAN
 !                                     PPALPHAN   = snow/canopy transition coefficient
 !
 REAL, DIMENSION(SIZE(PLAI,1),SIZE(PLAI,2))    :: PCHIP
-!                                                PCHIP      = shielding factor (for LW) 
+!                                                PCHIP      = shielding factor (for LW)
 !
 !*      0.2    declarations of local variables
 !

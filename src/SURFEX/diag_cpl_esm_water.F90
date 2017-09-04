@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE DIAG_CPL_ESM_WATER (W, D, OCPL_SEAICE, PTSTEP, PSFTQ, PRAIN, PSNOW, PLW,   &
-                                      PSFTH_ICE, PSFTQ_ICE, PDIR_SW, PSCA_SW    )  
+                                      PSFTH_ICE, PSFTQ_ICE, PDIR_SW, PSCA_SW    )
 !     #####################################################################
 !
-!!****  *DIAG_CPL_ESM_WATER * - Computes diagnostics over sea for 
+!!****  *DIAG_CPL_ESM_WATER * - Computes diagnostics over sea for
 !!                                Earth system model coupling
 !!
 !!    PURPOSE
@@ -18,11 +18,11 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     B. Decharme 
+!!     B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -36,7 +36,7 @@ USE MODD_WATFLUX_n, ONLY : WATFLUX_t
 USE MODD_CSTS,      ONLY : XSTEFAN, XLSTT
 USE MODD_WATER_PAR, ONLY : XEMISWATICE
 !
-! 
+!
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -80,7 +80,7 @@ IF (LHOOK) CALL DR_HOOK('DIAG_CPL_ESM_WATER',0,ZHOOK_HANDLE)
 !* 10m wind speed (m)
 !
 W%XCPL_WATER_WIND(:) = W%XCPL_WATER_WIND(:) + PTSTEP * SQRT(D%XZON10M(:)**2+D%XMER10M(:)**2)
-! 
+!
 !* wind stress (Pa.s)
 !
 W%XCPL_WATER_FWSU(:) = W%XCPL_WATER_FWSU(:) + PTSTEP * D%XFMU(:)
@@ -93,15 +93,15 @@ W%XCPL_WATER_SNET(:) = W%XCPL_WATER_SNET(:) + PTSTEP * (D%XSWD(:) - D%XSWU(:))
 !
 !* Non solar heat flux (J/m2)
 !
-W%XCPL_WATER_HEAT(:) = W%XCPL_WATER_HEAT(:) + PTSTEP * (D%XGFLUX(:) + D%XSWU(:) - D%XSWD(:)) 
+W%XCPL_WATER_HEAT(:) = W%XCPL_WATER_HEAT(:) + PTSTEP * (D%XGFLUX(:) + D%XSWU(:) - D%XSWD(:))
 !
 !* Evaporation (kg/m2)
 !
 W%XCPL_WATER_EVAP(:) = W%XCPL_WATER_EVAP(:) + PTSTEP * PSFTQ(:)
 !
 !* Precip (kg/m2)
-! 
-W%XCPL_WATER_RAIN(:) = W%XCPL_WATER_RAIN(:) + PTSTEP * PRAIN(:) 
+!
+W%XCPL_WATER_RAIN(:) = W%XCPL_WATER_RAIN(:) + PTSTEP * PRAIN(:)
 W%XCPL_WATER_SNOW(:) = W%XCPL_WATER_SNOW(:) + PTSTEP * PSNOW(:)
 !
 !-------------------------------------------------------------------------------------
@@ -129,7 +129,7 @@ IF (OCPL_SEAICE) THEN
   ZTICE4(:)=W%XTICE(:)**4
 !
   W%XCPL_WATERICE_HEAT(:) = W%XCPL_WATERICE_HEAT(:) + PTSTEP * ( XEMISWATICE*(PLW(:)-XSTEFAN*ZTICE4(:)) &
-                                                             - PSFTH_ICE(:) - XLSTT*PSFTQ_ICE(:)  )  
+                                                             - PSFTH_ICE(:) - XLSTT*PSFTQ_ICE(:)  )
 !
 !* Sublimation (kg/m2)
 !

@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE TRIDIAG_GROUND_RM_SOLN(PSOLN,PA_COEF,PB_COEF)
 !
 !
-!!****  *TRIDIAG_GROUND_RM_SOLN*  
+!!****  *TRIDIAG_GROUND_RM_SOLN*
 !!
 !!    PURPOSE
 !!    -------
@@ -23,9 +23,9 @@ SUBROUTINE TRIDIAG_GROUND_RM_SOLN(PSOLN,PA_COEF,PB_COEF)
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !
@@ -39,7 +39,7 @@ SUBROUTINE TRIDIAG_GROUND_RM_SOLN(PSOLN,PA_COEF,PB_COEF)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    21/03/11 
+!!      Original    21/03/11
 !!      Modif       23/02/12 A. Boone: Optimization
 !!      Modif       03/2013  A. Boone: MEB
 !
@@ -59,7 +59,7 @@ IMPLICIT NONE
 REAL, DIMENSION(:,:), INTENT(IN)    :: PA_COEF     ! RM67 A-soil coefficient           (-)
 REAL, DIMENSION(:,:), INTENT(IN)    :: PB_COEF     ! RM67 B-soil coefficient           (K)
 !
-REAL, DIMENSION(:,:), INTENT(INOUT) :: PSOLN       ! solution vector                   
+REAL, DIMENSION(:,:), INTENT(INOUT) :: PSOLN       ! solution vector
 !                                                  ! of the input variable             (*)
 !
 !*      0.2    declarations of local variables
@@ -74,7 +74,7 @@ IF (LHOOK) CALL DR_HOOK('TRIDIAG_GROUND_RM_SOLN',0,ZHOOK_HANDLE)
 ! Get  the solution vector.
 ! NOTE: surface value obtained in energy budget routine, so
 ! this is the *sub-surface* profile solution.
-!      
+!
 DO JJ=2,SIZE(PSOLN,2)
    DO JI=1,SIZE(PSOLN,1)
       PSOLN(JI,JJ) = PA_COEF(JI,JJ)*PSOLN(JI,JJ-1) + PB_COEF(JI,JJ)

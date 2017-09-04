@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE LATLONTOXY1D(PLAT0,PLON0,PRPK,PBETA,PLATOR,PLONOR, &
-                                 PXHATM,PYHATM,PLAT,PLON,KN,PRADIUS)  
+                                 PXHATM,PYHATM,PLAT,PLON,KN,PRADIUS)
 !      ################################################
 !
 !!****  *SM_LATLONTOXY1D * - Routine to compute conformal coordinates
@@ -12,9 +12,9 @@
 !!
 !!     PURPOSE
 !!     -------
-!        This routine computes the cartesian conformal coordinates 
+!        This routine computes the cartesian conformal coordinates
 !      of an array given in latitude-longitude coordinates
-!        Three map projections are available: 
+!        Three map projections are available:
 !      - polar-stereographic (PRPK=1),
 !      - lambert conformal  (0<PRPK<1),
 !      - mercator (PRPK=0).
@@ -22,9 +22,9 @@
 !
 !!**   METHOD
 !!     ------
-!!       Spherical earth approximation is used. Longitude origin is 
-!!     set in Greenwich, and is positive eastwards. An anticlockwise 
-!!     rotation of XBETA degrees is applied to the conformal frame 
+!!       Spherical earth approximation is used. Longitude origin is
+!!     set in Greenwich, and is positive eastwards. An anticlockwise
+!!     rotation of XBETA degrees is applied to the conformal frame
 !!     with respect to the geographical directions.
 !!
 !!       WARNING: ALL INPUT AND OUTPUT ANGLES ARE IN DEGREES...
@@ -49,14 +49,14 @@
 !!     IMPLICIT ARGUMENTS
 !!     ------------------
 !!       Module MODD_CST         : contains Physical constants
-!!          XPI         : Pi;    
+!!          XPI         : Pi;
 !!          XRADIUS     : Earth radius (meters);
 !!
 !!
 !!     REFERENCE
 !!     ---------
 !!      Asencio N. et al., 1994, "Le projet de modele non-hydrostatique
-!!            commun CNRM-LA, specifications techniques", 
+!!            commun CNRM-LA, specifications techniques",
 !!            Note CNRM/GMME, 26, 139p, (Chapter 2).
 !!      Ducrocq V., 1994, "Generation de la grille dans le modele",
 !!            Note interne MNH, 5 mai, 3p.
@@ -64,7 +64,7 @@
 !!            Internal note ARPEGE/ALADIN, february 27,28p.
 !!      Levallois J., 1970, "Geodesie generale", Tome 2, Collection
 !!             de l'IGN, Eyrolles, Paris, 408p.
-!!       
+!!
 !!     AUTHOR
 !!     ------
 !!      P.M.       *LA*
@@ -74,7 +74,7 @@
 !!       Original PM  24/05/94
 !!       Updated  PM  27/07/94
 !!       Updated  VD  23/08/94
-!!       Updated  VM  24/10/95 projection from north pole (PRPK<0) and 
+!!       Updated  VM  24/10/95 projection from north pole (PRPK<0) and
 !!                             longitudes set between PLON0-180. and PLON0+180.
 !!
 !-------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ REAL, DIMENSION(KN), INTENT(OUT):: PXHATM,PYHATM
 REAL, OPTIONAL,      INTENT(IN) :: PRADIUS
 !
 !*     0.2    Declarations of local variables
-! 
+!
 REAL,DIMENSION(KN) :: ZLAT,ZLON
 REAL :: ZRPK,ZLAT0,ZLON0,ZLATOR,ZLONOR
 REAL :: ZRDSDG,ZCLAT0,ZSLAT0,ZCLATOR,ZSLATOR
@@ -124,8 +124,8 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('LATLONTOXY1D',0,ZHOOK_HANDLE)
 ZRDSDG = XPI/180.         ! Degree to radian conversion factor
 !
-! By definition, (PLONOR,PLATOR) are the geographical 
-! coordinates, and (ZXBM0,ZYBM0) the conformal cartesian 
+! By definition, (PLONOR,PLATOR) are the geographical
+! coordinates, and (ZXBM0,ZYBM0) the conformal cartesian
 ! coordinates of the (1,1) point of the "mass" grid.
 !
 !
@@ -164,7 +164,7 @@ IF(PRPK  /=  0.) THEN
     ZLONOR=ZLONOR
     ZLAT(:)=PLAT(:)
     ZLON(:)=ZLON(:)
-  ENDIF    
+  ENDIF
 !
 !*     2.1    Preliminary calculations
 !
@@ -173,7 +173,7 @@ IF(PRPK  /=  0.) THEN
   ZCLATOR = COS(ZRDSDG*ZLATOR)
   ZSLATOR = SIN(ZRDSDG*ZLATOR)
   ZRO0    = (ZRADIUS/ZRPK)*(ABS(ZCLAT0))**(1.-ZRPK)    &
-            * ((1.+ZSLAT0)*ABS(ZCLATOR)/(1.+ZSLATOR))**ZRPK  
+            * ((1.+ZSLAT0)*ABS(ZCLATOR)/(1.+ZSLATOR))**ZRPK
   ZGA0    = (ZRPK*(ZLONOR-ZLON0)-ZBETA)*ZRDSDG
   ZXP     = -ZRO0*SIN(ZGA0)
   ZYP     = ZRO0*COS(ZGA0)
@@ -183,7 +183,7 @@ IF(PRPK  /=  0.) THEN
   ZCLAT(:)  = COS(ZRDSDG*ZLAT(:))
   ZSLAT(:)  = SIN(ZRDSDG*ZLAT(:))
   ZRO(:)    = (ZRADIUS/ZRPK)*(ABS(ZCLAT0))**(1.-ZRPK)    &
-               * ((1.+ZSLAT0)*ABS(ZCLAT(:))/(1.+ZSLAT(:)))**ZRPK  
+               * ((1.+ZSLAT0)*ABS(ZCLAT(:))/(1.+ZSLAT(:)))**ZRPK
   ZGA(:)    = (ZRPK*(ZLON(:)-ZLON0)-ZBETA)*ZRDSDG
 !
   PXHATM(:) = ZXP+ZRO(:)*SIN(ZGA(:))
@@ -206,7 +206,7 @@ ELSE
   ZCGAM    = COS(-ZRDSDG*PBETA)
   ZSGAM    = SIN(-ZRDSDG*PBETA)
   ZRACLAT0 = ZRADIUS*COS(ZRDSDG*PLAT0)
-  ZXE      = - ZRACLAT0*(PLONOR-PLON0)*ZRDSDG 
+  ZXE      = - ZRACLAT0*(PLONOR-PLON0)*ZRDSDG
   ZYE      = - ZRACLAT0*LOG(TAN(XPI/4.+PLATOR*ZRDSDG/2.))
 !
 !*  3.2       Conformal coordinates

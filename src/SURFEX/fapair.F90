@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######
 SUBROUTINE FAPAIR(PABC, PFD_SKY, PIA, PLAI, PXMUS, PSSA_SUP, PSSA_INF, &
@@ -9,16 +9,16 @@ SUBROUTINE FAPAIR(PABC, PFD_SKY, PIA, PLAI, PXMUS, PSSA_SUP, PSSA_INF, &
            PIACAN_SHADE, PIACAN_SUNLIT, PFRAC_SUN                  )
 !   #########################################################################
 !
-!!****  *FAPAIR*  
+!!****  *FAPAIR*
 !!
 !!    PURPOSE
 !!    -------
-!!    Calculates fraction of absorbed photosynthetic active radiation (FAPAR) and 
+!!    Calculates fraction of absorbed photosynthetic active radiation (FAPAR) and
 !!     fraction of absorbed near infrared (FAPIR) of vegetation and bare soil.
-!!              
+!!
 !!**  METHOD
 !!    ------
-!!    Carrer et al. 
+!!    Carrer et al.
 !!
 !!    EXTERNAL
 !!    --------
@@ -26,7 +26,7 @@ SUBROUTINE FAPAIR(PABC, PFD_SKY, PIA, PLAI, PXMUS, PSSA_SUP, PSSA_INF, &
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    USE MODD_SURF_PAR
 !!    USE MODD_CSTS
 !!    USE MODD_CO2V_PAR
@@ -35,14 +35,14 @@ SUBROUTINE FAPAIR(PABC, PFD_SKY, PIA, PLAI, PXMUS, PSSA_SUP, PSSA_INF, &
 !!    REFERENCE
 !!    ---------
 !!     Carrer et al, 2013 (doi:10.1002/jgrg20070)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      D. Carrer          * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/04/2011 
+!!      Original    01/04/2011
 !!      Commented by C. Delire 07/13
 !!      C. Delire   08/13 : moved calculation of diffuse fraction from here to radiative_transfert.F90
 !!      A. Boone    02/17 : corrected computation of PFAPR_BS
@@ -52,7 +52,7 @@ USE MODD_SURF_PAR,       ONLY : XUNDEF
 USE MODD_CO2V_PAR,   ONLY : XK_SUP, XK_INF, XXSI_SUP, XXSI_INF ! clumping index parameters (Carrer et al 2.1.3)
 !
 USE MODD_SURFEX_MPI, ONLY : NRANK
-USE MODI_CCETR_PAIR  
+USE MODI_CCETR_PAIR
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -94,7 +94,7 @@ REAL, DIMENSION(SIZE(PLAI))   :: ZB_DR_SUP, ZB_DR_INF, ZOMEGA_DR_SUP, ZOMEGA_DR_
 !                                ZXIA  = abs. radiation of vegetation
 REAL, DIMENSION(SIZE(PLAI))   :: ZTR, ZFD_VEG, ZFD_SUP, ZLAI_EFF0, ZLAI_EFF
 !                                ZTR = transmittance
-!                                ZFD_VEG, ZFD_SUP = fraction of radiation diffused by the considered medium (vegetation)     
+!                                ZFD_VEG, ZFD_SUP = fraction of radiation diffused by the considered medium (vegetation)
 !REAL, DIMENSION(SIZE(PLAI))  :: ZXIA_SUNLIT, ZXIA_SHADE, ZLAI_SUNLIT, ZLAI_SHADE
 !                                ZXIA_SUNLIT = absorbed PAR of sunlit leaves
 !                                ZXIA_SHADE = absorbed PAR of shaded leaves
@@ -105,7 +105,7 @@ REAL, DIMENSION(SIZE(PLAI),SIZE(PABC)) :: ZIACAN, ZIACAN_SUNLIT, ZIACAN_SHADE, Z
 REAL                           :: ZABC, ZWEIGHT, ZCOEF, ZSUP, ZINF, &
                                   ZSSA_SUP, ZSSA_INF, ZB_DF_SUP, ZB_DF_INF
 !                                 ZABC    = abscissa needed for integration
-!                                            of net assimilation and stomatal 
+!                                            of net assimilation and stomatal
 !                                            conductance over canopy depth (working scalar)
 !                                 ZSUP, ZINF = d_sup and d_inf from Table 1. Carrer et al.
 !
@@ -141,7 +141,7 @@ PFAPR_BS(:) = 0.
 !PRN_SUNLIT(:) = 0.
 !
 !
-IF (PABC(SIZE(PABC)).GT.0.8) ZFD_VEG(:) = MIN(PFD_SKY(:),1.)   
+IF (PABC(SIZE(PABC)).GT.0.8) ZFD_VEG(:) = MIN(PFD_SKY(:),1.)
 ! set param sup / inf
 !
 ZSSA_SUP = SQRT(1.-PSSA_SUP)
@@ -158,7 +158,7 @@ DO I=1,SIZE(PIA)
     ! Directional albedo of upper/lower layer
     ZB_DR_SUP(I) = 1.-(1.-ZSSA_SUP)/(1.+2.*PXMUS(I)*ZSSA_SUP) ! Carrer et al. b_dr Table 1
     ZB_DR_INF(I) = 1.-(1.-ZSSA_SUP)/(1.+2.*PXMUS(I)*ZSSA_INF)
-    ! CLUMPING INDEX 
+    ! CLUMPING INDEX
     ZOMEGA_DR_SUP(I) = 1. / (1.+ PB_SUP(I)*ZKMUSP_SUP(I))     ! Carrer et al. eq. 4a
     ZOMEGA_DR_INF(I) = 1. / (1.+ PB_INF(I)*ZKMUSP_INF(I))
     ! diffuse case
@@ -168,13 +168,13 @@ DO I=1,SIZE(PIA)
   ENDIF
 ENDDO
 !
-! Non-directional albedo of diffuse 
+! Non-directional albedo of diffuse
 ZB_DF_SUP = 1.-(1.-ZSSA_SUP)/(1.+ ZSSA_SUP)
 ZB_DF_INF = 1.-(1.-ZSSA_INF)/(1.+ ZSSA_INF)
 !
 ! Integration over the canopy: SIZE(PABC) increments
-! are used to approximate the integral. And to calculate 
-! absorded fluxes within the canopy and in the bare soil  
+! are used to approximate the integral. And to calculate
+! absorded fluxes within the canopy and in the bare soil
 DO JINT = SIZE(PABC),1,-1
 !
   ZABC = 1.                                ! normalized height unit of the layer above
@@ -182,7 +182,7 @@ DO JINT = SIZE(PABC),1,-1
   ZWEIGHT = ZABC - PABC(JINT)
   !
   IF (PABC(JINT).GT.0.8) THEN
-    !  Compute transmittance of each level  
+    !  Compute transmittance of each level
     CALL CCETR_PAIR (JINT, PABC(JINT), ZABC, PIA, PXMUS, ZB_DR_SUP, &
                      ZOMEGA_DR_SUP, ZOMEGA_DF_SUP, ZB_DF_SUP, PLAI, &
                      PALB_VEG, PALB_SOIL, PFD_SKY, ZFD_VEG, ZTR,    &
@@ -192,8 +192,8 @@ DO JINT = SIZE(PABC),1,-1
                      ZOMEGA_DR_INF, ZOMEGA_DF_INF, ZB_DF_INF, PLAI, &
                      PALB_VEG, PALB_SOIL, PFD_SKY, ZFD_VEG, ZTR,    &
                      ZXIA, ZLAI_EFF0              )
-  ENDIF          
-  ! 
+  ENDIF
+  !
   DO I=1,SIZE(PIA)
     !
     ZXIA(I)        = MAX(0.,ZXIA(I))
@@ -216,8 +216,8 @@ DO JINT = SIZE(PABC),1,-1
       !
       !sunlit leaves
       !absorbed PAR of an equivalent canopy representative of the layer of leaves  eq. (8)
-      ZCOEF = (1.0-ZFD_SUP(I))/ZTR(I)+ ZFD_SUP(I)    
-      ZIACAN_SUNLIT(I,JINT) =             ZCOEF/(ZWEIGHT*MAX(0.0001,PLAI(I)))*ZIACAN(I,JINT)    
+      ZCOEF = (1.0-ZFD_SUP(I))/ZTR(I)+ ZFD_SUP(I)
+      ZIACAN_SUNLIT(I,JINT) =             ZCOEF/(ZWEIGHT*MAX(0.0001,PLAI(I)))*ZIACAN(I,JINT)
       !not sunlit leaves
       ZIACAN_SHADE(I,JINT)  = MAX(0.,ZFD_SUP(I)/(ZWEIGHT*MAX(0.0001,PLAI(I)))*ZIACAN(I,JINT))
       !
@@ -228,7 +228,7 @@ DO JINT = SIZE(PABC),1,-1
       !ZLAI_SHADE(I)  = ZLAI_SHADE(I)  + ZWEIGHT*(1-ZTR(I))*ZFD_SUP(I)*PLAI(I)
       !
       ZFRAC_SUN(I,JINT) = ZTR(I)  !fraction of sunlit leaves
-      !      
+      !
     ELSE
       !
       ZIACAN_SUNLIT(I,JINT) = MAX(0.,ZIACAN(I,JINT)/(ZWEIGHT*MAX(0.0001,PLAI(I))))

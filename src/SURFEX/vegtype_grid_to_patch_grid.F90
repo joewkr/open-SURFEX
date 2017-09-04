@@ -1,24 +1,24 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE VEGTYPE_GRID_TO_PATCH_GRID(KPATCH,KNPATCH,PVEGTYPE_PATCH,PPATCH,KMASK,PFIELDOUT,PW)
 !        ################################################
 !!
-!!****  *VEGTYPE_GRID_TO_PATCH_GRID* averages fields from all (12) vegtypes 
+!!****  *VEGTYPE_GRID_TO_PATCH_GRID* averages fields from all (12) vegtypes
 !!                                   on only a few patches
 !!    PURPOSE
 !!    -------
 !
-!              
+!
 !!**  METHOD
 !!    ------
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -75,7 +75,7 @@ DO JVEG=1,NVEGTYPE
   JP = VEGTYPE_TO_PATCH(JVEG,KNPATCH)
   IF (JP/=KPATCH) CYCLE
   DO JI = 1,SIZE(PW,1)
-    ZSUM(JI) =ZSUM(JI) + PVEGTYPE_PATCH(JI,JVEG)   
+    ZSUM(JI) =ZSUM(JI) + PVEGTYPE_PATCH(JI,JVEG)
   ENDDO
 ENDDO
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #####################
@@ -8,14 +8,14 @@
                              UG, U, HPROGRAM, HSTEP, KI, KSTEP)
 !     #####################
 !
-!!****  *COUPL_TOPD*  
+!!****  *COUPL_TOPD*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     
-!         
-!     
+!
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -25,17 +25,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -130,7 +130,7 @@ TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! program calling surf. schemes
 CHARACTER(LEN=*), INTENT(IN) :: HSTEP  ! atmospheric loop index
 INTEGER, INTENT(IN)          :: KI    ! Grid dimensions
-INTEGER, INTENT(IN)          :: KSTEP ! current time step 
+INTEGER, INTENT(IN)          :: KSTEP ! current time step
 !
 !*      0.2    declarations of local variables
 !
@@ -158,12 +158,12 @@ REAL, DIMENSION(KI)           :: ZAS             ! Saturated area fraction for e
 REAL, DIMENSION(NNCAT)        :: Z_DW1,Z_DW2     ! Wsat-Wfc to actualise M in fonction of WI
 REAL                          :: ZAVG_MESH_SIZE, ZWSATMAX
 LOGICAL, DIMENSION(NNCAT)     :: GTOPD           ! logical variable = true if topodyn_lat runs
-INTEGER                       :: JJ, JI, JL, JP    ! loop control 
+INTEGER                       :: JJ, JI, JL, JP    ! loop control
 INTEGER                       :: ILUOUT          ! unit number of listing file
 INTEGER                       :: IACT_GROUND_LAYER, IDEPTH, IMASK, ISUM !number of active ground layers
 !
-REAL, DIMENSION(U%NSIZE_NATURE,3) :: ZWG_3L,ZWGI_3L,ZDG_3L          
- REAL, DIMENSION(U%NSIZE_NATURE)  :: ZMESH_SIZE, ZWSAT         
+REAL, DIMENSION(U%NSIZE_NATURE,3) :: ZWG_3L,ZWGI_3L,ZDG_3L
+ REAL, DIMENSION(U%NSIZE_NATURE)  :: ZMESH_SIZE, ZWSAT
 REAL, DIMENSION(U%NSIZE_NATURE,IO%NGROUND_LAYER,IO%NPATCH) :: ZWG_TMP
 REAL, DIMENSION(U%NSIZE_NATURE,IO%NPATCH) :: ZWG, ZDG
 REAL, DIMENSION(KI)            :: ZF_PARAM_FULL
@@ -237,7 +237,7 @@ ELSEWHERE
   XWG_FULL = XUNDEF
 END WHERE
 !
-IF (KSTEP==1) THEN 
+IF (KSTEP==1) THEN
   IF (LBUDGET_TOPD) CALL INIT_BUDGET_COUPL_ROUT(DEC, DC, DMI, PMESH_SIZE, IO, NP, NPE, U, KI)
  CALL ISBA_TO_TOPD(XWG_FULL,XWTOPT)
  WHERE (XWTOPT == XUNDEF) XWTOPT = 0.0
@@ -258,7 +258,7 @@ ELSEWHERE
 END WHERE
 !CALL UNPACK_SAME_RANK(U%NR_NATURE,DE%XAVG_DWGI(:),ZRI_WGI)
 !
-WHERE ( XDTOPI==XUNDEF ) 
+WHERE ( XDTOPI==XUNDEF )
   ZRI_WGI = 0.0
 END WHERE
 !
@@ -268,7 +268,7 @@ CALL ISBA_TO_TOPD(ZRI_WGI,ZRI_WGIT)
 !Determination of Wsat, Wfc, Dmax
 !!!!!!!!!!!!!!!
 !test reservoir top=eau+glace -> pas de modif Wsat et Wfc
-  Z_WSTOPI  = XWSTOPI 
+  Z_WSTOPI  = XWSTOPI
   Z_WFCTOPI = XWFCTOPI
 WHERE ( XWGI_FULL/=0. .AND.XWGI_FULL/=XUNDEF .AND. XWSTOPI/=0. )
   Z_WSTOPI  = XWSTOPI - XWGI_FULL
@@ -314,7 +314,7 @@ ELSE
 ENDIF
 !
 !!!!!!!!!!!!!!!
-!*       1.2    Water recharge 
+!*       1.2    Water recharge
 !               ---------------
 ! Topodyn uses :
 ! - a water recharge = water added since last time step to compute hydrological similarity indexes
@@ -351,7 +351,7 @@ CALL PACK_SAME_RANK(U%NR_NATURE,ZAS,XAS_NATURE)
 !
 DO JJ=1,NNCAT
   WHERE ( XDTOPT(JJ,:)/=XUNDEF .AND. XDTOPT(JJ,:)/=0. )
-    XWTOPT(JJ,:) = XWSTOPT(JJ,:) - ( ZDEFT(JJ,:) / XDTOPT(JJ,:) )      
+    XWTOPT(JJ,:) = XWSTOPT(JJ,:) - ( ZDEFT(JJ,:) / XDTOPT(JJ,:) )
    !changing phase
     XWTOPT(JJ,:) = XWTOPT(JJ,:) - ZRI_WGIT(JJ,:)
   END WHERE
@@ -424,7 +424,7 @@ DO JP = 1,IO%NPATCH
     IMASK = NP%AL(JP)%NR_P(JJ)
     NPE%AL(JP)%XWG(JJ,2) = ZWG(IMASK,JP)
   ENDDO
-ENDDO   
+ENDDO
 DO JL = 3,IACT_GROUND_LAYER
   ZWG(:,:) = 0.
   ZDG(:,:) = 0.
@@ -442,7 +442,7 @@ DO JL = 3,IACT_GROUND_LAYER
       IMASK = NP%AL(JP)%NR_P(JJ)
       NPE%AL(JP)%XWG(JJ,JL) = ZWG(IMASK,JP)
     ENDDO
-  ENDDO          
+  ENDDO
 
 ENDDO
 !
@@ -497,7 +497,7 @@ DO JJ=1,NNCAT
     IF (NMASKT(JJ,JI)/=NUNDEF) &
       ZDRAIN_TOPD(JJ,JI) = ZDRAIN_TOPD(JJ,JI) / NNPIX(NMASKT(JJ,JI))
   ENDDO
-ENDDO   
+ENDDO
 !
 !*      6    Routing (runoff + drainage + exfiltration)
 !

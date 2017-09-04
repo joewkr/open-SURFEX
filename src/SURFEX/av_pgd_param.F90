@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
       SUBROUTINE AV_PGD_PARAM (PLAI_IN, PVEG_IN, &
                                PFIELD,PVEGTYPE,PDATA,HSFTYPE,HATYPE,KMASK,KNPATCH,KPATCH,PDZ,KDECADE)
 !     ################################################################
 !
-!!**** *AV_PATCH_PGD* average for each surface patch a secondary physiographic 
+!!**** *AV_PATCH_PGD* average for each surface patch a secondary physiographic
 !!                    variable from the
 !!              fractions of coverage class.
 !!
@@ -42,7 +42,7 @@
 !!    AUTHOR
 !!    ------
 !!
-!!    F.Solmon /V. Masson       
+!!    F.Solmon /V. Masson
 !!
 !!    MODIFICATION
 !!    ------------
@@ -62,7 +62,7 @@ USE MODD_DATA_COVER_PAR, ONLY : NVT_TEBD, NVT_BONE, NVT_TRBE, NVT_TRBD, NVT_TEBE
                                 XCDREF
 
 !
-USE MODI_VEGTYPE_TO_PATCH 
+USE MODI_VEGTYPE_TO_PATCH
 !
 !
 !
@@ -158,7 +158,7 @@ DO JV=1,NVEGTYPE
   IF (JP/=KPATCH) CYCLE
   DO JI=1,SIZE(PFIELD)
     IMASK = KMASK(JI)
-    
+
     IF (HSFTYPE=='NAT'.OR.HSFTYPE=='GRD') THEN
       ZWEIGHT(JI,JV) = PVEGTYPE(IMASK,JV)
     ELSEIF (HSFTYPE=='VEG'.OR.HSFTYPE=='GRV') THEN
@@ -217,11 +217,11 @@ SELECT CASE (HATYPE)
 !
   CASE('INV' )
 !
-   DO JV=1,NVEGTYPE 
-     JP=PATCH_LIST(JV) 
+   DO JV=1,NVEGTYPE
+     JP=PATCH_LIST(JV)
      IF (JP/=KPATCH) CYCLE
      DO JJ=1,SIZE(PFIELD)
-       IMASK = KMASK(JJ)     
+       IMASK = KMASK(JJ)
        ZSUM_WEIGHT_PATCH(JJ) = ZSUM_WEIGHT_PATCH(JJ)+ZWEIGHT(JJ,JV)
        IF (PDATA(IMASK,JV).NE.0.) THEN
          ZWORK(JJ)= ZWORK(JJ) + 1./ PDATA(IMASK,JV) * ZWEIGHT(JJ,JV)
@@ -241,14 +241,14 @@ SELECT CASE (HATYPE)
       JP=PATCH_LIST(JV)
       IF (JP/=KPATCH) CYCLE
       DO JJ=1,SIZE(PFIELD)
-        IMASK = KMASK(JJ)        
+        IMASK = KMASK(JJ)
         ZSUM_WEIGHT_PATCH(JJ) =  ZSUM_WEIGHT_PATCH(JJ)+ ZWEIGHT(JJ,JV)
         IF (PDATA(JJ,JV).NE.0.) THEN
           ZWORK(JJ)= ZWORK(JJ) + 1./(LOG(ZDZ(JJ)/ PDATA(IMASK,JV)))**2    &
                             * ZWEIGHT(JJ,JV)
         ENDIF
       ENDDO
-    END DO   
+    END DO
 !
   CASE ('MAJ')
 !
@@ -282,7 +282,7 @@ SELECT CASE (HATYPE)
 !            --------------------
 !
   CASE ('ARI')
-!   
+!
     DO JI=1,SIZE(PFIELD)
       IF (ZSUM_WEIGHT_PATCH(JI)>0.) PFIELD(JI) = ZWORK(JI) / ZSUM_WEIGHT_PATCH(JI)
     ENDDO
@@ -312,7 +312,7 @@ SELECT CASE (HATYPE)
     ENDDO
 !
   CASE ('MAJ')
-!   
+!
     DO JI=1,SIZE(PFIELD)
       PFIELD(JI) = ZWORK(JI)
     ENDDO
@@ -324,5 +324,5 @@ SELECT CASE (HATYPE)
 END SELECT
 IF (LHOOK) CALL DR_HOOK('AV_PGD_PARAM',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
-!   
+!
 END SUBROUTINE AV_PGD_PARAM

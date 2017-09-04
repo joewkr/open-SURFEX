@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################
       SUBROUTINE ZOOM_PGD_ISBA_FULL (CHI, DTCO, DTV, IG, IO, S, K, UG, U, GCP, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -36,10 +36,10 @@
 !!
 !!    Original     13/10/03
 !!    B. Decharme      2008  XWDRAIN
-!!    M.Tomasini   17/04/12 All COVER physiographic fields are now 
-!!                          interpolated for spawning => 
+!!    M.Tomasini   17/04/12 All COVER physiographic fields are now
+!!                          interpolated for spawning =>
 !!                          ABOR1_SFX if (.NOT.OECOCLIMAP) in comment
-!!    10/2016 B. Decharme : bug surface/groundwater coupling  
+!!    10/2016 B. Decharme : bug surface/groundwater coupling
 !----------------------------------------------------------------------------
 !
 !*    0.     DECLARATION
@@ -128,7 +128,7 @@ IF (LHOOK) CALL DR_HOOK('ZOOM_PGD_ISBA_FULL',0,ZHOOK_HANDLE)
  CALL OPEN_AUX_IO_SURF(HINIFILE,HINIFILETYPE,'FULL  ')
 !
  CALL READ_SURF(HINIFILETYPE,'VERSION',IVERSION,IRESP)
- CALL READ_SURF(HINIFILETYPE,'BUG',IBUGFIX,IRESP) 
+ CALL READ_SURF(HINIFILETYPE,'BUG',IBUGFIX,IRESP)
 !
 !------------------------------------------------------------------------------
 !
@@ -168,7 +168,7 @@ ELSE
 ENDIF
 !
 IF(IO%LSOCP)THEN
-!  
+!
   ALLOCATE(S%XSOC (INI,IO%NGROUND_LAYER))
 !
   CALL READ_SURF(HPROGRAM,'SOC_TOP',S%XSOC(:,1),IRESP)
@@ -179,7 +179,7 @@ IF(IO%LSOCP)THEN
   END DO
 !
 ELSE
-!  
+!
   ALLOCATE(S%XSOC (0,1))
 !
 ENDIF
@@ -193,12 +193,12 @@ ELSE
 ENDIF
 !
 IF(IO%LPERM)THEN
-!  
+!
   ALLOCATE(K%XPERM (INI))
   CALL READ_SURF(HPROGRAM,'PERM',K%XPERM(:),IRESP)
 !
 ELSE
-!  
+!
   ALLOCATE(K%XPERM (0))
 !
 ENDIF

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_WRITE_SURF_ASC
 !
@@ -242,7 +242,7 @@ END SUBROUTINE WRITE_SURFC0_ASC
                                    HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 1D array for the externalised surface 
+!!****  * - routine to fill a write 1D array for the externalised surface
 !
 !
 !
@@ -287,7 +287,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_ASC:WRITE_SURFX1_ASC',0,ZHOOK_HANDLE)
 !
 KRESP=0
-! 
+!
  CALL IO_BUFF(HREC,'W',GFOUND)
 !
 IF (GFOUND .AND. LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_ASC:WRITE_SURFX1_ASC',1,ZHOOK_HANDLE)
@@ -327,7 +327,7 @@ END SUBROUTINE WRITE_SURFX1_ASC
       SUBROUTINE WRITE_SURFX2_ASC (HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 2D array for the externalised surface 
+!!****  * - routine to fill a write 2D array for the externalised surface
 !
 !
 !
@@ -362,7 +362,7 @@ INTEGER,                  INTENT(OUT):: KRESP    ! KRESP  : return-code if a pro
                                                  !       horizontal spatial dim.
                                                  ! '-' : no horizontal dim.
 !*      0.2   Declarations of local variables
-! 
+!
 LOGICAL :: GFOUND
 INTEGER :: ISIZE
 REAL   :: XTIME0
@@ -402,7 +402,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_ASC:WRITE_SURFX2_ASC',1,ZHOOK_HANDLE)
@@ -413,7 +413,7 @@ END SUBROUTINE WRITE_SURFX2_ASC
       SUBROUTINE WRITE_SURFX3_ASC (HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 2D array for the externalised surface 
+!!****  * - routine to fill a write 2D array for the externalised surface
 !
 !
 !
@@ -448,7 +448,7 @@ INTEGER,                  INTENT(OUT):: KRESP    ! KRESP  : return-code if a pro
                                                  !       horizontal spatial dim.
                                                  ! '-' : no horizontal dim.
 !*      0.2   Declarations of local variables
-! 
+!
 LOGICAL :: GFOUND
 INTEGER :: ISIZE
 REAL   :: XTIME0
@@ -488,7 +488,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_ASC:WRITE_SURFX3_ASC',1,ZHOOK_HANDLE)
@@ -647,7 +647,7 @@ IF (NRANK==NPIO) THEN
   WRITE(NUNIT,FMT=*,IOSTAT=KRESP) OFIELD
   !
   IF (KRESP/=0) CALL ERROR_WRITE_SURF_ASC(HREC,KRESP)
-  !  
+  !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
@@ -859,7 +859,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_ASC:WRITE_SURFT2_ASC',0,ZHOOK_HANDLE)
 KRESP = 0
 !
 CALL IO_BUFF(&
-                HREC,'W',GFOUND) 
+                HREC,'W',GFOUND)
 !
 IF (GFOUND .AND. LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_ASC:WRITE_SURFT2_ASC',1,ZHOOK_HANDLE)
 IF (GFOUND) RETURN

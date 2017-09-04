@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-      SUBROUTINE ICE_SOILDIF(KK, PK, PEK, PTSTEP, PKSFC_IVEG, PLEGI, PSOILHCAPZ, PWGI_EXCESS)  
+      SUBROUTINE ICE_SOILDIF(KK, PK, PEK, PTSTEP, PKSFC_IVEG, PLEGI, PSOILHCAPZ, PWGI_EXCESS)
 !     ##########################################################################
 !
-!!****  *ICE_SOILDIF*  
+!!****  *ICE_SOILDIF*
 !
 !!    PURPOSE
 !!    -------
@@ -20,7 +20,7 @@
 !     sufficiently dry but cold (below freezing) soils. Scatter about this
 !     curve results due to 'phase change efficiencies' and the surface insolation
 !     coefficient.
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -34,13 +34,13 @@
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Boone (2000)
 !!    Boone et al., (2000)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      A. Boone          * Meteo-France *
@@ -68,7 +68,7 @@
 !                              Optimization
 !      Modified    10/2013     Boone
 !                              Slight edit to phase computation to improve enthalpy conservation
-!                              
+!
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -119,7 +119,7 @@ REAL                                     :: ZWGMAX, ZPSIMAX, ZPSI, ZDELTAT,  &
                                             ZPHASE, ZTGM, ZWGM, ZWGIM, ZLOG, &
                                             ZEFFIC, ZPHASEM, ZPHASEF, ZWORK, &
                                             ZAPPHEATCAP
-!                                            
+!
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 !
@@ -147,7 +147,7 @@ ZK(:,1) = PKSFC_IVEG(:)
 !    -------------------------------
 !
 DO JL=1,INL
-  DO JJ=1,INI                 
+  DO JJ=1,INI
     IDEPTH=PK%NWG_LAYER(JJ)
     IF(JL<=IDEPTH)THEN
 !
@@ -160,7 +160,7 @@ DO JL=1,INL
 !     based on Gibbs free energy (Fuchs et al., 1978):
 !
       ZPSIMAX = MIN(KK%XMPOTSAT(JJ,JL),XLMTT*(PEK%XTG(JJ,JL)-XTT)/(XG*PEK%XTG(JJ,JL)))
-!        
+!
       ZWORK  = ZPSIMAX/KK%XMPOTSAT(JJ,JL)
       ZLOG   = LOG(ZWORK)/KK%XBCOEF(JJ,JL)
       ZWGMAX = KK%XWSAT(JJ,JL)*EXP(-ZLOG)
@@ -184,7 +184,7 @@ DO JL=1,INL
 !     ii) this part is also treated implicitly herein.
 !
       ZWORK = (XCI*XRHOLI/(XLMTT*XRHOLW))*ZK(JJ,JL)*MAX(0.0,-ZDELTAT)
-!        
+!
       ZAPPHEATCAP=0.0
       IF(ZDELTAT<0.0.AND.ZWGM>=ZWGMAX.AND.ZWORK>=MAX(0.0,ZWGM-ZWGMAX))THEN
         ZAPPHEATCAP = -(XTT*XRHOLW*XLMTT*XLMTT/XG)*ZWGMAX/(ZPSIMAX*KK%XBCOEF(JJ,JL)*ZTGM*ZTGM)
@@ -203,8 +203,8 @@ DO JL=1,INL
       ZPHASE = (PSOILHCAPZ(JJ,JL)+ZAPPHEATCAP)*(PEK%XTG(JJ,JL)-ZTGM)
 !
 !     Adjust ice and liquid water conents (m3/m3) accordingly :
-      PEK%XWGI(JJ,JL) = ZWGIM + ZPHASE/(XLMTT*XRHOLW)     
-      PEK%XWG(JJ,JL) = ZWGM  - ZPHASE/(XLMTT*XRHOLW) 
+      PEK%XWGI(JJ,JL) = ZWGIM + ZPHASE/(XLMTT*XRHOLW)
+      PEK%XWG(JJ,JL) = ZWGM  - ZPHASE/(XLMTT*XRHOLW)
 !
     ENDIF
   ENDDO
@@ -252,19 +252,19 @@ DO JL=1,INL
     ENDIF
   ENDDO
 ENDDO
-!   
+!
 ! Prevent keeping track of very small numbers for ice content: (melt it)
 ! and conserve energy:
 !
 DO JL=1,INL
-  DO JJ=1,INI 
-    IDEPTH=PK%NWG_LAYER(JJ)  
+  DO JJ=1,INI
+    IDEPTH=PK%NWG_LAYER(JJ)
     IF(JL<=IDEPTH.AND.PEK%XWGI(JJ,JL)>0.0.AND.PEK%XWGI(JJ,JL)<1.0E-6)THEN
       PEK%XWG   (JJ,JL)  = PEK%XWG(JJ,JL) + PEK%XWGI(JJ,JL)
       ZEXCESSFC(JJ,JL) = ZEXCESSFC(JJ,JL) + PEK%XWGI(JJ,JL)
       PEK%XWGI(JJ,JL) = 0.0
     ENDIF
-    PEK%XTG(JJ,JL) = PEK%XTG(JJ,JL) - ZEXCESSFC(JJ,JL)*XLMTT*XRHOLW/PSOILHCAPZ(JJ,JL)           
+    PEK%XTG(JJ,JL) = PEK%XTG(JJ,JL) - ZEXCESSFC(JJ,JL)*XLMTT*XRHOLW/PSOILHCAPZ(JJ,JL)
   ENDDO
 ENDDO
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################################################################
       SUBROUTINE LATLON_GRIDTYPE_LONLATVAL(G,KL,PDIR)
@@ -31,7 +31,7 @@
 !!      M Lafaysse 08/2013 missing deallocate
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    10/2007 
+!!      Original    10/2007
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -101,7 +101,7 @@ ZDLAT = ZDY
 ZDLON = ZDX
 !
 G%XMESH_SIZE(:) = XRADIUS**2 * XPI/180.*(ZDLON(:))              &
-       * (SIN((G%XLAT(:)+ZDLAT(:)/2.)*XPI/180.)-SIN((G%XLAT(:)-ZDLAT(:)/2.)*XPI/180.))  
+       * (SIN((G%XLAT(:)+ZDLAT(:)/2.)*XPI/180.)-SIN((G%XLAT(:)-ZDLAT(:)/2.)*XPI/180.))
 !
 !-----------------------------------------------------------------------------
 !

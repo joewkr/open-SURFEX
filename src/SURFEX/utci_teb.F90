@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
 SUBROUTINE UTCI_TEB(T, DUT, PTI_BLD, PQI_BLD, PU10, PPS, PREF_SW_GRND, PREF_SW_FAC, &
@@ -8,15 +8,15 @@ SUBROUTINE UTCI_TEB(T, DUT, PTI_BLD, PQI_BLD, PU10, PPS, PREF_SW_GRND, PREF_SW_F
                     PTRAD_IN )
 !   ##########################################################################
 !
-!!****  *UTCI_TEB*  
+!!****  *UTCI_TEB*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the Universal Thermal and Climate Index Equivalent temperature
 !     for 3 persons in the urban environment
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
@@ -31,7 +31,7 @@ SUBROUTINE UTCI_TEB(T, DUT, PTI_BLD, PQI_BLD, PU10, PPS, PREF_SW_GRND, PREF_SW_F
 !!    REFERENCE
 !!    ---------
 !!   www.utci.org
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -61,8 +61,8 @@ IMPLICIT NONE
 TYPE(TEB_t), INTENT(INOUT) :: T
 TYPE(DIAG_UTCI_TEB_t), INTENT(INOUT) :: DUT
 !
-REAL, DIMENSION(:), INTENT(IN)  :: PTI_BLD !Indoor air temperature (K) 
-REAL, DIMENSION(:), INTENT(IN)  :: PQI_BLD !Indoor specific humidity (kg/kg) 
+REAL, DIMENSION(:), INTENT(IN)  :: PTI_BLD !Indoor air temperature (K)
+REAL, DIMENSION(:), INTENT(IN)  :: PQI_BLD !Indoor specific humidity (kg/kg)
 REAL, DIMENSION(:), INTENT(IN)  :: PU10 !Canyon wind speed at 10m (m/s)
 REAL, DIMENSION(:), INTENT(IN)  :: PPS !Atmospheric Pressure (Pa)
 REAL, DIMENSION(:), INTENT(IN)  :: PREF_SW_GRND !Solar radiation reflected by ground [road + garden] (W/m2)

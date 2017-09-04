@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
  SUBROUTINE SFX_XIOS_CHECK_FIELD_2D(U, HREC, HCOMMENT, OWRITE, PFIELD2, HAXIS)
 !!
@@ -8,11 +8,11 @@
 !!     PURPOSE
 !!     --------
 !!
-!!     Ensure that a 2-dim field is already declared to Xios.  
+!!     Ensure that a 2-dim field is already declared to Xios.
 !!
 !!
 !!     IMPLICIT ARGUMENTS :
-!!     -------------------- 
+!!     --------------------
 !!
 !!     YXIOS_DOMAIN
 !!
@@ -26,8 +26,8 @@
 !!     REFERENCE
 !!     ---------
 !!
-!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 - 
-!!     svn co -r 515 http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS/branchs/xios-1.0 <dir> 
+!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 -
+!!     svn co -r 515 http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS/branchs/xios-1.0 <dir>
 !!       cd <dir>/doc ; ....
 !!
 !!     AUTHOR
@@ -79,7 +79,7 @@ CHARACTER(LEN=100) :: YAXIS
 CHARACTER(LEN=100) :: YUNITS
 REAL(KIND=JPRB), DIMENSION(:),ALLOCATABLE :: ZAXIS
 INTEGER            :: IDIM        ! for additonal dim
-CHARACTER(LEN=3)   :: YIDIM       ! for additonal dim  
+CHARACTER(LEN=3)   :: YIDIM       ! for additonal dim
 REAL(KIND=JPRB)    :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('SFX_XIOS_CHECK_FIELD_2D',0,ZHOOK_HANDLE)
@@ -88,9 +88,9 @@ IF (LHOOK) CALL DR_HOOK('SFX_XIOS_CHECK_FIELD_2D',0,ZHOOK_HANDLE)
 !$OMP SINGLE
 !
 ! Assume that every axis attribute is well defined as soon as the axis is defined
-CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,axis_ref=LISDEF) 
+CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,axis_ref=LISDEF)
 !
-IF ( .NOT. LISDEF ) THEN 
+IF ( .NOT. LISDEF ) THEN
    IF (.NOT. PRESENT(HAXIS) .OR. (TRIM(HAXIS)=='')) THEN
       YAXIS='you_should_define_a_dim_for_'//HREC//'_in_xml_file_or_call_set_axis_in_code'
    ELSE
@@ -99,19 +99,19 @@ IF ( .NOT. LISDEF ) THEN
    LVALID_AXIS=XIOS_IS_VALID_AXIS(YAXIS)
    !
    IF (TRIM(HAXIS)/=TRIM(YPATCH_DIM_NAME)) THEN
-      IF (.NOT. LVALID_AXIS) THEN 
+      IF (.NOT. LVALID_AXIS) THEN
          ALLOCATE(ZAXIS(SIZE(PFIELD2,2)))
          ZAXIS=(/(IDIM, IDIM=1,SIZE(PFIELD2,2))/)
          CALL SET_AXIS(YAXIS,ZAXIS)
          DEALLOCATE(ZAXIS)
-      ELSE 
+      ELSE
          ! xxx il faut encore vérifier si le set_axis_attr des valeurs a été fait pour ce champ !!
       ENDIF
       CALL XIOS_SET_FIELD_ATTR(HREC, axis_ref=YAXIS)
-   ELSE 
+   ELSE
       ! Account for loop on pacthes
       DO IDIM=1,SIZE(PFIELD2,2)
-         IF (IDIM < 10) THEN 
+         IF (IDIM < 10) THEN
             WRITE(YIDIM,'(I1)') IDIM
          ELSE
             WRITE(YIDIM,'(I2)') IDIM

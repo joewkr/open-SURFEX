@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################
       SUBROUTINE WRITE_COVER_TEX_TEB
@@ -55,7 +55,7 @@ USE MODD_DATA_COVER,     ONLY : XDATA_TOWN, XDATA_WALL_O_HOR,           &
                                   XDATA_HC_WALL, XDATA_TC_WALL,           &
                                   XDATA_D_WALL, XDATA_CAN_HW_RATIO,       &
                                   XDATA_Z0_TOWN, XDATA_BLD,               &
-                                  XDATA_BLD_HEIGHT  
+                                  XDATA_BLD_HEIGHT
 
 
 USE MODD_DATA_COVER_PAR, ONLY : JPCOVER
@@ -100,7 +100,7 @@ WHERE (XDATA_CAN_HW_RATIO.NE.XUNDEF)
   ZDATA_SVF_ROAD = SQRT(XDATA_CAN_HW_RATIO**2+1.) - XDATA_CAN_HW_RATIO
   WHERE (XDATA_CAN_HW_RATIO>0.)
     ZDATA_SVF_WALL = 0.5 * (XDATA_CAN_HW_RATIO + 1. - SQRT(XDATA_CAN_HW_RATIO**2+1.) ) &
-                         / XDATA_CAN_HW_RATIO  
+                         / XDATA_CAN_HW_RATIO
   ELSEWHERE
     ZDATA_SVF_WALL = 0.5
   END WHERE
@@ -122,7 +122,7 @@ END WHERE
 !-------------------------------------------------------------------------------
 !
 I=0
-DO 
+DO
   IF (I==JPCOVER) EXIT
 
   IF (CLANG=='EN') THEN
@@ -140,7 +140,7 @@ DO
   WRITE(NTEX,*) '\hline'
   WRITE(NTEX,*) '\hline'
   IP=0
-  DO 
+  DO
     IF (I==JPCOVER) EXIT
     I=I+1
     IF (XDATA_TOWN(I)>0. .AND. XDATA_Z0_TOWN(I).NE.XUNDEF) THEN
@@ -169,7 +169,7 @@ DO
           I,' &',CNAME(I),' &', YDATA_TOWN(1),' &',YDATA_TOWN(2),' &', &
             YDATA_TOWN(3),' &', YDATA_TOWN(4),' &',                    &
             YDATA_TOWN(5),' &', YDATA_TOWN(6),' &',                    &
-            YDATA_TOWN(7),' \\'  
+            YDATA_TOWN(7),' \\'
       GLINE=.TRUE.
       WRITE(NTEX,*) '\hline'
     END IF
@@ -182,9 +182,9 @@ DO
 
 ENDDO
 !
- 
+
 I=0
-DO 
+DO
   IF (I==JPCOVER) EXIT
 
   IF (CLANG=='EN') THEN
@@ -225,7 +225,7 @@ DO
       WRITE(NTEX, FMT=*)                                             &
           I,' &',CNAME(I),' &', YDATA_TOWN(1),' &',YDATA_TOWN(2),' &', &
             YDATA_TOWN(3),' &', YDATA_TOWN(4),' &',                    &
-            YDATA_TOWN(5),' &', YDATA_TOWN(6),' \\'  
+            YDATA_TOWN(5),' &', YDATA_TOWN(6),' \\'
       GLINE=.TRUE.
       WRITE(NTEX,*) '\hline'
     END IF
@@ -244,7 +244,7 @@ ENDDO
 !-------------------------------------------------------------------------------
 !
 I=0
-DO 
+DO
   IF (I==JPCOVER) EXIT
 
   IF (CLANG=='EN') THEN
@@ -317,7 +317,7 @@ DO
           I,' &',CNAME(I),' &', YDATA_MATE(1),' &',YDATA_MATE(2),' &', &
             YDATA_MATE(3),' &', YDATA_MATE(4),' &',                    &
             YDATA_MATE(5),' &', YDATA_MATE(6),' &',                    &
-            YDATA_MATE(7),' &', YDATA_MATE(8),' &',YDATA_MATE(9),' \\'  
+            YDATA_MATE(7),' &', YDATA_MATE(8),' &',YDATA_MATE(9),' \\'
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
     END IF
@@ -332,7 +332,7 @@ DO
 ENDDO
 
 I=0
-DO 
+DO
   IF (I==JPCOVER) EXIT
   IF (CLANG=='EN') THEN
     WRITE(NTEX,*) '{\bf road thermal parameters}\\'
@@ -387,7 +387,7 @@ DO
           I,' &',CNAME(I),' &', YDATA_MATE(1),' &',YDATA_MATE(2),' &', &
             YDATA_MATE(3),' &', YDATA_MATE(4),' &',                    &
             YDATA_MATE(5),' &', YDATA_MATE(6),' &',                    &
-            YDATA_MATE(7),' &', YDATA_MATE(8),' &',YDATA_MATE(9),' \\'  
+            YDATA_MATE(7),' &', YDATA_MATE(8),' &',YDATA_MATE(9),' \\'
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
     END IF
@@ -402,7 +402,7 @@ DO
 ENDDO
 
 I=0
-DO 
+DO
   IF (I==JPCOVER) EXIT
   IF (CLANG=='EN') THEN
     WRITE(NTEX,*) '{\bf wall thermal parameters}\\'
@@ -457,7 +457,7 @@ DO
           I,' &',CNAME(I),' &', YDATA_MATE(1),' &',YDATA_MATE(2),' &', &
             YDATA_MATE(3),' &', YDATA_MATE(4),' &',                    &
             YDATA_MATE(5),' &', YDATA_MATE(6),' &',                    &
-            YDATA_MATE(7),' &', YDATA_MATE(8),' &',YDATA_MATE(9),' \\'  
+            YDATA_MATE(7),' &', YDATA_MATE(8),' &',YDATA_MATE(9),' \\'
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
     END IF

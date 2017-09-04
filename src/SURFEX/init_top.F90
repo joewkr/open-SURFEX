@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
       SUBROUTINE INIT_TOP (IO, S, K, NK, NP, KLUOUT, PM    )
 !
 !     #####################################################################
 !
-!!****  *INIT_TOP*  
+!!****  *INIT_TOP*
 !!
 !!    PURPOSE
 !!    =======
 !
-!     Calculates the new array of the Datin-Saulnier TOPMODEL framework fonction for xsat and compute each 
-!     satured fraction for each xsat value of the grids cells but also the active TOPMODEL-layer array, the 
+!     Calculates the new array of the Datin-Saulnier TOPMODEL framework fonction for xsat and compute each
+!     satured fraction for each xsat value of the grids cells but also the active TOPMODEL-layer array, the
 !     driest fraction array and the normalized mean deficit array.
 !     For calculate new array, we use the incomplete gamma function. (see gamma_inc.f for more detail)
-! 
+!
 !     Note that over land point where topographic index do not exist, a VIC
 !     distribution is used with Bcoef at least equal to 0.1. This value can be
 !     change in namelist
@@ -92,7 +92,7 @@ REAL                  :: ZGYMAX, ZGYMIN
 !                        ZGYMIN  = incomplete gamma function for ymin (GAMSTAR result)
 !
 REAL                  :: ZXSAT_IND, ZYSAT, ZY0, ZDMOY, ZXMOY, ZFMED, ZF0
-!                        ZXSAT_IND = Satured index for all index 
+!                        ZXSAT_IND = Satured index for all index
 !                        ZYSAT     = changing variable of satured index
 !                        ZY0       = changing variable of dry index
 !                        ZDMOY     = grid cell average deficit (= Dbar/M)
@@ -101,7 +101,7 @@ REAL                  :: ZXSAT_IND, ZYSAT, ZY0, ZDMOY, ZXMOY, ZFMED, ZF0
 !                        ZFMED     = wet (1-fsat-f0) fraction
 !
 REAL                  :: ZG, ZGYSAT, ZGY0
-!                        ZG     = GAM result 
+!                        ZG     = GAM result
 !                        ZGYSAT = the incomplete gamma function for ysat (GAMSTAR result)
 !                        ZGY0   = the incomplete gamma function for y0 (GAMSTAR result)
 !
@@ -150,7 +150,7 @@ ZWD0_AVG(:) = 0.0
 !
 ! soil properties for runoff (m)
 !
-IF (IO%CISBA == 'DIF') THEN                                   
+IF (IO%CISBA == 'DIF') THEN
 !
   DO JP=1,IO%NPATCH
 
@@ -161,7 +161,7 @@ IF (IO%CISBA == 'DIF') THEN
 
     DO JL=1,INL
       DO JI=1,PK%NSIZE_P
-        ! 
+        !
         IMASK = PK%NR_P(JI)
         !
         ZD_TOP   (IMASK) = ZD_TOP   (IMASK) + PK%XPATCH(JI) * PK%XSOILWGHT(JI,JL)
@@ -178,11 +178,11 @@ IF (IO%CISBA == 'DIF') THEN
   ENDWHERE
 !
 ELSE
-!     
+!
   DO JP=1,IO%NPATCH
     !
     PK => NP%AL(JP)
-    KK => NK%AL(JP)    
+    KK => NK%AL(JP)
     !
      IF (PK%NSIZE_P == 0 ) CYCLE
      !
@@ -198,76 +198,76 @@ ELSE
   !
   ZWSAT_AVG(:) = K%XWSAT(:,1)
   ZWD0_AVG (:) = K%XWD0 (:,1)
-  !      
+  !
 ENDIF
 !
 !
 !  1.2     Algorithme
 !  ------------------
 !
-!grid cells loops 
+!grid cells loops
 !
 ZAR = 0.0
 ZTOT= 0.0
 ZNO = 0.0
 !
 DO JI=1,INI
-!   
+!
    IF(S%XTI_MEAN(JI)==XUNDEF)THEN
 !
 !    *Case where the Topographics index are not defined.
-!    --------------------------------------------------------         
+!    --------------------------------------------------------
      ZNO=ZNO+1.0
-     S%XTAB_FSAT(JI,:)=0.0     
+     S%XTAB_FSAT(JI,:)=0.0
      S%XTAB_WTOP(JI,:)=XUNDEF
      S%XTAB_QTOP(JI,:)=0.0
-!     
+!
      PM(JI) =XUNDEF
 !
-   ELSE 
+   ELSE
 !
      ZTOT = ZTOT + 1.0
 !
 !    1.2.0 first initialisation
 !    --------------------------
 !
-     ZXI       = 0.0        
+     ZXI       = 0.0
      ZPHI      = 0.0
      ZNU       = 0.0
-!      
+!
 !    New version : Regressions directly in the pgd
 !    1000 meter DEM to 2m DEM (PAN AND KING 2012)
-!             
+!
      ZTI_MEAN=S%XTI_MEAN(JI)
      ZTI_MIN =S%XTI_MIN (JI)
      ZTI_MAX =S%XTI_MAX (JI)
      ZTI_STD =S%XTI_STD (JI)
      ZTI_SKEW=S%XTI_SKEW(JI)
 !
-!    Calculate topographic index pdf parameters 
+!    Calculate topographic index pdf parameters
 !
 !    Numerical problem especialy over Greenland
      IF(ZTI_SKEW<=0.2)THEN
-!     
+!
        ZTI_SKEW=0.2
-!       
-       WRITE(KLUOUT,*)'TI_SKEW is too low or negatif (=',ZTI_SKEW,'),' 
+!
+       WRITE(KLUOUT,*)'TI_SKEW is too low or negatif (=',ZTI_SKEW,'),'
        WRITE(KLUOUT,*)'then PHI is too big for the grid-cell',JI,'So,GAMMA(PHI) -> +inf.'
        WRITE(KLUOUT,*)'The applied solution is to put TI_SKEW = 0.2'
        IF(ZTI_STD<1.0)THEN
-         WRITE(KLUOUT,*)'In addition TI_STD is too low (=',ZTI_STD,'),' 
+         WRITE(KLUOUT,*)'In addition TI_STD is too low (=',ZTI_STD,'),'
          WRITE(KLUOUT,*)'The applied solution is to put TI_STD = 1.0'
          ZTI_STD=1.0
-       ENDIF               
+       ENDIF
 !
        ZAR  = ZAR +1.0
-!     
-       ZXI  = ZTI_SKEW*ZTI_STD/X2 
+!
+       ZXI  = ZTI_SKEW*ZTI_STD/X2
        ZPHI = (ZTI_STD/ZXI)**X2
 !
      ELSE
 !
-       ZXI  = ZTI_SKEW*ZTI_STD/X2 
+       ZXI  = ZTI_SKEW*ZTI_STD/X2
        ZPHI = (ZTI_STD/ZXI)**X2
 !
      ENDIF
@@ -276,7 +276,7 @@ DO JI=1,INI
 !
 !    Exponential decay factor of the local deficit
 !
-     PM(JI) =(ZWSAT_AVG(JI)-ZWD0_AVG(JI))*ZD_TOP(JI)/X4 
+     PM(JI) =(ZWSAT_AVG(JI)-ZWD0_AVG(JI))*ZD_TOP(JI)/X4
 !
 !    1.2.1 Calculate grid cell pdf total density FTOT = F(ymin --> ymax)
 !    -------------------------------------------------------------------
@@ -297,7 +297,7 @@ DO JI=1,INI
 !
      ZYMIN = (ZTI_MIN-ZNU)/ZXI
      ZYMAX = (ZTI_MAX-ZNU)/ZXI
-!  
+!
 !    Supress numerical artifact
 !
      ZCOR  = ABS(MIN(0.0,ZYMIN))
@@ -314,24 +314,24 @@ DO JI=1,INI
 !    Computation of F(0 --> ymin)
 !
      CALL DGAM(ZPHI,ZYMIN,10.,ZG,ZGYMIN,IFLG,IFLGST)
-!      
+!
 !    if the incomplete gamma function don't work, print why
 !
      IF (IFLGST/=0)THEN
-        WRITE(KLUOUT,*)'GRID-CELL =',JI,'FLGST= ',IFLGST,'PHI= ',ZPHI,'YMIN= ',ZYMIN 
+        WRITE(KLUOUT,*)'GRID-CELL =',JI,'FLGST= ',IFLGST,'PHI= ',ZPHI,'YMIN= ',ZYMIN
         CALL ABOR1_SFX('INIT_TOP: (1) PROBLEM WITH DGAM FUNCTION')
-     ENDIF      
+     ENDIF
 !
 !    Computation of F(0 --> ymax)
 !
      CALL DGAM(ZPHI,ZYMAX,10.,ZG,ZGYMAX,IFLG,IFLGST)
-!      
+!
 !    if the incomplete gamma function don't work, print why
 !
      IF (IFLGST/=0)THEN
         WRITE(KLUOUT,*)'GRID-CELL =',JI,'FLGST= ',IFLGST,'PHI= ',ZPHI,'YMAX= ',ZYMAX
         CALL ABOR1_SFX('INIT_TOP: (2) PROBLEM WITH DGAM FUNCTION')
-     ENDIF      
+     ENDIF
 !
 !    FTOT = F(0 --> ymax) - F(0 --> ymin)
 !
@@ -342,7 +342,7 @@ DO JI=1,INI
      S%XTAB_WTOP(JI,1) = ZWSAT_AVG(JI)
      S%XTAB_FSAT(JI,1) = 1.0
      S%XTAB_QTOP(JI,1) = 0.0
-!     
+!
      S%XTAB_WTOP(JI,IPAS) = ZWD0_AVG(JI)
      S%XTAB_FSAT(JI,IPAS) = 0.0
      S%XTAB_QTOP(JI,IPAS) = 0.0
@@ -362,7 +362,7 @@ DO JI=1,INI
 !
 !       initialize of loops variables
 !
-        ZXSAT_IND = 0.0 
+        ZXSAT_IND = 0.0
         ZYSAT     = 0.0
         ZY0       = 0.0
         ZDMOY     = 0.0
@@ -380,11 +380,11 @@ DO JI=1,INI
 !
         ZXSAT_IND=ZTI_MIN+REAL(IND-1)*ZPAS
 !
-!       Changing variable to compute incomplete gamma function 
+!       Changing variable to compute incomplete gamma function
 !
-        ZYSAT=(ZXSAT_IND-ZNU)/ZXI 
+        ZYSAT=(ZXSAT_IND-ZNU)/ZXI
         ZY0  =((ZXSAT_IND-ZD0)-ZNU)/ZXI
-!      
+!
 !       Calculate Y0 and ysat and assume ymin < y0 < ymax !
 
         ZYSAT=MAX(ZYMIN,MIN(ZYSAT+ZCOR,ZYMAX))
@@ -392,14 +392,14 @@ DO JI=1,INI
 !
 !       call incomplete gamma function for xsat
 !
-        CALL DGAM(ZPHI,ZYSAT,10.,ZG,ZGYSAT,IFLG,IFLGST)  
+        CALL DGAM(ZPHI,ZYSAT,10.,ZG,ZGYSAT,IFLG,IFLGST)
 !
 !       if the incomplete gamma function don't works, print why
 !
         IF (IFLGST/=0)THEN
            WRITE(KLUOUT,*)'GRID-CELL= ',JI,'FLGST= ',IFLGST,'PHI= ',ZPHI,'YSAT= ',ZYSAT
            CALL ABOR1_SFX('INIT_TOP: (3) PROBLEM WITH DGAM FUNCTION')
-        ENDIF 
+        ENDIF
 !
 !       call incomplete gamma function for xsat
 !
@@ -410,10 +410,10 @@ DO JI=1,INI
         IF (IFLGST/=0)THEN
            WRITE(KLUOUT,*)'GRID-CELL= ',JI,'FLGST= ',IFLGST,'PHI= ',ZPHI,'Y0= ',ZY0
            CALL ABOR1_SFX('INIT_TOP: (4) PROBLEM WITH DGAM FUNCTION')
-        ENDIF 
+        ENDIF
 !
 !       compute satured fraction as FSAT = F(0 --> ymax) - F(0 --> ysat)
-!       
+!
         S%XTAB_FSAT(JI,IND)=MAX(0.0,(ZGYMAX-ZGYSAT)/ZFTOT)
 !
 !       Compute driest fraction
@@ -421,7 +421,7 @@ DO JI=1,INI
         ZF0=MAX(0.0,(ZGY0-ZGYMIN)/ZFTOT)
 !
 !       Calculate FMED
-!        
+!
         ZFMED=(1.0-S%XTAB_FSAT(JI,IND)-ZF0)
 !
         IF (ZFMED/=0.0) THEN
@@ -452,7 +452,7 @@ DO JI=1,INI
 !       Solves Qs = FMED * M * Ks * exp(-Xsat) / Ks (dimentionless)
 !
         S%XTAB_QTOP(JI,IND) = ZFMED*PM(JI)*EXP(-ZXSAT_IND)
-!        
+!
       ENDDO
 !
     ENDIF
@@ -470,21 +470,21 @@ DO JI=1,INI
      ZFUP=S%XTAB_FSAT(JI,1)
      ZWUP=S%XTAB_WTOP(JI,1)
      ZQUP=S%XTAB_QTOP(JI,1)
-!   
+!
      ID(:)=MAXLOC(S%XTAB_WTOP(JI,:),S%XTAB_WTOP(JI,:)<ZWSAT_AVG(JI))
-!   
+!
      ZFDOWN=S%XTAB_FSAT(JI,ID(1))
      ZWDOWN=S%XTAB_WTOP(JI,ID(1))
      ZQDOWN=S%XTAB_QTOP(JI,ID(1))
-!     
-     ZSLOPEW=(ZWUP-ZWDOWN)/(ZFUP-ZFDOWN)   
-     ZSLOPEQ=(ZQUP-ZQDOWN)/(ZFUP-ZFDOWN)   
+!
+     ZSLOPEW=(ZWUP-ZWDOWN)/(ZFUP-ZFDOWN)
+     ZSLOPEQ=(ZQUP-ZQDOWN)/(ZFUP-ZFDOWN)
 !
      DO IND=2,ID(1)-1
         S%XTAB_WTOP(JI,IND)=ZWDOWN+(S%XTAB_FSAT(JI,IND)-ZFDOWN)*ZSLOPEW
         S%XTAB_QTOP(JI,IND)=ZQDOWN+(S%XTAB_FSAT(JI,IND)-ZFDOWN)*ZSLOPEQ
      ENDDO
-!   
+!
    ENDIF
 !
 !  Lower boundary
@@ -497,7 +497,7 @@ DO JI=1,INI
          S%XTAB_FSAT(JI,:)=0.0
          S%XTAB_QTOP(JI,:)=0.0
    ENDWHERE
-!   
+!
 ENDDO
 !
 WRITE(KLUOUT,*)'-------------------TOPMODEL SUM-UP-------------------------'

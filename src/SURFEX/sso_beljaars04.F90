@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################################
 SUBROUTINE SSO_BELJAARS04 (USS, SB, KI, PSSO_STDEV, PFORC_U, PDFORC_UDU)
@@ -16,11 +16,11 @@ SUBROUTINE SSO_BELJAARS04 (USS, SB, KI, PSSO_STDEV, PFORC_U, PDFORC_UDU)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -61,7 +61,7 @@ REAL, PARAMETER :: C_KFLT    = 0.00035    !   (m-1)
 REAL, PARAMETER :: C_K1      = 0.003      !   (m-1)
 REAL, PARAMETER :: C_N1      = -1.9
 REAL, PARAMETER :: C_N2      = -2.8
-REAL            :: C_AVAR                 ! = C_K1**(C_N1-C_N2) / (C_IH * C_KFLT**C_N1)  
+REAL            :: C_AVAR                 ! = C_K1**(C_N1-C_N2) / (C_IH * C_KFLT**C_N1)
 !                                         ! (unit: m^{1+C_N2}  =  m^-1.8)
 !
 INTEGER                  :: JL            ! loop counter on canopy heights
@@ -78,10 +78,10 @@ IF (LHOOK) CALL DR_HOOK('SSO_BELJAARS04',0,ZHOOK_HANDLE)
 C_AVAR    = C_K1**(C_N1-C_N2) / (C_IH * C_KFLT**C_N1)   ! (unit: m^{1+C_N2}  =  m^-1.8)
 !
 !
-!*      2.1    Drag coefficient in  drag force by subscale orography 
+!*      2.1    Drag coefficient in  drag force by subscale orography
 !              -----------------------------------------------------
 !
-! unit : m-1    (m^-1.8 . m ^2 . m^-1.2) 
+! unit : m-1    (m^-1.8 . m ^2 . m^-1.2)
 !
 ZSSO_DRAG = 0.
 DO JL=1,SB%NLVL

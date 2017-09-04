@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_SURF_SIZE_n (DTCO, U, &
                                   HTYPE,KL)
 !     #####################################################
 !
-!!****  *GET_SURF_SIZE_n* - routine to define the masks between all surface 
+!!****  *GET_SURF_SIZE_n* - routine to define the masks between all surface
 !!    points and each of the four surface types
 !!
 !!    PURPOSE
@@ -102,7 +102,7 @@ SELECT CASE (HTYPE)
    KL = COUNT(ZTOWN(:) > 0.)
    !
   CASE ('WATER')
-   !       
+   !
    KL = COUNT(ZWATER(:) > 0.)
    !
   CASE ('LAND')

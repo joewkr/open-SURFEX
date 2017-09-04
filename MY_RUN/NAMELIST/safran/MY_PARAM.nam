@@ -3,8 +3,8 @@
                NUMBER_OF_TIME_STEPS_INPUT  = 8761  ,
                NUMBER_OF_TIME_STEPS_FINAL  = 8761  ,
                ZATM_FORC_STEP     = 3600.           ,
-               NYEAR1 = 1995, 
+               NYEAR1 = 1995,
                NYEAR2 = 1995,
-               LSPLIT_NC = T, 
+               LSPLIT_NC = T,
                YFORCING_FILETYPE  = 'NETCDF'
 /

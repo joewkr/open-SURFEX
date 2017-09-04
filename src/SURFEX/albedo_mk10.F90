@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
       FUNCTION ALBEDO_MK10(PZENITH) RESULT(PDIR_ALB)
 !     ##################################################################
 !
-!!****  *ALBEDO_MK10*  
+!!****  *ALBEDO_MK10*
 !!
 !!    PURPOSE
 !!    -------
 !       computes the direct albedo over open water
 !
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -20,15 +20,15 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!    Modified version taken from SAM6.8 (Oct 2010) Marat Khairoutdinov 
+!!    Modified version taken from SAM6.8 (Oct 2010) Marat Khairoutdinov
 !!    from CCM3). For the EUCLIPSE COMPOSITE CASE.
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      E. Bazile           * Meteo-France *
@@ -36,7 +36,7 @@
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    28/03/11
-!       
+!
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS

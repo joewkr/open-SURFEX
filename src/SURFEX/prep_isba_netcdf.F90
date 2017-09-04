@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_ISBA_NETCDF (DTCO, U, HPROGRAM,HSURF,HFILE,KLUOUT,PFIELD)
@@ -16,7 +16,7 @@ SUBROUTINE PREP_ISBA_NETCDF (DTCO, U, HPROGRAM,HSURF,HFILE,KLUOUT,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -106,7 +106,7 @@ IF (NRANK==NPIO) THEN
   ! Open netcdf file
   IERROR=NF90_OPEN(HFILE,NF90_NOWRITE,ID_FILE)
    CALL HANDLE_ERR_CDF(IERROR,"can't open file "//TRIM(HFILE))
- 
+
   ! Look for variable ID
   IERROR=NF90_INQ_VARID(ID_FILE,TRIM(HSURF),ID_VAR)
    CALL HANDLE_ERR_CDF(IERROR,"can't find variable "//TRIM(HSURF))
@@ -131,12 +131,12 @@ IF (NRANK==NPIO) THEN
       if (IERROR/=NF90_NOERR) CALL HANDLE_ERR_CDF(IERROR,"can't get variable dimensions lengths")
       IERROR=NF90_INQUIRE_DIMENSION(ID_FILE,IVARDIMSID(2),LEN=ILENDIM2)
       if (IERROR/=NF90_NOERR) CALL HANDLE_ERR_CDF(IERROR,"can't get variable dimensions lengths")
-  
+
       ILENDIM=ILENDIM1*ILENDIM2
-  
+
     CASE DEFAULT
       CALL ABOR1_SFX('PREP_ISBA_NETCDF: incorrect number of dimensions for variable '//TRIM(HSURF))
-  
+
   END SELECT
   !
   IF(ILENDIM/=U%NDIM_NATURE) CALL ABOR1_SFX('PREP_ISBA_NETCDF: incorrect number of points '// &

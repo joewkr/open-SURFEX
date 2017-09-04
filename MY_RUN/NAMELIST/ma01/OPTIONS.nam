@@ -58,7 +58,7 @@
                        CISBA         = '3-L'         ,
                        CPHOTO        = 'NON'         ,
                        NPATCH        = 1             ,
-                       NGROUND_LAYER = 3        
+                       NGROUND_LAYER = 3
 /
 &NAM_DATA_ISBA         XUNIF_VEGTYPE(1)     = 0.,
                        XUNIF_VEGTYPE(2)     = 0.,
@@ -231,26 +231,26 @@
                        XUNIF_TOWN   = 0.864,
                        XUNIF_NATURE = 0.136
 /
-&NAM_PGD_GRID          CGRID = 'LONLAT REG' 
+&NAM_PGD_GRID          CGRID = 'LONLAT REG'
 /
-&NAM_LONLAT_REG        XLONMIN = 5.367        , 
-                       XLONMAX = 5.367        , 
-                       XLATMIN = 43.283       , 
-                       XLATMAX = 43.283       , 
-                       NLON    = 1            , 
-                       NLAT    = 1 
+&NAM_LONLAT_REG        XLONMIN = 5.367        ,
+                       XLONMAX = 5.367        ,
+                       XLATMIN = 43.283       ,
+                       XLATMAX = 43.283       ,
+                       NLON    = 1            ,
+                       NLAT    = 1
 /
-&NAM_PGD_SCHEMES       CNATURE = 'ISBA  '    , 
-                       CSEA    = 'SEAFLX'    , 
-                       CTOWN   = 'TEB   '    , 
-                       CWATER  = 'WATFLX' 
+&NAM_PGD_SCHEMES       CNATURE = 'ISBA  '    ,
+                       CSEA    = 'SEAFLX'    ,
+                       CTOWN   = 'TEB   '    ,
+                       CWATER  = 'WATFLX'
 /
 &NAM_ZS                XUNIF_ZS  = 0.
 /
 &NAM_PREP_SURF_ATM NYEAR  = 2001,
                    NMONTH = 06,
                    NDAY   = 17,
-                   XTIME  = 27000. 
+                   XTIME  = 27000.
 /
 &NAM_PREP_TEB      XTI_ROAD= 290.15
                    XTI_BLD = 298.15
@@ -278,17 +278,17 @@
 /
 
 
-&NAM_DIAG_SURFn        LSURF_BUDGET = T      , 
+&NAM_DIAG_SURFn        LSURF_BUDGET = T      ,
                        N2M          = 1      ,
                        LCOEF        = F      ,
-                       LSURF_VARS   = F      , 
+                       LSURF_VARS   = F      ,
 		       LSURF_BUDGETC = F
 /
-&NAM_DIAG_SURF_ATMn    LFRAC        = F 
+&NAM_DIAG_SURF_ATMn    LFRAC        = F
 /
-&NAM_DIAG_ISBAn        LPGD              = T , 
-                       LSURF_EVAP_BUDGET = T , 
-                       LSURF_MISC_BUDGET = F  
+&NAM_DIAG_ISBAn        LPGD              = T ,
+                       LSURF_EVAP_BUDGET = T ,
+                       LSURF_MISC_BUDGET = F
 /
-&NAM_DIAG_TEBn         LSURF_MISC_BUDGET = T 
+&NAM_DIAG_TEBn         LSURF_MISC_BUDGET = T
 /

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_SEA_n (SM, DGO, DL, DLC, U, DST, SLT, HPROGRAM, HCOUPLING, PTIMEC,     &
@@ -10,10 +10,10 @@ SUBROUTINE COUPLING_SEA_n (SM, DGO, DL, DLC, U, DST, SLT, HPROGRAM, HCOUPLING, P
                  PSFTQ, PSFTH, PSFTS, PSFCO2, PSFU, PSFV,                                    &
                  PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF, PZ0, PZ0H, PQSURF,                &
                  PPEW_A_COEF, PPEW_B_COEF,                                                   &
-                 PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST   )  
+                 PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST   )
 !     ###############################################################################
 !
-!!****  *COUPLING_SEA_n * - Chooses the surface schemes for sea   
+!!****  *COUPLING_SEA_n * - Chooses the surface schemes for sea
 !!
 !!    PURPOSE
 !!    -------
@@ -23,11 +23,11 @@ SUBROUTINE COUPLING_SEA_n (SM, DGO, DL, DLC, U, DST, SLT, HPROGRAM, HCOUPLING, P
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -150,7 +150,7 @@ IF (U%CSEA=='SEAFLX') THEN
                  PSFTQ, PSFTH, PSFTS, PSFCO2, PSFU, PSFV,                                    &
                  PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF, PZ0, PZ0H, PQSURF,                &
                  PPEW_A_COEF, PPEW_B_COEF,                                                   &
-                 PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST                 )  
+                 PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST                 )
 ELSE IF (U%CSEA=='FLUX  ') THEN
   CALL COUPLING_IDEAL_FLUX(DGO, DL, DLC, HPROGRAM, HCOUPLING, PTIMEC,                      &
                  PTSTEP, KYEAR, KMONTH, KDAY, PTIME, KI, KSV, KSW,                           &
@@ -160,7 +160,7 @@ ELSE IF (U%CSEA=='FLUX  ') THEN
                  PSFTQ, PSFTH, PSFTS, PSFCO2, PSFU, PSFV,                                    &
                  PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF, PZ0, PZ0H, PQSURF,                &
                  PPEW_A_COEF, PPEW_B_COEF,                                                   &
-                 PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST       )  
+                 PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST       )
 ELSE IF (U%CSEA=='NONE  ') THEN
   PSFTH = 0.
   PSFTQ = 0.
@@ -173,7 +173,7 @@ ELSE IF (U%CSEA=='NONE  ') THEN
   PDIR_ALB = 0.
   PSCA_ALB = 0.
   PEMIS   = 1.
-!  
+!
   PTSURF = XTT
   PZ0    = 0.001
   PZ0H   = 0.001

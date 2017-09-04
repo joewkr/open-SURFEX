@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,53 +28,53 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
-! ====================== MODULE modi_gltools_mixice_r ===================== 
+! ====================== MODULE modi_gltools_mixice_r =====================
 ! =======================================================================
 !
 ! Goal:
 ! -----
-!   This module contains functions and subroutines which are used as 
-! tools in the rest of the Gelato model. Some of them are purely 
+!   This module contains functions and subroutines which are used as
+! tools in the rest of the Gelato model. Some of them are purely
 ! thermodynamic functions, others are used to have some input and
 ! glt_output of interest displayed in a convenient way.
 !
 ! Created : 1996/04 (D. Salas y Melia)
 !           Case of a 1-D model at one point
 ! Modified: 1997/03 (D. Salas y Melia)
-!           Adapted to a 2-D model and rewritten to follow the DOCTOR 
+!           Adapted to a 2-D model and rewritten to follow the DOCTOR
 !           norm.
 ! Modified: 2007/11 (D. Salas y Melia)
-!           Merger should be done for surface temperature also 
-!           (or it is subsequently set to melting point in the 
+!           Merger should be done for surface temperature also
+!           (or it is subsequently set to melting point in the
 !           particular case of an ice class change, creating problems)
 ! Modified: 2009/06 (D. Salas y Melia)
 !           Reduced grid version
 !
-! ------------------ BEGIN MODULE modi_gltools_mixice_r -------------------  
+! ------------------ BEGIN MODULE modi_gltools_mixice_r -------------------
 !
 !THXS_SFX!MODULE modi_gltools_mixice_r
 !THXS_SFX!INTERFACE
-!THXS_SFX!!  
-!THXS_SFX!SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil ) 
+!THXS_SFX!!
+!THXS_SFX!SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
 !THXS_SFX!  USE modd_types_glt
 !THXS_SFX!  USE modd_glt_param
 !THXS_SFX!  TYPE(t_mxl),DIMENSION(np), INTENT(in) ::                           &
 !THXS_SFX!        tpmxl
 !THXS_SFX!  TYPE(t_sit), DIMENSION(:,:,:), INTENT(in) ::                        &
-!THXS_SFX!        tplsit  
+!THXS_SFX!        tplsit
 !THXS_SFX!  TYPE(t_vtp), DIMENSION(:,:,:,:), INTENT(in) ::                      &
-!THXS_SFX!        tplsil          
+!THXS_SFX!        tplsil
 !THXS_SFX!  TYPE(t_sit), DIMENSION(nt,np), INTENT(inout) ::                    &
-!THXS_SFX!        tpsit 
+!THXS_SFX!        tpsit
 !THXS_SFX!  TYPE(t_vtp), DIMENSION(nl,nt,np), INTENT(inout) ::                 &
 !THXS_SFX!        tpsil
 !THXS_SFX!END SUBROUTINE gltools_mixice_r
@@ -89,9 +89,9 @@
 ! -----------------------------------------------------------------------
 ! ------------------------ SUBROUTINE gltools_mixice_r --------------------------
 !
-!   This subroutine is used for merging several ice classes together, 
+!   This subroutine is used for merging several ice classes together,
 ! given their areal fractions, overlying snow layers thickness and
-! density, and vertical temperature profiles. 
+! density, and vertical temperature profiles.
 !
 SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
 !
@@ -123,7 +123,7 @@ SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
 !
 ! .. Expanded mixed layer freezing point
 !
-  zmlf3(:,:) = SPREAD(tpmxl(:)%mlf,1,nt) 
+  zmlf3(:,:) = SPREAD(tpmxl(:)%mlf,1,nt)
 !
 ! .. For every ice category, volume of ice per sq. meter
 !
@@ -160,7 +160,7 @@ SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
 ! 2.1. Compute merged sea ice fraction
 ! ------------------------------------
 !
-! .. Compute merged sea ice fractions. It is simply the sum of the 
+! .. Compute merged sea ice fractions. It is simply the sum of the
 ! concentrations of the different ice types_glt that fell into the same
 ! thickness category.
 !
@@ -169,7 +169,7 @@ SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
 !
 ! 2.2. Compute other merged 3D quantities
 ! ---------------------------------------
-! 
+!
 ! .. Compute existence boolean, merged sea ice thicknesses, snow
 ! thickness, surface temperature:
 !
@@ -179,10 +179,10 @@ SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
     tpsit(:,:)%hsn = zvsn(:,:) / tpsit(:,:)%fsi
     tpsit(:,:)%tsf = SUM(  &
       tplsit(:,:,:)%fsi*tplsit(:,:,:)%tsf, DIM=1 ) /  &
-      tpsit(:,:)%fsi 
+      tpsit(:,:)%fsi
     tpsit(:,:)%asn = SUM(  &
       tplsit(:,:,:)%fsi*tplsit(:,:,:)%asn, DIM=1 ) /  &
-      tpsit(:,:)%fsi 
+      tpsit(:,:)%fsi
   ENDWHERE
   WHERE ( tpsit(:,:)%fsi<=epsil1 )
     tpsit(:,:)%esi = .FALSE.
@@ -194,7 +194,7 @@ SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
 !
 ! .. Compute snow density:
 !
-  WHERE ( tpsit(:,:)%fsi>epsil1 .AND. tpsit(:,:)%hsn>epsil1 )   
+  WHERE ( tpsit(:,:)%fsi>epsil1 .AND. tpsit(:,:)%hsn>epsil1 )
     tpsit(:,:)%rsn = zmsn(:,:) /  &
       ( tpsit(:,:)%fsi*tpsit(:,:)%hsn )
   ENDWHERE
@@ -205,7 +205,7 @@ SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
 ! .. Compute ice age:
 !
   IF ( niceage==1 ) THEN
-      WHERE ( tpsit(:,:)%fsi>epsil1 .AND. tpsit(:,:)%hsi>epsil1 )   
+      WHERE ( tpsit(:,:)%fsi>epsil1 .AND. tpsit(:,:)%hsi>epsil1 )
         tpsit(:,:)%age = zagevsi(:,:) /  &
           ( tpsit(:,:)%fsi*tpsit(:,:)%hsi )
       ENDWHERE
@@ -219,7 +219,7 @@ SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
 ! .. Compute ice salinity
 !
   IF ( nicesal==1 ) THEN
-      WHERE ( tpsit(:,:)%fsi>epsil1 .AND. tpsit(:,:)%hsi>epsil1 )   
+      WHERE ( tpsit(:,:)%fsi>epsil1 .AND. tpsit(:,:)%hsi>epsil1 )
         tpsit(:,:)%ssi = zssivsi(:,:) /  &
           ( tpsit(:,:)%fsi*tpsit(:,:)%hsi )
       ENDWHERE
@@ -231,7 +231,7 @@ SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
 ! .. Compute melt pond volume:
 !
   IF ( nmponds==1 ) THEN
-      WHERE ( tpsit(:,:)%fsi>epsil1 .AND. tpsit(:,:)%hsi>epsil1 )   
+      WHERE ( tpsit(:,:)%fsi>epsil1 .AND. tpsit(:,:)%hsi>epsil1 )
         tpsit(:,:)%vmp = zvmpvsi(:,:) /  &
           ( tpsit(:,:)%fsi*tpsit(:,:)%hsi )
       ENDWHERE
@@ -241,12 +241,12 @@ SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
     ELSE
       tpsit(:,:)%vmp = 0.
   ENDIF
-! 
+!
 !
 ! 2.3. Compute merged 4D quantities
 ! ---------------------------------
 !
-! .. For the time being, only the temperature is concerned. 
+! .. For the time being, only the temperature is concerned.
 !
 ! Ice
 !

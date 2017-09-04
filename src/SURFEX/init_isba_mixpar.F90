@@ -1,23 +1,23 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INIT_ISBA_MIXPAR (DTCO, DTV, KDIM, IO, &
                                    KDECADE,KDECADE2,PCOVER,OCOVER,HSFTYPE)
 !     ##############################################################
 !
-!!**** *INIT_ISBA_MIXPAR* 
+!!**** *INIT_ISBA_MIXPAR*
 !!
 !!    PURPOSE
 !!    -------
 !!   This routine makes pre-calculations relative to dependances between
-!!    parameters. 
-!! 
+!!    parameters.
+!!
 !!    METHOD
 !!    ------
-!!   First are treated parameters varying in time. Then, other ones. 
-!!   * XPAR_VEGTYPE is needed as soon as 1 LDATA_ is true to use av_pgd_param. 
+!!   First are treated parameters varying in time. Then, other ones.
+!!   * XPAR_VEGTYPE is needed as soon as 1 LDATA_ is true to use av_pgd_param.
 !!   * XPAR_LAI is needed as soon as av_pgd_param is called with YLAI
 !!   * XPAR_VEG is needed as soon as av_pgd_param is called with YVEG
 !!   * XPAR_H_TREE is needed as soon as Z0 is calculated by ini_data_param by point
@@ -60,7 +60,7 @@ USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE, NVEGTYPE_OLD, NVEGTYPE_ECOSG
 USE MODD_DATA_COVER,     ONLY : XDATA_LAI, XDATA_H_TREE, XDATA_VEG,         &
                                 XDATA_IRRIG, XDATA_WATSUP, TDATA_SEED,      &
                                 TDATA_REAP
-!     
+!
 USE MODI_INI_DATA_PARAM
 USE MODI_AV_PGD
 !
@@ -136,7 +136,7 @@ ELSEIF (HSFTYPE=='GRD') THEN
 ENDIF
 !
 KDECADE2 = KDECADE
-IF (DTV%NTIME==2) KDECADE2 = KDECADE2 + 10 
+IF (DTV%NTIME==2) KDECADE2 = KDECADE2 + 10
 KDECADE2 = (KDECADE2-1) * DTV%NTIME / 36 + 1
 IF (DTV%NTIME==2 .AND. KDECADE2==3) KDECADE2 = 1
 !
@@ -169,7 +169,7 @@ IF (.NOT.ANY(DTV%LDATA_VEG)) THEN
   ENDIF
 ENDIF
 !
-!ht: needed to calculate z0, if not calculated yet during extrapolation 
+!ht: needed to calculate z0, if not calculated yet during extrapolation
 IF (.NOT.ANY(DTV%LDATA_H_TREE) .AND. .NOT.ANY(DTV%LDATA_Z0) .AND. ANY(DTV%LDATA_LAI)) THEN
   ALLOCATE(DTV%XPAR_H_TREE(KDIM,NVEGTYPE))
   CALL AV_PGD(DTCO,DTV%XPAR_H_TREE,PCOVER,XDATA_H_TREE,YTREE,'ARI',OCOVER,KDECADE=KDECADE)
@@ -261,22 +261,22 @@ IF (ANY(DTV%LDATA_VEG)) THEN
           CALL INI_DATA_PARAM(OAGRI_TO_GRASS=IO%LAGRI_TO_GRASS,PCV=DTV%XPAR_CV)
   IF (.NOT.ANY(DTV%LDATA_ALBNIR_VEG)) THEN
     CALL INI_DATA_PARAM(OAGRI_TO_GRASS=IO%LAGRI_TO_GRASS,PALBNIR_VEG=DTV%XPAR_ALBNIR_VEG(:,1,:))
-    DO JT = 2,DTV%NTIME 
+    DO JT = 2,DTV%NTIME
       DTV%XPAR_ALBNIR_VEG(:,JT,:) = DTV%XPAR_ALBNIR_VEG(:,1,:)
     ENDDO
   ENDIF
   IF (.NOT.ANY(DTV%LDATA_ALBVIS_VEG)) THEN
     CALL INI_DATA_PARAM(OAGRI_TO_GRASS=IO%LAGRI_TO_GRASS,PALBVIS_VEG=DTV%XPAR_ALBVIS_VEG(:,1,:))
-    DO JT = 2,DTV%NTIME 
+    DO JT = 2,DTV%NTIME
       DTV%XPAR_ALBVIS_VEG(:,JT,:) = DTV%XPAR_ALBVIS_VEG(:,1,:)
     ENDDO
-  ENDIF    
+  ENDIF
   IF (.NOT.ANY(DTV%LDATA_ALBUV_VEG)) THEN
     CALL INI_DATA_PARAM(OAGRI_TO_GRASS=IO%LAGRI_TO_GRASS,PALBUV_VEG=DTV%XPAR_ALBUV_VEG(:,1,:))
-    DO JT = 2,DTV%NTIME 
+    DO JT = 2,DTV%NTIME
       DTV%XPAR_ALBUV_VEG(:,JT,:) = DTV%XPAR_ALBUV_VEG(:,1,:)
     ENDDO
-  ENDIF      
+  ENDIF
   IF (ISIZE_LMEB_PATCH>0)  THEN
     IF (.NOT.ANY(DTV%LDATA_BSLAI)) CALL INI_DATA_PARAM(PBSLAI=DTV%XPAR_BSLAI)
   ENDIF
@@ -329,12 +329,12 @@ IF (ANY(DTV%LDATA_VEG)) THEN
   !
   DTV%LDATA_STRESS(:)    =.TRUE.
   !
-  ALLOCATE(DTV%LPAR_STRESS(KDIM,NVEGTYPE))  
+  ALLOCATE(DTV%LPAR_STRESS(KDIM,NVEGTYPE))
   DTV%LPAR_STRESS(:,:) = .TRUE.
   IF(IO%LAGRI_TO_GRASS)THEN
     DO JVEG=1,NVEGTYPE
       IF(XSTRESS_NOAGRI(JVEG)<1.) DTV%LPAR_STRESS(:,JVEG) = .FALSE.
-    ENDDO 
+    ENDDO
   ELSE
     DO JVEG=1,NVEGTYPE
       IF(XSTRESS(JVEG)<1.) DTV%LPAR_STRESS(:,JVEG) = .FALSE.
@@ -376,7 +376,7 @@ IF (ANY(DTV%LDATA_VEG)) THEN
     DTV%LDATA_REAP_D(:)=.TRUE.
   ENDIF
   !
-  DEALLOCATE(TPWORK)  
+  DEALLOCATE(TPWORK)
 !
 ! MEB stuff
 !

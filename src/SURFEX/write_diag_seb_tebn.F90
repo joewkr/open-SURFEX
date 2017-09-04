@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITE_DIAG_SEB_TEB_n (DTCO, HSELECT, U, CHT, DGO, D, DUT, HPROGRAM)
@@ -14,7 +14,7 @@
 !!
 !!**  METHOD
 !!    ------
-!!          
+!!
 !!
 !!    REFERENCE
 !!    ---------
@@ -141,7 +141,7 @@ IF (DGO%LSURF_BUDGET) THEN
   CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,D%XGFLUX(:),IRESP,HCOMMENT=YCOMMENT)
   !
   IF (DGO%LRAD_BUDGET) THEN
-    !        
+    !
     YRECFM='SWD_TEB'
     YCOMMENT='X_Y_'//YRECFM//' (W/m2)'
     CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,D%XSWD(:),IRESP,HCOMMENT=YCOMMENT)
@@ -168,10 +168,10 @@ IF (DGO%LSURF_BUDGET) THEN
       YRECFM='SWU_TEB'
       YCOMMENT='X_Y_'//YRECFM//' (W/m2)'
       CALL WRITE_SURF(HSELECT,&
-           HPROGRAM,YRECFM,D%XSWBD(:,:),IRESP,HCOMMENT=YCOMMENT, HNAM_DIM=YSWBAND_DIM_NAME)  
+           HPROGRAM,YRECFM,D%XSWBD(:,:),IRESP,HCOMMENT=YCOMMENT, HNAM_DIM=YSWBAND_DIM_NAME)
       !
     ELSE
-      !    
+      !
       DO JSW=1, SIZE(D%XSWBD,2)
         YNUM=ACHAR(48+JSW)
         !

@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################################################################
-      SUBROUTINE DRY_WET_SOIL_ALBEDOS( KK  )  
+      SUBROUTINE DRY_WET_SOIL_ALBEDOS( KK  )
 !     ##################################################################
 !
-!!****  *DRY_WET_SOIL_ALBEDOS*  
+!!****  *DRY_WET_SOIL_ALBEDOS*
 !!
 !!    PURPOSE
 !!    -------
 !       computes the albedo of bare soil, for dry or wet conditions
 !
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -20,23 +20,23 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      V. Masson           * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    17/12/99 
-!       
-!      (V. Masson)  16/02/01 Better fit with ISLSCP2; 
-!                                            Ba et al 2001; 
+!!      Original    17/12/99
+!
+!      (V. Masson)  16/02/01 Better fit with ISLSCP2;
+!                                            Ba et al 2001;
 !                                            Pinty et al 2000
 !      (V. Masson) 01/2004  Add UV albedo
 !      (R. Alkama) 05/2012  Add 7 new vegtype (19 rather than 12)
@@ -50,7 +50,7 @@ USE MODD_ISBA_n, ONLY : ISBA_K_t
 USE MODD_DATA_COVER_PAR, ONLY : NVT_PARK, NVT_TEBD, NVT_BONE, NVT_TRBE, NVT_TRBD, &
                                 NVT_TEBE, NVT_TENE, NVT_BOBD, NVT_BOND, NVT_SHRB, &
                                 NVT_C3, NVT_C4, NVT_IRR, NVT_GRAS, NVT_BOGR,      &
-                                NVT_TROG, NVT_C3W, NVT_C3S, NVT_FLTR, NVT_FLGR                 
+                                NVT_TROG, NVT_C3W, NVT_C3S, NVT_FLTR, NVT_FLGR
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB

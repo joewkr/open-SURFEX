@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_TEB (DTCO, UG, U, USS, TOP, BOP, TG, BDD, DTT, DTB, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -164,7 +164,7 @@ ALLOCATE(TG%XLAT       (TG%NDIM))
 ALLOCATE(TG%XLON       (TG%NDIM))
 ALLOCATE(TG%XMESH_SIZE (TG%NDIM))
 !
- CALL PACK_PGD(DTCO, U, HPROGRAM, 'TOWN  ', TG, TOP%LCOVER, TOP%XCOVER, TOP%XZS  )  
+ CALL PACK_PGD(DTCO, U, HPROGRAM, 'TOWN  ', TG, TOP%LCOVER, TOP%XCOVER, TOP%XZS  )
 !
 !-------------------------------------------------------------------------------
 !

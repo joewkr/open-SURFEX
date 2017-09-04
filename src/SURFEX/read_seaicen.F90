@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_SEAICE_n (G, S, HPROGRAM,KLU,KLUOUT)
@@ -12,11 +12,11 @@
 !!    PURPOSE : feed seaice scheme state variable and 'domain' structure
 !!    -------
 !!
-!!**  METHOD : 
+!!**  METHOD :
 !!    -------
 !!      For now, only Gelato model is handled
 !!
-!!      for state variable : quite standard in Surfex : use READ_SURF with 
+!!      for state variable : quite standard in Surfex : use READ_SURF with
 !!         relevant field names (same names as in genuine gelato restarts)
 !!      for domain information : copy from MODD_SEAFLUX_GRID
 !!      for bathymetry : copy from MODD_SEAFLUX
@@ -30,7 +30,7 @@
 !!    REFERENCE : routine restartr in original Gelato sources (V6.0.20)
 !!    ---------
 !!
-!!    AUTHOR : S. Sénési   *Meteo France*	
+!!    AUTHOR : S. Sénési   *Meteo France*
 !!    ------
 !!
 !!    MODIFICATIONS
@@ -110,7 +110,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('READ_SEAICE_n',0,ZHOOK_HANDLE)
 !
-IF (.NOT.S%LHANDLE_SIC) THEN 
+IF (.NOT.S%LHANDLE_SIC) THEN
    ALLOCATE(S%XSIC(0))
    IF (LHOOK) CALL DR_HOOK('READ_SEAICE_n',1,ZHOOK_HANDLE)
    RETURN
@@ -132,7 +132,7 @@ IF(S%LINTERPOL_SIC)THEN
    ALLOCATE(S%XFSIC(KLU))
    !
    !Precedent, Current, Next, and Second-next Monthly SIC
-   INMTH=4   
+   INMTH=4
    !
    ALLOCATE(S%XSIC_MTH(KLU,INMTH))
    DO JMTH=1,INMTH
@@ -145,11 +145,11 @@ IF(S%LINTERPOL_SIC)THEN
    CALL INTERPOL_SST_MTH(S,'C')
    !
    IF (ANY(S%XFSIC(:)>1.0).OR.ANY(S%XFSIC(:)<0.0)) THEN
-     CALL ABOR1_SFX('READ_SEAICE_n: FSIC should be >=0 and <=1') 
-   ENDIF                 
+     CALL ABOR1_SFX('READ_SEAICE_n: FSIC should be >=0 and <=1')
+   ENDIF
    !
 ELSE
-   ! 
+   !
    ALLOCATE(S%XFSIC(0))
    ALLOCATE(S%XSIC_MTH(0,0))
    !
@@ -157,7 +157,7 @@ ENDIF
 !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
-!                             Worrying about a seaice scheme 
+!                             Worrying about a seaice scheme
 !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
@@ -167,16 +167,16 @@ IF (TRIM(S%CSEAICE_SCHEME) == 'NONE' ) THEN
    IF (S%LINTERPOL_SIC ) THEN
       S%XTICE=S%XSST
       S%XSIC=S%XFSIC
-      S%XICE_ALB=XALBSEAICE           
+      S%XICE_ALB=XALBSEAICE
       IF (LHOOK) CALL DR_HOOK('READ_SEAICE_n',1,ZHOOK_HANDLE)
       RETURN
    ELSE
-      CALL ABOR1_SFX("READ_SEAICE_n: MUST HAVE CINTERPOL_SIC /= NONE WITH CSEAICE_SCHEME == NONE ") 
+      CALL ABOR1_SFX("READ_SEAICE_n: MUST HAVE CINTERPOL_SIC /= NONE WITH CSEAICE_SCHEME == NONE ")
    ENDIF
-ELSE 
-   IF (TRIM(S%CSEAICE_SCHEME) /= 'GELATO') THEN 
+ELSE
+   IF (TRIM(S%CSEAICE_SCHEME) /= 'GELATO') THEN
       WRITE(KLUOUT,*)'READ_SEAICE_n:CSEAICE_SCHEME read in PREP, ',S%CSEAICE_SCHEME,', is not yet handled'
-      CALL ABOR1_SFX("READ_SEAICE_n:CAN ONLY HANDLE GELATO SEAICE MODEL YET (and not the one quoted in PREP)") 
+      CALL ABOR1_SFX("READ_SEAICE_n:CAN ONLY HANDLE GELATO SEAICE MODEL YET (and not the one quoted in PREP)")
    ENDIF
 ENDIF
 !
@@ -186,7 +186,7 @@ ENDIF
 !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
-IF(LCPL_SEAICE)THEN       
+IF(LCPL_SEAICE)THEN
    CALL ABOR1_SFX('READ_SEAICEN: CANNOT YET MANAGE BOTH TRUE LCPL_SEAICE AND CSEAICE_SCHEME = GELATO')
 ENDIF
 nxglo=nx
@@ -199,32 +199,32 @@ ENDIF
 nxglo=max(nxglo,1)
 #endif
 !
-! Use convention XSIC_EFOLDING_TIME=0 for avoiding any relaxation 
+! Use convention XSIC_EFOLDING_TIME=0 for avoiding any relaxation
 ! toward SIC observation and impose it.
 !
 IF(S%LINTERPOL_SIC)THEN
-  IF (S%XSIC_EFOLDING_TIME==0.0) THEN 
+  IF (S%XSIC_EFOLDING_TIME==0.0) THEN
      CFSIDMP='PRESCRIBE'
   ELSE
      CFSIDMP='DAMP'
-     XFSIDMPEFT=S%XSIC_EFOLDING_TIME 
+     XFSIDMPEFT=S%XSIC_EFOLDING_TIME
   ENDIF
 ENDIF
 !
 IF(S%LINTERPOL_SIT)THEN
-  IF (S%XSIT_EFOLDING_TIME==0.0) THEN 
+  IF (S%XSIT_EFOLDING_TIME==0.0) THEN
      CHSIDMP='PRESCRIBE'
   ELSE
      CHSIDMP='DAMP_FAC'
-     XHSIDMPEFT= S%XSIT_EFOLDING_TIME 
+     XHSIDMPEFT= S%XSIT_EFOLDING_TIME
   ENDIF
 ENDIF
 !
 !* Physical dimensions are set for Gelato , as a 1D field (second dimension is degenerated)
 !
-! Supersedes Gelato hard defaults with a Gelato genuine namelist 
+! Supersedes Gelato hard defaults with a Gelato genuine namelist
 ! if available (for Gelato wizzards !)
-CALL GLTOOLS_READNAM(.FALSE.,KLUOUT)  
+CALL GLTOOLS_READNAM(.FALSE.,KLUOUT)
 !
 ny=1
 nyglo=1
@@ -233,7 +233,7 @@ CALL GLTOOLS_ALLOC(S%TGLT)
 !*       0.     Check dimensions : number of layers and ice categories
 !
 CALL READ_SURF(HPROGRAM,'ICENL',inl_in_file,IRESP)
-IF (inl_in_file /= nl) THEN 
+IF (inl_in_file /= nl) THEN
    WRITE(YMESS,'("Mismatch in # of seaice layers : prep=",I2," nml=",I2)') inl_in_file, nl
    CALL ABOR1_SFX(YMESS)
 END IF
@@ -275,8 +275,8 @@ DO JK=1,nt
    !
    DO JL=1,nl
       WRITE(YLVL,'(I2)') JL
-      YLEVEL=YCATEG(1:LEN_TRIM(YCATEG))//'_'//ADJUSTL(YLVL)   
-      ! .. Read sea ice vertical gltools_enthalpy profile for type JK and level JL  
+      YLEVEL=YCATEG(1:LEN_TRIM(YCATEG))//'_'//ADJUSTL(YLVL)
+      ! .. Read sea ice vertical gltools_enthalpy profile for type JK and level JL
       CALL READ_SURF(HPROGRAM,'ICEH'//YLEVEL, S%TGLT%sil(JL,JK,:,1)%ent,IRESP)
    END DO
 END DO
@@ -284,9 +284,9 @@ END DO
 !    4.  Compute ice class existence boolean from ice fractions:
 !
 WHERE ( S%TGLT%sit(:,:,1)%fsi<epsil1 )
-   S%TGLT%sit(:,:,1)%esi = .FALSE. 
-ELSEWHERE 
-   S%TGLT%sit(:,:,1)%esi = .TRUE. 
+   S%TGLT%sit(:,:,1)%esi = .FALSE.
+ELSEWHERE
+   S%TGLT%sit(:,:,1)%esi = .TRUE.
 ENDWHERE
 !
 !    4.1 Run original Gelato checks on values read in restart
@@ -294,7 +294,7 @@ ENDWHERE
 ! .. Detect negative ice concentrations
 !
 DO JX=1,nx
-   DO JL=1,nt 
+   DO JL=1,nt
       IF ( S%TGLT%sit(JL,JX,1)%fsi<0. ) THEN
          WRITE(KLUOUT,*)  &
               '**** WARNING **** Correcting problem in ice conc. < 0 at i=',  &
@@ -314,7 +314,7 @@ DO JX=1,nx
       S%TGLT%sit(:,JX,1)%fsi = S%TGLT%sit(:,JX,1)%fsi / zfsit
    ENDIF
    !
-   ! .. Detect non zero concentrations but zero thickness (no consequence) 
+   ! .. Detect non zero concentrations but zero thickness (no consequence)
    !
    WHERE( S%TGLT%sit(:,JX,1)%fsi>epsil1 .AND. S%TGLT%sit(:,JX,1)%hsi<epsil1)
       S%TGLT%sit(:,JX,1)%fsi=0.
@@ -353,7 +353,7 @@ S%TGLT%dom(:,1)%srf=G%XMESH_SIZE(:)
 xdomsrf = SUM( S%TGLT%dom(:,1)%srf, MASK=(S%TGLT%dom(:,1)%tmk==1) )
 xdomsrf_g = xdomsrf
 #if ! defined in_arpege
-CALL mpp_sum(xdomsrf_g) 
+CALL mpp_sum(xdomsrf_g)
 #else
 ! Avoid zero divide in Gelato computation of global area averages
 xdomsrf_g = MAX(xdomsrf_g, 1.e-9)
@@ -363,11 +363,11 @@ xdomsrf_g = MAX(xdomsrf_g, 1.e-9)
 !
 S%TGLT%ind%beg=1
 !
-!   Dummy high value for end time. Implies only that Gelato won't output 
-!   its own format of run-long averaged diagnostics (which are useless 
-!   in Surfex diags logic) 
+!   Dummy high value for end time. Implies only that Gelato won't output
+!   its own format of run-long averaged diagnostics (which are useless
+!   in Surfex diags logic)
 !
-S%TGLT%ind%end=50000000 
+S%TGLT%ind%end=50000000
 !
 !   8. Initalize Gelato bathymetry - change sign w.r.t Surfex
 !
@@ -381,7 +381,7 @@ IF(S%LINTERPOL_SIT)THEN
    ALLOCATE(S%XFSIT(KLU))
    !
    !Precedent, Current, Next, and Second-next Monthly SIT
-   INMTH=4   
+   INMTH=4
    !
    ALLOCATE(S%XSIT_MTH(KLU,INMTH))
    DO JMTH=1,INMTH
@@ -394,19 +394,19 @@ IF(S%LINTERPOL_SIT)THEN
    CALL INTERPOL_SST_MTH(S,'H')
    !
 ELSE
-   ! 
+   !
    ALLOCATE(S%XFSIT(0))
    ALLOCATE(S%XSIT_MTH(0,0))
    !
 ENDIF
 !
 !! Initialize the coupling variables with 'snapshot' prognostic variables
-! (for now, averaged over ice categories)  
+! (for now, averaged over ice categories)
 !
 CALL GLT_SNDATMF( S%TGLT, XTTSI - XTT )
-S%XSIC(:)     = S%TGLT%ice_atm(1,:,1)%fsi 
-S%XTICE(:)    = S%TGLT%ice_atm(1,:,1)%tsf 
-S%XICE_ALB(:) = S%TGLT%ice_atm(1,:,1)%alb 
+S%XSIC(:)     = S%TGLT%ice_atm(1,:,1)%fsi
+S%XTICE(:)    = S%TGLT%ice_atm(1,:,1)%tsf
+S%XICE_ALB(:) = S%TGLT%ice_atm(1,:,1)%alb
 !
 ! Must init ocean mixed layer temp with sensible value for getting correct diag for time step=0
 S%TGLT%oce_all(:,1)%tml=S%XSST(:)
@@ -444,7 +444,7 @@ DO JI=1,KLU
                      'NOT REALISTIC AT LOCATION (LAT/LON)',G%XLAT(JI),G%XLON(JI)
    ENDIF
 ENDDO
-!         
+!
 IF(IERRC>0) CALL ABOR1_SFX('READ_SEAICE_n: FIELD '//TRIM(HFIELD)//' NOT REALISTIC')
 !
 IF (LHOOK) CALL DR_HOOK('READ_SEAICE_n:CHECK_SEAICE',1,ZHOOK_HANDLE)

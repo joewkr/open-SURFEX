@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITE_TEB_n (DTCO, HSELECT, OSNOWDIMNC, U, TM, GDM, GRM, HPROGRAM,HWRITE)
@@ -97,9 +97,9 @@ DO JP=1,TM%TOP%NTEB_PATCH
                        TM%DTT%LDATA_ROAD_DIR, TM%TPN, GDM%O, GDM%S, GDM%NPE%AL(JP), GRM%O, GRM%S, &
                        GRM%NPE%AL(JP), HPROGRAM, JP, HWRITE)
 END DO
-!     
+!
 IF ((.NOT.LNOWRITE_CANOPY).OR.SIZE(HSELECT)>0) THEN
-   CALL END_IO_SURF_n(HPROGRAM)      
+   CALL END_IO_SURF_n(HPROGRAM)
    CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'TOWN  ','TEB   ','WRITE','TEB_CANOPY.OUT.nc')
   CALL WRITESURF_SBL_n(HSELECT, TM%TOP%LCANOPY, TM%SB, HPROGRAM, HWRITE, "TOWN  ")
 ENDIF

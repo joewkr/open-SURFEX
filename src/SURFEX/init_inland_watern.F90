@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
       SUBROUTINE INIT_INLAND_WATER_n (DTCO, OREAD_BUDGETC, UG, U, WM, FM,     &
@@ -8,7 +8,7 @@
                                       KSW, HSV, PCO2, PRHOA, PZENITH, PAZIM,  &
                                       PSW_BANDS, PDIR_ALB, PSCA_ALB, PEMIS,   &
                                       PTSRAD, PTSURF, KYEAR, KMONTH, KDAY,    &
-                                      PTIME, HATMFILE, HATMFILETYPE, HTEST   )  
+                                      PTIME, HATMFILE, HATMFILETYPE, HTEST   )
 !     #############################################################
 !
 !!****  *INIT_INLAND_WATER_n* - routine to initialize inland water
@@ -126,19 +126,19 @@ IF (U%CWATER=='NONE  ') THEN
 ELSE IF (U%CWATER=='FLUX  ') THEN
   CALL INIT_IDEAL_FLUX(DGO, DL, DLC, OREAD_BUDGETC, HPROGRAM, HINIT, &
                        KI, KSV, KSW, HSV, PDIR_ALB, PSCA_ALB, PEMIS,   &
-                       PTSRAD, PTSURF, 'OK'     )  
+                       PTSRAD, PTSURF, 'OK'     )
 ELSE IF (U%CWATER=='WATFLX') THEN
   CALL INIT_WATFLUX_n(DTCO, OREAD_BUDGETC, UG, U, WM, &
                       HPROGRAM, HINIT, KI, KSV, KSW, HSV, PCO2, PRHOA,&
                       PZENITH, PAZIM, PSW_BANDS, PDIR_ALB, PSCA_ALB,  &
                       PEMIS, PTSRAD, PTSURF, KYEAR, KMONTH, KDAY,     &
-                      PTIME, HATMFILE, HATMFILETYPE, 'OK'  )  
+                      PTIME, HATMFILE, HATMFILETYPE, 'OK'  )
 ELSE IF (U%CWATER=='FLAKE ') THEN
   CALL INIT_FLAKE_n(DTCO, OREAD_BUDGETC, UG, U, FM, &
                     HPROGRAM, HINIT, KI, KSV, KSW, HSV, PCO2, PRHOA, &
                     PZENITH, PAZIM, PSW_BANDS, PDIR_ALB, PSCA_ALB,   &
                     PEMIS, PTSRAD, PTSURF, KYEAR, KMONTH, KDAY,      &
-                    PTIME, HATMFILE, HATMFILETYPE, 'OK')          
+                    PTIME, HATMFILE, HATMFILETYPE, 'OK')
 END IF
 IF (LHOOK) CALL DR_HOOK('INIT_INLAND_WATER_N',1,ZHOOK_HANDLE)
 !

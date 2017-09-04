@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_SNOW_BUFFER (G, U, HPROGRAM,HSURF,KLUOUT,KLAYER,PFIELD)
@@ -16,7 +16,7 @@ SUBROUTINE PREP_SNOW_BUFFER (G, U, HPROGRAM,HSURF,KLUOUT,KLAYER,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -104,7 +104,7 @@ CALL PREP_BUFFER_GRID(KLUOUT,YINMODEL,TZTIME_BUFFER)
 !              ---------------------------------------------
 !
 IF (HSURF(7:8)=='RO') THEN
-  ! 
+  !
   SELECT CASE(HSURF(1:3))
     CASE('DEP')
       ALLOCATE(PFIELD(NNI,KLAYER,1))
@@ -217,7 +217,7 @@ ELSE
 #ifdef SFX_ARO
          CALL OI_HOR_EXTRAPOL_SURF(U%NSIZE_NATURE,G%XLAT,G%XLON,ZFIELD_EP_IN(:),G%XLAT,G%XLON,ZFIELD_EP(:),OINTERP,NDIM2=IDIM2)
 #endif
-       
+
          ! Unpack to full rank
          CALL UNPACK_SAME_RANK(U%NR_NATURE,ZFIELD_EP(:),ZFIELD1D(:))
          DEALLOCATE(ZFIELD_EP)
@@ -254,13 +254,13 @@ ELSE
 !
 !*      3.4    Albedo
 !
-  CASE('ALB')    
+  CASE('ALB')
     ALLOCATE(PFIELD(NNI,1,1))
     PFIELD = 0.5 * ( XANSMIN + XANSMAX )
 !
 !*      3.5    Density
 !
-  CASE('RHO')    
+  CASE('RHO')
     ALLOCATE(PFIELD(NNI,1,1))
     PFIELD = XRHOSMAX
 

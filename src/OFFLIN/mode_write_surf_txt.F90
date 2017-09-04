@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
 MODULE MODE_WRITE_SURF_TXT
@@ -183,7 +183,7 @@ END SUBROUTINE WRITE_SURFL0_TXT
       SUBROUTINE WRITE_SURFX1_TXT (HSELECT, HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 1D array for the externalised surface 
+!!****  * - routine to fill a write 1D array for the externalised surface
 !
 !
 !
@@ -228,7 +228,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_TXT:WRITE_SURFX1_TXT',0,ZHOOK_HANDLE)
 !
 KRESP=0
-!  
+!
 IF (HDIR=='-') THEN
   ISIZE = SIZE(PFIELD)
   ZWORK(1:ISIZE) = PFIELD
@@ -238,7 +238,7 @@ ELSE
 ENDIF
 !
 IF (NRANK==NPIO) THEN
-  ! 
+  !
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
 #endif
@@ -252,7 +252,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 END IF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_TXT:WRITE_SURFX1_TXT',1,ZHOOK_HANDLE)
@@ -263,7 +263,7 @@ END SUBROUTINE WRITE_SURFX1_TXT
       SUBROUTINE WRITE_SURFX2_TXT (HSELECT, HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 2D array for the externalised surface 
+!!****  * - routine to fill a write 2D array for the externalised surface
 !
 !
 !
@@ -298,7 +298,7 @@ INTEGER,                  INTENT(OUT):: KRESP    ! KRESP  : return-code if a pro
                                                  !       horizontal spatial dim.
                                                  ! '-' : no horizontal dim.
 !*      0.2   Declarations of local variables
-! 
+!
 INTEGER :: ISIZE
 LOGICAL :: LWFL=.FALSE.
 REAL, DIMENSION(MAX(NFULL,SIZE(PFIELD,1)),SIZE(PFIELD,2)) :: ZWORK   ! work array read in the file
@@ -322,17 +322,17 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
 #endif
-  !  
+  !
   CALL INIT_WRITE_TXT(HSELECT, HREC,LWFL)
   !
   IF (LWFL) WRITE(NIND,FMT='(50D14.6)',IOSTAT=KRESP) ZWORK(1:ISIZE,:)
   !
-  IF (KRESP/=0) CALL ERROR_WRITE_SURF_TXT(HREC,KRESP)   
+  IF (KRESP/=0) CALL ERROR_WRITE_SURF_TXT(HREC,KRESP)
   !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_TXT:WRITE_SURFX2_TXT',1,ZHOOK_HANDLE)

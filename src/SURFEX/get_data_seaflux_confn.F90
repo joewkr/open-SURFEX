@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ########################################
       SUBROUTINE GET_DATA_SEAFLUX_CONF_n (DTS, &
-                                          OSST_DATA, KTIME)  
+                                          OSST_DATA, KTIME)
 !     ########################################
 !
 !!****  *GET_DATA_SEAFLUX_CONF_n* - routine to get some ISBA fields

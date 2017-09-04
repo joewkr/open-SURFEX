@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-      SUBROUTINE ICE_SOILFR(IO, KK, PK, PEK, DMK, PTSTEP, PKSFC_IVEG, PDWGI1, PDWGI2 )   
+      SUBROUTINE ICE_SOILFR(IO, KK, PK, PEK, DMK, PTSTEP, PKSFC_IVEG, PDWGI1, PDWGI2 )
 !!     ##########################################################################
 !
-!!****  *ICE_SOILFR*  
+!!****  *ICE_SOILFR*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     In ISBA-FR: calculates the 
+!     In ISBA-FR: calculates the
 !     1.) evolution of the surface and deep-soil temperature(s)
-!         (i.e., Ts and T2 if Force-Restore, TN if DIFfusion) due to soil water 
+!         (i.e., Ts and T2 if Force-Restore, TN if DIFfusion) due to soil water
 !         phase changes
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -26,16 +26,16 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Noilhan and Planton (1989)
 !!    Belair (1995)
 !!    Boone et al. (2000)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -44,7 +44,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original      14/03/95 
+!!      Original      14/03/95
 !!      (A.Boone)     08/11/00 soil ice phase changes herein
 !!      (A.Boone)     06/05/02 Updates, ordering. Addition of 'IO%CSOILFRZ' option
 !!      (B. Decharme) 03/2009  BUG : effect of insolation due to vegetation cover
@@ -109,9 +109,9 @@ REAL, DIMENSION(SIZE(DMK%XCG)) ::   ZKSFC_FRZ, ZFREEZING, ZICE_MELT, ZWIM,      
 !                                ZMATPOT      = soil matric potential (m)
 !                                ZWGMIN       = volumetric water content above which soil water can
 !                                               be unfrozen (if energy and mass available)(m3 m-3)
-!                                ZTGMAX       = temperature below which liquid water 
+!                                ZTGMAX       = temperature below which liquid water
 !                                               can be frozen (if energy and mass available)(K)
-!                                ZDELTAT      = Freezing or melting temperature depression (K) after 
+!                                ZDELTAT      = Freezing or melting temperature depression (K) after
 !                                               possible flux correction
 !
 REAL, DIMENSION(SIZE(DMK%XCG)) ::  ZWSAT_AVGZ
@@ -124,7 +124,7 @@ REAL, DIMENSION(SIZE(DMK%XCG)) :: ZPSNG
 !                                       or Force-Restore snow scheme), else
 !                                       they are zero for explicit snow case
 !                                       as snow fluxes calculated outside of
-!                                       this routine using the 
+!                                       this routine using the
 !                                       PEK%TSNOW%SCHEME = '3-L' or 'CRO' option.
 !
 !*      0.3    declarations of local parameters
@@ -177,7 +177,7 @@ INJ = SIZE(PEK%XTG,1)
 ! If ISBA-ES option in use, then snow covered surface
 ! fluxes calculated outside of this routine, so set
 ! the local snow fractions here to zero:
-! 
+!
 IF(PEK%TSNOW%SCHEME == '3-L' .OR. PEK%TSNOW%SCHEME == 'CRO')THEN
   ZPSNG(:)     = 0.0
 ELSE
@@ -193,7 +193,7 @@ ZTAUICE (:) = MAX(PTSTEP,PK%XTAUICE(:))
 !
 DO JJ=1,INJ
 !-------------------------------------------------------------------------------
-!*       2.     EFFECT OF THE MELTING/FREEZING 
+!*       2.     EFFECT OF THE MELTING/FREEZING
 !               ON THE SURFACE-SOIL HEAT AND ICE CONTENTS
 !               ('DEF' or Force-Restore soil option)
 !               -----------------------------------------
@@ -220,7 +220,7 @@ IF(IO%CSOILFRZ == 'LWT')THEN
 ! between the unfrozen liquid water content and temperature.
 ! Uses the Clapp and Hornberger model for water potential.
 ! The energy-limit method used by Boone et al. 2000 and
-! Giard and Bazile (2000) is the default. 
+! Giard and Bazile (2000) is the default.
 !
   DO JJ=1,INJ
     ZMATPOT(JJ)   = MIN(KK%XMPOTSAT(JJ,1), XLMTT*(PEK%XTG(JJ,1)-XTT)/(XG*PEK%XTG(JJ,1)) )
@@ -235,12 +235,12 @@ ELSE
 ENDIF
 !
 DO JJ=1,INJ
-! 
+!
   ZDELTAT(JJ)  = PEK%XTG(JJ,1) - ZTGMAX(JJ) ! initial temperature depression
 !
   ZWORK2(JJ) = XRHOLW*PK%XDG(JJ,1)
   ZEFFIC(JJ)    = MAX(ZEFFIC_MIN,(PEK%XWG(JJ,1)-XWGMIN)/ZWSAT_AVGZ(JJ))
-  ZFREEZING(JJ) = MIN( MAX(0.0,PEK%XWG(JJ,1)-ZWGMIN(JJ))*ZWORK2(JJ),    &  
+  ZFREEZING(JJ) = MIN( MAX(0.0,PEK%XWG(JJ,1)-ZWGMIN(JJ))*ZWORK2(JJ),    &
                   ZKSFC_FRZ(JJ)*ZEFFIC(JJ)*MAX( -ZDELTAT(JJ), 0.) )
 !
 !*       2.3    Ground Ice melt
@@ -256,7 +256,7 @@ DO JJ=1,INJ
 ! Melting of ice/freezing of water:
 !
   ZWGI1(JJ) = PEK%XWGI(JJ,1) + (PTSTEP/ZTAUICE(JJ))*(1.0-ZPSNG(JJ))*        &
-              (ZFREEZING(JJ) - ZICE_MELT(JJ))/ZWORK2(JJ) 
+              (ZFREEZING(JJ) - ZICE_MELT(JJ))/ZWORK2(JJ)
 !
 !
   ZWGI1(JJ)  = MAX( ZWGI1(JJ) , 0.             )
@@ -274,7 +274,7 @@ DO JJ=1,INJ
 !
 !-------------------------------------------------------------------------------
 !
-!*       3.     EFFECT OF THE MELTING/FREEZING 
+!*       3.     EFFECT OF THE MELTING/FREEZING
 !               ON THE DEEP-SOIL HEAT AND ICE CONTENTS
 !               ('DEF' or Force-Restore soil option)
 !               --------------------------------------
@@ -315,7 +315,7 @@ ENDDO
 !
 IF(IO%CSOILFRZ == 'LWT')THEN
 !
-! as for the surface layer (above)JJ 
+! as for the surface layer (above)JJ
 ! Note also that if the 'DIF'
 ! soil option is not in force, then the soil parameters are assumed
 ! to be homogeneous (in the verticalJJ thus we use 1st element of 2nd dimension
@@ -340,8 +340,8 @@ ENDIF
 !
 DO JJ=1,INJ
 !
-  ZDELTAT(JJ)  = PEK%XTG(JJ,2) - ZTGMAX(JJ) ! initial temperature depression 
-!  
+  ZDELTAT(JJ)  = PEK%XTG(JJ,2) - ZTGMAX(JJ) ! initial temperature depression
+!
   ZWORK1(JJ) = PK%XDG(JJ,1)/PK%XDG(JJ,2)
   ZWORK2(JJ) = XRHOLW*(PK%XDG(JJ,2)-PK%XDG(JJ,1))
 

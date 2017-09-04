@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################################################
       SUBROUTINE GET_MESH_CORNER_CONF_PROJ(KGRID_PAR,KL,KC,PGRID_PAR,PCORNER_LAT,PCORNER_LON)
@@ -54,7 +54,7 @@ INTEGER             :: INI      ! Number of point
 !
 REAL                :: ZLAT0    ! reference latitude
 REAL                :: ZLON0    ! reference longitude
-REAL                :: ZRPK     ! projection parameter 
+REAL                :: ZRPK     ! projection parameter
 REAL                :: ZBETA    ! angle between grid and reference longitude
 REAL                :: ZLATOR   ! latitude  of point of coordinates X=0, Y=0
 REAL                :: ZLONOR   ! longitude of point of coordinates X=0, Y=0
@@ -76,7 +76,7 @@ IF (LHOOK) CALL DR_HOOK('GET_MESH_CORNER_CONF_PROJ',0,ZHOOK_HANDLE)
 !            ---------------------------------
 !
 CALL GET_GRIDTYPE_CONF_PROJ(PGRID_PAR,KL=INI)
-!  
+!
 IF(KL/=INI)THEN
   CALL ABOR1_SFX('GET_MESH_CORNER_CONF_PROJ: WRONG NUMBER OF POINT')
 ENDIF
@@ -109,7 +109,7 @@ ZCY(:,4) = ZCY(:,3)
 !
 DO JC=1,KC
    CALL LATLON_CONF_PROJ(ZLAT0,ZLON0,ZRPK,ZBETA,ZLATOR,ZLONOR,ZCX(:,JC), &
-                         ZCY(:,JC),PCORNER_LAT(:,JC),PCORNER_LON(:,JC)   )   
+                         ZCY(:,JC),PCORNER_LAT(:,JC),PCORNER_LON(:,JC)   )
 ENDDO
 !
 IF (LHOOK) CALL DR_HOOK('GET_MESH_CORNER_CONF_PROJ',1,ZHOOK_HANDLE)

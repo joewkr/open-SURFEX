@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #####################
       MODULE MODD_DATA_COVER
@@ -11,7 +11,7 @@
 !!
 !!    PURPOSE
 !!    -------
-!       The purpose of this declarative module is to specify the 
+!       The purpose of this declarative module is to specify the
 !       arrays with correspondances between surface classes and
 !       variables
 !
@@ -21,7 +21,7 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -29,8 +29,8 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    15/12/97                      
-!!      F.solmon    01/06/00 adaptation for patch approach + 
+!!      Original    15/12/97
+!!      F.solmon    01/06/00 adaptation for patch approach +
 !!                           1D for surface fields of ISBA
 !!      V. Masson   01/2004  surface externalization
 !!      P Le Moigne 09/2005 AGS modifs of L. Jarlan
@@ -42,14 +42,14 @@
 !
 !*       0.   DECLARATIONS
 !             ------------
-USE MODD_TYPE_DATE_SURF      
+USE MODD_TYPE_DATE_SURF
 !
 IMPLICIT NONE
 !
 LOGICAL :: LREAD_DATA_COVER    ! true if ecoclimap(2) parameters are read in binary files
 LOGICAL :: LDATA_IRRIG    ! true if ecoclimap2 irrigation parameters have been modified by user
-LOGICAL :: LCLIM_LAI =.TRUE.  ! F: uses current year LAI (if between 2002 and 2006). 
-!                              ! T: uses average of LAI  (average is done using the 5 years) 
+LOGICAL :: LCLIM_LAI =.TRUE.  ! F: uses current year LAI (if between 2002 and 2006).
+!                              ! T: uses average of LAI  (average is done using the 5 years)
 INTEGER :: NECO2_START_YEAR   =2002     ! first year of data for ecoclimap2
 INTEGER :: NECO2_END_YEAR     =2006     ! last  year of data for ecoclimap2
 !-------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ REAL, DIMENSION(:,:,:), ALLOCATABLE  :: XDATA_EMIS_ECO! (emissivity vg + bare gr
 REAL, DIMENSION(:,:,:), ALLOCATABLE :: XDATA_Z0     ! dynamical veg. roughness length
 !
 ! - vegetation:                                                   ! (monthly)
-! 
+!
 REAL, DIMENSION(:,:), ALLOCATABLE :: XDATA_ALBNIR_VEG ! near infra-red albedo
 REAL, DIMENSION(:,:), ALLOCATABLE :: XDATA_ALBVIS_VEG ! visible albedo
 REAL, DIMENSION(:,:), ALLOCATABLE :: XDATA_ALBUV_VEG  ! UV albedo
@@ -88,7 +88,7 @@ REAL, DIMENSION(:,:,:), ALLOCATABLE :: XDATA_VEG    ! veg. fraction   (monthly)
 REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_WRMAX_CF ! coefficient for interception reservoir
 !
 REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_RSMIN  ! minimum stomatal resistance
-REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_GAMMA  ! 
+REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_GAMMA  !
 !
 REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_CV     ! inverse of veg. thermal capacity
 REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_RGL    !
@@ -97,7 +97,7 @@ REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_ROOT_EXTINCTION! root extinction
 REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_ROOT_LIN       ! ponderation coefficient between
                                                             ! root frac.
                                                             ! formulations
-!       
+!
 !-------------------------------------------------------------------------------
 !
 ! - vegetation: Ags parameters ('AST', 'NIT', 'NCB' options)
@@ -124,14 +124,14 @@ REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_H_TREE  ! height of vegetation
 REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_RE25    ! Ecosystem Respiration parameter (kg.m2.s-1)
 !
 REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_STRESS  !  defensive/offensive strategy (1/0)
-REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_F2I     ! critical normilized soil water 
+REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_F2I     ! critical normilized soil water
 !                                                    ! content for stress parameterisation
 !
 !-------------------------------------------------------------------------------
 !
 ! - vegetation: Ags Nitrogen-model parameters ('NIT', 'NCB' option)
 !
-REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_CE_NITRO!  leaf aera ratio sensitivity 
+REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_CE_NITRO!  leaf aera ratio sensitivity
                                                      !  to nitrogen concentration
 REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_CF_NITRO!  lethal minimum value of leaf area ratio
 REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_CNA_NITRO! nitrogen concentration of active biomass
@@ -147,12 +147,12 @@ REAL, DIMENSION(:,:),   ALLOCATABLE :: XDATA_ROOT_DEPTH     ! root depth
 ! - Vegetation: Ags Prognostic (YPHOTO = ('NIT', or 'NCB') or prescribed (YPHOTO='NON' or 'AST')
 !
 REAL, DIMENSION(:,:,:), ALLOCATABLE :: XDATA_LAI    ! leaf area index (monthly)
-REAL, DIMENSION(:,:,:), ALLOCATABLE :: XDATA_LAI_ALL_YEARS ! leaf area index fromm 2002 to 2007       
+REAL, DIMENSION(:,:,:), ALLOCATABLE :: XDATA_LAI_ALL_YEARS ! leaf area index fromm 2002 to 2007
 !
 !
-TYPE (DATE_TIME), POINTER, DIMENSION(:,:)   :: TDATA_SEED     ! seeding date      
-TYPE (DATE_TIME), POINTER, DIMENSION(:,:)   :: TDATA_REAP     ! reaping date      
-!      
+TYPE (DATE_TIME), POINTER, DIMENSION(:,:)   :: TDATA_SEED     ! seeding date
+TYPE (DATE_TIME), POINTER, DIMENSION(:,:)   :: TDATA_REAP     ! reaping date
+!
 REAL, DIMENSION(:,:), ALLOCATABLE :: XDATA_WATSUP   ! water supply quantity
 REAL, DIMENSION(:,:), ALLOCATABLE :: XDATA_IRRIG    ! flag for irrigation
 !
@@ -178,7 +178,7 @@ REAL, DIMENSION(:),   ALLOCATABLE :: XDATA_CAN_HW_RATIO! canyons h/W ratio
 REAL, DIMENSION(:),   ALLOCATABLE :: XDATA_Z0_TOWN   ! town roughness length
                                                      ! for momentum
 REAL, DIMENSION(:),   ALLOCATABLE :: XDATA_Z0H_TOWN  ! town roughness length
-                                                     ! for heat                                                     
+                                                     ! for heat
 !
 ! Roof parameters
 !

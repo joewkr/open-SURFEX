@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE AVG_URBAN_FLUXES(TOP, T, B, TPN, DMT,                               &
@@ -21,12 +21,12 @@
                                 PEMIT_LW_RD, PEMIT_LW_GD, PEMIT_LW_GRND, PEMIS_GD  )
 !   ##########################################################################
 !
-!!****  *AVG_URBAN_FLUXES* computes fluxes on urbanized surfaces  
+!!****  *AVG_URBAN_FLUXES* computes fluxes on urbanized surfaces
 !!
 !!    PURPOSE
 !!    -------
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
@@ -42,11 +42,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -54,9 +54,9 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    23/01/98 
+!!      Original    23/01/98
 !!                     12/02 (A. Lemonsu) modifications of emissivity and Tstown
-!!                     07/07 (P. LeMoigne) expression of latent heat fluxes as 
+!!                     07/07 (P. LeMoigne) expression of latent heat fluxes as
 !!                           functions of w'theta' instead of w'T'
 !!                     17/10 (G. Pigeon)  computation of anthropogenic heat due
 !!                           to domestic heating
@@ -110,7 +110,7 @@ REAL, DIMENSION(:), INTENT(IN)    :: PH_TRAFFIC        ! anthropogenic sensible
 REAL, DIMENSION(:), INTENT(IN)    :: PLE_TRAFFIC       ! anthropogenic latent
 !                                                      ! heat fluxes due to traffic
 REAL, DIMENSION(:), INTENT(IN)    :: PWL_O_GRND        ! wall Surf. / ground (road+green) Surf.
-!   
+!
 REAL, DIMENSION(:), INTENT(IN)    :: PESN_RF           ! snow roof emissivity
 !
 REAL, DIMENSION(:), INTENT(IN)    :: PEMIS_GR          ! green roof emissivity
@@ -211,7 +211,7 @@ ZRD(:)=0.
 ZGD(:)=0.
 !
 DO JJ=1,SIZE(T%XROAD)
-!  
+!
   IF (T%XROAD(JJ)+T%XGARDEN(JJ).NE.0.) THEN
     ZRD(JJ)  = T%XROAD(JJ)   / (T%XROAD(JJ)+T%XGARDEN(JJ))
     ZGD(JJ) =  T%XGARDEN(JJ) / (T%XROAD(JJ)+T%XGARDEN(JJ))
@@ -243,7 +243,7 @@ DO JJ=1,SIZE(T%XROAD)
                  + PRD_FRAC(JJ) * DMT%XRN_ROAD   (JJ)                  &
                  + PGD_FRAC(JJ) * PRN_GD         (JJ)                  &
                  + PWL_FRAC(JJ) * DMT%XRN_WALL_A (JJ) * 0.5            &
-                 + PWL_FRAC(JJ) * DMT%XRN_WALL_B (JJ) * 0.5 )  
+                 + PWL_FRAC(JJ) * DMT%XRN_WALL_B (JJ) * 0.5 )
 !
   PH_TWN (JJ)    = PTOTS_O_HORS(JJ) * ( &
                  + PRF_FRAC(JJ) * DMT%XH_ROOF   (JJ)                   &
@@ -251,7 +251,7 @@ DO JJ=1,SIZE(T%XROAD)
                  + PGD_FRAC(JJ) * PH_GD         (JJ)                   &
                  + PWL_FRAC(JJ) * DMT%XH_WALL_A (JJ) * 0.5             &
                  + PWL_FRAC(JJ) * DMT%XH_WALL_B (JJ) * 0.5 )           &
-                 + PH_TRAFFIC(JJ) + T%XH_INDUSTRY(JJ)  
+                 + PH_TRAFFIC(JJ) + T%XH_INDUSTRY(JJ)
 !
   PLE_TWN(JJ)    = PTOTS_O_HORS(JJ) * ( &
                    PRF_FRAC(JJ) * DMT%XLE_ROOF  (JJ)                   &
@@ -259,14 +259,14 @@ DO JJ=1,SIZE(T%XROAD)
                  + PGD_FRAC(JJ) * PLE_GD        (JJ)                   &
                  + PWL_FRAC(JJ) * PLE_WL_A(JJ) * 0.5             &
                  + PWL_FRAC(JJ) * PLE_WL_B(JJ) * 0.5 )           &
-                 + PLE_TRAFFIC (JJ) + T%XLE_INDUSTRY(JJ)  
+                 + PLE_TRAFFIC (JJ) + T%XLE_INDUSTRY(JJ)
 !
   PGFLX_TWN(JJ)= PTOTS_O_HORS(JJ) * ( &
                   PRF_FRAC(JJ) * DMT%XGFLUX_ROOF  (JJ)                 &
                 + PRD_FRAC(JJ) * DMT%XGFLUX_ROAD  (JJ)                 &
                 + PGD_FRAC(JJ) * PGFLUX_GD        (JJ)                 &
                 + PWL_FRAC(JJ) * DMT%XGFLUX_WALL_A(JJ) * 0.5           &
-                + PWL_FRAC(JJ) * DMT%XGFLUX_WALL_B(JJ) * 0.5 )   
+                + PWL_FRAC(JJ) * DMT%XGFLUX_WALL_B(JJ) * 0.5 )
 !
   IF (TOP%LSOLAR_PANEL) THEN
     PRN_TWN(JJ) = PRN_TWN(JJ) + PTOTS_O_HORS(JJ) * (PRF_FRAC(JJ) * DMT%XRN_PANEL(JJ) * TPN%XFRAC_PANEL(JJ))
@@ -289,7 +289,7 @@ DO JJ=1,SIZE(T%XROAD)
                +PGD_FRAC(JJ)                                      * DMT%XABS_LW_GARDEN   (JJ) &
                +PWL_FRAC(JJ)* 0.5                                 * DMT%XABS_LW_WALL_A (JJ) &
                +PWL_FRAC(JJ)* 0.5                                 * DMT%XABS_LW_WALL_B (JJ) &
-              ) * PTOTS_O_HORS(JJ)  
+              ) * PTOTS_O_HORS(JJ)
 !
   IF (TOP%LSOLAR_PANEL) THEN
     ZLW_UP(JJ) = ZLW_UP(JJ) - PTOTS_O_HORS(JJ) * (PRF_FRAC(JJ) * DMT%XABS_LW_PANEL(JJ) * TPN%XFRAC_PANEL(JJ))
@@ -305,7 +305,7 @@ DO JJ=1,SIZE(T%XROAD)
                   + T%XROAD      (JJ) * ( T%XSVF_ROAD(JJ)     * PDF_RD(JJ) * T%XEMIS_ROAD(JJ)                       &
                                       +   T%XSVF_ROAD(JJ)     * PDN_RD(JJ) * T%TSNOW_ROAD%EMIS(JJ))                 &
                   + T%XGARDEN    (JJ) *    T%XSVF_GARDEN(JJ)               * PEMIS_GD    (JJ)                       &
-                  + T%XWALL_O_HOR(JJ) *    T%XSVF_WALL  (JJ)               * T%XEMIS_WALL(JJ) 
+                  + T%XWALL_O_HOR(JJ) *    T%XSVF_WALL  (JJ)               * T%XEMIS_WALL(JJ)
 !
 !*      3.3    Town radiative surface temperature
 !              ----------------------------------
@@ -339,14 +339,14 @@ DO JJ=1,SIZE(T%XROAD)
   DMT%XRUNOFF_TOWN(JJ) =  ((1.-T%XGREENROOF(JJ))* DMT%XRUNOFF_STRLROOF (JJ)                  &
                       +   T%XGREENROOF(JJ) *(PRUNOFF_GR(JJ) + PDRAIN_GR(JJ))) * T%XBLD(JJ)   &
                       +    T%XROAD    (JJ) * DMT%XRUNOFF_ROAD(JJ)                            &
-                      +    T%XGARDEN  (JJ) * PRUNOFF_GD(JJ)                 
+                      +    T%XGARDEN  (JJ) * PRUNOFF_GD(JJ)
 !-------------------------------------------------------------------------------
 !
 !*      6.    Air canyon temperature at time t+dt
 !             -----------------------------------
 !
   IF (.NOT. TOP%LCANOPY) THEN
-    ZINTER = PAC_RD(JJ) * PDF_RD(JJ) * ZRD (JJ) +  PAC_GD(JJ) * ZGD(JJ) + PAC_WL(JJ) * PWL_O_GRND(JJ) + PAC_TOP(JJ) 
+    ZINTER = PAC_RD(JJ) * PDF_RD(JJ) * ZRD (JJ) +  PAC_GD(JJ) * ZGD(JJ) + PAC_WL(JJ) * PWL_O_GRND(JJ) + PAC_TOP(JJ)
     PT_CAN(JJ) =  (  T%XT_ROAD  (JJ,1) * PAC_RD (JJ) * PDF_RD (JJ) * ZRD(JJ)        &
                    + T%XT_WALL_A(JJ,1) * PAC_WL (JJ) * (1.-B%XGR(JJ)) * PWL_O_GRND(JJ) * 0.5 &
                    + T%XT_WALL_B(JJ,1) * PAC_WL (JJ) * (1.-B%XGR(JJ)) * PWL_O_GRND(JJ) * 0.5 &
@@ -354,7 +354,7 @@ DO JJ=1,SIZE(T%XROAD)
                    + PTA          (JJ) * PAC_TOP(JJ)                                         &
                    + PH_TRAFFIC   (JJ) / (1.-T%XBLD (JJ))               / PRHOA(JJ) / XCPD   &
                    + PHSN_RD(JJ) * PDN_RD(JJ)                           / PRHOA(JJ) / XCPD  ) &
-                                            / ZINTER  
+                                            / ZINTER
 !
     PT_CAN(JJ) = PT_CAN(JJ) + ( PTSRAD_GD(JJ) * PAC_GD(JJ) * ZGD(JJ) ) / ZINTER
     !

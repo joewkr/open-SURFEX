@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
 SUBROUTINE ASSIM_SURF_ATM_n (U, IM, SM, TM, WM, HPROGRAM, KI,                          &
@@ -11,7 +11,7 @@ SUBROUTINE ASSIM_SURF_ATM_n (U, IM, SM, TM, WM, HPROGRAM, KI,                   
 !     #################################################################################
 !
 !
-!!****  *ASSIM_SURF_ATM_n * - Driver to call the schemes for the 
+!!****  *ASSIM_SURF_ATM_n * - Driver to call the schemes for the
 !!       four surface types (SEA, WATER, NATURE, TOWN)
 !!
 !!    PURPOSE
@@ -22,11 +22,11 @@ SUBROUTINE ASSIM_SURF_ATM_n (U, IM, SM, TM, WM, HPROGRAM, KI,                   
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     T. Aspelien 
+!!     T. Aspelien
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -117,15 +117,15 @@ GNATURE   = U%NDIM_NATURE >0
 !
 ! Tile counter:
 !
-JTILE     = 0 
+JTILE     = 0
 !
 !--------------------------------------------------------------------------------------
 ! Call interfaces for sea, water, nature and town here...
 !--------------------------------------------------------------------------------------
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! SEA Tile calculations:
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !
 JTILE = JTILE + 1
 !
@@ -135,9 +135,9 @@ IF(GSEA)THEN
 !
 ENDIF
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! INLAND WATER Tile calculations:
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !
 JTILE = JTILE + 1
 !
@@ -147,9 +147,9 @@ IF(GWATER)THEN
 !
 ENDIF
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! NATURAL SURFACE Tile calculations:
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !
 JTILE = JTILE + 1
 !
@@ -162,11 +162,11 @@ IF(GNATURE)THEN
   IF ( ALLOCATED(XAZON10M_ISBA)) DEALLOCATE(XAZON10M_ISBA)
   IF ( ALLOCATED(XAMER10M_ISBA)) DEALLOCATE(XAMER10M_ISBA)
 !
-ENDIF 
+ENDIF
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! URBAN Tile calculations:
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !
 JTILE = JTILE + 1
 !
@@ -217,7 +217,7 @@ INTEGER                               :: JJ,JI
 !
 DO JJ=1,KSIZE
   JI=KMASK(JJ)
-  ZP_PLSM(JJ)        = PLSM(JI)  
+  ZP_PLSM(JJ)        = PLSM(JI)
   ZP_PCON_RAIN(JJ)   = PCON_RAIN(JI)
   ZP_PSTRAT_RAIN(JJ) = PSTRAT_RAIN(JI)
   ZP_PCON_SNOW(JJ)   = PCON_SNOW(JI)
@@ -225,10 +225,10 @@ DO JJ=1,KSIZE
   ZP_PCLOUDS(JJ)     = PCLOUDS(JI)
   ZP_PEVAPTR(JJ)     = PEVAPTR(JI)
   ZP_PEVAP(JJ)       = PEVAP(JI)
-  ZP_PSWE(JJ)        = PSWE(JI)  
+  ZP_PSWE(JJ)        = PSWE(JI)
   ZP_PSWEC(JJ)       = PSWEC(JI)
   ZP_PTSC(JJ)        = PTSC(JI)
-  ZP_PTS(JJ)         = PTS(JI) 
+  ZP_PTS(JJ)         = PTS(JI)
   ZP_PT2M(JJ)        = PT2M(JI)
   ZP_PHU2M(JJ)       = PHU2M(JI)
   ZP_PSST(JJ)        = PSST(JI)
@@ -241,21 +241,21 @@ DO JJ=1,KSIZE
 ENDDO
 
 IF (KTILE==1) THEN
-  
-  IF (NRANK==NPIO) THEN 
+
+  IF (NRANK==NPIO) THEN
     WRITE(*,*) '*********************************************'
     WRITE(*,*) '*      ASSIMILATIONS FOR SEA POINTS         *'
     WRITE(*,*) '*********************************************'
   ENDIF
- 
+
   CALL ASSIM_SEA_n(SM%S, U, HPROGRAM, KSIZE,                &
                    ZP_PTS, ZP_PSST, ZP_PSIC, ZP_PLSM, HTEST,&
                    OLKEEPEXTZONE, GD_MASKEXT, ZP_LON, ZP_LAT)
 
 ELSEIF (KTILE==2) THEN
-  
+
   IF (NRANK==NPIO) THEN
-    WRITE(*,*) '*********************************************'  
+    WRITE(*,*) '*********************************************'
     WRITE(*,*) '*      ASSIMILATIONS FOR WATER POINTS       *'
     WRITE(*,*) '*********************************************'
   ENDIF
@@ -265,30 +265,30 @@ ELSEIF (KTILE==2) THEN
                             OLKEEPEXTZONE, GD_MASKEXT, ZP_LON, ZP_LAT)
 
 ELSEIF (KTILE==3) THEN
-  
+
   IF (NRANK==NPIO) THEN
-    WRITE(*,*) '*********************************************'  
+    WRITE(*,*) '*********************************************'
     WRITE(*,*) '*      ASSIMILATIONS FOR NATURE POINTS      *'
     WRITE(*,*) '*********************************************'
   ENDIF
 
   CALL ASSIM_NATURE_n(IM, U, HPROGRAM, KSIZE,                                     &
                       ZP_PCON_RAIN, ZP_PSTRAT_RAIN, ZP_PCON_SNOW, ZP_PSTRAT_SNOW, &
-                      ZP_PCLOUDS,   ZP_PLSM,        ZP_PEVAPTR,   ZP_PEVAP,       & 
+                      ZP_PCLOUDS,   ZP_PLSM,        ZP_PEVAPTR,   ZP_PEVAP,       &
                       ZP_PSWEC,     ZP_PTSC,        ZP_UCLS,      ZP_VCLS,        &
-                      ZP_PTS,       ZP_PT2M,        ZP_PHU2M,     ZP_PSWE,        & 
+                      ZP_PTS,       ZP_PT2M,        ZP_PHU2M,     ZP_PSWE,        &
                       HTEST, GD_MASKEXT, ZP_LON, ZP_LAT )
-  
+
 ELSEIF (KTILE==4) THEN
-  
+
   IF (NRANK==NPIO) THEN
-    WRITE(*,*) '*********************************************'  
+    WRITE(*,*) '*********************************************'
     WRITE(*,*) '*      ASSIMILATIONS FOR URBAN POINTS       *'
     WRITE(*,*) '*********************************************'
   ENDIF
 
   CALL ASSIM_TOWN_n(U, TM%NT, TM%TOP, HPROGRAM, KSIZE, ZP_PT2M, HTEST)
-  
+
 ENDIF
 
 END SUBROUTINE ASSIM_TREAT_SURF

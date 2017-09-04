@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-       SUBROUTINE DIAG_SURF_BUDGET_ISBA (PDIR_SW, PSCA_SW, PLW, K, DK )  
+       SUBROUTINE DIAG_SURF_BUDGET_ISBA (PDIR_SW, PSCA_SW, PLW, K, DK )
 !     ###############################################################################
 !
 !!****  *DIAG_SURF_BUDGET_ISBA * - Computes diagnostics over ISBA
@@ -16,11 +16,11 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     P. Le Moigne 
+!!     P. Le Moigne
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -59,13 +59,13 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('DIAG_SURF_BUDGET_ISBA',0,ZHOOK_HANDLE)
 ISWB = SIZE(PDIR_SW,2)
-! 
+!
 !* total incoming and outgoing SW
 !
 DO JSWB=1,ISWB
   DK%XSWBD(:,JSWB) = PDIR_SW(:,JSWB) + PSCA_SW(:,JSWB)
   DK%XSWBU(:,JSWB) = PDIR_SW(:,JSWB) * K%XDIR_ALB_WITH_SNOW(:,JSWB) + &
-                     PSCA_SW(:,JSWB) * K%XSCA_ALB_WITH_SNOW(:,JSWB) 
+                     PSCA_SW(:,JSWB) * K%XSCA_ALB_WITH_SNOW(:,JSWB)
 ENDDO
 !
 DK%XSWD(:) = 0.

@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################################
       SUBROUTINE ISBA_SGH_UPDATE (PMESH_SIZE, IO, S, K, NK, NP, NPE, PRAIN )
 !     #######################################################################
 !
-!!****  *SGH_UPDATE*  
+!!****  *SGH_UPDATE*
 !!
 !!    PURPOSE
 !!    -------
@@ -14,8 +14,8 @@
 !     Calculates the evolution of the fraction, mu, of the grid cell
 !     reached by the rain, the Topmodel saturated fraction and the diagnostic
 !     wetland fraction.
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -25,13 +25,13 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -127,7 +127,7 @@ IF(IO%CRAIN=='SGH')THEN
     K%XMUF (:) =0.0
   ENDWHERE
 
-!        
+!
 ! calculate the cell scale (in km)
 !
   ZDIST(:) = SQRT(PMESH_SIZE(:))/XMTOKM
@@ -135,11 +135,11 @@ IF(IO%CRAIN=='SGH')THEN
   WHERE(ZDIST(:)>=15.0)
 !
 !       calculate beta for the mu calculation
-!         
+!
     ZBETA (:) = XMUREGA + XMUREGP * EXP(-X001*ZDIST(:))
 !
 !       calculate mu, precip is in mm/hr
-!   
+!
     K%XMUF (:) = 1.0 - EXP(-ZBETA(:)*(PRAIN(:)*XSTOHR))
 !
   ENDWHERE
@@ -157,7 +157,7 @@ IF(IO%CRAIN=='SGH')THEN
 
 ENDIF
 !
-!*   2.0 Computation of the saturated fraction given by TOPMODEL 
+!*   2.0 Computation of the saturated fraction given by TOPMODEL
 !    -----------------------------------------------------------
 !
 IF(IO%CRUNOFF=='SGH')THEN
@@ -170,7 +170,7 @@ IF(IO%CRUNOFF=='SGH')THEN
   ZWWILT_AVG(:) = 0.0
   ZW_TOP    (:) = 0.0
 !
-  IF(IO%CISBA=='DIF')THEN        
+  IF(IO%CISBA=='DIF')THEN
 !
     DO JP = 1,IO%NPATCH
       KK => NK%AL(JP)
@@ -200,7 +200,7 @@ IF(IO%CRUNOFF=='SGH')THEN
     ENDWHERE
 !
   ELSE
-!    
+!
     DO JP = 1,IO%NPATCH
       PK => NP%AL(JP)
       PEK => NPE%AL(JP)
@@ -208,18 +208,18 @@ IF(IO%CRUNOFF=='SGH')THEN
       IF (PK%NSIZE_P>0 )THEN
         DO JI = 1,PK%NSIZE_P
           IMASK = PK%NR_P(JI)
-          !          
+          !
           ZD_TOP(IMASK) = ZD_TOP(IMASK)+PK%XRUNOFFD(JI)*PK%XPATCH(JI)
           ZW_TOP(IMASK) = ZW_TOP(IMASK)+PK%XRUNOFFD(JI)*PK%XPATCH(JI)*PEK%XWG(JI,2)
           !
         ENDDO
       ENDIF
     ENDDO
-!  
+!
     WHERE(ZD_TOP(:)>0.0)
       ZW_TOP(:) = ZW_TOP(:) / ZD_TOP(:)
     ENDWHERE
-!      
+!
     ZWSAT_AVG (:) = K%XWSAT(:,1)
     ZWWILT_AVG(:) = K%XWD0 (:,1)
 !
@@ -230,22 +230,22 @@ IF(IO%CRUNOFF=='SGH')THEN
 !
   NMASK(:)=0
   ICOUNT=0
-  DO JI=1,INJ  
+  DO JI=1,INJ
      IF((S%XTI_MEAN(JI)/=XUNDEF.AND.ZW_TOP(JI)<ZWSAT_AVG(JI).AND.ZW_TOP(JI)>ZWWILT_AVG(JI))) THEN
        ICOUNT=ICOUNT+1
-       NMASK(ICOUNT)=JI       
+       NMASK(ICOUNT)=JI
      ENDIF
      IF(ZW_TOP(JI)>=ZWSAT_AVG(JI))THEN
         ZFSAT (JI) = 1.0
      ENDIF
   ENDDO
-!     
+!
 ! compare wt_array and WT
 ! -----------------------
 !
   DO JTAB=1,NDIMTAB
      DO JJ=1,ICOUNT
-        JI = NMASK(JJ)    
+        JI = NMASK(JJ)
         IF(S%XTAB_WTOP(JI,JTAB)>ZW_TOP(JI))THEN
           IUP(JJ)=JTAB
           IDOWN(JJ)=JTAB+1
@@ -253,26 +253,26 @@ IF(IO%CRUNOFF=='SGH')THEN
           IUP(JJ)=JTAB
           IDOWN(JJ)=JTAB
         ENDIF
-     ENDDO    
-  ENDDO 
-!    
+     ENDDO
+  ENDDO
+!
 ! calculate fsat
 ! --------------
-!   
+!
   ZQTOP     (:) = 0.0
 !
   DO JJ=1,ICOUNT
-!  
+!
      JI = NMASK(JJ)
-!     
+!
 !    new range
      ZF_UP   = S%XTAB_FSAT(JI,IUP  (JJ))
      ZF_DOWN = S%XTAB_FSAT(JI,IDOWN(JJ))
      ZQ_UP   = S%XTAB_QTOP(JI,IUP  (JJ))
-     ZQ_DOWN = S%XTAB_QTOP(JI,IDOWN(JJ))     
+     ZQ_DOWN = S%XTAB_QTOP(JI,IDOWN(JJ))
      ZW_UP   = S%XTAB_WTOP(JI,IUP  (JJ))
      ZW_DOWN = S%XTAB_WTOP(JI,IDOWN(JJ))
-!     
+!
 !    Calculate new FSAT
      ZSLOPEF = 0.0
      ZSLOPEQ = 0.0
@@ -280,10 +280,10 @@ IF(IO%CRUNOFF=='SGH')THEN
        ZSLOPEF = (ZF_UP-ZF_DOWN)/(ZW_UP-ZW_DOWN)
        ZSLOPEQ = (ZQ_UP-ZQ_DOWN)/(ZW_UP-ZW_DOWN)
      ENDIF
-!     
+!
      ZFSAT(JI) = ZF_DOWN+(ZW_TOP(JI)-ZW_DOWN)*ZSLOPEF
      ZQTOP(JI) = ZQ_DOWN+(ZW_TOP(JI)-ZW_DOWN)*ZSLOPEQ
-!     
+!
   ENDDO
 !
   DO JP=1,IO%NPATCH
@@ -300,7 +300,7 @@ IF(IO%CRUNOFF=='SGH')THEN
 ! Subsurface flow by layer (m/s)
 ! ------------------------------
 !
-  IF(IO%CISBA=='DIF')THEN        
+  IF(IO%CISBA=='DIF')THEN
 !
     DO JP=1,IO%NPATCH
       KK => NK%AL(JP)

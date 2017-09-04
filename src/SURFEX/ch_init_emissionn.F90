@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CH_INIT_EMISSION_n (CHE, PCONVERSION, HSV, HPROGRAM,KLU,HINIT,PRHOA,HCHEM_SURF_FILE)
@@ -15,8 +15,8 @@
 !
 !!**  METHOD
 !!    ------
-!!    
-!!    
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!      D. Gazen       * L.A. *
@@ -63,14 +63,14 @@ REAL, DIMENSION(:), POINTER :: PCONVERSION
 INTEGER,           INTENT(IN)  :: KLU      ! number of points
 CHARACTER(LEN=3),  INTENT(IN)  :: HINIT    ! Flag to know if one initializes:
 !                                          ! 'ALL' : all variables for a run
-!                                          ! 'PRE' : only variables to build 
+!                                          ! 'PRE' : only variables to build
 !                                          !         an initial file
 REAL, DIMENSION(:),INTENT(IN)  :: PRHOA    ! air density
 CHARACTER(LEN=28), INTENT(IN)  :: HCHEM_SURF_FILE ! ascii file for chemistry aggregation
 !
 !*       0.2   declarations of local variables
 !
-INTEGER             :: IRESP                 !   File 
+INTEGER             :: IRESP                 !   File
 INTEGER             :: ILUOUT                ! output listing logical unit
  CHARACTER (LEN=16) :: YRECFM                ! management
  CHARACTER (LEN=40) :: YCOMMENT              ! variables
@@ -103,7 +103,7 @@ YRECFM='VERSION'
 !*      1.     Chemical Emission fields
 !              ------------------------
 !
-! Read the total number of emission files 
+! Read the total number of emission files
 IF (IVERSION>=4) THEN
   CALL READ_SURF(HPROGRAM,'EMISFILE_NBR',CHE%NEMIS_NBR,IRESP)
 ELSE
@@ -124,7 +124,7 @@ IF (IRESP/=0) THEN
 END IF
 !
 !
-IF (.NOT. ASSOCIATED(CHE%CEMIS_NAME))  THEN 
+IF (.NOT. ASSOCIATED(CHE%CEMIS_NAME))  THEN
   ALLOCATE(CHE%CEMIS_NAME(CHE%NEMISPEC_NBR))
 ELSE
   WRITE(ILUOUT,*) 'CEMIS_NAME already allocated with SIZE :',SIZE(CHE%CEMIS_NAME)
@@ -144,7 +144,7 @@ ALLOCATE(INBTIMES(CHE%NEMISPEC_NBR))
 ALLOCATE(IOFFNDX(CHE%NEMISPEC_NBR))
 !
 INBTIMES(:) = -1
-IOFFNDX(:)  = 0 ! Index array of offline species 
+IOFFNDX(:)  = 0 ! Index array of offline species
 !
 IIND1      = 0 ! Index to fill NEMIS_GR_TIMES array
 IIND2      = 0 ! with emission times of offline species
@@ -176,7 +176,7 @@ DO JSPEC = 1,CHE%NEMISPEC_NBR ! Loop on the number of species
 !
 ! Is it an offline emission ?
   IF (INBTS >= 1) THEN
-    IF (ITIMES(1) >= 0) THEN 
+    IF (ITIMES(1) >= 0) THEN
 ! Yes it is. (Note that negative time refers to inline emission like biogenics
 ! fluxes)
 !
@@ -193,11 +193,11 @@ DO JSPEC = 1,CHE%NEMISPEC_NBR ! Loop on the number of species
 !
 CHE%NTIME_MAX = MAXVAL(CHE%NEMIS_TIME)
 !
-! INBTIMES, CEMIS_AREA and CEMIS_NAME 
+! INBTIMES, CEMIS_AREA and CEMIS_NAME
 ! are updated for ALL species
   CHE%CEMIS_NAME(JSPEC) = YSPEC_NAME
   CHE%CEMIS_AREA(JSPEC) = YSURF
-! 
+!
 !*      2.     Simple reading of emission fields
 
   IF (HINIT /= "ALL") THEN
@@ -226,7 +226,7 @@ IF (HINIT == "ALL") THEN
     ALLOCATE(YEMIS_NAME(INBOFF))
 
     CALL BUILD_EMISSTAB_n(PCONVERSION, HPROGRAM,ICH,CHE%CEMIS_NAME,INBTIMES,CHE%NEMIS_TIME,&
-                          IOFFNDX,CHE%TSEMISS,KLU,ILUOUT,IVERB,PRHOA)  
+                          IOFFNDX,CHE%TSEMISS,KLU,ILUOUT,IVERB,PRHOA)
     DO JSPEC = 1,INBOFF ! Loop on the number of species
       YEMIS_NAME(JSPEC) = CHE%TSEMISS(JSPEC)%CNAME(1:12)
     END DO

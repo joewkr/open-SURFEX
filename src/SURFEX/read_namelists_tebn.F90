@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE READ_NAMELISTS_TEB_n (TM, GRO, GDO, HPROGRAM, HINIT)
@@ -12,7 +12,7 @@ SUBROUTINE READ_NAMELISTS_TEB_n (TM, GRO, GDO, HPROGRAM, HINIT)
 USE MODD_SURFEX_n, ONLY : TEB_MODEL_t
 USE MODD_ISBA_OPTIONS_n, ONLY : ISBA_OPTIONS_t
 !
-USE MODN_TEB_n                          
+USE MODN_TEB_n
 USE MODN_TEB_VEG_n,            ONLY: CRUNOFF,CALBEDO,CSCOND,                       &
                                      CC1DRY, CSOILFRZ, CDIFSFCOND, CSNOWRES,       &
                                      CCPSURF, XCGMAX, CKSAT,                       &
@@ -66,15 +66,15 @@ IF (LHOOK) CALL DR_HOOK('READ_NAMELISTS_TEB_N',0,ZHOOK_HANDLE)
 !
  CALL DEFAULT_DIAG_TEB(N2M,LSURF_BUDGET,L2M_MIN_ZS,LRAD_BUDGET, &
                       LCOEF,LSURF_VARS,LSURF_MISC_BUDGET,&
-                      LSURF_DIAG_ALBEDO,LUTCI,LPGD,XDIAG_TSTEP)   
-!               
+                      LSURF_DIAG_ALBEDO,LUTCI,LPGD,XDIAG_TSTEP)
+!
  CALL READ_DEFAULT_TEB_n(TM%CHT, TM%TD%MTO, TM%TD%O, TM%TD%DUT, GRO, TM%NT%AL(1), TM%TOP, &
                          HPROGRAM)
 !
  CALL READ_TEB_CONF_n(TM%CHT, TM%TD%MTO, TM%TD%O, TM%TD%DUT, TM%NT%AL(1), TM%TOP, &
-                      HPROGRAM) 
-!  
- CALL READ_TEB_VEG_CONF_n(TM%CHT, GDO, HPROGRAM) 
+                      HPROGRAM)
+!
+ CALL READ_TEB_VEG_CONF_n(TM%CHT, GDO, HPROGRAM)
 !
 IF (HINIT=='PRE') THEN
         CALL READ_NAM_PREP_TEB_n(HPROGRAM)

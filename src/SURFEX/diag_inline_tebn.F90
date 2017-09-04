@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE DIAG_INLINE_TEB_n (DGO, D, SB, T, &
@@ -10,7 +10,7 @@
                                      PTRAD, PEMIS, PDIR_ALB, PSCA_ALB,                       &
                                      PLW, PDIR_SW, PSCA_SW,                                  &
                                      PSFTH, PSFTQ, PSFZON, PSFMER, PSFCO2,                   &
-                                     PRN, PH, PLE, PGFLUX                                    )  
+                                     PRN, PH, PLE, PGFLUX                                    )
 !     ###############################################################################!
 !!****  *DIAG_INLINE_TEB_n * - Computes diagnostics during TEB time-step
 !!
@@ -22,7 +22,7 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -105,7 +105,7 @@ REAL, DIMENSION(:), INTENT(IN)       :: PEMIS    ! emissivity                   
 !*      0.2    declarations of local variables
 !
 REAL                                 :: ZZ0_O_Z0H
-REAL, DIMENSION(SIZE(PTA))           :: ZH  
+REAL, DIMENSION(SIZE(PTA))           :: ZH
 REAL, DIMENSION(SIZE(PTA))  :: ZU10
 REAL, DIMENSION(SIZE(PTA))  :: ZWIND10M_MAX
 REAL, DIMENSION(SIZE(PTA))  :: ZT2M_MIN
@@ -145,7 +145,7 @@ ELSE
 !* 2m and 10m variables using CLS laws
   IF (DGO%N2M==2) THEN
     ZH(:)=10.
-    CALL CLS_WIND(PZONA, PMERA, PHW, PCD, PCDN, PRI, ZH, D%XZON10M, D%XMER10M    )  
+    CALL CLS_WIND(PZONA, PMERA, PHW, PCD, PCDN, PRI, ZH, D%XZON10M, D%XMER10M    )
     D%XT2M  = T%XT_CANYON
     D%XQ2M  = T%XQ_CANYON
     D%XRI   = PRI
@@ -168,8 +168,8 @@ ENDIF
 !
 IF (DGO%LSURF_BUDGET) THEN
    !
-   CALL DIAG_SURF_BUDGET_TEB(D, PDIR_SW, PSCA_SW, PDIR_ALB, PSCA_ALB, PLW, PEMIS, PTRAD   )  
-   !                             
+   CALL DIAG_SURF_BUDGET_TEB(D, PDIR_SW, PSCA_SW, PDIR_ALB, PSCA_ALB, PLW, PEMIS, PTRAD   )
+   !
    D%XRN    = PRN
    D%XH     = PH
    D%XLE    = PLE

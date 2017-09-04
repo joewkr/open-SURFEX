@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
 SUBROUTINE INIT_ISBA_n (DTCO, OREAD_BUDGETC, UG, U, USS, GCP, IM, DTZ,&
@@ -38,7 +38,7 @@ SUBROUTINE INIT_ISBA_n (DTCO, OREAD_BUDGETC, UG, U, USS, GCP, IM, DTZ,&
 !!    -------------
 !!      Original    01/2004
 !!      Modified by P. Le Moigne (11/2004): miscellaneous diagnostics
-!!      Modified by P. Le Moigne (06/2006): seeding and irrigation    
+!!      Modified by P. Le Moigne (06/2006): seeding and irrigation
 !!      Modified by B. Decharme    (2008) : SGH and Flooding scheme
 !!      Modified by B. Decharme  (01/2009): optional deep soil temperature as in Arpege
 !!      Modified by R. Hamdi     (01/2009): Cp and L
@@ -46,7 +46,7 @@ SUBROUTINE INIT_ISBA_n (DTCO, OREAD_BUDGETC, UG, U, USS, GCP, IM, DTZ,&
 !!      Modified by P. Le Moigne (01/2009): Beljaars sso
 !!      Modified by B. Decharme  (08/2009): Active Trip coupling variable if Earth System Model
 !!      A.L. Gibelin   04/09 : change BSLAI_NITRO initialisation
-!!      A.L. Gibelin   04/09 : modifications for CENTURY model 
+!!      A.L. Gibelin   04/09 : modifications for CENTURY model
 !!      A.L. Gibelin   06/09 : soil carbon initialisation
 !!      B. Decharme    07/11 : read pgd+prep
 !!      R. Alkama      05/12 : new carbon spinup
@@ -215,7 +215,7 @@ IF (LNAM_READ) THEN
 !               --------
 
  !        0.1. Hard defaults
- !      
+ !
  CALL DEFAULT_ISBA(IM%O%XTSTEP, IM%O%XOUT_TSTEP,                                   &
                    IM%O%CRUNOFF, IM%O%CSCOND,                                      &
                    IM%O%CC1DRY, IM%O%CSOILFRZ, IM%O%CDIFSFCOND, IM%O%CSNOWRES,     &
@@ -224,23 +224,23 @@ IF (LNAM_READ) THEN
                    IM%O%LVEGUPD, IM%O%LSPINUPCARBS, IM%O%LSPINUPCARBW,             &
                    IM%O%XSPINMAXS, IM%O%XSPINMAXW, IM%O%XCO2_START, IM%O%XCO2_END, &
                    IM%O%NNBYEARSPINS, IM%O%NNBYEARSPINW, IM%O%LNITRO_DILU     )
- !                  
+ !
  CALL DEFAULT_CH_DEP(IM%CHI%CCH_DRY_DEP)
- CALL DEFAULT_CH_BIO_FLUX(IM%CHI%LCH_BIO_FLUX)                  
+ CALL DEFAULT_CH_BIO_FLUX(IM%CHI%LCH_BIO_FLUX)
  CALL DEFAULT_DIAG_ISBA(IM%ID%O%N2M, IM%ID%O%LSURF_BUDGET, IM%ID%O%L2M_MIN_ZS, IM%ID%O%LRAD_BUDGET, &
                         IM%ID%O%LCOEF, IM%ID%O%LSURF_VARS, IM%ID%DE%LSURF_EVAP_BUDGET,              &
                         IM%ID%DM%LSURF_MISC_BUDGET, IM%ID%DM%LSURF_DIAG_ALBEDO,                     &
                         IM%ID%O%LSURF_BUDGETC, IM%ID%DM%LSURF_MISC_DIF, IM%ID%O%LPATCH_BUDGET,      &
                         IM%ID%O%LPGD, IM%ID%O%LRESET_BUDGETC, IM%ID%DE%LWATER_BUDGET,               &
-                        IM%ID%DM%LPROSNOW,IM%ID%DM%LVOLUMETRIC_SNOWLIQ,IM%ID%O%XDIAG_TSTEP          )  
+                        IM%ID%DM%LPROSNOW,IM%ID%DM%LVOLUMETRIC_SNOWLIQ,IM%ID%O%XDIAG_TSTEP          )
  !
  CALL DEFAULT_CROCUS(IM%O%LSNOWDRIFT, IM%O%LSNOWDRIFT_SUBLIM, IM%O%LSNOW_ABS_ZENITH, &
                      IM%O%CSNOWMETAMO, IM%O%CSNOWRAD)
- ! 
+ !
 ENDIF
 !
 !        0.2. Defaults from file header
-!    
+!
  CALL READ_DEFAULT_ISBA_n(IM%CHI, IM%ID%DE, IM%ID%O, IM%ID%DM, IM%O, HPROGRAM)
 !
  CALL READ_ISBA_CONF_n(IM%CHI, IM%ID%DE, IM%ID%O, IM%ID%DM, IM%O, HPROGRAM)
@@ -258,7 +258,7 @@ IM%O%NNBYEARSOLD = 1
 IM%O%NSPINS      = 1
 IM%O%NSPINW      = 1
 !
-IF (HINIT=='PRE') THEN 
+IF (HINIT=='PRE') THEN
   CALL READ_PREP_ISBA_SNOW(HPROGRAM,YSNOW_SCHEME,ISNOW_NLAYER)
 !
 !* initialization of soil carbon scheme
@@ -281,7 +281,7 @@ ELSEIF (HINIT=='ALL') THEN
   !
   IF (IVERSION<6) THEN
     IM%O%CRESPSL='DEF'
-  ELSE  
+  ELSE
     CALL READ_SURF(HPROGRAM,'RESPSL',IM%O%CRESPSL,IRESP)
     CALL READ_SURF(HPROGRAM,'NLITTER',IM%O%NNLITTER,IRESP)
     CALL READ_SURF(HPROGRAM,'NLITTLEVS',IM%O%NNLITTLEVS,IRESP)
@@ -299,7 +299,7 @@ ENDIF
 !
 IF (IM%O%CISBA/="DIF") THEN
   IM%O%NLAYER_DUN  = 2
-  IM%O%NLAYER_HORT = 2        
+  IM%O%NLAYER_HORT = 2
 ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -319,8 +319,8 @@ SELECT CASE (HINIT)
 
   CASE ('PRE')
     CALL PREP_CTRL_ISBA(IM%ID%O, IM%ID%DE%LSURF_EVAP_BUDGET, IM%ID%DM%LSURF_MISC_BUDGET, &
-                        IM%ID%DM%LSURF_MISC_DIF, ILUOUT)    
-    IF (LNAM_READ) CALL READ_NAM_PREP_ISBA_n(HPROGRAM)                        
+                        IM%ID%DM%LSURF_MISC_DIF, ILUOUT)
+    IF (LNAM_READ) CALL READ_NAM_PREP_ISBA_n(HPROGRAM)
     CALL READ_ISBA_DATE(HPROGRAM, HINIT, ILUOUT, HATMFILE, HATMFILETYPE, KYEAR, KMONTH, KDAY, PTIME, IM%S%TTIME)
     TPDATE_END = IM%S%TTIME%TDATE
 
@@ -346,7 +346,7 @@ CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'NATURE','ISBA  ','READ ')
  CALL READ_PGD_ISBA_n(IM%CHI, DTCO, IM%DTV, DTZ, IM%GB, IM%G, IM%ISS, IM%O, IM%S, IM%K, &
                       UG, U, USS, GCP, SV, HPROGRAM, OLAND_USE, TPDATE_END)
 !
-IF (HINIT=='PRE') THEN 
+IF (HINIT=='PRE') THEN
   DO JP = 1,IM%O%NPATCH
     IM%NPE%AL(JP)%TSNOW%SCHEME = YSNOW_SCHEME
     IM%NPE%AL(JP)%TSNOW%NLAYER = ISNOW_NLAYER
@@ -401,8 +401,8 @@ ENDIF
 !
 !-------------------------------------------------------------------------------
 !
-! During soil carbon spinup with ISBA-CC: 
-!        (1) grass parameters are attributed to all agricultural PFT with atmospheric CO2 concentration 
+! During soil carbon spinup with ISBA-CC:
+!        (1) grass parameters are attributed to all agricultural PFT with atmospheric CO2 concentration
 !            fixed to Pre-industrial CO2 consentration XCO2_START
 !        (2) Atmospheric CO2 concentration rampin up from XCO2_START to XCO2_END
 !
@@ -480,7 +480,7 @@ IF ( IM%O%CSNOWRAD=="TAR" .OR. IM%O%CSNOWRAD=="TA1" .OR.  IM%O%CSNOWRAD=="TA2" )
   CALL INIT_TARTES()
 END IF
 !
-IF (HINIT=='ALL') THEN 
+IF (HINIT=='ALL') THEN
   YSNOW_SCHEME = IM%NPE%AL(1)%TSNOW%SCHEME
   ISNOW_NLAYER = IM%NPE%AL(1)%TSNOW%NLAYER
 ENDIF
@@ -502,8 +502,8 @@ IF (.NOT.LSPLIT_PATCH) THEN
       ALLOCATE(IM%S%XHIS_WR(KI,ISNOW_NLAYER,IM%O%NPATCH))
     ELSE
       ALLOCATE(IM%S%XSG1_WR(0,0,1))
-      ALLOCATE(IM%S%XSG2_WR(0,0,1)) 
-      ALLOCATE(IM%S%XHIS_WR(0,0,1))   
+      ALLOCATE(IM%S%XSG2_WR(0,0,1))
+      ALLOCATE(IM%S%XHIS_WR(0,0,1))
     ENDIF
   ELSE
     ALLOCATE(IM%S%XHEA_WR(0,0,1))
@@ -522,7 +522,7 @@ ELSE
   ALLOCATE(IM%S%XHEA_WR(0,0,1))
   ALLOCATE(IM%S%XAGE_WR(0,0,1))
   ALLOCATE(IM%S%XSG1_WR(0,0,1))
-  ALLOCATE(IM%S%XSG2_WR(0,0,1)) 
+  ALLOCATE(IM%S%XSG2_WR(0,0,1))
   ALLOCATE(IM%S%XHIS_WR(0,0,1))
 
   ALLOCATE(IM%S%TDATE_WR(0,1))

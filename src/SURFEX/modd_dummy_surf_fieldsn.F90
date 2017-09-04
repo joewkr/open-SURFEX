@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ####################
       MODULE MODD_DUMMY_SURF_FIELDS_n
@@ -10,7 +10,7 @@
 !!
 !!    PURPOSE
 !!    -------
-!       The purpose of this declarative module is to specify  the 
+!       The purpose of this declarative module is to specify  the
 !     dummy physiographic data arrays.
 !
 !!
@@ -20,7 +20,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    03/2004                      
+!!      Original    03/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.   DECLARATIONS
@@ -36,7 +36,7 @@ TYPE DUMMY_SURF_FIELDS_t
 !
   INTEGER                                          :: NDUMMY_NBR
 !                          ! number of dummy pgd fields chosen by user
-  CHARACTER(LEN=3) , DIMENSION(:), POINTER         :: CDUMMY_AREA 
+  CHARACTER(LEN=3) , DIMENSION(:), POINTER         :: CDUMMY_AREA
 !                          ! areas where dummy pgd fields are defined
 !                          ! 'ALL' : everywhere
 !                          ! 'SEA' : where sea exists
@@ -47,7 +47,7 @@ TYPE DUMMY_SURF_FIELDS_t
 !                          ! 'STR' : where streets are present
 !                          ! 'BLD' : where buildings are present
 !                          !
-  CHARACTER(LEN=20), DIMENSION(:), POINTER         :: CDUMMY_NAME 
+  CHARACTER(LEN=20), DIMENSION(:), POINTER         :: CDUMMY_NAME
 !                          ! name of the dummy pgd fields (for information)
   REAL,              DIMENSION(:,:), POINTER       :: XDUMMY_FIELDS
 !                          ! dummy pgd fields themselves

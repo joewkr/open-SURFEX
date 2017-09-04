@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################
       MODULE  MODN_IO_OFFLINE
@@ -68,11 +68,11 @@ IMPLICIT NONE
 !*    General flags defining output options
 !     -------------------------------------
 !
-LOGICAL          :: LPRINT      = .FALSE.  ! write some information on screen 
+LOGICAL          :: LPRINT      = .FALSE.  ! write some information on screen
 LOGICAL          :: LRESTART    = .FALSE.  ! write restart file
 LOGICAL          :: LRESTART_2M = .FALSE.  ! write restart file
 LOGICAL          :: LINQUIRE    = .FALSE.  ! inquiry mode
-!      
+!
 LOGICAL          :: LWRITE_COORD = .FALSE. ! write lat/lon of the target grid
 !
 LOGICAL          :: LOUT_TIMENAME = .FALSE.! change the name of output file at the end of a day
@@ -80,7 +80,7 @@ LOGICAL          :: LOUT_TIMENAME = .FALSE.! change the name of output file at t
 !
 LOGICAL          :: LDIAG_FA_NOCOMPACT = .FALSE. ! fa compaction for diagnostic files
 !
- LOGICAL           :: LALLOW_ADD_DIM   = .FALSE. ! allow multi-dimensional output 
+ LOGICAL           :: LALLOW_ADD_DIM   = .FALSE. ! allow multi-dimensional output
                                                  ! if IO scheme can deal with- e.g. XIOS
 !
 !*    Variables
@@ -92,7 +92,7 @@ INTEGER          :: NHALO = 0
 !*    Time steps
 !     ----------
 !
-REAL             :: XTSTEP_SURF   = 300.   ! time step of the surface 
+REAL             :: XTSTEP_SURF   = 300.   ! time step of the surface
 REAL             :: XTSTEP_OUTPUT = 1800.  ! time step of the output time-series
 INTEGER          :: NB_READ_FORC  = 0      ! subdivisions of the reading of forcings
 !

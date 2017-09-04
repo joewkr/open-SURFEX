@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE READ_NAMELISTS_SURF_n (CHU, DGO, USS, HPROGRAM,HINIT)
 !     #######################################################
 !
-!---------------------------    
+!---------------------------
 !
 !
 !
@@ -57,12 +57,12 @@ IF (LHOOK) CALL DR_HOOK('READ_NAMELISTS_SURF_N',0,ZHOOK_HANDLE)
 CALL DEFAULT_DIAG_SURF_ATM(N2M, LT2MMW, LSURF_BUDGET, L2M_MIN_ZS, LRAD_BUDGET, &
                            LCOEF, LSURF_VARS, LSURF_BUDGETC, LRESET_BUDGETC, &
                            LSELECT, LPROVAR_TO_DIAG, LDIAG_GRID, LFRAC, &
-                           XDIAG_TSTEP, LSNOWDIMNC, LRESETCUMUL, CSELECT )   
-!      
- CALL READ_DEFAULT_SURF_ATM_n(CHU, DGO, USS, HPROGRAM) 
+                           XDIAG_TSTEP, LSNOWDIMNC, LRESETCUMUL, CSELECT )
 !
- CALL READ_SURF_ATM_CONF_n(CHU, DGO, USS, HPROGRAM)    
-!       
+ CALL READ_DEFAULT_SURF_ATM_n(CHU, DGO, USS, HPROGRAM)
+!
+ CALL READ_SURF_ATM_CONF_n(CHU, DGO, USS, HPROGRAM)
+!
 !---------------------------------------------------------------------------
 !PREP
 IF (HINIT=='PRE') CALL READ_NAM_PREP_SURF_n(HPROGRAM)

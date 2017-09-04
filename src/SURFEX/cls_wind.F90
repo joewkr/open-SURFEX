@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-       SUBROUTINE CLS_WIND( PZONA, PMERA, PHW, PCD, PCDN, PRI, PHV, PZON10M, PMER10M  )  
+       SUBROUTINE CLS_WIND( PZONA, PMERA, PHW, PCD, PCDN, PRI, PHV, PZON10M, PMER10M  )
 !     ###############################################################
 !
-!!****  *PARAMCLS*  
+!!****  *PARAMCLS*
 !!
 !!    PURPOSE
 !!    -------
 !
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -22,16 +22,16 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!    USE MODD_CST
 !!    USE MODD_GROUND_PAR
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -129,7 +129,7 @@ WHERE(PHV(:)<=PHW(:))
   PMER10M(:)=PMERA(:)*ZIV(:)
 ELSEWHERE
   PZON10M(:)=PZONA(:)/MAX(1.,ZIV(:))
-  PMER10M(:)=PMERA(:)/MAX(1.,ZIV(:))  
+  PMER10M(:)=PMERA(:)/MAX(1.,ZIV(:))
 END WHERE
 IF (LHOOK) CALL DR_HOOK('CLS_WIND',1,ZHOOK_HANDLE)
 !

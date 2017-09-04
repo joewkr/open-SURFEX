@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE ISBA_SNOW_AGR(KK, PK, PEK, DMK, DK, DEK, &
@@ -16,7 +16,7 @@
 !!
 !!    PURPOSE
 !!    -------
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,14 +24,14 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Noilhan and Planton (1989)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      V. Masson           * Meteo-France *
@@ -39,8 +39,8 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    10/03/95 
-!!      B. Decharme 01/2009  Floodplains 
+!!      Original    10/03/95
+!!      B. Decharme 01/2009  Floodplains
 !!      B. Decharme 01/2010  Effective surface temperature (for diag)
 !!      B. Decharme 09/2012  Bug total sublimation flux: no DEK%XLESL
 !!      B. Decharme 04/2013  Bug wrong radiative temperature
@@ -77,7 +77,7 @@ TYPE(DIAG_t), INTENT(INOUT) :: DK
 TYPE(DIAG_EVAP_ISBA_t), INTENT(INOUT) :: DEK
 TYPE(DIAG_MISC_ISBA_t), INTENT(INOUT) :: DMK
 !
-LOGICAL,              INTENT(IN)  :: OMEB       ! True = patch with multi-energy balance 
+LOGICAL,              INTENT(IN)  :: OMEB       ! True = patch with multi-energy balance
 !                                               ! False = patch with classical ISBA
 LOGICAL, INTENT(IN)               :: OMEB_LITTER !True = litter option activated
 !                                                 ! over the ground
@@ -99,7 +99,7 @@ REAL, DIMENSION(:), INTENT(IN)  :: PSR       ! Snow rate (in kg/m2/s)
 !* surface parameters
 !  ------------------
 !
-REAL, DIMENSION(:), INTENT(IN)  :: PALB       ! albedo 
+REAL, DIMENSION(:), INTENT(IN)  :: PALB       ! albedo
 REAL, DIMENSION(:), INTENT(IN)  :: PEMIS      ! emissivity
 !  'D95'     : represents aggregated (snow + flood + snow-flood-free) albedo and emissivity
 !  '3-L'     : represents                    flood + snow-flood-free  albedo and emissivity
@@ -119,7 +119,7 @@ REAL, DIMENSION(:), INTENT(IN)  :: PPALPHAN   ! fraction of the the explicit veg
 !
 REAL, DIMENSION(:),   INTENT(IN) :: PALB3L      ! Snow albedo
 REAL, DIMENSION(:),   INTENT(IN) :: PQS3L       ! Surface humidity
-! 
+!
 ! Diagnostics:
 !
 REAL, DIMENSION(:), INTENT(IN)    :: PZGRNDFLUX ! snow/soil-biomass interface flux (W/m2)
@@ -155,7 +155,7 @@ ZWORK(:) = 0.
 IF(OMEB)THEN
   !
   ! Snow free (ground-based snow) diagnostics: canopy and ground blended (W m-2):
-  ! NOTE that the effects of snow cover *fraction* are implicitly *included* in these fluxes 
+  ! NOTE that the effects of snow cover *fraction* are implicitly *included* in these fluxes
   ! so do NOT multiply by snow fraction.
   !
   DEK%XRN_SN_FR   (:) = DEK%XSWNET_V(:) + DEK%XSWNET_G(:) + DEK%XLWNET_V(:) + DEK%XLWNET_G(:)
@@ -171,11 +171,11 @@ IF(OMEB)THEN
   ENDIF
 
   DEK%XLEV_SN_FR (:) = DEK%XLEV_CV (:)
-  DEK%XLETR_SN_FR(:) = DEK%XLETR_CV(:) 
-  ! NOTE for now, this is same as total Ustar (includes snow)   
-  DEK%XUSTAR_SN_FR(:) = PUSTAR       (:)        
+  DEK%XLETR_SN_FR(:) = DEK%XLETR_CV(:)
+  ! NOTE for now, this is same as total Ustar (includes snow)
+  DEK%XUSTAR_SN_FR(:) = PUSTAR       (:)
   ! LER does not include intercepted snow sublimation
-  DEK%XLER_SN_FR  (:) = DEK%XLEV_CV(:) - DEK%XLETR_CV(:) 
+  DEK%XLER_SN_FR  (:) = DEK%XLEV_CV(:) - DEK%XLETR_CV(:)
 
   DEK%XLEI_SN_FR  (:) = DEK%XLEGI(:) + DEK%XLEI_FLOOD(:) + DEK%XLES(:) + DEK%XLES_CV(:)
   ! LE includes intercepted snow sublimation
@@ -192,7 +192,7 @@ IF(OMEB)THEN
   !
   ! Total heat FLUX into snow/soil/vegetation surface:
   !
-  DK%XGFLUX(:) = DK%XRN(:) - DK%XH(:) - PEK%XLE(:) + DMK%XHPSNOW(:) 
+  DK%XGFLUX(:) = DK%XRN(:) - DK%XH(:) - PEK%XLE(:) + DMK%XHPSNOW(:)
   !
 ELSE
 !
@@ -211,11 +211,11 @@ ELSE
       DEK%XLER_SN_FR  (:) = DEK%XLER (:)
       DEK%XRN_SN_FR   (:) = DK%XRN   (:)
       DEK%XH_SN_FR    (:) = DK%XH    (:)
-      DEK%XUSTAR_SN_FR(:) = PUSTAR   (:)      
+      DEK%XUSTAR_SN_FR(:) = PUSTAR   (:)
 
       DEK%XLE_SN_FR   (:) = PEK%XLE(:)
       DEK%XGFLUX_SN_FR(:) = DK%XGFLUX(:)
-!  
+!
       DEK%XLEI_SN_FR  (:)= DEK%XLEGI(:) + DEK%XLEI_FLOOD(:) + DEK%XLES(:)
 !
 !     Effective surface temperature (for diag):
@@ -226,10 +226,10 @@ ELSE
 !
       DK%XALBT (:) = PALB (:)*(1.-PEK%XPSN(:)) + PEK%XPSN(:)*PALB3L(:)
       PEMIST     (:) = PEMIS(:)*(1.-PEK%XPSN(:)) + PEK%XPSN(:)*PEK%TSNOW%EMIS(:)
-!  
+!
       DK%XTSRAD(:) = ( ((1.-PEK%XPSN(:))*PEMIS(:)*PEK%XTG(:,1)**4 +   &
                                PEK%XPSN(:) *PEK%TSNOW%EMIS(:)*DMK%XSNOWTEMP(:,1)**4     &
-                            )/PEMIST(:) )**(0.25)  
+                            )/PEMIST(:) )**(0.25)
 !
 !     Calculate actual fluxes from snow-free natural
 !     portion of surface: NET flux from surface is the sum of
@@ -239,12 +239,12 @@ ELSE
 !
       DK%XRN   (:) = (1.-PEK%XPSN(:)) * DK%XRN(:) + PEK%XPSN(:) * DMK%XRNSNOW(:)
       DK%XH    (:) = (1.-PEK%XPSN(:)) * DK%XH (:) + PEK%XPSN(:) * DMK%XHSNOW(:)
-!  
-      DEK%XLEG (:) = (1.-PEK%XPSNG(:)-KK%XFFG(:)) * DEK%XLEG(:)  
-      DEK%XLEGI(:) = (1.-PEK%XPSNG(:)-KK%XFFG(:)) * DEK%XLEGI(:)  
-      DEK%XLEV (:) = (1.-PEK%XPSNV(:)-KK%XFFV(:)) * DEK%XLEV(:)   
-      DEK%XLETR(:) = (1.-PEK%XPSNV(:)-KK%XFFV(:)) * DEK%XLETR(:)  
-      DEK%XLER (:) = (1.-PEK%XPSNV(:)-KK%XFFV(:)) * DEK%XLER(:)  
+!
+      DEK%XLEG (:) = (1.-PEK%XPSNG(:)-KK%XFFG(:)) * DEK%XLEG(:)
+      DEK%XLEGI(:) = (1.-PEK%XPSNG(:)-KK%XFFG(:)) * DEK%XLEGI(:)
+      DEK%XLEV (:) = (1.-PEK%XPSNV(:)-KK%XFFV(:)) * DEK%XLEV(:)
+      DEK%XLETR(:) = (1.-PEK%XPSNV(:)-KK%XFFV(:)) * DEK%XLETR(:)
+      DEK%XLER (:) = (1.-PEK%XPSNV(:)-KK%XFFV(:)) * DEK%XLER(:)
 !
 !     Total evapotranspiration flux (kg/m2/s):
 !
@@ -284,14 +284,14 @@ ELSE
 !
 !     Total FLUX into snow/soil/vegetation surface:
 !
-      DK%XGFLUX(:) = DK%XRN(:) - DK%XH(:) - PEK%XLE(:) + DMK%XHPSNOW(:)  
+      DK%XGFLUX(:) = DK%XRN(:) - DK%XH(:) - PEK%XLE(:) + DMK%XHPSNOW(:)
 !
 !     surface humidity:
 !
       DK%XQS   (:) = (1.-PEK%XPSN(:)) * DK%XQS(:) + PEK%XPSN(:) * PQS3L(:)
 !
 !     near-surface humidity :
-!  
+!
       DK%XHU   (:) = (1.-PEK%XPSN(:)) * DK%XHU(:) + PEK%XPSN(:)
 !
 !     Momentum fluxes:
@@ -309,7 +309,7 @@ ELSE
       DK%XTSRAD (:)  = PEK%XTG(:,1)
       DK%XALBT  (:)  = PALB (:)
       PEMIST    (:)  = PEMIS(:)
-!  
+!
 !     Total sublimation flux (W/m2) :
       DK%XLEI   (:)  = DEK%XLES(:) + DEK%XLEGI(:) + DEK%XLEI_FLOOD(:)
 !
@@ -329,7 +329,7 @@ CONTAINS
 SUBROUTINE COMPUT_RI_DRAG
 !
 USE MODD_SURF_ATM, ONLY : LDRAG_COEF_ARP, LRRGUST_ARP,   &
-                          XRRSCALE, XRRGAMMA, XUTILGUST  
+                          XRRSCALE, XRRGAMMA, XUTILGUST
 !
 USE MODI_SURFACE_RI
 USE MODI_SURFACE_AERO_COND
@@ -350,7 +350,7 @@ IF (LHOOK) CALL DR_HOOK('ISBA_SNOW_AGR:COMPUT_RI_DRAG',0,ZHOOK_HANDLE)
 ! * Richardson number
 !
 CALL SURFACE_RI(DK%XTS, DK%XQS, PEXNS, PEXNA, PTA, PQA,  &
-                PZREF, PUREF, PDIRCOSZW, PVMOD, DK%XRI)  
+                PZREF, PUREF, PDIRCOSZW, PVMOD, DK%XRI)
 !
 ! * Wind check
 !
@@ -369,7 +369,7 @@ ENDIF
 IF (LRRGUST_ARP) THEN
    ZFP(:)=MAX(0.0,PRR(:)+PSR(:))
    ZRRCOR(:)=SQRT(1.0+((((ZFP(:)/(ZFP(:)+XRRSCALE))**XRRGAMMA)*XUTILGUST)**2) &
-       /(DK%XCD(:)*ZVMOD(:)**2))  
+       /(DK%XCD(:)*ZVMOD(:)**2))
    DK%XCD  = DK%XCD  * ZRRCOR
    DK%XCH  = DK%XCH  * ZRRCOR
    DK%XCDN = DK%XCDN * ZRRCOR

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_PGD_TEB_GREENROOF_n (HSELECT, KTIME, IO, K, HPROGRAM)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/2011 
+!!      Original    07/2011
 !!
 !-------------------------------------------------------------------------------
 !
@@ -92,7 +92,7 @@ YRECFM='GR_LAYER'
 YCOMMENT=YRECFM
  CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,IO%NGROUND_LAYER,IRESP,HCOMMENT=YCOMMENT)
 !
-!* number of time data for green roof chacteristics (VEG, LAI, EMIS, Z0) 
+!* number of time data for green roof chacteristics (VEG, LAI, EMIS, Z0)
 !
 YRECFM='GR_NTIME'
 YCOMMENT=YRECFM

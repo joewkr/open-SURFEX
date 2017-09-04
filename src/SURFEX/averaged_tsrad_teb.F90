@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE AVERAGED_TSRAD_TEB(T, B, PEMIS_GARDEN, PTS_GARDEN, PEMIS_GREENROOF, &
-                                    PTS_GREENROOF, PEMIS, PTSRAD     ) 
+                                    PTS_GREENROOF, PEMIS, PTSRAD     )
 !     ###################################################
 !
 !!**** *AVERAGED_TSRAD_TEB* computes averaged emissivity and radiative surface
@@ -15,7 +15,7 @@
 !!
 !!    METHODi
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -74,9 +74,9 @@ REAL, DIMENSION(:), INTENT(OUT):: PTSRAD         ! averaged radiaitve temp. (all
 !*    0.2    Declaration of local variables
 !            ------------------------------
 !
-REAL, DIMENSION(SIZE(T%XEMIS_ROOF)) :: ZDN_ROOF       ! snow fraction 
+REAL, DIMENSION(SIZE(T%XEMIS_ROOF)) :: ZDN_ROOF       ! snow fraction
 REAL, DIMENSION(SIZE(T%XEMIS_ROOF)) :: ZDN_ROAD       ! on the surface
-REAL, DIMENSION(SIZE(T%XBLD)) :: ZDF_ROOF       ! free-snow fraction 
+REAL, DIMENSION(SIZE(T%XBLD)) :: ZDF_ROOF       ! free-snow fraction
 REAL, DIMENSION(SIZE(T%XBLD)) :: ZDF_ROAD       ! on the surface
 LOGICAL, DIMENSION(SIZE(T%XBLD)) :: GMASK       ! .false. (= no snow precip.)
 !
@@ -155,7 +155,7 @@ PEMIS(:) = T%XBLD(:) * (1.-T%XGREENROOF(:)) * (ZDF_ROOF(:)*T%XEMIS_ROOF     (:) 
    ZT_SKY(:) = (ZLW_RAD(:)/XSTEFAN)**0.25
    !
    CALL URBAN_LW_COEF(B, T, ZLW_RAD, PEMIS_GARDEN,             &
-                      T%XT_ROAD(:,1), PTS_GARDEN,              &  
+                      T%XT_ROAD(:,1), PTS_GARDEN,              &
                       ZLW_WA_TO_WB, ZLW_WA_TO_R, ZLW_WB_TO_R,  &
                       ZLW_WA_TO_NR,ZLW_WB_TO_NR,               &
                       ZLW_WA_TO_G, ZLW_WB_TO_G,                &
@@ -177,14 +177,14 @@ PEMIS(:) = T%XBLD(:) * (1.-T%XGREENROOF(:)) * (ZDF_ROOF(:)*T%XEMIS_ROOF     (:) 
                                       + ZDN_ROAD(:)* T%TSNOW_ROAD%EMIS(:)) &
               + T%XWALL_O_HOR(:)       * T%XSVF_WALL(:)   * T%XEMIS_WALL(:)  &
               + T%XGARDEN(:)           * T%XSVF_GARDEN(:) * PEMIS_GARDEN(:)
-   
+
    !
    ! LW absorbed by roads
    ZABS_LW_ROAD(:) =  ZLW_S_TO_R  (:) * (ZT_SKY       (:) - T%XT_ROAD(:,1)) &
                     + ZLW_WA_TO_R (:) * (T%XT_WALL_A(:,1) - T%XT_ROAD(:,1)) &
                     + ZLW_WB_TO_R (:) * (T%XT_WALL_B(:,1) - T%XT_ROAD(:,1)) &
                     + ZLW_WIN_TO_R(:) * (B%XT_WIN1    (:) - T%XT_ROAD(:,1))
-   
+
    !
    ! LW absorbed by walls
    ZABS_LW_WALL(:) =( ZLW_S_TO_WA(:)  * (ZT_SKY(:)       - T%XT_WALL_A(:,1)) &
@@ -196,7 +196,7 @@ PEMIS(:) = T%XBLD(:) * (1.-T%XGREENROOF(:)) * (ZDF_ROOF(:)*T%XEMIS_ROOF     (:) 
                     + ZLW_G_TO_WB(:)  * (PTS_GARDEN(:)   - T%XT_WALL_B(:,1)) &
                     + ZLW_WIN_TO_WB(:)* (B%XT_WIN1(:)    - T%XT_WALL_B(:,1)))&
                    * 0.5
-   
+
    !
    !* LW absorbed by snow on road
    ZABS_LW_SNOW_ROAD(:) =  ZLW_S_TO_R   (:) * (ZT_SKY(:)        - T%TSNOW_ROAD%TS(:)) &
@@ -212,7 +212,7 @@ PEMIS(:) = T%XBLD(:) * (1.-T%XGREENROOF(:)) * (ZDF_ROOF(:)*T%XEMIS_ROOF     (:) 
    !
    !* LW absorbed by green roofs
 ZABS_LW_GREENROOF(:) = PEMIS_GREENROOF(:) * (ZLW_RAD(:) - XSTEFAN * PTS_GREENROOF(:)** 4)
-   
+
 !
 !* outgoing longwave radiation
 ZLW_UP(:) = ZLW_RAD(:)                                                     &

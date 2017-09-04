@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_INTERP_HALO_OL(HGRID,KHALO)
 !     #######################################################
 !
 !
-!!****  *GET_INTERP_HALO* - gets the value of the number of points in the halo 
+!!****  *GET_INTERP_HALO* - gets the value of the number of points in the halo
 !!
 !!    PURPOSE
 !!    -------
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/2011 
+!!      Original    07/2011
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS

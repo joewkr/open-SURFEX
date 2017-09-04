@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE INIT_DST (DSTK, U, &
                      HPROGRAM,  &    ! Program calling unit
@@ -65,34 +65,34 @@ IF(CEMISPARAM_DST.EQ."She84")THEN
   XMSS_FRC_SRC_INI   (:) = (/2.6e-6, 0.781, 0.219/)             ! [frc] Mass fraction She84 p. 75 Table 1
 ELSEIF(CEMISPARAM_DST.EQ."PaG77")THEN
   CRGUNIT   = 'MASS'
-  XEMISRADIUS_INI_DST(:) = 0.5d6 * (/0.27e-6  ,  5.6e-6  ,  57.6e-6 /) ! [um] Mass median radius PaG77 p. 2080 Table 1 
+  XEMISRADIUS_INI_DST(:) = 0.5d6 * (/0.27e-6  ,  5.6e-6  ,  57.6e-6 /) ! [um] Mass median radius PaG77 p. 2080 Table 1
   XEMISSIG_INI_DST   (:) = (/ 1.88, 2.2  , 1.62 /)              ! [frc] Geometric standard deviation PaG77 p. 2080 Table 1
-  XMSS_FRC_SRC_INI   (:) = (/0.036, 0.957, 0.007/)              ! [frc] Mass fraction BSM96 p. 73 Table 2 (ad hoc)  
-ELSEIF(CEMISPARAM_DST.EQ."Dal87") THEN 
+  XMSS_FRC_SRC_INI   (:) = (/0.036, 0.957, 0.007/)              ! [frc] Mass fraction BSM96 p. 73 Table 2 (ad hoc)
+ELSEIF(CEMISPARAM_DST.EQ."Dal87") THEN
   ! D'Almeida, 1987 as default
   CRGUNIT   = 'MASS'
   XEMISRADIUS_INI_DST(:) = 0.5d6 * (/ 0.832e-6 ,  4.82e-6 , 19.38e-6 /) ! [um] Mass median radius BSM96 p. 73 Table 2
   XEMISSIG_INI_DST   (:) = (/ 2.10, 1.90 , 1.60 /)              ! [frc] Geometric standard deviation BSM96 p. 73 Table 2
-  XMSS_FRC_SRC_INI   (:) = (/0.036, 0.957, 0.007/)              ! [frc] Mass fraction BSM96 p. 73 Table 2  
+  XMSS_FRC_SRC_INI   (:) = (/0.036, 0.957, 0.007/)              ! [frc] Mass fraction BSM96 p. 73 Table 2
 ELSEIF (CEMISPARAM_DST.EQ."alf98".OR.CEMISPARAM_DST.eq."EXPLI") THEN  !  Alfaro et al 1998 as default
   IF (CEMISPARAM_DST.EQ."alf98") XFLX_MSS_FDG_FCT = 6e-4
   IF (CEMISPARAM_DST.EQ."EXPLI") XFLX_MSS_FDG_FCT = 3.5e-4
   CRGUNIT   = 'MASS'
   XEMISRADIUS_INI_DST(:) = 0.5*(/ 1.5, 6.7, 14.2 /)      ! [um] Mass median radius BSM96 p. 73 Table 2
   XEMISSIG_INI_DST   (:) = (/1.70, 1.60, 1.50/)          ! [frc] Geometric standard deviation BSM96 p. 73 Table 2
-  XMSS_FRC_SRC_INI   (:) = (/0.01, 0.19, 0.8 /)          ! [frc] Mass fraction BSM96 p. 73 Table 2  
+  XMSS_FRC_SRC_INI   (:) = (/0.01, 0.19, 0.8 /)          ! [frc] Mass fraction BSM96 p. 73 Table 2
 ELSEIF (CEMISPARAM_DST.EQ."AMMA ") THEN ! Default: New distribution from AMMA
   XFLX_MSS_FDG_FCT = 105.e-4
-  CRGUNIT   = 'NUMB' 
-  XEMISRADIUS_INI_DST(:) = 0.5*(/ 0.078, 0.641, 5.00 /)  ! [um] Number median radius 
-  XEMISSIG_INI_DST   (:) = (/ 1.75,  1.76, 1.70/)        ! [frc] Geometric standard deviation 
-  XMSS_FRC_SRC_INI   (:) = (/0.008, 0.092, 0.99/)        ! [frc] Mass fraction  
+  CRGUNIT   = 'NUMB'
+  XEMISRADIUS_INI_DST(:) = 0.5*(/ 0.078, 0.641, 5.00 /)  ! [um] Number median radius
+  XEMISSIG_INI_DST   (:) = (/ 1.75,  1.76, 1.70/)        ! [frc] Geometric standard deviation
+  XMSS_FRC_SRC_INI   (:) = (/0.008, 0.092, 0.99/)        ! [frc] Mass fraction
 ELSEIF (CEMISPARAM_DST.EQ."CRUM ") THEN ! Default: New distribution from AMMA
   XFLX_MSS_FDG_FCT = 10.e-4
-  CRGUNIT   = 'NUMB' 
-  XEMISRADIUS_INI_DST(:) = 0.5*(/ 0.078, 0.641, 5.00 /)  ! [um] Number median radius 
-  XEMISSIG_INI_DST   (:) = (/  1.75,   1.76, 1.70   /)   ! [frc] Geometric standard deviation   
-  XMSS_FRC_SRC_INI   (:) = (/0.0005, 0.0029, 0.9966/)    ! [frc] Mass fraction  
+  CRGUNIT   = 'NUMB'
+  XEMISRADIUS_INI_DST(:) = 0.5*(/ 0.078, 0.641, 5.00 /)  ! [um] Number median radius
+  XEMISSIG_INI_DST   (:) = (/  1.75,   1.76, 1.70   /)   ! [frc] Geometric standard deviation
+  XMSS_FRC_SRC_INI   (:) = (/0.0005, 0.0029, 0.9966/)    ! [frc] Mass fraction
 ELSE
   WRITE(ILUOUT,*) " FATAL ERROR "
   WRITE(ILUOUT,*) " YOU MUST DECIDE THE EMISSIUON PARAMETERIZATION, YOU USES "
@@ -110,7 +110,7 @@ DO JMODE=1,NDSTMDE
   !
   !Get emisradius, and at the same time convert to number median radius
   IF (CRGUNIT=='MASS') &
-    DSTK%XEMISRADIUS_DST(JMODE) = DSTK%XEMISRADIUS_DST(JMODE) * EXP(-3.d0 * (LOG(DSTK%XEMISSIG_DST(JMODE)))**2)  
+    DSTK%XEMISRADIUS_DST(JMODE) = DSTK%XEMISRADIUS_DST(JMODE) * EXP(-3.d0 * (LOG(DSTK%XEMISSIG_DST(JMODE)))**2)
   !
 ENDDO
 !
@@ -135,15 +135,15 @@ ALLOCATE(DSTK%Z0_EROD_DST(NVEGNO_DST))
 !
 !Set the roughness lengths corresponding to erodible surfaces
 !Smooth roughness length is given to 1.d-5 (dstmbl.f90)
-DSTK%Z0_EROD_DST(1) = 30.d-6    !m (30 um) 
-DSTK%Z0_EROD_DST(2) = 200.d-6   !m (200 um) 
+DSTK%Z0_EROD_DST(1) = 30.d-6    !m (30 um)
+DSTK%Z0_EROD_DST(2) = 200.d-6   !m (200 um)
 !
 !Allocate memory for dust emitter surface vectors in patch vectors
 IF (.NOT.ASSOCIATED(DSTK%NSIZE_PATCH_DST)) ALLOCATE(DSTK%NSIZE_PATCH_DST(NVEGNO_DST))
 !
 DO JVEG = 1,NVEGNO_DST
   !Count all the points in the patch where you have dust emitter vegetation
-  DSTK%NSIZE_PATCH_DST(JVEG) = COUNT(PVEGTYPE_PATCH(:,DSTK%NVT_DST(JVEG)) > 0.) 
+  DSTK%NSIZE_PATCH_DST(JVEG) = COUNT(PVEGTYPE_PATCH(:,DSTK%NVT_DST(JVEG)) > 0.)
 ENDDO
 !
 !Find the largest dust emitter vector in any patch
@@ -168,19 +168,19 @@ DO JVEG=1,NVEGNO_DST
            KSIZE_P,                   &!I Size of patch vector
 !RJ: attempt to make this call generic
            KR_P,&!I Mask from patch to nature
-           PVEGTYPE_PATCH,                           &!I Fraction of vegtype of nature point within jpatch 
+           PVEGTYPE_PATCH,                           &!I Fraction of vegtype of nature point within jpatch
            DSTK%NR_PATCH_DST(:DSTK%NSIZE_PATCH_DST(JVEG),JVEG),  &!O Part of mask array to fill with values
            JVEG_IN                                  &!I Index of vegtype in question
-             )  
+             )
 #else
   CALL GET_VEGTYPE_2_PATCH_MASK(ILUOUT,    &
            DSTK%NSIZE_PATCH_DST(JVEG),             &!I Size of dust emitter vector
            KSIZE_P,                   &!I Size of patch vector
            KR_P,                              &!I Mask from patch to nature
-           PVEGTYPE_PATCH,                           &!I Fraction of vegtype of nature point within jpatch 
+           PVEGTYPE_PATCH,                           &!I Fraction of vegtype of nature point within jpatch
            DSTK%NR_PATCH_DST(:DSTK%NSIZE_PATCH_DST(JVEG),JVEG),  &!O Part of mask array to fill with values
            JVEG_IN                                  &!I Index of vegtype in question
-             )  
+             )
 #endif
 ENDDO    !Loop on veg-types
 !

@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE READ_NAMELISTS_SEAFLUX_n (SM, &
                                      HPROGRAM,HINIT)
 !     #######################################################
 !
-!---------------------------------------------------------------------------   
+!---------------------------------------------------------------------------
 !
 !
 !
@@ -47,12 +47,12 @@ CALL DEFAULT_SEAFLUX(XTSTEP,XOUT_TSTEP,CSEA_ALB,CSEA_FLUX,LPWG,         &
                      CINTERPOL_SSS)
 CALL DEFAULT_SEAICE(HPROGRAM, CINTERPOL_SIC, CINTERPOL_SIT,             &
                     XFREEZING_SST,XSEAICE_TSTEP, XSIC_EFOLDING_TIME,    &
-                    XSIT_EFOLDING_TIME, XCD_ICE_CST, XSI_FLX_DRV        )     
-!               
+                    XSIT_EFOLDING_TIME, XCD_ICE_CST, XSI_FLX_DRV        )
+!
 CALL DEFAULT_CH_DEP(CCH_DRY_DEP)
 !
 CALL DEFAULT_DIAG_SEAFLUX(N2M,LSURF_BUDGET,L2M_MIN_ZS,LRAD_BUDGET,LCOEF,LSURF_VARS,&
-                          LDIAG_OCEAN,LDIAG_MISC_SEAICE,LSURF_BUDGETC,LRESET_BUDGETC,XDIAG_TSTEP)  
+                          LDIAG_OCEAN,LDIAG_MISC_SEAICE,LSURF_BUDGETC,LRESET_BUDGETC,XDIAG_TSTEP)
 !
 CALL READ_DEFAULT_SEAFLUX_n(SM%CHS, SM%SD%GO, SM%SD%O, SM%SD%DMI, SM%O, SM%S, &
                             HPROGRAM)

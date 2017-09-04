@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################
       MODULE MODD_COUPLING_TOPD
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -46,12 +46,12 @@ INTEGER                             :: NFREQ_MAPS_RUNOFF   !frequency of output 
 !
 INTEGER                             :: NNB_TOPD   ! Ratio between Time steps of Topmodel and ISBA
 !
-INTEGER                             :: NIMAX     ! number of ISBA grid points on 
+INTEGER                             :: NIMAX     ! number of ISBA grid points on
                                                  ! abscissa axis
-INTEGER                             :: NJMAX     ! number of ISBA grid points on ordinate 
+INTEGER                             :: NJMAX     ! number of ISBA grid points on ordinate
                                                  ! axis
-REAL, ALLOCATABLE, DIMENSION(:)     :: XXI ! Extended Lambert II coordinates of Isba 
-REAL, ALLOCATABLE, DIMENSION(:)     :: XYI ! nodes 
+REAL, ALLOCATABLE, DIMENSION(:)     :: XXI ! Extended Lambert II coordinates of Isba
+REAL, ALLOCATABLE, DIMENSION(:)     :: XYI ! nodes
 !
 INTEGER, ALLOCATABLE, DIMENSION(:)     :: NNPIX     ! Number of Topmodel pixels in an ISBA mesh
 INTEGER, ALLOCATABLE, DIMENSION(:,:,:) :: NMASKI ! pixel number of each catchment in each isba mesh
@@ -65,13 +65,13 @@ INTEGER, ALLOCATABLE, DIMENSION(:,:)  :: NNBV_IN_MESH   ! Number of pixel of a p
 REAL, ALLOCATABLE, DIMENSION(:,:)     :: XBV_IN_MESH    ! Area of the ISBA meshes covered by a partical cathment
 REAL, ALLOCATABLE, DIMENSION(:)       :: XTOTBV_IN_MESH ! Area of the ISBA meshes covered by all cathments
 !
-REAL, ALLOCATABLE, DIMENSION(:)     :: XDTOPI   ! depth of the soil for lateral 
+REAL, ALLOCATABLE, DIMENSION(:)     :: XDTOPI   ! depth of the soil for lateral
                                                 ! distribution on ISBA grid (m)
-REAL, ALLOCATABLE, DIMENSION(:,:)   :: XDTOPT   ! depth of the Isba soil on TOP-LAT 
+REAL, ALLOCATABLE, DIMENSION(:,:)   :: XDTOPT   ! depth of the Isba soil on TOP-LAT
                                                 ! grid (m)
 !
 REAL, ALLOCATABLE, DIMENSION(:)     :: XWG_FULL   ! Water content from Isba on the full domain
-REAL, ALLOCATABLE, DIMENSION(:,:)   :: XWGT     ! ISBA water content 
+REAL, ALLOCATABLE, DIMENSION(:,:)   :: XWGT     ! ISBA water content
 !
 REAL, ALLOCATABLE, DIMENSION(:)     :: XWSTOPI  ! total water content at saturation (m3/m3)
                                                 ! on XDTOPI on ISBA grid
@@ -79,7 +79,7 @@ REAL, ALLOCATABLE, DIMENSION(:,:)   :: XWSTOPT  ! total water content at saturat
                                                 ! on XDTOPT on TOP-LAT grid
 REAL, ALLOCATABLE, DIMENSION(:)     :: XWFCTOPI ! total field capacity on XDTOPI (m3/m3)
 REAL, ALLOCATABLE, DIMENSION(:,:)   :: XWFCTOPT ! total field capacity on XDTOPT (m3/m3)
-REAL, ALLOCATABLE, DIMENSION(:)     :: XCSTOPI  ! hydraulic conductivity at saturation on 
+REAL, ALLOCATABLE, DIMENSION(:)     :: XCSTOPI  ! hydraulic conductivity at saturation on
                                                 ! Isba grid, on XDTOPI
 REAL, ALLOCATABLE, DIMENSION(:,:)   :: XWTOPT   ! water storage on TOP-LAT grid, after
                                                 ! lateral distribution

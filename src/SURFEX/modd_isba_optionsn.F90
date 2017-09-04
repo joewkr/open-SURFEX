@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !##################
 MODULE MODD_ISBA_OPTIONS_n
@@ -14,7 +14,7 @@ MODULE MODD_ISBA_OPTIONS_n
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -26,8 +26,8 @@ MODULE MODD_ISBA_OPTIONS_n
 !!    MODIFICATIONS
 !!    -------------
 !!      Original       20/09/02
-!!      A.L. Gibelin    04/2009 : BIOMASS and RESP_BIOMASS arrays 
-!!      A.L. Gibelin    04/2009 : TAU_WOOD for NCB option 
+!!      A.L. Gibelin    04/2009 : BIOMASS and RESP_BIOMASS arrays
+!!      A.L. Gibelin    04/2009 : TAU_WOOD for NCB option
 !!      A.L. Gibelin    05/2009 : Add carbon spinup
 !!      A.L. Gibelin    06/2009 : Soil carbon variables for CNT option
 !!      A.L. Gibelin    07/2009 : Suppress RDK and transform GPP as a diagnostic
@@ -57,7 +57,7 @@ LOGICAL :: LPAR               ! T: parameters computed from ecoclimap
 !                             ! F: they are read in the file
 !
 INTEGER :: NPATCH             ! maximum number of sub-tiles (patches)
-!                             ! used at any grid point within a 
+!                             ! used at any grid point within a
 !                             ! natural surface fraction
 INTEGER :: NGROUND_LAYER      ! number of ground layers
 !
@@ -78,12 +78,12 @@ REAL, POINTER, DIMENSION(:)  :: XSOILGRID   ! Soil layer grid as reference for D
 !
 LOGICAL :: LTR_ML             ! new radiative transfert
 !
-REAL :: XRM_PATCH             ! threshold to remove little fractions of patches 
+REAL :: XRM_PATCH             ! threshold to remove little fractions of patches
 !
 LOGICAL :: LSOCP              ! Soil organic carbon profile data
 LOGICAL :: LCTI               ! Topographic index data
 LOGICAL :: LPERM              ! Permafrost distribution data
-LOGICAL :: LNOF  
+LOGICAL :: LNOF
 !
 ! Type of vegetation (simplification of vegetation charaterization)
 !
@@ -97,13 +97,13 @@ CHARACTER(LEN=5)             :: CTYP_COV     ! type of green roof
 INTEGER :: NNBIOMASS    ! number of biomass pools
 INTEGER :: NNLITTER     ! number of litter pools
 INTEGER :: NNLITTLEVS   ! number of litter levels
-INTEGER :: NNSOILCARB   ! number of soil carbon pools  
+INTEGER :: NNSOILCARB   ! number of soil carbon pools
 !
 ! * PGD MEB OPTIONS
 !
 LOGICAL, POINTER, DIMENSION(:) :: LMEB_PATCH  ! Vector with T/F values
-                                              ! True = treat patch with multi-energy balance 
-                                              ! False = treat patch with classical ISBA 
+                                              ! True = treat patch with multi-energy balance
+                                              ! False = treat patch with classical ISBA
 LOGICAL                        :: LFORC_MEASURE ! True = Forcing data from observations
 !                                               ! False = Forcing data from atmospheric model (default)
 LOGICAL                        :: LMEB_LITTER ! Activate Litter
@@ -125,17 +125,17 @@ LOGICAL :: LCANOPY ! T: SBL scheme within the canopy
 !
  CHARACTER(LEN=4) :: CC1DRY   ! C1 formulation for dry soils
 !                             ! 'DEF ' = DEFault: Giard-Bazile formulation
-!                             ! 'GB93' = Giordani 1993, Braud 1993 
+!                             ! 'GB93' = Giordani 1993, Braud 1993
 !                             ! discontinuous at WILT
  CHARACTER(LEN=4) :: CSCOND   ! Thermal conductivity
 !                             ! 'DEF ' = DEFault: NP89 implicit method
 !                             ! 'PL98' = Peters-Lidard et al. 1998 used
 !                             ! for explicit computation of CG
  CHARACTER(LEN=3) :: CSOILFRZ ! soil freezing-physics option
-!                             ! 'DEF' = Default (Boone et al. 2000; 
+!                             ! 'DEF' = Default (Boone et al. 2000;
 !                             !        Giard and Bazile 2000)
 !                             ! 'LWT' = Phase changes as above,
-!                             !         but relation between unfrozen 
+!                             !         but relation between unfrozen
 !                             !         water and temperature considered
  CHARACTER(LEN=4) :: CDIFSFCOND ! Mulch effects
 !                               ! 'MLCH' = include the insulating effect of
@@ -148,23 +148,23 @@ LOGICAL :: LCANOPY ! T: SBL scheme within the canopy
 !                               !         for stable conditions ISBA-SNOW3L
 !                               !         turbulent exchange option
  CHARACTER(LEN=4) :: CALBEDO    ! albedo type
-!                               ! 'DRY ' 
-!                               ! 'EVOL' 
-!                               ! 'WET ' 
-!                               ! 'USER' 
+!                               ! 'DRY '
+!                               ! 'EVOL'
+!                               ! 'WET '
+!                               ! 'USER'
 !                            NOTE that when using the YISBA='DIF' multi-layer soil option,
 !                            the 'LWT' method is used. It is only an option
 !                            when using the force-restore soil method ('2-L' or '3-L')
  CHARACTER(LEN=3) :: CCPSURF    ! specific heat at surface
 !                               ! 'DRY' = default value (dry Cp)
-!                               ! 'HUM' = Cp as a fct of specific humidity  
+!                               ! 'HUM' = Cp as a fct of specific humidity
 !
 REAL :: XOUT_TSTEP              ! ISBA output writing time step
 REAL :: XTSTEP                  ! ISBA time step
 REAL :: XCGMAX                  ! maximum soil heat capacity
 REAL :: XCDRAG                  ! drag coefficient in canopy
 !
-LOGICAL :: LGLACIER             ! True = Over permanent snow and ice, 
+LOGICAL :: LGLACIER             ! True = Over permanent snow and ice,
 !                                 initialise WGI=WSAT,
 !                                 Hsnow>=10m and allow 0.8<SNOALB<0.85
                                 ! False = No specific treatment
@@ -183,24 +183,24 @@ INTEGER :: NLAYER_HORT
 INTEGER :: NLAYER_DUN
 !
 ! - Sub-grid hydrology and vertical hydrology
-!                                                     
+!
  CHARACTER(LEN=4) :: CRUNOFF ! surface runoff formulation
 !                            ! 'WSAT'
 !                            ! 'DT92'
 !                            ! 'SGH ' Topmodel
-!                                                     
+!
  CHARACTER(LEN=3) :: CKSAT   ! ksat
-!                            ! 'DEF' = default value 
+!                            ! 'DEF' = default value
 !                            ! 'SGH' = profil exponentiel
-!                                           
+!
 LOGICAL :: LSOC              ! soil organic carbon effect
-!                            ! False = default value 
+!                            ! False = default value
 !                            ! True  = soil SOC profil
 !
  CHARACTER(LEN=3) :: CRAIN   ! Rainfall spatial distribution
                              ! 'DEF' = No rainfall spatial distribution
                              ! 'SGH' = Rainfall exponential spatial distribution
-                             ! 
+                             !
 !
  CHARACTER(LEN=3) :: CHORT   ! Horton runoff
                              ! 'DEF' = no Horton runoff
@@ -212,24 +212,24 @@ LOGICAL :: LNITRO_DILU          ! nitrogen dilution fct of CO2 (Calvet et al. 20
                                 ! False = keep vegetation parameters constant in time
 !
 LOGICAL  :: LSPINUPCARBS  ! T: do the soil carb spinup, F: no
-LOGICAL  :: LSPINUPCARBW  ! T: do the wood carb spinup, F: no  
+LOGICAL  :: LSPINUPCARBW  ! T: do the wood carb spinup, F: no
 REAL :: XSPINMAXS         ! max number of times CARBON_SOIL subroutine is
                           ! called for each timestep in simulation during
-                          ! acceleration procedure number                             
-REAL :: XSPINMAXW         ! max number of times the wood is accelerated  
+                          ! acceleration procedure number
+REAL :: XSPINMAXW         ! max number of times the wood is accelerated
 REAL :: XCO2_START        ! Pre-industrial CO2 concentration
 REAL :: XCO2_END          ! Begin-transient CO2 concentration
-INTEGER :: NNBYEARSPINS   ! nbr years needed to reaches soil equilibrium 
+INTEGER :: NNBYEARSPINS   ! nbr years needed to reaches soil equilibrium
 INTEGER :: NNBYEARSPINW   ! nbr years needed to reaches wood equilibrium
 INTEGER :: NNBYEARSOLD    ! nbr years executed at curent time step
 INTEGER :: NSPINS         ! number of times the soil is accelerated
 INTEGER :: NSPINW         ! number of times the wood is accelerated
 !
-LOGICAL :: LAGRI_TO_GRASS ! During soil carbon spinup with ISBA-CC, 
+LOGICAL :: LAGRI_TO_GRASS ! During soil carbon spinup with ISBA-CC,
                           ! grass parameters are attributed to all agricultural PFT
 !
 ! * Snow model options
-!                                           
+!
 LOGICAL :: LSNOWDRIFT, LSNOWDRIFT_SUBLIM ! Logicals for snowdrift and sublimation
 
 LOGICAL :: LSNOW_ABS_ZENITH  ! if True modify solar absorption as a function of solar zenithal angle
@@ -265,7 +265,7 @@ IF (LHOOK) CALL DR_HOOK("MODD_ISBA_OPTIONS_N:ISBA_OPTIONS_INIT",0,ZHOOK_HANDLE)
 !
 NULLIFY(IO%XSOILGRID)
 NULLIFY(IO%LMEB_PATCH)
-!  
+!
 IO%CTYPE_HVEG='    '
 IO%CTYPE_LVEG='    '
 IO%CTYPE_NVEG='    '

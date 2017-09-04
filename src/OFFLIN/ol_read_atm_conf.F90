@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE OL_READ_ATM_CONF (DTCO, U, HGRID, HSURF_FILETYPE, HFORCING_FILETYPE, ODELAYEDSTART_NC, &
                              KDATESTOP, PDURATION, PTSTEP_FORC, KNI, KYEAR, KMONTH, KDAY,  &
-                             PTIME, PLAT, PLON, PZS, PZREF, PUREF, KTIMESTARTINDEX    )  
+                             PTIME, PLAT, PLON, PZS, PZREF, PUREF, KTIMESTARTINDEX    )
 !
 !==================================================================
 !!****  *OL_READ_ATM_CONF* - Initialization routine
@@ -60,7 +60,7 @@ TYPE(SURF_ATM_t), INTENT(INOUT) :: U
  CHARACTER(LEN=*), INTENT(IN)  :: HGRID
  CHARACTER(LEN=6), INTENT(IN)  :: HSURF_FILETYPE
  CHARACTER(LEN=6), INTENT(IN)  :: HFORCING_FILETYPE
-LOGICAL, INTENT(IN)            :: ODELAYEDSTART_NC !Allow the simulation to start from a different time step than the first record of a netcdf file 
+LOGICAL, INTENT(IN)            :: ODELAYEDSTART_NC !Allow the simulation to start from a different time step than the first record of a netcdf file
 INTEGER,DIMENSION(4),INTENT(IN) :: KDATESTOP !Allow the simulation to end at a different time step than the last record of a netcdf file
 INTEGER,          INTENT(OUT) :: KNI
 INTEGER,          INTENT(OUT) :: KYEAR, KMONTH, KDAY
@@ -81,7 +81,7 @@ IF (HFORCING_FILETYPE == 'NETCDF') THEN
 !
  CALL OL_READ_ATM_CONF_NETCDF(DTCO, U, HGRID, HSURF_FILETYPE, ODELAYEDSTART_NC, KDATESTOP, &
                               PDURATION, PTSTEP_FORC, KNI, KYEAR, KMONTH, KDAY, PTIME, &
-                              PLAT, PLON, PZS, PZREF, PUREF, KTIMESTARTINDEX        )  
+                              PLAT, PLON, PZS, PZREF, PUREF, KTIMESTARTINDEX        )
 !
 ELSE IF (HFORCING_FILETYPE == 'ASCII ' .OR. HFORCING_FILETYPE == 'BINARY') THEN
 !
@@ -89,8 +89,8 @@ ELSE IF (HFORCING_FILETYPE == 'ASCII ' .OR. HFORCING_FILETYPE == 'BINARY') THEN
                              HFORCING_FILETYPE, PDURATION,       &
                              PTSTEP_FORC, KNI, KYEAR,KMONTH,     &
                              KDAY, PTIME, PLAT, PLON,            &
-                             PZS, PZREF, PUREF                   )  
-!    
+                             PZS, PZREF, PUREF                   )
+!
  KTIMESTARTINDEX = 1
 !
 ENDIF

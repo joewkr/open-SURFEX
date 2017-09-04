@@ -1,27 +1,27 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !######
 SUBROUTINE RESTART_COUPL_TOPD (UG, KR_NATURE, HPROGRAM,KI)
 !###################################################################
 !
-!!****  *RESTART_COUPL_TOPDn*  
+!!****  *RESTART_COUPL_TOPDn*
 !!
 !!    PURPOSE
 !!    -------
-!!  Read all files needed in case of restart 
-!!      
+!!  Read all files needed in case of restart
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      B. Vincendon
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/06/11 
+!!      Original    07/06/11
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -87,7 +87,7 @@ IF (LHOOK) CALL DR_HOOK('RESTART_COUPL_TOPD',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !
 ! * 1. Read stock files
-!       
+!
 WRITE(*,*) 'Read STOCK file ',NNB_STP_STOCK
 NNB_STP_STOCK = MIN(NNB_STP_STOCK, NNB_TOPD_STEP + NNB_STP_RESTART)
 !
@@ -107,7 +107,7 @@ ELSE
     READ(NUNIT,*)  XRUN_TOROUT(1:NNCAT,JSTP),XDR_TOROUT(1:NNCAT,JSTP)
   ENDDO
   CALL CLOSE_FILE('ASCII ',NUNIT)
-  !  
+  !
   ! * 2. Read pixels water content
   !
   DO JCAT=1,NNCAT
@@ -187,9 +187,9 @@ ELSE
     ENDIF
     !
   ENDDO
-  ! 
+  !
   ! * 3. Read Asat files
-  ! 
+  !
   WRITE(*,*) 'Read Asat files'
   ALLOCATE(ZAS(KI))
   CALL OPEN_FILE('ASCII ',NUNIT,'surfcont_init.map','FORMATTED',HACTION='READ ')

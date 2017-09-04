@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE RMC01_SURF(PZ, PLMO, PLK, PLEPS, ONEUTRAL)
@@ -91,7 +91,7 @@ IF (LHOOK) CALL DR_HOOK('RMC01_SURF',0,ZHOOK_HANDLE)
 !*     2. Modification of the mixing length
 !         ---------------------------------
 !
-PLK  (:,:) = XKARMAN/SQRT(XALPSBL)/XCMFS * PZ(:,:)  
+PLK  (:,:) = XKARMAN/SQRT(XALPSBL)/XCMFS * PZ(:,:)
 !
 !-------------------------------------------------------------------------------
 !
@@ -129,14 +129,14 @@ ZPHIE(:,:) = BUSINGER_PHIE(ZZ_O_LMO(:,:))
 !*     2. Modification of the mixing length
 !         ---------------------------------
 !
-PLK  (:,:) = PLK  (:,:) / (ZPHIM(:,:)**2*SQRT(ZPHIE(:,:)))  
+PLK  (:,:) = PLK  (:,:) / (ZPHIM(:,:)**2*SQRT(ZPHIE(:,:)))
 !
 !-------------------------------------------------------------------------------
 !
 !*     3. Modification of the dissipative length
 !         --------------------------------------
 !
-PLEPS(:,:) = PLEPS(:,:) / (ZPHIM(:,:)**2*SQRT(ZPHIE(:,:))) 
+PLEPS(:,:) = PLEPS(:,:) / (ZPHIM(:,:)**2*SQRT(ZPHIE(:,:)))
 !
 WHERE (ZZ_O_LMO(:,:)<0.)
   PLEPS(:,:) = PLEPS(:,:)/(1.-1.9*ZZ_O_LMO(:,:))

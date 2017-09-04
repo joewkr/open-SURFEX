@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################
       MODULE MODD_DATA_TSZ0_n
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -31,7 +31,7 @@
 !             ------------
 !
 !
-    
+
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
 !
@@ -41,7 +41,7 @@ TYPE DATA_TSZ0_t
 !-------------------------------------------------------------------------------
 INTEGER                     :: NTIME
 REAL, POINTER, DIMENSION(:) :: XDATA_DTS
-REAL, POINTER, DIMENSION(:) :: XDATA_DHUGRD       
+REAL, POINTER, DIMENSION(:) :: XDATA_DHUGRD
 !-------------------------------------------------------------------------------
 END TYPE DATA_TSZ0_t
 

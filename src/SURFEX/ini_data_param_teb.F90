@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
       SUBROUTINE INI_DATA_PARAM_TEB (BDD, &
@@ -9,8 +9,8 @@
                                 PEMIS_ROOF, PEMIS_ROAD, PEMIS_WALL, PHC_ROOF,       &
                                 PHC_ROAD, PHC_WALL, PTC_ROOF, PTC_ROAD, PTC_WALL,   &
                                 PD_ROOF, PD_ROAD, PD_WALL, PBLD_HEIGHT,             &
-                                PWALL_O_HOR, PBLD, PCAN_HW_RATIO, PH_TRAFFIC,       & 
-                                PLE_TRAFFIC, PH_INDUSTRY, PLE_INDUSTRY,             & 
+                                PWALL_O_HOR, PBLD, PCAN_HW_RATIO, PH_TRAFFIC,       &
+                                PLE_TRAFFIC, PH_INDUSTRY, PLE_INDUSTRY,             &
                                 PGARDEN, OGARDEN, PHC_FLOOR,                        &
                                 PTC_FLOOR, PD_FLOOR, PTCOOL_TARGET, PTHEAT_TARGET,  &
                                 PF_WASTE_CAN, PEFF_HEAT, PQIN, PQIN_FRAD, PSHGC,    &
@@ -185,7 +185,7 @@ DO JLOOP=1,SIZE(KTYPE)
     IF (KTYPE(JLOOP)<=SIZE(ILIST) .AND. KTYPE(JLOOP)>0) IINDEX = ILIST(KTYPE(JLOOP))
 
     IF (PRESENT(PZ0_TOWN)) THEN
-      PZ0_TOWN(JLOOP)=1.   
+      PZ0_TOWN(JLOOP)=1.
     ENDIF
     IF (PRESENT(PBLD_HEIGHT)) THEN
       PBLD_HEIGHT(JLOOP)=10.
@@ -200,7 +200,7 @@ DO JLOOP=1,SIZE(KTYPE)
     ENDIF
 
     IF (PRESENT(PBLD)) THEN
-      PBLD(JLOOP)=0.5        
+      PBLD(JLOOP)=0.5
       PBLD(JLOOP) = PBLD(JLOOP) / (1. - ZGARDEN(JLOOP))
     ENDIF
 
@@ -276,7 +276,7 @@ DO JLOOP=1,SIZE(KTYPE)
     IF (PRESENT(PHC_WALL)) THEN
       PHC_WALL(JLOOP,:)= BDD%XDESC_HC_WALL(IINDEX,:)
     ENDIF
- 
+
     IF (PRESENT(PTC_ROOF)) THEN
       PTC_ROOF(JLOOP,:)= BDD%XDESC_TC_ROOF(IINDEX,:)
     ENDIF
@@ -372,7 +372,7 @@ DO JLOOP=1,SIZE(KTYPE)
     IF (PRESENT(PTCOOL_TARGET)) THEN
       PTCOOL_TARGET(JLOOP) = BDD%XDESC_TCOOL_TARGET(IINDEX)
     ENDIF
-!  
+!
     IF (PRESENT(PTHEAT_TARGET)) THEN
       PTHEAT_TARGET(JLOOP) = BDD%XDESC_THEAT_TARGET(IINDEX)
     ENDIF
@@ -387,7 +387,7 @@ DO JLOOP=1,SIZE(KTYPE)
 !
     IF (PRESENT(PSHGC_SH)) THEN
       PSHGC_SH(JLOOP) = BDD%XDESC_SHGC_SH(IINDEX)
-    ENDIF    
+    ENDIF
     !
     IF (PRESENT(PSHADE)) THEN
       PSHADE(JLOOP) = BDD%XDESC_SHADE(IINDEX)

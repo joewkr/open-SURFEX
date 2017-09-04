@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE ASSIM_ISBA_UPDATE_SNOW (IO, NP, NPE, HPROGRAM, KI, PSWE, PSWE_ORIG, OINITSNOW, OINC, HTEST )
 
@@ -49,9 +49,9 @@ TYPE(ISBA_PE_t), POINTER :: PEK
 REAL, DIMENSION(KI) :: ZSWE     ! Snow before update
 REAL, DIMENSION(KI) :: ZSWEINC
 REAL, DIMENSION(KI) :: ZTS
-!    Addtional snow fields with D95 snow scheme 
-REAL, DIMENSION(KI) :: ZSNR     ! Snow density 
-REAL, DIMENSION(KI) :: ZSNA     ! Snow albedo 
+!    Addtional snow fields with D95 snow scheme
+REAL, DIMENSION(KI) :: ZSNR     ! Snow density
+REAL, DIMENSION(KI) :: ZSNA     ! Snow albedo
 INTEGER  :: JL,JP,JI,IMASK
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -106,7 +106,7 @@ IF ( OINC ) THEN
   !
   IMASK = PK%NR_P(JI)
 
-  ZSWE(IMASK) = PEK%TSNOW%WSNOW(JI,JL)  
+  ZSWE(IMASK) = PEK%TSNOW%WSNOW(JI,JL)
   ZSNA(IMASK) = PEK%TSNOW%ALB  (JI)
   ZSNR(IMASK) = PEK%TSNOW%RHO  (JI,JL)
   !
@@ -114,18 +114,18 @@ IF ( OINC ) THEN
 
   ! If we only do second step, we must set working SWE as input SWE
   IF ( .NOT. OINITSNOW ) ZSWE(:) = PSWE(:)
- 
+
   ! Calculate increments
   ZSWEINC(:) = ZSWE(:) - PSWE_ORIG(:)
   WRITE(*,'("  SURFRESERV.NEIGE - min, mean, max: ",3E13.4)') MINVAL(ZSWE),MAXVAL(ZSWE),SUM(ZSWE)/KI
   WRITE(*,*) 'Mean SN increments over NATURE ',SUM(ZSWEINC)/KI
 
-  ! Snow albedo and density are given initial values in points  
-  ! which get initial snow in the snow analysis 
-  WHERE ( PSWE_ORIG(:) < 1.0E-10 .AND. ZSWE(:)>= 1.0E-10 ) 
-    ZSNA(:)    = 0.5 * ( XANSMIN + XANSMAX ) 
+  ! Snow albedo and density are given initial values in points
+  ! which get initial snow in the snow analysis
+  WHERE ( PSWE_ORIG(:) < 1.0E-10 .AND. ZSWE(:)>= 1.0E-10 )
+    ZSNA(:)    = 0.5 * ( XANSMIN + XANSMAX )
     ZSNR(:)    = 0.5 * ( XRHOSMIN + XRHOSMAX )
-  END WHERE 
+  END WHERE
   !
  DO JI = 1,PK%NSIZE_P
   !

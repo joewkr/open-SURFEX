@@ -22,7 +22,7 @@ SUBROUTINE MY_FORC_MA01(HEXPER,KNI,KNPTS,                          &
 !!
 !
 !----------------------------------------------------------------------------
-!      
+!
 !*    0.     Declaration of dummy arguments
 !            ------------------------------
 !
@@ -40,7 +40,7 @@ INTEGER, INTENT(OUT)         :: KYEAR     ! year  of simulation begining
 INTEGER, INTENT(OUT)         :: KMONTH    ! month of simulation begining
 INTEGER, INTENT(OUT)         :: KDAY      ! day   of simulation begining
 REAL,    INTENT(OUT)         :: PTIME     ! time  of simulation begining (s)
-REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PCO2      ! CO2 concentration (kg/m3) 
+REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PCO2      ! CO2 concentration (kg/m3)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PDIR_SW   ! Solar direct   radiation (W/m2)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PSCA_SW   ! Solar diffused radiation (W/m2)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PLW       ! Longwave radiation (W/m2)
@@ -60,7 +60,7 @@ REAL, DIMENSION(KNI),       INTENT(OUT) :: PLAT      ! latitude  (degrees)
 !*    1.     Declaration of user local variables
 !            -----------------------------------
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! Input file:
 !
 CHARACTER(LEN=*), PARAMETER       :: YFILE_FORCIN = '../DATA/ma01/Marseille_data.txt'
@@ -80,20 +80,20 @@ INTEGER :: I ! loop counters
 !
 REAL    :: XPI
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
-!      
-!      
+!
+!
 !*    2.     Initialization of date (UTC)
 !            ------------------------------------
 !
 IF (LHOOK) CALL DR_HOOK('MODI_MY_FORC_MA01:MY_FORC_MA01',0,ZHOOK_HANDLE)
-KDAY    = 17          ! starting day 
+KDAY    = 17          ! starting day
 KMONTH  = 06          ! starting month
 KYEAR   = 2001        ! starting year
 PTIME   = 27000.       ! starting time (s)
 !
 XPI=4.*ATAN(1.)
 !-----------------------------------------------------------------------------
-!      
+!
 !      3.    grid definition
 !            ---------------
 !
@@ -101,14 +101,14 @@ PLON(:)   =  5.367
 PLAT(:)   = 43.283
 !
 !----------------------------------------------------------------------------
-!      
+!
 !        4.    orography definition
 !               --------------------
-!      
+!
 PZS(:)   = 0.
-!        
+!
 !-----------------------------------------------------------------------------
-!      
+!
 !      5.    Forcing height
 !            --------------
 !
@@ -116,12 +116,12 @@ PZREF(:)   = 43.9
 PUREF(:)   = 43.9
 !
 !----------------------------------------------------------------------------
-!      
+!
 !*      6.   Initialization of forcing variables
 !            -----------------------------------
 !
 !----------------------------------------------------------------------------
-!      
+!
 !        3.1    reading forcing file
 !               --------------------
 !
@@ -154,7 +154,7 @@ ZMV       = 18.0153E-3
 
 ZRD = ZAVOGADRO * ZBOLTZ / ZMD
 ZRV = ZAVOGADRO * ZBOLTZ / ZMV
-     
+
 IF (ZQ /= -999.) THEN
    ZRHOA = ( ZPRES - ZQ * ZRV * ZT ) / ZRD / ZT
    ZQ = 1. / ( 1. + ZRHOA / ZQ )
@@ -175,7 +175,7 @@ ENDIF
 !           ------------------------------
 !
 
-  PCO2(I,:)    = 0.000620   ! (kg/m3, equivalent to 350 ppm) 
+  PCO2(I,:)    = 0.000620   ! (kg/m3, equivalent to 350 ppm)
   PDIR_SW(I,:) = ZK
   PSCA_SW(I,:) = ZD
   PWINDSPEED(I,:) = ZWIND
@@ -213,7 +213,7 @@ CALL FILL_DATA(PPS)
 CALL FILL_DATA(PQA)
 IF (LHOOK) CALL DR_HOOK('MODI_MY_FORC_MA01:MY_FORC_MA01',1,ZHOOK_HANDLE)
 !----------------------------------------------------------------------------
-CONTAINS 
+CONTAINS
 !----------------------------------------------------------------------------
 SUBROUTINE FILL_DATA(PF)
 REAL*4, DIMENSION(:,:), INTENT(INOUT) :: PF
@@ -238,7 +238,7 @@ DO JI=1,SIZE(PF,2)
         END DO
         IMISS=0
       END IF
-    END IF 
+    END IF
   END DO
 END DO
 IF (LHOOK) CALL DR_HOOK('MODI_MY_FORC_MA01:FILL_DATA',1,ZHOOK_HANDLE)

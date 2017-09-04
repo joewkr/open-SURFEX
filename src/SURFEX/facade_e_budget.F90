@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE FACADE_E_BUDGET(TOP, T, B, DMT, PTSTEP, PDN_RD, PRHOA, PAC_WL, PAC_BLD, &
                            PLW_RAD, PPS, PEXNS, PT_CANYON, PTS_RD, PTSN_RD, PTS_GD, &
                            PTS_FL, PLW_WA_TO_WB, PLW_R_TO_WA, PLW_R_TO_WB,          &
                            PLW_G_TO_WA, PLW_G_TO_WB, PLW_S_TO_WA, PLW_S_TO_WB,      &
-                           PLW_NR_TO_WA,PLW_NR_TO_WB, PLW_WIN_TO_WA, PLW_WIN_TO_WB, &  
-                           PLW_S_TO_WIN, PLW_WA_TO_WIN, PLW_WB_TO_WIN, PLW_R_TO_WIN,& 
+                           PLW_NR_TO_WA,PLW_NR_TO_WB, PLW_WIN_TO_WA, PLW_WIN_TO_WB, &
+                           PLW_S_TO_WIN, PLW_WA_TO_WIN, PLW_WB_TO_WIN, PLW_R_TO_WIN,&
                            PLW_G_TO_WIN, PLW_NR_TO_WIN, PFLX_BLD_WL_A, PDQS_WL_A,   &
                            PFLX_BLD_WL_B, PDQS_WL_B, PEMIT_LW_FAC, PIMB_WL,         &
                            PRADHT_IN, PRAD_RF_WL, PRAD_RF_WIN, PRAD_WL_FL,          &
@@ -16,15 +16,15 @@ SUBROUTINE FACADE_E_BUDGET(TOP, T, B, DMT, PTSTEP, PDN_RD, PRHOA, PAC_WL, PAC_BL
 !
 !   ##########################################################################
 !
-!!****  *FACADE_E_BUDGET*  
+!!****  *FACADE_E_BUDGET*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the evolution of wall and window temperature from
 !     wall_layer_e_budget et window_e_budget
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
@@ -37,11 +37,11 @@ SUBROUTINE FACADE_E_BUDGET(TOP, T, B, DMT, PTSTEP, PDN_RD, PRHOA, PAC_WL, PAC_BL
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -49,8 +49,8 @@ SUBROUTINE FACADE_E_BUDGET(TOP, T, B, DMT, PTSTEP, PDN_RD, PRHOA, PAC_WL, PAC_BL
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    10/11/2011 
-!!      G. Pigeon     /09/2012: new conv. coef for indoor/outdoor 
+!!      Original    10/11/2011
+!!      G. Pigeon     /09/2012: new conv. coef for indoor/outdoor
 !!      G. Pigeon     /10/2012: new arg. : solar heat load for indoor
 !-------------------------------------------------------------------------------
 !
@@ -96,35 +96,35 @@ REAL, DIMENSION(:), INTENT(IN)    :: PTS_GD   ! green area surface temperature
 REAL, DIMENSION(:), INTENT(IN)    :: PTS_FL    ! floor layers temperatures [K]
 !
 REAL, DIMENSION(:), INTENT(IN)    :: PLW_WA_TO_WB ! LW interactions wall  -> wall (both versions)
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_R_TO_WA  ! LW interactions road -> wall ; DEF formulation 
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_R_TO_WB  ! LW interactions road -> wall ; DEF formulation 
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_R_TO_WA  ! LW interactions road -> wall ; DEF formulation
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_R_TO_WB  ! LW interactions road -> wall ; DEF formulation
 REAL, DIMENSION(:), INTENT(IN)    :: PLW_G_TO_WA  ! LW interactions garden -> wall ; DEF formulation
 REAL, DIMENSION(:), INTENT(IN)    :: PLW_G_TO_WB  ! LW interactions garden -> wall ; DEF formulation
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_S_TO_WA  ! LW interactions sky   -> wall 
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_S_TO_WB  ! LW interactions sky   -> wall 
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_NR_TO_WA ! LW interactions road(snow) -> wall 
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_NR_TO_WB ! LW interactions road(snow) -> wall 
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_WA_TO_WIN! Radiative heat trasfer coeff wall-window 
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_S_TO_WA  ! LW interactions sky   -> wall
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_S_TO_WB  ! LW interactions sky   -> wall
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_NR_TO_WA ! LW interactions road(snow) -> wall
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_NR_TO_WB ! LW interactions road(snow) -> wall
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_WA_TO_WIN! Radiative heat trasfer coeff wall-window
                                                   ! [W K-1 m-2]
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_WB_TO_WIN! Radiative heat trasfer coeff wall-window 
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_WB_TO_WIN! Radiative heat trasfer coeff wall-window
                                                   ! [W K-1 m-2]
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_S_TO_WIN ! Radiative heat trasfer coeff window-sky 
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_S_TO_WIN ! Radiative heat trasfer coeff window-sky
                                                   ! [W K-1 m-2]
 REAL, DIMENSION(:), INTENT(IN)    :: PLW_WIN_TO_WA! Radiative heat trasfer coeff window-wall
-                                                  ! [W K-1 m-2] 
+                                                  ! [W K-1 m-2]
 REAL, DIMENSION(:), INTENT(IN)    :: PLW_WIN_TO_WB! Radiative heat trasfer coeff window-wall
-                                                  ! [W K-1 m-2] 
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_R_TO_WIN ! Radiative heat trasfer coeff window-road 
+                                                  ! [W K-1 m-2]
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_R_TO_WIN ! Radiative heat trasfer coeff window-road
                                                   ! [W K-1 m-2]
 REAL, DIMENSION(:), INTENT(IN)    :: PLW_G_TO_WIN ! Radiative heat trasfer coeff window-garden
 REAL, DIMENSION(:), INTENT(IN)    :: PLW_NR_TO_WIN! Radiative heat trasfer coeff window-snow
 !
 REAL, DIMENSION(:), INTENT(OUT)   :: PFLX_BLD_WL_A! flux from bld to wall
-REAL, DIMENSION(:), INTENT(INOUT) :: PDQS_WL_A    ! heat storage inside the wall 
+REAL, DIMENSION(:), INTENT(INOUT) :: PDQS_WL_A    ! heat storage inside the wall
 REAL, DIMENSION(:), INTENT(OUT)   :: PFLX_BLD_WL_B! flux from bld to wall
-REAL, DIMENSION(:), INTENT(INOUT) :: PDQS_WL_B    ! heat storage inside the wall 
+REAL, DIMENSION(:), INTENT(INOUT) :: PDQS_WL_B    ! heat storage inside the wall
 REAL, DIMENSION(:), INTENT(OUT)   :: PEMIT_LW_FAC ! LW flux emitted by the facade (W/m2 of facade)
-REAL, DIMENSION(:), INTENT(OUT)   :: PIMB_WL    ! wall residual energy imbalance 
+REAL, DIMENSION(:), INTENT(OUT)   :: PIMB_WL    ! wall residual energy imbalance
                                                   ! for verification [W m-2]
 REAL, DIMENSION(:),   INTENT(IN)  :: PRADHT_IN     ! Indoor radiant heat transfer coefficient
                                                     ! [W K-1 m-2]
@@ -197,8 +197,8 @@ ZTI_WL_B(:) = T%XT_WALL_B(:,IWL)
 !
 PIMB_WL      = 0.5 * ZIMB_WL
 PRAD_WL_FL   = 0.5 * ZRAD_WL_FL
-PRAD_WL_MA   = 0.5 * ZRAD_WL_MA 
-PCONV_WL_BLD = 0.5 * ZCONV_WL_BLD 
+PRAD_WL_MA   = 0.5 * ZRAD_WL_MA
+PCONV_WL_BLD = 0.5 * ZCONV_WL_BLD
 ZRAD_WL_WIN  = 0.5 * ZRAD_WL_A_WIN
 !
 ! *opaque balance of the facade for wall B
@@ -211,7 +211,7 @@ IF (TOP%CWALL_OPT/='UNIF') THEN
                           PLW_R_TO_WB, PLW_G_TO_WB, PLW_NR_TO_WB, PLW_WIN_TO_WB,      &
                           PLW_S_TO_WB, PFLX_BLD_WL_B, PDQS_WL_B, DMT%XABS_LW_WALL_B,   &
                           ZEMIT_LW_WL_B, DMT%XH_WALL_B, ZIMB_WL, PRADHT_IN, PRAD_RF_WL,&
-                          ZRAD_WL_A_WIN, ZRAD_WL_FL, ZRAD_WL_MA, ZCONV_WL_BLD,        & 
+                          ZRAD_WL_A_WIN, ZRAD_WL_FL, ZRAD_WL_MA, ZCONV_WL_BLD,        &
                           PLOAD_IN_WL                                                )
 ELSE
   T%XT_WALL_B    = T%XT_WALL_A
@@ -224,8 +224,8 @@ END IF
 !
 PIMB_WL      = PIMB_WL      + 0.5 * ZIMB_WL
 PRAD_WL_FL   = PRAD_WL_FL   + 0.5 * ZRAD_WL_FL
-PRAD_WL_MA   = PRAD_WL_MA   + 0.5 * ZRAD_WL_MA 
-PCONV_WL_BLD = PCONV_WL_BLD + 0.5 * ZCONV_WL_BLD 
+PRAD_WL_MA   = PRAD_WL_MA   + 0.5 * ZRAD_WL_MA
+PCONV_WL_BLD = PCONV_WL_BLD + 0.5 * ZCONV_WL_BLD
 ZRAD_WL_WIN  = ZRAD_WL_WIN  + 0.5 * ZRAD_WL_A_WIN
 !
 !-------------------------------------------------------------------------------
@@ -238,7 +238,7 @@ IF (TOP%CBEM == 'DEF') THEN
 END IF
 !
 IF (TOP%CBEM == 'BEM') THEN
-   ZEMIS_WIN(:) = 0.84 ! From Engineering Reference documentation p219 
+   ZEMIS_WIN(:) = 0.84 ! From Engineering Reference documentation p219
                        ! (see http://apps1.eere.energy.gov/buildings/energyplus/
    ZLW_W_TO_WIN(:) = PLW_WA_TO_WIN(:) + PLW_WB_TO_WIN(:)
    ZTS_WL(:) = XUNDEF

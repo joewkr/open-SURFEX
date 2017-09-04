@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE AVERAGE_FLUX(PFRAC_TILE,             &
@@ -8,17 +8,17 @@
                    PSFTS_TILE, PSFCO2_TILE,             &
                    PSFU_TILE, PSFV_TILE,                &
                    PSFTH, PSFTQ, PSFTS, PSFCO2,         &
-                   PSFU, PSFV                           )  
+                   PSFU, PSFV                           )
 !     ######################################################################
 !
 !
-!!****  *AVERAGE_FLUX*  
+!!****  *AVERAGE_FLUX*
 !!
 !!    PURPOSE
 !!    -------
 !      Average the fluxes from the land and water surfaces depending on the
 !      fraction of each surface cover type in the mesh area.
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -26,19 +26,19 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      S. Belair           * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    10/03/95 
+!!      Original    10/03/95
 !!      V.Masson    20/03/96  remove abnormal averages and average TS**4 instead
 !!                            of TS
 !!      (J.Stein)   27/03/96 use only H and LE in the soil scheme
@@ -63,7 +63,7 @@ IMPLICIT NONE
 !
 !*      0.1    declarations of arguments
 !
-REAL, DIMENSION(:,:), INTENT(IN) :: PFRAC_TILE ! Fraction in a mesh-area of 
+REAL, DIMENSION(:,:), INTENT(IN) :: PFRAC_TILE ! Fraction in a mesh-area of
 !                                              ! a given surface
 REAL, DIMENSION(:,:), INTENT(IN) :: PSFTH_TILE ! pot. temp. flux  (mK/s)
 REAL, DIMENSION(:,:), INTENT(IN) :: PSFTQ_TILE ! water vapor flux (m kg/kg/s)
@@ -118,7 +118,7 @@ DO JTILE = 1, SIZE(PSFTH_TILE,2)
 !
    PSFU(:)  = PSFU(:) + PFRAC_TILE(:,JTILE) * PSFU_TILE(:,JTILE)
    PSFV(:)  = PSFV(:) + PFRAC_TILE(:,JTILE) * PSFV_TILE(:,JTILE)
-!   
+!
 END DO
 !
 !

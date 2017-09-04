@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################
       MODULE MODD_PREP_TEB_GREENROOF
@@ -15,14 +15,14 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
 !!
 !!    AUTHOR
 !!    ------
-!!      A. Lemonsu & C. de Munck 
+!!      A. Lemonsu & C. de Munck
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -64,7 +64,7 @@ REAL              :: XTG_SURF_GR       ! surface temperature
 REAL              :: XTG_ROOT_GR       ! root layer temperature
 REAL              :: XTG_DEEP_GR       ! deep layer temperature
 !
-LOGICAL :: LSNOW_IDEAL_GR 
+LOGICAL :: LSNOW_IDEAL_GR
 !
 REAL, DIMENSION(:), POINTER :: XWSNOW_GR         ! Snow reservoir
 REAL, DIMENSION(:), POINTER :: XRSNOW_GR         ! snow density
@@ -78,7 +78,7 @@ REAL                        :: XWR_DEF        ! default for leaves interception 
 !
 !* normalized dimensions for interpolation grids for soil
 !
-INTEGER, PARAMETER           :: NGRID_LEVEL = 6 
+INTEGER, PARAMETER           :: NGRID_LEVEL = 6
 REAL, DIMENSION(NGRID_LEVEL) :: XGRID_SOIL = (/ 0.004, 0.036, 0.068, 0.100, 0.125, 0.150/)
 !--------------------------------------------------------------------------
 !

@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ############################################################
       SUBROUTINE INIT_IDEAL_FLUX (DGO, D, DC, OREAD_BUDGETC, &
                                   HPROGRAM,HINIT,KI,KSV,KSW,     &
                                   HSV,PDIR_ALB,PSCA_ALB,        &
-                                  PEMIS,PTSRAD,PTSURF, HTEST    )  
+                                  PEMIS,PTSRAD,PTSURF, HTEST    )
 !     ############################################################
 !
-!!****  *INIT_IDEAL_FLUX * - Prescription of the surface fluxes for the temperature, 
-!!    vapor, horizontal components of the wind and the scalar variables.   
+!!****  *INIT_IDEAL_FLUX * - Prescription of the surface fluxes for the temperature,
+!!    vapor, horizontal components of the wind and the scalar variables.
 !!
 !!    PURPOSE
 !!    -------
-!       Give prescribed values of the surface fluxes for the potential 
-!     temperature, the vapor, the horizontal components of the wind and the 
-!     scalar variables. These fluxes are unsteady when a diurnal cycle 
+!       Give prescribed values of the surface fluxes for the potential
+!     temperature, the vapor, the horizontal components of the wind and the
+!     scalar variables. These fluxes are unsteady when a diurnal cycle
 !     is taken into account.
 !
 !!**  METHOD
@@ -27,12 +27,12 @@
 !!
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -40,7 +40,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    06/01/95 
+!!      Original    06/01/95
 !!      V. Masson      02/03  split the routine in two (initialization here, and run)
 !!      R. Honnert     07/10  allows reading of data in namelist
 !!      B. Decharme  04/2013 new coupling variables
@@ -71,7 +71,7 @@ USE PARKIND1  ,ONLY : JPRB
 IMPLICIT NONE
 !
 !*       0.1   declarations of arguments
-! 
+!
 !
 TYPE(DIAG_OPTIONS_t), INTENT(INOUT) :: DGO
 TYPE(DIAG_t), INTENT(INOUT) :: D
@@ -119,7 +119,7 @@ IF (LNAM_READ) THEN
  !
  CALL DEFAULT_DIAG_IDEAL(DGO%N2M, DGO%LSURF_BUDGET, DGO%L2M_MIN_ZS, DGO%LRAD_BUDGET,&
                          DGO%LCOEF, DGO%LSURF_VARS, DGO%LSURF_BUDGETC, &
-                         DGO%LRESET_BUDGETC,DGO%XDIAG_TSTEP           )  
+                         DGO%LRESET_BUDGETC,DGO%XDIAG_TSTEP           )
 
 ENDIF
 !----------------------------------------------------------------------------------
@@ -165,7 +165,7 @@ IF (.NOT.ALLOCATED(XTIMEF_f)) THEN
 !               -------
 !
   IF (HINIT=='PRE') THEN
-    CALL PREP_CTRL(DGO,ILUOUT)  
+    CALL PREP_CTRL(DGO,ILUOUT)
   ENDIF
 !
 !----------------------------------------------------------------------------------

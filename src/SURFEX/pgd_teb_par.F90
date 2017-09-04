@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_TEB_PAR (DTCO, UG, U, USS, BDD, DTT, KDIM, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -136,18 +136,18 @@ REAL                                    :: XUNIF_Z0_TOWN      ! roughness length
 REAL                                    :: XUNIF_GARDEN       ! fraction of veg in the streets   (-)
 REAL                                    :: XUNIF_GREENROOF    ! fraction of greenroofs on roofs  (-)
 REAL                                    :: XUNIF_ROAD_DIR     ! road direction (deg from North, clockwise)
- CHARACTER(LEN=28)                       :: CFNAM_BLD          ! file name for BLD 
+ CHARACTER(LEN=28)                       :: CFNAM_BLD          ! file name for BLD
  CHARACTER(LEN=28)                       :: CFNAM_BLD_HEIGHT   ! file name for BLD_HEIGHT
  CHARACTER(LEN=28)                       :: CFNAM_WALL_O_HOR   ! file name for WALL_O_HOR
  CHARACTER(LEN=28)                       :: CFNAM_Z0_TOWN      ! file name for Z0_TOWN
- CHARACTER(LEN=28)                       :: CFNAM_GARDEN       ! file name for GARDEN  
+ CHARACTER(LEN=28)                       :: CFNAM_GARDEN       ! file name for GARDEN
  CHARACTER(LEN=28)                       :: CFNAM_GREENROOF    ! file name for GREENROOF
- CHARACTER(LEN=28)                       :: CFNAM_ROAD_DIR     ! file name for ROAD_DIR  
- CHARACTER(LEN=6)                        :: CFTYP_BLD          ! file type for BLD 
+ CHARACTER(LEN=28)                       :: CFNAM_ROAD_DIR     ! file name for ROAD_DIR
+ CHARACTER(LEN=6)                        :: CFTYP_BLD          ! file type for BLD
  CHARACTER(LEN=6)                        :: CFTYP_BLD_HEIGHT   ! file type for BLD_HEIGHT
  CHARACTER(LEN=6)                        :: CFTYP_WALL_O_HOR   ! file type for WALL_O_HOR
  CHARACTER(LEN=6)                        :: CFTYP_Z0_TOWN      ! file type for Z0_TOWN
- CHARACTER(LEN=6)                        :: CFTYP_GARDEN       ! file type for GARDEN  
+ CHARACTER(LEN=6)                        :: CFTYP_GARDEN       ! file type for GARDEN
  CHARACTER(LEN=6)                        :: CFTYP_GREENROOF    ! file type for GREENROOF
  CHARACTER(LEN=6)                        :: CFTYP_ROAD_DIR     ! file type for ROAD_DIR
 !
@@ -157,15 +157,15 @@ REAL                                    :: XUNIF_ALB_ROOF     ! roof albedo     
 REAL                                    :: XUNIF_EMIS_ROOF    ! roof emissivity                  (-)
  CHARACTER(LEN=28)                       :: CFNAM_ALB_ROOF     ! file name for ALB_ROOF
  CHARACTER(LEN=28)                       :: CFNAM_EMIS_ROOF    ! file name for EMIS_ROOF
- CHARACTER(LEN=6)                        :: CFTYP_ALB_ROOF     ! file name for ALB_ROOF   
- CHARACTER(LEN=6)                        :: CFTYP_EMIS_ROOF    ! file name for EMIS_ROOF  
+ CHARACTER(LEN=6)                        :: CFTYP_ALB_ROOF     ! file name for ALB_ROOF
+ CHARACTER(LEN=6)                        :: CFTYP_EMIS_ROOF    ! file name for EMIS_ROOF
 REAL, DIMENSION(NROOF_MAX)              :: XUNIF_HC_ROOF      ! roof layers heat capacity        (J/K/m3)
 REAL, DIMENSION(NROOF_MAX)              :: XUNIF_TC_ROOF      ! roof layers thermal conductivity (W/K/m)
 REAL, DIMENSION(NROOF_MAX)              :: XUNIF_D_ROOF       ! depth of roof layers             (m)
- CHARACTER(LEN=28), DIMENSION(NROOF_MAX) :: CFNAM_HC_ROOF      ! file name for HC_ROOF   
+ CHARACTER(LEN=28), DIMENSION(NROOF_MAX) :: CFNAM_HC_ROOF      ! file name for HC_ROOF
  CHARACTER(LEN=28), DIMENSION(NROOF_MAX) :: CFNAM_TC_ROOF      ! file name for TC_ROOF
  CHARACTER(LEN=28), DIMENSION(NROOF_MAX) :: CFNAM_D_ROOF       ! file name for D_ROOF
- CHARACTER(LEN=6),  DIMENSION(NROOF_MAX) :: CFTYP_HC_ROOF      ! file type for HC_ROOF   
+ CHARACTER(LEN=6),  DIMENSION(NROOF_MAX) :: CFTYP_HC_ROOF      ! file type for HC_ROOF
  CHARACTER(LEN=6),  DIMENSION(NROOF_MAX) :: CFTYP_TC_ROOF      ! file type for TC_ROOF
  CHARACTER(LEN=6),  DIMENSION(NROOF_MAX) :: CFTYP_D_ROOF       ! file type for D_ROOF
 REAL                                    :: XUNIF_ROUGH_ROOF  ! roof roughness coef
@@ -184,10 +184,10 @@ REAL                                    :: XUNIF_EMIS_ROAD    ! road emissivity 
 REAL, DIMENSION(NROAD_MAX)              :: XUNIF_HC_ROAD      ! road layers heat capacity        (J/K/m3)
 REAL, DIMENSION(NROAD_MAX)              :: XUNIF_TC_ROAD      ! road layers thermal conductivity (W/K/m)
 REAL, DIMENSION(NROAD_MAX)              :: XUNIF_D_ROAD       ! depth of road layers             (m)
- CHARACTER(LEN=28), DIMENSION(NROAD_MAX) :: CFNAM_HC_ROAD      ! file name for HC_ROAD   
+ CHARACTER(LEN=28), DIMENSION(NROAD_MAX) :: CFNAM_HC_ROAD      ! file name for HC_ROAD
  CHARACTER(LEN=28), DIMENSION(NROAD_MAX) :: CFNAM_TC_ROAD      ! file name for TC_ROAD
  CHARACTER(LEN=28), DIMENSION(NROAD_MAX) :: CFNAM_D_ROAD       ! file name for D_ROAD
- CHARACTER(LEN=6),  DIMENSION(NROAD_MAX) :: CFTYP_HC_ROAD      ! file type for HC_ROAD   
+ CHARACTER(LEN=6),  DIMENSION(NROAD_MAX) :: CFTYP_HC_ROAD      ! file type for HC_ROAD
  CHARACTER(LEN=6),  DIMENSION(NROAD_MAX) :: CFTYP_TC_ROAD      ! file type for TC_ROAD
  CHARACTER(LEN=6),  DIMENSION(NROAD_MAX) :: CFTYP_D_ROAD       ! file type for D_ROAD
 !
@@ -202,10 +202,10 @@ REAL                                    :: XUNIF_EMIS_WALL    ! wall emissivity 
 REAL, DIMENSION(NWALL_MAX)              :: XUNIF_HC_WALL      ! wall layers heat capacity        (J/K/m3)
 REAL, DIMENSION(NWALL_MAX)              :: XUNIF_TC_WALL      ! wall layers thermal conductivity (W/K/m)
 REAL, DIMENSION(NWALL_MAX)              :: XUNIF_D_WALL       ! depth of wall layers             (m)
- CHARACTER(LEN=28), DIMENSION(NWALL_MAX) :: CFNAM_HC_WALL      ! file name for HC_WALL   
+ CHARACTER(LEN=28), DIMENSION(NWALL_MAX) :: CFNAM_HC_WALL      ! file name for HC_WALL
  CHARACTER(LEN=28), DIMENSION(NWALL_MAX) :: CFNAM_TC_WALL      ! file name for TC_WALL
  CHARACTER(LEN=28), DIMENSION(NWALL_MAX) :: CFNAM_D_WALL       ! file name for D_WALL
- CHARACTER(LEN=6),  DIMENSION(NWALL_MAX) :: CFTYP_HC_WALL      ! file type for HC_WALL   
+ CHARACTER(LEN=6),  DIMENSION(NWALL_MAX) :: CFTYP_HC_WALL      ! file type for HC_WALL
  CHARACTER(LEN=6),  DIMENSION(NWALL_MAX) :: CFTYP_TC_WALL      ! file type for TC_WALL
  CHARACTER(LEN=6),  DIMENSION(NWALL_MAX) :: CFTYP_D_WALL       ! file type for D_WALL
 REAL                                    :: XUNIF_ROUGH_WALL  ! wall roughness coef
@@ -221,7 +221,7 @@ REAL                                    :: XUNIF_H_TRAFFIC    ! anthropogenic se
 !                                                             ! heat fluxes due to traffic       (W/m2)
 REAL                                    :: XUNIF_LE_TRAFFIC   ! anthropogenic latent
 !                                                             ! heat fluxes due to traffic       (W/m2)
-REAL                                    :: XUNIF_H_INDUSTRY   ! anthropogenic sensible                   
+REAL                                    :: XUNIF_H_INDUSTRY   ! anthropogenic sensible
 !                                                             ! heat fluxes due to factories     (W/m2)
 REAL                                    :: XUNIF_LE_INDUSTRY  ! anthropogenic latent
 !                                                             ! heat fluxes due to factories     (W/m2)
@@ -538,8 +538,8 @@ IF (DTT%LDATA_BLDTYPE .AND. .NOT. DTT%LDATA_BLD_AGE) THEN
   IF (NUNIF_BLDTYPE/=NUNDEF) THEN
     WRITE(ILUOUT,*) ' NUNIF_BLDTYPE=', NUNIF_BLDTYPE
   ELSE
-    WRITE(ILUOUT,*) ' CFNAM_BLDTYPE =',CFNAM_BLDTYPE 
-    WRITE(ILUOUT,*) ' CFTYP_BLDTYPE =',CFTYP_BLDTYPE 
+    WRITE(ILUOUT,*) ' CFNAM_BLDTYPE =',CFNAM_BLDTYPE
+    WRITE(ILUOUT,*) ' CFTYP_BLDTYPE =',CFTYP_BLDTYPE
   END IF
   WRITE(ILUOUT,*) ' But            '
   WRITE(ILUOUT,*) " You did not chose to define building's age"
@@ -608,19 +608,19 @@ IF (.NOT.DTT%LDATA_EMIS_ROOF) DEALLOCATE(DTT%XPAR_EMIS_ROOF)
 !
 ALLOCATE(DTT%XPAR_HC_ROOF     (KDIM,NPAR_ROOF_LAYER))
 CALL INI_VAR_FROM_DATA(DTCO, UG, U, USS, HPROGRAM,CBLD_ATYPE,'HC_ROOF  ','TWN',&
-        CFNAM_HC_ROOF,CFTYP_HC_ROOF, XUNIF_HC_ROOF,DTT%XPAR_HC_ROOF,DTT%LDATA_HC_ROOF ) 
+        CFNAM_HC_ROOF,CFTYP_HC_ROOF, XUNIF_HC_ROOF,DTT%XPAR_HC_ROOF,DTT%LDATA_HC_ROOF )
 IF (.NOT.DTT%LDATA_HC_ROOF) DEALLOCATE(DTT%XPAR_HC_ROOF)
-! 
+!
 ALLOCATE(DTT%XPAR_TC_ROOF     (KDIM,NPAR_ROOF_LAYER))
 CALL INI_VAR_FROM_DATA(DTCO, UG, U, USS, HPROGRAM,CBLD_ATYPE,'TC_ROOF  ','TWN',&
-        CFNAM_TC_ROOF,CFTYP_TC_ROOF, XUNIF_TC_ROOF ,DTT%XPAR_TC_ROOF, DTT%LDATA_TC_ROOF ) 
+        CFNAM_TC_ROOF,CFTYP_TC_ROOF, XUNIF_TC_ROOF ,DTT%XPAR_TC_ROOF, DTT%LDATA_TC_ROOF )
 IF (.NOT.DTT%LDATA_TC_ROOF) DEALLOCATE(DTT%XPAR_TC_ROOF)
-! 
+!
 ALLOCATE(DTT%XPAR_D_ROOF      (KDIM,NPAR_ROOF_LAYER))
 CALL INI_VAR_FROM_DATA(DTCO, UG, U, USS, HPROGRAM,CBLD_ATYPE,'D_ROOF   ','TWN',&
-        CFNAM_D_ROOF,CFTYP_D_ROOF, XUNIF_D_ROOF  ,DTT%XPAR_D_ROOF , DTT%LDATA_D_ROOF ) 
+        CFNAM_D_ROOF,CFTYP_D_ROOF, XUNIF_D_ROOF  ,DTT%XPAR_D_ROOF , DTT%LDATA_D_ROOF )
 IF (.NOT.DTT%LDATA_D_ROOF) DEALLOCATE(DTT%XPAR_D_ROOF)
-! 
+!
 ALLOCATE(DTT%XPAR_ALB_ROAD    (KDIM))
 CALL INI_VAR_FROM_DATA_0D(DTCO, UG, U, USS, HPROGRAM,'ARI','ALB_ROAD   ','TWN',&
         CFNAM_ALB_ROAD  ,CFTYP_ALB_ROAD  ,XUNIF_ALB_ROAD  ,DTT%XPAR_ALB_ROAD, DTT%LDATA_ALB_ROAD  )
@@ -634,13 +634,13 @@ IF (.NOT.DTT%LDATA_EMIS_ROAD) DEALLOCATE(DTT%XPAR_EMIS_ROAD)
 ALLOCATE(DTT%XPAR_HC_ROAD     (KDIM,NPAR_ROAD_LAYER))
 CALL INI_VAR_FROM_DATA(DTCO, UG, U, USS, &
                         HPROGRAM,CBLD_ATYPE,'HC_ROAD  ','TWN',CFNAM_HC_ROAD ,CFTYP_HC_ROAD , &
-                   XUNIF_HC_ROAD ,DTT%XPAR_HC_ROAD, DTT%LDATA_HC_ROAD  )  
+                   XUNIF_HC_ROAD ,DTT%XPAR_HC_ROAD, DTT%LDATA_HC_ROAD  )
 IF (.NOT.DTT%LDATA_HC_ROAD) DEALLOCATE(DTT%XPAR_HC_ROAD)
 !
 ALLOCATE(DTT%XPAR_TC_ROAD     (KDIM,NPAR_ROAD_LAYER))
 CALL INI_VAR_FROM_DATA(DTCO, UG, U, USS, &
                         HPROGRAM,CBLD_ATYPE,'TC_ROAD  ','TWN',CFNAM_TC_ROAD ,CFTYP_TC_ROAD , &
-                   XUNIF_TC_ROAD ,DTT%XPAR_TC_ROAD, DTT%LDATA_TC_ROAD  )  
+                   XUNIF_TC_ROAD ,DTT%XPAR_TC_ROAD, DTT%LDATA_TC_ROAD  )
 IF (.NOT.DTT%LDATA_TC_ROAD) DEALLOCATE(DTT%XPAR_TC_ROAD)
 !
 ALLOCATE(DTT%XPAR_D_ROAD      (KDIM,NPAR_ROAD_LAYER))
@@ -648,7 +648,7 @@ CALL INI_VAR_FROM_DATA(DTCO, UG, U, USS, &
                         HPROGRAM,'ARI','D_ROAD   ','TWN',CFNAM_D_ROAD  ,CFTYP_D_ROAD  , &
                    XUNIF_D_ROAD  ,DTT%XPAR_D_ROAD , DTT%LDATA_D_ROAD  )
 IF (.NOT.DTT%LDATA_D_ROAD) DEALLOCATE(DTT%XPAR_D_ROAD)
-!  
+!
 ALLOCATE(DTT%XPAR_ALB_WALL    (KDIM))
 CALL INI_VAR_FROM_DATA_0D(DTCO, UG, U, USS, &
                            HPROGRAM,CBLD_ATYPE,'ALB_WALL   ','TWN',CFNAM_ALB_WALL  ,CFTYP_ALB_WALL  ,XUNIF_ALB_WALL  ,&
@@ -664,21 +664,21 @@ IF (.NOT.DTT%LDATA_EMIS_WALL) DEALLOCATE(DTT%XPAR_EMIS_WALL)
 ALLOCATE(DTT%XPAR_HC_WALL     (KDIM,NPAR_WALL_LAYER))
 CALL INI_VAR_FROM_DATA(DTCO, UG, U, USS, &
                         HPROGRAM,CBLD_ATYPE,'HC_WALL  ','TWN',CFNAM_HC_WALL ,CFTYP_HC_WALL , &
-                   XUNIF_HC_WALL ,DTT%XPAR_HC_WALL, DTT%LDATA_HC_WALL  ) 
+                   XUNIF_HC_WALL ,DTT%XPAR_HC_WALL, DTT%LDATA_HC_WALL  )
 IF (.NOT.DTT%LDATA_HC_WALL) DEALLOCATE(DTT%XPAR_HC_WALL)
-! 
+!
 ALLOCATE(DTT%XPAR_TC_WALL     (KDIM,NPAR_WALL_LAYER))
 CALL INI_VAR_FROM_DATA(DTCO, UG, U, USS, &
                         HPROGRAM,CBLD_ATYPE,'TC_WALL  ','TWN',CFNAM_TC_WALL ,CFTYP_TC_WALL , &
-                   XUNIF_TC_WALL ,DTT%XPAR_TC_WALL, DTT%LDATA_TC_WALL  ) 
+                   XUNIF_TC_WALL ,DTT%XPAR_TC_WALL, DTT%LDATA_TC_WALL  )
 IF (.NOT.DTT%LDATA_TC_WALL) DEALLOCATE(DTT%XPAR_TC_WALL)
-! 
+!
 ALLOCATE(DTT%XPAR_D_WALL      (KDIM,NPAR_WALL_LAYER))
 CALL INI_VAR_FROM_DATA(DTCO, UG, U, USS, &
                         HPROGRAM,CBLD_ATYPE,'D_WALL   ','TWN',CFNAM_D_WALL  ,CFTYP_D_WALL  , &
-                   XUNIF_D_WALL  ,DTT%XPAR_D_WALL , DTT%LDATA_D_WALL  ) 
+                   XUNIF_D_WALL  ,DTT%XPAR_D_WALL , DTT%LDATA_D_WALL  )
 IF (.NOT.DTT%LDATA_D_WALL) DEALLOCATE(DTT%XPAR_D_WALL)
-! 
+!
 ALLOCATE(DTT%XPAR_H_TRAFFIC   (KDIM))
 CALL INI_VAR_FROM_DATA_0D(DTCO, UG, U, USS, &
                            HPROGRAM,'ARI','H_TRAFFIC  ','TWN',CFNAM_H_TRAFFIC  ,CFTYP_H_TRAFFIC  ,XUNIF_H_TRAFFIC  ,&

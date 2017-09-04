@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !      ###################################################
        SUBROUTINE OI_LATLON_CONF_PROJ(NDIM,PLAT0,PLON0,PRPK,PBETA,PLATOR,PLONOR, &
-                                       PX,PY,PLAT,PLON                       )  
+                                       PX,PY,PLAT,PLON                       )
 !      ###################################################
 !
 !!****  *LATLON_CONF_PROJ * - Routine to compute geographical coordinates
@@ -13,7 +13,7 @@
 !!     -------
 !        This routine computes the latitude and longitude of
 !      an array given in cartesian conformal coordinates
-!        Five map projections are available: 
+!        Five map projections are available:
 !      - polar-stereographic from south pole  (PRPK=1),
 !      - lambert conformal from south pole  (0<PRPK<1),
 !      - mercator                             (PRPK=0),
@@ -23,9 +23,9 @@
 !
 !!**   METHOD
 !!     ------
-!!       Spherical earth approximation is used. Longitude origin is 
-!!     set in Greenwich, and is positive eastwards. An anticlockwise 
-!!     rotation of PBETA degrees is applied to the conformal frame 
+!!       Spherical earth approximation is used. Longitude origin is
+!!     set in Greenwich, and is positive eastwards. An anticlockwise
+!!     rotation of PBETA degrees is applied to the conformal frame
 !!     with respect to the geographical directions.
 !!
 !!       WARNING: ALL INPUT AND OUTPUT ANGLES ARE IN DEGREES...
@@ -37,7 +37,7 @@
 !!     REFERENCE
 !!     ---------
 !!      Asencio N. et al., 1994, "Le projet de modele non-hydrostatique
-!!            commun CNRM-LA, specifications techniques", 
+!!            commun CNRM-LA, specifications techniques",
 !!            Note CNRM/GMME, 26, 139p, (Chapter 2).
 !!      Ducrocq V., 1994, "Generation de la grille dans le modele",
 !!            Note interne MNH, 5 mai, 3p.
@@ -45,7 +45,7 @@
 !!            Internal note ARPEGE/ALADIN, february 27,28p.
 !!      Levallois J., 1970, "Geodesie generale", Tome 2, Collection
 !!             de l'IGN, Eyrolles, Paris, 408p.
-!!       
+!!
 !!     AUTHOR
 !!     ------
 !!      P.M.       *LA*
@@ -55,7 +55,7 @@
 !!       Original  PM  24/05/94
 !!       Updated   PM  27/07/94
 !!       Updated   VD  23/08/94
-!!       Updated   VM  24/10/95 projection from north pole (PRPK<0) and 
+!!       Updated   VM  24/10/95 projection from north pole (PRPK<0) and
 !!                              longitudes set between PLON0-180. and PLON0+180.
 !!       Update    VM  11/2004  externalized version
 !-------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ IMPLICIT NONE
 !
 REAL,                 INTENT(IN) :: PLAT0  ! Reference latitude
 REAL,                 INTENT(IN) :: PLON0  ! Reference longitude
-REAL,                 INTENT(IN) :: PRPK   ! projection parameter 
+REAL,                 INTENT(IN) :: PRPK   ! projection parameter
 !                                          !   K=1 : stereographic north pole
 !                                          ! 0<K<1 : Lambert, north hemisphere
 !                                          !   K=0 : Mercator
@@ -85,20 +85,20 @@ REAL,                 INTENT(IN) :: PBETA  ! angle between grid and reference lo
 REAL,                 INTENT(IN) :: PLATOR ! Latitude of the origine point
 REAL,                 INTENT(IN) :: PLONOR ! Longitude of the origine point
 REAL, DIMENSION(NDIM),   INTENT(IN) :: PX,PY
-                                           ! given conformal coordinates of the 
+                                           ! given conformal coordinates of the
                                            ! processed points (meters);
-REAL, DIMENSION(NDIM),   INTENT(OUT):: PLAT,PLON    
-                                           ! returned geographic latitudes and 
-                                           ! longitudes of the processed points 
+REAL, DIMENSION(NDIM),   INTENT(OUT):: PLAT,PLON
+                                           ! returned geographic latitudes and
+                                           ! longitudes of the processed points
                                            ! (degrees).
 INTEGER,              INTENT(IN) :: NDIM
 !
 !*     0.2    Declarations of local variables
-! 
+!
 REAL, DIMENSION(NDIM)     :: ZY
 REAL                      :: ZRPK,ZBETA,ZLAT0,ZLON0,ZLATOR,ZLONOR
 REAL                      :: ZRDSDG,ZCLAT0,ZSLAT0,ZCLATOR,ZSLATOR
-REAL                      :: ZXBM0,ZYBM0,ZRO0,ZGA0 
+REAL                      :: ZXBM0,ZYBM0,ZRO0,ZGA0
 REAL                      :: ZXP,ZYP,ZEPSI,ZT1,ZCGAM,ZSGAM,ZRACLAT0
 !
 REAL, DIMENSION(NDIM)     :: ZATA,ZRO2,ZT2,ZXMI0,ZYMI0
@@ -108,13 +108,13 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !*     1.     Preliminary calculations for all projections
 !             --------------------------------------------
-!  
+!
 IF (LHOOK) CALL DR_HOOK('OI_LATLON_CONF_PROJ',0,ZHOOK_HANDLE)
 ZRDSDG = XPI/180.             ! Degree to radian conversion factor
 ZEPSI  = 10.*EPSILON(1.)      ! A small number
 !
-! By definition, (PLONOR,PLATOR) are the geographical 
-! coordinates, and (ZXBM0,ZYBM0) the conformal cartesian 
+! By definition, (PLONOR,PLATOR) are the geographical
+! coordinates, and (ZXBM0,ZYBM0) the conformal cartesian
 ! point of coordinates (x=0,y=0).
 !
 ZXBM0 = 0.
@@ -145,7 +145,7 @@ IF(PRPK /= 0.) THEN
     ZLATOR=PLATOR
     ZLONOR=PLONOR
     ZY(:)=PY(:)
-  ENDIF    
+  ENDIF
 !
 !*     2.1    Preliminary calculations
 !
@@ -154,7 +154,7 @@ IF(PRPK /= 0.) THEN
   ZCLATOR = COS(ZRDSDG*ZLATOR)
   ZSLATOR = SIN(ZRDSDG*ZLATOR)
   ZRO0    = (XRADIUS/ZRPK)*(ABS(ZCLAT0))**(1.-ZRPK)     &
-            * ((1.+ZSLAT0)*ABS(ZCLATOR)/(1.+ZSLATOR))**ZRPK  
+            * ((1.+ZSLAT0)*ABS(ZCLATOR)/(1.+ZSLATOR))**ZRPK
   ZGA0    = (ZRPK*(ZLONOR-ZLON0)-ZBETA)*ZRDSDG
   ZXP     = ZXBM0-ZRO0*SIN(ZGA0)
   ZYP     = ZYBM0+ZRO0*COS(ZGA0)
@@ -162,7 +162,7 @@ IF(PRPK /= 0.) THEN
 !*    2.2    Longitude
 !
   WHERE  (ABS(ZY(:)-ZYP) < ZEPSI    &
-       .AND.ABS(PX(:)-ZXP) < ZEPSI)  
+       .AND.ABS(PX(:)-ZXP) < ZEPSI)
     ZATA(:) = 0.
   ELSEWHERE
     ZATA(:) = ATAN2(-(ZXP-PX(:)),(ZYP-ZY(:)))/ZRDSDG
@@ -174,7 +174,7 @@ IF(PRPK /= 0.) THEN
 !
   ZRO2(:) = (PX(:)-ZXP)**2+(ZY(:)-ZYP)**2
   ZT1     = (XRADIUS*(ABS(ZCLAT0))**(1.-ZRPK))**(2./ZRPK)   &
-            * (1+ZSLAT0)**2  
+            * (1+ZSLAT0)**2
   ZT2(:)  = (ZRPK**2*ZRO2(:))**(1./ZRPK)
   !
   PLAT(:) = (XPI/2.-ACOS((ZT1-ZT2(:))/(ZT1+ZT2(:))))/ZRDSDG
@@ -204,7 +204,7 @@ ELSE
   ZYMI0(:) = PY(:)-ZYBM0
 !
   PLON(:) = (ZXMI0(:)*ZCGAM+ZYMI0(:)*ZSGAM)     &
-            / (ZRACLAT0*ZRDSDG)+PLONOR  
+            / (ZRACLAT0*ZRDSDG)+PLONOR
 !
 !*  3.3       Latitude
 !

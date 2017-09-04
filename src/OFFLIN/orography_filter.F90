@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE OROGRAPHY_FILTER(HGRID,PGRID_PAR,PSEA,KZSFILTER,PZS)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -98,8 +98,8 @@ ALLOCATE(ZSEA(IX,IY))
 !
 DO JY=1,IY
   DO JX=1,IX
-    ZZS (JX,JY) = PZS ( JX + (JY-1)*IX ) 
-    ZSEA(JX,JY) = PSEA( JX + (JY-1)*IX ) 
+    ZZS (JX,JY) = PZS ( JX + (JY-1)*IX )
+    ZSEA(JX,JY) = PSEA( JX + (JY-1)*IX )
   END DO
 END DO
 !

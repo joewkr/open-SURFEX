@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE DIAG_CPL_ESM_SEA (S, D, DI, PTSTEP, PSFTQ, PRAIN, PSNOW, &
-                                    PLW, PSFTH_ICE, PSFTQ_ICE, PDIR_SW, PSCA_SW, OSIC)  
+                                    PLW, PSFTH_ICE, PSFTQ_ICE, PDIR_SW, PSCA_SW, OSIC)
 !     ###################################################################
 !
-!!****  *DIAG_CPL_ESM_SEA * - Computes diagnostics over sea for 
+!!****  *DIAG_CPL_ESM_SEA * - Computes diagnostics over sea for
 !!                Earth system model coupling or embedded seaice scheme
 !!
 !!    PURPOSE
@@ -18,16 +18,16 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     B. Decharme 
+!!     B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    08/2009
-!!      S.Senesi    01/2014  Adapt to embedded seaice scheme (SWU and LWU 
+!!      S.Senesi    01/2014  Adapt to embedded seaice scheme (SWU and LWU
 !!                           for seaice are provided as inputs)
 !!      A.Voldoire  04/2015  Add LCPL_SEAICE test
 !!------------------------------------------------------------------
@@ -83,7 +83,7 @@ IF (LHOOK) CALL DR_HOOK('DIAG_CPL_ESM_SEA',0,ZHOOK_HANDLE)
 !* 10m wind speed (m)
 !
 S%XCPL_SEA_WIND(:) = S%XCPL_SEA_WIND(:) + PTSTEP * SQRT(D%XZON10M(:)**2+D%XMER10M(:)**2)
-! 
+!
 !* wind stress (Pa.s)
 !
 S%XCPL_SEA_FWSU(:) = S%XCPL_SEA_FWSU(:) + PTSTEP * D%XFMU(:)
@@ -96,14 +96,14 @@ S%XCPL_SEA_SNET(:) = S%XCPL_SEA_SNET(:) + PTSTEP * (D%XSWD(:) - D%XSWU(:))
 !
 !* Non solar heat flux (J/m2)
 !
-S%XCPL_SEA_HEAT(:) = S%XCPL_SEA_HEAT(:) + PTSTEP * (D%XGFLUX(:) + D%XSWU(:) - D%XSWD(:)) 
+S%XCPL_SEA_HEAT(:) = S%XCPL_SEA_HEAT(:) + PTSTEP * (D%XGFLUX(:) + D%XSWU(:) - D%XSWD(:))
 !
 !* Evaporation (kg/m2)
 !
 S%XCPL_SEA_EVAP(:) = S%XCPL_SEA_EVAP(:) + PTSTEP * PSFTQ(:)
 !
 !* Precip (kg/m2)
-! 
+!
 S%XCPL_SEA_RAIN(:) = S%XCPL_SEA_RAIN(:) + PTSTEP * PRAIN(:)
 S%XCPL_SEA_SNOW(:) = S%XCPL_SEA_SNOW(:) + PTSTEP * PSNOW(:)
 !
@@ -138,8 +138,8 @@ IF (LCPL_SEAICE.OR.OSIC) THEN
   ELSE
     ZTICE4(:)=S%XTICE(:)**4
     S%XCPL_SEAICE_HEAT(:) = S%XCPL_SEAICE_HEAT(:) + PTSTEP * ( XEMISWATICE*(PLW(:)-XSTEFAN*ZTICE4(:)) &
-                                                         - PSFTH_ICE(:) - XLSTT*PSFTQ_ICE(:)      ) 
-  ENDIF 
+                                                         - PSFTH_ICE(:) - XLSTT*PSFTQ_ICE(:)      )
+  ENDIF
 !
 !* Sublimation (kg/m2)
 !

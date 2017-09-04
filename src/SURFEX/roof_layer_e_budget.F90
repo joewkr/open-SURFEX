@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE ROOF_LAYER_E_BUDGET(TOP, T, B, PQSAT_ROOF, PAC_BLD, PTSTEP, PDN_ROOF,   &
@@ -13,14 +13,14 @@
                                    PRAD_ROOF_MASS, PCONV_ROOF_BLD, PRR, PLOAD_IN_ROOF )
 !   ##########################################################################
 !
-!!****  *ROOF_LAYER_E_BUDGET*  
+!!****  *ROOF_LAYER_E_BUDGET*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the evoultion of surface temperature of roofs
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
@@ -33,7 +33,7 @@
 !     dTt_1(t) / dt = 1/(dt_1*Ct_1) * (  Rn - H - LE
 !                                      - 2*Kt_1*(Tt_1-Tt_2)/(dt_1 +dt_2)       )
 !
-!     dTt_k(t) / dt = 1/(dt_k*Ct_k) * (- 2*Kt_k-1*(Tt_k-Tt_k-1)/(dt_k-1 +dt_k) 
+!     dTt_k(t) / dt = 1/(dt_k*Ct_k) * (- 2*Kt_k-1*(Tt_k-Tt_k-1)/(dt_k-1 +dt_k)
 !                                      - 2*Kt_k  *(Tt_k-Tt_k+1)/(dt_k+1 +dt_k) )
 !
 !       with
@@ -66,11 +66,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -78,7 +78,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    23/01/98 
+!!      Original    23/01/98
 !!                  17/10/05 (G. Pigeon) computation of storage inside the roofs
 !!                  26/04/12 (G. Pigeon) add term of heating of rain (new arg PRR+XCL)
 !!                     09/12 (G. Pigeon) modif of indoor conv. coef and implicit calculation
@@ -222,7 +222,7 @@ DO JJ=1,SIZE(PDN_ROOF)
   !
   IF (TOP%CBEM .EQ. 'DEF') THEN
     ZMTC_O_D_ROOF_IN(JJ) = 2. * T%XTC_ROOF(JJ,IROOF_LAYER) / T%XD_ROOF (JJ,IROOF_LAYER)
-    ZMTC_O_D_ROOF_IN(JJ) = 1./(  1./ZMTC_O_D_ROOF_IN(JJ) + 1./(XCPD*PRHOA(JJ)*PAC_BLD(JJ)) ) 
+    ZMTC_O_D_ROOF_IN(JJ) = 1./(  1./ZMTC_O_D_ROOF_IN(JJ) + 1./(XCPD*PRHOA(JJ)*PAC_BLD(JJ)) )
   ENDIF
   !
 ENDDO
@@ -234,19 +234,19 @@ ZDQSAT_ROOF(:) = DQSAT(ZTS_ROOF(:),PPS(:),PQSAT_ROOF(:))
 !
 !*      2.2    coefficients
 !              ------------
-! 
+!
 DO JJ=1,SIZE(T%XT_ROOF,1)
   !
   ZB(JJ,1) = ZB(JJ,1) + ZDF_ROOF(JJ) * (1.-T%XGREENROOF(JJ)) * (                           &
                         ZIMPL * ( XCPD/PEXNS(JJ) * ZRHO_ACF_ROOF(JJ)                       &
                         + XLVTT * ZRHO_ACF_ROOF_WAT(JJ) * PDELT_ROOF(JJ) * ZDQSAT_ROOF(JJ) &
                         + XSTEFAN * T%XEMIS_ROOF(JJ) * 4.*ZTS_ROOF(JJ)**3                  &
-                        + PRR(JJ) * XCL )) !! heating/cooling of rain 
+                        + PRR(JJ) * XCL )) !! heating/cooling of rain
   !
   ZY(JJ,1) = ZY(JJ,1) + (1.-T%XGREENROOF(JJ))                                                            &
                       * (PDN_ROOF(JJ)*PGSNOW_ROOF(JJ) + ZDF_ROOF(JJ) * ( PABS_SW_ROOF(JJ)                &
                         + XCPD * ZRHO_ACF_ROOF(JJ) * ( PTA(JJ)/PEXNA(JJ) - ZEXPL*ZTS_ROOF(JJ)/PEXNS(JJ)) &
-                        + T%XEMIS_ROOF(JJ)*PLW_RAD(JJ)                                                   &                 
+                        + T%XEMIS_ROOF(JJ)*PLW_RAD(JJ)                                                   &
                         + XLVTT * ZRHO_ACF_ROOF_WAT(JJ) * PDELT_ROOF(JJ)                                 &
                           * ( PQA(JJ) - PQSAT_ROOF(JJ) + ZIMPL * ZDQSAT_ROOF(JJ) * ZTS_ROOF(JJ) )        &
                         + XSTEFAN * T%XEMIS_ROOF(JJ) * ZTS_ROOF(JJ)**4 * ( 3.*ZIMPL-ZEXPL )              &
@@ -291,7 +291,7 @@ ENDDO
 DO JJ=1,SIZE(T%XT_ROOF,1)
   !
   ZTI_ROOF_CONV(JJ) = 4./3. * ZIMPL * T%XT_ROOF(JJ, IROOF_LAYER) + 1./3. * ZTI_ROOF(JJ) * (4*ZEXPL -1.)
-  ZTI_ROOF(JJ) = ZEXPL * ZTI_ROOF(JJ) + ZIMPL * T%XT_ROOF(JJ, IROOF_LAYER) 
+  ZTI_ROOF(JJ) = ZEXPL * ZTI_ROOF(JJ) + ZIMPL * T%XT_ROOF(JJ, IROOF_LAYER)
   SELECT CASE(TOP%CBEM)
   CASE("DEF")
      PFLX_BLD_ROOF(JJ) = ZMTC_O_D_ROOF_IN(JJ) * (B%XTI_BLD(JJ) - ZTI_ROOF(JJ))
@@ -304,7 +304,7 @@ DO JJ=1,SIZE(T%XT_ROOF,1)
      PFLX_BLD_ROOF(JJ) = -(PRAD_ROOF_WALL(JJ) + PRAD_ROOF_WIN(JJ) + PRAD_ROOF_FLOOR(JJ) + &
                             PRAD_ROOF_MASS(JJ) + PCONV_ROOF_BLD(JJ))
   ENDSELECT
-  
+
   !
   !*      8.     Infra-red radiation absorbed by roofs
   !              -------------------------------------
@@ -331,7 +331,7 @@ DO JJ=1,SIZE(T%XT_ROOF,1)
   !
   PLEFREE_ROOF(JJ) = ZRHO_ACF_ROOF_WAT(JJ) * XLVTT * PDELT_ROOF(JJ) * &
                      ( PQSAT_ROOF(JJ) - PQA(JJ) +                     &
-                       ZIMPL * ZDQSAT_ROOF(JJ) * (T%XT_ROOF(JJ,1) - ZTS_ROOF(JJ)) ) 
+                       ZIMPL * ZDQSAT_ROOF(JJ) * (T%XT_ROOF(JJ,1) - ZTS_ROOF(JJ)) )
   !
   !      13.     Energy imbalance for verification
   !              ---------------------------------

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_DEFAULT_FLAKE_n (CHF, DGO, DMF, F, HPROGRAM)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      Modified    04/2013, P. Le Moigne: FLake chemistry
 !-------------------------------------------------------------------------------
 !
@@ -83,7 +83,7 @@ TYPE(FLAKE_t), INTENT(INOUT) :: F
 LOGICAL           :: GFOUND         ! Return code when searching namelist
 INTEGER           :: ILUOUT         ! output listing logical unit
 INTEGER           :: ILUDES         ! .des file logical unit
-INTEGER           :: ILU         ! 
+INTEGER           :: ILU         !
 INTEGER           :: IMI
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -119,7 +119,7 @@ IF (LNAM_READ) THEN
  CALL POSNAM(ILUDES,'NAM_DIAG_FLAKEN',GFOUND,ILUOUT)
  IF (GFOUND) READ(UNIT=ILUDES,NML=NAM_DIAG_FLAKEn)
  IF (LWATER_PROFILE .AND. count (XZWAT_PROFILE /= XUNDEF) == 0) &
-     CALL ABOR1_SFX("XZWAT_PROFILE MUST BE DEFINED IN NAMELIST NAM_DIAG_FLAKEN IF LWATER_PROFILE=T")     
+     CALL ABOR1_SFX("XZWAT_PROFILE MUST BE DEFINED IN NAMELIST NAM_DIAG_FLAKEN IF LWATER_PROFILE=T")
  CALL POSNAM(ILUDES,'NAM_CH_FLAKEN',GFOUND,ILUOUT)
  IF (GFOUND) READ(UNIT=ILUDES,NML=NAM_CH_FLAKEn)
 !

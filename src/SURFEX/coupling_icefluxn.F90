@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################################
 SUBROUTINE COUPLING_ICEFLUX_n(KI, PTA, PEXNA, PRHOA, PTICE, PEXNS,       &
@@ -11,7 +11,7 @@ SUBROUTINE COUPLING_ICEFLUX_n(KI, PTA, PEXNA, PRHOA, PTICE, PEXNS,       &
                                 PRI, PRESA, PZ0H )
 !     #######################################################################
 !
-!!****  *COUPLING_ICEFLUX_n * - Driver of the ICE_FLUX scheme   
+!!****  *COUPLING_ICEFLUX_n * - Driver of the ICE_FLUX scheme
 !!
 !!    PURPOSE
 !!    -------
@@ -21,23 +21,23 @@ SUBROUTINE COUPLING_ICEFLUX_n(KI, PTA, PEXNA, PRHOA, PTICE, PEXNS,       &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     B. DECHARME 
+!!     B. DECHARME
 !!
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    02/2010
-!!      S.Senesi    01/2014 Add numerous optional output fields (transfer 
+!!      S.Senesi    01/2014 Add numerous optional output fields (transfer
 !!                           coeff, qsat...). Optionnaly use seaice cover
 !!---------------------------------------------------------------------
 !
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 !
 USE MODI_ICE_SEA_FLUX
-! 
+!
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -66,7 +66,7 @@ REAL, DIMENSION(KI), INTENT(OUT) :: PSFTH     ! flux of heat                    
 REAL, DIMENSION(KI), INTENT(OUT) :: PSFTQ     ! flux of water vapor                   (kg/m2/s)
 !
 LOGICAL, INTENT(IN) , OPTIONAL:: OHANDLE_SIC  ! Should we output extended set of fields
-REAL, DIMENSION(KI), INTENT(IN) , OPTIONAL :: PMASK     ! Where to compute sea-ice fluxes (0./1.)  
+REAL, DIMENSION(KI), INTENT(IN) , OPTIONAL :: PMASK     ! Where to compute sea-ice fluxes (0./1.)
 !
 REAL, DIMENSION(KI), INTENT(OUT), OPTIONAL :: PQSAT     ! humidity at saturation
 REAL, DIMENSION(KI), INTENT(OUT), OPTIONAL :: PZ0       ! roughness length over the sea ice
@@ -93,7 +93,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('COUPLING_ICEFLUX_N',0,ZHOOK_HANDLE)
 PSFTH(:)=0.0
 PSFTQ(:)=0.0
-IF (PRESENT(OHANDLE_SIC)) THEN 
+IF (PRESENT(OHANDLE_SIC)) THEN
    GHANDLE_SIC=OHANDLE_SIC
 ELSE
    GHANDLE_SIC=.FALSE.
@@ -102,7 +102,7 @@ ENDIF
 IMASK(:)=0
 ISIZE   =0
 DO JJ=1,KI
-   IF (GHANDLE_SIC) THEN 
+   IF (GHANDLE_SIC) THEN
       IF(PMASK(JJ)>0.)THEN
          ISIZE=ISIZE+1
          IMASK(ISIZE)=JJ
@@ -151,7 +151,7 @@ REAL, DIMENSION(KSIZE)  :: ZPS       ! pressure at atmospheric model surface (Pa
 REAL, DIMENSION(KSIZE)  :: ZSFTH     ! flux of heat                          (W/m2)
 REAL, DIMENSION(KSIZE)  :: ZSFTQ     ! flux of water vapor                   (kg/m2/s)
 
-!        
+!
 REAL, DIMENSION(KSIZE)  :: ZZ0        ! roughness length over the sea ice
 REAL, DIMENSION(KSIZE)  :: ZQSAT      ! humidity at saturation
 REAL, DIMENSION(KSIZE)  :: ZUSTAR     ! friction velocity (m/s)
@@ -187,7 +187,7 @@ END DO
 ZZ0   (:) = XUNDEF
 ZQSAT (:) = XUNDEF
 ZUSTAR(:) = XUNDEF
-ZCD   (:) = XUNDEF    
+ZCD   (:) = XUNDEF
 ZCDN  (:) = XUNDEF
 ZCH   (:) = XUNDEF
 ZRI   (:) = XUNDEF
@@ -203,8 +203,8 @@ ZSFTQ (:) = XUNDEF
  CALL ICE_SEA_FLUX(ZZ0, ZTA, ZEXNA, ZRHOA, ZTICE, ZEXNS,      &
                     ZQA, ZRR, ZRS, ZWIND, ZZREF, ZUREF, ZPS,  &
                     ZQSAT, ZSFTH, ZSFTQ, ZUSTAR, ZCD, ZCDN,   &
-                    ZCH, ZRI, ZRESA, ZZ0H                     )  
-!                
+                    ZCH, ZRI, ZRESA, ZZ0H                     )
+!
 !-------------------------------------------------------------------------------------
 ! Outputs:
 !-------------------------------------------------------------------------------------
@@ -212,7 +212,7 @@ ZSFTQ (:) = XUNDEF
 DO JJ=1, SIZE(ZSFTH)
    PSFTH (KMASK(JJ)) = ZSFTH (JJ)
    PSFTQ (KMASK(JJ)) = ZSFTQ (JJ)
-   IF (GHANDLE_SIC) THEN 
+   IF (GHANDLE_SIC) THEN
       PQSAT (KMASK(JJ)) = ZQSAT (JJ)
       PZ0   (KMASK(JJ)) = ZZ0   (JJ)
       PUSTAR(KMASK(JJ)) = ZUSTAR(JJ)

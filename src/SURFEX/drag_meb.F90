@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ############################################################################
 !
@@ -14,10 +14,10 @@ SUBROUTINE DRAG_MEB(IO, PEK, DMK, DK, PTG, PTA, PQA, PVMOD, &
                     PLEGI_DELTA, PHSGL, PHSGF, PFLXC_C_A, PFLXC_N_A,        &
                     PFLXC_G_C, PFLXC_N_C, PFLXC_VG_C, PFLXC_VN_C, PFLXC_MOM,&
                     PQSATG, PQSATV, PQSATC, PQSATN, PDELTAVK           )
-!                    
+!
 !   ############################################################################
 !
-!!****  *DRAG_MEB*  
+!!****  *DRAG_MEB*
 !!
 !!    PURPOSE
 !!    -------
@@ -26,8 +26,8 @@ SUBROUTINE DRAG_MEB(IO, PEK, DMK, DK, PTG, PTA, PQA, PVMOD, &
 !!     for the multiple-energy balance, and Halstead coefficients.
 !!     Also estimate patch average specific and relative humidity, as well
 !!     as exchange coefficients and Richardson's number
-!!         
-!!     
+!!
+!!
 !!**  METHOD
 !!    ------
 !!
@@ -37,13 +37,13 @@ SUBROUTINE DRAG_MEB(IO, PEK, DMK, DK, PTG, PTA, PQA, PVMOD, &
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!    USE MODD_CST 
+!!    USE MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -92,8 +92,8 @@ TYPE(ISBA_PE_t), INTENT(INOUT) :: PEK
 TYPE(DIAG_t), INTENT(INOUT) :: DK
 TYPE(DIAG_MISC_ISBA_t), INTENT(INOUT) :: DMK
 !
-REAL, INTENT(IN)                 ::   PTSTEP 
-!                                     PTSTEP = Model time step (s)        
+REAL, INTENT(IN)                 ::   PTSTEP
+!                                     PTSTEP = Model time step (s)
 !
 REAL, DIMENSION(:), INTENT(IN)   :: PTG, PTA, PQA, PVMOD, PWG, PWGI, PWSAT, PWFC, &
                                     PEXNS, PEXNA, PPS, PSNOWSWE
@@ -112,8 +112,8 @@ REAL, DIMENSION(:), INTENT(IN)   :: PTG, PTA, PQA, PVMOD, PWG, PWGI, PWSAT, PWFC
 !                                     PPS = surface pressure
 !
 REAL, DIMENSION(:), INTENT(IN)   ::  PRR, PSR, PRHOA
-!                                     PRR = rain rate    
-!                                     PSR = snow rate             
+!                                     PRR = rain rate
+!                                     PSR = snow rate
 !                                     PRHOA = near-ground air density
 !
 REAL, DIMENSION(:), INTENT(IN)   :: PZ0G_WITHOUT_SNOW, &
@@ -127,7 +127,7 @@ REAL, DIMENSION(:), INTENT(IN)   :: PZ0G_WITHOUT_SNOW, &
 !                    PZ0H_MEBN          ! roughness length for heat over MEB snow part of path
 !
 REAL, DIMENSION(:), INTENT(IN)   :: PCHIP
-!                                     PCHIP = view factor (for LW) 
+!                                     PCHIP = view factor (for LW)
 !
 REAL, DIMENSION(:), INTENT(IN)   :: PRS_VG, PRS_VN, PSNCV,  &
                                     PPALPHAN, PZREF, PUREF, PDIRCOSZW
@@ -135,15 +135,15 @@ REAL, DIMENSION(:), INTENT(IN)   :: PRS_VG, PRS_VN, PSNCV,  &
 !                                     PRS_VG   = surface resistance for canopy (1-png)
 !                                     PRS_VN   = surface resistance for canopy (png)
 !                                     PSNCV   = fraction of the canopy vegetation covered by snow
-!                                     PPALPHAN = weight between canopy air flow and direct flow 
+!                                     PPALPHAN = weight between canopy air flow and direct flow
 !                                                 between snow and atmosphere
 !                                     PZREF    = reference height of the first
-!                                                atmospheric level 
+!                                                atmospheric level
 !                                     PUREF    = reference height of the wind
 !                                                NOTE this is different from ZZREF
 !                                                ONLY in stand-alone/forced mode,
 !                                                NOT when coupled to a model (MesoNH)
-!                                     PDIRCOSZW= Cosinus of the angle between 
+!                                     PDIRCOSZW= Cosinus of the angle between
 !                                                the normal to the surface and the vertical
 !
 REAL, DIMENSION(:), INTENT(IN)    :: PDELTA
@@ -153,7 +153,7 @@ REAL, DIMENSION(:), INTENT(IN)    :: PDELTA
 REAL, DIMENSION(:), INTENT(OUT)  :: PDELTAVK
 !                                     PDELTAVK = fraction of the canopy foliage covered
 !                                                by intercepted water *including* K-factor (-)
-!                                                (i.e. that the intercepted water fraction is not 
+!                                                (i.e. that the intercepted water fraction is not
 !                                                 necessarily reaching 100%)
 !
 REAL, DIMENSION(:), INTENT(OUT)  :: PVELC
@@ -171,9 +171,9 @@ REAL, DIMENSION(:), INTENT(OUT)  :: PHUGI, PHVG, PHVN, PLEG_DELTA, PLEGI_DELTA, 
 !
 !
 REAL, DIMENSION(:), INTENT(OUT)  :: PFLXC_C_A, PFLXC_N_A, PFLXC_G_C, PFLXC_N_C, PFLXC_VG_C, PFLXC_VN_C
-!  
+!
 !                                     EXCHANGE coefficients i.e. rho/resistance [kg/m2/s]
-!  
+!
 !                                    PFLXC_C_A   between canopy air and atmosphere
 !                                    PFLXC_N_A   between the snow on the ground and atmosphere
 !                                    PFLXC_G_C   between snow-free ground and canopy air
@@ -188,17 +188,17 @@ REAL, DIMENSION(:), INTENT(OUT)  :: PFLXC_MOM, PQSATG, PQSATV, PQSATC, PQSATN
 !                                    PQSATC = qsat for PEK%XTC(:)
 !                                    PQSATN = qsat for DMK%XSNOWTEMP(:)
 !
-REAL, DIMENSION(:), INTENT(OUT)  :: PRISNOW, PUSTAR2SNOW 
+REAL, DIMENSION(:), INTENT(OUT)  :: PRISNOW, PUSTAR2SNOW
 !                                    PRISNOW     = Richardson number over snow (-)
 !                                    PUSTAR2SNOW = Surface friction velocity squared  (m2 s-2)
 !                                                   Just a diagnostic, not used in coupling
 
-!                                    
+!
 !*      0.2    declarations of local variables
 !
 !
 !
-REAL, DIMENSION(SIZE(PTG)) :: ZAC,ZWFC,ZWSAT,ZFP,ZRRCOR 
+REAL, DIMENSION(SIZE(PTG)) :: ZAC,ZWFC,ZWSAT,ZFP,ZRRCOR
 !                              ZQSATG = specific humidity at saturation at ground
 !                              ZQSATN = specific humidity of snow
 !                              ZAC    =  aerodynamical conductance
@@ -208,7 +208,7 @@ REAL, DIMENSION(SIZE(PTG)) :: ZAC,ZWFC,ZWSAT,ZFP,ZRRCOR
 !                              ZRRCOR = correction of CD, CH, CDN due to moist-gustiness
 !
 REAL, DIMENSION(SIZE(PTG)) :: ZCHIL, ZLAISN, ZLW, ZDISPH, ZVELC, ZRICN, ZRA_C_A, &
-                              ZRA_G_C, ZG_VG_C, ZRA_N_C, ZG_VN_C 
+                              ZRA_G_C, ZG_VG_C, ZRA_N_C, ZG_VN_C
 !                              ZLAISN = leaf area index for snow covered ground
 !                              ZLW = leaf width
 !                              ZVELC = wind speed at top of vegetation
@@ -220,10 +220,10 @@ REAL, DIMENSION(SIZE(PTG)) :: ZCHIL, ZLAISN, ZLW, ZDISPH, ZVELC, ZRICN, ZRA_C_A,
 !                                       snowcovered (png>0), ground and canopy air
 !                              ZG_VN_C = conductance between canopy and canopy air (png)
 !
-REAL, DIMENSION(SIZE(PTG)) :: ZCHCN,ZCDNCN,ZCDCN !exchange coefficients between 
+REAL, DIMENSION(SIZE(PTG)) :: ZCHCN,ZCDNCN,ZCDCN !exchange coefficients between
 !                                                 canopy air and atmosphere
 !
-REAL, DIMENSION(SIZE(PTG)) :: ZRINN,ZRANN,ZCHNN,ZCDNNN,ZCDNN,ZTEFF,ZDELTAMAX,ZDELTAV,ZVMOD 
+REAL, DIMENSION(SIZE(PTG)) :: ZRINN,ZRANN,ZCHNN,ZCDNNN,ZCDNN,ZTEFF,ZDELTAMAX,ZDELTAV,ZVMOD
 !
 REAL, DIMENSION(SIZE(PTG)) :: ZRSGL,ZRSGF,ZZ0SN
 !                             ZRSGL = surface resistance for bare soil (currently==0)
@@ -234,11 +234,11 @@ REAL, DIMENSION(SIZE(PTG)) :: ZRSNFRAC, ZDENOM
 !                             ZRSNFRAC = fraction to prevent/reduce sublimation of snow if too thin (-)
 !                             ZDENOM   = working variable for denominator of an expression (*)
 !
-REAL, DIMENSION(SIZE(PTG)) :: ZUSTAR2G, ZCDG, ZCHG, ZRIG, ZPSNA 
+REAL, DIMENSION(SIZE(PTG)) :: ZUSTAR2G, ZCDG, ZCHG, ZRIG, ZPSNA
 !                                   ZUSTAR2G = canopy top friction velocity squared (m2/s2)
 !                                   ZCDG     = drag coefficient (-)
 !                                   ZCHG     = heat transfor coefficient (ground to canopy air) (-)
-!                                   ZRIG     = Richardson number (ground to canopy air) (-)!                             
+!                                   ZRIG     = Richardson number (ground to canopy air) (-)!
 !                                   ZPSNA    = buried (by snow) canopy fraction (-)
 !
 !*      0.3    declarations of local parameters
@@ -246,9 +246,9 @@ REAL, DIMENSION(SIZE(PTG)) :: ZUSTAR2G, ZCDG, ZCHG, ZRIG, ZPSNA
 REAL, PARAMETER            :: ZRAEPS       = 1.e-3  ! Safe limit of aerodynamic resistance to avoid dividing
 !                                                   ! by zero when calculating exchange coefficients
 REAL, PARAMETER            :: ZSNOWSWESMIN = 1.E-4  ! (kg m-2) Reduce sublimation from ground based snowpack as it
-!                                                   !          becomes vanishingly thin 
-REAL, PARAMETER            :: ZRG_COEF1    = 8.206  ! Ground/litter resistance coefficient 
-REAL, PARAMETER            :: ZRG_COEF2    = 4.255  ! Ground/litter resistance coefficient 
+!                                                   !          becomes vanishingly thin
+REAL, PARAMETER            :: ZRG_COEF1    = 8.206  ! Ground/litter resistance coefficient
+REAL, PARAMETER            :: ZRG_COEF2    = 4.255  ! Ground/litter resistance coefficient
 !
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -307,10 +307,10 @@ PHUGI(:) = 0.5 * ( 1.-COS(XPI*MIN(PWGI(:)/ZWFC(:),1.)) )
 ! there is a specific treatment for dew
 ! (see Mahfouf and Noilhan, jam, 1991)
 !
-PQSATG(:) = QSAT(PTG(:),PPS(:)) 
-PQSATV(:) = QSAT(PEK%XTV(:),PPS(:)) 
-PQSATC(:) = QSAT(PEK%XTC(:),PPS(:)) 
-PQSATN(:) = QSATI(DMK%XSNOWTEMP(:,1),PPS(:)) 
+PQSATG(:) = QSAT(PTG(:),PPS(:))
+PQSATV(:) = QSAT(PEK%XTV(:),PPS(:))
+PQSATC(:) = QSAT(PEK%XTC(:),PPS(:))
+PQSATN(:) = QSATI(DMK%XSNOWTEMP(:,1),PPS(:))
 !
 !-------------------------------------------------------------------------------
 !
@@ -332,7 +332,7 @@ DK%XHU(:) =(1.-PEK%XPSN(:)*PPALPHAN(:))*PEK%XQC(:)/PQSATC(:)+ PEK%XPSN(:)*PPALPH
 !IF (HCPSURF=='DRY') THEN
 !    PCPS(:) = XCPD
 !ELSEIF(.NOT.LCPL_ARP)THEN
-!    PCPS(:) = XCPD + ( XCPV - XCPD ) * PQA(:)   
+!    PCPS(:) = XCPD + ( XCPV - XCPD ) * PQA(:)
 !ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -365,7 +365,7 @@ IF (LRRGUST_ARP) THEN
    ZCDNCN(:) = ZCDNCN(:) * ZRRCOR(:)
 
 ENDIF
-!       
+!
 PFLXC_C_A(:)=ZCHCN(:)*ZVMOD(:)*PRHOA(:)
 !
 !
@@ -375,7 +375,7 @@ PFLXC_MOM(:)=ZCDCN(:)*ZVMOD(:)*PRHOA(:)
 !
 !Calculate the aerodynamic resistance between the snowfree part of the ground
 !and canopy air, ZRA_G_C, and the conductance between the canopy and canopy air, ZG_VG_C
-!  
+!
 CALL SURFACE_AIR_MEB(PZ0_MEBV, PZ0H_MEBV, PZ0G_WITHOUT_SNOW, PEK%XH_VEG, PEK%XLAI,   &
                      PTG, PEK%XTC, PEK%XTV, PVELC, ZLW, ZDISPH,      &
                      ZRA_G_C, ZG_VG_C, ZUSTAR2G, ZCDG, ZCHG, ZRIG         )
@@ -396,7 +396,7 @@ CALL SURFACE_AIR_MEB(PZ0_MEBN, PZ0H_MEBN, ZZ0SN, PEK%XH_VEG, ZLAISN,     &
 ! save values over snow for diagnostic purposes:
 
 PUSTAR2SNOW(:) = ZUSTAR2G(:)
-DMK%XCDSNOW(:)     = ZCDG(:)  
+DMK%XCDSNOW(:)     = ZCDG(:)
 DMK%XCHSNOW(:)     = ZCHG(:)
 PRISNOW(:)     = ZRIG(:)
 !
@@ -424,7 +424,7 @@ ENDIF
 !
 PFLXC_N_A(:)=ZCHNN(:)*ZVMOD(:)*PRHOA(:)
 !
-! The effective momentum drag: 
+! The effective momentum drag:
 !
 PFLXC_MOM(:)=(1.-PEK%XPSN(:)*PPALPHAN(:))*PFLXC_MOM(:) +  &
                  PEK%XPSN(:)*PPALPHAN(:)*ZCDNN(:)*ZVMOD(:)*PRHOA(:)
@@ -463,7 +463,7 @@ IF (LRRGUST_ARP) THEN
 ENDIF
 
 !-------------------------------------------------------------------------------
-! Now start to define the internal exchange coefficients 
+! Now start to define the internal exchange coefficients
 !-------------------------------------------------------------------------------
 !
 ! PFLXC_G_C between snow-free ground and canopy air
@@ -500,7 +500,7 @@ END WHERE
 ! becomes vanishingly thin. This is mainly just for numerical reasons within the snow scheme
 ! and has little to
 ! no impact on actual grid box average fluxes since sublimation is multiplied by the snow fraction,
-! which in this case is quite small. 
+! which in this case is quite small.
 !
 PFLXC_N_C(:)  = PFLXC_N_C(:)*MIN(1., (PSNOWSWE(:) + PSR(:)*PTSTEP)/ZSNOWSWESMIN)
 !
@@ -530,7 +530,7 @@ PHVN(:) = 1. - MAX(0.,SIGN(1.,PQSATV(:)-PEK%XQC(:)))             &
           *(1.-ZDELTAV(:))*PRS_VN(:)*ZG_VN_C(:) / (1.+PRS_VN(:)*ZG_VN_C(:))
 
 ! Diagnostics:
-! Compute an effective canopy stomatal resistance (s m-1) and Halstead Coef: 
+! Compute an effective canopy stomatal resistance (s m-1) and Halstead Coef:
 !
 DMK%XRS(:)  = PPALPHAN(:)*PRS_VN(:) + (1.0-PPALPHAN(:))*PRS_VG(:)
 DMK%XHV(:)  = PPALPHAN(:)*PHVN(:)   + (1.0-PPALPHAN(:))*PHVG(:)
@@ -540,13 +540,13 @@ DMK%XHV(:)  = PPALPHAN(:)*PHVN(:)   + (1.0-PPALPHAN(:))*PHVG(:)
 !*       6.    LITTER/GROUND RESISTANCE
 !              ------------------------
 !
-! Inclusion of a ground resistance in the computation of the ground evaporation. 
+! Inclusion of a ground resistance in the computation of the ground evaporation.
 ! We use the existing LEG_DELTA (formerly a delta function) as a Beta-type-function
 ! (based on Sellers et al., 1992, J Geophys Res)
 !
 IF (IO%LMEB_GNDRES) THEN
-  PLEG_DELTA (:) = ZRA_G_C(:) / ( ZRA_G_C(:) + EXP(ZRG_COEF1 - ZRG_COEF2 * PWG(:) / ZWSAT(:) ) ) 
-  PLEGI_DELTA(:) = ZRA_G_C(:) / ( ZRA_G_C(:) + EXP(ZRG_COEF1 - ZRG_COEF2 * PWGI(:)/ ZWSAT(:) ) ) 
+  PLEG_DELTA (:) = ZRA_G_C(:) / ( ZRA_G_C(:) + EXP(ZRG_COEF1 - ZRG_COEF2 * PWG(:) / ZWSAT(:) ) )
+  PLEGI_DELTA(:) = ZRA_G_C(:) / ( ZRA_G_C(:) + EXP(ZRG_COEF1 - ZRG_COEF2 * PWGI(:)/ ZWSAT(:) ) )
 ELSE
   PLEG_DELTA (:) = 1.0
   PLEGI_DELTA(:) = 1.0
@@ -555,11 +555,11 @@ ENDIF
 ! when hu*qsat < qa, there are two
 ! possibilities
 !
-! a) low-level air is dry, i.e., 
+! a) low-level air is dry, i.e.,
 !    qa < qsat
 !
 ! NOTE the additional delta fn's
-! here are needed owing to linearization 
+! here are needed owing to linearization
 ! of Qsat in the surface energy budget.
 !
 WHERE ( DK%XHUG(:)*PQSATG(:)  < PEK%XQC(:) .AND. PQSATG(:) > PEK%XQC(:) )

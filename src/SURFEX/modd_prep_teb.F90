@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################
       MODULE MODD_PREP_TEB
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -69,7 +69,7 @@ REAL              :: XHUI_BLD_DEF   ! default uniform building interior relative
 !
 ! Snow variables
 !
-LOGICAL :: LSNOW_IDEAL_TEB 
+LOGICAL :: LSNOW_IDEAL_TEB
 !
 REAL, DIMENSION(:), POINTER :: XWSNOW_ROOF      ! snow reservoir   for roofs
 REAL, DIMENSION(:), POINTER :: XTSNOW_ROOF      ! snow density     for roofs

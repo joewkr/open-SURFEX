@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE SFX_OASIS_INIT(HNAMELIST,KLOCAL_COMM,HINIT)
 !!
@@ -16,9 +16,9 @@ SUBROUTINE SFX_OASIS_INIT(HNAMELIST,KLOCAL_COMM,HINIT)
 !!
 !!     Depending on namelist flags for Oasis and XIOS, either call :
 !!        - XIOS_INITIALIZE alone (when LXIOS and not LOASIS) , or
-!!        - OASIS_INIT_COMP (when LOASIS) and then, depending on LXIOS, 
-!!           * either XIOS_INITALIZE  
-!!           * or OASIS_GET_LOCAL_COMM 
+!!        - OASIS_INIT_COMP (when LOASIS) and then, depending on LXIOS,
+!!           * either XIOS_INITALIZE
+!!           * or OASIS_GET_LOCAL_COMM
 !!
 !!     Note : OASIS-MCT interface must be initialized before any DR_HOOK call
 !!
@@ -29,11 +29,11 @@ SUBROUTINE SFX_OASIS_INIT(HNAMELIST,KLOCAL_COMM,HINIT)
 !!     REFERENCE
 !!     ---------
 !!
-!!     S. Valcke et al., 2013: OASIS-MCT User Guide 
+!!     S. Valcke et al., 2013: OASIS-MCT User Guide
 !!     CERFACS, Toulouse, France, 50 pp.
 !!     https://verc.enes.org/oasis/oasis-dedicated-user-support-1/documentation/oasis3-mct-user-guide
 !!
-!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 - 
+!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 -
 !!     svn co -r 515 http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS/branchs/xios-1.0 <dir> ; cd <dir>/doc ; ....
 !!
 !!
@@ -118,16 +118,16 @@ IF(PRESENT(HINIT))YINIT=HINIT
 !
 IF(LEN_TRIM(HNAMELIST)/=0)THEN
 !
-  OPEN(UNIT=11,FILE=HNAMELIST,ACTION='READ',FORM="FORMATTED",POSITION="REWIND",STATUS='OLD',IOSTAT=IERR)   
+  OPEN(UNIT=11,FILE=HNAMELIST,ACTION='READ',FORM="FORMATTED",POSITION="REWIND",STATUS='OLD',IOSTAT=IERR)
 !
   IF (IERR /= 0) THEN
     WRITE(*,'(A)' )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     WRITE(*,'(A)' )' WARNING WARNING WARNING WARNING WARNING     '
     WRITE(*,'(A)' )' ---------------------------------------     '
     WRITE(*,'(2A)')'SFX_OASIS_INIT: SFX NAMELIST FILE NOT FOUND: ',TRIM(HNAMELIST)
-    WRITE(*,'(A)' )'-------------------------------------------  '     
+    WRITE(*,'(A)' )'-------------------------------------------  '
     WRITE(*,'(A)' )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-#ifndef SFX_ARO 
+#ifndef SFX_ARO
     CALL ABORT
     STOP
 #endif
@@ -147,7 +147,7 @@ IF (LXIOS) THEN
 !
 !
 #ifdef WXIOS
-   ! NOTE : XIOS_INITIALIZE will call OASIS_INIT_COMP and 
+   ! NOTE : XIOS_INITIALIZE will call OASIS_INIT_COMP and
    ! OASIS_GET_LOCALCOMM if its own config file calls for Oasis
 !$OMP SINGLE
   CALL XIOS_INITIALIZE(CMODEL_NAME, return_comm=KLOCAL_COMM)
@@ -167,7 +167,7 @@ ELSE  ! (i.e. .NOT. LXIOS)
 
   IF (LOASIS ) THEN
     IRANK=0
-    CALL OASIS_INIT_COMP(ICOMP_ID,CMODEL_NAME,IERR)  
+    CALL OASIS_INIT_COMP(ICOMP_ID,CMODEL_NAME,IERR)
     IF (IERR/=OASIS_OK) THEN
       WRITE(*,'(A)'   )'SFX : Error initializing OASIS'
       WRITE(*,'(A,I4)')'SFX : Return code from oasis_init_comp : ',IERR
@@ -175,7 +175,7 @@ ELSE  ! (i.e. .NOT. LXIOS)
       CALL ABORT
       STOP
     ENDIF
-    CALL OASIS_GET_LOCALCOMM(KLOCAL_COMM,IERR) 
+    CALL OASIS_GET_LOCALCOMM(KLOCAL_COMM,IERR)
     IF (IERR/=OASIS_OK) THEN
       IF(IRANK==0)THEN
         WRITE(*,'(A)'   )'SFX : Error getting local communicator from OASIS'
@@ -242,10 +242,10 @@ IF (LOASIS) THEN
        IF(IRANK==0)THEN
           WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
           WRITE(*,'(A)'   )'SFX : Problem $RUNTIME empty in namcouple'
-          WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' 
+          WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
        ENDIF
        CALL ABORT
-       STOP           
+       STOP
     ENDIF
     IF (YWORD==YTIMERUN)THEN
        READ (UNIT = 11,FMT = '(A1000)',IOSTAT=IERR) YLINE
@@ -253,10 +253,10 @@ IF (LOASIS) THEN
           IF(IRANK==0)THEN
              WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
              WRITE(*,'(A)'   )'SFX : Problem looking for $RUNTIME in namcouple'
-             WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' 
+             WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
           ENDIF
           CALL ABORT
-          STOP           
+          STOP
        ENDIF
        CALL FOUND_TIMERUN (YLINE, YFOUND, 1000, GFOUND)
        IF (GFOUND) THEN
@@ -266,7 +266,7 @@ IF (LOASIS) THEN
                 WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
                 WRITE(*,'(A)'   )'SFX : Problem reading $RUNTIME in namcouple'
                 WRITE(*,'(2A)'  )'$RUNTIME = ', TRIM(YFOUND)
-                WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' 
+                WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
              ENDIF
              CALL ABORT
              STOP
@@ -290,7 +290,7 @@ SUBROUTINE FOUND_TIMERUN(HIN, HOUT, KLEN, OFOUND)
 IMPLICIT NONE
 !
 INTEGER ,          INTENT (IN   ) :: KLEN
- CHARACTER (LEN=*), INTENT (INOUT) :: HIN 
+ CHARACTER (LEN=*), INTENT (INOUT) :: HIN
  CHARACTER (LEN=*), INTENT (INOUT) :: HOUT
 LOGICAL,           INTENT (OUT  ) :: OFOUND
 !
@@ -310,18 +310,18 @@ INTEGER             :: IERR
 !        ----------------------------
 !
 DO WHILE (HIN(1:1)==YNADA)
-   READ (UNIT = 11, FMT = '(A9)',IOSTAT=IERR) YLINE 
+   READ (UNIT = 11, FMT = '(A9)',IOSTAT=IERR) YLINE
    IF(IERR/=0)THEN
        IF(IRANK==0)THEN
          WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
          WRITE(*,'(A)'   )'SFX : Problem looking for $RUNTINE line in namcouple'
-         WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' 
+         WRITE(*,'(A)'   )'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
        ENDIF
        CALL ABORT
-       STOP           
+       STOP
    ENDIF
    HIN(1:KLEN) = YLINE(1:KLEN)
-ENDDO 
+ENDDO
 !
 !* Fill HOUT with blanks
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GRID_MODIF(U,KLUOUT,KLUNAM,HGRID,KGRID_PAR,PGRID_PAR,KL)
@@ -12,7 +12,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -106,7 +106,7 @@ CONTAINS
 !-------------------------------------------------------------------------------
 !     ##########################################################
       SUBROUTINE GRID_MODIFICATION(KLUOUT,KLUNAM,HGRID,KGRID_PAR,KL,PGRID_PAR, &
-                                     KGRID_PAR2,KL2,OMODIF,PGRID_PAR2            )  
+                                     KGRID_PAR2,KL2,OMODIF,PGRID_PAR2            )
 !     ##########################################################
 !!
 !!    PURPOSE
@@ -115,7 +115,7 @@ CONTAINS
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -179,11 +179,11 @@ ALLOCATE(ZGRID_PAR2(IGRID_PAR2))
 SELECT CASE (HGRID)
   CASE ("CONF PROJ ")
     CALL GRID_MODIF_CONF_PROJ(U,KLUOUT,KLUNAM,KGRID_PAR,KL,PGRID_PAR, &
-                                       KGRID_PAR2,KL2,OMODIF,ZGRID_PAR2      )  
+                                       KGRID_PAR2,KL2,OMODIF,ZGRID_PAR2      )
 
   CASE ("CARTESIAN ")
     CALL GRID_MODIF_CARTESIAN(U,KLUOUT,KLUNAM,KGRID_PAR,KL,PGRID_PAR, &
-                                       KGRID_PAR2,KL2,OMODIF,ZGRID_PAR2      )  
+                                       KGRID_PAR2,KL2,OMODIF,ZGRID_PAR2      )
 
 END SELECT
 !

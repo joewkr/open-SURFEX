@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######################
       SUBROUTINE INIT_IO_SURF_FA_n (DTCO, U, &
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -29,7 +29,7 @@
 !!
 !!      P. Le Moigne 04/2004: distinguish in and out file name
 !!      P. Le Moigne 04/2006: special HACTION='GTMSK' to initialize
-!!                            a mask different of 'FULL ' in order 
+!!                            a mask different of 'FULL ' in order
 !!                            to read dimensions only.
 !!      B. Decharme   2008  : Change to switch between offline and online run
 !!                            In online run, the mask must be always global
@@ -51,7 +51,7 @@ USE MODD_CSTS, ONLY : XPI
 USE MODD_IO_SURF_FA,ONLY: NUNIT_FA, CFILEIN_FA,CFILEOUT_FA,CDNOMC,IVERBFA,  &
                           NLUOUT,NFULL,NFULL_EXT, CMASK, LOPEN, CFILE_FA,   &
                           NDGL, NDLON, NDLUX, NDGUX, PERPK, PEBETA,         &
-                          PELON0, PELAT0, PEDELX, PEDELY, PELON1, PELAT1 
+                          PELON0, PELAT0, PEDELX, PEDELY, PELON1, PELAT1
 !
 !
 USE MODI_ABOR1_SFX
@@ -73,8 +73,8 @@ TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
 TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 !
  CHARACTER(LEN=6),  INTENT(IN)  :: HPROGRAM
- CHARACTER(LEN=6),  INTENT(IN)  :: HMASK    
- CHARACTER(LEN=5),  INTENT(IN)  :: HACTION    
+ CHARACTER(LEN=6),  INTENT(IN)  :: HMASK
+ CHARACTER(LEN=5),  INTENT(IN)  :: HACTION
 !
 INTEGER                        :: ILU, IRET, IL
 !
@@ -127,7 +127,7 @@ IF (HACTION == 'READ ') THEN
     CMASK = 'FULL '
     CALL READ_SURF(&
                    HPROGRAM,'DIM_FULL',NFULL,IRET,HDIR='A')
-    !  
+    !
     NFULL_EXT = NFULL
     IF (HPROGRAM=='AROME ') THEN
       U%NDIM_FULL = NFULL
@@ -135,7 +135,7 @@ IF (HACTION == 'READ ') THEN
   ENDIF
   !
 ELSE
-  ! NFULL must be known in every case. 
+  ! NFULL must be known in every case.
   CALL GET_DIM_FULL_n(U%NDIM_FULL, NFULL)
   !
   CFILE_FA = CFILEOUT_FA
@@ -159,16 +159,16 @@ IF (HMASK == 'EXTZON') THEN
     PELAT0 = ZSINLA(4)*180./XPI
     PEDELX = ZSINLA(7)
     PEDELY = ZSINLA(8)
-    PELON1 = ZSINLA(13)*180./XPI 
+    PELON1 = ZSINLA(13)*180./XPI
     PELAT1 = ZSINLA(14)*180./XPI
-  ENDIF 
+  ENDIF
 ENDIF
 !
 IF (.NOT.ALLOCATED(NINDEX).AND.NRANK==NPIO) THEN
   ALLOCATE(NINDEX(NFULL))
   NINDEX(:) = 0
 ELSEIF (HMASK /= 'EXTZON') THEN
-  CALL GET_DIM_FULL_n(U%NDIM_FULL,NFULL)  
+  CALL GET_DIM_FULL_n(U%NDIM_FULL,NFULL)
 ENDIF
 !
 !------------------------------------------------------------------------------
@@ -217,13 +217,13 @@ IF (HPROGRAM=='AROME ') THEN
   CALL GET_1D_MASK(KLU,KLU,ZFULL,IMASK)
   IF (ALLOCATED(NMASK_FULL)) THEN
     IF (KLU>SIZE(NMASK_FULL)) DEALLOCATE(NMASK_FULL)
-  ENDIF  
+  ENDIF
 ELSE
   CALL GET_SURF_MASK_n(DTCO, U, &
                        HMASK,KL,IMASK,KLU,NLUOUT)
   IF (ALLOCATED(NMASK_FULL)) THEN
     IF (KL>SIZE(NMASK_FULL)) DEALLOCATE(NMASK_FULL)
-  ENDIF  
+  ENDIF
 ENDIF
 !
 IF (.NOT.ALLOCATED(NMASK_FULL)) ALLOCATE(NMASK_FULL(KLU))

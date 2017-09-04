@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE AVERAGE_DIAG_ISBA_n (DGO, D, DC, ND, NDC, NP, KNPATCH, OSURF_BUDGETC, &
@@ -8,12 +8,12 @@
 !     #######################################
 !
 !
-!!****  *AVERAGE_DIAG_ISBA_n*  
+!!****  *AVERAGE_DIAG_ISBA_n*
 !!
 !!    PURPOSE
 !!    -------
 !      Average the diagnostics from all ISBA tiles
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -21,19 +21,19 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!	S. Belair           * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    10/03/95 
+!!      Original    10/03/95
 !!      V.Masson    20/03/96  remove abnormal averages and average TS**4 instead
 !!                            of TS
 !!      (J.Stein)   27/03/96 use only H and LE in the soil scheme
@@ -124,7 +124,7 @@ IF (OSURF_BUDGETC) THEN
   !
   CALL MAKE_AVERAGE(DC,NDC)
   !
-ENDIF    
+ENDIF
 !
 !       2.     surface temperature and 2 meters parameters
 !              -------------------------------------------
@@ -137,7 +137,7 @@ DO JP=1,KNPATCH
 
     D%XTS(IMASK) = D%XTS(IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XTS(JI)
     !   Total albedo
-    D%XALBT(IMASK) = D%XALBT(IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XALBT(JI)  
+    D%XALBT(IMASK) = D%XALBT(IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XALBT(JI)
 
   ENDDO
 END DO
@@ -150,7 +150,7 @@ IF (.NOT. OCANOPY .AND. DGO%N2M>=1) THEN
   !
   DO JP=1,KNPATCH
     DO JI = 1,NP%AL(JP)%NSIZE_P
-      IMASK = NP%AL(JP)%NR_P(JI) 
+      IMASK = NP%AL(JP)%NR_P(JI)
       !
       ! 2 meters temperature
       D%XT2M(IMASK) = D%XT2M(IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XT2M(JI)
@@ -160,7 +160,7 @@ IF (.NOT. OCANOPY .AND. DGO%N2M>=1) THEN
       !
       ! 2 meters relative humidity
       D%XHU2M(IMASK) = D%XHU2M(IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XHU2M(JI)
-      ! 
+      !
     ENDDO
   END DO
   !
@@ -171,7 +171,7 @@ IF (.NOT. OCANOPY .AND. DGO%N2M>=1) THEN
   D%XWIND10M(:)  = 0.
   DO JP=1,KNPATCH
     DO JI = 1,NP%AL(JP)%NSIZE_P
-      IMASK = NP%AL(JP)%NR_P(JI)  
+      IMASK = NP%AL(JP)%NR_P(JI)
 
       D%XZON10M(IMASK)  = D%XZON10M (IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XZON10M (JI)
       D%XMER10M(IMASK)  = D%XMER10M (IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XMER10M (JI)
@@ -185,7 +185,7 @@ IF (.NOT. OCANOPY .AND. DGO%N2M>=1) THEN
     ND%AL(JP)%XT2M_MIN(:) = MIN(ND%AL(JP)%XT2M_MIN(:),ND%AL(JP)%XT2M(:))
     ND%AL(JP)%XT2M_MAX(:) = MAX(ND%AL(JP)%XT2M_MAX(:),ND%AL(JP)%XT2M(:))
   ENDDO
-  !  
+  !
   D%XT2M_MIN(:) = MIN(D%XT2M_MIN(:),D%XT2M(:))
   D%XT2M_MAX(:) = MAX(D%XT2M_MAX(:),D%XT2M(:))
   !
@@ -204,7 +204,7 @@ IF (DGO%N2M>=1) THEN
   D%XSFCO2(:)  = PSFCO2(:)
   DO JP=1,KNPATCH
     DO JI = 1,NP%AL(JP)%NSIZE_P
-      IMASK = NP%AL(JP)%NR_P(JI)    
+      IMASK = NP%AL(JP)%NR_P(JI)
       D%XRI(IMASK) = D%XRI(IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XRI(JI)
     ENDDO
   END DO
@@ -225,19 +225,19 @@ IF (DGO%LCOEF) THEN
   !
   DO JP=1,KNPATCH
     DO JI = 1,NP%AL(JP)%NSIZE_P
-      IMASK = NP%AL(JP)%NR_P(JI)    
+      IMASK = NP%AL(JP)%NR_P(JI)
       !
       D%XCD(IMASK)  = D%XCD(IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XCD(JI)
       D%XCH(IMASK)  = D%XCH(IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XCH(JI)
       D%XCE(IMASK)  = D%XCE(IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XCE(JI)
-      !            
+      !
       D%XZ0(IMASK)    = D%XZ0(IMASK)    + NP%AL(JP)%XPATCH(JI) * &
-              1./(LOG(PHW(IMASK)/ND%AL(JP)%XZ0 (JI)))**2  
+              1./(LOG(PHW(IMASK)/ND%AL(JP)%XZ0 (JI)))**2
       D%XZ0H(IMASK)   = D%XZ0H(IMASK)   + NP%AL(JP)%XPATCH(JI) * &
-              1./(LOG(PHT(IMASK)/ND%AL(JP)%XZ0H(JI)))**2   
+              1./(LOG(PHT(IMASK)/ND%AL(JP)%XZ0H(JI)))**2
       D%XZ0EFF(IMASK) = D%XZ0EFF(IMASK) + NP%AL(JP)%XPATCH(JI) * &
               1./(LOG(PHW(IMASK)/ND%AL(JP)%XZ0EFF(JI)))**2
-      !      
+      !
     ENDDO
   END DO
   !
@@ -253,8 +253,8 @@ IF (DGO%LSURF_VARS) THEN
   D%XQS(:)  = 0.
   !
   DO JP=1,KNPATCH
-    DO JI = 1,NP%AL(JP)%NSIZE_P  
-      IMASK = NP%AL(JP)%NR_P(JI)    
+    DO JI = 1,NP%AL(JP)%NSIZE_P
+      IMASK = NP%AL(JP)%NR_P(JI)
       !
       ! specific humidity at surface
       D%XQS(IMASK) = D%XQS(IMASK) + NP%AL(JP)%XPATCH(JI) * ND%AL(JP)%XQS(JI)
@@ -292,8 +292,8 @@ DA%XEVAP (:) = 0.
 DA%XSUBL (:) = 0.
 !
 DO JP=1,KNPATCH
-  DO JI = 1,NP%AL(JP)%NSIZE_P 
-    IMASK = NP%AL(JP)%NR_P(JI) 
+  DO JI = 1,NP%AL(JP)%NSIZE_P
+    IMASK = NP%AL(JP)%NR_P(JI)
     !
     ! Net radiation
     DA%XRN   (IMASK) = DA%XRN   (IMASK) + NP%AL(JP)%XPATCH(JI) * NDA%AL(JP)%XRN(JI)
@@ -308,7 +308,7 @@ DO JP=1,KNPATCH
     DA%XGFLUX(IMASK) = DA%XGFLUX(IMASK) + NP%AL(JP)%XPATCH(JI) * NDA%AL(JP)%XGFLUX(JI)
     !
     ! Total surface sublimation
-    DA%XLEI  (IMASK) = DA%XLEI  (IMASK) + NP%AL(JP)%XPATCH(JI) * NDA%AL(JP)%XLEI(JI)          
+    DA%XLEI  (IMASK) = DA%XLEI  (IMASK) + NP%AL(JP)%XPATCH(JI) * NDA%AL(JP)%XLEI(JI)
     !
     ! Evapotranspiration
     DA%XEVAP (IMASK) = DA%XEVAP (IMASK) + NP%AL(JP)%XPATCH(JI) * NDA%AL(JP)%XEVAP(JI)

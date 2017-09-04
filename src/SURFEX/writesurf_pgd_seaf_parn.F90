@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_PGD_SEAF_PAR_n (HSELECT, DTS, HPROGRAM)
 !     ################################################
 !
 !!****  *WRITESURF_PGD_SEAF_PAR_n* - writes SEAFLUX sst
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    09/2007 
+!!      Original    09/2007
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #####################
       MODULE MODD_CH_ISBA_n
@@ -9,8 +9,8 @@
 !!
 !!    PURPOSE
 !!    -------
-!     
-!   
+!
+!
 !
 !!
 !!**  IMPLICIT ARGUMENTS
@@ -41,10 +41,10 @@ TYPE CH_ISBA_t
 !
   CHARACTER(LEN=28)  :: CCHEM_SURF_FILE  ! name of general (chemical) purpose ASCII input file
   CHARACTER(LEN=6)                :: CCH_DRY_DEP            !  deposition scheme
-  REAL, DIMENSION(:,:), POINTER :: XDEP                   ! final dry deposition  
+  REAL, DIMENSION(:,:), POINTER :: XDEP                   ! final dry deposition
                                                             ! velocity  for nature
   REAL, DIMENSION(:),   POINTER :: XSOILRC_SO2            ! for SO2
-  REAL, DIMENSION(:),   POINTER :: XSOILRC_O3             ! for O3                                                            
+  REAL, DIMENSION(:),   POINTER :: XSOILRC_O3             ! for O3
   LOGICAL                         :: LCH_BIO_FLUX           ! flag for the calculation of
                                                             ! biogenic fluxes
   LOGICAL                         :: LCH_NO_FLUX            ! flag for the calculation of
@@ -55,7 +55,7 @@ TYPE CH_ISBA_t
                                                             ! (FOR DIAG ONLY)
   CHARACTER(LEN=6), DIMENSION(:), POINTER :: CAER_NAMES     ! NAME OF CHEMICAL SPECIES
   CHARACTER(LEN=6), DIMENSION(:), POINTER :: CDSTNAMES      ! NAME OF CHEMICAL SPECIES
-  CHARACTER(LEN=6), DIMENSION(:), POINTER :: CSLTNAMES      ! NAME OF CHEMICAL SPECIES                                                            
+  CHARACTER(LEN=6), DIMENSION(:), POINTER :: CSLTNAMES      ! NAME OF CHEMICAL SPECIES
 !
 END TYPE CH_ISBA_t
 !
@@ -96,7 +96,7 @@ IF (LHOOK) CALL DR_HOOK("MODD_CH_ISBA_N:CH_ISBA_NP_INIT",0,ZHOOK_HANDLE)
 IF (ASSOCIATED(YCH_ISBA_NP%AL)) THEN
   DO JP = 1,KPATCH
     CALL CH_ISBA_INIT(YCH_ISBA_NP%AL(JP))
-  ENDDO        
+  ENDDO
   DEALLOCATE(YCH_ISBA_NP%AL)
 ELSE
   ALLOCATE(YCH_ISBA_NP%AL(KPATCH))

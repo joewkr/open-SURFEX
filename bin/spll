@@ -1,7 +1,7 @@
 #!/bin/sh
 #SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 #SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 #SFX_LIC for details. version 1.
 #set -x
 if [ $# -ne 2 ]
@@ -50,9 +50,9 @@ cp  "$file" "$TMP/$BASENAME"
 echo DIRNAME="$DIRNAME" BASENAME="$BASENAME"
 
 #
-# Split des sources  
+# Split des sources
 #
-( 
+(
 cd "$TMP"
 spl "${BASENAME}" > liste_file
 cat liste_file
@@ -67,7 +67,7 @@ then
 if ! echo $BASENAME | egrep  -i $FILE_WITHOUT_INTERFACE_NEDEED > /dev/null 2>/dev/null
 then
     while read sfile
-    do 
+    do
         if [ "$SUF" = "f90" ]
         then
             make_intfbl_f90.pl "$sfile" >/dev/null
@@ -86,14 +86,14 @@ egrep -v "liste_file"  liste_file > liste_file2
 #
 # generation des dependances
 #
-( 
+(
 cd "$TMP"
 echo "#===========  $BASENAME2.$SUF dependence ==========================" > "$DIRNAME/$BASENAME2.D"
 
 cat liste_file2 |while read sfile
-do 
+do
 #
-# preparation of splitted file 
+# preparation of splitted file
 #
 base=$(echo "$sfile" | awk -F'.' '{print$1}')
 spllbase="spll_$base"
@@ -104,20 +104,20 @@ echo "#---------------------- splitted $spllfile dependence -----------" >> "$DI
 #
     tcheck=$(grep -l '^[^\!]*\$n' "$sfile")
     if [ "$tcheck" != "" ]
-    then 
-#   clonage of "$n" file 
+    then
+#   clonage of "$n" file
         iloop=0
         while [ "$iloop" -lt "$NSOURCE" ]
-        do 
+        do
             iloop=$((iloop+1))
             sed -e 's/$n/'"$iloop"'/g' "$sfile" >> "$spllfile"
-        done 
+        done
     else
     cat "$sfile" >> "$spllfile"
-    fi 
+    fi
 #
 # if splitted file differente of old one, update ...
-# 
+#
 
 tcheck=$(diff "$spllfile" "$DIRNAME/$spllfile" 2>&1)
 if [ "$tcheck" != "" ]

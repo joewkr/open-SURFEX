@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_NEAR_MESHES_CARTESIAN(KGRID_PAR,KL,PGRID_PAR,KNEAR_NBR,KNEAR)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -75,7 +75,7 @@ IF (IIMAX*IJMAX==KL) THEN
       ICOUNT = 0
       JL = JI + IIMAX * (JJ-1)
       IF (NINDEX(JL)==NRANK) THEN
-        KNEAR(NNUM(JL),:) = 0      
+        KNEAR(NNUM(JL),:) = 0
         DO JX=-(IDIST-1)/2,IDIST/2
           DO JY=-(IDIST-1)/2,IDIST/2
             IF (JI+JX>0 .AND. JI+JX<IIMAX+1 .AND. JJ+JY>0 .AND. JJ+JY<IJMAX+1) THEN

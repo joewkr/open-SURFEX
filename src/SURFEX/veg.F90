@@ -1,25 +1,25 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE VEG( PSW_RAD, PTA, PQA, PPS, PRGL, PLAI, PRSMIN,              &
-                  PGAMMA, PF2, PRS                                         )  
+                  PGAMMA, PF2, PRS                                         )
 !     ####################################################################
 !
-!!****  *VEG*  
+!!****  *VEG*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates the surface stomatal resistance Rs
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
 !     First calculates the F coefficients (i.e., f, F1, F2, F3, and F4).
-!     
+!
 !     Then, we have
 !
 !     Rs = Rsmin / ( F1 F2 F3 F4 LAI )
@@ -30,17 +30,17 @@ SUBROUTINE VEG( PSW_RAD, PTA, PQA, PPS, PRGL, PLAI, PRSMIN,              &
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!    none
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Noilhan and Planton (1989)
 !!    Belair (1995)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -48,7 +48,7 @@ SUBROUTINE VEG( PSW_RAD, PTA, PQA, PPS, PRGL, PLAI, PRSMIN,              &
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original      13/03/95 
+!!      Original      13/03/95
 !!     (P.Jabouille)  13/11/96    mininum value for ZF1
 !!     (V. Masson)    28/08/98    add PF2 for Calvet (1998) CO2 computations
 !!     (V. Masson)    01/03/03    puts PF2 in a separate routine
@@ -90,7 +90,7 @@ REAL, DIMENSION(:), INTENT(OUT)  :: PRS      ! ground stomatal resistance
 !*      0.2    declarations of local variables
 !
 REAL, DIMENSION(SIZE(PSW_RAD)) :: ZF, ZF1, ZF2, ZF3, ZF4
-!                                           temporary factors necessary to 
+!                                           temporary factors necessary to
 !                                           calculate the surface stomatao resistance
 !
 REAL, DIMENSION(SIZE(PSW_RAD)) :: ZQSAT
@@ -100,7 +100,7 @@ REAL, DIMENSION(SIZE(PSW_RAD)) :: ZQSAT
 !*      0.3    declarations of local parameters:
 !
 REAL, PARAMETER                :: ZFACTR_MIN  = 1.E-3  ! minimum value for some parameters
-!                                                      ! to prevent from being too small 
+!                                                      ! to prevent from being too small
 REAL, PARAMETER                :: ZRS_MIN     = 1.E-4  ! minimum canopy resistance (s m-1)
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -141,7 +141,7 @@ ZF2(:) = MAX(XDENOM_MIN,PF2(:))
 !                                      vapor pressure deficit of the atmosphere.
 !                                      For very humid air, the stomatal resistance
 !                                      is a small, whereas it increases as the
-!                                      air is drier. 
+!                                      air is drier.
 !
 !
 ZQSAT(:) = QSAT(PTA(:),PPS(:))
@@ -166,7 +166,7 @@ ZF4(:) = MAX( 1.0 - 0.0016*(298.15-PTA(:))**2, ZFACTR_MIN )
 ! otherwise use Jacobs/ISBA-Ags method (see routine COTWORES)
 !
 PRS(:) = PRSMIN(:) / ( PLAI(:)+ XDENOM_MIN )          &
-            / ZF1(:) / ZF2(:) /ZF3(:) / ZF4(:)  
+            / ZF1(:) / ZF2(:) /ZF3(:) / ZF4(:)
 !
 PRS(:) = MIN( PRS(:), XRS_MAX)
 PRS(:) = MAX( PRS(:), ZRS_MIN)

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################
       SUBROUTINE PGD_SURF_ATM (YSC,HPROGRAM,HFILE,HFILETYPE,OZS)
@@ -12,7 +12,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -110,7 +110,7 @@ CPROGNAME=HPROGRAM
 !
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !
-!*    1.      Set default constant values 
+!*    1.      Set default constant values
 !             ---------------------------
 !
 !*    1.2     surface schemes
@@ -188,28 +188,28 @@ ENDIF
 !*    5.      Additionnal fields for nature scheme
 !             ------------------------------------
 !
-IF (YSC%U%NDIM_NATURE>0) CALL PGD_NATURE(YSC%DTCO, YSC%DTZ, YSC%IM, YSC%UG, YSC%U, YSC%USS, HPROGRAM)  
+IF (YSC%U%NDIM_NATURE>0) CALL PGD_NATURE(YSC%DTCO, YSC%DTZ, YSC%IM, YSC%UG, YSC%U, YSC%USS, HPROGRAM)
 !_______________________________________________________________________________
 !
 !*    6.      Additionnal fields for town scheme
 !             ----------------------------------
 !
 IF (YSC%U%NDIM_TOWN>0) CALL PGD_TOWN(YSC%DTCO, YSC%UG, YSC%U, YSC%USS, &
-                                     YSC%IM%DTV, YSC%TM, YSC%GDM, YSC%GRM, HPROGRAM)  
+                                     YSC%IM%DTV, YSC%TM, YSC%GDM, YSC%GRM, HPROGRAM)
 !_______________________________________________________________________________
 !
 !*    7.      Additionnal fields for inland water scheme
 !             ------------------------------------------
 !
 IF (YSC%U%NDIM_WATER>0) CALL PGD_INLAND_WATER(YSC%DTCO, YSC%FM%G, YSC%FM%F, YSC%UG, YSC%U, &
-                                              YSC%USS, YSC%WM%G, YSC%WM%W, HPROGRAM,LRM_RIVER)   
+                                              YSC%USS, YSC%WM%G, YSC%WM%W, HPROGRAM,LRM_RIVER)
 !_______________________________________________________________________________
 !
 !*    8.      Additionnal fields for sea scheme
 !             ---------------------------------
 !
 IF (YSC%U%NDIM_SEA>0) CALL PGD_SEA(YSC%DTCO, YSC%SM%DTS, YSC%SM%G, YSC%SM%S, &
-                                   YSC%UG, YSC%U, YSC%USS, HPROGRAM)  
+                                   YSC%UG, YSC%U, YSC%USS, HPROGRAM)
 !_______________________________________________________________________________
 !
 !*    9.      Dummy fields

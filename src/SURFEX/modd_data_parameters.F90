@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 ! File %M% from Library %Q%
 ! Version %I% from %G% extracted: %H%
@@ -53,7 +53,7 @@ IMPLICIT NONE
                      ! number of desired significant digits for
                      ! real variables
                      ! corresponds to 8 byte real variables
-         iintegers = KIND  (1)  
+         iintegers = KIND  (1)
                      ! kind-type parameter of the integer values
                      ! corresponds to the default integers
 

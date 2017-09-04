@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE DUSTFLUX_GET(            &
          PUSTAR,                    &
-         PRHOA,                     & 
-         PWG,                       & 
+         PRHOA,                     &
+         PWG,                       &
          PZ0,                       &
          PWSAT,                     &
          PCLAY,                     &
@@ -13,9 +13,9 @@ SUBROUTINE DUSTFLUX_GET(            &
          PWIND10M,                  &
          PSFDST,                    &
          KSIZE                      &
-         )  
+         )
 !
-!PURPOSE: 
+!PURPOSE:
 !Take input from ISBA land surface model and
 !calculate a dust flux which is consistent with the input.
 
@@ -65,7 +65,7 @@ REAL, INTENT(OUT), DIMENSION(KSIZE)  :: PSFDST   ! [kg m-2 s-1] Output flux of a
 !Define local variables:
 LOGICAL, DIMENSION(KSIZE) :: GFLG_MBL                  ! [frc] Mobilization candidate flag
 REAL,    DIMENSION(KSIZE) :: ZMBL_BSN_FCT              ! [frc] enhancement factor for grid cells with higher erodibility
-!REAL,    DIMENSION(KSIZE) :: ZWND_RFR                  ! [m s-1] wind speed at reference level 
+!REAL,    DIMENSION(KSIZE) :: ZWND_RFR                  ! [m s-1] wind speed at reference level
 REAL,    DIMENSION(KSIZE) :: ZWND_FRC_THR_SLT          ! [m/s] Threshold wind friction speed when all effects taken into account
 REAL,    DIMENSION(KSIZE) :: ZGWC_SFC                  ! [kg/kg] Gravimetric water content
 REAL,    DIMENSION(KSIZE) :: ZGWC_THR                  ! [kg kg-1] Threshold gravimetric water content
@@ -74,14 +74,14 @@ REAL,    DIMENSION(KSIZE) :: ZFRC_THR_NCR_DRG          ! [frc] fraction by which
 REAL,    DIMENSION(KSIZE) :: ZWND_FRC_SLT              ! [m/s] wind friction speed after modified for saltation feedbacks
 !REAL,    DIMENSION(KSIZE) :: ZWND_RFR_THR_SLT          ! [m s-1] Threshold wind speed at reference level
 REAL,    DIMENSION(KSIZE) :: ZCOEF
-REAL,    DIMENSION(KSIZE) :: ZFLX_MSS_HRZ_SLT_TTL_WBN  ! [kg m-1 s-1] Vertically integrated horizontal saltation soil flux for a wind bin 
+REAL,    DIMENSION(KSIZE) :: ZFLX_MSS_HRZ_SLT_TTL_WBN  ! [kg m-1 s-1] Vertically integrated horizontal saltation soil flux for a wind bin
 REAL,    DIMENSION(KSIZE) :: ZFLX_MSS_VRT_DST_TTL_WBN  ! [kg m-2 s-1]
 REAL,    DIMENSION(KSIZE) :: ZDST_SLT_FLX_RAT_TTL      ! [m-1] ratio of vertical to horizontal flux (alpha in several papers)
 !
 real  :: ZCLAY(KSIZE)
 INTEGER         :: I                    !Counter for number of points (used in loops)
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
-    
+
 !Allocate the local variables
 IF (LHOOK) CALL DR_HOOK('DUSTFLUX_GET',0,ZHOOK_HANDLE)
 !
@@ -91,25 +91,25 @@ GFLG_MBL(:) = .TRUE.
 !fxm: Get erodibility limitation factor, use something connected to amount of sand
 !Discuss with Valery Masson
 ZMBL_BSN_FCT(:) = PSAND(:)
-! utilisé dans le calcul de l'effet Owen 
-!ZWND_RFR(:) = PWIND10M(:)   
+! utilisé dans le calcul de l'effet Owen
+!ZWND_RFR(:) = PWIND10M(:)
 !
 !Initialize vertical dust flux
 ZFLX_MSS_VRT_DST_TTL_WBN(:) = 0.d0
 !
-! Old Alf Grini code: bug on DEAD detected ? 
+! Old Alf Grini code: bug on DEAD detected ?
 ! Modification proposed by M. Mokhtari.. Accepted for all cases
 !  if (CVERMOD=='CMDVER') then
 ZGWC_THR(:) = MIN(0.14,MAX(0.02,3. * PCLAY(:) * (0.17 + 0.14 * PCLAY(:))))
 !ZGWC_THR(:) = PCLAY(:) * (0.17d0 + 0.14d0 * PCLAY(:))
-!  else 
+!  else
 ! gwc_thr=mss_frc_cly*(0.17d0+0.14d0*mss_frc_cly) ! [m3 m-3] FMB99 p. 155 (14)
 ! fxm: 19991105 remove factor of mss_frc_cly from gwc_thr to improve large scale behavior
-! Begin Old Alf code 
-!   gwc_thr(lon_idx)=0.17d0+0.14d0*mss_frc_cly(lon_idx) ! [m3 m-3] 
+! Begin Old Alf code
+!   gwc_thr(lon_idx)=0.17d0+0.14d0*mss_frc_cly(lon_idx) ! [m3 m-3]
 !  endif
 !
-! Factor by which surface roughness increases threshold friction velocity 
+! Factor by which surface roughness increases threshold friction velocity
 !++grini: fxm: USE WHOLE ARRAY OF Z0 INSTEAD OF ONLY RGH_MMN_MBL AS IN OLD CODE
 DO I = 1,SIZE(PZ0)
   CALL FRC_THR_NCR_DRG_GET(PZ0(I), XRGH_MMN_SMT, ZFRC_THR_NCR_DRG(I))
@@ -134,7 +134,7 @@ ENDDO
 !do i=1,KSIZE
 !   if (flg_mbl(i)) then
 !      wnd_rfr_thr_slt(i)= & ! [m s-1] Threshold 10 m wind speed for saltation
-!           wnd_rfr(i)*wnd_frc_thr_slt(i)/PUSTAR(i) !++alfgr 
+!           wnd_rfr(i)*wnd_frc_thr_slt(i)/PUSTAR(i) !++alfgr
 !   endif                  ! endif flg_mbl
 !end do                    ! end loop over lon
 
@@ -149,11 +149,11 @@ ENDDO
 !     wnd_rfr_thr_slt) ! I [m s-1] Threshold 10 m wind speed for saltation
 !
 !
-!Skip the roughening of surface effect for now, and 
+!Skip the roughening of surface effect for now, and
 !just use the wind friction speed as it is modified
 !by drag partitioning
-ZWND_FRC_SLT(:) = PUSTAR(:) / ZFRC_THR_NCR_DRG(:) 
-! 
+ZWND_FRC_SLT(:) = PUSTAR(:) / ZFRC_THR_NCR_DRG(:)
+!
 ! Horizontal streamwise mass flux for old "bulk" formulation
 ZCOEF(:) = XCST_SLT
  CALL FLX_MSS_HRZ_SLT_TTL_WHI79_GET(ZCOEF, GFLG_MBL, PRHOA, ZWND_FRC_SLT, &
@@ -164,11 +164,11 @@ DO I = 1, KSIZE
   ZFLX_MSS_HRZ_SLT_TTL_WBN(I) = ZFLX_MSS_HRZ_SLT_TTL_WBN(I) & ! [kg m-2 s-1]
             !*lnd_frc_mbl(i) & ! [frc] Bare ground fraction
                                 * ZMBL_BSN_FCT(I)           & ! [frc] Erodibility factor
-                                * XFLX_MSS_FDG_FCT            ! [frc] Global mass flux tuning factor (empirical) 
+                                * XFLX_MSS_FDG_FCT            ! [frc] Global mass flux tuning factor (empirical)
 ENDDO
-!    
+!
 ! Vertical dust mass flux
- CALL FLX_MSS_VRT_DST_TTL_MAB95_GET(GFLG_MBL, ZCLAY, ZFLX_MSS_HRZ_SLT_TTL_WBN, & 
+ CALL FLX_MSS_VRT_DST_TTL_MAB95_GET(GFLG_MBL, ZCLAY, ZFLX_MSS_HRZ_SLT_TTL_WBN, &
         ZDST_SLT_FLX_RAT_TTL, ZFLX_MSS_VRT_DST_TTL_WBN)
 !
 !Assign the output vertical dust flux to the value calculated

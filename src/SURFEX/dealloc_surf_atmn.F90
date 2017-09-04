@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
 SUBROUTINE DEALLOC_SURF_ATM_n (YSC)
@@ -16,11 +16,11 @@ SUBROUTINE DEALLOC_SURF_ATM_n (YSC)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -79,10 +79,10 @@ CALL DATA_TSZ0_INIT(YSC%DTZ)
 CALL DUMMY_SURF_FIELDS_INIT(YSC%DUU)
   !
 CALL SURF_ATM_GRID_INIT(YSC%UG)
-CALL DIAG_OPTIONS_INIT(YSC%DUO) 
-CALL DIAG_INIT(YSC%DU) 
+CALL DIAG_OPTIONS_INIT(YSC%DUO)
+CALL DIAG_INIT(YSC%DU)
 CALL DIAG_INIT(YSC%DUC)
-CALL DIAG_NP_INIT(YSC%DUP,0) 
+CALL DIAG_NP_INIT(YSC%DUP,0)
 CALL DIAG_NP_INIT(YSC%DUPC,0)
 CALL SSO_INIT(YSC%USS)
 CALL CANOPY_INIT(YSC%SB)
@@ -92,10 +92,10 @@ CALL DIAG_INIT(YSC%DLC)
 CALL IDEAL_INIT(YSC%L)
   !
 CALL SV_INIT(YSC%SV)
-CALL CH_SURF_INIT(YSC%CHU)  
+CALL CH_SURF_INIT(YSC%CHU)
 CALL CH_EMIS_FIELD_INIT(YSC%CHE)
 CALL CH_EMIS_SNAP_INIT(YSC%CHN)
-CALL EMIS_GR_FIELD_INIT(YSC%EGF)  
+CALL EMIS_GR_FIELD_INIT(YSC%EGF)
 CALL SLT_INIT(YSC%SLT)
 !
 CALL DST_NP_INIT(YSC%NDST,0)

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
 MODULE MODE_WRITE_SURF_LFI
@@ -23,8 +23,8 @@ INTERFACE WRITE_SURFN_LFI
 END INTERFACE
 INTERFACE WRITE_SURFT_LFI
         MODULE PROCEDURE WRITE_SURFT0_LFI
-        MODULE PROCEDURE WRITE_SURFT1_LFI 
-        MODULE PROCEDURE WRITE_SURFT2_LFI        
+        MODULE PROCEDURE WRITE_SURFT1_LFI
+        MODULE PROCEDURE WRITE_SURFT2_LFI
 END INTERFACE
 !
 CONTAINS
@@ -244,7 +244,7 @@ END SUBROUTINE WRITE_SURFC0_LFI
                                    HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 1D array for the externalised surface 
+!!****  * - routine to fill a write 1D array for the externalised surface
 !
 !
 !
@@ -302,7 +302,7 @@ IF (GFOUND .AND. LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_LFI:WRITE_SURFX1_LFI',1,ZH
 IF (GFOUND) RETURN
 !
 IF (HDIR=='H') CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK,NMASK)
-!  
+!
 !
 IF (NRANK==NPIO) THEN
   !
@@ -319,7 +319,7 @@ IF (NRANK==NPIO) THEN
       CALL ERROR_WRITE_SURF_LFI(HREC,KRESP)
     ELSE
       !
-!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)  
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)
 !$OMP DO PRIVATE(JJ,JI)
       DO JJ=1,NJE-NJB+1
         DO JI=1,NIE-NIB+1
@@ -327,12 +327,12 @@ IF (NRANK==NPIO) THEN
         END DO
       END DO
 !$OMP END DO
-!$OMP END PARALLEL      
+!$OMP END PARALLEL
       !
       ZWORK2D(1:NIB-1,:) = ZUNDEF
       ZWORK2D(:,NJE+1:NJU) = ZUNDEF
       ZWORK2D(:,1:NJB-1) = ZUNDEF
-      ZWORK2D(NIE+1:NIU,:) = ZUNDEF      
+      ZWORK2D(NIE+1:NIU,:) = ZUNDEF
       !
       IF     (HREC=='DX              ' .OR. HREC=='XX              ') THEN
         YREC = 'XHAT'
@@ -357,11 +357,11 @@ IF (NRANK==NPIO) THEN
     CALL FMWRITX1(CFILEOUT_LFI,HREC,CLUOUT_LFI,SIZE(PFIELD),PFIELD,4,100,HCOMMENT,KRESP)
     CALL ERROR_WRITE_SURF_LFI(HREC,KRESP)
   END IF
-  ! 
+  !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_LFI:WRITE_SURFX1_LFI',1,ZHOOK_HANDLE)
@@ -372,7 +372,7 @@ CONTAINS
       SUBROUTINE WRITE_IN_LFI_X1_FOR_MNH(HREC,HREC2,PFIELD,KRESP,HCOMMENT,KU,KB,KE)
 !     #############################################################
 !
-!!****  * - routine to fill a write 2D array for the externalised surface 
+!!****  * - routine to fill a write 2D array for the externalised surface
 !
 IMPLICIT NONE
 !
@@ -388,7 +388,7 @@ INTEGER,                  INTENT(IN) :: KB
 INTEGER,                  INTENT(IN) :: KE
 !
 !*      0.2   Declarations of local variables
-! 
+!
 REAL, DIMENSION(KU)      :: ZWORK ! 1D work array read in the file
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -411,14 +411,14 @@ SELECT CASE(HREC)
     IF (KB==KE) THEN
       IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_LFI:WRITE_SURFX1_LFI:WRITE_IN_LFI_X1_FOR_MNH',1,ZHOOK_HANDLE)
       RETURN
-    ENDIF          
+    ENDIF
     ZWORK(KB+1:KE)   = 0.5 * PFIELD(1:KE-2) + 0.5 * PFIELD(2:KE-1)
     ZWORK(KB)        = 1.5 * PFIELD(1)      - 0.5 * PFIELD(2)
     ZWORK(KB-1)      = 2. * ZWORK(KB) - ZWORK(KB+1)
     ZWORK(KE+1)      = 2. * ZWORK(KE) - ZWORK(KE-1)
   CASE DEFAULT
     ZWORK(:) = PFIELD(:)
-  !  
+  !
 END SELECT
 !
  CALL FMWRITX1(CFILEOUT_LFI,HREC2,CLUOUT_LFI,KU,ZWORK,4,100,HCOMMENT,KRESP)
@@ -433,7 +433,7 @@ END SUBROUTINE WRITE_SURFX1_LFI
       SUBROUTINE WRITE_SURFX2_LFI (HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 2D array for the externalised surface 
+!!****  * - routine to fill a write 2D array for the externalised surface
 !
 !
 !
@@ -495,7 +495,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
 #endif
-  !  
+  !
   IF (HDIR=='H') THEN
     !
     CALL GET_SURF_UNDEF(ZUNDEF)
@@ -515,7 +515,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 !if (HREC=='ALBVIS_ISBA') stop
@@ -527,7 +527,7 @@ CONTAINS
       SUBROUTINE WRITE_IN_LFI_X2_FOR_MNH(HREC,PFIELD,KRESP,HCOMMENT)
 !     #############################################################
 !
-!!****  * - routine to fill a write 2D array for the externalised surface 
+!!****  * - routine to fill a write 2D array for the externalised surface
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -542,7 +542,7 @@ INTEGER,                  INTENT(OUT):: KRESP    ! KRESP  : return-code if a pro
  CHARACTER(LEN=100),       INTENT(IN) :: HCOMMENT ! comment string
 !
 !*      0.2   Declarations of local variables
-! 
+!
 INTEGER :: JI, JJ
 REAL    :: ZUNDEF
 REAL, DIMENSION(NIU,NJU,SIZE(PFIELD,2)) :: ZWORK3D ! work array read in a MNH file
@@ -566,7 +566,7 @@ ELSEIF (NIE==NIB) THEN
 ELSE
   CALL FMWRITX3(CFILEOUT_LFI,HREC,CLUOUT_LFI,SIZE(ZWORK3D),ZWORK3D,4,100,HCOMMENT,KRESP)
 ENDIF
-!  
+!
  CALL ERROR_WRITE_SURF_LFI(HREC,KRESP)
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_LFI:WRITE_SURFX2_LFI:WRITE_IN_LFI_X2_FOR_MNH',1,ZHOOK_HANDLE)
@@ -578,7 +578,7 @@ END SUBROUTINE WRITE_SURFX2_LFI
       SUBROUTINE WRITE_SURFX3_LFI (HREC,PFIELD,KRESP,HCOMMENT,HDIR)
 !     #############################################################
 !
-!!****  * - routine to fill a write 2D array for the externalised surface 
+!!****  * - routine to fill a write 2D array for the externalised surface
 !
 !
 !
@@ -640,7 +640,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
 #endif
-  !  
+  !
   IF (HDIR=='H') THEN
     !
     CALL GET_SURF_UNDEF(ZUNDEF)
@@ -660,7 +660,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 !if (HREC=='ALBVIS_ISBA') stop
@@ -672,7 +672,7 @@ CONTAINS
       SUBROUTINE WRITE_IN_LFI_X3_FOR_MNH(HREC,PFIELD,KRESP,HCOMMENT)
 !     #############################################################
 !
-!!****  * - routine to fill a write 2D array for the externalised surface 
+!!****  * - routine to fill a write 2D array for the externalised surface
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -689,7 +689,7 @@ INTEGER,                  INTENT(OUT):: KRESP    ! KRESP  : return-code if a pro
  CHARACTER(LEN=100),       INTENT(IN) :: HCOMMENT ! comment string
 !
 !*      0.2   Declarations of local variables
-! 
+!
 INTEGER :: JI, JJ
 REAL    :: ZUNDEF
 REAL, DIMENSION(NIU,NJU,SIZE(PFIELD,2),SIZE(PFIELD,3)) :: ZWORK4D ! work array read in a MNH file
@@ -714,7 +714,7 @@ ELSE
   !CALL FMWRITX4(CFILEOUT_LFI,HREC,CLUOUT_LFI,SIZE(ZWORK3D),ZWORK4D,4,100,HCOMMENT,KRESP)
   CALL ABOR1_SFX("WRITE_SURFX3_LFI: NOT POSSIBLE TO WRITE 4D FIELDS IN LFI")
 ENDIF
-!  
+!
  CALL ERROR_WRITE_SURF_LFI(HREC,KRESP)
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_LFI:WRITE_SURFX3_LFI:WRITE_IN_LFI_X3_FOR_MNH',1,ZHOOK_HANDLE)
@@ -790,13 +790,13 @@ IF (NRANK==NPIO) THEN
   ELSE
     CALL FMWRITN1(CFILEOUT_LFI,HREC,CLUOUT_LFI,SIZE(KFIELD),KFIELD,4,100,HCOMMENT,KRESP)
   END IF
-  !  
+  !
   CALL ERROR_WRITE_SURF_LFI(HREC,KRESP)
   !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !   
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_LFI:WRITE_SURFN1_LFI',1,ZHOOK_HANDLE)
@@ -854,7 +854,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_LFI:WRITE_SURFL1_LFI',0,ZHOOK_HANDLE)
 !
 KRESP=0
-!  
+!
  CALL IO_BUFF(&
                 HREC,'W',GFOUND)
 !
@@ -882,7 +882,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_LFI:WRITE_SURFL1_LFI',1,ZHOOK_HANDLE)
@@ -1015,7 +1015,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
 #endif
-  !  
+  !
   KRESP=0
   !
   ITDATE(1,:) = KYEAR (:)
@@ -1033,7 +1033,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_LFI:WRITE_SURFT1_LFI',1,ZHOOK_HANDLE)
@@ -1101,7 +1101,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
 #endif
-  !  
+  !
   KRESP=0
   !
   YREC=TRIM(HREC)//'%YEAR'
@@ -1111,7 +1111,7 @@ IF (NRANK==NPIO) THEN
   CALL FMWRITN2(CFILEOUT_LFI,YREC,CLUOUT_LFI,SIZE(KMONTH),KMONTH,4,100,HCOMMENT,KRESP)
   !
   YREC=TRIM(HREC)//'%DAY'
-  CALL FMWRITN2(CFILEOUT_LFI,YREC,CLUOUT_LFI,SIZE(KDAY),KDAY,4,100,HCOMMENT,KRESP)  
+  CALL FMWRITN2(CFILEOUT_LFI,YREC,CLUOUT_LFI,SIZE(KDAY),KDAY,4,100,HCOMMENT,KRESP)
   !
   YREC=TRIM(HREC)//'%TIME'
   CALL FMWRITX2(CFILEOUT_LFI,YREC,CLUOUT_LFI,SIZE(PTIME),PTIME,4,100,HCOMMENT,KRESP)
@@ -1121,7 +1121,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_LFI:WRITE_SURFT2_LFI',1,ZHOOK_HANDLE)

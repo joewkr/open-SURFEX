@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
 SUBROUTINE REGROT_LONLAT_ROT(PXREG,PYREG,PXROT,PYROT,KXDIM,KYDIM,KX,KY, &
-                         PXCEN,PYCEN,KCALL)  
+                         PXCEN,PYCEN,KCALL)
 !     #################################################################################
 !
 !!    PURPOSE
@@ -34,7 +34,7 @@ SUBROUTINE REGROT_LONLAT_ROT(PXREG,PYREG,PXROT,PYROT,KXDIM,KYDIM,KX,KY, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    J.E. HAUGEN   HIRLAM   JUNE -92
 !!
 !!    AUTHOR
@@ -56,12 +56,12 @@ IMPLICIT NONE
 INTEGER KXDIM,KYDIM,KX,KY,KCALL
 REAL PXREG(KXDIM,KYDIM),PYREG(KXDIM,KYDIM), &
             PXROT(KXDIM,KYDIM),PYROT(KXDIM,KYDIM), &
-            PXCEN,PYCEN  
+            PXCEN,PYCEN
 !
 !-----------------------------------------------------------------------
 !
 REAL PI,ZRAD,ZSYCEN,ZCYCEN,ZXMXC,ZSXMXC,ZCXMXC,ZSYREG,ZCYREG, &
-      ZSYROT,ZCYROT,ZCXROT,ZSXROT,ZRADI  
+      ZSYROT,ZCYROT,ZCXROT,ZSXROT,ZRADI
 INTEGER JY,JX
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -92,7 +92,7 @@ IF (KCALL.EQ.1) THEN
 !
       ZCYROT = COS(PYROT(JX,JY)*ZRAD)
       ZCXROT = (ZCYCEN*ZCYREG*ZCXMXC +     &
-                 ZSYCEN*ZSYREG)/ZCYROT  
+                 ZSYCEN*ZSYREG)/ZCYROT
       ZCXROT = MAX(ZCXROT,-1.0)
       ZCXROT = MIN(ZCXROT,+1.0)
       ZSXROT = ZCYREG*ZSXMXC/ZCYROT
@@ -121,7 +121,7 @@ ELSEIF (KCALL.EQ.-1) THEN
 !
       ZCYREG = COS(PYREG(JX,JY)*ZRAD)
       ZCXMXC = (ZCYCEN*ZCYROT*ZCXROT -     &
-                       ZSYCEN*ZSYROT)/ZCYREG  
+                       ZSYCEN*ZSYROT)/ZCYREG
       ZCXMXC = MAX(ZCXMXC,-1.0)
       ZCXMXC = MIN(ZCXMXC,+1.0)
       ZSXMXC = ZCYROT*ZSXROT/ZCYREG

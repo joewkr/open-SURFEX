@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !!     ######################
        MODULE MODD_CHS_AEROSOL
@@ -37,7 +37,7 @@ IMPLICIT NONE
 ! aerosol mode parameters
 LOGICAL      :: LCH_AERO_FLUX     = .FALSE. ! switch to active pronostic aerosols
 !
-LOGICAL      :: LCO2PM            = .FALSE. ! switch to active primary emission derived from CO 
+LOGICAL      :: LCO2PM            = .FALSE. ! switch to active primary emission derived from CO
 
 LOGICAL      :: LVARSIGI  = .FALSE.   ! switch to active pronostic dispersion for I mode
 LOGICAL      :: LVARSIGJ  = .FALSE.   ! switch to active pronostic dispersion for J mode
@@ -70,7 +70,7 @@ INTEGER            :: NSOA = 10    ! number of condensable species that may form
                                    ! secondary aerosols
 INTEGER            :: NM6_AER = 2  ! number of condensable species that may form
                                    ! secondary aerosols
-INTEGER            :: JP_AER_SOA1 = 8 
+INTEGER            :: JP_AER_SOA1 = 8
 INTEGER            :: JP_AER_SOA2 = 9
 INTEGER            :: JP_AER_SOA3 = 10
 INTEGER            :: JP_AER_SOA4 = 11
@@ -78,52 +78,52 @@ INTEGER            :: JP_AER_SOA5 = 12
 INTEGER            :: JP_AER_SOA6 = 13
 INTEGER            :: JP_AER_SOA7 = 14
 INTEGER            :: JP_AER_SOA8 = 15
-INTEGER            :: JP_AER_SOA9 = 16 
+INTEGER            :: JP_AER_SOA9 = 16
 INTEGER            :: JP_AER_SOA10 = 17
 
  CHARACTER(LEN=32),DIMENSION(:), ALLOCATABLE :: CAERONAMES
 
-INTEGER            :: JP_CH_SO4I = 1  
-INTEGER            :: JP_CH_SO4J = 2  
-INTEGER            :: JP_CH_NO3I = 3  
-INTEGER            :: JP_CH_NO3J = 4  
-INTEGER            :: JP_CH_NH3I = 5  
-INTEGER            :: JP_CH_NH3J = 6  
-INTEGER            :: JP_CH_H2OI = 7  
-INTEGER            :: JP_CH_H2OJ = 8  
-INTEGER            :: JP_CH_OCI  = 9  
-INTEGER            :: JP_CH_OCJ  = 10  
-INTEGER            :: JP_CH_BCI  = 11  
-INTEGER            :: JP_CH_BCJ  = 12 
-INTEGER            :: JP_CH_DSTI  = 13 
-INTEGER            :: JP_CH_DSTJ  = 14 
-INTEGER            :: JP_CH_SOA1I  = 15  
+INTEGER            :: JP_CH_SO4I = 1
+INTEGER            :: JP_CH_SO4J = 2
+INTEGER            :: JP_CH_NO3I = 3
+INTEGER            :: JP_CH_NO3J = 4
+INTEGER            :: JP_CH_NH3I = 5
+INTEGER            :: JP_CH_NH3J = 6
+INTEGER            :: JP_CH_H2OI = 7
+INTEGER            :: JP_CH_H2OJ = 8
+INTEGER            :: JP_CH_OCI  = 9
+INTEGER            :: JP_CH_OCJ  = 10
+INTEGER            :: JP_CH_BCI  = 11
+INTEGER            :: JP_CH_BCJ  = 12
+INTEGER            :: JP_CH_DSTI  = 13
+INTEGER            :: JP_CH_DSTJ  = 14
+INTEGER            :: JP_CH_SOA1I  = 15
 INTEGER            :: JP_CH_SOA1J  = 16
 INTEGER            :: JP_CH_SOA2I  = 17
 INTEGER            :: JP_CH_SOA2J  = 18
 INTEGER            :: JP_CH_SOA3I  = 19
-INTEGER            :: JP_CH_SOA3J  = 20  
-INTEGER            :: JP_CH_SOA4I  = 21  
-INTEGER            :: JP_CH_SOA4J  = 22 
-INTEGER            :: JP_CH_SOA5I  = 23  
-INTEGER            :: JP_CH_SOA5J  = 24  
-INTEGER            :: JP_CH_SOA6I  = 25  
-INTEGER            :: JP_CH_SOA6J  = 26  
-INTEGER            :: JP_CH_SOA7I  = 27  
-INTEGER            :: JP_CH_SOA7J  = 28  
-INTEGER            :: JP_CH_SOA8I  = 29  
-INTEGER            :: JP_CH_SOA8J  = 30  
-INTEGER            :: JP_CH_SOA9I  = 31  
-INTEGER            :: JP_CH_SOA9J  = 32  
-INTEGER            :: JP_CH_SOA10I = 33  
-INTEGER            :: JP_CH_SOA10J = 34  
-INTEGER            :: JP_CH_M0I = 35  
-INTEGER            :: JP_CH_M0J = 36  
-INTEGER            :: JP_CH_M6I = 37  
-INTEGER            :: JP_CH_M6J = 38  
+INTEGER            :: JP_CH_SOA3J  = 20
+INTEGER            :: JP_CH_SOA4I  = 21
+INTEGER            :: JP_CH_SOA4J  = 22
+INTEGER            :: JP_CH_SOA5I  = 23
+INTEGER            :: JP_CH_SOA5J  = 24
+INTEGER            :: JP_CH_SOA6I  = 25
+INTEGER            :: JP_CH_SOA6J  = 26
+INTEGER            :: JP_CH_SOA7I  = 27
+INTEGER            :: JP_CH_SOA7J  = 28
+INTEGER            :: JP_CH_SOA8I  = 29
+INTEGER            :: JP_CH_SOA8J  = 30
+INTEGER            :: JP_CH_SOA9I  = 31
+INTEGER            :: JP_CH_SOA9J  = 32
+INTEGER            :: JP_CH_SOA10I = 33
+INTEGER            :: JP_CH_SOA10J = 34
+INTEGER            :: JP_CH_M0I = 35
+INTEGER            :: JP_CH_M0J = 36
+INTEGER            :: JP_CH_M6I = 37
+INTEGER            :: JP_CH_M6J = 38
 
 !INTEGER, PARAMETER :: JPNN=NSP+NSOA+NCARB
-                                   
+
 ! Index for gas species which interact with aerosols
 INTEGER :: JP_CH_HNO3,  JP_CH_H2SO4, JP_CH_NH3, JP_CH_O3, JP_CH_CO,  &
              JP_CH_URG1, JP_CH_URG2, JP_CH_RPG2, JP_CH_RP18, JP_CH_UR26,&
@@ -134,7 +134,7 @@ INTEGER :: JP_CH_HNO3,  JP_CH_H2SO4, JP_CH_NH3, JP_CH_O3, JP_CH_CO,  &
              JP_CH_RPR9, JP_CH_RP12, JP_CH_UR3, JP_CH_UR23, JP_CH_UR31, JP_CH_AP1, &
              JP_CH_AP6, JP_CH_ADAC, JP_CH_UR2, JP_CH_UR14, JP_CH_UR27, JP_CH_RP14, &
              JP_CH_RP19, JP_CH_UR11, JP_CH_UR15, JP_CH_AP10, JP_CH_UR20, JP_CH_UR34, &
-             JP_CH_AP11, JP_CH_AP12, JP_CH_UR5, JP_CH_UR6, JP_CH_AP8  
+             JP_CH_AP11, JP_CH_AP12, JP_CH_UR5, JP_CH_UR6, JP_CH_AP8
 
 INTEGER :: JP_CH_H2O2,  JP_CH_SO2, JP_CH_SO42M
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE SST_UPDATE (DTS, S, PSST)
@@ -11,7 +11,7 @@
 !!    -------
 !
 !     performs the time evolution of sst
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -21,13 +21,13 @@
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -92,13 +92,13 @@ IF ( TEMPORAL_LTS ( S%TTIME, DTS%TDATA_SST(1) ) ) THEN
                         DTS%TDATA_SST(1)%TDATE%DAY ,DTS%TDATA_SST(1)%TIME,        &
                         S%TZTIME%TDATE%YEAR   ,S%TZTIME%TDATE%MONTH,          &
                         S%TZTIME%TDATE%DAY    ,S%TZTIME%TIME,                 &
-                        ZSDTJX                                            )  
+                        ZSDTJX                                            )
   !
   CALL TEMPORAL_DISTS ( S%TTIME%TDATE%YEAR   ,S%TTIME%TDATE%MONTH,           &
                         S%TTIME%TDATE%DAY    ,S%TTIME%TIME,                  &
                         S%TZTIME%TDATE%YEAR  ,S%TZTIME%TDATE%MONTH,          &
                         S%TZTIME%TDATE%DAY   ,S%TZTIME%TIME,                 &
-                        ZDT                                              )  
+                        ZDT                                              )
   !
   ZALPHA = ZDT / ZSDTJX
   !
@@ -115,24 +115,24 @@ ELSE
     IF ( TEMPORAL_LTS( S%TTIME, DTS%TDATA_SST(JXP)) ) EXIT
     S%JSX = S%JSX + 1
   ENDDO
-  !  
+  !
   CALL TEMPORAL_DISTS ( DTS%TDATA_SST(JXP)%TDATE%YEAR,DTS%TDATA_SST(JXP)%TDATE%MONTH,   &
                         DTS%TDATA_SST(JXP)%TDATE%DAY ,DTS%TDATA_SST(JXP)%TIME,          &
                         DTS%TDATA_SST(S%JSX)%TDATE%YEAR ,DTS%TDATA_SST(S%JSX)%TDATE%MONTH,  &
                         DTS%TDATA_SST(S%JSX)%TDATE%DAY  ,DTS%TDATA_SST(S%JSX)%TIME,         &
-                        ZSDTJX                                            )  
+                        ZSDTJX                                            )
   !
   CALL TEMPORAL_DISTS ( S%TTIME%TDATE%YEAR   ,S%TTIME%TDATE%MONTH,                  &
                         S%TTIME%TDATE%DAY    ,S%TTIME%TIME,                         &
                         DTS%TDATA_SST(S%JSX)%TDATE%YEAR,DTS%TDATA_SST(S%JSX)%TDATE%MONTH,   &
                         DTS%TDATA_SST(S%JSX)%TDATE%DAY ,DTS%TDATA_SST(S%JSX)%TIME,          &
-                        ZDT                                             )  
+                        ZDT                                             )
   !
   ZALPHA = ZDT / ZSDTJX
 
   !
   ZSST(:)= DTS%XDATA_SST(:,S%JSX)+(DTS%XDATA_SST(:,JXP)-DTS%XDATA_SST(:,S%JSX))*ZALPHA
-  !                
+  !
 END IF
 !
 PSST(:) = ZSST(:)

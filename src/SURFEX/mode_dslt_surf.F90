@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !!   ########################
 MODULE MODE_DSLT_SURF
@@ -26,7 +26,7 @@ SUBROUTINE MASSFLUX2MOMENTFLUX(     &
           PCONVERTFACM3,            &
           OVARSIG,                  &
           ORGFIX                    &
-          )  
+          )
 !!   ############################################################
 !!
 !!    PURPOSE
@@ -54,7 +54,7 @@ SUBROUTINE MASSFLUX2MOMENTFLUX(     &
 !!    MODIFICATIONS
 !!    -------------
 !!      J.Escobar     06/2013  for REAL4/8 add EPSILON management
-!!    
+!!
 !!
 !!    EXTERNAL
 !!    --------
@@ -128,25 +128,25 @@ DO JMODE=1,KMDE
   !Get flux of number in #/m2/sec from flux of mass in kg/m2/sec
   ZFM(:,1) = PFLUX(:,JSV_IDX+2)                     & ! kg_{dst}/m2/sec
              / PEMISRADIUS(JMODE)**3                & ! *um^{-3} ==> #/m2/sec*(m3/um3)
-             * EXP(-4.5*(LOG(PEMISSIG(JMODE)))**2)  & ! Take into account size distribution  
-             / PCONVERTFACM3           ! /(kg_{dst}/m^{3}_{dst)} ==> m^3_{dst}/m2/sec  
- 
-   
+             * EXP(-4.5*(LOG(PEMISSIG(JMODE)))**2)  & ! Take into account size distribution
+             / PCONVERTFACM3           ! /(kg_{dst}/m^{3}_{dst)} ==> m^3_{dst}/m2/sec
+
+
   ! Get flux of moment 6 consistent with the other moments
   ZFM(:,3) = ZFM(:,1)                              & ! [#/m3]
-             * (PEMISRADIUS(JMODE)**6)             & ! *um6 ==> um6/m2/sec 
-             * EXP(18. *(LOG(PEMISSIG(JMODE)))**2)   ! Take into account size distribution  
+             * (PEMISRADIUS(JMODE)**6)             & ! *um6 ==> um6/m2/sec
+             * EXP(18. *(LOG(PEMISSIG(JMODE)))**2)   ! Take into account size distribution
 
   !Get flux of Moment 0 in transport units
   IF (.NOT.ORGFIX) THEN
     PFLUX(:,JSV_IDX+1) = ZFM(:,1)            & ! particles/m^2/sec
-                         * PCONVERTFACM0       ! ==> particles/m2/sec * kg_dst/m3_{air}  
+                         * PCONVERTFACM0       ! ==> particles/m2/sec * kg_dst/m3_{air}
   END IF
-   
+
   ! Flux moment 6
   IF (OVARSIG) THEN
     PFLUX(:,JSV_IDX+3) = ZFM(:,3)          & ! um^6/m^2/sec
-                         * PCONVERTFACM6     ! ==>   
+                         * PCONVERTFACM6     ! ==>
   ENDIF
 
   !Multiply with molecular weights so that you get back the units described above when
@@ -167,9 +167,9 @@ END SUBROUTINE MASSFLUX2MOMENTFLUX
 
 SUBROUTINE DSLTMOMENT2SIZE(       &
           PSVT,                   & !I [XX/m3] input scalar variables (moment of distribution)
-          PRHODREF,               & !I [kg/m3] density of air       
+          PRHODREF,               & !I [kg/m3] density of air
           PEMISRADIUS,            & ![um] emitted radius for the different modes
-          PEMISSIG,               & ![-] emitted sigma for the different modes   
+          PEMISSIG,               & ![-] emitted sigma for the different modes
           KM0,                    &
           KM3,                    &
           KM6,                    &
@@ -177,13 +177,13 @@ SUBROUTINE DSLTMOMENT2SIZE(       &
           PCONVERTFACM6,          &
           PCONVERTFACM3,          &
           OVARSIG,                &
-          ORGFIX,                 &   
+          ORGFIX,                 &
           PSIG1D,                 & !O [-] standard deviation of aerosol distribution
           PRG1D,                  & !O [um] number median diameter of aerosol distribution
           PN1D,                   & !O [#/m3] number concentration of aerosols
           PMASS1D,                & !O [kg/m3] mass concentration of aerosol
           PM1D                    & !O aerosols moments 0, 3 and 6
-          )  
+          )
 !!   ############################################################
 !!
 !!    PURPOSE
@@ -196,7 +196,7 @@ SUBROUTINE DSLTMOMENT2SIZE(       &
 !!    M0 [#/m3] *XMOLARWEIGHT_DST/XAVOGADRO
 !!    M3 [kg/m3]
 !!    M6 [um6/m3*1.d6] *XMOLARWEIGHT_DST/XAVOGADRO
-!!   
+!!
 !!    REFERENCE
 !!    ---------
 !!    Tulet et al, ORILAM manuscript for transformation of modal parameters
@@ -212,7 +212,7 @@ SUBROUTINE DSLTMOMENT2SIZE(       &
 !!
 !!    EXTERNAL
 !!    --------
-!!    
+!!
 USE MODD_SURF_PAR , ONLY : XSURF_TINY
 !!
 IMPLICIT NONE
@@ -227,7 +227,7 @@ IMPLICIT NONE
 !INPUT
 REAL,       DIMENSION(:,:),  INTENT(IN)     :: PSVT      !I [ppp] moments in surface units
 REAL,       DIMENSION(:),    INTENT(IN)     :: PRHODREF  !I [kg/m3] density of air
-REAL,       DIMENSION(:),    INTENT(IN)     :: PEMISSIG  
+REAL,       DIMENSION(:),    INTENT(IN)     :: PEMISSIG
 REAL,       DIMENSION(:),    INTENT(IN)     :: PEMISRADIUS
 INTEGER,DIMENSION(:),    INTENT(IN) :: KM0             ! [idx] index for Mode 0 in passed variables
 INTEGER,DIMENSION(:),    INTENT(IN) :: KM3             ! [idx] indexes for Mode 3 in passed variables
@@ -246,17 +246,17 @@ REAL,       DIMENSION(:,:),  OPTIONAL, INTENT(OUT)     :: PM1D     !O aerosols m
 !*      0.2    declarations local variables
 !
 REAL,DIMENSION(SIZE(PSVT,1), SIZE(PSVT,2)) :: ZSV    ! [dusts moment concentration]
-REAL,DIMENSION(SIZE(PSVT,1), SIZE(KM0)*3)  :: ZM     ! [moments] local array for moments  
+REAL,DIMENSION(SIZE(PSVT,1), SIZE(KM0)*3)  :: ZM     ! [moments] local array for moments
 REAL,DIMENSION(SIZE(PSVT,1))               :: ZSIGMA ! [-] standard deviation
 REAL,DIMENSION(SIZE(PSVT,1))               :: ZRG    ! [um] number median diameter
 INTEGER                   :: JN, J0, J3, J6          ! [idx] loop counters
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
-!        1.1    initialisation 
-! 
+!        1.1    initialisation
+!
 !Get the conversion factors
 IF (LHOOK) CALL DR_HOOK('MODE_DSLT_SURF:DSLTMOMENT2SIZE',0,ZHOOK_HANDLE)
-!  
+!
 !Get scalar variable indexes
 !
 !Save the moments in a local array
@@ -264,7 +264,7 @@ ZSV(:,:) = MAX(PSVT(:,:),  XSURF_TINY)
 !
 DO JN=1,SIZE(KM0)
 
-  J0 = 1 + (JN-1)*3 
+  J0 = 1 + (JN-1)*3
   J3 = 2 + (JN-1)*3
   J6 = 3 + (JN-1)*3
 
@@ -273,14 +273,14 @@ DO JN=1,SIZE(KM0)
              / PCONVERTFACM3           ! ==> m3_{dst}/m3_{air}
 
   IF (OVARSIG) THEN ! give M6 (case of variable standard deviation)
-              
+
     !Get number concentration (#/molec_{air}==>#/m3)
-    ZM(:,J0) = ZSV(:,KM0(JN))          & ! #/m3air*M_{dst}/avogadro 
-               / PCONVERTFACM0           ! ==> #/m3  
-                 
+    ZM(:,J0) = ZSV(:,KM0(JN))          & ! #/m3air*M_{dst}/avogadro
+               / PCONVERTFACM0           ! ==> #/m3
+
     !Calculate moment 6 from the sent value
     ZM(:,J6) = ZSV(:,KM6(JN))          & ! um6/m3_{air}*(cm3/m3)*M_{dst}/Avogadro
-               / PCONVERTFACM6           ! ==> um6/m3  
+               / PCONVERTFACM6           ! ==> um6/m3
 
     !Get sigma (only if sigma is allowed to vary)
     !Get intermediate values for sigma M3^2/(M0*M6) (ORILAM paper, eqn 8)
@@ -291,37 +291,37 @@ DO JN=1,SIZE(KM0)
     ZSIGMA(:) = MAX(1E-10,ZSIGMA(:))
     !Calculate log(sigma)
     ZSIGMA(:) = LOG(ZSIGMA(:))
-    !Finally get the real sigma the negative sign is because of 
+    !Finally get the real sigma the negative sign is because of
     !The way the equation is written (M3^2/(M0*M6)) instead of (M0*M6)/M3^3
     ZSIGMA(:) = EXP(1./3.*SQRT(-ZSIGMA(:)))
-        
-  ELSE IF (ORGFIX) THEN ! compute M6 from M3, Rg and SIGMA    
+
+  ELSE IF (ORGFIX) THEN ! compute M6 from M3, Rg and SIGMA
 
     !Get the emitted sigma for this mode
     ZSIGMA(:) = PEMISSIG(JN)
 
     ZM(:,J0) = ZM(:,J3) /               &
-              ((PEMISRADIUS(KM3(JN))**3)*EXP(4.5 * LOG(ZSIGMA(:))**2))  
+              ((PEMISRADIUS(KM3(JN))**3)*EXP(4.5 * LOG(ZSIGMA(:))**2))
 
   ELSE ! compute M6 from M0, M3 and SIGMA
-          
+
     !Get the emitted sigma for this mode
     ZSIGMA(:) = PEMISSIG(JN)
 
     !Get number concentration (#/molec_{air}==>#/m3)
-    ZM(:,J0) = ZSV(:,KM0(JN))        & ! #/m3air*M_{dst}/avogadro 
-               / PCONVERTFACM0         ! ==> #/m3  
+    ZM(:,J0) = ZSV(:,KM0(JN))        & ! #/m3air*M_{dst}/avogadro
+               / PCONVERTFACM0         ! ==> #/m3
 
   END IF
 
   !Calculate moment 6 from this emitted sigma
   ZM(:,J6) = ZM(:,J0) * ((ZM(:,J3)/ZM(:,J0))**(1./3.) &
             * EXP(-(3./2.)*LOG(ZSIGMA(:))**2))**6     &
-            * EXP(18.*LOG(ZSIGMA(:))**2)  
+            * EXP(18.*LOG(ZSIGMA(:))**2)
 
   !Get number median radius (eqn. 7 in Orilam manuscript)
-  ZRG(:) = ((ZM(:,J3)**4) / (ZM(:,J6)*ZM(:,J0)**3)) ** (1./6.)     
-  
+  ZRG(:) = ((ZM(:,J3)**4) / (ZM(:,J6)*ZM(:,J0)**3)) ** (1./6.)
+
   !Give the sigma-values to the passed array
   IF(PRESENT(PSIG1D)) PSIG1D(:,JN) = ZSIGMA(:)
 
@@ -330,7 +330,7 @@ DO JN=1,SIZE(KM0)
 
   !Get the number median radius
   IF(PRESENT(PRG1D)) PRG1D(:,JN)= ZRG(:)
-    
+
   IF(PRESENT(PMASS1D))THEN
     PMASS1D(:,JN)=  ZM(:,J0)          &!#/m^3_{air}
                     * PCONVERTFACM3   &

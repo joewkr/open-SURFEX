@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_DIAG_FLAKE(K2M,OSURF_BUDGET,O2M_MIN_ZS,ORAD_BUDGET,OCOEF,OSURF_VARS,&
                                      OWATER_PROFILE,OSURF_BUDGETC,ORESET_BUDGETC,PDIAG_TSTEP,&
-                                     PZWAT_PROFILE          )  
+                                     PZWAT_PROFILE          )
 !     ########################################################################
 !
 !!****  *DEFAULT_DIAG_FLAKE* - routine to set default values for the choice of diagnostics
@@ -33,7 +33,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -55,9 +55,9 @@ INTEGER,  INTENT(OUT) :: K2M           ! flag for operational 2m quantities
 LOGICAL,  INTENT(OUT) :: OSURF_BUDGET  ! flag for surface budget
 LOGICAL,  INTENT(OUT) :: O2M_MIN_ZS
 LOGICAL,  INTENT(OUT) :: ORAD_BUDGET   ! flag for radiative budget
-LOGICAL,  INTENT(OUT) :: OCOEF 
+LOGICAL,  INTENT(OUT) :: OCOEF
 LOGICAL,  INTENT(OUT) :: OSURF_VARS
-LOGICAL,  INTENT(OUT) :: OWATER_PROFILE ! flag for inline computation of water 
+LOGICAL,  INTENT(OUT) :: OWATER_PROFILE ! flag for inline computation of water
                                         !temperature at given depths according
                                         !to FLake model
 LOGICAL,  INTENT(OUT) :: OSURF_BUDGETC ! flag for cumulated surface budget
@@ -80,7 +80,7 @@ IF (LHOOK) CALL DR_HOOK('DEFAULT_DIAG_FLAKE',0,ZHOOK_HANDLE)
 K2M = 0
 OSURF_BUDGET = .FALSE.
 !
-O2M_MIN_ZS = .FALSE. 
+O2M_MIN_ZS = .FALSE.
 !
 ORAD_BUDGET  = .FALSE.
 !

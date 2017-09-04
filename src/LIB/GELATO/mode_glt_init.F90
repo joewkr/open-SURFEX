@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,30 +28,30 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ========================== MODULE mode_glt_init ===========================
 ! =======================================================================
 !
-! 
+!
 !  This module contains subroutines that are used to implement all
-!  necessary initial conditions in Gelato model: domain, ice state and 
-!  superficial ocean conditions. It also manages forcing fields, 
-!  initial surface fluxes, initial salinity and results storage. 
+!  necessary initial conditions in Gelato model: domain, ice state and
+!  superficial ocean conditions. It also manages forcing fields,
+!  initial surface fluxes, initial salinity and results storage.
 !
 ! Modified: 2012/05 (D. Salas y Melia)
-!           Change in dimensions / multi-tasking 
-!  
+!           Change in dimensions / multi-tasking
+!
 ! ----------------------- BEGIN MODULE mode_glt_init ------------------------
 
-MODULE mode_glt_init 
+MODULE mode_glt_init
 INTERFACE
 
 #if ! defined in_surfex
@@ -107,9 +107,9 @@ END MODULE mode_glt_init
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE INIDMN ---------------------------
 !
-! The mesh is read in this routine, and scattered. This routine could 
-! be replaced with anything else that does the same. 
-! Note that bnddmn must be called after, to be sure boundaries are 
+! The mesh is read in this routine, and scattered. This routine could
+! be replaced with anything else that does the same.
+! Note that bnddmn must be called after, to be sure boundaries are
 ! well-defined.
 !
 SUBROUTINE inidmn( tpglt )
@@ -119,7 +119,7 @@ SUBROUTINE inidmn( tpglt )
   USE modd_glt_const_thm
   USE mode_gltools_mpi
   USE modi_gltools_mskerr
-  IMPLICIT NONE 
+  IMPLICIT NONE
 !
   TYPE(t_glt), INTENT(inout) ::  &
     tpglt
@@ -157,9 +157,9 @@ SUBROUTINE inidmn( tpglt )
 ! 2. Read grid definitions
 ! =========================
 !
-! This should be done on all gelato's processors, since tdom_p must be known 
+! This should be done on all gelato's processors, since tdom_p must be known
 ! by all processors
-!  
+!
 ! * Read the land-sea mask (= 1 if ocean, 0 if land)
 !
   yfname = 'opamesh.asc'
@@ -182,13 +182,13 @@ SUBROUTINE inidmn( tpglt )
   CALL scatter2d( iwork2,iwork2_p )
   tpglt%dom(:,:)%tmk = iwork2_p(:,:)
 !
-! * Read land-sea U-mask. This is to comply the current opamesh.asc 
+! * Read land-sea U-mask. This is to comply the current opamesh.asc
 ! format. This information is actually not used.
-! 
+!
   READ(ngrdlu,*) yword
   READ(ngrdlu,*) iwork2
 !
-! * Read land-sea V-mask. This is to comply the current opamesh.asc 
+! * Read land-sea V-mask. This is to comply the current opamesh.asc
 ! format. This information is actually not used.
 !
   READ(ngrdlu,*) yword
@@ -212,7 +212,7 @@ SUBROUTINE inidmn( tpglt )
   CALL scatter2d( zwork2,zwork2_p )
   tpglt%dom(:,:)%lon = zwork2_p(:,:)
 !
-! * Read grid cell dimensions (m) in the X and Y directions. 
+! * Read grid cell dimensions (m) in the X and Y directions.
 !
   READ(ngrdlu,*) yword
   CALL gltools_mskerr( 'TSX',yfname,yword )
@@ -255,7 +255,7 @@ SUBROUTINE bnddmn( tpglt )
   USE modd_glt_const_thm
   USE mode_gltools_bound
   USE lib_mpp
-  IMPLICIT NONE 
+  IMPLICIT NONE
 !
   TYPE(t_glt), INTENT(inout) ::  &
     tpglt
@@ -282,26 +282,26 @@ SUBROUTINE bnddmn( tpglt )
 !
 !
 !
-! 2. Define new fields and gltools_bound 
+! 2. Define new fields and gltools_bound
 ! ===============================
 !
 ! * Land-sea T-mask.
 !
   zwork2_p(:,:) = FLOAT( tpglt%dom(:,:)%tmk )
   CALL gltools_bound( 'T','scalar',zwork2_p )
-  tpglt%dom(:,:)%tmk = INT( zwork2_p(:,:) ) 
+  tpglt%dom(:,:)%tmk = INT( zwork2_p(:,:) )
 !
 ! * Interior T-mask (ghost points are masked)
   iwork2_p(:,:) = tpglt%dom(:,:)%tmk
   iwork2_p(1:jpreci,:) = 0
   iwork2_p(nlci-jpreci+1:nx,:) = 0
   iwork2_p(:,1:jprecj) = 0
-  iwork2_p(:,nlcj-jprecj+1:ny) = 0 
+  iwork2_p(:,nlcj-jprecj+1:ny) = 0
   tpglt%dom(:,:)%imk = iwork2_p(:,:)
 !
 ! * i and j index in global grid. This is a particular case. The global
-! array has to be defined in this routine, not in glt_init, since 
-! glt_init is not defined within NEMO. However, in principle, the 
+! array has to be defined in this routine, not in glt_init, since
+! glt_init is not defined within NEMO. However, in principle, the
 ! subdomain array could probably be defined directly.
 !
   DO jj=1,ny
@@ -316,7 +316,7 @@ SUBROUTINE bnddmn( tpglt )
   zwork2_p(:,:) = FLOAT( tpglt%dom(:,:)%indj )
   CALL gltools_bound( 'T','scalar',zwork2_p )
   tpglt%dom(:,:)%indj = INT( zwork2_p(:,:) )
-!  
+!
 ! * Land-sea U-mask
 !
   iwork2_p(:,:) = 0
@@ -329,7 +329,7 @@ SUBROUTINE bnddmn( tpglt )
 !
   zwork2_p(:,:) = FLOAT( iwork2_p(:,:) )
   CALL gltools_bound( 'U','scalar',zwork2_p )
-  tpglt%dom(:,:)%umk = INT( zwork2_p(:,:) ) 
+  tpglt%dom(:,:)%umk = INT( zwork2_p(:,:) )
 !
 ! * Land-sea V-mask
 !
@@ -343,7 +343,7 @@ SUBROUTINE bnddmn( tpglt )
 !
   zwork2_p(:,:) = FLOAT( iwork2_p(:,:) )
   CALL gltools_bound( 'V','scalar',zwork2_p )
-  tpglt%dom(:,:)%vmk = INT( zwork2_p(:,:) ) 
+  tpglt%dom(:,:)%vmk = INT( zwork2_p(:,:) )
 !
 ! * Grid points latitudes
 !
@@ -369,20 +369,20 @@ SUBROUTINE bnddmn( tpglt )
   CALL gltools_bound( 'T','scafac',zwork2_p )
   tpglt%dom(:,:)%dyc = zwork2_p(:,:)
 !
-! * Compute grid cell area (m2) - to avoid computing it many times 
+! * Compute grid cell area (m2) - to avoid computing it many times
 ! in different parts of the code
 !
   zwork2_p(:,:) = tpglt%dom(:,:)%dxc*tpglt%dom(:,:)%dyc
   zwork2_p(1,:) = 0.
   zwork2_p(nx,:) = 0.
   zwork2_p(:,1) = 0.
-  zwork2_p(:,ny) = 0. 
+  zwork2_p(:,ny) = 0.
   tpglt%dom(:,:)%srf = zwork2_p(:,:)
 !
 ! * Surface of local ocean domain (ghost points are masked out)
 !
 ! Note this one cannot change from one time step to the other.
-! In contrast, the reduced grid changes at every time step. Hence, 
+! In contrast, the reduced grid changes at every time step. Hence,
 ! the reduced grid surface xdomsrf_r has to be re-computed every time
 ! this reduced grid is redefined (in thermo.f90)
   xdomsrf = SUM( tpglt%dom(:,:)%srf, MASK=(tpglt%dom(:,:)%tmk==1) )
@@ -405,7 +405,7 @@ END SUBROUTINE bnddmn
 !
 ! ----------------------- END SUBROUTINE BNDDMN -------------------------
 ! -----------------------------------------------------------------------
-#endif 
+#endif
 
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE INITFL ---------------------------
@@ -464,7 +464,7 @@ SUBROUTINE inisal  &
 ! 1. Initialize sea ice salinity
 ! ===============================
 !
-! .. If a negative salinity is encountered, it means it was not 
+! .. If a negative salinity is encountered, it means it was not
 ! initialized
 !
   IF ( ANY( tpsit(:,:,:)%ssi < -0.5 ) ) THEN
@@ -474,8 +474,8 @@ SUBROUTINE inisal  &
             ssinew / ssw0 * tpmxl(:,:)%sml * FLOAT( tpdom(:,:)%tmk )
         END DO
       ELSE
-        tpsit(:,:,:)%ssi = sice 
-      ENDIF 
+        tpsit(:,:,:)%ssi = sice
+      ENDIF
   ENDIF
 !
 END SUBROUTINE inisal
@@ -554,7 +554,7 @@ SUBROUTINE inidia(tpind,tpdia,pcumdia0,pcumdia)
   tpdia(:,:)%salcio = 0.
   tpdia(:,:)%dmp = 0.
 ! Accumulated diagnostic: initialization at first time step only
-! The condition may change if diagnostic frequency is other than 
+! The condition may change if diagnostic frequency is other than
 ! time-step frequency or once per run, the only options in Gelato 6
   IF( tpind%cur==tpind%beg ) THEN
       tpdia(:,:)%aiw = 0.

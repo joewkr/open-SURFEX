@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE SURFACE_CDCH_1DARP (PZREF, PZ0EFF, PZ0H, PVMOD, PTA, PTG, &
-                                 PQA, PQS, PCD, PCDN, PCH              )    
+                                 PQA, PQS, PCD, PCDN, PCH              )
 !   ###################################################################
 !     Purpose :
 !     ------
@@ -72,7 +72,7 @@ REAL :: ZR, ZRS
 
 REAL :: Z2B, Z3B, Z3BC, ZCD, ZCD0, ZCH, ZCH0, ZCIS, ZDID, &
           ZDIH, ZDS, ZLOI, ZLOS, ZMU, ZPD, ZPH, ZRZD, ZRZH, &
-          ZUSURIC, ZSTA, ZIXP, ZSTAH, ZHS  
+          ZUSURIC, ZSTA, ZIXP, ZSTAH, ZHS
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
 !*
@@ -160,7 +160,7 @@ DO JLON=1, SIZE(PTA)
   ZCDNH(JLON)=XKARMAN**2/(LOG(ZRZH)*LOG(ZRZD))
   ZMU=LOG(PZ0EFF(JLON)/PZ0H(JLON))
   ZCD0=(GCZ0H(0,1)+ZMU*(GCZ0H(1,1)+ZMU*(GCZ0H(2,1)+ZMU &
-        *GCZ0H(3,1))))/(1.5*XEDC)    
+        *GCZ0H(3,1))))/(1.5*XEDC)
   ZPD=(GCZ0H(0,2)+ZMU*(GCZ0H(1,2)+ZMU*(GCZ0H(2,2)+ZMU*GCZ0H(3,2))))-0.5
   ZCH0=(GCZ0H(0,3)+ZMU*(GCZ0H(1,3)+ZMU*(GCZ0H(2,3)+ZMU*GCZ0H(3,3))))/XEDC
   ZPH=(GCZ0H(0,4)+ZMU*(GCZ0H(1,4)+ZMU*(GCZ0H(2,4)+ZMU*GCZ0H(3,4))))-0.5
@@ -189,9 +189,9 @@ DO JLON=1, SIZE(PTA)
 !           : APPROXIMATION OF DELTA(PHI)*DELTA(LN(THETA)).
 
   ZRTI(JLON)=2.0/(ZR*PTA(JLON)+(XRD/XCPD)*XG*PZREF(JLON)&
-        +ZRS*PTG(JLON))    
+        +ZRS*PTG(JLON))
   ZSTA=XG*PZREF(JLON)*(ZR*PTA(JLON)+(XRD/XCPD) &
-        *XG*PZREF(JLON)-ZRS*PTG(JLON))*ZRTI(JLON)    
+        *XG*PZREF(JLON)-ZRS*PTG(JLON))*ZRTI(JLON)
   ZSTAH=ZSTA/(1.0+ZIXP*ZUSURIC*MAX(0.0,ZSTA)/ZCIS)**(1.0/ZIXP)
   ZSTA=ZSTA/(1.0+ZUSURIC*MAX(0.0,ZSTA)/ZCIS)
   ZSTAB(JLON)=MAX(0.0,SIGN(1.0,ZSTA))

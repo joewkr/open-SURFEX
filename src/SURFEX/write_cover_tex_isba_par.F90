@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITE_COVER_TEX_ISBA_PAR (DTCO, HALBEDO, OTR_ML, &
@@ -110,7 +110,7 @@ REAL, DIMENSION(JPCOVER,KPATCH      ) :: ZRSMIN,ZGAMMA,ZRGL,ZCV,             &
                                            ZALBNIR_VEG,ZALBVIS_VEG,ZALBUV_VEG, &
                                            ZGMES,ZBSLAI,ZLAIMIN,ZSEFOLD,       &
                                            ZH_TREE, ZGC, ZZ0_O_Z0H,            &
-                                           ZWRMAX_CF, ZDMAX, ZRE25  
+                                           ZWRMAX_CF, ZDMAX, ZRE25
 REAL, DIMENSION(JPCOVER,KLAYER,KPATCH):: ZDG, ZROOTFRAC
 REAL, DIMENSION(JPCOVER,KPATCH)       :: ZDROOT
 REAL, DIMENSION(JPCOVER,KPATCH)       :: ZDG2
@@ -140,7 +140,7 @@ DO JJ=1,12
                           HISBA,OTR_ML,3*JJ-1,ZCOVER,GCOVER,HPHOTO, 'NAT',         &
                             PVEG=ZVEG(:,:,JJ), PLAI=ZLAI(:,:,JJ),            &
                             PZ0=ZZ0VEG(:,:,JJ), PEMIS_ECO=ZEMIS_ECO(:,:,JJ), &
-                            PF2I=ZF2I(:,:,JJ),OSTRESS=GSTRESS(:,:,JJ)        )  
+                            PF2I=ZF2I(:,:,JJ),OSTRESS=GSTRESS(:,:,JJ)        )
 END DO
 
  CALL CONVERT_COVER_ISBA(DTCO, HALBEDO, &
@@ -154,7 +154,7 @@ END DO
                         PROOTFRAC=ZROOTFRAC,                             &
                         PGMES=ZGMES,PBSLAI=ZBSLAI,PLAIMIN=ZLAIMIN,       &
                         PSEFOLD=ZSEFOLD,PGC=ZGC,PDMAX=ZDMAX,             &
-                        PH_TREE=ZH_TREE,PRE25=ZRE25                       )  
+                        PH_TREE=ZH_TREE,PRE25=ZRE25                       )
 !
 !
 !-------------------------------------------------------------------------------
@@ -164,12 +164,12 @@ DO JPATCH=1,KPATCH
 !
  IF (       (KPATCH>=2  .AND. JPATCH==1) &
          .OR. (KPATCH>=7  .AND. JPATCH==2) &
-         .OR. (KPATCH>=10 .AND. JPATCH==3) ) CYCLE  
+         .OR. (KPATCH>=10 .AND. JPATCH==3) ) CYCLE
 !
 !
 !
  JI=0
- DO 
+ DO
 
   IF (JI==JPCOVER) EXIT
 
@@ -225,13 +225,13 @@ DO JPATCH=1,KPATCH
             YDATA_MONTH(3),' & ',YDATA_MONTH(4), ' & ',YDATA_MONTH(5), ' & ', &
             YDATA_MONTH(6),' & ',YDATA_MONTH(7), ' & ',YDATA_MONTH(8), ' & ', &
             YDATA_MONTH(9),' & ',YDATA_MONTH(10),' & ',YDATA_MONTH(11),' & ', &
-            YDATA_MONTH(12),' & ',YDATA_VEGPARAM(1),' & ',YDATA_VEGPARAM(2),' & ',YDATA_VEGPARAM(3),' \\'  
+            YDATA_MONTH(12),' & ',YDATA_VEGPARAM(1),' & ',YDATA_VEGPARAM(2),' & ',YDATA_VEGPARAM(3),' \\'
 
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
     END IF
     CALL HLINE(NTEX,GLINE,JI)
-    IF (JIP==NLINES) EXIT  
+    IF (JIP==NLINES) EXIT
   END DO
   WRITE(NTEX,*) '\end{tabular}'
 !
@@ -244,7 +244,7 @@ ENDDO
 !
 !
 JI=0
-DO 
+DO
   IF (JI==JPCOVER) EXIT
 
   IF (CLANG=='EN') THEN
@@ -276,7 +276,7 @@ DO
           JI,' & ',CNAME(JI),' & ',YDATA_LAYER(1), ' & ',YDATA_LAYER(2), ' & ', &
             YDATA_LAYER(3),' & ',YDATA_LAYER(4), ' & ',YDATA_LAYER(5), ' & ', &
             YDATA_LAYER(6),' & ',YDATA_LAYER(7), ' & ',YDATA_LAYER(8), ' & ', &
-            YDATA_LAYER(9),' & ',YDATA_LAYER(10),' \\'  
+            YDATA_LAYER(9),' & ',YDATA_LAYER(10),' \\'
 
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
@@ -296,8 +296,8 @@ ENDDO
 IF (HISBA=='DIF') THEN
 !
 JI=0
-DO 
-  IF (JI==JPCOVER) EXIT  
+DO
+  IF (JI==JPCOVER) EXIT
 
   IF (CLANG=='EN') THEN
     WRITE(NTEX,*) '{\bf cumulative root fraction} (patch ',JPATCH,'/',KPATCH,') \\'
@@ -328,7 +328,7 @@ DO
           JI,' & ',CNAME(JI),' & ',YDATA_LAYER(1), ' & ',YDATA_LAYER(2), ' & ', &
             YDATA_LAYER(3),' & ',YDATA_LAYER(4), ' & ',YDATA_LAYER(5), ' & ', &
             YDATA_LAYER(6),' & ',YDATA_LAYER(7), ' & ',YDATA_LAYER(8), ' & ', &
-            YDATA_LAYER(9),' & ',YDATA_LAYER(10),' \\'  
+            YDATA_LAYER(9),' & ',YDATA_LAYER(10),' \\'
 
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
@@ -348,14 +348,14 @@ END IF
 !-------------------------------------------------------------------------------
 !
 JI=0
-DO 
+DO
   IF (JI==JPCOVER) EXIT
 
   IF (CLANG=='EN') THEN
     WRITE(NTEX,*) '{\bf vegetation fraction (over natural or agricultural areas)} (patch ',JPATCH,'/',KPATCH,') \\'
   ELSE
     WRITE(NTEX,*) "{\bf fraction de v\'eg\'etation (sur les surfaces naturelles ou cultiv\'ees)} (partition ", &
-  JPATCH,'/',KPATCH,') \\'  
+  JPATCH,'/',KPATCH,') \\'
   END IF
   WRITE(NTEX,*) '\medskip\'
   WRITE(NTEX,*) '\begin{tabular}{||r|l||c|c|c|c|c|c|c|c|c|c|c|c||}'
@@ -386,7 +386,7 @@ DO
             YDATA_MONTH(3),' & ',YDATA_MONTH(4), ' & ',YDATA_MONTH(5), ' & ', &
             YDATA_MONTH(6),' & ',YDATA_MONTH(7), ' & ',YDATA_MONTH(8), ' & ', &
             YDATA_MONTH(9),' & ',YDATA_MONTH(10),' & ',YDATA_MONTH(11),' & ', &
-            YDATA_MONTH(12),' \\'  
+            YDATA_MONTH(12),' \\'
 
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
@@ -406,7 +406,7 @@ ENDDO
 !
 !
 JI=0
-DO 
+DO
   IF (JI==JPCOVER) EXIT
 
   IF (CLANG=='EN') THEN
@@ -439,7 +439,7 @@ DO
             YDATA_MONTH(3),' & ',YDATA_MONTH(4), ' & ',YDATA_MONTH(5), ' & ', &
             YDATA_MONTH(6),' & ',YDATA_MONTH(7), ' & ',YDATA_MONTH(8), ' & ', &
             YDATA_MONTH(9),' & ',YDATA_MONTH(10),' & ',YDATA_MONTH(11),' & ', &
-            YDATA_MONTH(12),' \\'  
+            YDATA_MONTH(12),' \\'
 
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
@@ -460,7 +460,7 @@ ENDDO
 !
 !
 JI=0
-DO 
+DO
   IF (JI==JPCOVER) EXIT
 
   IF (CLANG=='EN') THEN
@@ -495,7 +495,7 @@ DO
             YDATA_MONTH(3),' & ',YDATA_MONTH(4), ' & ',YDATA_MONTH(5), ' & ', &
             YDATA_MONTH(6),' & ',YDATA_MONTH(7), ' & ',YDATA_MONTH(8), ' & ', &
             YDATA_MONTH(9),' & ',YDATA_MONTH(10),' & ',YDATA_MONTH(11),' & ', &
-            YDATA_MONTH(12),' \\'  
+            YDATA_MONTH(12),' \\'
 
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
@@ -514,7 +514,7 @@ ENDDO
 !
 !
 JI=0
-DO 
+DO
   IF (JI==JPCOVER) EXIT
 
   IF (CLANG=='EN') THEN
@@ -527,7 +527,7 @@ DO
   WRITE(NTEX,*) '\hline'
   WRITE(NTEX,*) '\hline'
   WRITE(NTEX,*) &
-    '&&$\alpha_{nir}$&$\alpha_{vis}$&$\alpha_{UV}$&$r_{s_{min}}$&$\gamma$&$rgl$&$C_{w_{r_{max}}}$&$z_0$/$z_{0_h}$&$C_v$\\'  
+    '&&$\alpha_{nir}$&$\alpha_{vis}$&$\alpha_{UV}$&$r_{s_{min}}$&$\gamma$&$rgl$&$C_{w_{r_{max}}}$&$z_0$/$z_{0_h}$&$C_v$\\'
   WRITE(NTEX,*) '\hline'
   WRITE(NTEX,*) '\hline'
   JIP=0
@@ -568,7 +568,7 @@ DO
                      YDATA_VEGPARAM(6),' & ',YDATA_VEGPARAM(7),' & ', &
                      YDATA_VEGPARAM(8),' & ',YDATA_VEGPARAM(9),' & ', &
                      YDATA_VEGPARAM(10),' & ',YDATA_VEGPARAM(11),' & ', &
-                     YDATA_CV,' \\'  
+                     YDATA_CV,' \\'
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
     END IF
@@ -586,7 +586,7 @@ ENDDO
 !
 !
 JI=0
-DO 
+DO
   IF (JI==JPCOVER) EXIT
 
   IF (CLANG=='EN') THEN
@@ -646,7 +646,7 @@ DO
                      YDATA_VEGPARAM(3),' & ',YDATA_VEGPARAM(4),' & ', &
                      YDATA_CV,         ' & ',YDATA_VEGPARAM(5),' & ', &
                      YDATA_VEGPARAM(6),' & ',                         &
-                     YDATA_STRESS ,' & ',YDATA_RE25,' \\'  
+                     YDATA_STRESS ,' & ',YDATA_RE25,' \\'
       WRITE(NTEX,*) '\hline'
       GLINE=.TRUE.
     END IF
@@ -658,10 +658,10 @@ DO
 !-------------------------------------------------------------------------------
 !
   WRITE(NTEX,*) '\clearpage'
-  
+
  END DO
 !
-END DO 
+END DO
 IF (LHOOK) CALL DR_HOOK('WRITE_COVER_TEX_ISBA_PAR',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------

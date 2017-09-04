@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE DRAG(HISBA, HSNOW_ISBA, HCPSURF, PTSTEP, PTG, PWG, PWGI,  &
@@ -9,18 +9,18 @@
                     PZREF, PUREF, PDIRCOSZW, PDELTA, PF5, PRA, PCH, PCD, &
                     PCDN, PRI, PHUG, PHUGI, PHV, PHU, PCPS, PQS, PFFG,   &
                     PFFV, PFF, PFFG_NOSNOW, PFFV_NOSNOW, PLEG_DELTA,     &
-                    PLEGI_DELTA, PWR, PRHOA, PLVTT, PQSAT  )  
+                    PLEGI_DELTA, PWR, PRHOA, PLVTT, PQSAT  )
 !   ############################################################################
 !
-!!****  *DRAG*  
+!!****  *DRAG*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates the drag coefficients for heat and momentum transfers
 !     over ground (i.e., Ch and Cd).
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -39,15 +39,15 @@
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!    USE MODD_CST 
+!!    USE MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Mascart et al. (1995)
 !!    Belair (1995)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -55,7 +55,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    13/03/95 
+!!      Original    13/03/95
 !!      (J.Stein)   15/11/95  use the potential temperature to compute Ri
 !!                            and PVMOD instead of ZVMOD
 !!      (P.Lacarrere)15/03/96 replace * PEXNS by / PEXNS
@@ -64,7 +64,7 @@
 !!      (A.Boone)    11/26/98 Option for PDELTA: forested vs default surface
 !!      (V.Masson)   01/03/03 Puts PDELTA in another routine
 !!      (P.LeMoigne) 28/07/05 dependance on qs for cp
-!!      (P.LeMoigne) 09/02/06 z0h and snow  
+!!      (P.LeMoigne) 09/02/06 z0h and snow
 !!      (P.LeMoigne) 09/01/08 limitation of Ri
 !!      (B.Decharme) 01/05/08 optional limitation of Ri
 !!      (B.Decharme) 03/06/08 flooding scheme
@@ -82,7 +82,7 @@
 USE MODD_CSTS,     ONLY : XPI, XCPD, XCPV
 USE MODD_ISBA_PAR, ONLY : XWGMIN, XRS_MAX
 USE MODD_SURF_ATM, ONLY : LDRAG_COEF_ARP, LRRGUST_ARP, XRRSCALE,   &
-                            XRRGAMMA, XUTILGUST, LCPL_ARP  
+                            XRRGAMMA, XUTILGUST, LCPL_ARP
 !
 USE MODI_SURFACE_RI
 USE MODI_SURFACE_AERO_COND
@@ -129,8 +129,8 @@ REAL, DIMENSION(:), INTENT(IN)   :: PEXNA, PTA, PVMOD, PQA, PRR, PSR, PPS
 !                                             NOTE it should be input as >= 1. (m)
 !                                     PQA = specific humidity
 !                                     PPS = surface pressure
-!                                     PRR = rain rate    
-!                                     PSR = snow rate             
+!                                     PRR = rain rate
+!                                     PSR = snow rate
 !
 REAL, DIMENSION(:), INTENT(IN)   :: PRS, PVEG, PZ0, PZ0H, PZ0EFF
 REAL, DIMENSION(:), INTENT(IN)   :: PWFC, PWSAT, PPSNG, PPSNV, PZREF, PUREF
@@ -146,7 +146,7 @@ REAL, DIMENSION(:), INTENT(IN)   :: PWFC, PWSAT, PPSNG, PPSNV, PZREF, PUREF
 !                                     PPSNV = fraction of the vegetation covered
 !                                             by snow
 !                                     PZREF = reference height of the first
-!                                             atmospheric level 
+!                                             atmospheric level
 !                                     PUREF = reference height of the wind
 !                                             NOTE this is different from ZZREF
 !                                             ONLY in stand-alone/forced mode,
@@ -157,7 +157,7 @@ REAL, DIMENSION(:), INTENT(INOUT) :: PDELTA
 !                                              by intercepted water
 REAL, DIMENSION(:), INTENT(IN)    :: PF5
 !                                     PF5 = water stress function for Hv
-REAL, DIMENSION(:), INTENT(IN)    :: PDIRCOSZW 
+REAL, DIMENSION(:), INTENT(IN)    :: PDIRCOSZW
 ! Cosinus of the angle between the normal to the surface and the vertical
 REAL, DIMENSION(:), INTENT(INOUT) :: PRA
 !                                      aerodynamic surface resistance
@@ -205,7 +205,7 @@ REAL, DIMENSION(SIZE(PTG)) :: ZQSAT,           &
                                  ZVMOD,          &
 !                                              ZVMOD = wind modulus with minimum threshold
                                   ZFP,           &
-!                                              ZFP = working variable                               
+!                                              ZFP = working variable
                                  ZZHV,           &
 !                                              ZZHV = condensation delta fn for Hv
                                  ZRRCOR
@@ -259,11 +259,11 @@ PHUGI(:) = 0.5 * ( 1.-COS(XPI*MIN(PWGI(:)/ZWFC(:),1.)) )
 !                                         when hu*qsat < qa, there are two
 !                                         possibilities
 !
-!                                         a) low-level air is dry, i.e., 
+!                                         a) low-level air is dry, i.e.,
 !                                            qa < qsat
 !
 !                                         NOTE the additional delta fn's
-!                                         here are needed owing to linearization 
+!                                         here are needed owing to linearization
 !                                         of Qsat in the surface energy budget.
 !
 PLEG_DELTA(:)    = 1.0
@@ -315,7 +315,7 @@ IF(HSNOW_ISBA == '3-L' .OR. HSNOW_ISBA == 'CRO' .OR. HISBA == 'DIF')THEN
              + (1.-PVEG(:))*(1.-PFFG_NOSNOW(:))*(PWGI(:)/(PWG(:)+PWGI(:)))*PHUGI(:)   &
              +     PVEG(:) *(1.-PFFV_NOSNOW(:))*    PHV(:)                            &
              + ((1.-PVEG(:))*PFFG_NOSNOW(:)+PVEG(:)*PFFV_NOSNOW(:)))*ZQSAT(:)         &
-             +     PVEG(:) *(1.-PFFV_NOSNOW(:))*(1.-PHV(:))*PQA(:)  
+             +     PVEG(:) *(1.-PFFV_NOSNOW(:))*(1.-PHV(:))*PQA(:)
 !
 ELSE
 !
@@ -325,7 +325,7 @@ ELSE
              +     PVEG(:) *(1.-PPSNV(:)-PFFV(:))*PHV(:)                               &
              +     PVEG(:) *    PPSNV(:)                                               &
              +     PFF(:)                            )*ZQSAT(:)                        &
-             +     PVEG(:) *(1.-PPSNV(:)-PFFV(:))*(1.-PHV(:))*PQA(:)  
+             +     PVEG(:) *(1.-PPSNV(:)-PFFV(:))*(1.-PHV(:))*PQA(:)
 !
 ENDIF
 !
@@ -339,7 +339,7 @@ PHU(:) = PQS(:)/ZQSAT(:)
 IF (HCPSURF=='DRY') THEN
     PCPS(:) = XCPD
 ELSEIF(.NOT.LCPL_ARP)THEN
-    PCPS(:) = XCPD + ( XCPV - XCPD ) * PQA(:)   
+    PCPS(:) = XCPD + ( XCPV - XCPD ) * PQA(:)
 ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -348,7 +348,7 @@ ENDIF
 !               ----------------------------------------------
 !
 CALL SURFACE_RI(PTG, PQS, PEXNS, PEXNA, PTA, PQA,                    &
-                PZREF, PUREF, PDIRCOSZW, PVMOD, PRI                  )  
+                PZREF, PUREF, PDIRCOSZW, PVMOD, PRI                  )
 !
 !-------------------------------------------------------------------------------
 !
@@ -364,7 +364,7 @@ CALL SURFACE_RI(PTG, PQS, PEXNS, PEXNA, PTA, PQA,                    &
 IF (LDRAG_COEF_ARP) THEN
 
    CALL SURFACE_CDCH_1DARP(PZREF, PZ0EFF, PZ0H, ZVMOD, PTA, PTG, &
-                             PQA, PQS, PCD, PCDN, PCH              )  
+                             PQA, PQS, PCD, PCDN, PCH              )
    PRA(:) = 1. / ( PCH(:) * ZVMOD(:) )
 
 ELSE
@@ -394,7 +394,7 @@ IF (LRRGUST_ARP) THEN
 
    ZFP(:)=MAX(0.0,PRR(:)+PSR(:))
    ZRRCOR(:)=SQRT(1.0+((((ZFP(:)/(ZFP(:)+XRRSCALE))**XRRGAMMA)*XUTILGUST)**2) &
-       /(PCD(:)*ZVMOD(:)**2))  
+       /(PCD(:)*ZVMOD(:)**2))
 
    PCD  = PCD  * ZRRCOR
    PCH  = PCH  * ZRRCOR
@@ -418,7 +418,7 @@ CALL LIMIT_LER(PDELTA)
 WHERE(PHV(:)<ZHVLIM)
       PHV(:)=0.0
 ENDWHERE
-!                
+!
 IF (LHOOK) CALL DR_HOOK('DRAG',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
@@ -485,7 +485,7 @@ ZWR_DELTA(:)=1.0
 WHERE( ZZHV(:)>0.0 .AND. ZER(:)/=0.0 .AND. (PWR(:)+ZRRVEG(:))<ZER(:) )
 !
        ZWR_DELTA(:) = MAX(0.01,MIN(1.0,(PWR(:)+ZRRVEG(:))/ZER(:)))
-!       
+!
        PDELTA(:) = PDELTA(:) * ZWR_DELTA(:)
 !
        PHV(:)    = PDELTA(:) + (1.- PDELTA(:))*( PRA(:) + PRS(:)*(1.0 - ZZHV(:)) )* &

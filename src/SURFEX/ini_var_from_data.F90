@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODI_INI_VAR_FROM_DATA
 !
@@ -242,7 +242,7 @@ END SUBROUTINE INI_VAR_FROM_DATA_NAT_1D
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -306,7 +306,7 @@ LOGICAL, INTENT(OUT) :: OPRESENT
 !            ------------------------------
 !
  CHARACTER(LEN=40) :: YNAME
-LOGICAL, DIMENSION(SIZE(PFIELD,2)) :: LPRESENT 
+LOGICAL, DIMENSION(SIZE(PFIELD,2)) :: LPRESENT
 INTEGER               :: JV, JJ  ! loop counter on vegtypes
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -466,7 +466,7 @@ DO JTIME=1,SIZE(PFIELD_TIME,2)
                               HPROGRAM, HATYPE, HNAME, HTYPE, HFNAM(JV,JTIME), &
                 HFTYP(JV,JTIME), PUNIF(JV,JTIME), PFIELD_TIME(:,JTIME,JV),     &
                 OPRESENT(IDX), ZMASK)
-    ENDDO 
+    ENDDO
 
   ENDIF
 
@@ -490,7 +490,7 @@ END SUBROUTINE INI_VAR_FROM_DATA_NAT_2D
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -584,7 +584,7 @@ DO JTIME=1,SIZE(PFIELD_TIME,2)
               HFTYP(JV,JTIME), PUNIF(JV,JTIME), PFIELD_TIME(:,JTIME,JV),&
               LPRESENT(JV))
 
-  ENDDO 
+  ENDDO
 
   IF (ANY(LPRESENT(:))) THEN
 

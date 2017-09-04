@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !!   ########################
 MODULE MODE_AER_SURF
@@ -16,7 +16,7 @@ MODULE MODE_AER_SURF
 !!      J.Escobar     06/2013  for REAL4/8 add EPSILON management
 !!    M.Leriche 2015 : masse molaire Black carbon à 12 g/mol
 !!
-!------------------------------------------------------------------------------- 
+!-------------------------------------------------------------------------------
   USE MODD_CHS_AEROSOL
   USE MODD_DST_SURF, ONLY : XDENSITY_DST
 !
@@ -50,18 +50,18 @@ ZRHOI(JP_AER_H2O) = 1.0e3   ! water
 ZRHOI(JP_AER_DST) = XDENSITY_DST
 !
 ! Moments index
-NM0(1) = 1 
+NM0(1) = 1
 NM3(1) = 2
-NM6(1) = 3 
-NM0(2) = 4 
-NM3(2) = 5 
-NM6(2) = 6 
+NM6(1) = 3
+NM0(2) = 4
+NM3(2) = 5
+NM6(2) = 6
 !
 !Set density of aerosol, here  (kg/m3)
 ! Aerosol Density
 ! Cf Ackermann (all to black carbon except water)
 !
-!Set molecular weightn g/mol 
+!Set molecular weightn g/mol
 ZMI(:) = 250.
 ZMI(JP_AER_SO4)  = 98.
 ZMI(JP_AER_NO3)  = 63.
@@ -70,7 +70,7 @@ ZMI(JP_AER_H2O)  = 18.
 ZMI(JP_AER_BC)   = 12.
 ZMI(JP_AER_DST)  = 100.
 IF (NSOA .EQ. 10) THEN
-  ZMI(JP_AER_SOA1) = 88. 
+  ZMI(JP_AER_SOA1) = 88.
   ZMI(JP_AER_SOA2) = 180.
   ZMI(JP_AER_SOA3) = 1.5374857E3
   ZMI(JP_AER_SOA4) = 1.9586780E3
@@ -148,13 +148,13 @@ END SUBROUTINE INIT_VAR
 !!   ############################################################
 SUBROUTINE PPP2AERO_SURF(             &
           PSVT,                       &!I [ppp] input scalar variables (moment of distribution)
-          PRHODREF,                   &!I [kg/m3] density of air       
+          PRHODREF,                   &!I [kg/m3] density of air
           PSIG1D,                     &!O [-] standard deviation of aerosol distribution
           PRG1D,                      &!O [um] number median diameter of aerosol distribution
           PN1D,                       &!O [#/m3] number concentration of aerosols
           PCTOTA,                     &!O [ug/m3] mass of each aerosol compounds
           PM1D                        &!moments 0, 3 and 6
-         )  
+         )
 !!   ############################################################
 !
 !!
@@ -162,7 +162,7 @@ SUBROUTINE PPP2AERO_SURF(             &
 !!    -------
 !!    Translate the three moments M0, M3 and M6 given in ppp into
 !!    Values which can be understood more easily (R, sigma, N, M)
-!! 
+!!
 !!    CALLING STRUCTURE NOTE: OPTIONAL VARIABLES
 !!    -------
 !!    CALL PPP2AERO_SURFS(PSVT, PRHODREF, PSIG1D=SIGVAR,  &
@@ -203,10 +203,10 @@ REAL,       DIMENSION(:,:),  OPTIONAL, INTENT(OUT)     :: PSIG1D   !O [-] standa
 REAL,       DIMENSION(:,:),  OPTIONAL, INTENT(OUT)     :: PRG1D    !O [um] number median diameter
 REAL,       DIMENSION(:,:),  OPTIONAL, INTENT(OUT)     :: PN1D     !O [#/m3] number concentration
 REAL,       DIMENSION(:,:,:),OPTIONAL, INTENT(OUT)     :: PCTOTA   !O [ug/m3] mass of each component
-REAL,       DIMENSION(:,:),  OPTIONAL, INTENT(OUT)     :: PM1D     !O moments 0,3 and 6 
+REAL,       DIMENSION(:,:),  OPTIONAL, INTENT(OUT)     :: PM1D     !O moments 0,3 and 6
 !
 !*      0.2    declarations local variables
-!    
+!
 REAL,DIMENSION(SIZE(PSVT,1), SIZE(PSVT,2))         :: ZSV      ! [aerosol concentration]
 REAL,DIMENSION(SIZE(PSVT,1))                       :: ZSIGMA   ! [-] standard deviation
 REAL,DIMENSION(SIZE(PSVT,1),NSP+NCARB+NSOA,JPMODE) :: ZCTOTA
@@ -240,7 +240,7 @@ DO JJ = 1,NSP+NCARB+NSOA
 ENDDO
 !
 !
-!*       3    set  moment 0 
+!*       3    set  moment 0
 !
 ZM(:,1)=   MAX(ZSV(:,JP_CH_M0i) * 1E+6, XSURF_TINY) ! molec_{aer}/m3_{air}
 ZM(:,4)=   MAX(ZSV(:,JP_CH_M0j) * 1E+6, XSURF_TINY) ! molec_{aer}/m3_{air}
@@ -256,7 +256,7 @@ WHERE ((ZM(:,1) .LT. ZMMIN(1))) !.OR.(ZM(:,2) .LT. ZMMIN(2)))
 !  ZCTOTA(:,JP_AER_OC,1) = 0.5 * ZM(:,2) * ZFAC(JP_AER_OC)
 END WHERE
 !!
-WHERE ((ZM(:,4) .LT. ZMMIN(4))) !.OR.(ZM(:,5) .LT. ZMMIN(5)))  
+WHERE ((ZM(:,4) .LT. ZMMIN(4))) !.OR.(ZM(:,5) .LT. ZMMIN(5)))
   ZM(:,4)= ZMMIN(4)
 !  ZM(:,5)= ZMMIN(5)
 !
@@ -281,7 +281,7 @@ IF (LVARSIGI) THEN ! set M6 variable standard deviation
   ZM(:,3) = ZM(:,1) &
             * ( (ZM(:,2)/ZM(:,1))**(1./3.)  &
             * exp(-(3./2.)*log(ZSIGMA(:))**2))**6 &
-            * exp(18.*log(ZSIGMA(:))**2)  
+            * exp(18.*log(ZSIGMA(:))**2)
 
   IF(PRESENT(PSIG1D)) PSIG1D(:,1) = ZSIGMA(:)
 
@@ -289,7 +289,7 @@ ELSE ! fixed standard deviation
   ZM(:,3) = ZM(:,1) &
             * ( (ZM(:,2)/ZM(:,1))**(1./3.)  &
             * exp(-(3./2.)*log(XEMISSIGI)**2))**6 &
-            * exp(18.*log(XEMISSIGI)**2) 
+            * exp(18.*log(XEMISSIGI)**2)
 
   IF(PRESENT(PSIG1D)) PSIG1D(:,1) = XEMISSIGI
 END IF
@@ -306,7 +306,7 @@ IF (LVARSIGJ) THEN ! set M6 variable standard deviation
   ZM(:,6) = ZM(:,4) &
             * ( (ZM(:,5)/ZM(:,4))**(1./3.)  &
             * exp(-(3./2.)*log(ZSIGMA(:))**2))**6 &
-            * exp(18.*log(ZSIGMA(:))**2)  
+            * exp(18.*log(ZSIGMA(:))**2)
 
   IF(PRESENT(PSIG1D)) PSIG1D(:,2) = ZSIGMA(:)
 
@@ -314,7 +314,7 @@ ELSE ! fixed standard deviation
   ZM(:,6) = ZM(:,4) &
             * ( (ZM(:,5)/ZM(:,4))**(1./3.)  &
             * exp(-(3./2.)*log(XEMISSIGJ)**2))**6 &
-            * exp(18.*log(XEMISSIGJ)**2)  
+            * exp(18.*log(XEMISSIGJ)**2)
 
   IF(PRESENT(PSIG1D)) PSIG1D(:,2) = XEMISSIGJ
 END IF
@@ -325,7 +325,7 @@ DO JN=1,JPMODE
   IF(PRESENT(PN1D)) PN1D(:,JN) = ZM(:,NM0(JN))
 
   IF(PRESENT(PRG1D)) PRG1D(:,JN)=(ZM(:,NM3(JN))**4. &
-                                 / (ZM(:,NM6(JN))*ZM(:,NM0(JN))**3.))**(1./6.)  
+                                 / (ZM(:,NM6(JN))*ZM(:,NM0(JN))**3.))**(1./6.)
 ENDDO
 
 IF(PRESENT(PCTOTA)) PCTOTA(:,:,:) = ZCTOTA(:,:,:)
@@ -336,16 +336,16 @@ END SUBROUTINE PPP2AERO_SURF
 !!   ############################################################
 SUBROUTINE AERO2PPP_SURF(    &
             PSVT,            &!IO [ppp] input scalar variables (moment of distribution)
-            PRHODREF,        &!I [kg/m3] density of air       
+            PRHODREF,        &!I [kg/m3] density of air
             PSIG1D,          &!I [-] standard deviation of aerosol distribution
             PRG1D            &!I [um] number median diameter of aerosol distribution
-            )  
+            )
 !!   ############################################################
 !
 !!
 !!    PURPOSE
 !!    -------
-!!    Translate the aerosol Mass, RG and SIGMA in the  three moments M0, M3 and M6 given in ppp 
+!!    Translate the aerosol Mass, RG and SIGMA in the  three moments M0, M3 and M6 given in ppp
 !!
 !!    REFERENCE
 !!    ---------
@@ -394,7 +394,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('MODE_AER_SURF:AERO2PPP_SURF',0,ZHOOK_HANDLE)
 !
-!        1.    initialisation 
+!        1.    initialisation
 !
 DO JJ=1, SIZE(PSVT, 2)
   PSVT(:,JJ) =  PSVT(:,JJ) * ZDEN2MOL * PRHODREF(:)
@@ -414,20 +414,20 @@ ENDDO
 !
 !*       4    calculate moment 0 from dispersion and mean radius
 !
-ZM(:,1)= ZM(:,2)/ ( (PRG1D(:,1)**3)*EXP(4.5 * LOG(PSIG1D(:,1))**2) )  
-ZM(:,4)= ZM(:,5)/ ( (PRG1D(:,2)**3)*EXP(4.5 * LOG(PSIG1D(:,2))**2) )  
+ZM(:,1)= ZM(:,2)/ ( (PRG1D(:,1)**3)*EXP(4.5 * LOG(PSIG1D(:,1))**2) )
+ZM(:,4)= ZM(:,5)/ ( (PRG1D(:,2)**3)*EXP(4.5 * LOG(PSIG1D(:,2))**2) )
 !
 !*       5    calculate moment 6 from dispersion and mean radius
 !
-ZM(:,3) = ZM(:,1)*(PRG1D(:,1)**6) * EXP(18 *(LOG(PSIG1D(:,1)))**2)  
-ZM(:,6) = ZM(:,4)*(PRG1D(:,2)**6) * EXP(18 *(LOG(PSIG1D(:,2)))**2)  
+ZM(:,3) = ZM(:,1)*(PRG1D(:,1)**6) * EXP(18 *(LOG(PSIG1D(:,1)))**2)
+ZM(:,6) = ZM(:,4)*(PRG1D(:,2)**6) * EXP(18 *(LOG(PSIG1D(:,2)))**2)
 !
 !*       6    return to ppp
 !
-PSVT(:,JP_CH_M0i) = ZM(:,1) * 1E-6 
+PSVT(:,JP_CH_M0i) = ZM(:,1) * 1E-6
 PSVT(:,JP_CH_M0j) = ZM(:,4) * 1E-6
 !
-IF (LVARSIGI) PSVT(:,JP_CH_M6i) = ZM(:,3) 
+IF (LVARSIGI) PSVT(:,JP_CH_M6i) = ZM(:,3)
 IF (LVARSIGJ) PSVT(:,JP_CH_M6j) = ZM(:,6)
 !
 DO JJ=1,SIZE(PSVT,2)

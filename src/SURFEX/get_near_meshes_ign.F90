@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_NEAR_MESHES_IGN(KGRID_PAR,KL,PGRID_PAR,KNEAR_NBR,KNEAR)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -90,7 +90,7 @@ IF (LHOOK) CALL DR_HOOK('GET_NEAR_MESHES_IGN_2',0,ZHOOK_HANDLE)
 !
 DO JP=1,KL
   !
-  IF (NINDEX(JP)==NRANK) THEN 
+  IF (NINDEX(JP)==NRANK) THEN
     !
     ID = NNUM(JP)
     !
@@ -214,7 +214,7 @@ DO JI = KLEFT_END, KRIGHT_END - 1
     IF (PLIST2(JI) > PLIST2(JJ)) THEN
       ! distance de JI au point (la plus grande)
       ZTEMP = PLIST2(JI)
-      ! le point JJ est déplacé à l'indice JI dans le tableau 
+      ! le point JJ est déplacé à l'indice JI dans le tableau
       PLIST2(JI) = PLIST2(JJ)
       ! le point JI est déplacé à l'indice JJ dans le tableau
       PLIST2(JJ) = ZTEMP

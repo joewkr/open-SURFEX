@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PREP_FLAKE_CONF(HPROGRAM,HVAR,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,&
@@ -56,7 +56,7 @@ USE MODD_PREP_FLAKE, ONLY : CFILE_FLAKE, CFILEPGD_FLAKE, CTYPE, CTYPEPGD, &
                               XUNIF_H_ICE,      &
                               XUNIF_H_ML,       &
                               XUNIF_H_B1,       &
-                              LCLIM_LAKE   
+                              LCLIM_LAKE
 !
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 !
@@ -88,8 +88,8 @@ LOGICAL,           INTENT(OUT) :: OUNIF    ! flag for prescribed uniform field
 !*       0.2   Declarations of local variables
 !              -------------------------------
 !
-INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears 
-                                    ! at the open of the file in LFI  routines 
+INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears
+                                    ! at the open of the file in LFI  routines
 INTEGER           :: ILUNAM         ! Logical unit of namelist file
 !
  CHARACTER(LEN=28) :: YNAMELIST      ! namelist file
@@ -141,22 +141,22 @@ SELECT CASE (HVAR)
    OUNIF = (XTS_UNIF/=XUNDEF)
  CASE('T_SNOW ')
    OUNIF = (XUNIF_T_SNOW/=XUNDEF)
-   IF (HFILETYPE=='GRIB  '.OR.HFILETYPE=='ASCLLV') THEN          ! all fields but TS 
+   IF (HFILETYPE=='GRIB  '.OR.HFILETYPE=='ASCLLV') THEN          ! all fields but TS
       HFILE = '                         ' ! are not readed
       HFILETYPE = '      '                ! from grib files
-   END IF    
+   END IF
  CASE('T_ICE  ')
    OUNIF = (XUNIF_T_ICE/=XUNDEF)
    IF (HFILETYPE=='GRIB  '.OR.HFILETYPE=='ASCLLV') THEN
       HFILE = '                         '
       HFILETYPE = '      '
-   END IF    
+   END IF
  CASE('T_MNW  ')
    OUNIF = .FALSE.
    IF (HFILETYPE=='GRIB  '.OR.HFILETYPE=='ASCLLV') THEN
       HFILE = '                         '
       HFILETYPE = '      '
-   END IF    
+   END IF
  CASE('T_WML  ')
    OUNIF = (XUNIF_T_WML/=XUNDEF)
    HFILE = '                         '
@@ -166,43 +166,43 @@ SELECT CASE (HVAR)
    IF (HFILETYPE=='GRIB  '.OR.HFILETYPE=='ASCLLV') THEN
       HFILE = '                         '
       HFILETYPE = '      '
-   END IF    
+   END IF
  CASE('T_B1   ')
    OUNIF = (XUNIF_T_B1/=XUNDEF)
    IF (HFILETYPE=='GRIB  '.OR.HFILETYPE=='ASCLLV') THEN
       HFILE = '                         '
       HFILETYPE = '      '
-   END IF    
+   END IF
  CASE('CT     ')
    OUNIF = (XUNIF_CT/=XUNDEF)
    IF (HFILETYPE=='GRIB  '.OR.HFILETYPE=='ASCLLV') THEN
       HFILE = '                         '
       HFILETYPE = '      '
-   END IF    
+   END IF
  CASE('H_SNOW ')
    OUNIF = (XUNIF_H_SNOW/=XUNDEF)
    IF (HFILETYPE=='GRIB  '.OR.HFILETYPE=='ASCLLV') THEN
       HFILE = '                         '
       HFILETYPE = '      '
-   END IF    
+   END IF
  CASE('H_ICE  ')
    OUNIF = (XUNIF_H_ICE/=XUNDEF)
    IF (HFILETYPE=='GRIB  '.OR.HFILETYPE=='ASCLLV') THEN
       HFILE = '                         '
       HFILETYPE = '      '
-   END IF    
+   END IF
  CASE('H_ML   ')
    IF (HFILETYPE=='GRIB  '.OR.HFILETYPE=='ASCLLV') THEN
       HFILE = '                         '
       HFILETYPE = '      '
-   END IF    
+   END IF
    OUNIF = (XUNIF_H_ML/=XUNDEF)
  CASE('H_B1   ')
    OUNIF = (XUNIF_H_B1/=XUNDEF)
    IF (HFILETYPE=='GRIB  '.OR.HFILETYPE=='ASCLLV') THEN
       HFILE = '                         '
       HFILETYPE = '      '
-   END IF    
+   END IF
 END SELECT
 !
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_HOR_OCEAN_FIELD (DTCO, UG, U, GCP, O, OR, KLAT, HPROGRAM,   &
@@ -18,7 +18,7 @@ SUBROUTINE PREP_HOR_OCEAN_FIELD (DTCO, UG, U, GCP, O, OR, KLAT, HPROGRAM,   &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -75,7 +75,7 @@ INTEGER, INTENT(IN) :: KLAT
 INTEGER,            INTENT(IN)  :: KLUOUT    ! logical unit of output listing
 LOGICAL,            INTENT(IN)  :: OUNIF     ! flag for prescribed uniform field
  CHARACTER(LEN=7)                :: HSURF   ! type of field
- CHARACTER(LEN=28),  INTENT(IN), OPTIONAL :: HNCVARNAME!var to read 
+ CHARACTER(LEN=28),  INTENT(IN), OPTIONAL :: HNCVARNAME!var to read
 !
 !
 !*      0.2    declarations of local variables
@@ -102,7 +102,7 @@ ELSE IF (HFILETYPE=='NETCDF') THEN
 ELSE IF (HFILETYPE=='ASCII') THEN
    WRITE(KLUOUT,*) 'PERSONAL LIB TEST FOR READING ',HFILETYPE,'file type'
    WRITE(KLUOUT,*) 'ASCII FILE MUST CONTAIN LAT,LON,DEPTH,T,S,U,V'
-   CALL PREP_OCEAN_ASCLLV(DTCO, UG, U, HPROGRAM,HSURF,HFILE,KLUOUT,ZFIELDIN)                         
+   CALL PREP_OCEAN_ASCLLV(DTCO, UG, U, HPROGRAM,HSURF,HFILE,KLUOUT,ZFIELDIN)
 ELSE
   CALL ABOR1_SFX('PREP_OCEAN_HOR_FIELD: data file type not supported : '//HFILETYPE)
 END IF
@@ -123,7 +123,7 @@ ENDDO
 !
 IK1=NOCKMIN+1
 SELECT CASE (HSURF)
-  CASE('TEMP_OC') 
+  CASE('TEMP_OC')
     ALLOCATE(O%XSEAT(SIZE(ZFIELDOUT,1),NOCKMIN:NOCKMAX))
     ALLOCATE(OR%XSEAT_REL(SIZE(ZFIELDOUT,1),NOCKMIN:NOCKMAX))
     DO JLEV=IK1,NOCKMAX
@@ -133,10 +133,10 @@ SELECT CASE (HSURF)
     O%XSEAT(:,NOCKMIN)=O%XSEAT(:,IK1)
     !
     ! Relaxation Profile = initial profile for the steady regime
-    ! Change it for seasonal cycle!! 
+    ! Change it for seasonal cycle!!
     OR%XSEAT_REL(:,:) = O%XSEAT(:,:)
-    !    
-  CASE('SALT_OC') 
+    !
+  CASE('SALT_OC')
     ALLOCATE(O%XSEAS(SIZE(ZFIELDOUT,1),NOCKMIN:NOCKMAX))
     ALLOCATE(OR%XSEAS_REL(SIZE(ZFIELDOUT,1),NOCKMIN:NOCKMAX))
     DO JLEV=IK1,NOCKMAX
@@ -145,28 +145,28 @@ SELECT CASE (HSURF)
     O%XSEAS(:,NOCKMIN)=O%XSEAS(:,IK1)
     !
     ! Relaxation Profile = initial profile for the steady regime
-    ! Change it for seasonal cycle!! 
+    ! Change it for seasonal cycle!!
     OR%XSEAS_REL(:,:) = O%XSEAS(:,:)
-    !    
-  CASE('UCUR_OC') 
+    !
+  CASE('UCUR_OC')
     ALLOCATE(O%XSEAU(SIZE(ZFIELDOUT,1),NOCKMIN:NOCKMAX))
     ALLOCATE(OR%XSEAU_REL(SIZE(ZFIELDOUT,1),NOCKMIN:NOCKMAX))
     DO JLEV=IK1,NOCKMAX
       O%XSEAU(:,JLEV) = ZFIELDOUT(:,JLEV,1)
     ENDDO
     O%XSEAU(:,NOCKMIN)=O%XSEAU(:,IK1)
-    ! 
+    !
     IF (.NOT.O%LCURRENT) O%XSEAU(:,:)=0.
     !
     OR%XSEAU_REL(:,:) = O%XSEAU(:,:)
     !
-  CASE('VCUR_OC') 
+  CASE('VCUR_OC')
     ALLOCATE(O%XSEAV(SIZE(ZFIELDOUT,1),NOCKMIN:NOCKMAX))
     ALLOCATE(OR%XSEAV_REL(SIZE(ZFIELDOUT,1),NOCKMIN:NOCKMAX))
     DO JLEV=IK1,NOCKMAX
       O%XSEAV(:,JLEV) = ZFIELDOUT(:,JLEV,1)
     ENDDO
-    O%XSEAV(:,NOCKMIN)=O%XSEAV(:,IK1)    
+    O%XSEAV(:,NOCKMIN)=O%XSEAV(:,IK1)
     !
     IF (.NOT.O%LCURRENT) O%XSEAV(:,:)=0.
     !

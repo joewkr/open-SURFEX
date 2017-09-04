@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_ISBA_n (HSELECT, OSNOWDIMNC, CHI, NDST, &
@@ -8,7 +8,7 @@
 !     #####################################
 !
 !!****  *WRITESURF_ISBA_n* - writes ISBA prognostic fields
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -33,13 +33,13 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      P. LeMoigne 12/2004 : correct dimensionning if more than 10 layers in
 !!                            the soil (diffusion version)
 !!      B. Decharme  2008    : Floodplains
 !!      B. Decharme  01/2009 : Optional Arpege deep soil temperature write
-!!      A.L. Gibelin   03/09 : modifications for CENTURY model 
-!!      A.L. Gibelin 04/2009 : BIOMASS and RESP_BIOMASS arrays 
+!!      A.L. Gibelin   03/09 : modifications for CENTURY model
+!!      A.L. Gibelin 04/2009 : BIOMASS and RESP_BIOMASS arrays
 !!      A.L. Gibelin 06/2009 : Soil carbon variables for CNT option
 !!      B. Decharme  07/2011 : land_use semi-prognostic variables
 !!      B. Decharme  09/2012 : suppress NWG_LAYER (parallelization problems)
@@ -84,8 +84,8 @@ IMPLICIT NONE
 !*       0.1   Declarations of arguments
 !              -------------------------
 !
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT 
-LOGICAL, INTENT(IN) :: OSNOWDIMNC  
+ CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
+LOGICAL, INTENT(IN) :: OSNOWDIMNC
 !
 TYPE(CH_ISBA_t), INTENT(INOUT) :: CHI
 TYPE(DST_NP_t), INTENT(INOUT) :: NDST
@@ -150,14 +150,14 @@ END DO
 !* soil liquid water contents
 !
 DO JL=1,IO%NGROUND_LAYER
-  WRITE(YLVL,'(I4)') JL     
+  WRITE(YLVL,'(I4)') JL
   YRECFM='WG'//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))
   YFORM='(A6,I1.1,A8)'
   IF (JL >= 10)  YFORM='(A6,I2.2,A8)'
   WRITE(YCOMMENT,FMT=YFORM) 'X_Y_WG',JL,' (m3/m3)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                NP%AL(JP)%NR_P,NPE%AL(JP)%XWG(:,JL),KI,S%XWORK_WR)  
+                NP%AL(JP)%NR_P,NPE%AL(JP)%XWG(:,JL),KI,S%XWORK_WR)
   ENDDO
 END DO
 !
@@ -170,14 +170,14 @@ ELSE
 ENDIF
 !
 DO JL=1,IWORK
-  WRITE(YLVL,'(I4)') JL     
+  WRITE(YLVL,'(I4)') JL
   YRECFM='WGI'//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))
   YFORM='(A7,I1.1,A8)'
   IF (JL >= 10)  YFORM='(A7,I2.2,A8)'
   WRITE(YCOMMENT,YFORM) 'X_Y_WGI',JL,' (m3/m3)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                NP%AL(JP)%NR_P,NPE%AL(JP)%XWGI(:,JL),KI,S%XWORK_WR)  
+                NP%AL(JP)%NR_P,NPE%AL(JP)%XWGI(:,JL),KI,S%XWORK_WR)
   ENDDO
 END DO
 !
@@ -187,13 +187,13 @@ YRECFM='WR'
 YCOMMENT='X_Y_WR (kg/m2)'
 DO JP = 1,IO%NPATCH
   CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                NP%AL(JP)%NR_P,NPE%AL(JP)%XWR(:),KI,S%XWORK_WR)    
+                NP%AL(JP)%NR_P,NPE%AL(JP)%XWR(:),KI,S%XWORK_WR)
 ENDDO
 !
 !* Glacier ice storage
 !
 YRECFM = 'GLACIER'
-YCOMMENT='LGLACIER key for external prep'   
+YCOMMENT='LGLACIER key for external prep'
 CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,IO%LGLACIER,IRESP,HCOMMENT=YCOMMENT)
 !
 IF(IO%LGLACIER)THEN
@@ -201,7 +201,7 @@ IF(IO%LGLACIER)THEN
   YCOMMENT='X_Y_ICE_STO (kg/m2)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                NP%AL(JP)%NR_P,NPE%AL(JP)%XICE_STO(:),KI,S%XWORK_WR)   
+                NP%AL(JP)%NR_P,NPE%AL(JP)%XICE_STO(:),KI,S%XWORK_WR)
   ENDDO
 ENDIF
 !
@@ -214,7 +214,7 @@ IF (IO%CPHOTO/='NON' .AND. IO%CPHOTO/='AST') THEN
   YCOMMENT='X_Y_LAI (m2/m2)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                NP%AL(JP)%NR_P,NPE%AL(JP)%XLAI(:),KI,S%XWORK_WR)    
+                NP%AL(JP)%NR_P,NPE%AL(JP)%XLAI(:),KI,S%XWORK_WR)
   ENDDO
   !
 END IF
@@ -227,7 +227,7 @@ IF ( TRIM(CASSIM_ISBA)=="ENKF" .AND. (LASSIM .OR. NIE/=0) ) THEN
       YRECFM='RED_NOISE'//ADJUSTL(YVAR(:LEN_TRIM(YVAR)))
       DO JP = 1,IO%NPATCH
         CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                     NP%AL(JP)%NR_P,NP%AL(JP)%XRED_NOISE(:,JVAR),KI,S%XWORK_WR)       
+                     NP%AL(JP)%NR_P,NP%AL(JP)%XRED_NOISE(:,JVAR),KI,S%XWORK_WR)
       ENDDO
     ENDIF
   ENDDO
@@ -279,7 +279,7 @@ IF (ISIZE_LMEB_PATCH>0) THEN
   YCOMMENT='X_Y_WRL (kg/m2)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                  NP%AL(JP)%NR_P,NPE%AL(JP)%XWRL(:),KI,S%XWORK_WR)    
+                  NP%AL(JP)%NR_P,NPE%AL(JP)%XWRL(:),KI,S%XWORK_WR)
   ENDDO
 !
 !* ice on litter
@@ -288,7 +288,7 @@ IF (ISIZE_LMEB_PATCH>0) THEN
   YCOMMENT='X_Y_WRLI (kg/m2)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                  NP%AL(JP)%NR_P,NPE%AL(JP)%XWRLI(:),KI,S%XWORK_WR)    
+                  NP%AL(JP)%NR_P,NPE%AL(JP)%XWRLI(:),KI,S%XWORK_WR)
   ENDDO
 !
 !* snow intercepted on canopy vegetation leaves
@@ -297,7 +297,7 @@ IF (ISIZE_LMEB_PATCH>0) THEN
   YCOMMENT='X_Y_WRVN (kg/m2)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                  NP%AL(JP)%NR_P,NPE%AL(JP)%XWRVN(:),KI,S%XWORK_WR)    
+                  NP%AL(JP)%NR_P,NPE%AL(JP)%XWRVN(:),KI,S%XWORK_WR)
   ENDDO
 
 !
@@ -307,7 +307,7 @@ IF (ISIZE_LMEB_PATCH>0) THEN
   YCOMMENT='X_Y_TV (K)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                  NP%AL(JP)%NR_P,NPE%AL(JP)%XTV(:),KI,S%XWORK_WR)    
+                  NP%AL(JP)%NR_P,NPE%AL(JP)%XTV(:),KI,S%XWORK_WR)
   ENDDO
 !
 !* litter temperature
@@ -316,7 +316,7 @@ IF (ISIZE_LMEB_PATCH>0) THEN
   YCOMMENT='X_Y_TL (K)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                  NP%AL(JP)%NR_P,NPE%AL(JP)%XTL(:),KI,S%XWORK_WR)    
+                  NP%AL(JP)%NR_P,NPE%AL(JP)%XTL(:),KI,S%XWORK_WR)
   ENDDO
 !
 !* vegetation canopy air temperature
@@ -325,7 +325,7 @@ IF (ISIZE_LMEB_PATCH>0) THEN
   YCOMMENT='X_Y_TC (K)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                  NP%AL(JP)%NR_P,NPE%AL(JP)%XTC(:),KI,S%XWORK_WR)    
+                  NP%AL(JP)%NR_P,NPE%AL(JP)%XTC(:),KI,S%XWORK_WR)
   ENDDO
 !
 !* vegetation canopy air specific humidity
@@ -334,7 +334,7 @@ IF (ISIZE_LMEB_PATCH>0) THEN
   YCOMMENT='X_Y_QC (kg/kg)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                  NP%AL(JP)%NR_P,NPE%AL(JP)%XQC(:),KI,S%XWORK_WR)    
+                  NP%AL(JP)%NR_P,NPE%AL(JP)%XQC(:),KI,S%XWORK_WR)
   ENDDO
 !
 ENDIF
@@ -351,7 +351,7 @@ YRECFM='PATCH'
 YCOMMENT='fraction for each patch (-)'
 DO JP = 1,IO%NPATCH
   CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                  NP%AL(JP)%NR_P,NP%AL(JP)%XPATCH(:),KI,S%XWORK_WR)    
+                  NP%AL(JP)%NR_P,NP%AL(JP)%XPATCH(:),KI,S%XWORK_WR)
 ENDDO
 !
 !* patch averaged radiative temperature (K)
@@ -366,7 +366,7 @@ YRECFM='RESA'
 YCOMMENT='X_Y_RESA (s/m)'
 DO JP = 1,IO%NPATCH
   CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                  NP%AL(JP)%NR_P,NPE%AL(JP)%XRESA(:),KI,S%XWORK_WR)    
+                  NP%AL(JP)%NR_P,NPE%AL(JP)%XRESA(:),KI,S%XWORK_WR)
 ENDDO
 !
 !* Land use variables
@@ -386,7 +386,7 @@ IF(OLAND_USE .OR. LWRITE_EXTERN)THEN
     ENDIF
     DO JP = 1,IO%NPATCH
       CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                      NP%AL(JP)%NR_P,NP%AL(JP)%XDG(:,JL),KI,S%XWORK_WR)    
+                      NP%AL(JP)%NR_P,NP%AL(JP)%XDG(:,JL),KI,S%XWORK_WR)
     ENDDO
   END DO
 !
@@ -399,29 +399,29 @@ IF (IO%CPHOTO/='NON') THEN
   YCOMMENT='X_Y_AN (kgCO2/kgair m/s)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                    NP%AL(JP)%NR_P,NPE%AL(JP)%XAN(:),KI,S%XWORK_WR)    
+                    NP%AL(JP)%NR_P,NPE%AL(JP)%XAN(:),KI,S%XWORK_WR)
   ENDDO
 !
   YRECFM='ANDAY'
   YCOMMENT='X_Y_ANDAY (kgCO2/m2/day)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                    NP%AL(JP)%NR_P,NPE%AL(JP)%XANDAY(:),KI,S%XWORK_WR)    
-  ENDDO  
+                    NP%AL(JP)%NR_P,NPE%AL(JP)%XANDAY(:),KI,S%XWORK_WR)
+  ENDDO
 !
   YRECFM='ANFM'
   YCOMMENT='X_Y_ANFM (kgCO2/kgair m/s)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                    NP%AL(JP)%NR_P,NPE%AL(JP)%XANFM(:),KI,S%XWORK_WR)    
-  ENDDO    
+                    NP%AL(JP)%NR_P,NPE%AL(JP)%XANFM(:),KI,S%XWORK_WR)
+  ENDDO
 !
   YRECFM='LE_AGS'
   YCOMMENT='X_Y_LE_AGS (W/m2)'
   DO JP = 1,IO%NPATCH
     CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                    NP%AL(JP)%NR_P,NPE%AL(JP)%XLE(:),KI,S%XWORK_WR)    
-  ENDDO    
+                    NP%AL(JP)%NR_P,NPE%AL(JP)%XLE(:),KI,S%XWORK_WR)
+  ENDDO
 END IF
 !
 !
@@ -434,8 +434,8 @@ IF (IO%CPHOTO=='NIT' .OR. IO%CPHOTO=='NCB') THEN
     WRITE(YCOMMENT,FMT=YFORM) 'X_Y_BIOMASS',JNB,' (kgDM/m2)'
     DO JP = 1,IO%NPATCH
       CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                      NP%AL(JP)%NR_P,NPE%AL(JP)%XBIOMASS(:,JNB),KI,S%XWORK_WR)    
-    ENDDO      
+                      NP%AL(JP)%NR_P,NPE%AL(JP)%XBIOMASS(:,JNB),KI,S%XWORK_WR)
+    ENDDO
   END DO
   !
   !
@@ -446,8 +446,8 @@ IF (IO%CPHOTO=='NIT' .OR. IO%CPHOTO=='NCB') THEN
     WRITE(YCOMMENT,FMT=YFORM) 'X_Y_RESP_BIOMASS',JNB,' (kg/m2/s)'
     DO JP = 1,IO%NPATCH
       CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                      NP%AL(JP)%NR_P,NPE%AL(JP)%XRESP_BIOMASS(:,JNB),KI,S%XWORK_WR)    
-    ENDDO      
+                      NP%AL(JP)%NR_P,NPE%AL(JP)%XRESP_BIOMASS(:,JNB),KI,S%XWORK_WR)
+    ENDDO
   END DO
   !
 END IF
@@ -486,8 +486,8 @@ IF (IO%CRESPSL=='CNT') THEN
       WRITE(YCOMMENT,FMT=YFORM) 'X_Y_LITTER',JNL,' ',JNLV,' (gC/m2)'
       DO JP = 1,IO%NPATCH
         CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                        NP%AL(JP)%NR_P,NPE%AL(JP)%XLITTER(:,JNL,JNLV),KI,S%XWORK_WR)    
-      ENDDO        
+                        NP%AL(JP)%NR_P,NPE%AL(JP)%XLITTER(:,JNL,JNLV),KI,S%XWORK_WR)
+      ENDDO
     END DO
   END DO
 
@@ -498,8 +498,8 @@ IF (IO%CRESPSL=='CNT') THEN
     WRITE(YCOMMENT,FMT=YFORM) 'X_Y_SOILCARB',JNS,' (gC/m2)'
     DO JP = 1,IO%NPATCH
       CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                      NP%AL(JP)%NR_P,NPE%AL(JP)%XSOILCARB(:,JNS),KI,S%XWORK_WR)    
-    ENDDO     
+                      NP%AL(JP)%NR_P,NPE%AL(JP)%XSOILCARB(:,JNS),KI,S%XWORK_WR)
+    ENDDO
   END DO
 !
   DO JNLV=1,IO%NNLITTLEVS
@@ -509,8 +509,8 @@ IF (IO%CRESPSL=='CNT') THEN
     WRITE(YCOMMENT,FMT=YFORM) 'X_Y_LIGNIN_STRUC',JNLV,' (-)'
     DO JP = 1,IO%NPATCH
       CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                      NP%AL(JP)%NR_P,NPE%AL(JP)%XLIGNIN_STRUC(:,JNLV),KI,S%XWORK_WR)    
-    ENDDO       
+                      NP%AL(JP)%NR_P,NPE%AL(JP)%XLIGNIN_STRUC(:,JNLV),KI,S%XWORK_WR)
+    ENDDO
   END DO
 !
 ENDIF
@@ -522,8 +522,8 @@ IF (CHI%SVI%NDSTEQ > 0)THEN
     YCOMMENT='X_Y_'//YRECFM//' (kg/m2)'
     DO JP = 1,IO%NPATCH
       CALL WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
-                      NP%AL(JP)%NR_P,NDST%AL(JP)%XSFDSTM(:,JSV),KI,S%XWORK_WR)    
-    ENDDO     
+                      NP%AL(JP)%NR_P,NDST%AL(JP)%XSFDSTM(:,JSV),KI,S%XWORK_WR)
+    ENDDO
   END DO
 ENDIF
 !

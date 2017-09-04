@@ -1,23 +1,23 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE SNOW_COVER_1LAYER(PTSTEP, PANSMIN, PANSMAX, PTODRY, PRHOSMIN, PRHOSMAX,   &
                                  PRHOFOLD, OALL_MELT, PDRAIN_TIME, PWCRN, PZ0SN, PZ0HSN, &
                                  TPSNOW, PTG, PTG_COEFA, PTG_COEFB, PABS_SW, PLW1, PLW2, &
                                  PTA, PQA, PVMOD, PPS, PRHOA, PSR, PZREF, PUREF, PRNSNOW,&
-                                 PHSNOW, PLESNOW, PGSNOW, PMELT, PDQS_SNOW, PABS_LW  )  
+                                 PHSNOW, PLESNOW, PGSNOW, PMELT, PDQS_SNOW, PABS_LW  )
 !   ##########################################################################
 !
-!!****  *SNOW_COVER_1LAYER*  
+!!****  *SNOW_COVER_1LAYER*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     One layer snow mantel scheme
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
@@ -36,11 +36,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -48,7 +48,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    08/09/98 
+!!      Original    08/09/98
 !!      J. Escobar 24/10/2012 : BUF PGI10.X , rewrite some 1 line WHERE statement
 !!      V. Masson  13/09/2013 : implicitation of coupling with roof below
 !-------------------------------------------------------------------------------
@@ -305,7 +305,7 @@ ZQSAT(:) = QSATI(ZTS_SNOW(:), PPS(:) )
 !* computation occurs where snow is and/or falls.
 !
  CALL SURFACE_RI(ZTS_SNOW, ZQSAT, ZEXNS, ZEXNA, PTA, PQA, &
-                  PZREF, PUREF, ZDIRCOSZW, PVMOD, ZRI      )  
+                  PZREF, PUREF, ZDIRCOSZW, PVMOD, ZRI      )
 !
 !*      1.2.4  Aerodynamical conductance
 !              -------------------------
@@ -375,7 +375,7 @@ DO JJ=1,JCOMPT_SNOW3
 !
 !*      3.2    coefficients from solar radiation
 !          ---------------------------------
-!    
+!
   ZY(JI) = ZY(JI) + ZWORK1(JI) * TPSNOW%T(JI,1) + PABS_SW(JI)
 !
 !
@@ -393,7 +393,7 @@ DO JJ=1,JCOMPT_SNOW3
 !              ------------------------------------
 !
  ZWORK1(JI) = XCPD * PRHOA(JI) * ZAC(JI)
-! 
+!
   ZB(JI) = ZB(JI) + ZWORK1(JI) *   ZIMPL
 !
   ZY(JI) = ZY(JI) - ZWORK1(JI) * ( ZEXPL * TPSNOW%T(JI,1) - PTA(JI) )
@@ -471,7 +471,7 @@ PMELT(:) = ZMELT(:) * ZSNOW_D(:)
 !              ------------
 !
 ZQSATI = QSATI(TPSNOW%T(:,1),PPS(:))
-WHERE (GFLUXMASK(:)) 
+WHERE (GFLUXMASK(:))
    ZQSAT(:) = ZQSATI(:)
 END WHERE
 !
@@ -568,7 +568,7 @@ WHERE ( TPSNOW%WSNOW(:,1)<ZWSNOW_MIN .AND. PMELT(:)>0. .AND. PSR(:)==0. )
   TPSNOW%WSNOW(:,1)=0.
 END WHERE
 !
-WHERE ( TPSNOW%WSNOW(:,1)<1.E-8 * PTSTEP ) 
+WHERE ( TPSNOW%WSNOW(:,1)<1.E-8 * PTSTEP )
    TPSNOW%WSNOW(:,1) = 0.
 END WHERE
 !
@@ -589,10 +589,10 @@ DO JJ=1,JCOMPT_SNOW1
   IF (PMELT(JI) > 0. ) THEN
 !
     TPSNOW%ALB(JI) = (TPSNOW%ALB(JI)-PANSMIN)*EXP(-PRHOFOLD*PTSTEP/XDAY) + PANSMIN   &
-                     + PSR(JI)*PTSTEP/PWCRN*PANSMAX  
+                     + PSR(JI)*PTSTEP/PWCRN*PANSMAX
 !
-  ELSEIF (PMELT(JI)==0.) THEN 
-    TPSNOW%ALB(JI) = TPSNOW%ALB(JI) - PTODRY*PTSTEP/XDAY  + PSR(JI)*PTSTEP/PWCRN*PANSMAX  
+  ELSEIF (PMELT(JI)==0.) THEN
+    TPSNOW%ALB(JI) = TPSNOW%ALB(JI) - PTODRY*PTSTEP/XDAY  + PSR(JI)*PTSTEP/PWCRN*PANSMAX
 !
   ENDIF
 !
@@ -608,7 +608,7 @@ ENDDO
 !
 !cdir nodep
 DO JJ = 1, JCOMPT_SNOW1
-! 
+!
   JI = JSNOWMASK1(JJ)
 !
   IF (TPSNOW%WSNOW(JI,1)>0. ) THEN
@@ -617,7 +617,7 @@ DO JJ = 1, JCOMPT_SNOW1
 !
     TPSNOW%RHO(JI,1) = (TPSNOW%RHO(JI,1)-PRHOSMAX)*EXP(-PRHOFOLD*PTSTEP/XDAY) + PRHOSMAX
     TPSNOW%RHO(JI,1) = ( (ZSR1(JI)-PSR(JI)*PTSTEP) * TPSNOW%RHO(JI,1)    &
-                  + (PSR(JI)*PTSTEP) * PRHOSMIN ) / ZSR1(JI)  
+                  + (PSR(JI)*PTSTEP) * PRHOSMIN ) / ZSR1(JI)
   ENDIF
 !
 ENDDO
@@ -653,7 +653,7 @@ DO JJ=1,JCOMPT_SNOW3
     ZSR2(JI) = MIN( TPSNOW%WSNOW(JI,1) , PSR(JI) * PTSTEP )
 !
     TPSNOW%T(JI,1) =( ( TPSNOW%WSNOW(JI,1) - ZSR2(JI) ) *  TPSNOW%T(JI,1)        &
-              +   ZSR2(JI)  * MIN( PTA   (JI) ,XTT )) / ( TPSNOW%WSNOW(JI,1) )  
+              +   ZSR2(JI)  * MIN( PTA   (JI) ,XTT )) / ( TPSNOW%WSNOW(JI,1) )
   ENDIF
 !
 ENDDO

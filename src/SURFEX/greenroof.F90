@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE GREENROOF (DTCO, G, T, TOP, TIR, DTV, GB, DK, DEK, DMK, GRO, S, K, P, PEK,    &
@@ -8,21 +8,21 @@
                           PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF,       &
                           PTSTEP, PZREF, PUREF, PTA, PQA, PEXNS, PEXNA, PRHOA,      &
                           PCO2, PPS, PRR, PSR, PZENITH, PSW, PLW, PVMOD,            &
-                          PALBNIR_TVEG, PALBVIS_TVEG, PALBNIR_TSOIL, PALBVIS_TSOIL, &                
+                          PALBNIR_TVEG, PALBVIS_TVEG, PALBNIR_TSOIL, PALBVIS_TSOIL, &
                           PRN, PH, PLE, PGFLUX, PSFCO2, PEVAP, PUW, PRUNOFF, PDRAIN,&
-                          PAC, PQSAT, PTSRAD, PAC_AGG, PHU_AGG, PDEEP_FLUX, PIRRIG )  
+                          PAC, PQSAT, PTSRAD, PAC_AGG, PHU_AGG, PDEEP_FLUX, PIRRIG )
 !   ##################################################################################
 !
-!!****  *GREENROOF*  
+!!****  *GREENROOF*
 !!
 !!    PURPOSE
 !!    -------
 !!
 !!    call the vegetation scheme (ISBA) inside TEB for greenroofs
-!!     
+!!
 !!**  METHOD
 !!     ------
-!!    based on subroutine "garden" 
+!!    based on subroutine "garden"
 !!
 !!    EXTERNAL
 !!    --------
@@ -31,11 +31,11 @@
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    Based on subroutine "garden"
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -43,7 +43,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!     Original    09/2011 
+!     Original    09/2011
 !     C. de Munck   02/2013  irrigation (drip irrigation)
 !     B. decharme 04/2013 : Variables required in TEB to allow coupling with AROME/ALADIN/ARPEGE
 !                           phasing call isba
@@ -130,7 +130,7 @@ REAL, DIMENSION(:)  , INTENT(IN)    :: PPET_B_COEF        ! for temperature
 REAL                , INTENT(IN)    :: PTSTEP             ! time step
 REAL, DIMENSION(:)  , INTENT(IN)    :: PZREF              ! height of the first atmospheric level
 REAL, DIMENSION(:)  , INTENT(IN)    :: PUREF              ! reference height for the wind
-REAL, DIMENSION(:)  , INTENT(IN)    :: PTA                ! temperature at first atm. level 
+REAL, DIMENSION(:)  , INTENT(IN)    :: PTA                ! temperature at first atm. level
 REAL, DIMENSION(:)  , INTENT(IN)    :: PQA                ! specific humidity at first atm. level
 REAL, DIMENSION(:)  , INTENT(IN)    :: PPS                ! pressure at the surface
 REAL, DIMENSION(:)  , INTENT(IN)    :: PEXNA              ! Exner function at first atm. level
@@ -212,7 +212,7 @@ ZDIRCOSZW = 1.
 !
  CALL AGRI_INIT(YAG)
 !
-!* automatic summer irrigation 
+!* automatic summer irrigation
 !
 PIRRIG(:) = 0.
 !
@@ -228,7 +228,7 @@ PIRRIG(:) = 0.
 !radiative temperature diagnostic
 !-------------------------------
 !
-!*      9.1    Summer irrigation 
+!*      9.1    Summer irrigation
 !              ------------------
 !
 !* irrigation automatique de type goutte à goutte (arrosage du sol seulement)
@@ -244,7 +244,7 @@ CALL TEB_IRRIG(TIR%LPAR_GR_IRRIG, PTSTEP, TPTIME%TDATE%MONTH, PTSUN,         &
 S%TTIME = TPTIME
 !
 GUPDATED=.FALSE.
-GALB = .FALSE. 
+GALB = .FALSE.
 IF (GRO%CPHOTO=='NIT'.OR.GRO%CPHOTO=='NCB') GALB = .TRUE.
 !
   CALL VEGETATION_UPDATE(DTCO, DTV, G%NDIM, GRO, K, P, PEK, 1,              &
@@ -283,7 +283,7 @@ IF (PEK%TSNOW%SCHEME=='3-L' .OR. PEK%TSNOW%SCHEME=='CRO') PEK%TSNOW%TS(:) = DMK%
 !
 IF (GRO%CPHOTO=='NIT') THEN
   CALL VEGETATION_EVOL(GRO, DTV, P, PEK, .FALSE., PTSTEP, TPTIME%TDATE%MONTH, TPTIME%TDATE%DAY,     &
-                       TPTIME%TIME, G%XLAT, PRHOA, PCO2, YSS, ZRESP_BIOMASS_INST )          
+                       TPTIME%TIME, G%XLAT, PRHOA, PCO2, YSS, ZRESP_BIOMASS_INST )
 END IF
 !
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -345,18 +345,18 @@ ELSEWHERE
   !
   PAC    (:) = XUNDEF
   PQSAT  (:) = XUNDEF
-  PUW    (:) = XUNDEF  
+  PUW    (:) = XUNDEF
   !
 END WHERE
 !
 !
 PTSRAD(:) = DK%XTSRAD(:)
 !
-PRN   (:) = DK%XRN     (:) 
-PH    (:) = DK%XH      (:) 
-PLE   (:) = DK%XLE     (:) 
-PGFLUX(:) = DK%XGFLUX  (:) 
-PEVAP (:) = DK%XEVAP   (:) 
+PRN   (:) = DK%XRN     (:)
+PH    (:) = DK%XH      (:)
+PLE   (:) = DK%XLE     (:)
+PGFLUX(:) = DK%XGFLUX  (:)
+PEVAP (:) = DK%XEVAP   (:)
 PRUNOFF(:) =DEK%XRUNOFF(:)
 PDRAIN (:) =DEK%XDRAIN (:)
 !

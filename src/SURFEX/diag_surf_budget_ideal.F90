@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE DIAG_SURF_BUDGET_IDEAL (PRHOA, PSFTH,                          &
@@ -9,7 +9,7 @@
                                            PSFZON, PSFMER, PLE,                  &
                                            PRN, PH, PGFLUX,                      &
                                            PSWD, PSWU, PSWBD, PSWBU, PLWD, PLWU, &
-                                           PFMU, PFMV                            )  
+                                           PFMU, PFMV                            )
 !     ###############################################################################
 !
 !!****  *DIAG_SURF_BUDGET_IDEAL * - Computes diagnostics over lake
@@ -22,11 +22,11 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     P. Le Moigne 
+!!     P. Le Moigne
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -64,7 +64,7 @@ REAL, DIMENSION(:,:), INTENT(OUT):: PSWBU  ! upward  short wave radiation by spe
 REAL, DIMENSION(:), INTENT(OUT):: PSWD     ! total incoming short wave radiation (W/m2)
 REAL, DIMENSION(:), INTENT(OUT):: PSWU     ! total upward short wave radiation (W/m2)
 REAL, DIMENSION(:), INTENT(OUT):: PLWD     ! Downward long wave radiation (W/m2)
-REAL, DIMENSION(:), INTENT(OUT):: PLWU     ! upward long wave radiation (W/m2)  
+REAL, DIMENSION(:), INTENT(OUT):: PLWU     ! upward long wave radiation (W/m2)
 !
 REAL, DIMENSION(:), INTENT(OUT):: PFMU     ! zonal friction
 REAL, DIMENSION(:), INTENT(OUT):: PFMV     ! meridional friction
@@ -79,12 +79,12 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('DIAG_SURF_BUDGET_IDEAL',0,ZHOOK_HANDLE)
 ISWB = SIZE(PDIR_SW,2)
-! 
+!
 !* total incoming and outgoing SW
 !
 DO JSWB=1,ISWB
   PSWBD(:,JSWB) = PDIR_SW(:,JSWB)                    + PSCA_SW(:,JSWB)
-  PSWBU(:,JSWB) = PDIR_SW(:,JSWB) * PDIR_ALB(:,JSWB) + PSCA_SW(:,JSWB) * PSCA_ALB(:,JSWB) 
+  PSWBU(:,JSWB) = PDIR_SW(:,JSWB) * PDIR_ALB(:,JSWB) + PSCA_SW(:,JSWB) * PSCA_ALB(:,JSWB)
 ENDDO
 !
 PSWD(:) = 0.

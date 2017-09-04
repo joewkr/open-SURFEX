@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_TEB_GARDEN_PAR (DTCO, UG, U, USS, KDIM, IO, DTV, HPROGRAM)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -146,7 +146,7 @@ NAMELIST/NAM_DATA_TEB_GARDEN/   NTIME_GD,                                       
                                 CFNAM_H_HVEG   ,                                   &
                                 CFTYP_FRAC_HVEG, CFTYP_FRAC_LVEG, CFTYP_FRAC_NVEG, &
                                 CFTYP_LAI_HVEG , CFTYP_LAI_LVEG ,                  &
-                                CFTYP_H_HVEG  
+                                CFTYP_H_HVEG
 
 !-------------------------------------------------------------------------------
 !
@@ -251,26 +251,26 @@ CATYPE = 'ARI'
 !
  CALL PGD_FIELD(DTCO, UG, U, USS, &
                 HPROGRAM,'FRAC_HVEG: fraction of high vegetation','TWN',CFNAM_FRAC_HVEG,   &
-                 CFTYP_FRAC_HVEG,XUNIF_FRAC_HVEG,DTV%XPAR_FRAC_HVEG(:))  
+                 CFTYP_FRAC_HVEG,XUNIF_FRAC_HVEG,DTV%XPAR_FRAC_HVEG(:))
 !
  CALL PGD_FIELD(DTCO, UG, U, USS, &
                 HPROGRAM,'FRAC_LVEG: fraction of low vegetation' ,'TWN',CFNAM_FRAC_LVEG,   &
-                 CFTYP_FRAC_LVEG,XUNIF_FRAC_LVEG,DTV%XPAR_FRAC_LVEG(:))  
+                 CFTYP_FRAC_LVEG,XUNIF_FRAC_LVEG,DTV%XPAR_FRAC_LVEG(:))
 !
  CALL PGD_FIELD(DTCO, UG, U, USS, &
                 HPROGRAM,'FRAC_NVEG: fraction of bare soil'      ,'TWN',CFNAM_FRAC_NVEG,   &
-                 CFTYP_FRAC_NVEG,XUNIF_FRAC_NVEG,DTV%XPAR_FRAC_NVEG(:))  
+                 CFTYP_FRAC_NVEG,XUNIF_FRAC_NVEG,DTV%XPAR_FRAC_NVEG(:))
 !
 !
 DO JTIME=1,DTV%NTIME
 !
  CALL PGD_FIELD(DTCO, UG, U, USS, &
                 HPROGRAM,'LAI_HVEG: LAI of high vegetation','TWN',CFNAM_LAI_HVEG(JTIME),  &
-                  CFTYP_LAI_HVEG(JTIME),XUNIF_LAI_HVEG(JTIME),DTV%XPAR_LAI_HVEG(:,JTIME))  
+                  CFTYP_LAI_HVEG(JTIME),XUNIF_LAI_HVEG(JTIME),DTV%XPAR_LAI_HVEG(:,JTIME))
 !
  CALL PGD_FIELD(DTCO, UG, U, USS, &
                 HPROGRAM,'LAI_LVEG: LAI of low  vegetation','TWN',CFNAM_LAI_LVEG(JTIME),  &
-                  CFTYP_LAI_LVEG(JTIME),XUNIF_LAI_LVEG(JTIME),DTV%XPAR_LAI_LVEG(:,JTIME))  
+                  CFTYP_LAI_LVEG(JTIME),XUNIF_LAI_LVEG(JTIME),DTV%XPAR_LAI_LVEG(:,JTIME))
 !
 !
 ENDDO
@@ -278,7 +278,7 @@ ENDDO
 !
  CALL PGD_FIELD(DTCO, UG, U, USS, &
                 HPROGRAM,'H_HVEG: height of trees','TWN',CFNAM_H_HVEG,                     &
-                 CFTYP_H_HVEG,XUNIF_H_HVEG,DTV%XPAR_H_HVEG(:))  
+                 CFTYP_H_HVEG,XUNIF_H_HVEG,DTV%XPAR_H_HVEG(:))
 IF (LHOOK) CALL DR_HOOK('PGD_TEB_GARDEN_PAR',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------

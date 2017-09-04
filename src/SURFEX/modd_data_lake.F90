@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #####################
         MODULE MODD_DATA_LAKE
@@ -12,7 +12,7 @@
 !
 INTEGER, PARAMETER :: NLONG=360, & ! Number of grid boxes of the "lake grid" in longitude
                       NLATG=150    ! Number of grid boxes of the "lake grid" in latitude
-REAL, PARAMETER :: XFIRSTLAT=-60.   ! The first latitude of the "lake grid", deg. 
+REAL, PARAMETER :: XFIRSTLAT=-60.   ! The first latitude of the "lake grid", deg.
 !
 INTEGER, PARAMETER :: NGRADDEPTH_LTA = 12 ! Number of gradations for Depth
 INTEGER, PARAMETER :: NGRADSTATUS_LDB = 5 ! Number of gradations for Status
@@ -20,7 +20,7 @@ INTEGER, PARAMETER :: NGRADDEPTH_LDB = 21 ! Number of gradations for Depth
 !
 REAL, DIMENSION(NGRADDEPTH_LTA), PARAMETER :: XCENTRGRADDEPTH_LTA = &  ! Central values for the gradations in depth, m
       (/1., 3., 5., 7., 10., 14., 18., 22., 27., 33., 39., 50./)
-!                                             
+!
 REAL, DIMENSION(NGRADDEPTH_LDB), PARAMETER :: XCENTRGRADDEPTH_LDB = &  ! Central values for the gradations for status
       (/0., 1., 3., 5., 7., 10., 14., 18., 22., 27., 33., 39., 50., 70., 100., 150., 250., 400., 600., 1000., 1600./)
 ! Central values for the gradations for depth

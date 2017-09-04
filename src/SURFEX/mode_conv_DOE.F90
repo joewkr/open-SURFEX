@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !###################
 MODULE MODE_CONV_DOE
@@ -10,12 +10,12 @@ MODULE MODE_CONV_DOE
 !!
 !!    PURPOSE
 !!    -------
-!      
+!
 !
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!       NONE          
+!!       NONE
 !!
 !!    REFERENCE
 !!    ---------
@@ -27,7 +27,7 @@ MODULE MODE_CONV_DOE
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/08/12 
+!!      Original    20/08/12
 !
 !--------------------------------------------------------------------------------
 !
@@ -64,7 +64,7 @@ CONTAINS
 FUNCTION CHTC_VERT_DOE_0D(PTS, PTA) RESULT(PCHTC)
 !#############################################
 !
-!!****  *CHTC_VERT_DOE* - 
+!!****  *CHTC_VERT_DOE* -
 !!
 !!    PURPOSE
 !!    -------
@@ -81,7 +81,7 @@ FUNCTION CHTC_VERT_DOE_0D(PTS, PTA) RESULT(PCHTC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    EnergyPlus, Engineering Reference, DOE-2 model for convection on outside
@@ -93,7 +93,7 @@ FUNCTION CHTC_VERT_DOE_0D(PTS, PTA) RESULT(PCHTC)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/00/2012 
+!!      Original    20/00/2012
 !
 !-------------------------------------------------------------------------------
 !*       0.    DECLARATIONS
@@ -115,7 +115,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_CONV_DOE:CHTC_VERT_DOE',0,ZHOOK_HANDLE)
 !*       1.    COMPUTE THE CHTC
 !              ----------------
 !
-PCHTC = 1.31 * (ABS(PTA - PTS))**(1./3.) 
+PCHTC = 1.31 * (ABS(PTA - PTS))**(1./3.)
 !-------------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('MODE_CONV_DOE:CHTC_VERT_DOE',1,ZHOOK_HANDLE)
 !
@@ -125,7 +125,7 @@ END FUNCTION CHTC_VERT_DOE_0D
 FUNCTION CHTC_VERT_DOE_1D(PTS, PTA) RESULT(PCHTC)
 !#############################################
 !
-!!****  *CHTC_VERT_DOE* - 
+!!****  *CHTC_VERT_DOE* -
 !!
 !!    PURPOSE
 !!    -------
@@ -142,7 +142,7 @@ FUNCTION CHTC_VERT_DOE_1D(PTS, PTA) RESULT(PCHTC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    EnergyPlus, Engineering Reference, DOE-2 model for convection on outside
@@ -154,7 +154,7 @@ FUNCTION CHTC_VERT_DOE_1D(PTS, PTA) RESULT(PCHTC)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/00/2012 
+!!      Original    20/00/2012
 !
 !-------------------------------------------------------------------------------
 !*       0.    DECLARATIONS
@@ -176,7 +176,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_CONV_DOE:CHTC_VERT_DOE',0,ZHOOK_HANDLE)
 !*       1.    COMPUTE THE CHTC
 !              ----------------
 !
-PCHTC = 1.31 * (ABS(PTA - PTS))**(1./3.) 
+PCHTC = 1.31 * (ABS(PTA - PTS))**(1./3.)
 !-------------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('MODE_CONV_DOE:CHTC_VERT_DOE',1,ZHOOK_HANDLE)
 !
@@ -187,7 +187,7 @@ END FUNCTION CHTC_VERT_DOE_1D
 FUNCTION CHTC_UP_DOE_1D(PTS, PTA) RESULT(PCHTC)
 !#############################################
 !
-!!****  *CHTC_UP_DOE* - 
+!!****  *CHTC_UP_DOE* -
 !!
 !!    PURPOSE
 !!    -------
@@ -204,7 +204,7 @@ FUNCTION CHTC_UP_DOE_1D(PTS, PTA) RESULT(PCHTC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    EnergyPlus, Engineering Reference, DOE-2 model for convection on outside
@@ -216,7 +216,7 @@ FUNCTION CHTC_UP_DOE_1D(PTS, PTA) RESULT(PCHTC)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/00/2012 
+!!      Original    20/00/2012
 !
 !-------------------------------------------------------------------------------
 !*       0.    DECLARATIONS
@@ -240,7 +240,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_CONV_DOE:CHTC_UP_DOE',0,ZHOOK_HANDLE)
 WHERE(PTA < PTS)
    PCHTC  = 9.482 * (PTS - PTA)**(1./3.) / (7.283 - 1)
 ELSE WHERE
-   PCHTC  = 1.810 * (PTA - PTS)**(1./3.) / (1.382 + 1)  
+   PCHTC  = 1.810 * (PTA - PTS)**(1./3.) / (1.382 + 1)
 END WHERE
 !
 !-------------------------------------------------------------------------------
@@ -252,7 +252,7 @@ END FUNCTION CHTC_UP_DOE_1D
 FUNCTION CHTC_UP_DOE_0D(PTS, PTA) RESULT(PCHTC)
 !#############################################
 !
-!!****  *CHTC_UP_DOE* - 
+!!****  *CHTC_UP_DOE* -
 !!
 !!    PURPOSE
 !!    -------
@@ -269,7 +269,7 @@ FUNCTION CHTC_UP_DOE_0D(PTS, PTA) RESULT(PCHTC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    EnergyPlus, Engineering Reference, DOE-2 model for convection on outside
@@ -281,7 +281,7 @@ FUNCTION CHTC_UP_DOE_0D(PTS, PTA) RESULT(PCHTC)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/00/2012 
+!!      Original    20/00/2012
 !
 !-------------------------------------------------------------------------------
 !*       0.    DECLARATIONS
@@ -304,8 +304,8 @@ IF (LHOOK) CALL DR_HOOK('MODE_CONV_DOE:CHTC_UP_DOE',0,ZHOOK_HANDLE)
 !
 IF (PTA < PTS) THEN
    PCHTC  = 9.482 * (PTS - PTA)**(1./3.) / (7.283 - 1)
-ELSE 
-   PCHTC  = 1.810 * (PTA - PTS)**(1./3.) / (1.382 + 1)  
+ELSE
+   PCHTC  = 1.810 * (PTA - PTS)**(1./3.) / (1.382 + 1)
 ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -318,7 +318,7 @@ END FUNCTION CHTC_UP_DOE_0D
 FUNCTION CHTC_DOWN_DOE(PTS, PTA) RESULT(PCHTC)
 !#############################################
 !
-!!****  *CHTC_DOWN_DOE* - 
+!!****  *CHTC_DOWN_DOE* -
 !!
 !!    PURPOSE
 !!    -------
@@ -335,7 +335,7 @@ FUNCTION CHTC_DOWN_DOE(PTS, PTA) RESULT(PCHTC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    EnergyPlus, Engineering Reference, DOE-2 model for convection on outside
@@ -347,7 +347,7 @@ FUNCTION CHTC_DOWN_DOE(PTS, PTA) RESULT(PCHTC)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/00/2012 
+!!      Original    20/00/2012
 !
 !-------------------------------------------------------------------------------
 !*       0.    DECLARATIONS
@@ -371,7 +371,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_CONV_DOE:CHTC_DOWN_DOE',0,ZHOOK_HANDLE)
 WHERE(PTA > PTS)
    PCHTC  = 9.482 * (PTA - PTS)**(1./3.) / (7.283 - 1)
 ELSE WHERE
-   PCHTC  = 1.810 * (PTS - PTA)**(1./3.) / (1.382 + 1)  
+   PCHTC  = 1.810 * (PTS - PTA)**(1./3.) / (1.382 + 1)
 END WHERE
 !
 !-------------------------------------------------------------------------------
@@ -384,7 +384,7 @@ END FUNCTION CHTC_DOWN_DOE
 FUNCTION CHTC_SMOOTH_LEE_DOE_0D(PCHTCN, PVMOD) RESULT(PCHTC)
 !#############################################
 !
-!!****  *CHTC_SMOOTH_LEE_DOE* - 
+!!****  *CHTC_SMOOTH_LEE_DOE* -
 !!
 !!    PURPOSE
 !!    -------
@@ -395,7 +395,7 @@ FUNCTION CHTC_SMOOTH_LEE_DOE_0D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!**  METHOD
 !!    ------
 !!
-!!    from EnergyPlus Engineering Reference, average the leeward/windward coef 
+!!    from EnergyPlus Engineering Reference, average the leeward/windward coef
 !!
 !!    EXTERNAL
 !!    --------
@@ -403,7 +403,7 @@ FUNCTION CHTC_SMOOTH_LEE_DOE_0D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    EnergyPlus, Engineering Reference, DOE-2 model for convection on outside
@@ -415,7 +415,7 @@ FUNCTION CHTC_SMOOTH_LEE_DOE_0D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/00/2012 
+!!      Original    20/00/2012
 !
 !-------------------------------------------------------------------------------
 !*       0.    DECLARATIONS
@@ -457,7 +457,7 @@ END FUNCTION CHTC_SMOOTH_LEE_DOE_0D
 FUNCTION CHTC_SMOOTH_LEE_DOE_1D(PCHTCN, PVMOD) RESULT(PCHTC)
 !#############################################
 !
-!!****  *CHTC_SMOOTH_LEE_DOE* - 
+!!****  *CHTC_SMOOTH_LEE_DOE* -
 !!
 !!    PURPOSE
 !!    -------
@@ -468,7 +468,7 @@ FUNCTION CHTC_SMOOTH_LEE_DOE_1D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!**  METHOD
 !!    ------
 !!
-!!    from EnergyPlus Engineering Reference, average the leeward/windward coef 
+!!    from EnergyPlus Engineering Reference, average the leeward/windward coef
 !!
 !!    EXTERNAL
 !!    --------
@@ -476,7 +476,7 @@ FUNCTION CHTC_SMOOTH_LEE_DOE_1D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    EnergyPlus, Engineering Reference, DOE-2 model for convection on outside
@@ -488,7 +488,7 @@ FUNCTION CHTC_SMOOTH_LEE_DOE_1D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/00/2012 
+!!      Original    20/00/2012
 !
 !-------------------------------------------------------------------------------
 !*       0.    DECLARATIONS
@@ -529,7 +529,7 @@ END FUNCTION CHTC_SMOOTH_LEE_DOE_1D
 FUNCTION CHTC_SMOOTH_WIND_DOE_0D(PCHTCN, PVMOD) RESULT(PCHTC)
 !#############################################
 !
-!!****  *CHTC_SMOOTH_WIND_DOE* - 
+!!****  *CHTC_SMOOTH_WIND_DOE* -
 !!
 !!    PURPOSE
 !!    -------
@@ -540,7 +540,7 @@ FUNCTION CHTC_SMOOTH_WIND_DOE_0D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!**  METHOD
 !!    ------
 !!
-!!    from EnergyPlus Engineering Reference, average the leeward/windward coef 
+!!    from EnergyPlus Engineering Reference, average the leeward/windward coef
 !!
 !!    EXTERNAL
 !!    --------
@@ -548,7 +548,7 @@ FUNCTION CHTC_SMOOTH_WIND_DOE_0D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    EnergyPlus, Engineering Reference, DOE-2 model for convection on outside
@@ -560,7 +560,7 @@ FUNCTION CHTC_SMOOTH_WIND_DOE_0D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/00/2012 
+!!      Original    20/00/2012
 !
 !-------------------------------------------------------------------------------
 !*       0.    DECLARATIONS
@@ -602,7 +602,7 @@ END FUNCTION CHTC_SMOOTH_WIND_DOE_0D
 FUNCTION CHTC_SMOOTH_WIND_DOE_1D(PCHTCN, PVMOD) RESULT(PCHTC)
 !#############################################
 !
-!!****  *CHTC_SMOOTH_WIND_DOE* - 
+!!****  *CHTC_SMOOTH_WIND_DOE* -
 !!
 !!    PURPOSE
 !!    -------
@@ -613,7 +613,7 @@ FUNCTION CHTC_SMOOTH_WIND_DOE_1D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!**  METHOD
 !!    ------
 !!
-!!    from EnergyPlus Engineering Reference, average the leeward/windward coef 
+!!    from EnergyPlus Engineering Reference, average the leeward/windward coef
 !!
 !!    EXTERNAL
 !!    --------
@@ -621,7 +621,7 @@ FUNCTION CHTC_SMOOTH_WIND_DOE_1D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    EnergyPlus, Engineering Reference, DOE-2 model for convection on outside
@@ -633,7 +633,7 @@ FUNCTION CHTC_SMOOTH_WIND_DOE_1D(PCHTCN, PVMOD) RESULT(PCHTC)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/00/2012 
+!!      Original    20/00/2012
 !
 !-------------------------------------------------------------------------------
 !*       0.    DECLARATIONS
@@ -663,7 +663,7 @@ ZBWIND = 0.89
 !*       2.    COMPUTE THE CHTC
 !              ----------------
 !
-PCHTC = SQRT(PCHTCN**2+(ZAWIND*PVMOD**ZBWIND)**2) 
+PCHTC = SQRT(PCHTCN**2+(ZAWIND*PVMOD**ZBWIND)**2)
 !
 !-------------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('MODE_CONV_DOE:CHTC_SMOOTH_WIND_DOE',1,ZHOOK_HANDLE)
@@ -674,7 +674,7 @@ END FUNCTION CHTC_SMOOTH_WIND_DOE_1D
 FUNCTION CHTC_ROUGH_DOE_0D(PCHTCN, PCHTCS, PROUGH) RESULT(PCHTC)
 !#############################################
 !
-!!****  *CHTC_ROUGH_DOE* - 
+!!****  *CHTC_ROUGH_DOE* -
 !!
 !!    PURPOSE
 !!    -------
@@ -692,7 +692,7 @@ FUNCTION CHTC_ROUGH_DOE_0D(PCHTCN, PCHTCS, PROUGH) RESULT(PCHTC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    EnergyPlus, Engineering Reference, DOE-2 model for convection on outside
@@ -704,7 +704,7 @@ FUNCTION CHTC_ROUGH_DOE_0D(PCHTCN, PCHTCS, PROUGH) RESULT(PCHTC)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/00/2012 
+!!      Original    20/00/2012
 !
 !-------------------------------------------------------------------------------
 !*       0.    DECLARATIONS
@@ -739,7 +739,7 @@ END FUNCTION CHTC_ROUGH_DOE_0D
 FUNCTION CHTC_ROUGH_DOE_1D(PCHTCN, PCHTCS, PROUGH) RESULT(PCHTC)
 !#############################################
 !
-!!****  *CHTC_ROUGH_DOE* - 
+!!****  *CHTC_ROUGH_DOE* -
 !!
 !!    PURPOSE
 !!    -------
@@ -757,7 +757,7 @@ FUNCTION CHTC_ROUGH_DOE_1D(PCHTCN, PCHTCS, PROUGH) RESULT(PCHTC)
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!    EnergyPlus, Engineering Reference, DOE-2 model for convection on outside
@@ -769,7 +769,7 @@ FUNCTION CHTC_ROUGH_DOE_1D(PCHTCN, PCHTCS, PROUGH) RESULT(PCHTC)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/00/2012 
+!!      Original    20/00/2012
 !
 !-------------------------------------------------------------------------------
 !*       0.    DECLARATIONS

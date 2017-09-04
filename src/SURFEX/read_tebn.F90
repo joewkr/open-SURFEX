@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_TEB_n (B, BOP, DTCO, U, T, TOP, TPN, HPROGRAM,KPATCH)
 !     #########################################
 !
 !!****  *READ_TEB_n* - reads TEB fields
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -116,7 +116,7 @@ YRECFM='SIZE_TOWN'
 !
 YPATCH='   '
 IF (TOP%NTEB_PATCH>1) WRITE(YPATCH,FMT='(A1,I1,A1)') 'T',KPATCH,'_'
-!  
+!
  CALL READ_SURF(HPROGRAM,'VERSION',IVERSION,IRESP)
  CALL READ_SURF(HPROGRAM,'BUG',IBUGFIX,IRESP)
 GOLD_NAME = (IVERSION<7 .OR. (IVERSION==7 .AND. IBUGFIX<=2))
@@ -229,7 +229,7 @@ IF (TOP%CBEM=='BEM') THEN
   !
   YRECFM=YPATCH//'T_WIN2'
   YRECFM=ADJUSTL(YRECFM)
-  CALL READ_SURF(HPROGRAM,YRECFM,B%XT_WIN2(:),IRESP)        
+  CALL READ_SURF(HPROGRAM,YRECFM,B%XT_WIN2(:),IRESP)
   !
   !* floor temperatures
   !
@@ -251,7 +251,7 @@ IF (TOP%CBEM=='BEM') THEN
     CALL READ_SURF(HPROGRAM,YRECFM,B%XT_MASS(:,JLAYER),IRESP)
   END DO
   !
-ELSE 
+ELSE
   ALLOCATE(B%XT_WIN2(0))
   ALLOCATE(B%XT_FLOOR(0,0))
   ALLOCATE(B%XT_MASS(0,0))
@@ -282,12 +282,12 @@ IF (.NOT. GTOWN) THEN
   T%TSNOW_ROAD%SCHEME='1-L'
   CALL ALLOCATE_GR_SNOW(T%TSNOW_ROAD,ILU)
   T%TSNOW_ROOF%SCHEME='1-L'
-  CALL ALLOCATE_GR_SNOW(T%TSNOW_ROOF,ILU)  
+  CALL ALLOCATE_GR_SNOW(T%TSNOW_ROOF,ILU)
 ELSE
   ALLOCATE(IMASK(ILU))
   DO JI = 1,ILU
     IMASK(JI) = JI
-  ENDDO 
+  ENDDO
   IF (IVERSION>7 .OR. IVERSION==7 .AND. IBUGFIX>=3) THEN
     CALL READ_GR_SNOW(HPROGRAM,'RD',YPATCH,ILU,ILU,IMASK,0,T%TSNOW_ROAD  )
     CALL READ_GR_SNOW(HPROGRAM,'RF',YPATCH,ILU,ILU,IMASK,0,T%TSNOW_ROOF  )
@@ -295,7 +295,7 @@ ELSE
     CALL READ_GR_SNOW(HPROGRAM,'ROAD',YPATCH,ILU,ILU,IMASK,0,T%TSNOW_ROAD  )
     CALL READ_GR_SNOW(HPROGRAM,'ROOF',YPATCH,ILU,ILU,IMASK,0,T%TSNOW_ROOF  )
   ENDIF
-  DEALLOCATE(IMASK)  
+  DEALLOCATE(IMASK)
 END IF
 !
 !-------------------------------------------------------------------------------

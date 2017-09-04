@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-    SUBROUTINE LAILOSS(PK, PEK, PBIOMASS)  
+    SUBROUTINE LAILOSS(PK, PEK, PBIOMASS)
 !   ###############################################################
-!!****  *LAILOSS*  
+!!****  *LAILOSS*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     Calculates the time change in LAI due to senesence 
+!     Calculates the time change in LAI due to senesence
 !     and cutting: ie losses/decreases to LAI. This in turn
 !     reduces the dry biomass of the canopy.
-!              
+!
 !!**  METHOD
 !!    ------
 !     Calvet at al (1997) [from model of Jacobs(1994)]
@@ -24,14 +24,14 @@
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Calvet et al. (1997)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -40,7 +40,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    27/10/97 
+!!      Original    27/10/97
 !!      Modified    12/03/04  by P LeMoigne: ZXSEFOLD in days
 !!      L. Jarlan   27/10/04  add RHOA as input to express IP%XANMAX(:,1) in
 !!                            kgCO2 m-2s-1 instead of kgCO2 kgAir-1 m s-1
@@ -67,7 +67,7 @@ IMPLICIT NONE
 TYPE(ISBA_P_t), INTENT(INOUT) :: PK
 TYPE(ISBA_PE_t), INTENT(INOUT) :: PEK
 !
-REAL,   DIMENSION(:), INTENT(INOUT) :: PBIOMASS ! total dry canopy biomass 
+REAL,   DIMENSION(:), INTENT(INOUT) :: PBIOMASS ! total dry canopy biomass
 !
 !*      0.2    declarations of local variables
 !

@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE READ_NAMELISTS_ISBA_n (IM, HPROGRAM, HINIT)
 !     #######################################################
 !
-!---------------------------    
+!---------------------------
 !
 !
 USE MODD_SURFEX_n, ONLY : ISBA_MODEL_t
 !
 USE MODD_SURF_PAR, ONLY : XUNDEF
 !
-USE MODN_ISBA_n                      
-!    
+USE MODN_ISBA_n
+!
 USE MODN_SOILTEMP_ARP
 !
 USE MODI_GET_LUOUT
@@ -63,15 +63,15 @@ IF (LHOOK) CALL DR_HOOK('READ_NAMELISTS_ISBA_N',0,ZHOOK_HANDLE)
                      NNBYEARSPINS, NNBYEARSPINW, LNITRO_DILU     )
 !
  CALL DEFAULT_CH_DEP(CCH_DRY_DEP)
- CALL DEFAULT_CH_BIO_FLUX(LCH_BIO_FLUX) 
-!           
+ CALL DEFAULT_CH_BIO_FLUX(LCH_BIO_FLUX)
+!
  CALL DEFAULT_DIAG_ISBA(N2M,LSURF_BUDGET,L2M_MIN_ZS,LRAD_BUDGET,  &
                        LCOEF,LSURF_VARS,LSURF_EVAP_BUDGET,        &
                        LSURF_MISC_BUDGET,LSURF_DIAG_ALBEDO,       &
                        LSURF_BUDGETC,LSURF_MISC_DIF,LPATCH_BUDGET,&
                        LPGD,LRESET_BUDGETC,LWATER_BUDGET,LPROSNOW,&
-                       LVOLUMETRIC_SNOWLIQ,XDIAG_TSTEP           ) 
-!      
+                       LVOLUMETRIC_SNOWLIQ,XDIAG_TSTEP           )
+!
  CALL DEFAULT_CROCUS(LSNOWDRIFT,LSNOWDRIFT_SUBLIM,LSNOW_ABS_ZENITH,&
                      CSNOWMETAMO,CSNOWRAD)
 !
@@ -91,7 +91,7 @@ NTEMPLAYER_ARP = 4
 IF (GFOUND) READ(UNIT=ILUNAM,NML=NAM_SOILTEMP_ARP)
  CALL CLOSE_NAMELIST(HPROGRAM,ILUNAM)
 !
-IF (HINIT=='PRE') CALL READ_NAM_PREP_ISBA_n(HPROGRAM)      
+IF (HINIT=='PRE') CALL READ_NAM_PREP_ISBA_n(HPROGRAM)
 IF (LHOOK) CALL DR_HOOK('READ_NAMELISTS_ISBA_N',1,ZHOOK_HANDLE)
 !
 !

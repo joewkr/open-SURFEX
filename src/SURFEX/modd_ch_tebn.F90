@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #####################
       MODULE MODD_CH_TEB_n
@@ -9,8 +9,8 @@
 !!
 !!    PURPOSE
 !!    -------
-!     
-!   
+!
+!
 !
 !!
 !!**  IMPLICIT ARGUMENTS
@@ -41,16 +41,16 @@ TYPE CH_TEB_t
 !
   CHARACTER(LEN=28)  :: CCHEM_SURF_FILE  ! name of general (chemical) purpose ASCII input file
   CHARACTER(LEN=6)                :: CCH_DRY_DEP            !  deposition scheme
-  REAL, DIMENSION(:,:),   POINTER :: XDEP                   ! final dry deposition  
+  REAL, DIMENSION(:,:),   POINTER :: XDEP                   ! final dry deposition
                                                             ! velocity  for nature
   REAL, DIMENSION(:,:),   POINTER :: XSOILRC_SO2            ! for SO2
-  REAL, DIMENSION(:,:),   POINTER :: XSOILRC_O3             ! for O3                                                            
+  REAL, DIMENSION(:,:),   POINTER :: XSOILRC_O3             ! for O3
   LOGICAL                         :: LCH_BIO_FLUX           ! flag for the calculation of
                                                             ! biogenic fluxes
   LOGICAL                         :: LCH_NO_FLUX            ! flag for the calculation of
                                                             ! biogenic NO fluxes
   TYPE(SV_t) :: SVT
-  
+
   CHARACTER(LEN=6), DIMENSION(:), POINTER :: CCH_NAMES      ! NAME OF CHEMICAL SPECIES
                                                             ! (FOR DIAG ONLY)
   CHARACTER(LEN=6), DIMENSION(:), POINTER :: CAER_NAMES     ! NAME OF CHEMICAL SPECIES

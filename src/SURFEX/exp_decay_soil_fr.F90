@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########
-      SUBROUTINE EXP_DECAY_SOIL_FR (HISBA, PF, PK, PC_DEPTH_RATIO)  
+      SUBROUTINE EXP_DECAY_SOIL_FR (HISBA, PF, PK, PC_DEPTH_RATIO)
 !     ##########################################################################
 !
-!!****  *EXP_DECAY_SOIL_FR*  
+!!****  *EXP_DECAY_SOIL_FR*
 !!
 !!    PURPOSE
 !!    -------
@@ -14,7 +14,7 @@
 !     We caculate the hydraulic coductivity decay factor for each FR-coefficients.
 !     Also, we redefine the surface hydraulic coductivity at saturation for
 !     convective precipitation parametrisation.
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -28,17 +28,17 @@
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
-!!      B. Decharme     
+!!      B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    17/11/03 
+!!      Original    17/11/03
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -47,7 +47,7 @@
 USE MODD_ISBA_n, ONLY : ISBA_P_t
 !
 USE MODD_SURF_PAR,ONLY : XUNDEF
-USE MODD_SGH_PAR, ONLY : X2                                
+USE MODD_SGH_PAR, ONLY : X2
 USE MODD_CSTS,    ONLY : XDAY
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -73,7 +73,7 @@ REAL, DIMENSION(:), INTENT(IN), OPTIONAL :: PC_DEPTH_RATIO
 !
 REAL, DIMENSION(SIZE(PF))         :: ZD_G_TOT, ZC_DEPTH, ZKSAT_NOEXP, ZC_DEPTH_RATIO
 !                                    ZD_G_TOT = depth of the soil column (m)
-!                                    ZC_DEPTH = assumed as the depth where the vertical 
+!                                    ZC_DEPTH = assumed as the depth where the vertical
 !                                               satured hydraulic conductivities reach
 !                                               the compacted value given in Clapp and
 !                                               Hornberger. (m)
@@ -108,24 +108,24 @@ WHERE(ZD_G_TOT(:)/=XUNDEF)
   PK%XCONDSAT(:,1) = PK%XCONDSAT(:,1)*EXP(PF(:)*ZC_DEPTH(:))
   !
   !mean hydraulic conductivity at saturation over the root zone
-  !   
+  !
   PK%XCONDSAT(:,2) = ZKSAT_NOEXP(:)*( EXP(PF(:)*ZC_DEPTH)-EXP(PF(:)*(ZC_DEPTH(:)-PK%XDG(:,2))) )   &
                     /(PF(:)*PK%XDG(:,2))
-  !   
+  !
   !mean hydraulic conductivity at saturation over the first soil centimeters
-  !   
+  !
   PK%XKSAT_ICE(:) = ZKSAT_NOEXP(:)*( EXP(PF(:)*ZC_DEPTH)-EXP(PF(:)*(ZC_DEPTH(:)-PK%XD_ICE(:))) )   &
-                   /(PF(:)*PK%XD_ICE(:))  
+                   /(PF(:)*PK%XD_ICE(:))
   !
   !decay factor for C1 coef
-  !   
+  !
   PK%XC1SAT(:) = PK%XC1SAT(:)*SQRT( EXP(-PF(:)*ZC_DEPTH(:)) )
   !
-  !decay factor for C2 coef 
+  !decay factor for C2 coef
   !
-  PK%XC2REF(:)=PK%XC2REF(:)+( PK%XCONDSAT(:,2)-ZKSAT_NOEXP(:) ) * XDAY/PK%XDG(:,2) 
+  PK%XC2REF(:)=PK%XC2REF(:)+( PK%XCONDSAT(:,2)-ZKSAT_NOEXP(:) ) * XDAY/PK%XDG(:,2)
   !
-  !C3 coef with exponential decay in root soil layer 
+  !C3 coef with exponential decay in root soil layer
   !
   PK%XC3(:,1)=PK%XC3(:,1)*( EXP(PF(:)*ZC_DEPTH(:))-EXP(PF(:)*(ZC_DEPTH(:)-PK%XDG(:,2))) ) / &
           (PF(:)*PK%XDG(:,2))
@@ -133,18 +133,18 @@ WHERE(ZD_G_TOT(:)/=XUNDEF)
 ENDWHERE
 !
 IF(HISBA=='3-L')THEN
-  ! 
+  !
   WHERE(PK%XDG(:,2)< ZD_G_TOT(:).AND.PK%XDG(:,2)/=XUNDEF)
-    !           
-    !  C3 coef with exponential decay in deep soil layer 
+    !
+    !  C3 coef with exponential decay in deep soil layer
     !
     PK%XC3(:,2)=PK%XC3(:,2)*( EXP(PF(:)*(ZC_DEPTH(:)-PK%XDG(:,2)))-EXP(PF(:)*(ZC_DEPTH(:)-ZD_G_TOT(:))) )      &
-                     / (PF(:)*(ZD_G_TOT(:)-PK%XDG(:,2)))  
-    ! 
+                     / (PF(:)*(ZD_G_TOT(:)-PK%XDG(:,2)))
+    !
     !  decay factor for C4 coef
-    !      
+    !
     PK%XC4REF(:)=PK%XC4REF(:)*( EXP(PF(:)*(ZC_DEPTH(:)-PK%XDG(:,2)/X2))-EXP(PF(:)*(ZC_DEPTH(:)&
-                         -((PK%XDG(:,2)+ZD_G_TOT(:))/2.))) ) * X2/(PF(:)*ZD_G_TOT(:))        
+                         -((PK%XDG(:,2)+ZD_G_TOT(:))/2.))) ) * X2/(PF(:)*ZD_G_TOT(:))
     !
   ENDWHERE
   !

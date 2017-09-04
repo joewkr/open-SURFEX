@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_HOR_ISBA_CC_FIELD (DTCO, U, GCP, KLAT, IO, S, NK, NP, NPE,  &
@@ -18,7 +18,7 @@ SUBROUTINE PREP_HOR_ISBA_CC_FIELD (DTCO, U, GCP, KLAT, IO, S, NK, NP, NPE,  &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -198,7 +198,7 @@ IF (YDCTL%LPART3) THEN
     ZPATCH(:,:) = 0.
 !
     CALL GET_PREP_INTERP(INP,IO%NPATCH,S%XVEGTYPE,S%XPATCH,ZPATCH)
-  
+
     DO JP = 1, INP
   ! we interpolate each point the output patch is present
       LINTERP(:) = (ZPATCH(:,JP) > 0.)
@@ -270,7 +270,7 @@ IF (YDCTL%LPART5) THEN
       !
       SELECT CASE (HSURF)
         !
-        CASE('BIOMASS') 
+        CASE('BIOMASS')
           ALLOCATE(ZW%AL(JP)%ZOUT(PK%NSIZE_P,IO%NNBIOMASS))
           ZW%AL(JP)%ZOUT(:,:) = 0.
           WHERE(PEK%XLAI(:)/=XUNDEF)
@@ -279,15 +279,15 @@ IF (YDCTL%LPART5) THEN
           ZW%AL(JP)%ZOUT(:,2) = MAX( 0., (ZW%AL(JP)%ZOUT(:,1)/ (XCC_NIT/10.**XCA_NIT))  &
                                         **(1.0/(1.0-XCA_NIT)) - ZW%AL(JP)%ZOUT(:,1) )
           !
-        CASE('LITTER') 
+        CASE('LITTER')
           ALLOCATE(ZW%AL(JP)%ZOUT(PK%NSIZE_P,IO%NNLITTER*IO%NNLITTLEVS))
           ZW%AL(JP)%ZOUT(:,:) = 0.0
           !
-        CASE('SOILCARB') 
+        CASE('SOILCARB')
           ALLOCATE(ZW%AL(JP)%ZOUT(PK%NSIZE_P,IO%NNSOILCARB))
           ZW%AL(JP)%ZOUT(:,:) = 0.0
           !
-        CASE('LIGNIN') 
+        CASE('LIGNIN')
           ALLOCATE(ZW%AL(JP)%ZOUT(PK%NSIZE_P,IO%NNLITTLEVS))
           ZW%AL(JP)%ZOUT(:,:) = 0.0
          !
@@ -303,7 +303,7 @@ IF (YDCTL%LPART5) THEN
 !
   SELECT CASE (HSURF)
     !
-    CASE('BIOMASS') 
+    CASE('BIOMASS')
       DO JP = 1,IO%NPATCH
         PEK => NPE%AL(JP)
         PK => NP%AL(JP)
@@ -324,7 +324,7 @@ IF (YDCTL%LPART5) THEN
             ELSEWHERE
               PEK%XBIOMASS(:,JL) = 0.0
             ENDWHERE
-          ENDDO          
+          ENDDO
         ENDIF
       ENDDO
       !
@@ -332,7 +332,7 @@ IF (YDCTL%LPART5) THEN
       DO JP = 1,IO%NPATCH
         PEK => NPE%AL(JP)
         PK => NP%AL(JP)
-   
+
         ALLOCATE(PEK%XLITTER(PK%NSIZE_P,IO%NNLITTER,IO%NNLITTLEVS))
         INL=0
         DO JJ=1,IO%NNLITTER
@@ -347,11 +347,11 @@ IF (YDCTL%LPART5) THEN
         ENDDO
       END DO
       !
-    CASE('SOILCARB') 
+    CASE('SOILCARB')
       DO JP = 1,IO%NPATCH
         PEK => NPE%AL(JP)
         PK => NP%AL(JP)
- 
+
         ALLOCATE(PEK%XSOILCARB(PK%NSIZE_P,IO%NNSOILCARB))
         WHERE(ZW%AL(JP)%ZOUT(:,:)/=XUNDEF)
           PEK%XSOILCARB(:,:) = ZW%AL(JP)%ZOUT(:,:)
@@ -360,11 +360,11 @@ IF (YDCTL%LPART5) THEN
         ENDWHERE
       ENDDO
       !
-    CASE('LIGNIN') 
+    CASE('LIGNIN')
       DO JP = 1,IO%NPATCH
         PEK => NPE%AL(JP)
         PK => NP%AL(JP)
- 
+
         ALLOCATE(PEK%XLIGNIN_STRUC(PK%NSIZE_P,IO%NNLITTLEVS))
         WHERE(ZW%AL(JP)%ZOUT(:,:)/=XUNDEF)
           PEK%XLIGNIN_STRUC(:,:) = ZW%AL(JP)%ZOUT(:,:)

@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_NAM_PGD_ISBA_MEB(HPROGRAM, KLUOUT, OMEB_PATCH, OFORC_MEASURE, &
-                      OMEB_LITTER, OMEB_GNDRES)  
+                      OMEB_LITTER, OMEB_GNDRES)
 !     #############################################################################
 !
 !!**** *READ_NAM_PGD_ISBA_MEB* reads namelist for ISBA
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -80,7 +80,7 @@ LOGICAL                :: LMEB_GNDRES
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
-NAMELIST/NAM_MEB_ISBA/LMEB_PATCH,LFORC_MEASURE,LMEB_LITTER,LMEB_GNDRES  
+NAMELIST/NAM_MEB_ISBA/LMEB_PATCH,LFORC_MEASURE,LMEB_LITTER,LMEB_GNDRES
 !
 !-------------------------------------------------------------------------------
 !
@@ -108,10 +108,10 @@ ELSE
   WRITE(ILUOUT,*) '*****************************************'
   WRITE(ILUOUT,*) '* LMEB is activated in NAM_ISBA         *'
   WRITE(ILUOUT,*) '* But NAM_MEB_ISBA is not defined       *'
-  WRITE(ILUOUT,*) '* Check your namelist                   *'    
-  WRITE(ILUOUT,*) '*****************************************'         
+  WRITE(ILUOUT,*) '* Check your namelist                   *'
+  WRITE(ILUOUT,*) '*****************************************'
   CALL ABOR1_SFX('PGD_ISBA: NAM_MEB_ISBA and LMEB_PATCH not defined')
-ENDIF          
+ENDIF
 !
 CALL CLOSE_NAMELIST(HPROGRAM,ILUNAM)
 !

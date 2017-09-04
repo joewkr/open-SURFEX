@@ -1,8 +1,8 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-SUBROUTINE INI_SURF_CSTS 
+SUBROUTINE INI_SURF_CSTS
 !     ##################
 !
 !!****  *INI_SURF_CSTS * - routine to initialize all surface parameter as
@@ -13,9 +13,9 @@ SUBROUTINE INI_SURF_CSTS
 !
 !!**  METHOD
 !!    ------
-!!      The physical constants are set to their default numerical values 
+!!      The physical constants are set to their default numerical values
 !!      or specified in namelist NAM_SURF_CSTS
-!!     
+!!
 !!
 !!    EXTERNAL
 !!    --------
@@ -133,7 +133,7 @@ XAGLAMIN = 0.8 ! (-)
 XAGLAMAX = 0.85 ! (-)
 !
 ! Use recommended settings for snow albedo (FALSE = ISBA default)
-! 
+!
 LMEBREC=.FALSE.
 !
 ! Fraction of maximum value of the albedo of snow that is reached for melting
@@ -141,7 +141,7 @@ LMEBREC=.FALSE.
 !
 XANSFRACMEL = 1.0 ! (-)
 !
-! Threeshold temperature above which the snow albedo starts to decrease 
+! Threeshold temperature above which the snow albedo starts to decrease
 !
 XTEMPANS = 274.15 ! (K)
 !
@@ -152,7 +152,7 @@ XANSMINMEB = 0.30 ! (-)
 ! Height of aged snow in glacier case (allows Pn=1)
 !
 XHGLA    = 33.3 !(m)
-! 
+!
 ! Coefficient for calculation of snow fraction over vegetation
 !
 XWSNV = 5.0 !(-)
@@ -177,12 +177,12 @@ XZ0SN = 0.001
 !
 XZ0HSN = 0.0001
 !
-! Snow Melt timescale with D95 (s): needed to prevent time step 
+! Snow Melt timescale with D95 (s): needed to prevent time step
 ! dependence of melt when snow fraction < unity.
 !
 XTAU_SMELT = 300.
 !
-! Extinction coefficient for view factor for long-wave radiation 
+! Extinction coefficient for view factor for long-wave radiation
 !
 XTAU_LW = 0.5   ! -
 !
@@ -235,14 +235,14 @@ LREPROD_OPER = .FALSE. ! default
 !
 ! * Vegetation parameters for tropical forest
 !
-!XEVERG_RSMIN : old = 250. (Manzi 1993) but observations range 
-!               from 140 to 180. According to Delire et al. (1997) and 
+!XEVERG_RSMIN : old = 250. (Manzi 1993) but observations range
+!               from 140 to 180. According to Delire et al. (1997) and
 !               new tests over 6 local sites, 175. is recommended
 !               Should be the default after check with AROME/ALADIN
 !
 XEVERG_RSMIN = 175.  !Rsmin
 !
-!XEVERG_VEG : old = 0.99 (Manzi 1993) but according to Delire et al. (1997) and 
+!XEVERG_VEG : old = 0.99 (Manzi 1993) but according to Delire et al. (1997) and
 !             new tests over 6 local sites, 1.0 is recommended because 0.99
 !             induces unrealistic bare soil evaporation for Tropical forest
 !             Should be the default after check with AROME/ALADIN
@@ -274,7 +274,7 @@ CCHARNOCK = 'NEW'
 !-------------------------------------------------------------------------------
 !
  CALL GET_LUOUT(CPROGNAME,ILUOUT)
-!    
+!
  CALL OPEN_NAMELIST(CPROGNAME,ILUNAM)
 !
  CALL POSNAM(ILUNAM,'NAM_SURF_CSTS',GFOUND,ILUOUT)
@@ -286,7 +286,7 @@ IF(LMEBREC)THEN
 !
   XANSFRACMEL = 0.85 ! (-)
 !
-! Threeshold temperature above which the snow albedo starts to decrease 
+! Threeshold temperature above which the snow albedo starts to decrease
 !
   XTEMPANS = 268.15 ! (K)
 !
@@ -309,7 +309,7 @@ IF (GFOUND) READ(UNIT=ILUNAM,NML=NAM_REPROD_OPER)
  CALL TEST_NAM_VAR_SURF(ILUOUT,'CCHARNOCK',CIMPLICIT_WIND,'NEW','OLD')
 !
  CALL TEST_NAM_VAR_SURF(ILUOUT,'XEVERG_RSMIN',XEVERG_RSMIN,175.0,250.0)
- CALL TEST_NAM_VAR_SURF(ILUOUT,'XEVERG_VEG',XEVERG_VEG,1.0,0.99) 
+ CALL TEST_NAM_VAR_SURF(ILUOUT,'XEVERG_VEG',XEVERG_VEG,1.0,0.99)
 !
 IF(LREPROD_OPER)THEN
   XEVERG_RSMIN   = 250.
@@ -356,7 +356,7 @@ IF(XALBWATSNOW==XUNDEF)THEN
     XALBWATSNOW =  0.60
   ENDIF
 ENDIF
-!                   
+!
 ! Water emissivity
 !
 IF(XEMISWAT==XUNDEF)THEN
@@ -396,4 +396,4 @@ IF (LHOOK) CALL DR_HOOK('INI_SURF_CSTS',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 !
-END SUBROUTINE INI_SURF_CSTS 
+END SUBROUTINE INI_SURF_CSTS

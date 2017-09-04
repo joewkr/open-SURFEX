@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE TEB_CANOPY(KI, SB, PBLD, PBLD_HEIGHT, PWALL_O_HOR, PPA, PRHOA, PDUWDU_ROAD, PUW_ROOF, &
@@ -18,11 +18,11 @@ SUBROUTINE TEB_CANOPY(KI, SB, PBLD, PBLD_HEIGHT, PWALL_O_HOR, PPA, PRHOA, PDUWDU
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -78,7 +78,7 @@ REAL, DIMENSION(KI,SB%NLVL), INTENT(OUT)   :: PDFORC_QDQ! formal derivative of t
 !*      0.2    declarations of local variables
 !
 INTEGER                  :: JLAYER    ! loop counter on canopy heights
-!         
+!
 REAL, DIMENSION(KI,SB%NLVL) :: ZCDRAG    ! drag coefficient in canopy
 REAL, DIMENSION(KI,SB%NLVL) :: ZSH       ! horizontal surface of building
                                       ! (road&roof) for each canopy level
@@ -131,7 +131,7 @@ ZAIRVOL = 1.
 !
 DO JLAYER=1,SB%NLVL
   ZDENSITY(:,JLAYER) = PWALL_O_HOR(:)
-ENDDO  
+ENDDO
 !
  CALL CANOPY(KI, SB, PBLD_HEIGHT, ZDENSITY, ZCDRAG, ZAIRVOL, &
             ZSV, ZFORC, PFORC_U, PDFORC_UDU, PFORC_E, PDFORC_EDE      )
@@ -168,7 +168,7 @@ END DO
 !              ---------------------------
 !
 !PFORC_U(:,1)    = PUW_ROAD(:) / SB%XDZ(:,1) * ZSH(:,1)
-PFORC_U   (:,1) = PFORC_U   (:,1)    
+PFORC_U   (:,1) = PFORC_U   (:,1)
 PDFORC_UDU(:,1) = PDFORC_UDU(:,1) + PDUWDU_ROAD(:) * ZSH(:,1)/SB%XDZ(:,1)
 !
 !-------------------------------------------------------------------------------------
@@ -200,7 +200,7 @@ PDFORC_TDT(:,1) = PDFORC_TDT(:,1) - PAC_ROAD(:)
 !              -----------------------------------
 !
 DO JLAYER=1,SB%NLVL
-  ZFORC(:,JLAYER) = 1. / ZAIRVOL(:,JLAYER) / SB%XDZ(:,JLAYER) / PRHOA(:) / XCPD 
+  ZFORC(:,JLAYER) = 1. / ZAIRVOL(:,JLAYER) / SB%XDZ(:,JLAYER) / PRHOA(:) / XCPD
   PFORC_T   (:,JLAYER) = PFORC_T(:,JLAYER) + PH_WALL * ZSV(:,JLAYER) * ZFORC(:,JLAYER)
   PDFORC_TDT(:,JLAYER) = PDFORC_TDT(:,JLAYER) + 0.
 END DO

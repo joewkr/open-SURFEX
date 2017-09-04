@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
 SUBROUTINE OL_TIME_INTERP_ATM (KSURF_STEP,KNB_ATM,             &
@@ -8,7 +8,7 @@ SUBROUTINE OL_TIME_INTERP_ATM (KSURF_STEP,KNB_ATM,             &
                                PDIR_SW1,PDIR_SW2,PSCA_SW1,PSCA_SW2,      &
                                PLW1,PLW2,PSNOW2,PRAIN2,                  &
                                PPS1,PPS2,PCO21,PCO22,PDIR1,PDIR2,        &
-                               PZEN,PSUMZEN )  
+                               PZEN,PSUMZEN )
 !**************************************************************************
 !
 !!    PURPOSE
@@ -17,7 +17,7 @@ SUBROUTINE OL_TIME_INTERP_ATM (KSURF_STEP,KNB_ATM,             &
 !        So far, it is a simple linear interpolation.
 !        More complex interpolation may be added, especially for the atmospheric
 !        radiation (Option to use).
-!        Output are in the module 
+!        Output are in the module
 !!
 !!**  METHOD
 !!    ------
@@ -59,7 +59,7 @@ USE MODD_FORC_ATM,  ONLY: XTA         ,&! air temperature forcing               
                             XCO2      ,&! CO2 concentration in the air          (kg/kg)
                             XSNOW     ,&! snow precipitation                    (kg/m2/s)
                             XRAIN     ,&! liquid precipitation                  (kg/m2/s)
-                            XZREF       ! height of T,q forcing                 (m)  
+                            XZREF       ! height of T,q forcing                 (m)
 !
 USE MODI_GET_LUOUT
 USE MODI_ABOR1_SFX
@@ -83,11 +83,11 @@ INTEGER,INTENT(IN) :: KSURF_STEP, KNB_ATM
 REAL, DIMENSION(:),INTENT(IN) :: PTA1,PTA2,PQA1,PQA2,PWIND1,PWIND2
 REAL, DIMENSION(:),INTENT(IN) :: PDIR_SW1,PDIR_SW2,PSCA_SW1,PSCA_SW2,PLW1,PLW2
 REAL, DIMENSION(:),INTENT(IN) :: PSNOW2,PRAIN2,PPS1,PPS2,PCO21,PCO22,PDIR1,PDIR2
-REAL, DIMENSION(:),INTENT(IN) :: PZEN,PSUMZEN 
+REAL, DIMENSION(:),INTENT(IN) :: PZEN,PSUMZEN
 
 ! local variables
 REAL :: ZDTA, ZDQA, ZDDIR_SW, ZDSCA_SW, ZDLW,  &
-        ZDPS, ZDCO2, ZDU, ZDV, ZU1, ZV1, ZU2, ZV2 
+        ZDPS, ZDCO2, ZDU, ZDV, ZU1, ZV1, ZU2, ZV2
 REAL :: ZPI, ZNB_ATM, ZSURF_STEP, ZCOEF, ZCOEF2
 INTEGER :: J, INKPROMA
 INTEGER :: ILUOUT
@@ -112,7 +112,7 @@ IF (LHOOK) CALL DR_HOOK('OL_TIME_INTERP_ATM_2',0,ZHOOK_HANDLE_OMP)
 DO J = 1,SIZE(PTA1)
   !
   IF (PTA1(J)/=XUNDEF) THEN
-    ! 
+    !
     ! Compute wind components
     !
     ! zonal wind
@@ -121,11 +121,11 @@ DO J = 1,SIZE(PTA1)
     ZDU = (ZU2-ZU1)*ZCOEF
     XU(J) = ZU1 + ZDU
     !
-    ZV1 = PWIND1(J) * COS(PDIR1(J)*ZPI) 
+    ZV1 = PWIND1(J) * COS(PDIR1(J)*ZPI)
     ZV2 = PWIND2(J) * COS(PDIR2(J)*ZPI)
     ZDV = (ZV2-ZV1)*ZCOEF
     XV(J) = ZV1 + ZDV
-    !    
+    !
     ! Compute variation from atmospheric time step J and J+1
     !
     ZDTA     = (PTA2(J)-PTA1(J))*ZCOEF
@@ -188,7 +188,7 @@ IF (LHOOK) CALL DR_HOOK('OL_TIME_INTERP_ATM_3',0,ZHOOK_HANDLE)
 !
 IF ((MINVAL(XTA)  .EQ.XUNDEF).OR.(MINVAL(XQA).EQ.XUNDEF).OR.&
       (MINVAL(XU).EQ.XUNDEF).OR.(MINVAL(XRAIN).EQ.XUNDEF).OR.&
-      (MINVAL(XSNOW).EQ.XUNDEF)) THEN  
+      (MINVAL(XSNOW).EQ.XUNDEF)) THEN
     WRITE(ILUOUT,*)'MINVAL(XTA),MINVAL(XQA),MINVAL(XU),MINVAL(XRAIN),MINVAL(XSNOW)'
     WRITE(ILUOUT,*)MINVAL(XTA),MINVAL(XQA),MINVAL(XU),MINVAL(XRAIN),MINVAL(XSNOW)
     CALL ABOR1_SFX('OL_TIME_INTERP_ATM: UNDEFINED VALUE IN ATMOSPHERIC FORCING')
@@ -208,7 +208,7 @@ ENDIF
 !
 IF (MINVAL(XDIR_SW).EQ.XUNDEF) XDIR_SW(:,:)=0. ! No direct solar radiation
 IF (MINVAL(XSCA_SW).EQ.XUNDEF) XSCA_SW(:,:)=0. ! No diffuse solar radiation
-IF (MINVAL(XPS)    .EQ.XUNDEF) THEN            ! No surface Pressure 
+IF (MINVAL(XPS)    .EQ.XUNDEF) THEN            ! No surface Pressure
    WRITE(ILUOUT,*)' OL_TIME_INTERP_ATM: SURFACE PRESSURE COMPUTED FROM ZS'
    XPS(:)  = 101325*(1-0.0065 * XZS(:)/288.15)**5.31
 ENDIF

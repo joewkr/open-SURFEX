@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_INLAND_WATER_n (FM, WM, DGO, DL, DLC, U, DST, SLT, &
                                     HPROGRAM, HCOUPLING, PTIMEC, PTSTEP, KYEAR, KMONTH, KDAY, &
-                                    PTIME, KI, KSV, KSW, PTSUN, PZENITH, PZENITH2, PAZIM,     & 
+                                    PTIME, KI, KSV, KSW, PTSUN, PZENITH, PZENITH2, PAZIM,     &
                                     PZREF, PUREF, PZS, PU, PV, PQA, PTA, PRHOA, PSV, PCO2,    &
                                     HSV, PRAIN, PSNOW, PLW, PDIR_SW, PSCA_SW, PSW_BANDS, PPS, &
                                     PPA, PSFTQ, PSFTH, PSFTS, PSFCO2, PSFU, PSFV, PTRAD,      &
                                     PDIR_ALB, PSCA_ALB, PEMIS, PTSURF, PZ0, PZ0H, PQSURF,     &
                                     PPEW_A_COEF, PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF,       &
-                                    PPET_B_COEF, PPEQ_B_COEF, HTEST                    )  
+                                    PPET_B_COEF, PPEQ_B_COEF, HTEST                    )
 !     ###############################################################################
 !
-!!****  *COUPLING_INLAND_WATER_n * - Chooses the surface schemes for lakes   
+!!****  *COUPLING_INLAND_WATER_n * - Chooses the surface schemes for lakes
 !!
 !!    PURPOSE
 !!    -------
@@ -24,11 +24,11 @@ SUBROUTINE COUPLING_INLAND_WATER_n (FM, WM, DGO, DL, DLC, U, DST, SLT, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -157,7 +157,7 @@ IF (U%CWATER=='WATFLX') THEN
                                PSCA_SW, PSW_BANDS, PPS, PPA, PSFTQ, PSFTH, PSFTS, PSFCO2,   &
                                PSFU, PSFV, PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF, PZ0,   &
                                PZ0H, PQSURF, PPEW_A_COEF, PPEW_B_COEF, PPET_A_COEF,         &
-                               PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST       )  
+                               PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST       )
 ELSE IF (U%CWATER=='FLUX  ') THEN
   CALL COUPLING_IDEAL_FLUX(DGO, DL, DLC, HPROGRAM, HCOUPLING, PTIMEC,                     &
                            PTSTEP, KYEAR, KMONTH, KDAY, PTIME, KI, KSV, KSW,                &
@@ -166,7 +166,7 @@ ELSE IF (U%CWATER=='FLUX  ') THEN
                            PSW_BANDS, PPS, PPA,  PSFTQ, PSFTH, PSFTS, PSFCO2, PSFU, PSFV,   &
                            PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF, PZ0, PZ0H, PQSURF,     &
                            PPEW_A_COEF, PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, &
-                           PPEQ_B_COEF, HTEST                                     )  
+                           PPEQ_B_COEF, HTEST                                     )
 ELSE IF (U%CWATER=='FLAKE ') THEN
   CALL COUPLING_FLAKE_OROGRAPHY_n(FM, DST, SLT, HPROGRAM, HCOUPLING,                        &
                                   PTSTEP, KYEAR, KMONTH, KDAY, PTIME, KI, KSV, KSW,         &
@@ -176,7 +176,7 @@ ELSE IF (U%CWATER=='FLAKE ') THEN
                                   PSFTS, PSFCO2, PSFU, PSFV, PTRAD, PDIR_ALB, PSCA_ALB,     &
                                   PEMIS, PTSURF, PZ0, PZ0H, PQSURF, PPEW_A_COEF,            &
                                   PPEW_B_COEF,  PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF,      &
-                                  PPEQ_B_COEF, HTEST                               )  
+                                  PPEQ_B_COEF, HTEST                               )
 ELSE IF (U%CWATER=='NONE  ') THEN
   PSFTH = 0.
   PSFTQ = 0.
@@ -189,12 +189,12 @@ ELSE IF (U%CWATER=='NONE  ') THEN
   PDIR_ALB = 0.
   PSCA_ALB = 0.
   PEMIS   = 1.
-!  
+!
   PTSURF = XTT
   PZ0    = 0.001
   PZ0H   = 0.001
   PQSURF = 0.0
-!  
+!
 END IF
 IF (LHOOK) CALL DR_HOOK('COUPLING_INLAND_WATER_N',1,ZHOOK_HANDLE)
 !

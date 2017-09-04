@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE HOR_INTERPOL_AROME(KLUOUT,PFIELDIN,PFIELDOUT)
@@ -16,11 +16,11 @@ SUBROUTINE HOR_INTERPOL_AROME(KLUOUT,PFIELDIN,PFIELDOUT)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -32,7 +32,7 @@ SUBROUTINE HOR_INTERPOL_AROME(KLUOUT,PFIELDIN,PFIELDOUT)
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO
 USE MODD_HORIBL, ONLY : LGLOBLON, LGLOBS, LGLOBN, XILO1H, XILO2H, NINLOH, &
                         XLA, XOLA, XOLO, NP, XLOPH
-USE MODD_PREP,       ONLY : XLAT_OUT, XLON_OUT,LINTERP 
+USE MODD_PREP,       ONLY : XLAT_OUT, XLON_OUT,LINTERP
 USE MODD_GRID_AROME, ONLY : XX, XY, NX, NY, XLAT0, XLON0, XLATOR, XLONOR, XRPK, XBETA, &
                             XZX, XZY, NIX
 USE MODD_GRID_GRIB,  ONLY : NNI

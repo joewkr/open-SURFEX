@@ -1,14 +1,14 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE CARBON_SOIL (PTSTEP, PSAND,                                      &
                           PSOILCARBON_INPUT, PCONTROL_TEMP, PCONTROL_MOIST, &
-                          PSOILCARB, PRESP_HETERO_SOIL)  
+                          PSOILCARB, PRESP_HETERO_SOIL)
 
 !   ###############################################################
-!!**  CARBON_SOIL 
+!!**  CARBON_SOIL
 !!
 !!    PURPOSE
 !!    -------
@@ -23,7 +23,7 @@ SUBROUTINE CARBON_SOIL (PTSTEP, PSAND,                                      &
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
@@ -32,7 +32,7 @@ SUBROUTINE CARBON_SOIL (PTSTEP, PSAND,                                      &
 !!      Parton et al., Biogeochemestry, 1988
 !!      Krinner et al., Global Biochemical Cycles, 2005
 !!      Gibelin et al. 2008, AFM
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -162,7 +162,7 @@ PSOILCARB(:,:) = PSOILCARB(:,:) + PSOILCARBON_INPUT(:,:) * ZDT
 !*       3.1 determine fraction of flux that is respiration
 !     diagonal elements of frac_carb are zero
 !
-ZFRAC_RESP(:,:) = 1. - ZFRAC_CARB(:,:,1) - ZFRAC_CARB(:,:,2) - ZFRAC_CARB(:,:,3)   
+ZFRAC_RESP(:,:) = 1. - ZFRAC_CARB(:,:,1) - ZFRAC_CARB(:,:,2) - ZFRAC_CARB(:,:,3)
 !
 !*       3.2 calculate fluxes
 !
@@ -172,9 +172,9 @@ ZFRAC_RESP(:,:) = 1. - ZFRAC_CARB(:,:,1) - ZFRAC_CARB(:,:,2) - ZFRAC_CARB(:,:,3)
 ZWORK(:)=0.25+0.75*PSAND(:)
 !
 ! determine total flux out of pool
-ZFLUXTOT(:,1) = PTSTEP/XTAU_SOILCARB(1)*PSOILCARB(:,1)*PCONTROL_MOIST(:,2)*PCONTROL_TEMP(:,2)*ZWORK(:) 
-ZFLUXTOT(:,2) = PTSTEP/XTAU_SOILCARB(2)*PSOILCARB(:,2)*PCONTROL_MOIST(:,2)*PCONTROL_TEMP(:,2) 
-ZFLUXTOT(:,3) = PTSTEP/XTAU_SOILCARB(3)*PSOILCARB(:,3)*PCONTROL_MOIST(:,2)*PCONTROL_TEMP(:,2) 
+ZFLUXTOT(:,1) = PTSTEP/XTAU_SOILCARB(1)*PSOILCARB(:,1)*PCONTROL_MOIST(:,2)*PCONTROL_TEMP(:,2)*ZWORK(:)
+ZFLUXTOT(:,2) = PTSTEP/XTAU_SOILCARB(2)*PSOILCARB(:,2)*PCONTROL_MOIST(:,2)*PCONTROL_TEMP(:,2)
+ZFLUXTOT(:,3) = PTSTEP/XTAU_SOILCARB(3)*PSOILCARB(:,3)*PCONTROL_MOIST(:,2)*PCONTROL_TEMP(:,2)
 !
 !decrease this carbon pool
 PSOILCARB(:,:) = PSOILCARB(:,:) - ZFLUXTOT(:,:)
@@ -192,13 +192,13 @@ ENDDO
 !
 PRESP_HETERO_SOIL(:) = ( ZFRAC_RESP(:,1) * ZFLUXTOT(:,1) +         &
                          ZFRAC_RESP(:,2) * ZFLUXTOT(:,2) +         &
-                         ZFRAC_RESP(:,3) * ZFLUXTOT(:,3)  ) / ZDT  
+                         ZFRAC_RESP(:,3) * ZFLUXTOT(:,3)  ) / ZDT
 !
 !*       3.2.3 add fluxes to active, slow, and passive pools
 !
-PSOILCARB(:,1) = PSOILCARB(:,1) + ZFLUX(:,1,1) + ZFLUX(:,2,1) + ZFLUX(:,3,1)  
-PSOILCARB(:,2) = PSOILCARB(:,2) + ZFLUX(:,1,2) + ZFLUX(:,2,2) + ZFLUX(:,3,2)  
-PSOILCARB(:,3) = PSOILCARB(:,3) + ZFLUX(:,1,3) + ZFLUX(:,2,3) + ZFLUX(:,3,3)  
+PSOILCARB(:,1) = PSOILCARB(:,1) + ZFLUX(:,1,1) + ZFLUX(:,2,1) + ZFLUX(:,3,1)
+PSOILCARB(:,2) = PSOILCARB(:,2) + ZFLUX(:,1,2) + ZFLUX(:,2,2) + ZFLUX(:,3,2)
+PSOILCARB(:,3) = PSOILCARB(:,3) + ZFLUX(:,1,3) + ZFLUX(:,2,3) + ZFLUX(:,3,3)
 !
 IF (LHOOK) CALL DR_HOOK('CARBON_SOIL',1,ZHOOK_HANDLE)
 !

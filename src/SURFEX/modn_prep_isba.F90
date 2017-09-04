@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODN_PREP_ISBA
@@ -19,14 +19,14 @@
 !!    REFERENCE
 !!    ---------
 !!
-!!       
+!!
 !!    AUTHOR
 !!    ------
 !!      V. Masson    *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004                   
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.   DECLARATIONS
@@ -40,7 +40,7 @@ USE MODD_PREP_ISBA,  ONLY : CFILE_ISBA, CTYPE, CFILEPGD_ISBA, CTYPEPGD,       &
                               CFILE_TG, CTYPE_TG,                             &
                               CFILE_TG_SURF, CFILE_TG_ROOT, CFILE_TG_DEEP,    &
                               XTG_SURF, XTG_ROOT, XTG_DEEP,LEXTRAP_TG,LEXTRAP_WG,&
-                              LEXTRAP_WGI,LEXTRAP_SN 
+                              LEXTRAP_WGI,LEXTRAP_SN
 
 !
 IMPLICIT NONE
@@ -59,6 +59,6 @@ NAMELIST/NAM_PREP_ISBA/CFILE_ISBA, CTYPE, CFILEPGD_ISBA, CTYPEPGD,       &
                          CFILE_TG_SURF, CFILE_TG_ROOT, CFILE_TG_DEEP,    &
                          XTG_SURF, XTG_ROOT, XTG_DEEP,                   &
                          NYEAR, NMONTH, NDAY, XTIME, LISBA_CANOPY,LEXTRAP_TG,&
-                         LEXTRAP_WG,LEXTRAP_WGI,LEXTRAP_SN  
+                         LEXTRAP_WG,LEXTRAP_WGI,LEXTRAP_SN
 !
 END MODULE MODN_PREP_ISBA

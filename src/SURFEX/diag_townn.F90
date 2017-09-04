@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE DIAG_TOWN_n (DLO, DL, DLC, TD, HTOWN, HPROGRAM, DUP, DUPC, KMASK )
@@ -16,11 +16,11 @@ SUBROUTINE DIAG_TOWN_n (DLO, DL, DLC, TD, HTOWN, HPROGRAM, DUP, DUPC, KMASK )
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -99,11 +99,11 @@ IF (HTOWN=='TEB   ') THEN
   ENDIF
 !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!      
+!
 ELSE IF (HTOWN=='FLUX  ') THEN
-  CALL DIAG_EVAP(DLO, DL, DLC, HPROGRAM, DUP, DUPC, KMASK)          
+  CALL DIAG_EVAP(DLO, DL, DLC, HPROGRAM, DUP, DUPC, KMASK)
 ELSE IF (HTOWN=='NONE  ') THEN
-  CALL INIT_BUD(TD%O, DUP, DUPC, XUNDEF)         
+  CALL INIT_BUD(TD%O, DUP, DUPC, XUNDEF)
 END IF
 IF (LHOOK) CALL DR_HOOK('DIAG_TOWN_N',1,ZHOOK_HANDLE)
 !

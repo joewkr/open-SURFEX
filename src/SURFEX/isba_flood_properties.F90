@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE ISBA_FLOOD_PROPERTIES(PLAI,PFFLOOD,PFFROZEN,PZ0FLOOD, &
-                                       PFFG_NOSNOW,PFFV_NOSNOW         )  
+                                       PFFG_NOSNOW,PFFV_NOSNOW         )
 !     ############################################################################
 !
 !
-!!****  *ISBA_FLOOD_PROPERTIES*  
+!!****  *ISBA_FLOOD_PROPERTIES*
 !!
 !!    PURPOSE
 !!    -------
-!      Calculate the Flood fractions without snow and roughness length.  
-!     
+!      Calculate the Flood fractions without snow and roughness length.
+!
 !!**  METHOD
 !!    ------
 !
@@ -21,19 +21,19 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      B. Decharme           * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original      25/05/08 
+!!      Original      25/05/08
 !!      Modified      09/2009  B. Decharme: limitation of Ri in surface_ri.F90
 !!      Modified      02/2014  B. Decharme: Simplification
 !-------------------------------------------------------------------------------

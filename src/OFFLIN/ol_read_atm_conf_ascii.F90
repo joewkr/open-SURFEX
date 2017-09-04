@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE OL_READ_ATM_CONF_ASCII (DTCO, U, HSURF_FILETYPE, HFORCING_FILETYPE,  &
                                    PDURATION, PTSTEP_FORC, KNI, &
                                    KYEAR, KMONTH, KDAY, PTIME,  &
                                    PLAT, PLON, PZS,             &
-                                   PZREF, PUREF                 )  
+                                   PZREF, PUREF                 )
 !
 !==================================================================
 !!****  *OL_READ_ATM_CONF* - Initialization routine
@@ -81,7 +81,7 @@ INTEGER,          INTENT(OUT) :: KYEAR, KMONTH, KDAY
 REAL,             INTENT(OUT) :: PDURATION,PTSTEP_FORC
 REAL,             INTENT(OUT) :: PTIME
 REAL, DIMENSION(:),  POINTER  :: PLAT, PLON
-REAL, DIMENSION(:),  POINTER  :: PZS 
+REAL, DIMENSION(:),  POINTER  :: PZS
 REAL, DIMENSION(:),  POINTER  :: PZREF, PUREF
 !
 REAL, DIMENSION(:), ALLOCATABLE :: ZWORK
@@ -103,7 +103,7 @@ IF (LHOOK) CALL DR_HOOK('OL_READ_ATM_CONF_ASCII',0,ZHOOK_HANDLE)
 !
 IF (NRANK==NPIO) THEN
   !
-  CALL GET_LUOUT(HSURF_FILETYPE,ILUOUT) 
+  CALL GET_LUOUT(HSURF_FILETYPE,ILUOUT)
   !
 #ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
@@ -113,11 +113,11 @@ IF (NRANK==NPIO) THEN
   !
   YSWAP='N'
   IF (HFORCING_FILETYPE == 'BINARY') READ(21,*) YSWAP
-  IF (YSWAP.EQ.'Y') THEN 
+  IF (YSWAP.EQ.'Y') THEN
     LITTLE_ENDIAN_ARCH=.NOT.LITTLE_ENDIAN_ARCH
     WRITE(ILUOUT,*) '*******************************************************************'
     WRITE(ILUOUT,*) 'Architecture of the machine needs to swap LITTLE_ENDIAN_ARCH to ', &
-                    LITTLE_ENDIAN_ARCH  
+                    LITTLE_ENDIAN_ARCH
     WRITE(ILUOUT,*) '*******************************************************************'
   ENDIF
   !
@@ -151,7 +151,7 @@ ENDIF
 !*      2.    Read full grid dimension and date
 !
  CALL SET_SURFEX_FILEIN(HSURF_FILETYPE,'PREP')
-CALL INIT_IO_SURF_n(DTCO, U, HSURF_FILETYPE,'FULL  ','SURF  ','READ ') 
+CALL INIT_IO_SURF_n(DTCO, U, HSURF_FILETYPE,'FULL  ','SURF  ','READ ')
 !
  CALL READ_SURF(HSURF_FILETYPE,'DIM_FULL',IDIM_FULL,IRET)
  CALL READ_SURF(HSURF_FILETYPE,'DTCUR',TTIME,IRET)
@@ -165,7 +165,7 @@ PTIME  = TTIME%TIME
 !
 !*      4.    Geographical initialization
 !
- CALL GET_SIZE_FULL_n('OFFLIN ',IDIM_FULL,U%NSIZE_FULL,KNI) 
+ CALL GET_SIZE_FULL_n('OFFLIN ',IDIM_FULL,U%NSIZE_FULL,KNI)
 !
 ALLOCATE(PLON (KNI))
 ALLOCATE(PLAT (KNI))
@@ -239,7 +239,7 @@ ENDIF
 IF (NRANK==NPIO) THEN
   !
 #ifdef SFX_MPI
-  XTIME0 = MPI_WTIME() 
+  XTIME0 = MPI_WTIME()
 #endif
   !
   IF (INI==1) THEN

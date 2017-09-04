@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_SFXCPL_n (IM, S, U, W, &
                                HPROGRAM,KI,PRUI,PWIND,PFWSU,PFWSV,PSNET, &
                                 PHEAT,PEVAP,PRAIN,PSNOW,PICEFLUX,PFWSM,   &
-                                PHEAT_ICE,PEVAP_ICE,PSNET_ICE)  
+                                PHEAT_ICE,PEVAP_ICE,PSNET_ICE)
 !     ###################################################################
 !
 !!****  *GETSFXCPL_n* - routine to get some variables from surfex into
@@ -41,7 +41,7 @@
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    08/2009
-!!    10/2016 B. Decharme : bug surface/groundwater coupling 
+!!    10/2016 B. Decharme : bug surface/groundwater coupling
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -155,13 +155,13 @@ IF(LCPL_LAND)THEN
   ZSRCFLOOD(:) = XUNDEF
 !
 ! * Get land output fields
-!       
+!
   CALL GET_SFX_LAND(IM%O, IM%S, U, &
                     LCPL_GW,LCPL_FLOOD,LCPL_CALVING,    &
                     ZRUNOFF,ZDRAIN,ZCALVING,ZSRCFLOOD )
 !
 ! * Assign land output fields
-!        
+!
   PRUI    (:) = ZRUNOFF (:)+ZDRAIN(:)
   PICEFLUX(:) = ZCALVING(:)
 !

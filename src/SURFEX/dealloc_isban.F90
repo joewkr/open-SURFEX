@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
 SUBROUTINE DEALLOC_ISBA_n (IM)
@@ -16,11 +16,11 @@ SUBROUTINE DEALLOC_ISBA_n (IM)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -65,7 +65,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
 IF (LHOOK) CALL DR_HOOK('DEALLOC_ISBA_N',0,ZHOOK_HANDLE)
 !
-CALL DIAG_OPTIONS_INIT(IM%ID%O)  
+CALL DIAG_OPTIONS_INIT(IM%ID%O)
 CALL DIAG_INIT(IM%ID%D)
 CALL DIAG_INIT(IM%ID%DC)
 CALL DIAG_EVAP_ISBA_INIT(IM%ID%DE)
@@ -75,13 +75,13 @@ CALL DIAG_MISC_ISBA_INIT(IM%ID%DM)
 CALL DIAG_NP_INIT(IM%ID%ND,0)
 CALL DIAG_NP_INIT(IM%ID%NDC,0)
 CALL DIAG_EVAP_ISBA_NP_INIT(IM%ID%NDE,0)
-CALL DIAG_EVAP_ISBA_NP_INIT(IM%ID%NDEC,0) 
+CALL DIAG_EVAP_ISBA_NP_INIT(IM%ID%NDEC,0)
 CALL DIAG_MISC_ISBA_NP_INIT(IM%ID%NDM,0)
   !
 CALL DATA_ISBA_INIT(IM%DTV)
 CALL CANOPY_INIT(IM%SB)
 CALL ISBA_OPTIONS_INIT(IM%O)
-CALL ISBA_S_INIT(IM%S)  
+CALL ISBA_S_INIT(IM%S)
 CALL CH_ISBA_INIT(IM%CHI)
 CALL GR_BIOG_INIT(IM%GB)
 CALL SSO_INIT(IM%ISS)
@@ -94,7 +94,7 @@ CALL SSO_NP_INIT(IM%NISS,0)
 CALL GRID_NP_INIT(IM%NG,0)
 CALL ISBA_NK_INIT(IM%NK,0)
 CALL ISBA_NP_INIT(IM%NP,0)
-CALL ISBA_NPE_INIT(IM%NPE,0)  
+CALL ISBA_NPE_INIT(IM%NPE,0)
 CALL AGRI_NP_INIT(IM%NAG,0)
 !
 !-------------------------------------------------------------------------------------

@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GARDEN_SOIL_DEPTH(HNVEG,HLVEG,HHVEG,PNVEG,PLVEG,PHVEG,PDG)
 !     #########################################
 !
-!!****  *GARDEN_SOIL_DEPTH* - routine to initialise garden soil depth from data 
+!!****  *GARDEN_SOIL_DEPTH* - routine to initialise garden soil depth from data
 !!
 !!    PURPOSE
 !!    -------
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    10/2011 
+!!      Original    10/2011
 !!      R. Alkama  : Add 7 new vegtype (19 rather than 12)
 !-------------------------------------------------------------------------------
 !
@@ -110,8 +110,8 @@ ELSEIF (SIZE(PDG,2)<=NOPTIMLAYER) THEN
       ZDATA_DG(JI,:,JL) = XOPTIMGRID(:)
     ENDDO
   ENDDO
- 
-ELSE 
+
+ELSE
 
   CALL ABOR1_SFX("GARDEN_SOIL_DEPTH: WITH MORE THAN 14 SOIL LAYERS, "//&
      "WITHOUT ECOCLIMAP, GARDEN CANNOT RUN")
@@ -121,7 +121,7 @@ ENDIF
 DO JL=1,SIZE(PDG,2)
  PDG(:,JL,1) =   ZDATA_DG(:,JL,1)*PHVEG(:)   &
                + ZDATA_DG(:,JL,2)*PLVEG(:)   &
-               + ZDATA_DG(:,JL,3)*PNVEG(:)  
+               + ZDATA_DG(:,JL,3)*PNVEG(:)
 END DO
 !
 IF (LHOOK) CALL DR_HOOK('GARDEN_SOIL_DEPTH',1,ZHOOK_HANDLE)

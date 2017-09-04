@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-      SUBROUTINE READ_NAM_PGD_OROG_FILTER(HPROGRAM, KZSFILTER)  
+      SUBROUTINE READ_NAM_PGD_OROG_FILTER(HPROGRAM, KZSFILTER)
 !     ##############################################################
 !
 !!**** *READ_NAM_PGD_OROG_FILTER* reads namelist for Orography
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -54,9 +54,9 @@ IMPLICIT NONE
 !
 !*    0.1    Declaration of arguments
 !            ------------------------
-!                                   
+!
  CHARACTER(LEN=6),    INTENT(IN)    :: HPROGRAM    ! Type of program
-INTEGER,             INTENT(OUT)   :: KZSFILTER   ! number of orographic spatial filter iterations                     
+INTEGER,             INTENT(OUT)   :: KZSFILTER   ! number of orographic spatial filter iterations
 !
 !*    0.2    Declaration of local variables
 !            ------------------------------

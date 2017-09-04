@@ -1,26 +1,26 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !##########################################################################
 SUBROUTINE SEAFLUX_ALBEDO(PDIR_SW,PSCA_SW,PDIR_ALB,PSCA_ALB,PALB)
 !##########################################################################
 !
-!!****  *SEAFLUX_ALBEDO*  
+!!****  *SEAFLUX_ALBEDO*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     Calculates  total sea albedo 
-!         
+!     Calculates  total sea albedo
+!
 !!    EXTERNAL
 !!    --------
 !!
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -46,7 +46,7 @@ REAL, DIMENSION(:,:), INTENT(IN)   :: PSCA_SW            ! diffuse incoming sola
 REAL, DIMENSION(:,:), INTENT(IN)   :: PDIR_ALB           ! direct  albedo
 REAL, DIMENSION(:,:), INTENT(IN)   :: PSCA_ALB           ! diffuse albedo
 !
-REAL, DIMENSION(:)  , INTENT(OUT)  :: PALB               ! albedo 
+REAL, DIMENSION(:)  , INTENT(OUT)  :: PALB               ! albedo
 !
 !-------------------------------------------------------------------------------
 !
@@ -78,13 +78,13 @@ DO JI=1,INI
    DO JSWB=1,ISW
      ZGLOBAL_SW(JI) = ZGLOBAL_SW(JI) + PDIR_SW (JI,JSWB) + PSCA_SW(JI,JSWB)
      ZSW_UP    (JI) = ZSW_UP    (JI) + PDIR_ALB(JI,JSWB) * PDIR_SW(JI,JSWB) &
-                                     + PSCA_ALB(JI,JSWB) * PSCA_SW(JI,JSWB)  
+                                     + PSCA_ALB(JI,JSWB) * PSCA_SW(JI,JSWB)
   END DO
 END DO
 !
 !* global albedo
 !
-WHERE(ZGLOBAL_SW(:)>0.)  
+WHERE(ZGLOBAL_SW(:)>0.)
      PALB(:) = ZSW_UP(:) / ZGLOBAL_SW(:)
 ELSEWHERE
      PALB(:) = PDIR_ALB(:,1)

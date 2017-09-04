@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_SEAFLUX(PTSTEP,POUT_TSTEP,HSEA_ALB,HSEA_FLUX,   &
                                    OPWG, OPRECIP, OPWEBB, KZ0, KGRVWAVES,&
                                    OPROGSST, KTIME_COUPLING,POCEAN_TSTEP,&
-                                   PICHCE, HINTERPOL_SST, HINTERPOL_SSS  )  
+                                   PICHCE, HINTERPOL_SST, HINTERPOL_SSS  )
 !     ########################################################################
 !
 !!****  *DEFAULT_SEAFLUX* - routine to set default values for the configuration for SEAFLUX scheme
@@ -34,7 +34,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!      Modified    01/2006 : sea flux parameterization.
 !!      S. Belamari 03/2014 : add KZ0 (to choose PZ0SEA formulation)
 !!!
@@ -86,7 +86,7 @@ HSEA_FLUX = "ECUME "
 HSEA_ALB  = "TA96"
 !
 OPWG    = .FALSE.
-OPRECIP = .FALSE. 
+OPRECIP = .FALSE.
 OPWEBB  = .FALSE.
 !
 KZ0 = 0

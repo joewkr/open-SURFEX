@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_DST
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    03/2005 
+!!      Original    03/2005
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -59,7 +59,7 @@ JPMODE_DST     = 3
 LVARSIG_DST    = .FALSE.
 LRGFIX_DST     = .TRUE.
 CVERMOD = 'NONE  '
-XFLX_MSS_FDG_FCT = 12.0e-4 
+XFLX_MSS_FDG_FCT = 12.0e-4
 IF (LHOOK) CALL DR_HOOK('DEFAULT_DST',1,ZHOOK_HANDLE)
 
 !-------------------------------------------------------------------------------

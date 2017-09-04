@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##############################################################
       SUBROUTINE PACK_GRID_CARTESIAN(KMASK_SIZE,KMASK,KGRID_PAR1,PGRID_PAR1,KGRID_PAR2,OPACK,PGRID_PAR2)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -86,7 +86,7 @@ ALLOCATE(ZDY1(IL1))
 !
  CALL GET_GRIDTYPE_CARTESIAN(PGRID_PAR1,ZLAT0,ZLON0,           &
                               IIMAX,IJMAX,                      &
-                              ZX1,ZY1,ZDX1,ZDY1                 )  
+                              ZX1,ZY1,ZDX1,ZDY1                 )
 !
 ALLOCATE(ZX2 (KMASK_SIZE))
 ALLOCATE(ZY2 (KMASK_SIZE))
@@ -105,7 +105,7 @@ DEALLOCATE(ZDY1)
 !
  CALL PUT_GRIDTYPE_CARTESIAN(ZGRID_PAR2,ZLAT0,ZLON0,           &
                               IIMAX,IJMAX,                      &
-                              ZX2,ZY2,ZDX2,ZDY2                 )  
+                              ZX2,ZY2,ZDX2,ZDY2                 )
 !
 IF (OPACK) THEN
   PGRID_PAR2(:) = ZGRID_PAR2(:)

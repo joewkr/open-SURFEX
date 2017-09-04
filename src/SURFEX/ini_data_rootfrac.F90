@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INI_DATA_ROOTFRAC( PDG, PROOTDEPTH, PROOT_EXT, PROOT_LIN,  &
@@ -8,15 +8,15 @@
 
 !     ##########################################################################
 !
-!!****  *INI_DATA_ROOTFRAC*  
+!!****  *INI_DATA_ROOTFRAC*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates the soil grid configuration using a reference grid
 !     Also compute the root fraction
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -39,7 +39,7 @@
 !!    Boone et al. (2000)
 !!    Habets et al. (2003)
 !!    Decharme et al. (2011)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      A. Boone           * Meteo-France *
@@ -106,23 +106,23 @@ PROOTFRAC(:,:) = XUNDEF
 !
   DO JJ=1,INI
     !
-    IF ( PROOTDEPTH(JJ)/=XUNDEF .AND. PROOTDEPTH(JJ)/=0.0 ) THEN 
+    IF ( PROOTDEPTH(JJ)/=XUNDEF .AND. PROOTDEPTH(JJ)/=0.0 ) THEN
       !
-      DO JL=1,INL                
+      DO JL=1,INL
         ZLOG1    = 100. * LOG(PROOT_EXT(JJ)) * PDG    (JJ,JL)
         ZLOG2    = 100. * LOG(PROOT_EXT(JJ)) * ZROOTFRGV * PROOTDEPTH(JJ)
         ZJACKSON = MIN(1.0,(1.0-EXP(ZLOG1))/(1.0-EXP(ZLOG2)))
-        ZUNIF    = MIN(1.0,(PDG(JJ,JL)/ZROOTFRGV/PROOTDEPTH(JJ))) 
+        ZUNIF    = MIN(1.0,(PDG(JJ,JL)/ZROOTFRGV/PROOTDEPTH(JJ)))
         PROOTFRAC(JJ,JL) =      PROOT_LIN(JJ)  * ZUNIF    &
                                    + (1.0-PROOT_LIN(JJ)) * ZJACKSON
       ENDDO
-!       No vegetation case                                    
+!       No vegetation case
     ELSE
       PROOTFRAC(JJ,:) = 0.0
     ENDIF
     !
   ENDDO
-  
+
 !
 IF (LHOOK) CALL DR_HOOK('INI_DATA_ROOTFRAC',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------

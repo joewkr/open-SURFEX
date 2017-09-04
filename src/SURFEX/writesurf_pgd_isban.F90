@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_PGD_ISBA_n (HSELECT, HNATURE, DTV, DTZ, G, ISS, IO, S, K, HPROGRAM)
 !     ################################################
 !
 !!****  *WRITESURF_PGD_ISBA_n* - writes ISBA physiographic fields
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -32,17 +32,17 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
-!!      P. Le Moigne 12/2004 : add type of photosynthesis 
+!!      Original    01/2003
+!!      P. Le Moigne 12/2004 : add type of photosynthesis
 !!      B. Decharme  06/2009 : add topographic index statistics
 !!      A.L. Gibelin 04/2009 : dimension NBIOMASS for ISBA-A-gs
 !!      B. Decharme  07/2011 : delete argument HWRITE
 !!      B. Decharme  07/2012 : files of data for permafrost area and for SOC top and sub soil
 !!                   11/2013 : same for groundwater distribution
-!!                   11/2014 : Write XSOILGRID as a series of real 
+!!                   11/2014 : Write XSOILGRID as a series of real
 !!      P. Samuelsson 10/2014 : MEB
 !!      M. Moge      02/2015 parallelization using WRITE_LCOVER
-!!    10/2016 B. Decharme : bug surface/groundwater coupling   
+!!    10/2016 B. Decharme : bug surface/groundwater coupling
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -155,7 +155,7 @@ YCOMMENT=YRECFM
 !
 IF(IO%CISBA=='DIF') THEN
   DO JLAYER=1,IO%NGROUND_LAYER
-    WRITE(YLVL,'(I4)') JLAYER     
+    WRITE(YLVL,'(I4)') JLAYER
     YRECFM='SOILGRID'//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))
     YCOMMENT='Depth of ISBA soilgrid layer '//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))
     CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,IO%XSOILGRID(JLAYER),IRESP,HCOMMENT=YCOMMENT)
@@ -256,7 +256,7 @@ YCOMMENT=''
  CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,IO%LSOCP,IRESP,HCOMMENT=YCOMMENT)
 !
 IF(IO%LSOCP)THEN
-  !        
+  !
   YCOMMENT='X_Y_SOC'
   YRECFM='SOC_TOP'
   CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,S%XSOC(:,1),IRESP,HCOMMENT=YCOMMENT)

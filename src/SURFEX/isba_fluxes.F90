@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
       SUBROUTINE ISBA_FLUXES(IO, KK, PK, PEK, DMK, PTSTEP, &
@@ -11,14 +11,14 @@
                              PGFLUX, PMELTADV, PMELT, PSOILCONDZ, PLE_FLOOD, PLEI_FLOOD)
 !     ##########################################################################
 !
-!!****  *ISBA_FLUXES*  
+!!****  *ISBA_FLUXES*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates the simple snowpack schemes melt and the surface fluxes.
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -31,9 +31,9 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -41,7 +41,7 @@
 !!    Belair (1995)
 !!    Douville et al. (1995)
 !!    Boone et al. (2000)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -49,15 +49,15 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    14/03/95 
+!!      Original    14/03/95
 !!      (J.Stein)   15/11/95  use the wind components in the flux computation
 !!      (J.Noilhan) 15/03/96  use the potential temperature instead of the
-!!                            temperature for the heat flux computation 
+!!                            temperature for the heat flux computation
 !!      (J.Stein)   27/03/96  use only H and LE in the soil scheme
 !!      (A.Boone V.Masson) 05/10/98 splits e_budget in two for CO2
-!!      (A.Boone)   03/10/99  explicit latent heat of sublimation calculated 
+!!      (A.Boone)   03/10/99  explicit latent heat of sublimation calculated
 !!      (A.Boone)   08/11/00  snow melt changes herein
-!!      (A.Boone)   06/05/02  Updates, ordering. 
+!!      (A.Boone)   06/05/02  Updates, ordering.
 !!                            Introduction of snow melt timescale to 'DEF' snow option
 !!      (P.LeMoigne) 01/07/05 expression of latent heat flux as a function of
 !!                            w'theta' instead of w'T' (divison by surface exner)
@@ -137,12 +137,12 @@ REAL, DIMENSION(:), INTENT(IN)      :: PLEG_DELTA, PLEGI_DELTA
 !
 REAL, DIMENSION(:), INTENT (IN)     :: PCS, PT2M, PTSM
 !                                      PCS    = heat capacity of the snow (K m2 J-1)
-!                                      PT2M   = mean surface (or restore) temperature at start 
+!                                      PT2M   = mean surface (or restore) temperature at start
 !                                               of time step (K)
-!                                      PTSM   = surface temperature at start 
+!                                      PTSM   = surface temperature at start
 !                                               of time step (K)
 REAL, DIMENSION(:), INTENT(IN)      :: PSNOW_THRUFAL
-!                                      PSNOW_THRUFAL = rate that liquid water leaves snow pack: 
+!                                      PSNOW_THRUFAL = rate that liquid water leaves snow pack:
 !                                                     ISBA-ES [kg/(m2 s)]
 REAL, DIMENSION(:,:), INTENT(IN)    :: PSOILCONDZ
 !                                      PSOILCONDZ= ISBA-DF Soil conductivity profile  [W/(m K)]
@@ -169,7 +169,7 @@ REAL, DIMENSION(:), INTENT(OUT)     :: PLER, PLETR, PEVAP, PGFLUX, PMELTADV, PME
 !                                     PMELT = melting rate of snow (kg m-2 s-1)
 !
 REAL, DIMENSION(:), INTENT(OUT)     :: PLEGI
-!                                      PLEGI   = sublimation component of the 
+!                                      PLEGI   = sublimation component of the
 !                                                latent heat flux from the soil surface
 !
 !*      0.2    declarations of local variables
@@ -179,8 +179,8 @@ REAL                        :: ZKSOIL     ! coefficient for soil freeze/thaw
 REAL, DIMENSION(SIZE(PTA))  :: ZZHV, ZTN, ZDT
 !                                      ZZHV = for the calculation of the latent
 !                                             heat of evapotranspiration
-!!                                     ZTN  = average temperature used in 
-!                                             the calculation of the 
+!!                                     ZTN  = average temperature used in
+!                                             the calculation of the
 !                                             melting effect
 !                                      ZDT  = temperature change (K)
 !
@@ -191,7 +191,7 @@ REAL, DIMENSION(SIZE(PTA))  ::  ZPSN, ZPSNV, ZPSNG, ZFRAC
 !                                                    or Force-Restore snow scheme), else
 !                                                    they are zero for explicit snow case
 !                                                    as snow fluxes calculated outside of
-!                                                    this routine using the 
+!                                                    this routine using the
 !                                                    PEK%TSNOW%SCHEME = '3-L' option.
 !
 REAL, DIMENSION(SIZE(PTA))  ::  ZNEXTSNOW
@@ -225,7 +225,7 @@ IF (LHOOK) CALL DR_HOOK('ISBA_FLUXES',0,ZHOOK_HANDLE)
 IF (PEK%TSNOW%SCHEME == 'EBA') ZEPS1=1.0E-8
 !
 PMELT(:)        = 0.0
-PLER(:)         = 0.0 
+PLER(:)         = 0.0
 !
 ZTN(:)          = 0.0
 ZDT(:)          = 0.0
@@ -233,7 +233,7 @@ ZDT(:)          = 0.0
 ! If ISBA-ES option in use, then snow covered surface
 ! fluxes calculated outside of this routine, so set
 ! the local snow fractions here to zero:
-! 
+!
 IF(PEK%TSNOW%SCHEME == '3-L' .OR. PEK%TSNOW%SCHEME == 'CRO' .OR. IO%CISBA == 'DIF')THEN
    ZPSN(:)      = 0.0
    ZPSNG(:)     = 0.0
@@ -265,7 +265,7 @@ DO JJ=1,SIZE(PEK%XTG,1)
            / PEK%XRESA(JJ) / PEXNS(JJ)
 !
   ZWORK1(JJ) = PRHOA(JJ) * (1.-PEK%XVEG(JJ))*(1.-ZPSNG(JJ)) / PEK%XRESA(JJ)
-  ZWORK2(JJ) = PQSAT(JJ)+PDQSAT(JJ)*ZDT(JJ) 
+  ZWORK2(JJ) = PQSAT(JJ)+PDQSAT(JJ)*ZDT(JJ)
 !                                            latent heat of sublimation from
 !                                            the ground
 !
@@ -278,7 +278,7 @@ DO JJ=1,SIZE(PEK%XTG,1)
 !
   ZWORK2(JJ) = PRHOA(JJ) * (ZWORK2(JJ) - PQA(JJ))
   ZWORK3(JJ) = ZWORK2(JJ) / PEK%XRESA(JJ)
-!                                            latent heat of evaporation from 
+!                                            latent heat of evaporation from
 !                                            the snow canopy
 !
   PLES(JJ)     = PK%XLSTT(JJ) * ZPSN(JJ) * ZWORK3(JJ)
@@ -289,19 +289,19 @@ DO JJ=1,SIZE(PEK%XTG,1)
   PLEV(JJ)     = PK%XLVTT(JJ) * PEK%XVEG(JJ)*(1.-ZPSNV(JJ)) * DMK%XHV(JJ) * ZWORK3(JJ)
 !
 !                                            latent heat of evapotranspiration
-!                                            
+!
   ZZHV (JJ) = MAX(0., SIGN(1.,PQSAT(JJ) - PQA(JJ)))
   PLETR(JJ) = ZZHV(JJ) * (1. - PDELTA(JJ)) * PK%XLVTT(JJ) * PEK%XVEG(JJ)*(1-ZPSNV(JJ))          &
               * ZWORK2(JJ) *( (1/(PEK%XRESA(JJ) + DMK%XRS(JJ))) - ((1.-PF5(JJ))/(PEK%XRESA(JJ) + XRS_MAX)) )
-!               
+!
 !
   PLER(JJ)     = PLEV(JJ) - PLETR(JJ)
 !
 !                                            latent heat of free water (floodplains)
 !
-  PLE_FLOOD(JJ)  = PK%XLVTT(JJ) * (1.-KK%XFFROZEN(JJ)) * KK%XFF(JJ) * ZWORK3(JJ) 
+  PLE_FLOOD(JJ)  = PK%XLVTT(JJ) * (1.-KK%XFFROZEN(JJ)) * KK%XFF(JJ) * ZWORK3(JJ)
 !
-  PLEI_FLOOD(JJ) = PK%XLSTT(JJ) * KK%XFFROZEN(JJ) * KK%XFF(JJ) * ZWORK3(JJ) 
+  PLEI_FLOOD(JJ) = PK%XLSTT(JJ) * KK%XFFROZEN(JJ) * KK%XFF(JJ) * ZWORK3(JJ)
 !
 !                                            total latent heat of evaporation
 !                                            without flood
@@ -348,7 +348,7 @@ IF( (PEK%TSNOW%SCHEME == 'D95' .OR. PEK%TSNOW%SCHEME == 'EBA') .AND. IO%CISBA /=
 !                                            temperature tn
 !
     IF (PEK%TSNOW%SCHEME == 'D95') THEN
-!           
+!
       ZTN(:) = (1.-PEK%XVEG(:))*PEK%XTG(:,1) + PEK%XVEG(:)*PT2M(:)
 !
 !     Only diag
@@ -363,26 +363,26 @@ IF( (PEK%TSNOW%SCHEME == 'D95' .OR. PEK%TSNOW%SCHEME == 'EBA') .AND. IO%CISBA /=
         PMELT(:) = ZPSN(:)*(ZTN(:)-XTT) / (PCS(:)*XLMTT*MAX(XTAU_SMELT,PTSTEP))
       END WHERE
 !
-!                                            close the energy budget: cannot melt 
+!                                            close the energy budget: cannot melt
 !                                            more than the futur available snow
-!      
+!
       ZNEXTSNOW(:) = PEK%TSNOW%WSNOW(:,1) + PTSTEP * (DMK%XSRSFC(:) - PLES(:) / PK%XLSTT(:))
 !
       WHERE ( PMELT(:) > 0.0 )
-!              
-              PMELT(:)=MIN(PMELT(:),ZNEXTSNOW(:)/PTSTEP)      
+!
+              PMELT(:)=MIN(PMELT(:),ZNEXTSNOW(:)/PTSTEP)
               ZNEXTSNOW(:) = ZNEXTSNOW(:) - PTSTEP * PMELT
-!              
+!
 !             removes very small fraction
               ZFRAC(:) = SNOW_FRAC_GROUND(ZNEXTSNOW(:))
               WHERE(ZFRAC(:)<1.0E-4)
-                    PMELT(:)     = PMELT(:) + ZNEXTSNOW(:) / PTSTEP       
-              ENDWHERE   
-!       
-      ENDWHERE   
-!    
+                    PMELT(:)     = PMELT(:) + ZNEXTSNOW(:) / PTSTEP
+              ENDWHERE
+!
+      ENDWHERE
+!
     ELSEIF (PEK%TSNOW%SCHEME == 'EBA') THEN
-!    
+!
       PMELT(:)=MIN( PEK%TSNOW%WSNOW(:,1)/PTSTEP + DMK%XSRSFC(:) - PLES(:)/ PK%XLSTT(:) , &
                   MAX(0.0,(PEK%XTG(:,1)-XTT))  / MAX(ZEPS1,DMK%XCT*PTSTEP) / XLMTT )
 !

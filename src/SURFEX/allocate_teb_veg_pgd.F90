@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-    SUBROUTINE ALLOCATE_TEB_VEG_PGD (PEK, S, K, P, OALLOC, KLU, KVEGTYPE, KGROUND_LAYER)  
+    SUBROUTINE ALLOCATE_TEB_VEG_PGD (PEK, S, K, P, OALLOC, KLU, KVEGTYPE, KGROUND_LAYER)
 !   ##########################################################################
 !
 !
@@ -34,40 +34,40 @@ IF (LHOOK) CALL DR_HOOK('ALLOCATE_TEB_VEG_PGD',0,ZHOOK_HANDLE)
 ! - Physiographic field that can evolve prognostically
 !
 ALLOCATE(PEK%XLAI                    (KLU))
-ALLOCATE(PEK%XVEG                    (KLU)) 
-ALLOCATE(PEK%XEMIS                   (KLU)) 
-ALLOCATE(PEK%XZ0                     (KLU)) 
+ALLOCATE(PEK%XVEG                    (KLU))
+ALLOCATE(PEK%XEMIS                   (KLU))
+ALLOCATE(PEK%XZ0                     (KLU))
 !
 ! - vegetation: default option (Jarvis) and general parameters:
 !
 ALLOCATE(PEK%XRSMIN                  (KLU))
-ALLOCATE(PEK%XGAMMA                  (KLU)) 
+ALLOCATE(PEK%XGAMMA                  (KLU))
 ALLOCATE(PEK%XWRMAX_CF               (KLU))
 ALLOCATE(PEK%XRGL                    (KLU))
-ALLOCATE(PEK%XCV                     (KLU)) 
+ALLOCATE(PEK%XCV                     (KLU))
 !
-ALLOCATE(PEK%XLAIMIN                 (KLU)) 
-ALLOCATE(PEK%XSEFOLD                 (KLU)) 
+ALLOCATE(PEK%XLAIMIN                 (KLU))
+ALLOCATE(PEK%XSEFOLD                 (KLU))
 ALLOCATE(PEK%XGMES                   (KLU))
 ALLOCATE(PEK%XGC                     (KLU))
-ALLOCATE(PEK%XF2I                    (KLU)) 
+ALLOCATE(PEK%XF2I                    (KLU))
 ALLOCATE(PEK%XBSLAI                  (KLU))
 !
 ! - vegetation:
 !
-ALLOCATE(PEK%XALBNIR_VEG             (KLU)) 
-ALLOCATE(PEK%XALBVIS_VEG             (KLU)) 
-ALLOCATE(PEK%XALBUV_VEG              (KLU)) 
+ALLOCATE(PEK%XALBNIR_VEG             (KLU))
+ALLOCATE(PEK%XALBVIS_VEG             (KLU))
+ALLOCATE(PEK%XALBUV_VEG              (KLU))
 !
-ALLOCATE(PEK%LSTRESS                 (KLU)) 
+ALLOCATE(PEK%LSTRESS                 (KLU))
 !
 !-------------------------------------------------------------------------------
 !
 ! - vegetation: Ags Nitrogen-model parameters ('NIT' option)
 !
-ALLOCATE(PEK%XCE_NITRO               (KLU)) 
-ALLOCATE(PEK%XCF_NITRO               (KLU)) 
-ALLOCATE(PEK%XCNA_NITRO              (KLU)) 
+ALLOCATE(PEK%XCE_NITRO               (KLU))
+ALLOCATE(PEK%XCF_NITRO               (KLU))
+ALLOCATE(PEK%XCNA_NITRO              (KLU))
 !
 IF (.NOT. OALLOC) THEN
   IF (LHOOK) CALL DR_HOOK('ALLOCATE_TEB_VEG_PGD',1,ZHOOK_HANDLE)
@@ -79,7 +79,7 @@ END IF
 !
 ! - vegetation + bare soil:
 !
-ALLOCATE(P%XZ0_O_Z0H               (KLU)) 
+ALLOCATE(P%XZ0_O_Z0H               (KLU))
 !
 ALLOCATE(P%XROOTFRAC               (KLU,KGROUND_LAYER       ))
 ALLOCATE(P%NWG_LAYER               (KLU))
@@ -91,7 +91,7 @@ ALLOCATE(P%XDG2                    (KLU))
 ! - vegetation: Ags parameters ('AGS', 'LAI', 'AST', 'LST', 'NIT' options)
 !
 !
-ALLOCATE(P%XH_TREE              (KLU)) 
+ALLOCATE(P%XH_TREE              (KLU))
 !
 !
 ALLOCATE(P%XRE25                (KLU))
@@ -101,35 +101,35 @@ ALLOCATE(P%XRE25                (KLU))
 ! - vegetation: Ags Stress parameters ('AST', 'LST', 'NIT' options)
 !
 !
-ALLOCATE(P%XAH                 (KLU)) 
-ALLOCATE(P%XBH                 (KLU)) 
+ALLOCATE(P%XAH                 (KLU))
+ALLOCATE(P%XBH                 (KLU))
 !
-ALLOCATE(P%XDMAX               (KLU)) 
+ALLOCATE(P%XDMAX               (KLU))
 !
 !-------------------------------------------------------------------------------
 !
 ! - soil: primary parameters
 !
-ALLOCATE(S%XSOC               (KLU,KGROUND_LAYER       ))  
+ALLOCATE(S%XSOC               (KLU,KGROUND_LAYER       ))
 !
-ALLOCATE(K%XSAND              (KLU,KGROUND_LAYER       )) 
-ALLOCATE(K%XCLAY              (KLU,KGROUND_LAYER       )) 
-ALLOCATE(K%XRUNOFFB           (KLU                     )) 
-ALLOCATE(K%XWDRAIN            (KLU                     )) 
+ALLOCATE(K%XSAND              (KLU,KGROUND_LAYER       ))
+ALLOCATE(K%XCLAY              (KLU,KGROUND_LAYER       ))
+ALLOCATE(K%XRUNOFFB           (KLU                     ))
+ALLOCATE(K%XWDRAIN            (KLU                     ))
 !
 ALLOCATE(P%XTAUICE            (KLU                    ))
 !
-ALLOCATE(P%XDG                (KLU,KGROUND_LAYER)) 
+ALLOCATE(P%XDG                (KLU,KGROUND_LAYER))
 !
-ALLOCATE(P%XRUNOFFD           (KLU)) 
+ALLOCATE(P%XRUNOFFD           (KLU))
 !
 !-------------------------------------------------------------------------------
 !
 ! - SGH scheme
-!                                   
-ALLOCATE(P%XD_ICE             (KLU)) 
 !
-ALLOCATE(K%XGAMMAT            (KLU )) 
+ALLOCATE(P%XD_ICE             (KLU))
+!
+ALLOCATE(K%XGAMMAT            (KLU ))
 !
 !-------------------------------------------------------------------------------
 !

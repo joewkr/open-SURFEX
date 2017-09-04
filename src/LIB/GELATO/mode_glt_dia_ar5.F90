@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,32 +28,32 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ========================= MODULE mode_glt_dia_ar5 =========================
 ! =======================================================================
 !
-! 
+!
 ! * Contains a subroutine that writes model glt_output in Gelato format
 !
 ! --------------------- BEGIN MODULE mode_glt_dia_ar5 -----------------------
 
 MODULE mode_glt_dia_ar5
-CONTAINS 
+CONTAINS
 !
 !
 ! -----------------------------------------------------------------------
 ! ------------------------ SUBROUTINE WRIDIA_AR5 ------------------------
 
 ! * A subroutine that computes interesting quantities from certain
-! icestate variables (statistics) and records them in data files at 
+! icestate variables (statistics) and records them in data files at
 ! every time step.
 
 SUBROUTINE wridia_ar5( tpglt )
@@ -105,7 +105,7 @@ SUBROUTINE wridia_ar5( tpglt )
   TYPE(t_mxl), DIMENSION(nx,ny) ::  &
         tzml
   TYPE(t_tfl), DIMENSION(nx,ny) ::  &
-        tztfl 
+        tztfl
   TYPE(t_blk), DIMENSION(nx,ny) ::  &
         tzblkw
   TYPE(t_blk), DIMENSION(nt,nx,ny) ::  &
@@ -132,7 +132,7 @@ SUBROUTINE wridia_ar5( tpglt )
   zwork3(:,:,:) = 0.
   zcumdia0 = tpglt%cdia0
   zcumdia = tpglt%cdia
-! 
+!
 ! .. Structures
 !
   tzind = tpglt%ind
@@ -143,7 +143,7 @@ SUBROUTINE wridia_ar5( tpglt )
   tzblki = tpglt%blki
   tzsit = tpglt%sit
   tzbud = tpglt%bud
-  tzdia = tpglt%dia 
+  tzdia = tpglt%dia
 !
 ! .. Welcome message
 !
@@ -157,8 +157,8 @@ SUBROUTINE wridia_ar5( tpglt )
 !
   zfsit(:,:) = glt_iceconcm( tzdom,tzsit )
   zhsit(:,:) = glt_avhicem( tzdom,tzsit )
-  zhsnt(:,:) = glt_avhsnwm( tzdom,tzsit )      
-  zmsnt(:,:) = glt_avmsnwm( tzdom,tzsit )      
+  zhsnt(:,:) = glt_avhsnwm( tzdom,tzsit )
+  zmsnt(:,:) = glt_avmsnwm( tzdom,tzsit )
 !
 ! .. Time counter
 !
@@ -170,7 +170,7 @@ SUBROUTINE wridia_ar5( tpglt )
   tzind%i0d = 0
   tzind%i2d = 0
 !
-! .. For 'specialised averaging' (e.g. ice age, snow density or salinity), 
+! .. For 'specialised averaging' (e.g. ice age, snow density or salinity),
 ! count time steps when there is sea ice
 !
   tzdia(:,:)%sic = tzdia(:,:)%sic + zfsit(:,:)
@@ -182,7 +182,7 @@ SUBROUTINE wridia_ar5( tpglt )
 ! 2. Write priority 1 diagnostics
 ! ================================
 !
-  IF ( ndiap1==1 ) THEN 
+  IF ( ndiap1==1 ) THEN
 !
 ! 2.1. OImon table requested diagnostics
 ! ---------------------------------------
@@ -211,7 +211,7 @@ SUBROUTINE wridia_ar5( tpglt )
       zwork2(:,:) = ( rhoice*zhsit(:,:) + zmsnt(:,:) )
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK (note that sign is negative if sea ice loses water)
-! Ce champ est en fait égal à sbl car Arpege ne considère que de la 
+! Ce champ est en fait égal à sbl car Arpege ne considère que de la
 ! sublimation sur neige / glace
 ! Noter l'ambiguité avec evapsbl dans les tables Amon
       zwork2(:,:) =  &
@@ -261,7 +261,7 @@ SUBROUTINE wridia_ar5( tpglt )
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia,  &
         pwgt=tzdia%aiw )
 ! OK
-!* Note that here, we do not divide zwork2 by zfsit, since tzdia%sic 
+!* Note that here, we do not divide zwork2 by zfsit, since tzdia%sic
 ! contains the sum of the zfsit [weights] over all time outcomes
       tznam = t_def(  &
         "Surface Temperature of Sea Ice",  &
@@ -271,7 +271,7 @@ SUBROUTINE wridia_ar5( tpglt )
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia,  &
         pwgt=tzdia%sic )
 ! OK
-!* Note that here, we do not divide zwork2 by zfsit, since tzdia%tiw 
+!* Note that here, we do not divide zwork2 by zfsit, since tzdia%tiw
 ! contains the sum of the zfsit [weights] over all time outcomes
 ! (tzdia%tiw and tzdia%tin are both computed in vhdiff_r)
       tznam = t_def(  &
@@ -291,14 +291,14 @@ SUBROUTINE wridia_ar5( tpglt )
 ! OK
       tznam = t_def(  &
         "Surface Snowfall Rate into the Sea Ice Portion of the Grid Cell",  &
-        "surface_snowfall_rate_into_the_sea_ice_portion_of_the_grid_cell",  & 
+        "surface_snowfall_rate_into_the_sea_ice_portion_of_the_grid_cell",  &
         "prsn", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%sop
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 !
       tznam = t_def(  &
         "Frazil Sea Ice Growth (Leads) Rate",  &
-        "frazil_sea_ice_growth_(leads)_rate",  & 
+        "frazil_sea_ice_growth_(leads)_rate",  &
         "grFrazil", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%lsi
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
@@ -340,7 +340,7 @@ SUBROUTINE wridia_ar5( tpglt )
 !
       tznam = t_def(  &
         "Rate of Melt at Upper Surface of Sea Ice",  &
-        "rate_of_melt_at_upper_surface_of_sea_ice",  & 
+        "rate_of_melt_at_upper_surface_of_sea_ice",  &
         "tmelt", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%mrt
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
@@ -395,7 +395,7 @@ SUBROUTINE wridia_ar5( tpglt )
 !      zwork2(:,:) = tzdia(:,:)%swd
 !      CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 !
-!* Not provided (net is provided instead) 
+!* Not provided (net is provided instead)
 !      tznam = t_def(  &
 !        "Upward Shortwave over Sea Ice",  &
 !        "surface_upwelling_shortwave_flux_in_air",  &
@@ -416,14 +416,14 @@ SUBROUTINE wridia_ar5( tpglt )
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 !
 ! transifs : Fram Strait glt_transport (à fournir ???)
-! 
 !
-! 2.2. Omon table requested diagnostics 
+!
+! 2.2. Omon table requested diagnostics
 ! ---------------------------------------
 !
-! .. These diagnostics are not in the sea ice CMIP5 table, but in the 
+! .. These diagnostics are not in the sea ice CMIP5 table, but in the
 ! ocean table. However they can be computed in the sea ice model
-! 
+!
 !OK
 !* This is reduced to snow layer melt (true only if sea ice is levitating !)
       tznam = t_def(  &
@@ -432,7 +432,7 @@ SUBROUTINE wridia_ar5( tpglt )
         "fsitherm", "kg.m-2.s-1", "T", "SCALAR" )
       IF ( nleviti==1 ) THEN
           zwork2(:,:) = -tzdia(:,:)%snm
-        ELSE      
+        ELSE
           zwork2(:,:) = xbig20
       ENDIF
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
@@ -470,9 +470,9 @@ SUBROUTINE wridia_ar5( tpglt )
       zwork2(:,:) = tztfl(:,:)%tio
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 !
-! 
 !
-! 2.3. Other diagnostics (not in CMIP5 tables) 
+!
+! 2.3. Other diagnostics (not in CMIP5 tables)
 ! ---------------------------------------------
 !
 !*Ex-AIHFLUIW
@@ -512,7 +512,7 @@ SUBROUTINE wridia_ar5( tpglt )
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
 !* Average snow albedo field [0-1]
-! Note that here, we do not divide zwork2 by zfsit, since tzdia%sic 
+! Note that here, we do not divide zwork2 by zfsit, since tzdia%sic
 ! contains the sum of the zfsit [weights] over all time outcomes
       tznam = t_def(  &
         "Weighted Albedo of Snow Over Sea Ice",  &
@@ -526,7 +526,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Eastward Sea Ice Velocity",  &
         "eastward_sea_ice_velocity",  &
-        "usi", "m.s-1", "U", "VECTOR" ) 
+        "usi", "m.s-1", "U", "VECTOR" )
       zwork2(:,:) = tzdia(:,:)%uvl
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
@@ -534,7 +534,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Northward Sea Ice Velocity",  &
         "northward_sea_ice_velocity",  &
-        "vsi", "m.s-1", "V", "VECTOR" ) 
+        "vsi", "m.s-1", "V", "VECTOR" )
       zwork2(:,:) = tzdia(:,:)%vvl
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
@@ -542,7 +542,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Fraction of Time with Sea Ice ",  &
         "fraction_of_time_with_sea_ice",  &
-        "timesi", "%", "T", "SCALAR" ) 
+        "timesi", "%", "T", "SCALAR" )
       WHERE( zfsit(:,:)>xfsic )
           zwork2(:,:) = 100.
         ELSEWHERE
@@ -554,14 +554,14 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Sublimation over Sea Ice",  &
         "sublimation_over_sea_ice",  &
-        "subIce", "kg.m-2.s-1", "T", "SCALAR" ) 
+        "subIce", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%sui
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 !* Sublimation tot over sea-ice fraction of the grid
       tznam = t_def(  &
         "Sublimation",  &
         "sublimation",  &
-        "subTot", "kg.m-2.s-1", "T", "SCALAR" ) 
+        "subTot", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%sut
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
@@ -569,7 +569,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Sublimation over Snow",  &
         "sublimation_over_snow",  &
-        "subSnw", "kg.m-2.s-1", "T", "SCALAR" ) 
+        "subSnw", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%sus
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
@@ -577,7 +577,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Sublimation over Ocean (residual)",  &
         "sublimation_over_ocean",  &
-        "subO", "kg.m-2.s-1", "T", "SCALAR" ) 
+        "subO", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%suw
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
@@ -585,7 +585,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Sublimation over Leads",  &
         "sublimation_over_leads",  &
-        "subL", "kg.m-2.s-1", "T", "SCALAR" ) 
+        "subL", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%sul
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
@@ -593,7 +593,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Liquid Precipitation over Snow",  &
         "liquid_precipitation_over_snow",  &
-        "s_pr", "kg.m-2.s-1", "T", "SCALAR" ) 
+        "s_pr", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%s_pr
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
@@ -601,7 +601,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Liquid Precipitation over Ocean",  &
         "liquid_precipitation_over_ocean",  &
-        "o_pr", "kg.m-2.s-1", "T", "SCALAR" ) 
+        "o_pr", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%o_pr
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
@@ -609,7 +609,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Liquid Precipitation over Leads",  &
         "liquid_precipitation_over_leads",  &
-        "l_pr", "kg.m-2.s-1", "T", "SCALAR" ) 
+        "l_pr", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%l_pr
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
@@ -617,7 +617,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Solid Precipitation over Snow",  &
         "solid_precipitation_over_snow",  &
-        "s_prsn", "kg.m-2.s-1", "T", "SCALAR" ) 
+        "s_prsn", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%s_prsn
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
@@ -625,7 +625,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Solid Precipitation over ocean",  &
         "solid_precipitation_over_ocean",  &
-        "o_prsn", "kg.m-2.s-1", "T", "SCALAR" ) 
+        "o_prsn", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%o_prsn
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! OK
@@ -633,7 +633,7 @@ SUBROUTINE wridia_ar5( tpglt )
       tznam = t_def(  &
         "Solid Precipitation over Leads",  &
         "solid_precipitation_over_leads",  &
-        "l_prsn", "kg.m-2.s-1", "T", "SCALAR" ) 
+        "l_prsn", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%l_prsn
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 !
@@ -651,45 +651,45 @@ SUBROUTINE wridia_ar5( tpglt )
   ENDIF
 !
 !
-! 
+!
 ! 3. Write second set of diagnostics
 ! ===================================
 !
-! .. Note that the outgoing heat flux affecting ice free areas are 
+! .. Note that the outgoing heat flux affecting ice free areas are
 ! exactly equal to the incoming heat flux in the same zones.
 !
-! NOTES 
+! NOTES
 ! ------
 !  * If you want to compute a complete energy balance on sea ice,
 ! you must compare, on the one hand:
 !    . SITDENIW (gltools_enthalpy change)
 ! And, on the other hand:
-!    . OIHFLUIW + AIHFLUIW + AISNWFIW + AWHFLUWW + AWSNWFWW - 
+!    . OIHFLUIW + AIHFLUIW + AISNWFIW + AWHFLUWW + AWSNWFWW -
 ! ( IOLFLUIW + IOTFLUIW + LOLFLUIW + LOTFLUIW )
-! i.e. 
-! ( ocean heat flux + 
-!   atmospheric heat flux on ice + energy flux due to snowfalls on ice + 
+! i.e.
+! ( ocean heat flux +
+!   atmospheric heat flux on ice + energy flux due to snowfalls on ice +
 !   atmospheric heat flux on water + energy flux due to snowfalls on water )
 ! minus
 ! ( outgoing short wave + non-solar through leads +
 !   outgoing short wave + non-solar through ice )
-!  
+!
 !  - outgoing energy (solar+non-solar) at the bottom of sea ice)
 !
-!  * If you want to compute a complete fresh water balance on sea ice, 
+!  * If you want to compute a complete fresh water balance on sea ice,
 ! you must compare, on the one hand:
-!    . ALLFWTOT (all precip-evapo) - LOWFLUIW - IOWFLUIW (outgoing water 
+!    . ALLFWTOT (all precip-evapo) - LOWFLUIW - IOWFLUIW (outgoing water
 ! through leads and under sea ice)
 ! And, on the other hand:
 !    . SIDMSIIW (sea ice mass change) - SIDMSAIW (remove salt) + SIDMSNIW
 ! (snow mass change)
-! 
-!  * The energetic balance due to the (non perfectly conservative) sea 
+!
+!  * The energetic balance due to the (non perfectly conservative) sea
 ! ice advection is also available, see SIDDENIW and SIDDLAIW fields.
 !
 !  * The change in water budget due to dynamics is not implemented yet.
 !
-  IF ( ndiap2==1 ) THEN 
+  IF ( ndiap2==1 ) THEN
 !
 !OK
       tznam = t_def(  &
@@ -705,7 +705,7 @@ SUBROUTINE wridia_ar5( tpglt )
 ! a function given in gltools_temper_r
       tznam = t_def(  &
         "Sea Ice Total Heat Content",  &
-        "sea_ice_total_heat_content",  & 
+        "sea_ice_total_heat_content",  &
         "hcice", "J.m-2", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%sie + tzdia(:,:)%sne
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
@@ -713,33 +713,33 @@ SUBROUTINE wridia_ar5( tpglt )
 !* Snow total heat content
       tznam = t_def(  &
         "Snow Total Heat Content",  &
-        "snow_total_heat_content",  & 
+        "snow_total_heat_content",  &
         "hcsnow", "J.m-2", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%sne
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 ! PERHAPS AVERAGE SEA ICE TEMPERATURE SHOULD BE PROVIDED ??
 !(divide %sie by fsit in glt_thermo, then apply a new temper function)
-! 
-! The 4 next fields cannot be provided. 
+!
+! The 4 next fields cannot be provided.
 ! The net non-solar flux on sea ice is provided instead.
 !* Not provided
       tznam = t_def(  &
         "Downward Longwave over Sea Ice",  &
         "surface_downwelling_longwave_flux_in_air",  &
         "rldssi", "W.m-2", "T", "SCALAR" )
-! 
+!
 !* Not provided
       tznam = t_def(  &
         "Upward longwave over Sea Ice",  &
         "surface_upwelling_longwave_flux_in_air",  &
         "rlussi", "W.m-2", "T", "SCALAR" )
-! 
+!
 !* Not provided
       tznam = t_def(  &
         "Surface Upward Sensible Heat Flux over Sea Ice",  &
         "surface_upward_sensible_heat_flux",  &
         "hfssi","W.m-2", "T", "SCALAR" )
-! 
+!
 !* Not provided
       tznam = t_def(  &
         "Surface Upward Latent Heat Flux over Sea Ice",  &
@@ -752,7 +752,7 @@ SUBROUTINE wridia_ar5( tpglt )
         "surface_snow_and_ice_sublimation_flux",  &
         "sblsi", "kg.m-2.s-1", "T", "SCALAR" )
 ! OK
-! Note that here, we do not divide zwork2 by zfsit, since tzdia%sic 
+! Note that here, we do not divide zwork2 by zfsit, since tzdia%sic
 ! contains the sum of the zfsit [weights] over all time outcomes
       tznam = t_def(  &
         "X-Component of Atmospheric Stress On Sea Ice",  &
@@ -762,7 +762,7 @@ SUBROUTINE wridia_ar5( tpglt )
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia,  &
         pwgt=tzdia%sic )
 ! OK
-! Note that here, we do not divide zwork2 by zfsit, since tzdia%sic 
+! Note that here, we do not divide zwork2 by zfsit, since tzdia%sic
 ! contains the sum of the zfsit [weights] over all time outcomes
       tznam = t_def(  &
         "Y-Component of Atmospheric Stress On Sea Ice",  &
@@ -772,7 +772,7 @@ SUBROUTINE wridia_ar5( tpglt )
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia,  &
         pwgt=tzdia%sic )
 ! OK
-! Note that here, we do not divide zwork2 by zfsit, since tzdia%sic 
+! Note that here, we do not divide zwork2 by zfsit, since tzdia%sic
 ! contains the sum of the zfsit [weights] over all time outcomes
       tznam = t_def(  &
         "X-Component of Ocean Stress On Sea Ice",  &
@@ -782,7 +782,7 @@ SUBROUTINE wridia_ar5( tpglt )
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia,  &
         pwgt=tzdia%sic )
 ! OK
-! Note that here, we do not divide zwork2 by zfsit, since tzdia%sic 
+! Note that here, we do not divide zwork2 by zfsit, since tzdia%sic
 ! contains the sum of the zfsit [weights] over all time outcomes
       tznam = t_def(  &
         "Y-Component of Ocean Stress On Sea Ice",  &
@@ -792,9 +792,9 @@ SUBROUTINE wridia_ar5( tpglt )
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia,  &
         pwgt=tzdia%sic )
 !
-!* Not provided 
+!* Not provided
 ! When computing the time-mean here, the time samples, weighted
-! by the area of sea ice, are accumulated and then divided by 
+! by the area of sea ice, are accumulated and then divided by
 ! the sum of the weights. Report as missing in regions free of
 ! sea ice.
       tznam = t_def(  &
@@ -802,27 +802,27 @@ SUBROUTINE wridia_ar5( tpglt )
         "",  &
         "streng", "N.m-2", "T", "SCALAR" )
 !
-!* Not provided 
+!* Not provided
       tznam = t_def(  &
         "Strain Rate Divergence of Sea Ice",  &
         "",  &
         "divice", "s-1", "T", "SCALAR" )
-! 
-!* Not provided 
+!
+!* Not provided
       tznam = t_def(  &
         "Strain Rate Shear of Sea Ice",  &
         "",  &
         "shrice", "s-1", "T", "SCALAR" )
-! 
+!
 ! When computing the time-mean here, the time samples, weighted
-! by the area of sea ice, are accumulated and then divided by 
+! by the area of sea ice, are accumulated and then divided by
 ! the sum of the weights. Report as missing in regions free of
 ! sea ice (pas obligatoire...)
       tznam = t_def(  &
         "Sea Ice Ridging Rate",  &
         "",  &
         "ridgice", "s-1", "T", "SCALAR" )
-! 
+!
 !* Ex-OIHFLUIW
 ! Ocean heat flux - weighted [W.m-2]
       tznam = t_def(  &
@@ -879,8 +879,8 @@ SUBROUTINE wridia_ar5( tpglt )
       zwork2(:,:) = tzdia(:,:)%dmp
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 !
-! The following two water fluxes are the REAL fluxes of water computed 
-! by Gelato - a difference compared to fsitherm, which is the water 
+! The following two water fluxes are the REAL fluxes of water computed
+! by Gelato - a difference compared to fsitherm, which is the water
 ! flux actually seen by the ocean code, since sea ice is levitating.
 !
 !* Ex-IOWFLUIW
@@ -889,7 +889,7 @@ SUBROUTINE wridia_ar5( tpglt )
         "Real Water Flux into Sea Water under Sea Ice",  &
         "real_water_flux_into_sea_water_under_sea_ice",  &
         "wfsitsi", "kg.m-2.s-1", "T", "SCALAR" )
-      zwork2(:,:) = tztfl(:,:)%wio 
+      zwork2(:,:) = tztfl(:,:)%wio
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 !
 !* Ex-LOWFLUIW
@@ -951,7 +951,7 @@ SUBROUTINE wridia_ar5( tpglt )
 ! Weighted change of salt mass in sea ice - glt_thermo only [ kg.m-2.s-1 ]
       tznam = t_def(  &
         "Salt Mass in Sea Ice Rate",  &
-        "salt_mass_in_sea_ice_rate",  & 
+        "salt_mass_in_sea_ice_rate",  &
         "dmsalt", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%dsa
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
@@ -960,7 +960,7 @@ SUBROUTINE wridia_ar5( tpglt )
 ! Weighted snow mass change field - glt_thermo only [ kg.m-2.s-1 ]
       tznam = t_def(  &
         "Snow Mass over Sea Ice Rate due to Sea Ice Thermodynamics",  &
-        "snow_mass_over_sea_ice_rate_due_to_sea_ice_thermodynamics",  & 
+        "snow_mass_over_sea_ice_rate_due_to_sea_ice_thermodynamics",  &
         "dmsnow", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%dsn
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
@@ -968,7 +968,7 @@ SUBROUTINE wridia_ar5( tpglt )
 ! Weighted snow mass change field - dynamic only [ kg.m-2.s-1 ]
       tznam = t_def(  &
         "Snow Mass over Sea Ice Rate due to Sea Ice Dynamics",  &
-        "snow_mass_over_sea_ice_rate_due_to_sea_ice_dynamics",  & 
+        "snow_mass_over_sea_ice_rate_due_to_sea_ice_dynamics",  &
         "dmsnowdyn", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%ddn
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
@@ -976,7 +976,7 @@ SUBROUTINE wridia_ar5( tpglt )
 ! Weighted sea ice mass change field - glt_thermo only [ kg.m-2.s-1 ]
       tznam = t_def(  &
         "Sea Ice Mass Rate",  &
-        "sea_ice_mass_rate",  & 
+        "sea_ice_mass_rate",  &
         "dmice", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%dsi
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
@@ -984,14 +984,14 @@ SUBROUTINE wridia_ar5( tpglt )
 ! Weighted sea ice mass change - constraint only [ kg.m-2.s-1 ]
       tznam = t_def(  &
         "Rate of Change of Sea Ice Mass due to Constraint",  &
-        "rate_of_change_of_sea_ice_mass_due_to_constraint",  & 
+        "rate_of_change_of_sea_ice_mass_due_to_constraint",  &
         "dmicedmp", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%dci
 !
 ! Sea ice concentration constraint [% ]
       tznam = t_def(  &
         "Sea Ice Concentration Constraint",  &
-        "sea_ice_concentration_traint",  & 
+        "sea_ice_concentration_traint",  &
         "siccnst", "%", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%cst
 !
@@ -999,7 +999,7 @@ SUBROUTINE wridia_ar5( tpglt )
 ! Weighted ice FW content change field - glt_thermo only [ kg.m-2.s-1 ]
       tznam = t_def(  &
         "Sea Ice Fresh Water Content Rate",  &
-        "sea_ice_fresh_water_content_rate",  & 
+        "sea_ice_fresh_water_content_rate",  &
         "dmwice", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%dwi
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
@@ -1008,7 +1008,7 @@ SUBROUTINE wridia_ar5( tpglt )
 ! Total input water to the snow-ice leads system [kg.m-2.s-1]
       tznam = t_def(  &
         "Total Fresh Water Input Rate",  &
-        "total_fresh_water_input_rate",  & 
+        "total_fresh_water_input_rate",  &
         "dfwnt", "kg.m-2.s-1", "T", "SCALAR" )
       zwork2(:,:) = tzdia(:,:)%ifw
       CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
@@ -1036,16 +1036,16 @@ SUBROUTINE wridia_ar5( tpglt )
 !!      yword = 'SIMRBIIW'  ! T SCALAR
 !!      CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 !
-! >>> Write spare fields 
+! >>> Write spare fields
 !
-!      IF ( ANY( ABS( tzdia(:,:)%sp1 ) > epsil1 ) ) THEN 
+!      IF ( ANY( ABS( tzdia(:,:)%sp1 ) > epsil1 ) ) THEN
 !        zwork2(:,:) =   &
 !          tzdia(:,:)%sp1
 !        yword = 'FIELDSP1'  ! T SCALAR
 !        CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 !      ENDIF
 !
-!      IF ( ANY( ABS( tzdia(:,:)%sp2 ) > epsil1 ) ) THEN 
+!      IF ( ANY( ABS( tzdia(:,:)%sp2 ) > epsil1 ) ) THEN
 !        zwork2(:,:) =   &
 !          tzdia(:,:)%sp2
 !        yword = 'FIELDSP2'  !  T SCALAR
@@ -1054,10 +1054,10 @@ SUBROUTINE wridia_ar5( tpglt )
 !
       DO jt=1,nt
 !
-!*Ex-SIFRCSIx 
+!*Ex-SIFRCSIx
 ! Sea ice categories concentration fields
-        WRITE( yfdef,FMT='("Sea Ice Area Fraction Category ",I1.1)' ) jt 
-        WRITE( ylnam,FMT='("sea_ice_area_fraction_category_",I1.1)' ) jt 
+        WRITE( yfdef,FMT='("Sea Ice Area Fraction Category ",I1.1)' ) jt
+        WRITE( ylnam,FMT='("sea_ice_area_fraction_category_",I1.1)' ) jt
         WRITE( yword,FMT='("sic",I1.1)' ) jt
         tznam = t_def(  &
           yfdef, ylnam, yword, "%", "T", "SCALAR" )
@@ -1065,8 +1065,8 @@ SUBROUTINE wridia_ar5( tpglt )
         CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia )
 !
 ! >>> Write pond volume over each ice category
-        WRITE( yfdef,FMT='("Melt pond volume Category ",I1.1)' ) jt 
-        WRITE( ylnam,FMT='("melt_pond_volume_category_",I1.1)' ) jt 
+        WRITE( yfdef,FMT='("Melt pond volume Category ",I1.1)' ) jt
+        WRITE( ylnam,FMT='("melt_pond_volume_category_",I1.1)' ) jt
         WRITE( yword,FMT='("vmp",I1.1)' ) jt
         tznam = t_def(  &
           yfdef, ylnam, yword, "%", "T", "SCALAR" )
@@ -1091,7 +1091,7 @@ SUBROUTINE wridia_ar5( tpglt )
 !
   IF ( ndiap3==1 ) THEN
 !
-! *Note that here, we do not divide zwork2 by zhsit, since tzdia%sit 
+! *Note that here, we do not divide zwork2 by zhsit, since tzdia%sit
 ! contains the sum of the zhsit [weights] over all time outcomes
       tznam = t_def(  &
         "Sea Ice Salinity",  &
@@ -1104,7 +1104,7 @@ SUBROUTINE wridia_ar5( tpglt )
             pwgt=tzdia%sit )
       ENDIF
 !
-! *Note that here, we do not divide zwork2 by zfsit, since tzdia%sic 
+! *Note that here, we do not divide zwork2 by zfsit, since tzdia%sic
 ! contains the sum of the zfsit [weights] over all time outcomes
       tznam = t_def(  &
         "Age of Sea Ice",  &
@@ -1118,7 +1118,7 @@ SUBROUTINE wridia_ar5( tpglt )
             pwgt=tzdia%sic )
       ENDIF
 !
-! *Note that here, we do not divide zwork2 by zfsit, since tzdia%sic 
+! *Note that here, we do not divide zwork2 by zfsit, since tzdia%sic
 ! contains the sum of the zfsit [weights] over all time outcomes
       tznam = t_def(  &
         "Melt pond volume",  &
@@ -1126,29 +1126,29 @@ SUBROUTINE wridia_ar5( tpglt )
         "mpondvol", "m", "T", "SCALAR" )
       IF ( nmponds==1 ) THEN
           zwork2(:,:) =  &
-            SUM( tzsit(:,:,:)%fsi*tzsit(:,:,:)%vmp, DIM=1 ) 
+            SUM( tzsit(:,:,:)%fsi*tzsit(:,:,:)%vmp, DIM=1 )
           CALL gltools_outdia( tzind,tznam,tzdom,zwork2,zcumdia,  &
             pwgt=tzdia%sic )
       ENDIF
 
-  ENDIF 
+  ENDIF
 !
 ! .. Just a final check, if ndiamax (in gltzar) is too small to hold all the
 ! data
 !
   IF ( tzind%cur==tzind%beg ) THEN
-      IF ( tzind%i2d>ndiamax ) THEN 
+      IF ( tzind%i2d>ndiamax ) THEN
           WRITE( ymess,  &
             FMT='("Number of 2d diagnostic fields=", &
             &  I3,"> ndiamax=",I3,"\n")' ) tzind%i2d,ndiamax
           CALL gltools_glterr( 'imod_results','Check ndiamax in gltzar', 'STOP' )
-      ENDIF 
-      IF ( tzind%i0d>ndiamax ) THEN 
+      ENDIF
+      IF ( tzind%i0d>ndiamax ) THEN
           WRITE( ymess,  &
             FMT='("Number of 0d diagnostic fields=", &
             &  I3,"> ndiamax=",I3,"\n")' ) tzind%i0d,ndiamax
           CALL gltools_glterr( 'imod_results','Check ndiamax in gltzar', 'STOP' )
-      ENDIF 
+      ENDIF
   ENDIF
 !
 !
@@ -1158,7 +1158,7 @@ SUBROUTINE wridia_ar5( tpglt )
 !
 ! 3.1. Compute sea ice totals
 ! ----------------------------
-! 
+!
 ! The following quantities are computed :
 !   - sea ice extent (sum of all grid cells with more than X % ice
 !     concentration)
@@ -1203,15 +1203,15 @@ SUBROUTINE wridia_ar5( tpglt )
   zwhs = zw
 
 !
-! .. Ice glt_transport through straits (depends on mesh geometry) 
+! .. Ice glt_transport through straits (depends on mesh geometry)
 ! Has been only coded for NEMO1 grid.
 ! Note that the (i,j) indices are given for the full grid, including ghost
-! points rows/ranks. For example, the NEMO1 grid has (362,292) points. 
-! (i,j) coordinates must be given in this grid, even if i=1, i=362, 
+! points rows/ranks. For example, the NEMO1 grid has (362,292) points.
+! (i,j) coordinates must be given in this grid, even if i=1, i=362,
 ! j=1, j=292 are ghost points.
 ! Here we are still in the parallel space. Some straits can be in different
-! subdomains. We add up the contribution of the different subdomains 
-! (computed separately in iceflx). Note that in iceflx, we do not consider 
+! subdomains. We add up the contribution of the different subdomains
+! (computed separately in iceflx). Note that in iceflx, we do not consider
 ! points which are ghost points if i=1 or j=1 (to avoid counting them twice).
 !
   zfram = 0.
@@ -1255,12 +1255,12 @@ SUBROUTINE wridia_ar5( tpglt )
         ii = ii0
         ij = ij0+ji-1
         zncwest = zncwest +  &
-          iceflx( tzdom,zhsit,tzdia,ii,ij,ii+1,ij )  
+          iceflx( tzdom,zhsit,tzdia,ii,ij,ii+1,ij )
       END DO
       zncwest = -rhoice*zncwest
 !
 ! Nares Strait (between Ellesmere Land and North Western Greenland)
-!  - we compute the ice flux at the northern boundary of this strait (at its 
+!  - we compute the ice flux at the northern boundary of this strait (at its
 ! Arctic Ocean boundary)
       ii0 = 253
       ij0 = 277
@@ -1269,12 +1269,12 @@ SUBROUTINE wridia_ar5( tpglt )
         ii = ii0
         ij = ij0+ji-1
         znceast = znceast +  &
-          iceflx( tzdom,zhsit,tzdia,ii,ij,ii+1,ij )  
+          iceflx( tzdom,zhsit,tzdia,ii,ij,ii+1,ij )
       END DO
       znceast = -rhoice*znceast
 !
 ! Barrow Strait (between Prince of Wales I. - south and Bathurst I. - north)
-!  - we compute the ice flux 
+!  - we compute the ice flux
       ii0 = 283
       ij0 = 274
 !
@@ -1283,7 +1283,7 @@ SUBROUTINE wridia_ar5( tpglt )
         ij = ij0+ji-1
         znorthb = znorthb -  &
           iceflx( tzdom,zhsit,tzdia,ii,ij,ii,ij+1 ) +  &
-          iceflx( tzdom,zhsit,tzdia,ii-1,ij,ii,ij )  
+          iceflx( tzdom,zhsit,tzdia,ii-1,ij,ii,ij )
       END DO
       znorthb = -rhoice*znorthb
 !
@@ -1293,7 +1293,7 @@ SUBROUTINE wridia_ar5( tpglt )
 ! 3.2. Write totals to diagnostic file
 ! -------------------------------------
 !
-  IF ( ndiap1==1 ) THEN 
+  IF ( ndiap1==1 ) THEN
 !
 !* Ex-SIEHNSIG
       tznam = t_def(  &
@@ -1350,35 +1350,35 @@ SUBROUTINE wridia_ar5( tpglt )
         "south_hemisphere_snow_volume",  &
         "snovols", "10^3 km3", "T", "SCALAR" )
       CALL gltools_outdia( tzind,tznam,tzdom,zwhs,zcumdia0 )
-! 
+!
 !* Ex-SIFRAMST
       tznam = t_def(  &
         "Sea Ice Mass Transport Through Fram Strait",  &
         "",  &
         "transifs", "kg.s-1", "T", "SCALAR" )
       CALL gltools_outdia( tzind,tznam,tzdom,zfram,zcumdia0 )
-! 
+!
 !* Ex-SIBERING
       tznam = t_def(  &
         "Sea Ice Mass Transport Through Bering Strait",  &
         "",  &
         "tibering", "kg.s-1", "T", "SCALAR" )
       CALL gltools_outdia( tzind,tznam,tzdom,zbering,zcumdia0 )
-! 
+!
 !* Ex-SINCWEST (North Canadian Archipelago - West)
       tznam = t_def(  &
         "Sea Ice Mass Transport Through NCA West",  &
         "",  &
         "tincawest", "kg.s-1", "T", "SCALAR" )
       CALL gltools_outdia( tzind,tznam,tzdom,zncwest,zcumdia0 )
-! 
+!
 !* Ex-SINCEAST (North Canadian Archipelago - East, Nares Strait)
       tznam = t_def(  &
         "Sea Ice Mass Transport Through Nares Strait",  &
         "",  &
         "tinares", "kg.s-1", "T", "SCALAR" )
       CALL gltools_outdia( tzind,tznam,tzdom,znceast,zcumdia0 )
-! 
+!
 !* Ex-SINORTHB
       tznam = t_def(  &
         "Sea Ice Mass Transport Through Barrow Strait",  &
@@ -1396,7 +1396,7 @@ SUBROUTINE wridia_ar5( tpglt )
 !
   IF(lp1) WRITE(noutlu,*) '                              North        South'
   IF(lp1) WRITE(noutlu,1000) zshn,zshs
-  IF ( ndiap3==1 ) THEN 
+  IF ( ndiap3==1 ) THEN
     IF(lp1) WRITE(noutlu,1100) zehn,zehs
   ENDIF
   IF(lp1) WRITE(noutlu,1200) zwhn,zwhs
@@ -1420,7 +1420,7 @@ SUBROUTINE wridia_ar5( tpglt )
   IF(lp1) WRITE(noutlu,*) ' *** LEVEL 3 - END SUBROUTINE WRIDIA_AR5'
   IF(lp1) WRITE(noutlu,*) ' '
 !
-END SUBROUTINE wridia_ar5 
+END SUBROUTINE wridia_ar5
 !
 ! --------------------- END SUBROUTINE WRIDIA_AR5 -----------------------
 ! -----------------------------------------------------------------------

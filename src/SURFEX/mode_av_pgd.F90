@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_AV_PGD
 !
@@ -58,7 +58,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('MODE_AV_PGD:DOY2DATE',0,ZHOOK_HANDLE)
 !
 KMONTH = NUNDEF
-KDAY   = NUNDEF 
+KDAY   = NUNDEF
 !
 ZWORK(1) = REAL(KDOY) / ZTAB(1)
 IF ( INT(ZWORK(1))==0  .AND. ZWORK(1)/=0.) THEN
@@ -72,7 +72,7 @@ DO J = 2, 12
       KMONTH = J
       KDAY   = KDOY - INT(ZTAB(J-1))
    ENDIF
-END DO 
+END DO
 IF (LHOOK) CALL DR_HOOK('MODE_AV_PGD:DOY2DATE',1,ZHOOK_HANDLE)
 
 END SUBROUTINE DOY2DATE
@@ -92,7 +92,7 @@ IMPLICIT NONE
 TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
 INTEGER, INTENT(IN) :: KCOVER
 INTEGER, DIMENSION(:), INTENT(IN) :: KMASK
- CHARACTER(LEN=3),       INTENT(IN)  :: HSFTYPE 
+ CHARACTER(LEN=3),       INTENT(IN)  :: HSFTYPE
 REAL, DIMENSION(:), INTENT(OUT) :: PWEIGHT
 !
 INTEGER :: JCOV,JJ
@@ -103,7 +103,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_AV_PGD:GET_WEIGHT',0,ZHOOK_HANDLE)
 DO JCOV=1,KCOVER
   !
   JJ = KMASK(JCOV)
-  !  
+  !
   !-------------------------------------------------------------------------------
   !
   !*    2.     Selection of the weighting function
@@ -147,7 +147,7 @@ DO JCOV=1,KCOVER
                                        + DTCO%XDATA_VEGTYPE(JJ,NVT_BOBD) &
                                        + DTCO%XDATA_VEGTYPE(JJ,NVT_BOND) &
                                        + DTCO%XDATA_VEGTYPE(JJ,NVT_SHRB) &
-                                       + DTCO%XDATA_VEGTYPE(JJ,NVT_BONE) )  
+                                       + DTCO%XDATA_VEGTYPE(JJ,NVT_BONE) )
 
     CASE('GRT')
       PWEIGHT(JCOV)=DTCO%XDATA_TOWN(JJ) * DTCO%XDATA_GARDEN(JJ) &
@@ -159,7 +159,7 @@ DO JCOV=1,KCOVER
                             + DTCO%XDATA_VEGTYPE(JJ,NVT_BOBD) &
                             + DTCO%XDATA_VEGTYPE(JJ,NVT_BOND) &
                             + DTCO%XDATA_VEGTYPE(JJ,NVT_SHRB) &
-                            + DTCO%XDATA_VEGTYPE(JJ,NVT_BONE) )  
+                            + DTCO%XDATA_VEGTYPE(JJ,NVT_BONE) )
 
     CASE DEFAULT
       CALL ABOR1_SFX('AV_1PGD_1D: WEIGHTING FUNCTION NOT ALLOWED '//HSFTYPE)
@@ -191,7 +191,7 @@ TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
 INTEGER, INTENT(IN) :: KCOVER
 INTEGER, DIMENSION(:), INTENT(IN) :: KMASK
 INTEGER, INTEnt(IN) :: KDECADE
- CHARACTER(LEN=3),       INTENT(IN)  :: HSFTYPE 
+ CHARACTER(LEN=3),       INTENT(IN)  :: HSFTYPE
 REAL, DIMENSION(:,:), INTENT(OUT) :: PWEIGHT
 !
 INTEGER :: JCOV,JJ, JVEG
@@ -211,32 +211,32 @@ IF (.NOT.ASSOCIATED(DTCO%XDATA_WEIGHT)) THEN
     DO JVEG=1,NVEGTYPE
       !  CASE('NAT')
       IF (DTCO%XDATA_VEGTYPE(JJ,JVEG)==0.) CYCLE
-      !  
+      !
       DTCO%XDATA_WEIGHT(JCOV,JVEG,1)= DTCO%XDATA_NATURE(JJ) * DTCO%XDATA_VEGTYPE(JJ,JVEG)
       !CASE('GRD')
       DTCO%XDATA_WEIGHT(JCOV,JVEG,2)= DTCO%XDATA_TOWN(JJ)*DTCO%XDATA_GARDEN(JJ) * DTCO%XDATA_VEGTYPE(JJ,JVEG)
-      !CASE('VEG')     
+      !CASE('VEG')
       DTCO%XDATA_WEIGHT(JCOV,JVEG,3)= DTCO%XDATA_WEIGHT(JCOV,JVEG,1) * XDATA_VEG(JJ,KDECADE,JVEG)
-      !CASE('BAR')               
+      !CASE('BAR')
       DTCO%XDATA_WEIGHT(JCOV,JVEG,4)= DTCO%XDATA_WEIGHT(JCOV,JVEG,1) * (1.-XDATA_VEG(JJ,KDECADE,JVEG))
-      !CASE('GRV')              
+      !CASE('GRV')
       DTCO%XDATA_WEIGHT(JCOV,JVEG,5)= DTCO%XDATA_WEIGHT(JCOV,JVEG,2) * XDATA_VEG(JJ,KDECADE,JVEG)
-      !CASE('GRB')            
+      !CASE('GRB')
       DTCO%XDATA_WEIGHT(JCOV,JVEG,6)= DTCO%XDATA_WEIGHT(JCOV,JVEG,2) * (1.-XDATA_VEG(JJ,KDECADE,JVEG))
       IF ( SUM(XDATA_LAI(JJ,:,JVEG)) .GT. 0.0) THEN
-        !CASE('DVG') ! for diffusion scheme only 
+        !CASE('DVG') ! for diffusion scheme only
         DTCO%XDATA_WEIGHT(JCOV,JVEG,7)= DTCO%XDATA_WEIGHT(JCOV,JVEG,1)
-        !CASE('GDV') ! for diffusion scheme only            
+        !CASE('GDV') ! for diffusion scheme only
         DTCO%XDATA_WEIGHT(JCOV,JVEG,8)= DTCO%XDATA_WEIGHT(JCOV,JVEG,2)
-      ENDIF       
-      !CASE('LAI')           
+      ENDIF
+      !CASE('LAI')
       DTCO%XDATA_WEIGHT(JCOV,JVEG,9)= DTCO%XDATA_WEIGHT(JCOV,JVEG,1) * XDATA_LAI(JJ,KDECADE,JVEG)
-      !CASE('GRL')           
+      !CASE('GRL')
       DTCO%XDATA_WEIGHT(JCOV,JVEG,10)= DTCO%XDATA_WEIGHT(JCOV,JVEG,2) * XDATA_LAI(JJ,KDECADE,JVEG)
       !
       !Tree vegtype
       !
-      !CASE('TRE')  
+      !CASE('TRE')
       !CASE('GRT')
       IF (JVEG==NVT_TEBD) THEN
         DTCO%XDATA_WEIGHT(JCOV,NVT_TEBD,11)= DTCO%XDATA_WEIGHT(JCOV,NVT_TEBD,1)
@@ -273,9 +273,9 @@ IF (.NOT.ASSOCIATED(DTCO%XDATA_WEIGHT)) THEN
       IF (JVEG==NVT_SHRB) THEN
         DTCO%XDATA_WEIGHT(JCOV,NVT_SHRB,11)= DTCO%XDATA_WEIGHT(JCOV,NVT_SHRB,1)
         DTCO%XDATA_WEIGHT(JCOV,NVT_SHRB,12)= DTCO%XDATA_WEIGHT(JCOV,NVT_SHRB,2)
-      ENDIF   
+      ENDIF
       !
-    ENDDO      
+    ENDDO
     !
   ENDDO
   !
@@ -295,17 +295,17 @@ SELECT CASE (HSFTYPE)
   CASE('GRB')
     PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,6)
   CASE('DVG')
-    PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,7)   
+    PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,7)
   CASE('GDV')
-    PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,8)   
+    PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,8)
   CASE('LAI')
     PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,9)
   CASE('GRL')
-    PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,10)  
+    PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,10)
   CASE('TRE')
-    PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,11) 
+    PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,11)
   CASE('GRT')
-    PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,12)    
+    PWEIGHT(:,:) = DTCO%XDATA_WEIGHT(:,:,12)
   CASE DEFAULT
      CALL ABOR1_SFX('AV_1PATCH_PGD_1D: WEIGHTING FUNCTION FOR VEGTYPE NOT ALLOWED')
 END SELECT

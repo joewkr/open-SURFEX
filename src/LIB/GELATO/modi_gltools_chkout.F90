@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,27 +28,27 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ====================== MODULE modi_gltools_chkout =======================
 ! =======================================================================
 !
 ! Goal:
 ! -----
-!   This module contains a subroutine that prints for every glt_gelato 
+!   This module contains a subroutine that prints for every glt_gelato
 ! glt_output field :
 !   - global minimum
 !   - global maximum
 !   - global average (no weighing with grid cell surfaces)
 !   - values for every field at a specified grid point
-!   Note that MPP_SUM, MPP_MIN, MPP_MAX (invoke all procs) cannot be 
+!   Note that MPP_SUM, MPP_MIN, MPP_MAX (invoke all procs) cannot be
 ! used under condition lp2=.TRUE. HEnce we use the nprinto==2 condition.
 !
 ! Created : 2003/12 (D. Salas y Melia)
@@ -121,7 +121,7 @@ SUBROUTINE gltools_chkout( kdate,tpglt )
         zwork3
   TYPE(t_def) ::  &
         tznam
-!  
+!
 !
 ! 1. Initialisations
 ! ===================
@@ -130,9 +130,9 @@ SUBROUTINE gltools_chkout( kdate,tpglt )
 !
 ! .. List of all fields to be analysed (in a single string variable)
 ! The user can change this list at will, provided that:
-!       - the length of this string (named yallfld) is less than 
-!       the declared value 
-!       - every word in this string is associated to an action in 
+!       - the length of this string (named yallfld) is less than
+!       the declared value
+!       - every word in this string is associated to an action in
 !       the case construct that follows.
 !
       IF ( nnflxin==0 ) THEN
@@ -152,7 +152,7 @@ SUBROUTINE gltools_chkout( kdate,tpglt )
 !
       ylistfld = gltools_strsplit( yfld,infld )
 !
-! .. Surface grid factor 
+! .. Surface grid factor
 !
       zofac = 1. / xdomsrf_g
 !
@@ -165,7 +165,7 @@ SUBROUTINE gltools_chkout( kdate,tpglt )
 ! --------------------
 !
       IF ( lwg ) THEN
-        WRITE(noutlu,*) 
+        WRITE(noutlu,*)
         WRITE(noutlu,*)  &
           '===================== Control Gelato output data ' //  &
           '====================='
@@ -249,7 +249,7 @@ SUBROUTINE gltools_chkout( kdate,tpglt )
               ENDIF
             END DO
           ELSE
-            zmin = MINVAL( zwork2(:,:),MASK=tpglt%dom%tmk==1 ) 
+            zmin = MINVAL( zwork2(:,:),MASK=tpglt%dom%tmk==1 )
             zmax = MAXVAL( zwork2(:,:),MASK=tpglt%dom%tmk==1 )
             zsum = SUM( zwork2(:,:)*tpglt%dom%srf ) * zofac
             IF ( lwg ) WRITE(noutlu,1010) ADJUSTL(ylistfld(jf)),zmin,zmax,zsum
@@ -258,10 +258,10 @@ SUBROUTINE gltools_chkout( kdate,tpglt )
       END DO
 !
       IF ( lwg ) THEN
-        WRITE(noutlu,*) 
+        WRITE(noutlu,*)
         WRITE(noutlu,*)  &
           '===================================================================='
-        WRITE(noutlu,*) 
+        WRITE(noutlu,*)
       ENDIF
       DEALLOCATE( ylistfld )
 !
@@ -280,7 +280,7 @@ SUBROUTINE gltools_chkout( kdate,tpglt )
         WRITE(noutlu,*) 'CHKOUT: Saving Gelato glt_output data'
         WRITE(noutlu,*) '=================================='
         WRITE(noutlu,*) ' '
-      ENDIF 
+      ENDIF
 !
 ! .. Compute file name
       imonth = ( kdate - 10000*( kdate/10000 ) ) / 100
@@ -291,11 +291,11 @@ SUBROUTINE gltools_chkout( kdate,tpglt )
 !
 ! .. Open and write file
 !
-    OPEN( UNIT=nsavlu, FILE=yfile, FORM='UNFORMATTED' ) 
+    OPEN( UNIT=nsavlu, FILE=yfile, FORM='UNFORMATTED' )
   ENDIF
 !
   IF ( nsavout==1 ) THEN
-    IF (nnflxin /= 0) THEN 
+    IF (nnflxin /= 0) THEN
       DO jk=1,nnflxin
         WRITE(ynum,'(I2.2)') jk
         tznam = t_def( "","","SIFRCI"//ynum,"","T","SCALAR" )
@@ -309,30 +309,30 @@ SUBROUTINE gltools_chkout( kdate,tpglt )
     ELSE
 !
       tznam = t_def( "","","SIFRCSIS","","T","SCALAR" )
-      CALL gltools_wrivai( tznam,tpglt%mix_atm(1,:,:)%fsi,kunit=nsavlu,kdbl=1 ) 
+      CALL gltools_wrivai( tznam,tpglt%mix_atm(1,:,:)%fsi,kunit=nsavlu,kdbl=1 )
       tznam = t_def( "","","SIALBSIM","","T","SCALAR" )
-      CALL gltools_wrivai( tznam,tpglt%mix_atm(1,:,:)%alb,kunit=nsavlu,kdbl=1 ) 
+      CALL gltools_wrivai( tznam,tpglt%mix_atm(1,:,:)%alb,kunit=nsavlu,kdbl=1 )
       tznam = t_def( "","","SITEMSIW","","T","SCALAR" )
-      CALL gltools_wrivai( tznam,tpglt%mix_atm(1,:,:)%tsf,kunit=nsavlu,kdbl=1 ) 
+      CALL gltools_wrivai( tznam,tpglt%mix_atm(1,:,:)%tsf,kunit=nsavlu,kdbl=1 )
       !
     ENDIF
 !
    tznam = t_def( "","","PNSFIXXX","","T","SCALAR" )
-   CALL gltools_wrivai( tznam,tpglt%all_oce%nsf,kunit=nsavlu,kdbl=1 ) 
+   CALL gltools_wrivai( tznam,tpglt%all_oce%nsf,kunit=nsavlu,kdbl=1 )
    tznam = t_def( "","","PSWAIXXX","","T","SCALAR" )
-   CALL gltools_wrivai( tznam,tpglt%all_oce%swa,kunit=nsavlu,kdbl=1 ) 
+   CALL gltools_wrivai( tznam,tpglt%all_oce%swa,kunit=nsavlu,kdbl=1 )
    tznam = t_def( "","","PCDFLIXX","","T","SCALAR" )
-   CALL gltools_wrivai( tznam,tpglt%all_oce%cdf,kunit=nsavlu,kdbl=1 ) 
+   CALL gltools_wrivai( tznam,tpglt%all_oce%cdf,kunit=nsavlu,kdbl=1 )
    tznam = t_def( "","","PWATFLIX","","T","SCALAR" )
-   CALL gltools_wrivai( tznam,tpglt%all_oce%wfl,kunit=nsavlu,kdbl=1 ) 
+   CALL gltools_wrivai( tznam,tpglt%all_oce%wfl,kunit=nsavlu,kdbl=1 )
    tznam = t_def( "","","PTAUXGXX","","U","VECTOR" )
-   CALL gltools_wrivai( tznam,tpglt%all_oce%ztx,kunit=nsavlu,kdbl=1 ) 
+   CALL gltools_wrivai( tznam,tpglt%all_oce%ztx,kunit=nsavlu,kdbl=1 )
    tznam = t_def( "","","PTAUYGXX","","V","VECTOR" )
-   CALL gltools_wrivai( tznam,tpglt%all_oce%mty,kunit=nsavlu,kdbl=1 ) 
+   CALL gltools_wrivai( tznam,tpglt%all_oce%mty,kunit=nsavlu,kdbl=1 )
    tznam = t_def( "","","PUSTARXX","","T","SCALAR" )
-   CALL gltools_wrivai( tznam,tpglt%all_oce%ust,kunit=nsavlu,kdbl=1 ) 
+   CALL gltools_wrivai( tznam,tpglt%all_oce%ust,kunit=nsavlu,kdbl=1 )
    tznam = t_def( "","","SALFLUXX","","T","SCALAR" )
-   CALL gltools_wrivai( tznam,tpglt%all_oce%saf,kunit=nsavlu,kdbl=1 ) 
+   CALL gltools_wrivai( tznam,tpglt%all_oce%saf,kunit=nsavlu,kdbl=1 )
   ENDIF
 !
   IF ( ydo ) CLOSE(nsavlu)

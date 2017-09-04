@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################
       MODULE MODD_EMIS_GR_FIELD_n
@@ -10,18 +10,18 @@
 !!                               for model n
 !!    PURPOSE
 !!    -------
-!       The purpose of this declarative module is to specify  the 
+!       The purpose of this declarative module is to specify  the
 !     chemical emission data arrays for model n.
 !
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
 !!      Book2 of documentation of Meso-NH (module MODD_EMIS_GR_FIELD)
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -29,7 +29,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    08/03/2001                      
+!!      Original    08/03/2001
 !!      01/12/03    (D.Gazen) change emissions handling for surf. externalization
 !-------------------------------------------------------------------------------
 !

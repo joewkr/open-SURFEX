@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-------------------------------------------------------------------------------
 !     ######################
@@ -11,25 +11,25 @@
 !!
 !!    PURPOSE
 !!    -------
-!       The purpose of this declarative module is to specify  the variables 
-!     which have the PARAMETER attribute   
+!       The purpose of this declarative module is to specify  the variables
+!     which have the PARAMETER attribute
 !
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
 !!      Book2 of documentation of Meso-NH (module MODD_PARAMETER)
-!!          
+!!
 !!    AUTHOR
 !!    ------
 !!      V. Ducrocq   *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    4/07/94                      
+!!      Original    4/07/94
 !!      Modification 10/03/95 (I.Mallet)   add the coupling files maximum number
 !!      Modification 10/04/95 (Ph. Hereil) add the budget related informations
 !-------------------------------------------------------------------------------
@@ -39,10 +39,10 @@
 !
 IMPLICIT NONE
 !
-REAL,    PARAMETER :: XSTEPK = 0.05   ! discretization step of the saturation 
+REAL,    PARAMETER :: XSTEPK = 0.05   ! discretization step of the saturation
                                       ! index KAPPA
-INTEGER, PARAMETER :: NDIM = 20       ! dimension of the XCONN array third 
-                                      ! index 
+INTEGER, PARAMETER :: NDIM = 20       ! dimension of the XCONN array third
+                                      ! index
 INTEGER, PARAMETER :: JPCAT = 10      ! number max of catchments
 !
 INTEGER :: NUNIT = 19

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
 SUBROUTINE INIT_TEB_GREENROOF_PGD_n (DTCO, U, OCH_BIO_FLUX, G, PGREENROOF, TOP, IO, S, K, P, PEK, DTV, GB, &
@@ -204,7 +204,7 @@ IF (OPATCH1) THEN
       S%XVEGTYPE(:,JVEG) = 0.
       S%XVEGTYPE(:,1) = 1.
     END WHERE
-  ENDDO  
+  ENDDO
   !
   ALLOCATE(S%XPATCH(KI,1),P%XPATCH(KI))
   ALLOCATE(S%XVEGTYPE_PATCH(KI,NVEGTYPE,1),P%XVEGTYPE_PATCH(KI,NVEGTYPE))
@@ -216,24 +216,24 @@ IF (OPATCH1) THEN
   ALLOCATE(P%NR_P(KI))
   DO JI = 1,SIZE(P%NR_P)
     P%NR_P(JI) = JI
-  ENDDO  
+  ENDDO
   !
   IF (.NOT. IO%LPAR) THEN
     CALL CONVERT_PATCH_ISBA(DTCO, DTV, IO, IDECADE, IDECADE, TOP%XCOVER, TOP%LCOVER,&
                         .FALSE.,'GRD', 1, K, P, PEK, &
                         .TRUE., .FALSE., .FALSE., .FALSE., .FALSE., .FALSE., &
-                        PSOILGRID=IO%XSOILGRID  )   
+                        PSOILGRID=IO%XSOILGRID  )
   ELSE
     CALL INIT_FROM_DATA_TEB_VEG_n(DTV, K, P, PEK, IDECADE, .FALSE., .TRUE., .FALSE.,.FALSE.)
   ENDIF
-  ! 
+  !
   ALLOCATE(S%XWSN_WR(0,0,1))
   ALLOCATE(S%XRHO_WR(0,0,1))
   ALLOCATE(S%XALB_WR(0,1))
   ALLOCATE(S%XHEA_WR(0,0,1))
   ALLOCATE(S%XAGE_WR(0,0,1))
   ALLOCATE(S%XSG1_WR(0,0,1))
-  ALLOCATE(S%XSG2_WR(0,0,1)) 
+  ALLOCATE(S%XSG2_WR(0,0,1))
   ALLOCATE(S%XHIS_WR(0,0,1))
   !
 END IF
@@ -244,7 +244,7 @@ END IF
 IF (.NOT. IO%LPAR) THEN
   CALL CONVERT_PATCH_ISBA(DTCO, DTV, IO, IDECADE, IDECADE, TOP%XCOVER, TOP%LCOVER,&
                         .FALSE.,'GRD', 1, K, P, PEK, &
-                        .FALSE., .TRUE., .FALSE., .FALSE., .FALSE., .FALSE.  )   
+                        .FALSE., .TRUE., .FALSE., .FALSE., .FALSE., .FALSE.  )
 ELSE
 
   CALL INIT_FROM_DATA_TEB_VEG_n(DTV, K, P, PEK, IDECADE, .FALSE., .FALSE., .TRUE.,.FALSE.)
@@ -278,7 +278,7 @@ IF (OPATCH1) THEN
   !
   IF (IO%CSCOND=='PL98' .OR. IO%CISBA=='DIF') THEN
     DO JL=1,IO%NGROUND_LAYER
-      K%XHCAPSOIL(:,JL) = S%XSOC(:,JL) * ZHCAPSOIL_OM + (1-S%XSOC(:,JL)) * K%XHCAPSOIL(:,JL)  
+      K%XHCAPSOIL(:,JL) = S%XSOC(:,JL) * ZHCAPSOIL_OM + (1-S%XSOC(:,JL)) * K%XHCAPSOIL(:,JL)
       K%XCONDDRY (:,JL) = (ZCONDDRY_OM * K%XCONDDRY(:,JL)) / &
                         ( S%XSOC(:,JL) * K%XCONDDRY(:,JL) + (1-S%XSOC(:,JL)) * ZCONDDRY_OM )
       K%XCONDSLD (:,JL) = (ZCONDSLD_OM * K%XCONDSLD(:,JL)) / &
@@ -318,7 +318,7 @@ IF (OPATCH1) THEN
     K%XBCOEF  (:,JL) = S%XSOC(:,JL) * ZBCOEF_OM   + (1-S%XSOC(:,JL)) * K%XBCOEF(:,JL)
     K%XMPOTSAT(:,JL) = S%XSOC(:,JL) * ZMPOTSAT_OM + (1-S%XSOC(:,JL)) * K%XMPOTSAT(:,JL)
   END DO
-  !        
+  !
   DO JL=1,IO%NGROUND_LAYER
     K%XWSAT (:,JL) =  S%XSOC(:,JL)* ZWSAT_OM +(1-S%XSOC(:,JL))* K%XWSAT(:,JL)
     K%XWWILT(:,JL) = EXP(((LOG(-1*ZMPOT_WWILT)-LOG(-1*K%XMPOTSAT(:,JL)))   &
@@ -363,7 +363,7 @@ ENDDO
 !*       6.1    Initialize of the SGH scheme:'
 !               ------------------------------
 !
-IF(IO%CKSAT=='SGH' .AND. IO%CISBA/='DIF' .AND. HINIT/='PRE')THEN 
+IF(IO%CKSAT=='SGH' .AND. IO%CISBA/='DIF' .AND. HINIT/='PRE')THEN
   ZF(:)=MIN(4.0/P%XDG(:,2),XF_DECAY)
   CALL EXP_DECAY_SOIL_FR(IO%CISBA,  ZF, P)
 ENDIF

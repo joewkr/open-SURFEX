@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################
       SUBROUTINE ZOOM_PGD_TEB (BOP, BDD, DTB, DTCO, DTT, UG, U, GCP, IO, K, TG, TOP, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -154,7 +154,7 @@ ALLOCATE(TG%XLAT       (ILU))
 ALLOCATE(TG%XLON       (ILU))
 ALLOCATE(TG%XMESH_SIZE (ILU))
 !
- CALL PACK_PGD(DTCO, U, HPROGRAM, 'TOWN  ', TG, TOP%LCOVER, TOP%XCOVER, TOP%XZS   )  
+ CALL PACK_PGD(DTCO, U, HPROGRAM, 'TOWN  ', TG, TOP%LCOVER, TOP%XCOVER, TOP%XZS   )
 !
 TG%NDIM = ILU
 !
@@ -245,7 +245,7 @@ IF (IVERSION>7 .OR. IVERSION==7 .AND. IBUGFIX>=3) THEN
   CALL READ_SURF(HPROGRAM,'GD_PHOTO',IO%CPHOTO,IRESP)
   CALL READ_SURF(HPROGRAM,'GD_PEDOTF',IO%CPEDOTF,IRESP)
   IO%NNBIOMASS=1
-  IF (IO%CPHOTO=='NIT') IO%NNBIOMASS=3  
+  IF (IO%CPHOTO=='NIT') IO%NNBIOMASS=3
 ELSE
   CALL READ_SURF(HPROGRAM,'TWN_LAYER',IO%NGROUND_LAYER,IRESP)
   CALL READ_SURF(HPROGRAM,'TWN_ISBA',IO%CISBA,IRESP)

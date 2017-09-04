@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE ISBA_ALBEDO(PEK, OTR_ML, OMEB, PDIR_SW, PSCA_SW, PSW_BANDS, KSW, &
@@ -9,21 +9,21 @@
                              PALBNIR_TSOIL, PALBVIS_TSOIL               )
 !     ##########################################################################
 !
-!!****  *ISBA_ALBEDO*  
+!!****  *ISBA_ALBEDO*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates grid-averaged albedo and emissivity (according to snow scheme)
-!         
+!
 !!    EXTERNAL
 !!    --------
 !!
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    
+!!      Original
 !!      P. Samuelsson  02/2012  MEB
 !!
 !-------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ IMPLICIT NONE
 !*      0.1    declarations of arguments
 !
 LOGICAL,              INTENT(IN)   :: OTR_ML
-LOGICAL,              INTENT(IN)   :: OMEB        ! True = patch with multi-energy balance 
+LOGICAL,              INTENT(IN)   :: OMEB        ! True = patch with multi-energy balance
 !                                                 ! False = patch with classical ISBA
 !
 REAL, DIMENSION(:,:), INTENT(IN)   :: PDIR_SW            ! direct incoming solar radiation
@@ -103,14 +103,14 @@ IF (LHOOK) CALL DR_HOOK('ISBA_ALBEDO',0,ZHOOK_HANDLE)
 IF (OTR_ML )THEN
   IF (OMEB) THEN
     PALBNIR_TVEG (:) =               PEK%XALBNIR_VEG(:)
-    PALBNIR_TSOIL(:) = ( 1.-PFFG(:))*PEK%XALBNIR_SOIL(:) + PFFG(:)*PFALB(:)   
+    PALBNIR_TSOIL(:) = ( 1.-PFFG(:))*PEK%XALBNIR_SOIL(:) + PFFG(:)*PFALB(:)
     PALBVIS_TVEG (:) =               PEK%XALBVIS_VEG(:)
     PALBVIS_TSOIL(:) = ( 1.-PFFG(:))*PEK%XALBVIS_SOIL(:) + PFFG(:)*PFALB(:)
   ELSE
     PALBNIR_TVEG (:) = PEK%XALBNIR_VEG(:)
-    PALBNIR_TSOIL(:) = PEK%XALBNIR_SOIL(:) 
+    PALBNIR_TSOIL(:) = PEK%XALBNIR_SOIL(:)
     PALBVIS_TVEG (:) = PEK%XALBVIS_VEG(:)
-    PALBVIS_TSOIL(:) = PEK%XALBVIS_SOIL(:) 
+    PALBVIS_TSOIL(:) = PEK%XALBVIS_SOIL(:)
   ENDIF
 ELSE
   PALBNIR_TVEG (:) = XUNDEF
@@ -120,7 +120,7 @@ ELSE
 ENDIF
 !
  CALL ALBEDO_FROM_NIR_VIS(PSW_BANDS, PEK%XALBNIR(:), PEK%XALBVIS(:), PEK%XALBUV(:),  &
-                           ZDIR_ALB_WITHOUT_SNOW, ZSCA_ALB_WITHOUT_SNOW )  
+                           ZDIR_ALB_WITHOUT_SNOW, ZSCA_ALB_WITHOUT_SNOW )
 !
 !* total shortwave incoming radiation
 !
@@ -133,14 +133,14 @@ END DO
 !
 !* snow-free global albedo (needed by ISBA)
 !
-ZSW_UP(:) = 0. 
+ZSW_UP(:) = 0.
 DO JSWB=1,KSW
   ZSW_UP(:) =  ZSW_UP(:)                                       &
                + ZDIR_ALB_WITHOUT_SNOW(:,JSWB) * PDIR_SW(:,JSWB) &
-               + ZSCA_ALB_WITHOUT_SNOW(:,JSWB) * PSCA_SW(:,JSWB)  
+               + ZSCA_ALB_WITHOUT_SNOW(:,JSWB) * PSCA_SW(:,JSWB)
 END DO
 PEK%XSNOWFREE_ALB(:) = XUNDEF
-WHERE(PGLOBAL_SW(:)>0.)  
+WHERE(PGLOBAL_SW(:)>0.)
   PEK%XSNOWFREE_ALB(:) = ZSW_UP(:) / PGLOBAL_SW(:)
 ELSEWHERE
   PEK%XSNOWFREE_ALB(:) = ZDIR_ALB_WITHOUT_SNOW(:,1)
@@ -149,27 +149,27 @@ END WHERE
 IF(PEK%TSNOW%SCHEME == 'EBA') THEN
   CALL ALBEDO_FROM_NIR_VIS(PSW_BANDS,            &
             PEK%XALBNIR_VEG(:), PEK%XALBVIS_VEG(:), PEK%XALBUV_VEG(:), &
-            ZDIR_ALB_VEG_WITHOUT_SNOW, ZSCA_ALB_VEG_WITHOUT_SNOW )  
+            ZDIR_ALB_VEG_WITHOUT_SNOW, ZSCA_ALB_VEG_WITHOUT_SNOW )
   ZSW_UP(:) = 0.
   DO JSWB=1,KSW
      ZSW_UP(:) =  ZSW_UP(:)                                           &
                   + ZDIR_ALB_VEG_WITHOUT_SNOW(:,JSWB) * PDIR_SW(:,JSWB) &
-                  + ZSCA_ALB_VEG_WITHOUT_SNOW(:,JSWB) * PSCA_SW(:,JSWB)  
+                  + ZSCA_ALB_VEG_WITHOUT_SNOW(:,JSWB) * PSCA_SW(:,JSWB)
   END DO
   PEK%XSNOWFREE_ALB_VEG(:) = XUNDEF
   WHERE(PGLOBAL_SW(:)>0.)  PEK%XSNOWFREE_ALB_VEG(:) = ZSW_UP(:) / PGLOBAL_SW(:)
 !
   CALL ALBEDO_FROM_NIR_VIS(PSW_BANDS,               &
             PEK%XALBNIR_SOIL(:), PEK%XALBVIS_SOIL(:), PEK%XALBUV_SOIL(:), &
-            ZDIR_ALB_SOIL_WITHOUT_SNOW, ZSCA_ALB_SOIL_WITHOUT_SNOW    )  
+            ZDIR_ALB_SOIL_WITHOUT_SNOW, ZSCA_ALB_SOIL_WITHOUT_SNOW    )
   ZSW_UP(:) = 0.
   DO JSWB=1,KSW
     ZSW_UP(:) =  ZSW_UP(:)                                            &
                + ZDIR_ALB_SOIL_WITHOUT_SNOW(:,JSWB) * PDIR_SW(:,JSWB) &
-               + ZSCA_ALB_SOIL_WITHOUT_SNOW(:,JSWB) * PSCA_SW(:,JSWB)  
+               + ZSCA_ALB_SOIL_WITHOUT_SNOW(:,JSWB) * PSCA_SW(:,JSWB)
   END DO
   PEK%XSNOWFREE_ALB_SOIL(:) = XUNDEF
-  WHERE(PGLOBAL_SW(:)>0.)  PEK%XSNOWFREE_ALB_SOIL(:) = ZSW_UP(:) / PGLOBAL_SW(:)             
+  WHERE(PGLOBAL_SW(:)>0.)  PEK%XSNOWFREE_ALB_SOIL(:) = ZSW_UP(:) / PGLOBAL_SW(:)
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('ISBA_ALBEDO',1,ZHOOK_HANDLE)

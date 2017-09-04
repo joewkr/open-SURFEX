@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE SOLAR_PANEL(TPN, DMT, PTSTEP, PTSUN, PRESIDENTIAL, PEMIT_LW_ROOF, &
                            PEMIT_LWDN_PANEL, PLW_RAD, PTA, PN_FLOOR, PPROD_BLD )
 !   ##########################################################################
 !
-!!****  *SOLAR_PANEL*  
+!!****  *SOLAR_PANEL*
 !!
 !!    PURPOSE
 !!    -------
 !
 ! Computes the energy budget of the solar panels.
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
@@ -26,11 +26,11 @@
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -157,7 +157,7 @@ WHERE (TPN%XFRAC_PANEL(:)>0.)
 !*      2.     Irradiance on panel
 !              -------------------
 !
-  ZIRRADIANCE(:) = XFT * DMT%XABS_SW_PANEL(:) / (1.-TPN%XALB_PANEL(:) ) 
+  ZIRRADIANCE(:) = XFT * DMT%XABS_SW_PANEL(:) / (1.-TPN%XALB_PANEL(:) )
 !
 !-------------------------------------------------------------------------------
 !
@@ -193,7 +193,7 @@ WHERE (TPN%XFRAC_PANEL(:)>0.)
 !*      7.     Fraction of panel surface types
 !              -------------------------------
 !
-!*      7.1    Panel dedicated to thermal production of hot water 
+!*      7.1    Panel dedicated to thermal production of hot water
 !              --------------------------------------------------
 !
   ZTHER_FRAC(:) = MIN( XTHER_FLOOR * PN_FLOOR(:) * PRESIDENTIAL(:), TPN%XFRAC_PANEL(:) )   ! (m2 thermal       panel / m2 roof)

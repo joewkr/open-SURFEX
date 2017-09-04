@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-      SUBROUTINE INIT_FROM_DATA_TEB_VEG_n (DTV, K, P, PEK, KDECADE, OUPDATE, OFIX, OTIME, OALB)    
+      SUBROUTINE INIT_FROM_DATA_TEB_VEG_n (DTV, K, P, PEK, KDECADE, OUPDATE, OFIX, OTIME, OALB)
 !     ##############################################################
 !
-!!**** *CONVERT_COVER* convert surface cover classes into secondary 
+!!**** *CONVERT_COVER* convert surface cover classes into secondary
 !!                     physiographic variables for ISBA
 !!
 !!    PURPOSE
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -33,7 +33,7 @@
 !!    ------------
 !!
 !!    Original   01/2004
-!     
+!
 !!      P Le Moigne 09/2005 AGS modifs of L. Jarlan
 !----------------------------------------------------------------------------
 !
@@ -81,7 +81,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 ! data every month
 IF (LHOOK) CALL DR_HOOK('INIT_FROM_DATA_TEB_VEG_N',0,ZHOOK_HANDLE)
 IF (DTV%NTIME==12) THEN
-  ITIME = (KDECADE+2)/3    
+  ITIME = (KDECADE+2)/3
 ELSEIF (DTV%NTIME==1) THEN
   ITIME = 1
 ENDIF
@@ -120,7 +120,7 @@ ENDIF
 !*    2.      SECONDARY VARIABLES
 !             -------------------
 !
-!*    2.1     fields on natural surfaces only, taking into account patches/ 
+!*    2.1     fields on natural surfaces only, taking into account patches/
 !             -------------------------------
 !
 IF (OTIME) THEN
@@ -147,7 +147,7 @@ IF (OTIME) THEN
 !
  IF (.NOT.OUPDATE) THEN
 !---------------------------------------------------------------------------------
-! 
+!
 !* 1/Rsmin
 !
   PEK%XRSMIN(:) = DTV%XPAR_RSMIN(:,1)
@@ -195,7 +195,7 @@ IF (OALB) THEN
   ALLOCATE(ZWG1(SIZE(K%XALBVIS_DRY)))
   ZWGSAT(:) = 0.
   ZWG1  (:) = 0.
-  CALL SOIL_ALBEDO('DRY',ZWGSAT, ZWG1, K, PEK, "ALL" ) 
+  CALL SOIL_ALBEDO('DRY',ZWGSAT, ZWG1, K, PEK, "ALL" )
   DEALLOCATE(ZWGSAT,ZWG1)
   !
 ENDIF

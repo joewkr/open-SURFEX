@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PGD_TEB_GREENROOF_n (OCH_BIO_FLUX, DTCO, DTV, GB, U, &
                                            IO, S, K, KDIM, HPROGRAM,KVERSION)
 !     #########################################
 !
-!!****  *READ_PGD_TEB_GREENROOF_n* - routine to initialise ISBA physiographic variables 
+!!****  *READ_PGD_TEB_GREENROOF_n* - routine to initialise ISBA physiographic variables
 !!
 !!    PURPOSE
 !!    -------
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/2011 
+!!      Original    07/2011
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -106,7 +106,7 @@ YRECFM='SIZE_TOWN'
 !
 !* orographic runoff coefficient
 !
-YRECFM='GR_RUNOFFB' 
+YRECFM='GR_RUNOFFB'
  CALL READ_SURF(HPROGRAM,YRECFM,K%XRUNOFFB,IRESP)
 !
 !* subgrid drainage coefficient
@@ -148,7 +148,7 @@ END IF
 !
 !IF (LPAR_GREENROOF) CALL READ_PGD_TEB_GREENROOF_PAR_n(HPROGRAM)
 !
-IO%LPAR = .TRUE. 
+IO%LPAR = .TRUE.
 !
 IO%LECOCLIMAP = (.NOT. IO%LPAR)
 !

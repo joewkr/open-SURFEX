@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE ASSIM_SET_SST (DTCO, S, U, KI, PITM, PSST, PSIC, HTEST)
@@ -17,7 +17,7 @@ SUBROUTINE ASSIM_SET_SST (DTCO, S, U, KI, PITM, PSST, PSIC, HTEST)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -149,11 +149,11 @@ IF ( LREAD_SST_FROM_FILE ) THEN
     !
     !  Read SST from boundaries when SST analysis NOT is performed in CANARI
     !
-    !  Define FA file name for SST analysis interpolated from boundary file 
+    !  Define FA file name for SST analysis interpolated from boundary file
     !
 #ifdef SFX_FA
-    CFILEIN_FA = 'SST_SIC'        ! input SST and SIC analysis  
-    CDNOMC     = 'CADRE SST'      ! new frame name 
+    CFILEIN_FA = 'SST_SIC'        ! input SST and SIC analysis
+    CDNOMC     = 'CADRE SST'      ! new frame name
     IF (NRANK==NPIO .AND. NPRINTLEV>0) WRITE(*,*) 'READING SST FROM ',TRIM(CFILEIN_FA)
 #endif
     !
@@ -161,7 +161,7 @@ IF ( LREAD_SST_FROM_FILE ) THEN
     !
     CALL INIT_IO_SURF_n(DTCO, U, YPROGRAM2,'EXTZON','SURF  ','READ ')
     !
-    !  Read SST_SIC 
+    !  Read SST_SIC
     !
     IF ( LECSST ) THEN
       ! SST field interpolated from ECMWF SST ANALYSIS to model domain

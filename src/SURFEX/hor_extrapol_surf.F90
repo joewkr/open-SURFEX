@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE HOR_EXTRAPOL_SURF(KLUOUT,HCOORTYPE,KILEN,PILA1,PILA2,PILO1,PILO2,&
@@ -151,7 +151,7 @@ DO JLAT=1,KINLA
   DO JLON=1,KINLO(JLAT)
     JIPOS = JIPOS + 1
     ZLA(JIPOS) = PILA1 + SUM(ZIDLA(2:JLAT))
-    ZLO(JIPOS) = PILO1 + (JLON-1) * ZIDLO 
+    ZLO(JIPOS) = PILO1 + (JLON-1) * ZIDLO
   END DO
   ZIDLO = ABS(ZIDLO)
   IF (ZIDLO>ZIDLOMAX) ZIDLOMAX = ZIDLO
@@ -171,7 +171,7 @@ ZTLATMAX(:) = 0.
 !
 ZRAD=XPI/180.0_JPRB
 !
-!1: ZTLONMIN, ZTLONMAX, ZTLATMIN, ZTLATMAX contain for each point to extrapol 
+!1: ZTLONMIN, ZTLONMAX, ZTLATMIN, ZTLATMAX contain for each point to extrapol
 ! the limits of the domain where to search for the valid points, according
 ! to NHALO_PREP
 ICPT = 0
@@ -208,7 +208,7 @@ ITSIZE(2) = ISIZE_MAX
 IF (NPROC>1) THEN
 #ifdef SFX_MPI
   CALL MPI_GATHER(ITSIZE,2*KIND(ITSIZE)/4,MPI_INTEGER,&
-                  IBOR,2*KIND(IBOR)/4,MPI_INTEGER,& 
+                  IBOR,2*KIND(IBOR)/4,MPI_INTEGER,&
                   NPIO,NCOMM,INFOMPI)
 #endif
 ELSE
@@ -232,7 +232,7 @@ ZCOOR   (:,:) = 0.
 !
 !
 ICPT = 0
-!2: loop on the points 
+!2: loop on the points
 DO JI=1,INO
   !
   IF (ALL(PFIELD(JI,:)/=XUNDEF)) CYCLE
@@ -246,7 +246,7 @@ DO JI=1,INO
   ICOMPT = 0
   JISC = 0
   !
-  !coordinates of the point in the grid 
+  !coordinates of the point in the grid
   ZCOOR(ICPT,1) = PLAT(JI)
   ZCOOR(ICPT,2) = PLON(JI)
   !
@@ -291,19 +291,19 @@ IF (NRANK/=NPIO) THEN
 
     IDX_I = IDX_I + 1
     !sends indexes to npio
-#ifdef SFX_MPI    
+#ifdef SFX_MPI
     CALL MPI_SEND(IVAL_EXT,SIZE(IVAL_EXT)*KIND(IVAL_EXT)/4,MPI_INTEGER,NPIO,IDX_I,NCOMM,INFOMPI)
 #endif
 
     IDX_I = IDX_I + 1
     !send coords of the points to extrapolate
-#ifdef SFX_MPI    
+#ifdef SFX_MPI
     CALL MPI_SEND(ZCOOR,SIZE(ZCOOR)*KIND(ZCOOR)/4,MPI_REAL,NPIO,IDX_I,NCOMM,INFOMPI)
 #endif
 
     IDX_I = IDX_I + 1
     !receives values of the field from NPIO
-#ifdef SFX_MPI    
+#ifdef SFX_MPI
     CALL MPI_RECV(ZFIELD,SIZE(ZFIELD)*KIND(ZFIELD)/4,MPI_REAL,NPIO,IDX_I,NCOMM,ISTATUS,INFOMPI)
 #endif
 
@@ -334,7 +334,7 @@ IF (LHOOK) CALL DR_HOOK('HOR_EXTRAPOL_SURF_31',0,ZHOOK_HANDLE_OMP)
       IF (J/=NPIO) THEN
 
         !receives indexes and coordinaites
-#ifdef SFX_MPI        
+#ifdef SFX_MPI
         CALL MPI_RECV(IVAL_EXT(1:IBOR(1,J),1:IBOR(2,J)), IBOR(1,J)*IBOR(2,J)*KIND(IVAL_EXT)/4, &
                         MPI_INTEGER, J, IDX_I+1, NCOMM, ISTATUS, INFOMPI)
         CALL MPI_RECV(ZCOOR(1:IBOR(1,J),:), IBOR(1,J)*SIZE(ZCOOR,2)*KIND(ZCOOR)/4,&
@@ -342,7 +342,7 @@ IF (LHOOK) CALL DR_HOOK('HOR_EXTRAPOL_SURF_31',0,ZHOOK_HANDLE_OMP)
 #endif
 
       ENDIF
-    
+
       DO JL=1,INL
         DO JI=1,IBOR(1,J)
           ZNDIST=XUNDEF
@@ -366,20 +366,20 @@ IF (LHOOK) CALL DR_HOOK('HOR_EXTRAPOL_SURF_31',0,ZHOOK_HANDLE_OMP)
                 ZNDIST = ZDIST
               ENDIF
             ENDIF
-          END DO   
+          END DO
         ENDDO
       ENDDO
       !
       IF (J/=NPIO) THEN
         !send values found to extrapolate
-#ifdef SFX_MPI        
+#ifdef SFX_MPI
         CALL MPI_SEND(ZFIELD,SIZE(ZFIELD)*KIND(ZFIELD)/4,MPI_REAL,J,IDX_I+3,NCOMM,INFOMPI)
 #endif
       ELSE
         DO JI = 1,IBOR(1,J)
           PFIELD(IMASK(JI),:) = ZFIELD(JI,:)
         ENDDO
-      ENDIF            
+      ENDIF
       !
       DEALLOCATE(ZFIELD)
       !
@@ -389,15 +389,15 @@ IF (LHOOK) CALL DR_HOOK('HOR_EXTRAPOL_SURF_31',0,ZHOOK_HANDLE_OMP)
 IF (LHOOK) CALL DR_HOOK('HOR_EXTRAPOL_SURF_31',1,ZHOOK_HANDLE_OMP)
 !
   !
-IF (LHOOK) CALL DR_HOOK('HOR_EXTRAPOL_SURF_32',0,ZHOOK_HANDLE)  
+IF (LHOOK) CALL DR_HOOK('HOR_EXTRAPOL_SURF_32',0,ZHOOK_HANDLE)
   !
   IDX_I = IDX_I + 3
   !
-IF (LHOOK) CALL DR_HOOK('HOR_EXTRAPOL_SURF_32',1,ZHOOK_HANDLE)  
+IF (LHOOK) CALL DR_HOOK('HOR_EXTRAPOL_SURF_32',1,ZHOOK_HANDLE)
   !
 ENDIF
 !
-IF (LHOOK) CALL DR_HOOK('HOR_EXTRAPOL_SURF_4',0,ZHOOK_HANDLE)  
+IF (LHOOK) CALL DR_HOOK('HOR_EXTRAPOL_SURF_4',0,ZHOOK_HANDLE)
 !
 DEALLOCATE(ZCOOR)
 DEALLOCATE(IVAL_EXT)

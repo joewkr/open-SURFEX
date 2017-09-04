@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_PREP_TEB
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -41,7 +41,7 @@ USE MODD_PREP_TEB,   ONLY : CFILE_TEB, CTYPE, CFILEPGD_TEB, CTYPEPGD,           
                               CFILE_WS, CTYPE_WS, XWS_ROOF, XWS_ROAD,                   &
                               CFILE_TS, CTYPE_TS, XTS_ROOF, XTS_ROAD, XTS_WALL,         &
                               XTI_BLD, XTI_ROAD, XQ_CAN, XHUI_BLD_DEF, XHUI_BLD,        &
-                              XWS_ROAD_DEF, XWS_ROOF_DEF, XTI_BLD_DEF, XT_CAN  
+                              XWS_ROAD_DEF, XWS_ROOF_DEF, XTI_BLD_DEF, XT_CAN
 
 USE MODN_PREP_TEB,   ONLY : LTEB_CANOPY, CROAD_DIR, CWALL_OPT
 

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INIT_IO_SURF_LFI_n (DTCO, U, &
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -29,7 +29,7 @@
 !!
 !!      P. Le Moigne 04/2004: distinguish in and out file name
 !!      P. Le Moigne 04/2006: special HACTION='GTMSK' to initialize
-!!                            a mask different of 'FULL ' in order 
+!!                            a mask different of 'FULL ' in order
 !!                            to read dimensions only.
 !
 !*       0.   DECLARATIONS
@@ -51,7 +51,7 @@ USE MODD_IO_SURF_LFI,ONLY: CFILE_LFI, CFILEIN_LFI,CFILEOUT_LFI,   &
                            NFULL_SURF,                            &
                            NIB, NIE, NJB, NJE, NIU, NJU,          &
                            NIB_SURF, NIE_SURF, NJB_SURF, NJE_SURF,&
-                           NIU_SURF, NJU_SURF  
+                           NIU_SURF, NJU_SURF
 !
 USE MODI_GET_LUOUT
 USE MODI_READ_SURF
@@ -69,8 +69,8 @@ IMPLICIT NONE
 TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
 TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 !
- CHARACTER(LEN=6),  INTENT(IN)  :: HMASK    
- CHARACTER(LEN=5),  INTENT(IN)  :: HACTION    
+ CHARACTER(LEN=6),  INTENT(IN)  :: HMASK
+ CHARACTER(LEN=5),  INTENT(IN)  :: HACTION
 !
 INTEGER                        :: ILU,IRET, IL
 INTEGER                :: INB ! number of articles in the file
@@ -81,7 +81,7 @@ IF (LHOOK) CALL DR_HOOK('INIT_IO_SURF_LFI_N',0,ZHOOK_HANDLE)
  CALL GET_LUOUT('LFI   ',NLUOUT)
 !
 IF (HACTION=='GTMSK') THEN
-  IF (NRANK==NPIO) THEN 
+  IF (NRANK==NPIO) THEN
     CALL FMOPEN(CFILEIN_LFI,'OLD',CLUOUT_LFI,0,1,1,INB,IRET)
     CFILE_LFI = CFILEIN_LFI
   ENDIF
@@ -117,7 +117,7 @@ IF (HACTION=='WRITE' .AND. NRANK==NPIO) THEN
 ENDIF
 !
 !*       initialisation of 2D arrays
-! 
+!
 IF (NIB_SURF/=NUNDEF) THEN
   NIB = NIB_SURF
   NIE = NIE_SURF
@@ -127,14 +127,14 @@ IF (NIB_SURF/=NUNDEF) THEN
   NJU = NJU_SURF
 END IF
 !
-! nindex is needed for call to get_size_full_n. In init_index_mpi, 
+! nindex is needed for call to get_size_full_n. In init_index_mpi,
 ! it's not initialized for first readings.
 IF (.NOT.ALLOCATED(NINDEX).AND.NRANK==NPIO) THEN
   ALLOCATE(NINDEX(NFULL))
   NINDEX(:) = 0
 ELSE
-  CALL GET_DIM_FULL_n(U%NDIM_FULL,NFULL)  
-ENDIF  
+  CALL GET_DIM_FULL_n(U%NDIM_FULL,NFULL)
+ENDIF
 !
 !------------------------------------------------------------------------------
 !

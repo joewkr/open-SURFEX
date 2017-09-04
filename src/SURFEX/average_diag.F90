@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-      SUBROUTINE AVERAGE_DIAG(PFRAC_TILE, DGO, D, ND, DC, NDC      )                                
+      SUBROUTINE AVERAGE_DIAG(PFRAC_TILE, DGO, D, ND, DC, NDC      )
 !     ######################################################################
 !
 !
-!!****  *AVERAGE_DIAG*  
+!!****  *AVERAGE_DIAG*
 !!
 !!    PURPOSE
 !!    -------
 !      Average the fluxes from the land and water surfaces depending on the
 !      fraction of each surface cover type in the mesh area.
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -21,12 +21,12 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!    V. Masson * Meteo-France-
@@ -53,7 +53,7 @@ IMPLICIT NONE
 !
 !*      0.1    declarations of arguments
 !
-REAL, DIMENSION(:,:), INTENT(IN) :: PFRAC_TILE   ! Fraction in a mesh-area of 
+REAL, DIMENSION(:,:), INTENT(IN) :: PFRAC_TILE   ! Fraction in a mesh-area of
 !
 TYPE(DIAG_OPTIONS_t), INTENt(INOUT) :: DGO
 TYPE(DIAG_t), INTENT(INOUT) :: D
@@ -246,7 +246,7 @@ IF (DGO%N2M>=1) THEN
     DO JT=1,NTILESFC
       CALL MAKE_AVERAGE_MW(PFRAC_TILE(:,JT),ND%AL(JT)%XT2M_MIN,D%XT2M_MIN,JT,ZLAND,ZSEA,ZFRL)
     ENDDO
-    DO JT=1,NTILESFC      
+    DO JT=1,NTILESFC
       CALL MAKE_AVERAGE_MW(PFRAC_TILE(:,JT),ND%AL(JT)%XT2M_MAX,D%XT2M_MAX,JT,ZLAND,ZSEA,ZFRL)
     ENDDO
   ELSE
@@ -334,7 +334,7 @@ IF (KTILE==1) PFIELD_OUT(:) = 0.
 !
 WHERE (PFIELD_IN(:)==XUNDEF .AND. PFRAC(:)/=0.) PFIELD_OUT(:) = XUNDEF
 !
-WHERE (PFIELD_OUT(:)/=XUNDEF) 
+WHERE (PFIELD_OUT(:)/=XUNDEF)
   PFIELD_OUT(:) = PFIELD_OUT(:) + PFRAC(:) * PFIELD_IN(:)
 END WHERE
 !
@@ -389,7 +389,7 @@ IF (KTILE==1) PFIELD_OUT(:) = 0.
 !
 WHERE (PFIELD_IN(:)==XUNDEF .AND. PFRAC(:)/=0.) PFIELD_OUT(:) = XUNDEF
 !
-WHERE (PFIELD_OUT(:)/=XUNDEF) 
+WHERE (PFIELD_OUT(:)/=XUNDEF)
   PFIELD_OUT(:) = PFIELD_OUT(:) + PFRAC(:) * 1./(LOG(PREF(:)/PFIELD_IN(:)))**2
 END WHERE
 !
@@ -441,7 +441,7 @@ IF (KTILE==3.OR.KTILE==4) THEN
   PLAND    (:) = PLAND(:) + PFRAC(:) * PFIELD_IN(:)
   PFRL     (:) = PFRL (:) + PFRAC(:)
 ENDIF
-! 
+!
 IF (KTILE==4) THEN
   WHERE(ZFRL(:)>0.)
     ZLAND    (:) = ZLAND(:)/ZFRL(:)
@@ -452,7 +452,7 @@ IF (KTILE==4) THEN
   !
   ZALFA     (:) = 1. - EXP(-10.*ZFRL(:))
   !
-  WHERE (PFIELD_OUT(:)/=XUNDEF) 
+  WHERE (PFIELD_OUT(:)/=XUNDEF)
     PFIELD_OUT(:) = ZALFA(:) * ZLAND(:) + (1. - ZALFA(:)) * ZSEA(:)
   END WHERE
   !

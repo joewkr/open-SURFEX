@@ -1,16 +1,16 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !!   ###############################
      SUBROUTINE CH_BVOCEM_n (SV, NGB, GB, IO, S, NP, NPE, PSW_FORBIO, PRHOA, PSFTS)
 !!   ###############################
 !!
 !!***  *BVOCEM*
-!! 
+!!
 !!    PURPOSE
 !!    -------
-!!    Calculate the biogenic emission fluxes according to the 
+!!    Calculate the biogenic emission fluxes according to the
 !!    subgrid vegetation given by the soil interface
 !!
 !!    METHOD
@@ -20,7 +20,7 @@
 !!    AUTHOR
 !!    ------
 !!    F. Solmon (LA) & V. Masson (CNRM)
-!!    
+!!
 !!    MODIFICATIONS
 !!    -------------
 !!    Original: 25/10/00
@@ -47,9 +47,9 @@ USE MODD_SURF_PAR,ONLY:XUNDEF
 USE MODD_ISBA_PAR
 USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE, NVT_TEBD, NVT_BONE, NVT_TRBE, &
                                 NVT_TRBD, NVT_TEBE, NVT_TENE, NVT_BOBD, &
-                                NVT_BOND, NVT_SHRB, NVT_BOGR, NVT_GRAS, & 
+                                NVT_BOND, NVT_SHRB, NVT_BOGR, NVT_GRAS, &
                                 NVT_TROG, NVT_PARK, NVT_FLTR, NVT_FLGR, &
-                                NVT_C3, NVT_C3W, NVT_C3S, NVT_C4, NVT_IRR 
+                                NVT_C3, NVT_C3W, NVT_C3S, NVT_C4, NVT_IRR
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -82,16 +82,16 @@ REAL, DIMENSION(SIZE(PSW_FORBIO,1)) :: ZRAD_PAR,  ZLCOR_RAD
 !
 REAL, DIMENSION(SIZE(PSW_FORBIO,1)) :: ZFISO_FOR  , ZFMONO_FOR,   &
                                        ZFISO_GRASS, ZFMONO_GRASS, &
-                                       ZFISO_CROP , ZFMONO_CROP     
+                                       ZFISO_CROP , ZFMONO_CROP
 !                                Fluxes coming from different landuse
 REAL, DIMENSION(SIZE(PSW_FORBIO,1), NVEGTYPE) :: ZTCOR ,ZTCORM
 !
-REAL, DIMENSION(SIZE(PSW_FORBIO,1),SIZE(S%XABC),NVEGTYPE) :: ZBVOCPAR 
+REAL, DIMENSION(SIZE(PSW_FORBIO,1),SIZE(S%XABC),NVEGTYPE) :: ZBVOCPAR
 !                                PAR at gauss level in micromolphot/m2/s
 !
 REAL, DIMENSION(SIZE(PSW_FORBIO,1)) :: ZISOPOT, ZMONOPOT, ZRATIO
 !
-INTEGER:: KNGAUSS     
+INTEGER:: KNGAUSS
 !                        nbre of gauss level in integration
 !                        index of patch corresponding to forest(+ligneaous)
 INTEGER:: JP, JSV, IMASK, JI
@@ -101,30 +101,30 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('CH_BVOCEM_N',0,ZHOOK_HANDLE)
 !
-!* 1. Contribution of forest and ligneous vegetation 
-!   from ISOPOT and MONOPOT maps 
+!* 1. Contribution of forest and ligneous vegetation
+!   from ISOPOT and MONOPOT maps
 !   ------------------------------------------------
 !
 !* 1.0 Preliminary : patch index corresponding to forest
 !
-!2.Contribution of other types of vegetation than forest, consider the vegtype fraction in the pixel 
+!2.Contribution of other types of vegetation than forest, consider the vegtype fraction in the pixel
 !------------------------------------------------------------------------------------------
 !
 !* 2.0 Preliminary : patch index corresponding to grassland, crops (C3+C4)
 !
-!1.1.1 Using ISBA_Ags explicit light attenuation 
-! number of g Gauss level for the integration 
+!1.1.1 Using ISBA_Ags explicit light attenuation
+! number of g Gauss level for the integration
 IF (IO%CPHOTO/='NON') THEN
   KNGAUSS = SIZE(S%XABC)
 ELSE
-  !1.1.2 using isba std version 
+  !1.1.2 using isba std version
   ZRAD_PAR (:)= 0.
   DO JP = 1,IO%NPATCH
-    ZRAD_PAR (:)= ZRAD_PAR (:) +(PSW_FORBIO(:,JP)*S%XPATCH(:,JP) ) * XPARCF * 4.7 
+    ZRAD_PAR (:)= ZRAD_PAR (:) +(PSW_FORBIO(:,JP)*S%XPATCH(:,JP) ) * XPARCF * 4.7
   END DO
   ZLCOR_RAD (:) = ZLCOR_FUNC(ZRAD_PAR(:))
 ENDIF
-!  
+!
 !
 CALL BY_PATCH(NVT_TEBD, ZTCOR(:,NVT_TEBD), ZTCORM(:,NVT_TEBD))
 CALL BY_PATCH(NVT_BONE, ZTCOR(:,NVT_BONE), ZTCORM(:,NVT_BONE))
@@ -160,12 +160,12 @@ ZRATIO (:) = S%XVEGTYPE(:,NVT_TEBD) + S%XVEGTYPE(:,NVT_BONE) + S%XVEGTYPE(:,NVT_
 !
 WHERE (ZRATIO(:)/=0.)
   ZISOPOT (:) = GB%XISOPOT (:) / ZRATIO(:)
-  ZMONOPOT(:) = GB%XMONOPOT(:) / ZRATIO(:) 
+  ZMONOPOT(:) = GB%XMONOPOT(:) / ZRATIO(:)
 ELSEWHERE
   ZISOPOT (:) = 0.
   ZMONOPOT(:) = 0.
 END WHERE
-!                       
+!
 CALL BY_VEG9(NVT_TEBD, NVT_BONE, NVT_TRBE, NVT_TRBD, NVT_TEBE, NVT_TENE, NVT_BOBD, &
              NVT_BOND, NVT_SHRB, NVT_FLTR, ZISOPOT, ZMONOPOT, ZFISO_FOR, ZFMONO_FOR)
 !
@@ -187,7 +187,7 @@ ENDIF
 !
 !---------------------------------------------------------------------------------------
 !
-!3.Summation of different contribution for fluxes 
+!3.Summation of different contribution for fluxes
 !------------------------------------------------
 !
 !isoprene in ppp.m.s-1
@@ -203,15 +203,15 @@ GB%XFMONO(:) = GB%XFMONO(:) * XAVOGADRO * PRHOA(:) / XMD
 DO JSV=SV%NSV_CHSBEG,SV%NSV_CHSEND
   IF (SV%CSV(JSV) == "BIO") THEN
     ! RELACS CASE
-    PSFTS(:,JSV) = PSFTS(:,JSV) + (GB%XFISO(:) + GB%XFMONO(:)) 
+    PSFTS(:,JSV) = PSFTS(:,JSV) + (GB%XFISO(:) + GB%XFMONO(:))
   ELSE IF (SV%CSV(JSV) == "ISO" .OR. SV%CSV(JSV) == "ISOP") THEN
     ! RACM CASE
-    PSFTS(:,JSV) = PSFTS(:,JSV) + GB%XFISO(:)  
+    PSFTS(:,JSV) = PSFTS(:,JSV) + GB%XFISO(:)
   ELSE IF (SV%CSV(JSV) == "API"  .OR. SV%CSV(JSV) == "LIM" .OR. &
            SV%CSV(JSV) == "BIOL" .OR. SV%CSV(JSV) == "BIOH" ) THEN
     ! RACM CASE
-    ! CACM or RELACS 2 CASE     
-    PSFTS(:,JSV) = PSFTS(:,JSV) + 0.5 * GB%XFMONO(:) 
+    ! CACM or RELACS 2 CASE
+    PSFTS(:,JSV) = PSFTS(:,JSV) + 0.5 * GB%XFMONO(:)
   ENDIF
 END DO
 !
@@ -228,7 +228,7 @@ REAL, DIMENSION(:), INTENT(OUT) :: PTCOR
 REAL, DIMENSION(:), INTENT(OUT) :: PTCORM
 !
 REAL, DIMENSION(SIZE(PSW_FORBIO,1)) :: ZBVOCSG
-REAL, DIMENSION(SIZE(PSW_FORBIO,1),SIZE(S%XABC)) :: ZBVOCPAR 
+REAL, DIMENSION(SIZE(PSW_FORBIO,1),SIZE(S%XABC)) :: ZBVOCPAR
 INTEGER:: IPATCH, JLAYER, IT
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -257,7 +257,7 @@ IF (IO%CPHOTO/='NON') THEN
   !Calculation of radiative attenuation effect in the canopy on correction factor
   ZBVOCSG(:) = 0.
   DO JLAYER=1,KNGAUSS
-    ZBVOCSG(:) = ZBVOCSG(:) + S%XPOI(JLAYER) * ZLCOR_FUNC(ZBVOCPAR(:,JLAYER)) 
+    ZBVOCSG(:) = ZBVOCSG(:) + S%XPOI(JLAYER) * ZLCOR_FUNC(ZBVOCPAR(:,JLAYER))
   ENDDO
   PTCOR(:) = PTCOR(:) * ZBVOCSG(:)
 ELSE
@@ -285,7 +285,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('CH_BVOCEM_N:BY_VEG3',0,ZHOOK_HANDLE)
 !
-!isoprene flux 
+!isoprene flux
 !!
 !! warning, XISOPOT external map accounts for the total forest fraction
 WHERE ( S%XVEGTYPE(:,NVT_V1) + S%XVEGTYPE(:,NVT_V2) + S%XVEGTYPE(:,NVT_V3) > 0. )
@@ -298,7 +298,7 @@ WHERE ( S%XVEGTYPE(:,NVT_V1) + S%XVEGTYPE(:,NVT_V2) + S%XVEGTYPE(:,NVT_V3) > 0. 
   PFMONO(:) = PMONOPOT(:) *                  &
      ( ZTCORM(:,NVT_V1) * S%XVEGTYPE(:,NVT_V1) &
       +ZTCORM(:,NVT_V2) * S%XVEGTYPE(:,NVT_V2) &
-      +ZTCORM(:,NVT_V3) * S%XVEGTYPE(:,NVT_V3) )          
+      +ZTCORM(:,NVT_V3) * S%XVEGTYPE(:,NVT_V3) )
   !
 ELSEWHERE
   !
@@ -329,7 +329,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('CH_BVOCEM_N:BY_VEG4',0,ZHOOK_HANDLE)
 !
-!isoprene flux 
+!isoprene flux
 !!
 !! warning, XISOPOT external map accounts for the total forest fraction
 WHERE ( S%XVEGTYPE(:,NVT_V1) + S%XVEGTYPE(:,NVT_V2) + S%XVEGTYPE(:,NVT_V3) &
@@ -345,7 +345,7 @@ WHERE ( S%XVEGTYPE(:,NVT_V1) + S%XVEGTYPE(:,NVT_V2) + S%XVEGTYPE(:,NVT_V3) &
      ( ZTCORM(:,NVT_V1) * S%XVEGTYPE(:,NVT_V1) &
       +ZTCORM(:,NVT_V2) * S%XVEGTYPE(:,NVT_V2) &
       +ZTCORM(:,NVT_V3) * S%XVEGTYPE(:,NVT_V3) &
-      +ZTCORM(:,NVT_V4) * S%XVEGTYPE(:,NVT_V4) )            
+      +ZTCORM(:,NVT_V4) * S%XVEGTYPE(:,NVT_V4) )
   !
 ELSEWHERE
   !
@@ -391,7 +391,7 @@ DO JJ=1,SIZE(ZTCOR,1)
         +S%XVEGTYPE(JJ,NVT_V7) + S%XVEGTYPE(JJ,NVT_V8) + S%XVEGTYPE(JJ,NVT_V9)
   IF (NVT_V10/=0) ZSUM = ZSUM + S%XVEGTYPE(JJ,NVT_V10)
   !
-  !isoprene flux 
+  !isoprene flux
   !!
   !! warning, XISOPOT external map accounts for the total forest fraction
   IF ( ZSUM > 0. ) THEN
@@ -413,12 +413,12 @@ DO JJ=1,SIZE(ZTCOR,1)
      ( ZTCORM(JJ,NVT_V1) * S%XVEGTYPE(JJ,NVT_V1) &
       +ZTCORM(JJ,NVT_V2) * S%XVEGTYPE(JJ,NVT_V2) &
       +ZTCORM(JJ,NVT_V3) * S%XVEGTYPE(JJ,NVT_V3) &
-      +ZTCORM(JJ,NVT_V4) * S%XVEGTYPE(JJ,NVT_V4) & 
-      +ZTCORM(JJ,NVT_V5) * S%XVEGTYPE(JJ,NVT_V5) & 
-      +ZTCORM(JJ,NVT_V6) * S%XVEGTYPE(JJ,NVT_V6) & 
-      +ZTCORM(JJ,NVT_V7) * S%XVEGTYPE(JJ,NVT_V7) & 
+      +ZTCORM(JJ,NVT_V4) * S%XVEGTYPE(JJ,NVT_V4) &
+      +ZTCORM(JJ,NVT_V5) * S%XVEGTYPE(JJ,NVT_V5) &
+      +ZTCORM(JJ,NVT_V6) * S%XVEGTYPE(JJ,NVT_V6) &
+      +ZTCORM(JJ,NVT_V7) * S%XVEGTYPE(JJ,NVT_V7) &
       +ZTCORM(JJ,NVT_V8) * S%XVEGTYPE(JJ,NVT_V8) &
-      +ZTCORM(JJ,NVT_V9) * S%XVEGTYPE(JJ,NVT_V9) ) 
+      +ZTCORM(JJ,NVT_V9) * S%XVEGTYPE(JJ,NVT_V9) )
     !
     IF (NVT_V10/=0) PFMONO(JJ) = PFMONO(JJ) + PMONOPOT(JJ) * ZTCORM(JJ,NVT_V10) * S%XVEGTYPE(JJ,NVT_V10)
     !
@@ -470,7 +470,7 @@ REAL           :: ZX
 REAL  :: ZTCORM0_FUNC
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
-!      
+!
 IF (LHOOK) CALL DR_HOOK('CH_BVOCEM_N:ZTCORM0_FUNC',0,ZHOOK_HANDLE)
 ZTCORM0_FUNC= 0.
 ZTCORM0_FUNC = EXP(XMONO_BETA*(ZX-XMONO_T3))

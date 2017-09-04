@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########
 SUBROUTINE SFX_OASIS_RECV_OL (F, IM, S, U, W, &
@@ -183,7 +183,7 @@ CALL SFX_OASIS_RECV(HPROGRAM,KI,KSW,ZTIME_CPL,         &
 !
 IF(GRECV_LAND)THEN
   CALL PUT_SFX_LAND(IM%O, IM%S, IM%K, IM%NK, IM%NP, U, ILUOUT,LCPL_GW,LCPL_FLOOD, ZLAND_WTD(:),&
-                    ZLAND_FWTD(:), ZLAND_FFLOOD(:),ZLAND_PIFLOOD(:)  )        
+                    ZLAND_FWTD(:), ZLAND_FFLOOD(:),ZLAND_PIFLOOD(:)  )
 ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -201,9 +201,9 @@ ENDIF
 !
 GRECV_FLOOD=(GRECV_LAND.AND.LCPL_FLOOD)
 !
-IF(GRECV_SEA.OR.GRECV_FLOOD)THEN     
+IF(GRECV_SEA.OR.GRECV_FLOOD)THEN
   CALL UPDATE_ESM_SURF_ATM_n(F, IM, S, U, W, HPROGRAM, KI, KSW, PZENITH, PSW_BANDS, &
-                             PTSRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF )                    
+                             PTSRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF )
 ENDIF
 !
 !-------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PREP_GRIB_GRID(HGRIB,KLUOUT,HINMODEL,HGRIDTYPE,HINTERP_TYPE,TPTIME_GRIB)
@@ -130,7 +130,7 @@ END IF
 !
  CALL GRIB_NEW_FROM_FILE(IUNIT,IGRIB,IRET)
 ! needed for HIRLAM ROTLATLON (infos in the second record)
- CALL GRIB_NEW_FROM_FILE(IUNIT,IGRIB,IRET) 
+ CALL GRIB_NEW_FROM_FILE(IUNIT,IGRIB,IRET)
 !
 IF (IRET /= 0) THEN
   CALL ABOR1_SFX('PREP_GRIB_GRID: Error in reading the grib file')
@@ -160,19 +160,19 @@ SELECT CASE (ICENTER)
     SELECT CASE (HGRID)
 
       CASE('rotated_ll')
-        WRITE (KLUOUT,'(A)') ' | Grib file from HIRLAM - regular latlon grid '  
+        WRITE (KLUOUT,'(A)') ' | Grib file from HIRLAM - regular latlon grid '
         HINMODEL='HIRLAM'
         HGRIDTYPE='ROTLATLON '
 
       CASE DEFAULT
-        WRITE (KLUOUT,'(A)') ' | Grib file from HARMONY'  
+        WRITE (KLUOUT,'(A)') ' | Grib file from HARMONY'
         HINMODEL='ALADIN'
         HGRIDTYPE='AROME     '
 
     END SELECT
 
   CASE (82)
-    WRITE (KLUOUT,'(A)') ' | Grib file from HIRLAM'  
+    WRITE (KLUOUT,'(A)') ' | Grib file from HIRLAM'
     HINMODEL='HIRLAM'
     HGRIDTYPE='ROTLATLON '
 
@@ -182,7 +182,7 @@ SELECT CASE (ICENTER)
     HGRIDTYPE= 'GAUSS     '
 
   CASE (85)
-    SELECT CASE (HGRID)  
+    SELECT CASE (HGRID)
 
       CASE('regular_gg')
         WRITE (KLUOUT,'(A)') ' | Grib file from French Weather Service - Arpege model'
@@ -190,13 +190,13 @@ SELECT CASE (ICENTER)
         HINMODEL = 'ARPEGE'
         HGRIDTYPE= 'GAUSS     '
 
-      CASE('reduced_gg')  
+      CASE('reduced_gg')
         WRITE (KLUOUT,'(A)') ' | Grib file from French Weather Service - Arpege model'
         WRITE (KLUOUT,'(A)') 'but reduced grid'
         HINMODEL = 'ARPEGE'
         HGRIDTYPE= 'GAUSS     '
 
-      CASE('regular_ll')  
+      CASE('regular_ll')
         WRITE (KLUOUT,'(A)') ' | Grib file from French Weather Service - Mocage model'
         HINMODEL = 'MOCAGE'
         HGRIDTYPE= 'LATLON    '
@@ -235,7 +235,7 @@ IF (NPROC>1) THEN
   CALL MPI_BCAST(IGRIB,KIND(IGRIB)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
   CALL MPI_BCAST(HINMODEL,LEN(HINMODEL),MPI_CHARACTER,NPIO,NCOMM,INFOMPI)
   CALL MPI_BCAST(HGRIDTYPE,LEN(HGRIDTYPE),MPI_CHARACTER,NPIO,NCOMM,INFOMPI)
-#endif 
+#endif
 ENDIF
 !
 !---------------------------------------------------------------------------------------
@@ -258,10 +258,10 @@ SELECT CASE (HGRIDTYPE)
          CALL GRIB_GET(IGRIB,'Ni',NX,IRET)
        ENDIF
        IF (NPROC>1) THEN
-#ifdef SFX_MPI               
+#ifdef SFX_MPI
          CALL MPI_BCAST(NY,KIND(NY)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(NX,KIND(NX)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
-#endif         
+#endif
        ENDIF
        NNI= NX * NY
      !
@@ -269,12 +269,12 @@ SELECT CASE (HGRIDTYPE)
      CASE ('GAUSS    ','ROTGAUSS  ','LATLON    ')
      ! 3.2 Usual or Gaussian lat,lon grid (ECMWF files)
      !
-   
+
        IF (NRANK==NPIO) CALL GRIB_GET(IGRIB,'Nj',NINLA,IRET)
        IF (NPROC>1) THEN
-#ifdef SFX_MPI               
+#ifdef SFX_MPI
          CALL MPI_BCAST(NINLA,KIND(NINLA)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
-#endif         
+#endif
        ENDIF
        ALLOCATE (NINLO(NINLA))
        NILEN = 0
@@ -282,7 +282,7 @@ SELECT CASE (HGRIDTYPE)
          ALLOCATE (ININLO_GRIB(NINLA))
         CALL GRIB_IS_MISSING(IGRIB,'pl',IMISSING,IRET)
         IF (IRET /= 0 .OR. IMISSING==1)  THEN !  regular
-          CALL GRIB_GET(IGRIB,'Ni',ININLO_GRIB(1),IRET)  
+          CALL GRIB_GET(IGRIB,'Ni',ININLO_GRIB(1),IRET)
           ININLO_GRIB(2:NINLA)=ININLO_GRIB(1)
           NILEN=NINLA*ININLO_GRIB(1)
         ELSE !  quasi-regular
@@ -291,14 +291,14 @@ SELECT CASE (HGRIDTYPE)
             NILEN = NILEN + ININLO_GRIB(JLOOP1)
           ENDDO
         ENDIF
-        NINLO = ININLO_GRIB !JUAN 
+        NINLO = ININLO_GRIB !JUAN
         DEALLOCATE(ININLO_GRIB)
        ENDIF
        IF (NPROC>1) THEN
-#ifdef SFX_MPI               
+#ifdef SFX_MPI
          CALL MPI_BCAST(NILEN,KIND(NILEN)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(NINLO,SIZE(NINLO)*KIND(NINLO)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
-#endif         
+#endif
        ENDIF
        NNI = NILEN
      CASE ('ROTLATLON ')
@@ -307,10 +307,10 @@ SELECT CASE (HGRIDTYPE)
        CALL GRIB_GET(IGRIB,'Ni',NRX,IRET)
        ENDIF
        IF (NPROC>1) THEN
-#ifdef SFX_MPI               
+#ifdef SFX_MPI
          CALL MPI_BCAST(NRY,KIND(NRY)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(NRX,KIND(NRX)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
-#endif         
+#endif
        ENDIF
        NNI = NRX * NRY
 
@@ -333,10 +333,10 @@ LROTPOLE = .FALSE.
 XCOEF = XUNDEF
 XLAP  = XUNDEF
 XLOP  = XUNDEF
-   
+
 SELECT CASE (HGRIDTYPE)
 
-     CASE ('AROME     ')  
+     CASE ('AROME     ')
      ! 4.1 Lambert conformal projection (ALADIN files)
      !
        IF (NRANK==NPIO) THEN
@@ -346,7 +346,7 @@ SELECT CASE (HGRIDTYPE)
        XX = (NX-1)*ILENX
        ENDIF
        IF (NPROC>1) THEN
-#ifdef SFX_MPI                
+#ifdef SFX_MPI
          CALL MPI_BCAST(XY,KIND(XY)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(XX,KIND(XX)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
 #endif
@@ -354,11 +354,11 @@ SELECT CASE (HGRIDTYPE)
 
        IF (NRANK==NPIO) THEN
        CALL GRIB_GET(IGRIB,'Latin1InDegrees',XLAT0)
-       CALL GRIB_GET(IGRIB,'LoVInDegrees',XLON0)   
+       CALL GRIB_GET(IGRIB,'LoVInDegrees',XLON0)
        IF (XLON0 > 180.) XLON0 = XLON0 - 360.
        ENDIF
        IF (NPROC>1) THEN
-#ifdef SFX_MPI                
+#ifdef SFX_MPI
          CALL MPI_BCAST(XLAT0,KIND(XLAT0)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(XLON0,KIND(XLON0)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
 #endif
@@ -370,7 +370,7 @@ SELECT CASE (HGRIDTYPE)
        IF (XLONOR > 180.) XLONOR = XLONOR - 360.
        ENDIF
        IF (NPROC>1) THEN
-#ifdef SFX_MPI                
+#ifdef SFX_MPI
          CALL MPI_BCAST(XLATOR,KIND(XLATOR)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(XLONOR,KIND(XLONOR)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
 #endif
@@ -380,7 +380,7 @@ SELECT CASE (HGRIDTYPE)
        XBETA = 0.
      !
      CASE ('GAUSS     ','LATLON    ')
-       HGRIDTYPE = 'GAUSS     '        
+       HGRIDTYPE = 'GAUSS     '
      ! 4.2 Usual or Gaussian lat,lon grid (ECMWF files)
      !     No projection - just stores the grid definition
      !
@@ -391,7 +391,7 @@ SELECT CASE (HGRIDTYPE)
        CALL GRIB_GET(IGRIB,'longitudeOfLastGridPointInDegrees',XILO2)
        ENDIF
        IF (NPROC>1) THEN
-#ifdef SFX_MPI                
+#ifdef SFX_MPI
          CALL MPI_BCAST(XILA1,KIND(XILA1)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(XILO1,KIND(XILO1)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(XILA2,KIND(XILA2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
@@ -410,31 +410,31 @@ SELECT CASE (HGRIDTYPE)
        CALL GRIB_GET(IGRIB,'jScansPositively',JSCAN)
 
        IF (ISCAN+JSCAN == 0 ) THEN !lon (i) positive, lat (j) negative
-         CALL GRIB_GET(IGRIB,'latitudeOfFirstGridPointInDegrees',XRILA2)  
+         CALL GRIB_GET(IGRIB,'latitudeOfFirstGridPointInDegrees',XRILA2)
          CALL GRIB_GET(IGRIB,'longitudeOfFirstGridPointInDegrees',XRILO1)
-         CALL GRIB_GET(IGRIB,'latitudeOfLastGridPointInDegrees',XRILA1)         
+         CALL GRIB_GET(IGRIB,'latitudeOfLastGridPointInDegrees',XRILA1)
          CALL GRIB_GET(IGRIB,'longitudeOfLastGridPointInDegrees',XRILO2)
        ELSEIF (ISCAN+JSCAN == 2) THEN ! lon (i) negative, lat (j) positive
-         CALL GRIB_GET(IGRIB,'latitudeOfFirstGridPointInDegrees',XRILA1)   
+         CALL GRIB_GET(IGRIB,'latitudeOfFirstGridPointInDegrees',XRILA1)
          CALL GRIB_GET(IGRIB,'longitudeOfFirstGridPointInDegrees',XRILO2)
-         CALL GRIB_GET(IGRIB,'latitudeOfLastGridPointInDegrees',XRILA2)                 
+         CALL GRIB_GET(IGRIB,'latitudeOfLastGridPointInDegrees',XRILA2)
          CALL GRIB_GET(IGRIB,'longitudeOfLastGridPointInDegrees',XRILO1)
        ELSEIF (ISCAN == 1) THEN ! lon (i) negative, lat (j) negative)
-         CALL GRIB_GET(IGRIB,'latitudeOfFirstGridPointInDegrees',XRILA2)   
+         CALL GRIB_GET(IGRIB,'latitudeOfFirstGridPointInDegrees',XRILA2)
          CALL GRIB_GET(IGRIB,'longitudeOfFirstGridPointInDegrees',XRILO2)
-         CALL GRIB_GET(IGRIB,'latitudeOfLastGridPointInDegrees',XRILA1)                 
+         CALL GRIB_GET(IGRIB,'latitudeOfLastGridPointInDegrees',XRILA1)
          CALL GRIB_GET(IGRIB,'longitudeOfLastGridPointInDegrees',XRILO1)
        ELSEIF (JSCAN == 1) THEN ! lon (i) positive, lat (j) positive
-         CALL GRIB_GET(IGRIB,'latitudeOfFirstGridPointInDegrees',XRILA1)   
+         CALL GRIB_GET(IGRIB,'latitudeOfFirstGridPointInDegrees',XRILA1)
          CALL GRIB_GET(IGRIB,'longitudeOfFirstGridPointInDegrees',XRILO1)
-         CALL GRIB_GET(IGRIB,'latitudeOfLastGridPointInDegrees',XRILA2)                 
-         CALL GRIB_GET(IGRIB,'longitudeOfLastGridPointInDegrees',XRILO2)         
+         CALL GRIB_GET(IGRIB,'latitudeOfLastGridPointInDegrees',XRILA2)
+         CALL GRIB_GET(IGRIB,'longitudeOfLastGridPointInDegrees',XRILO2)
        ENDIF
 
        CALL GRIB_GET(IGRIB,'latitudeOfSouthernPoleInDegrees',XRLAP)
-       CALL GRIB_GET(IGRIB,'longitudeOfSouthernPoleInDegrees',XRLOP)                       
+       CALL GRIB_GET(IGRIB,'longitudeOfSouthernPoleInDegrees',XRLOP)
 
-       CALL GRIB_GET(IGRIB,'iDirectionIncrementInDegrees',XRDX)                 
+       CALL GRIB_GET(IGRIB,'iDirectionIncrementInDegrees',XRDX)
        CALL GRIB_GET(IGRIB,'jDirectionIncrementInDegrees',XRDY)
        WRITE(KLUOUT,*)'XRILA1,XRILO1',XRILA1,XRILO1
        WRITE(KLUOUT,*)'XRILA2,XRILO2',XRILA2,XRILO2
@@ -442,7 +442,7 @@ SELECT CASE (HGRIDTYPE)
        WRITE(KLUOUT,*)'XRDX,XRDY',XRDX,XRDY
        ENDIF
        IF (NPROC>1) THEN
-#ifdef SFX_MPI                
+#ifdef SFX_MPI
          CALL MPI_BCAST(XRILA1,KIND(XRILA1)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(XRILO1,KIND(XRILO1)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(XRILA2,KIND(XRILA2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
@@ -464,14 +464,14 @@ SELECT CASE (HGRIDTYPE)
        CALL GRIB_GET(IGRIB,'longitudeOfFirstGridPointInDegrees',XILO1)
        CALL GRIB_GET(IGRIB,'latitudeOfLastGridPointInDegrees',XILA2)
        CALL GRIB_GET(IGRIB,'longitudeOfLastGridPointInDegrees',XILO2)
-     
+
        CALL GRIB_GET(IGRIB,'stretchingFactor',XCOEF)
        CALL GRIB_GET(IGRIB,'latitudeOfStretchingPoleInDegrees',XLAP)
        CALL GRIB_GET(IGRIB,'longitudeOfStretchingPoleInDegrees',XLOP)
       ENDIF
       LROTPOLE = .TRUE.
        IF (NPROC>1) THEN
-#ifdef SFX_MPI                
+#ifdef SFX_MPI
          CALL MPI_BCAST(XILA1,KIND(XILA1)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(XILO1,KIND(XILO1)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(XILA2,KIND(XILA2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
@@ -483,25 +483,25 @@ SELECT CASE (HGRIDTYPE)
        ENDIF
 
      !
-     
-     CASE ('MERCATOR  ')  
+
+     CASE ('MERCATOR  ')
      ! 4.4 Mercator  projection (ALADIN Reunion files)
      !
-       HGRIDTYPE = 'AROME     '     
+       HGRIDTYPE = 'AROME     '
        IF (NRANK==NPIO) THEN
-       CALL GRIB_GET(IGRIB,'Dj',ILENY)     
+       CALL GRIB_GET(IGRIB,'Dj',ILENY)
        CALL GRIB_GET(IGRIB,'Di',ILENX)
        XY = (NY-1)*ILENY
        XX = (NX-1)*ILENX
 
-       CALL GRIB_GET(IGRIB,'LaDInDegrees',XLAT0)       
+       CALL GRIB_GET(IGRIB,'LaDInDegrees',XLAT0)
 
        CALL GRIB_GET(IGRIB,'latitudeOfFirstGridPointInDegrees',XLATOR)
        CALL GRIB_GET(IGRIB,'longitudeOfFirstGridPointInDegrees',XLONOR)
        IF (XLONOR > 180.) XLONOR = XLONOR - 360.
        ENDIF
        IF (NPROC>1) THEN
-#ifdef SFX_MPI                
+#ifdef SFX_MPI
          CALL MPI_BCAST(XY,KIND(XY)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(XX,KIND(XX)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
          CALL MPI_BCAST(XLAT0,KIND(XLAT0)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
@@ -530,10 +530,10 @@ IF (NRANK==NPIO) THEN
  CALL GRIB_GET(IGRIB,'day',IDAY,IRET)
  CALL GRIB_GET(IGRIB,'time',ITIME,IRET)
 ZTIME=INT(ITIME/100)*3600+(ITIME-INT(ITIME/100)*100)*60
-!  
+!
  CALL GRIB_GET(IGRIB,'P1',IP1,IRET)
 IF ( IP1>0 ) THEN
-  CALL GRIB_GET(IGRIB,'unitOfTimeRange',IUNITTIME,IRET)      
+  CALL GRIB_GET(IGRIB,'unitOfTimeRange',IUNITTIME,IRET)
   SELECT CASE (IUNITTIME)       ! Time unit indicator
     CASE (1)                    !hour
       ZTIME   = ZTIME + IP1*3600.
@@ -544,7 +544,7 @@ ENDIF
 ENDIF
 !
 IF (NPROC>1) THEN
-#ifdef SFX_MPI 
+#ifdef SFX_MPI
   CALL MPI_BCAST(IYEAR,KIND(IYEAR)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
   CALL MPI_BCAST(IMONTH,KIND(IMONTH)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
   CALL MPI_BCAST(IDAY,KIND(IDAY)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
@@ -577,13 +577,13 @@ IF (ALLOCATED(XLAT_OUT)) THEN
     IF (ALLOCATED(XLAT)) DEALLOCATE(XLAT)
     IF (ALLOCATED(XLON)) DEALLOCATE(XLON)
     ALLOCATE(XLAT    (INO))
-    ALLOCATE(XLON    (INO))          
+    ALLOCATE(XLON    (INO))
     IF (LROTPOLE) THEN
 !* transformation of output latitudes, longitudes into rotated coordinates
       CALL ARPEGE_STRETCH_A(INO,XLAP,XLOP,XCOEF,XLAT_OUT,XLON_OUT,XLAT,XLON)
     ELSE
-      XLAT = XLAT_OUT 
-      XLON = XLON_OUT 
+      XLAT = XLAT_OUT
+      XLON = XLON_OUT
     END IF
   ELSEIF (HGRIDTYPE=='AROME     ') THEN
     IF (ALLOCATED(XZX)) DEALLOCATE(XZX)
@@ -592,7 +592,7 @@ IF (ALLOCATED(XLAT_OUT)) THEN
     ALLOCATE(XZX      (INO))
     ALLOCATE(XZY      (INO))
     ALLOCATE(NIX(NY))
-    NIX=NX          
+    NIX=NX
     CALL XY_CONF_PROJ(XLAT0,XLON0,XRPK,XBETA,XLATOR,XLONOR,XZX,XZY,XLAT_OUT,XLON_OUT)
   ELSEIF (HGRIDTYPE=='ROTLATLON ') THEN
   ENDIF
@@ -607,11 +607,11 @@ IF (ALLOCATED(XLAT_OUT)) THEN
   ALLOCATE(XOLA(INO),XOLO(INO))
   ALLOCATE(XLA(INO,4))
 !
-  
+
   !
   IF (HGRIDTYPE=='GAUSS     ') THEN
-    IINLA = NINLA     
-    ALLOCATE(NINLOH(IINLA+4)) 
+    IINLA = NINLA
+    ALLOCATE(NINLOH(IINLA+4))
     CALL HORIBL_SURF_INIT(XILA1,XILO1,XILA2,XILO2,NINLA,NINLO,INO,XLON,XLAT, &
                           LINTERP,LGLOBLON,LGLOBN,LGLOBS,NO, &
                           NINLOH,XOLA,XOLO,XILO1H,XILO2H,XLA)
@@ -620,8 +620,8 @@ IF (ALLOCATED(XLAT_OUT)) THEN
     ALLOCATE(NINLOH(IINLA+4))
     CALL HORIBL_SURF_INIT(0.,0.,XY,XX,NY,NIX,INO,XZX,XZY, &
                           LINTERP,LGLOBLON,LGLOBN,LGLOBS,NO, &
-                          NINLOH,XOLA,XOLO,XILO1H,XILO2H,XLA)        
-  ENDIF              
+                          NINLOH,XOLA,XOLO,XILO1H,XILO2H,XLA)
+  ENDIF
 !
   IF (ALLOCATED(NP)) DEALLOCATE(NP)
   IF (ALLOCATED(XLOPH)) DEALLOCATE(XLOPH)
@@ -630,7 +630,7 @@ IF (ALLOCATED(XLAT_OUT)) THEN
 
   IF (LGLOBS) IINLA = IINLA + 2
   IF (LGLOBN) IINLA = IINLA + 2
-  
+
   IF (HGRIDTYPE=='GAUSS     '.OR.HGRIDTYPE=='AROME     ') THEN
     CALL HORIBL_SURF_COEF(INO,LINTERP,LGLOBLON,XILO1H,XILO2H,XOLO,&
                           NO,NINLOH(1:IINLA),NP,XLOPH)

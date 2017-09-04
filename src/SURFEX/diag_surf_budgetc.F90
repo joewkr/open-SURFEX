@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-       SUBROUTINE DIAG_SURF_BUDGETC (D, DC, PTSTEP, ONOTICE)  
+       SUBROUTINE DIAG_SURF_BUDGETC (D, DC, PTSTEP, ONOTICE)
 !     #########################################################################
 !
-!!****  *DIAG_SURF_BUDGETC * - Computes cumulated diagnostics 
+!!****  *DIAG_SURF_BUDGETC * - Computes cumulated diagnostics
 !!
 !!    PURPOSE
 !!    -------
@@ -16,17 +16,17 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     B. Decharme 
+!!     B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    08/2009
 !!------------------------------------------------------------------
-! 
+!
 USE MODD_DIAG_n, ONLY : DIAG_t
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -40,7 +40,7 @@ IMPLICIT NONE
 TYPE(DIAG_t), INTENT(INOUT) :: D
 TYPE(DIAG_t), INTENT(INOUT) :: DC
 !
-REAL,               INTENT(IN) :: PTSTEP  
+REAL,               INTENT(IN) :: PTSTEP
 !
 LOGICAL, INTENT(IN) :: ONOTICE
 !
@@ -68,14 +68,14 @@ DC%XRN(:) = DC%XRN(:) + D%XRN(:) * PTSTEP
 !
 !* sensible heat flux
 !
-DC%XH(:) = DC%XH(:) + D%XH(:) * PTSTEP 
+DC%XH(:) = DC%XH(:) + D%XH(:) * PTSTEP
 !
 IF (ONOTICE) THEN
   !
   !* latent heat flux
   !
-  DC%XLE (:) = DC%XLE (:) + D%XLE (:) * PTSTEP 
-  DC%XLEI(:) = DC%XLEI(:) + D%XLEI(:) * PTSTEP 
+  DC%XLE (:) = DC%XLE (:) + D%XLE (:) * PTSTEP
+  DC%XLEI(:) = DC%XLEI(:) + D%XLEI(:) * PTSTEP
   !
   !* evaporation and sublimation (kg/m2)
   !
@@ -86,11 +86,11 @@ ENDIF
 !
 !* storage flux
 !
-DC%XGFLUX(:) = DC%XGFLUX(:) + D%XGFLUX(:) * PTSTEP 
+DC%XGFLUX(:) = DC%XGFLUX(:) + D%XGFLUX(:) * PTSTEP
 !
 !* wind stress
 !
-DC%XFMU(:) = DC%XFMU(:) + D%XFMU(:) * PTSTEP 
+DC%XFMU(:) = DC%XFMU(:) + D%XFMU(:) * PTSTEP
 DC%XFMV(:) = DC%XFMV(:) + D%XFMV(:) * PTSTEP
 !
 IF (LHOOK) CALL DR_HOOK('DIAG_SURF_BUDGETC',1,ZHOOK_HANDLE)

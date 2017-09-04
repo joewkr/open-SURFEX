@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################
       MODULE MODE_WRITE_COVER_TEX
@@ -174,7 +174,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
               .OR. I==191 .OR. I==197 .OR. I==198 .OR. I==207 .OR. I==214 &
               .OR. I==219 .OR. I==225 .OR. I==229 .OR. I==232 .OR. I==235 &
               .OR. I==241 .OR. I==243                                    )&
-             .AND. GLINE ) THEN  
+             .AND. GLINE ) THEN
     WRITE(KTEX,*) '\hline'
     GLINE=.FALSE.
   END IF

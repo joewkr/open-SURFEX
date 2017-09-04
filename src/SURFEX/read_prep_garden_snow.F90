@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PREP_GARDEN_SNOW(HPROGRAM,HSNOW,KSNOW_LAYER,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,OUNIF)
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!     A. Bogatchev 09/2005 EBA snow option
 !!     V. Vionnet   06/2008 - Flag for snow metamorphism
 !                           - Preparation of uniform snow fields : density, temperture,albedo,grain types
@@ -79,7 +79,7 @@ INTEGER, INTENT(OUT)           :: KSNOW_LAYER  ! number of snow layers
 CHARACTER(LEN=28), OPTIONAL, INTENT(OUT) :: HFILE        ! file name
 CHARACTER(LEN=6),  OPTIONAL, INTENT(OUT) :: HFILETYPE    ! file type
  CHARACTER(LEN=28),OPTIONAL, INTENT(OUT) :: HFILEPGD     ! file name
- CHARACTER(LEN=6), OPTIONAL, INTENT(OUT) :: HFILEPGDTYPE ! file type 
+ CHARACTER(LEN=6), OPTIONAL, INTENT(OUT) :: HFILEPGDTYPE ! file type
  LOGICAL,          OPTIONAL, INTENT(OUT) :: OUNIF        ! uniform snow
 !
 !*       0.2   Declarations of local variables
@@ -105,13 +105,13 @@ INTEGER           :: ILUNAM         ! namelist file logical unit
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 NAMELIST/NAM_PREP_ISBA_SNOW/CSNOW, NSNOW_LAYER, CFILE_SNOW, CTYPE_SNOW, &
-                            CFILEPGD_SNOW, CTYPEPGD_SNOW,               & 
+                            CFILEPGD_SNOW, CTYPEPGD_SNOW,               &
                             LSNOW_IDEAL, LSNOW_FRAC_TOT, LSNOW_PREP_PERM,       &
                             XWSNOW, XZSNOW, XTSNOW, XLWCSNOW, XRSNOW, XASNOW,  &
                             XSG1SNOW, XSG2SNOW, XHISTSNOW, XAGESNOW,    &
                             LSWEMAX,XSWEMAX
 NAMELIST/NAM_PREP_GARDEN_SNOW/CSNOW_GD, NSNOW_LAYER_GD, CFILE_SNOW_GD, CTYPE_SNOW, &
-                              CFILEPGD_SNOW_GD, CTYPEPGD_SNOW,               & 
+                              CFILEPGD_SNOW_GD, CTYPEPGD_SNOW,               &
                               LSNOW_IDEAL_GD, XWSNOW_GD, XZSNOW_GD, XTSNOW_GD, XLWCSNOW_GD, XRSNOW_GD, XASNOW_GD
 !-------------------------------------------------------------------------------
 !* default
@@ -120,14 +120,14 @@ NAMELIST/NAM_PREP_GARDEN_SNOW/CSNOW_GD, NSNOW_LAYER_GD, CFILE_SNOW_GD, CTYPE_SNO
 
 IF (LHOOK) CALL DR_HOOK('READ_PREP_GARDEN_SNOW',0,ZHOOK_HANDLE)
 IF (LNAM_READ) THEN
-  !  
+  !
   CSNOW_GD = 'D95'
   NSNOW_LAYER_GD = 1
   !
   CFILE_SNOW_GD    = '                         '
-  CTYPE_SNOW    = '      '  
+  CTYPE_SNOW    = '      '
   CFILEPGD_SNOW_GD    = '                         '
-  CTYPEPGD_SNOW    = '      '    
+  CTYPEPGD_SNOW    = '      '
   !
   LSNOW_IDEAL_GD = .FALSE.
   LSNOW_PREP_PERM = .TRUE.
@@ -137,7 +137,7 @@ IF (LNAM_READ) THEN
   XRSNOW_GD(:) = XRHOSMAX
   XTSNOW_GD(:) = XTT
   XLWCSNOW_GD(:) = 0.
-  XASNOW_GD = XANSMIN  
+  XASNOW_GD = XANSMIN
   XSG1SNOW_GD(:) = XUNDEF
   XSG2SNOW(:) = XUNDEF
   XHISTSNOW_GD(:) = XUNDEF
@@ -166,13 +166,13 @@ IF (LNAM_READ) THEN
     XZSNOW(:) = XUNDEF
     XRSNOW(:) = XRHOSMAX
     XTSNOW(:) = XTT
-    XASNOW = XANSMIN  
+    XASNOW = XANSMIN
     XSG1SNOW(:) = XUNDEF
     XSG2SNOW(:) = XUNDEF
     XHISTSNOW(:) = XUNDEF
-    XAGESNOW(:) = XUNDEF 
-    XLWCSNOW(:) = 0. 
-    !       
+    XAGESNOW(:) = XUNDEF
+    XLWCSNOW(:) = 0.
+    !
     READ(UNIT=ILUNAM,NML=NAM_PREP_ISBA_SNOW)
     CALL TEST_NAM_VAR_SURF(ILUOUT,'CSNOW',CSNOW,'D95','3-L','EBA','NON','CRO')
     !
@@ -182,10 +182,10 @@ IF (LNAM_READ) THEN
     CFILEPGD_SNOW_GD = CFILEPGD_SNOW
     LSNOW_IDEAL_GD = LSNOW_IDEAL
     XWSNOW_GD(:) = XWSNOW(:)
-    XZSNOW_GD(:) = XZSNOW(:)    
+    XZSNOW_GD(:) = XZSNOW(:)
     XRSNOW_GD(:) = XRSNOW(:)
     XTSNOW_GD(:) = XTSNOW(:)
-    XLWCSNOW_GD(:) = XLWCSNOW(:)    
+    XLWCSNOW_GD(:) = XLWCSNOW(:)
     XASNOW_GD = XASNOW
     XSG1SNOW_GD(:) = XSG1SNOW(:)
     XSG2SNOW_GD(:) = XSG2SNOW(:)
@@ -225,9 +225,9 @@ IF (LNAM_READ) THEN
   ALLOCATE(XLWCSNOW_p(NSNOW_LAYER_GD))
   !
   DO JLAYER=1,NSNOW_LAYER_GD
-  
+
     IF ((XZSNOW_GD(JLAYER)>0) .AND.(XZSNOW_GD(JLAYER)/=XUNDEF )) THEN
-      IF ((XWSNOW_GD(JLAYER)>0)  .AND.(XWSNOW_GD(JLAYER)/=XUNDEF )) THEN    
+      IF ((XWSNOW_GD(JLAYER)>0)  .AND.(XWSNOW_GD(JLAYER)/=XUNDEF )) THEN
         WRITE(ILUOUT,*) 'XWSNOW and XZSNOW are both defined.'
         WRITE(ILUOUT,*) 'You must define only one of them.'
         WRITE(ILUOUT,*) '    PLEASE CORRECT THAT     '
@@ -264,28 +264,28 @@ LFILE=(LEN_TRIM(CFILE_SNOW_GD)>0.AND.LEN_TRIM(CTYPE_SNOW)>0 &
 !
 IF (PRESENT(OUNIF)) LFILE=(LFILE .AND. .NOT.OUNIF)
 !
-IF(PRESENT(HFILE))THEN 
+IF(PRESENT(HFILE))THEN
   IF(LFILE)THEN
      HFILE = CFILE_SNOW_GD
   ELSE
      HFILE = '                         '
   ENDIF
 ENDIF
-IF(PRESENT(HFILETYPE))THEN 
+IF(PRESENT(HFILETYPE))THEN
   IF(LFILE)THEN
      HFILETYPE = CTYPE_SNOW
   ELSE
      HFILETYPE = '      '
   ENDIF
 ENDIF
-IF(PRESENT(HFILEPGDTYPE))THEN 
+IF(PRESENT(HFILEPGDTYPE))THEN
   IF(LFILE)THEN
      HFILEPGDTYPE = CTYPEPGD_SNOW
   ELSE
      HFILEPGDTYPE = '      '
   ENDIF
 ENDIF
-IF(PRESENT(HFILEPGD))THEN 
+IF(PRESENT(HFILEPGD))THEN
   IF(LFILE)THEN
      HFILEPGD = CFILEPGD_SNOW_GD
   ELSE

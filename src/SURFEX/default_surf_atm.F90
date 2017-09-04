@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_SURF_ATM(POUT_TSTEP, PCISMIN, PVMODMIN, OALDTHRES,             &
@@ -39,9 +39,9 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!      B. Decharme 04/2013 replace RW_PRECIP by CPL_GCM
-!!      R. Séférian 03/2014 adding to decouple CO2 for photosynthesis 
+!!      R. Séférian 03/2014 adding to decouple CO2 for photosynthesis
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -94,7 +94,7 @@ LOGICAL,           INTENT(OUT) :: OCPL_GCM  ! Flag used to Read/Write some field
 REAL,              INTENT(OUT) :: PCO2UNCPL ! geochemical CO2 for photsynthesis (ppmv)
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
-!                                                    from/into the restart file for ARPEGE/ALADIN run  
+!                                                    from/into the restart file for ARPEGE/ALADIN run
 !
 !
 !*       0.2   Declarations of local variables

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !####################################################################
     SUBROUTINE SURFACE_AIR_MEB(PZ0, PZ0H, PZ0G, PH_VEG, PLAI,          &
@@ -25,22 +25,22 @@
 !
 !     Calculates the aerodynamic resistance (PRAGNC) between the soil and eventually
 !     understory vegetation and canopy air, based on Choudhury and Monteith (1998)
-!     and Monteith (1975). 
-!     Modification for free convection based on Sellers et.al (1986), leaf drag 
+!     and Monteith (1975).
+!     Modification for free convection based on Sellers et.al (1986), leaf drag
 !     coefficient according to Sellers et.al. (1996).
 !     Also calculates the aerodynamic conductance (PGVNC) between the canopy itself
 !     and canopy air, also based on Choudhury and Monteith (1998), and modified for
 !     free conveection by Sellers et.al. (1986)
 !     Only used for double energy balance
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -50,7 +50,7 @@
 !!    -------------
 !!      Original       11/2010
 !!     (A. Boone)   25/06/2014  Use stability fn from ISBA for stable conditions
-!!                              (since none existed before). Added to handle extremely 
+!!                              (since none existed before). Added to handle extremely
 !!                              stable conditions, such as encountered over a snowpack
 !!
 !-------------------------------------------------------------------------------
@@ -142,7 +142,7 @@ PUSTAR2(:) = ZUSTAR(:)**2
 PRAGNC(:)=PH_VEG(:)*EXP(ZALPHA)/(ZALPHA*ZK(:))*(EXP(-ZALPHA*PZ0G(:)/PH_VEG(:)) &
           -EXP(-ZALPHA*(PDISPH(:)+PZ0(:))/PH_VEG(:)))
 !
-! Modify the aerodynamic resistance, with an unstable transfer correction 
+! Modify the aerodynamic resistance, with an unstable transfer correction
 ! Eq. A15, Sellers et.al. 1986 (RI < 0)
 !
 ! For stable conditions (RI > 0), use a form which asymptotically approaches 0
@@ -156,9 +156,9 @@ PRAGNC(:)=PH_VEG(:)*EXP(ZALPHA)/(ZALPHA*ZK(:))*(EXP(-ZALPHA*PZ0G(:)/PH_VEG(:)) &
 ! and excessive melt rates ...also excessive sublimation can occur in winter.
 ! Since the ISBA stability fn has a roughness length factor, we use
 ! a simple Ri-based weight factor to ensure a continuous transition
-! between stability regimes. In the limit as Ri==>Ricrit, the 
+! between stability regimes. In the limit as Ri==>Ricrit, the
 ! transfer function collapses into the ISBA relationship with the full roughness factor.
-! Finally, note that we assume the ratio z0/z0h is the same for vegetation and 
+! Finally, note that we assume the ratio z0/z0h is the same for vegetation and
 ! underlying surface (as done for composite ISBA).
 !
 PRI(:)   = -XG*PH_VEG(:)*(PTG(:)-PTC(:))/(PTG(:)*PVELC(:)*PVELC(:))
@@ -166,12 +166,12 @@ PRI(:)   = -XG*PH_VEG(:)*(PTG(:)-PTC(:))/(PTG(:)*PVELC(:)*PVELC(:))
 ZRIF(:)  = 0.
 ZZ0HG(:) = PZ0G(:)
 !
-WHERE(PRI(:) <= 0.)                                        ! Unstable - Sellers 
-   ZPIH(:) = SQRT(1. - ZRAFA*PRI(:))                       
+WHERE(PRI(:) <= 0.)                                        ! Unstable - Sellers
+   ZPIH(:) = SQRT(1. - ZRAFA*PRI(:))
 ELSEWHERE                                                  ! Stable   - Noilhan and Mahfouf
-   ZZ0HG(:)= PZ0G(:)*PZ0H(:)/PZ0(:)                        
+   ZZ0HG(:)= PZ0G(:)*PZ0H(:)/PZ0(:)
    ZRIF(:) = MIN(1., PRI(:)/XRIMAX)
-   ZPIH(:) = (1/(1. + 15*PRI(:)*SQRT(1.+5*PRI(:))))* &  
+   ZPIH(:) = (1/(1. + 15*PRI(:)*SQRT(1.+5*PRI(:))))* &
              ((1.-ZRIF(:)) + ZRIF(:)*(LOG(ZDIFFH(:)/PZ0G(:))/LOG(ZDIFFH(:)/ZZ0HG(:))) )            ! continuous
 END WHERE
 !
@@ -184,13 +184,13 @@ PCH(:)     = 1/(PRAGNC(:)*MAX(1., PVELC(:)))
 ! Aerodynamic resistance within the canopy layer, i.e. between canopy and canopy air
 ! Eq. 29 and 30, Choudhury and Monteith, 1988:
 !
-PGVNC(:)  = (2.*ZA)*PLAI(:)/ZALPHAPRIM*SQRT(PVELC(:)/PLW(:))*(1.-EXP(-0.5*ZALPHAPRIM)) 
+PGVNC(:)  = (2.*ZA)*PLAI(:)/ZALPHAPRIM*SQRT(PVELC(:)/PLW(:))*(1.-EXP(-0.5*ZALPHAPRIM))
 !
 ! Limit the aerodynamic conductance to a small value
 !
 PGVNC(:)  = MAX(1.E-06,PGVNC(:))
 !
-! Free convection correction Eq. A9 Sellers et.al., 1986: 
+! Free convection correction Eq. A9 Sellers et.al., 1986:
 !
 ZDIFFT(:) = MAX(1.E-06,PTV(:)-PTC(:))
 ZDIFFT(:) = SQRT(SQRT(ZDIFFT(:)/PLW(:)))

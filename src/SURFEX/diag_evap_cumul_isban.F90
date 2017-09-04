@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE DIAG_EVAP_CUMUL_ISBA_n (OSURF_BUDGETC, DE, DECK, DCK, DEK, DK, PEK, &
@@ -17,11 +17,11 @@ SUBROUTINE DIAG_EVAP_CUMUL_ISBA_n (OSURF_BUDGETC, DE, DECK, DCK, DEK, DK, PEK, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     P. LeMoigne 
+!!     P. LeMoigne
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -30,7 +30,7 @@ SUBROUTINE DIAG_EVAP_CUMUL_ISBA_n (OSURF_BUDGETC, DE, DECK, DCK, DEK, DK, PEK, &
 !!      B. Decharme    2012      New snow diag LESL
 !!                               Add carbon fluxes diag
 !!                               Add isba water budget diag
-!!      B. Decharme  04/2013     add Subsurface runoff if SGH (DIF option only) 
+!!      B. Decharme  04/2013     add Subsurface runoff if SGH (DIF option only)
 !!                               add sublimation
 !!      P Samuelsson   04/2012   MEB
 !!------------------------------------------------------------------
@@ -60,7 +60,7 @@ TYPE(ISBA_PE_t), INTENT(INOUT) :: PEK
 TYPE(ISBA_OPTIONS_t), INTENT(INOUT) :: IO
 !
 REAL,    INTENT(IN)               :: PTSTEP        ! time step
-INTEGER, INTENT(IN)               :: KSIZE  
+INTEGER, INTENT(IN)               :: KSIZE
 INTEGER, INTENT(IN) :: KPATCH
 !
 REAL,    DIMENSION(:), INTENT(IN) :: PRHOA         ! air density for unit change
@@ -114,15 +114,15 @@ IF (OSURF_BUDGETC) THEN
        DECK%XH_CV   (JJ)  = DECK%XH_CV   (JJ) + DEK%XH_CV   (JJ) * PTSTEP
        DECK%XMELT_CV(JJ)  = DECK%XMELT_CV(JJ) + DEK%XMELT_CV(JJ) * PTSTEP
        DECK%XFRZ_CV (JJ)  = DECK%XFRZ_CV (JJ) + DEK%XFRZ_CV (JJ) * PTSTEP
-       
+
        DECK%XLE_GV  (JJ) = DECK%XLE_GV   (JJ) + DEK%XLE_GV  (JJ) * PTSTEP
-       DECK%XH_GV   (JJ)  = DECK%XH_GV   (JJ) + DEK%XH_GV   (JJ) * PTSTEP       
+       DECK%XH_GV   (JJ)  = DECK%XH_GV   (JJ) + DEK%XH_GV   (JJ) * PTSTEP
 
        DECK%XLE_GN  (JJ) = DECK%XLE_GN   (JJ) + DEK%XLE_GN  (JJ) * PTSTEP
        DECK%XH_GN   (JJ) = DECK%XH_GN    (JJ) + DEK%XH_GN   (JJ) * PTSTEP
        DECK%XSR_GN  (JJ) = DECK%XSR_GN   (JJ) + DEK%XSR_GN  (JJ) * PTSTEP
        DECK%XSWDOWN_GN(JJ) = DECK%XSWDOWN_GN(JJ) + DEK%XSWDOWN_GN(JJ) * PTSTEP
-       DECK%XLWDOWN_GN(JJ) = DECK%XLWDOWN_GN(JJ) + DEK%XLWDOWN_GN(JJ) * PTSTEP       
+       DECK%XLWDOWN_GN(JJ) = DECK%XLWDOWN_GN(JJ) + DEK%XLWDOWN_GN(JJ) * PTSTEP
 
        DECK%XLE_CA  (JJ) = DECK%XLE_CA   (JJ) + DEK%XLE_CA  (JJ) * PTSTEP
        DECK%XH_CA   (JJ) = DECK%XH_CA    (JJ) + DEK%XH_CA   (JJ) * PTSTEP
@@ -161,19 +161,19 @@ IF (OSURF_BUDGETC) THEN
         DECK%XRESP_AUTO(JJ) =  DECK%XRESP_AUTO(JJ) + DEK%XRESP_AUTO(JJ) * PTSTEP
         DECK%XRESP_ECO (JJ) =  DECK%XRESP_ECO (JJ) +  DEK%XRESP_ECO(JJ) * PTSTEP
      END DO
-  ELSE  
+  ELSE
      DECK%XGPP      (:)=0.0
      DECK%XRESP_AUTO(:)=0.0
-     DECK%XRESP_ECO (:)=0.0       
+     DECK%XRESP_ECO (:)=0.0
   ENDIF
   !
   IF(IO%LGLACIER)THEN
 !cdir nodep
     DO JJ=1,KSIZE
        DECK%XICEFLUX(JJ)  = DECK%XICEFLUX(JJ) + DEK%XICEFLUX(JJ) * PTSTEP
-    END DO  
+    END DO
   END IF
-  !  
+  !
   IF(DE%LWATER_BUDGET)THEN
 !cdir nodep
      DO JJ=1,KSIZE
@@ -184,7 +184,7 @@ IF (OSURF_BUDGETC) THEN
         DECK%XWATBUD(JJ)  =  DECK%XWATBUD(JJ) + DEK%XWATBUD(JJ) * PTSTEP
      END DO
   ENDIF
-  !  
+  !
 END IF
 IF (LHOOK) CALL DR_HOOK('DIAG_EVAP_CUMUL_ISBA_N',1,ZHOOK_HANDLE)
 !

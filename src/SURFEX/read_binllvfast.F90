@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_BINLLVFAST (UG, U, USS, &
                                   HPROGRAM,HSUBROUTINE,HFILENAME)
 !     ##############################################################
 !
-!!**** *READ_BINLLVFAST* reads a binary latlonvalue file and call treatment 
+!!**** *READ_BINLLVFAST* reads a binary latlonvalue file and call treatment
 !!                   subroutine : optimized version of READ_BINLLV routine.
 !!
 !!    PURPOSE
@@ -70,12 +70,12 @@ TYPE(SSO_t), INTENT(INOUT) :: USS
 !
 INTEGER                                :: IGLB       ! logical units
 INTEGER                                :: JLAT, JLON ! indexes of LLATLONMASK array
-INTEGER                                :: INELT      ! number of data points in file 
+INTEGER                                :: INELT      ! number of data points in file
 INTEGER                                :: ICPT       ! number of data points to be computed
 REAL,DIMENSION(:,:),ALLOCATABLE,TARGET :: ZLLV       ! ZLLV(1,:) :: latitude of data points
                                                      ! ZLLV(2,:) :: longitude of data points
                                                      ! ZLLV(3,:) :: value of data points
-REAL,DIMENSION(:,:),POINTER            :: ZLLVWORK   ! point on ZLLV array 
+REAL,DIMENSION(:,:),POINTER            :: ZLLVWORK   ! point on ZLLV array
 INTEGER                                :: JI         ! loop counter
 !
 INTEGER                                :: ILUOUT     ! output listing
@@ -123,7 +123,7 @@ END DO
 !
 !*    5.     Call to the adequate subroutine (point by point treatment)
 !            ----------------------------------------------------------
-!     
+!
 IF (ICPT > 0) THEN
   ZLLVWORK=>ZLLV(:,1:ICPT)
   CALL PT_BY_PT_TREATMENT(UG, U, USS, &

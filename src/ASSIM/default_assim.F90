@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_ASSIM(OASSIM,HASSIM,HASSIM_ISBA,KPRINTLEV,         &
@@ -96,7 +96,7 @@ REAL,              INTENT(OUT) :: PSIGW2B
 LOGICAL,           INTENT(OUT) :: OOBSWG
 LOGICAL,           INTENT(OUT) :: OOBS2M
 LOGICAL,           INTENT(OUT) :: OIMVEG
-REAL,              INTENT(OUT) :: PSPRECIP2 
+REAL,              INTENT(OUT) :: PSPRECIP2
 REAL,              INTENT(OUT) :: PRTHR_QC
 REAL,              INTENT(OUT) :: PSIGWGO_MAX
 REAL,              INTENT(OUT) :: PRSCAL_JAC
@@ -157,7 +157,7 @@ END IF
 !
 OASSIM    = .FALSE.
 HASSIM    = "PLUS "
-HASSIM_ISBA = "OI" 
+HASSIM_ISBA = "OI"
 KPRINTLEV = 0
 OAROME    = .TRUE.
 OECSST    = .FALSE.
@@ -179,7 +179,7 @@ KECHGU = 6
 !PRCLIMCA=0.045
 PRCLIMCA = 0. ! no climatology relaxation
 !PRCLISST=0.05 ! as in the original cacsts
-PRCLISST = 0.05 
+PRCLISST = 0.05
 !***  SIGT2MO : ecart-type d'erreur "d'observation" sur T2m
 !***  SIGH2MO : ecart-type d'erreur "d'observation" sur Hu2m
 PSIGH2MO = 0.1 ! observation error for HU2m
@@ -194,7 +194,7 @@ OOBS2M = .FALSE. ! assimilation of T2M + RH2M (with WG)
 OIMVEG = .TRUE.
 PSPRECIP2 = 4.0
 PRTHR_QC = 3.0
-PSIGWGO_MAX = 6.0 ! maximum acceptable WG obs error (%) 
+PSIGWGO_MAX = 6.0 ! maximum acceptable WG obs error (%)
 PRSCAL_JAC = 4.0  ! to modify the "effective" assimilation window
 !
 ! Initialization of EKF

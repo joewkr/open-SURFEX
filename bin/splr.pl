@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 #SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 #SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 #SFX_LIC for details. version 1.
 ##************************************************************************
 ## File     : splr.pl
@@ -570,7 +570,7 @@ use Fortran90_stuff qw( create_intfb $f90s_ALLOW_DIRTY_MOD_REGEX
       if((($href->{content} eq 'ENDSUBROUTINE') && ($parse == 1)) || (($href->{content} eq 'ENDFUNCTION') && ($parse == 2))) {
         $parse=0;
         &create_intfb(\@intz,\@intfb,\$cur_fname);
-        
+
 #RJ: zero out for safety
         @intz=();
 

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ############################
       MODULE MODD_DIAG_MISC_TEB_n
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -26,7 +26,7 @@
 !!    MODIFICATIONS
 !!    -------------
 !!      Original       07/10/04
-!!      C de Munck        02/13  adding runoff contributions for teb garden  
+!!      C de Munck        02/13  adding runoff contributions for teb garden
 !!      V. Masson      06/2013  splits module in two
 !
 !
@@ -64,7 +64,7 @@ TYPE DIAG_MISC_TEB_t
   REAL, POINTER, DIMENSION(:)   :: XRN_BLT     ! net radiation at built surf      (W/m2)
   REAL, POINTER, DIMENSION(:)   :: XGFLUX_WALL_A !net wall conduction flux        (W/m2)
   REAL, POINTER, DIMENSION(:)   :: XGFLUX_WALL_B !net wall conduction flux        (W/m2)
-  REAL, POINTER, DIMENSION(:)   :: XGFLUX_ROOF ! net roof conduction flux         (W/m2)                                         
+  REAL, POINTER, DIMENSION(:)   :: XGFLUX_ROOF ! net roof conduction flux         (W/m2)
   REAL, POINTER, DIMENSION(:)   :: XGFLUX_ROAD ! net road conduction flux         (W/m2)
   REAL, POINTER, DIMENSION(:)   :: XGFLUX_STRLROOF !net structural roof cond flux (W/m2)
   REAL, POINTER, DIMENSION(:)   :: XGFLUX_BLT  ! net built surf conduction flux   (W/m2)
@@ -109,15 +109,15 @@ TYPE DIAG_MISC_TEB_t
   REAL, POINTER, DIMENSION(:)   :: XTHER_PROD_BLD    ! thermal      production of   solar panels (W/m2 bld)
   REAL, POINTER, DIMENSION(:)   :: XPHOT_PROD_BLD    ! photovoltaic production of   solar panels (W/m2 bld)
 
-  REAL, POINTER, DIMENSION(:)   :: XH_BLD_COOL       ! Sensible cooling energy demand  
+  REAL, POINTER, DIMENSION(:)   :: XH_BLD_COOL       ! Sensible cooling energy demand
                                                      ! of the building [W m-2(bld)]
-  REAL, POINTER, DIMENSION(:)   :: XT_BLD_COOL       ! Total cooling energy demand  
+  REAL, POINTER, DIMENSION(:)   :: XT_BLD_COOL       ! Total cooling energy demand
                                                      ! of the building [W m-2(bld)]
-  REAL, POINTER, DIMENSION(:)   :: XH_BLD_HEAT       ! Heating energy demand       
+  REAL, POINTER, DIMENSION(:)   :: XH_BLD_HEAT       ! Heating energy demand
                                                      ! of the building [W m-2(bld)]
-  REAL, POINTER, DIMENSION(:)   :: XLE_BLD_COOL      ! Latent cooling energy demand 
+  REAL, POINTER, DIMENSION(:)   :: XLE_BLD_COOL      ! Latent cooling energy demand
                                                      ! of the building [W m-2(bld)]
-  REAL, POINTER, DIMENSION(:)   :: XLE_BLD_HEAT      ! Latent heating energy demand 
+  REAL, POINTER, DIMENSION(:)   :: XLE_BLD_HEAT      ! Latent heating energy demand
                                                      ! of the building [W m-2(bld)]
   REAL, POINTER, DIMENSION(:)   :: XH_WASTE          ! Sensible waste heat from HVAC system
                                                      ! [W m-2(tot)]
@@ -128,8 +128,8 @@ TYPE DIAG_MISC_TEB_t
   REAL, POINTER, DIMENSION(:)   :: XHVAC_HEAT        ! Energy consumption of the heating system
                                                      ! [W m-2(bld)]
   REAL, POINTER, DIMENSION(:)   :: XCAP_SYS          ! Actual capacity of the cooling system
-                                                     ! [W m-2(bld)] 
-  REAL, POINTER, DIMENSION(:)   :: XM_SYS            ! Actual HVAC mass flow rate 
+                                                     ! [W m-2(bld)]
+  REAL, POINTER, DIMENSION(:)   :: XM_SYS            ! Actual HVAC mass flow rate
                                                      ! [kg s-1 m-2(bld)]
   REAL, POINTER, DIMENSION(:)   :: XCOP              ! COP of the cooling system
   REAL, POINTER, DIMENSION(:)   :: XQ_SYS            ! Supply air specific humidity [kg kg-1]
@@ -137,7 +137,7 @@ TYPE DIAG_MISC_TEB_t
   REAL, POINTER, DIMENSION(:)   :: XTR_SW_WIN        ! Solar radiation transmitted throught
                                                      ! windows [W m-2(bld)]
   REAL, POINTER, DIMENSION(:)   :: XFAN_POWER        ! HVAC fan power
-  REAL, POINTER, DIMENSION(:)   :: XABS_SW_WIN       ! window absorbed shortwave radiation [W m-2] 
+  REAL, POINTER, DIMENSION(:)   :: XABS_SW_WIN       ! window absorbed shortwave radiation [W m-2]
   REAL, POINTER, DIMENSION(:)   :: XABS_LW_WIN       ! absorbed infrared rad. [W m-2]
 
   REAL, POINTER, DIMENSION(:)   :: XEMIT_LW_FAC      ! LW flux emitted by the facade (W/m2 facade)
@@ -259,7 +259,7 @@ ELSE
     CALL DIAG_MISC_TEB_INIT(YNDIAG_MISC_TEB%AL(JP))
   ENDDO
   DEALLOCATE(YNDIAG_MISC_TEB%AL)
-ENDIF  
+ENDIF
 IF (LHOOK) CALL DR_HOOK("MODD_DIAG_MISC_TEB_N:DIAG_MISC_TEB_NP_INIT",1,ZHOOK_HANDLE)
 END SUBROUTINE DIAG_MISC_TEB_NP_INIT
 

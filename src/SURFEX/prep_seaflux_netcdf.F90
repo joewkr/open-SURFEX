@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_SEAFLUX_NETCDF(HPROGRAM,HSURF,HFILE,KLUOUT,PFIELD)
@@ -16,7 +16,7 @@ SUBROUTINE PREP_SEAFLUX_NETCDF(HPROGRAM,HSURF,HFILE,KLUOUT,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -25,7 +25,7 @@ SUBROUTINE PREP_SEAFLUX_NETCDF(HPROGRAM,HSURF,HFILE,KLUOUT,PFIELD)
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    01/2008
-!!      Modified    09/2013 : S. Senesi : extends to SSS and SIC fields 
+!!      Modified    09/2013 : S. Senesi : extends to SSS and SIC fields
 !!------------------------------------------------------------------
 !
 USE MODE_READ_NETCDF_MERCATOR
@@ -104,7 +104,7 @@ SELECT CASE(HSURF)
        YNCVAR='sic'
     END IF
     CALL PREP_NETCDF_GRID(HFILE,YNCVAR)
-    IF (NRANK==NPIO) THEN 
+    IF (NRANK==NPIO) THEN
       CALL READ_NETCDF_SST(HFILE,YNCVAR,ZFIELD)
       ALLOCATE(PFIELD(MAX(1,NILENGTH),1))
       PFIELD(:,1) = ZFIELD(:)

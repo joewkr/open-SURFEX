@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_SEAFLUX_CONF_n (CHS, DOC, DGO, DGMSI, O, S, HPROGRAM)
@@ -27,11 +27,11 @@
 !!
 !!    AUTHOR
 !!    ------
-!!	V. Masson   *Meteo France*	
+!!	V. Masson   *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      Modified    01/2006 : sea flux parameterization.
 !!      Modified    09/2013 : S. Senesi : introduce 1D version of sea-ice model Gelato
 !!      Modified    01/2015 : R. Séférian: introduce ocean surface albedo
@@ -114,7 +114,7 @@ IF (IMI.NE.-1 .AND. LNAM_READ) THEN
 ENDIF
 !
 IF (LNAM_READ) THEN
- !        
+ !
  !* open namelist file
  !
  CALL OPEN_NAMELIST(HPROGRAM,INAM)

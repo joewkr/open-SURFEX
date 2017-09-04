@@ -1,7 +1,7 @@
 #!/bin/sh
 #MNH_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 #MNH_LIC This is part of the Meso-NH software governed by the CeCILL-C licence
-#MNH_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#MNH_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 #MNH_LIC for details. version 1.
 ##
 ## Run Parameter
@@ -32,13 +32,13 @@ export LINKFILES=${LINKFILES-"ln -sf "}
 export INDIR=${INDIR-"INDIR"}
 export OUTDIR=${OUTDIR-"${INDIR}"}
 
-case "${INHOST}" in 
+case "${INHOST}" in
 
     "" ) # default --> gaya
     export GETFILES=${GETFILES-"mfget "}
     export RMINDIR=${RMINDIR-"${INDIR}"}
     ;;
-    
+
     *'@'*) # ssh transfert
     export GETFILES=${GETFILES-"scp"}
     export RMINDIR=${RMINDIR-"${INHOST}:${INDIR}"}
@@ -54,22 +54,22 @@ esac
 
 export OUTHOST=${OUTHOST-"${INHOST}"}
 
-case "${OUTHOST}" in 
-    
+case "${OUTHOST}" in
+
     "" ) # default --> gaya
-    export PUTFILES=${PUTFILES-"mfput "}  
+    export PUTFILES=${PUTFILES-"mfput "}
     export RMMKDIR=${RMMKDIR-"rsh gaya -n mkdir -p "}
     export RMOUTDIR=${RMOUTDIR-"${OUTDIR}"}
     ;;
-    
+
     *'@'*) # ssh transfert
-    export PUTFILES=${PUTFILES-"scp"} 
+    export PUTFILES=${PUTFILES-"scp"}
     export RMMKDIR=${RMMKDIR-"ssh -n ${OUTHOST} mkdir -p "}
     export RMOUTDIR=${RMOUTDIR-"${OUTHOST}:${OUTDIR}"}
     ;;
 
     workdir) # put files in $workdir
-    export PUTFILES=${PUTFILES-"cp "} 
+    export PUTFILES=${PUTFILES-"cp "}
     export RMMKDIR=${RMMKDIR-"mkdir -p "}
     export OUTDIR="${WORKDIR}/${OUTDIR}"
     export RMOUTDIR="${OUTDIR}"
@@ -106,7 +106,7 @@ fi
 
 export JOBMONO="\
 # Nom arbitraire du travail LoadLeveler
-# @ job_name = `basename  $PWD` 
+# @ job_name = `basename  $PWD`
 # Type de travail
 # @ job_type = parallel
 # Fichier de sortie standard du travail
@@ -119,7 +119,7 @@ export JOBMONO="\
 # @ data_limit = ${MEM}
 # @ stack_limit = 1500mb,1500mb
 # Nombre de processus demande (ici 1 )
-# @ total_tasks = 1            
+# @ total_tasks = 1
 # @ queue
 "
 

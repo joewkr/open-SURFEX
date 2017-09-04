@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,28 +28,28 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ======================= MODULE modi_glt_thermo_lead_r =====================
 ! =======================================================================
 !
 !
 ! * Do the thermodynamics for the lead covered fraction of the grid
-! cell. 
+! cell.
 !
 ! Modified: 2007/11 (D. Salas y Melia)
 !            thick(jh) < Hsi < thick(jh+1) is not correct: misses cases
 !            like Hsi = thick(jh)
 !            corrected to: thick(jh) < Hsi <= thick(jh+1)
 ! Modified: 2009/06 (D. Salas y Melia) reduced grid
-! Modified: 2011/12 (A. Voldoire) modified diagnostics and ice/water 
+! Modified: 2011/12 (A. Voldoire) modified diagnostics and ice/water
 !           fluxes interface CALL
 ! Modified: 2012/07 (D. Salas y Melia) suppress tpopw variable
 !
@@ -212,7 +212,7 @@ SUBROUTINE glt_thermo_lead_r  &
       yfreeze(:) = .TRUE.
   ENDWHERE
 !
-! 
+!
 ! 1.7. Welcome message
 ! --------------------
 !
@@ -242,18 +242,18 @@ SUBROUTINE glt_thermo_lead_r  &
 ! .. In thermo_ice, the concentration of sea ice changed, due to lateral
 ! melting. So here, the concentration of leads should be changed
 ! accordingly. Note these changes in concentration will cause a lack of
-! energy concentration, as the global flux sent by atmosphere to the 
-! sea ice/open water ensemble won't be conserved. 
+! energy concentration, as the global flux sent by atmosphere to the
+! sea ice/open water ensemble won't be conserved.
 !
 ! .. Compute total sea ice concentration
-! 
+!
   zfsit(:) = SUM(tpsit(:,:)%fsi,DIM=1)
 !
 ! .. Concentration of leads. Note that here, to ensure accuracy of energy
 ! conservation, it is not directly taken from the restart lead variable.
 !
   zfld(:) = 1.-zfsit(:)
-!  
+!
 !
 ! 2.1.2. Compute P-E sent to the ocean through the leads
 ! ......................................................
@@ -297,7 +297,7 @@ SUBROUTINE glt_thermo_lead_r  &
   zhef(:) = tpmxl(:)%qml + tpblkw(:)%nsf + zsnflx(:)
 !
 ! .. Taking into account the ocean-ice heat flux
-!  - If the ocean-ice flux is larger than the non-solar flux, no sea 
+!  - If the ocean-ice flux is larger than the non-solar flux, no sea
 ! ice will be formed; we assume that the oce-ice heat flux exactly compensates
 ! the non-solar heat flux
 !
@@ -309,7 +309,7 @@ SUBROUTINE glt_thermo_lead_r  &
       WHERE ( zhef(:) + tpmxl(:)%qoc > 0. )
         yfreeze = .FALSE.
       ELSEWHERE
-        zhef(:) = zhef(:) + tpmxl(:)%qoc  
+        zhef(:) = zhef(:) + tpmxl(:)%qoc
       ENDWHERE
     ENDWHERE
   ENDWHERE
@@ -322,15 +322,15 @@ SUBROUTINE glt_thermo_lead_r  &
     tpdia(:)%qoi = tpdia(:)%qoi + zfld(:) * tpmxl(:)%qoc
   ENDWHERE
 !print*,glt_avg_r(tpdom,tptfl%tlo,0)
-!   
-! Ajouter les diags %qoi et modifier %tlo eventuellement 
+!
+! Ajouter les diags %qoi et modifier %tlo eventuellement
 
 !  WHERE( zhef(:)<0. .AND. tpmxl(:)%qoc > -zhef(:) )
 !      yfreeze(:) = .FALSE.
 !! tptfl%tlo is updated in 2.2.1.
 !      tpdia(:)%qoi = tpdia(:)%qoi - zfld(:) * zhef(:)
-!  ELSEWHERE 
-!      zhef(:) = zhef(:) + tpmxl(:)%qoc  
+!  ELSEWHERE
+!      zhef(:) = zhef(:) + tpmxl(:)%qoc
 !  ENDWHERE
 !  print*,'(2) gltools_enthalpy =',tptfl%tlo
 !
@@ -390,7 +390,7 @@ SUBROUTINE glt_thermo_lead_r  &
 !
 ! .. Get salinity, gltools_enthalpy and thickness of the new ice
 !
-  CALL glt_saltrap_r( yfreeze,zhef,ztem0,tpmxl,zsalt0,zent0,zhldsi ) 
+  CALL glt_saltrap_r( yfreeze,zhef,ztem0,tpmxl,zsalt0,zent0,zhldsi )
 !
 ! .. Compute surface temperature and thickness of new ice formed in leads
 !
@@ -410,7 +410,7 @@ SUBROUTINE glt_thermo_lead_r  &
     ENDWHERE
   ENDWHERE
 !
-! 
+!
 ! 2.3. Define lead sea ice state variable
 ! ---------------------------------------
 !
@@ -420,12 +420,12 @@ SUBROUTINE glt_thermo_lead_r  &
 !
 ! Compute all ice state variables for sea ice formed in the leads
 !
-! ..Sea ice 3D variables. 
+! ..Sea ice 3D variables.
 !
-  tpldsit(:,:)%esi = .FALSE. 
+  tpldsit(:,:)%esi = .FALSE.
   tpldsit(:,:)%asn = albw
-  tpldsit(:,:)%fsi = 0. 
-  tpldsit(:,:)%hsi = 0. 
+  tpldsit(:,:)%fsi = 0.
+  tpldsit(:,:)%hsi = 0.
   tpldsit(:,:)%hsn = 0.
   tpldsit(:,:)%rsn = rhosnwmin
   tpldsit(:,:)%tsf = SPREAD( tpmxl(:)%mlf,1,nt )
@@ -464,11 +464,11 @@ SUBROUTINE glt_thermo_lead_r  &
   CALL glt_info_si_r( 'About lead sea ice', tpsit=tpldsit )
 !
 !
-! 
+!
 ! 3. Energy conservation
 ! =======================
 !
-! .. Compute consequences of new sea ice formation on the mixed layer. 
+! .. Compute consequences of new sea ice formation on the mixed layer.
 !
 ! 3.1. Compute mass of newly formed ice
 ! --------------------------------------

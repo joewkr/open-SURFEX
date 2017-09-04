@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CH_INIT_SNAP_n (CHN, HSV, HPROGRAM,KLU,HINIT,PRHOA,HCHEM_SURF_FILE)
@@ -15,11 +15,11 @@
 !
 !!**  METHOD
 !!    ------
-!!    
-!!    
+!!
+!!
 !!    AUTHOR
 !!    ------
-!!      S.QUEGUINER 
+!!      S.QUEGUINER
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -62,7 +62,7 @@ TYPE(CH_EMIS_SNAP_t), INTENT(INOUT) :: CHN
 INTEGER,           INTENT(IN)  :: KLU      ! number of points
  CHARACTER(LEN=3),  INTENT(IN)  :: HINIT    ! Flag to know if one initializes:
 !                                          ! 'ALL' : all variables for a run
-!                                          ! 'PRE' : only variables to build 
+!                                          ! 'PRE' : only variables to build
 !                                          !         an initial file
 REAL, DIMENSION(:),INTENT(IN)  :: PRHOA    ! air density
 CHARACTER(LEN=28), INTENT(IN)  :: HCHEM_SURF_FILE ! ascii file for chemistry aggregation
@@ -71,7 +71,7 @@ CHARACTER(LEN=28), INTENT(IN)  :: HCHEM_SURF_FILE ! ascii file for chemistry agg
 !
 REAL, DIMENSION(:,:), ALLOCATABLE :: ZTEMP
 INTEGER :: ISNAP
-INTEGER             :: IRESP                 !   File 
+INTEGER             :: IRESP                 !   File
 INTEGER             :: ILUOUT                ! output listing logical unit
  CHARACTER (LEN=3)   :: YCONVERSION
  CHARACTER (LEN=16)  :: YRECFM                ! management
@@ -149,7 +149,7 @@ DO JSPEC = 1,CHN%NEMIS_NBR ! Loop on the number of species
   END IF
   WRITE(ILUOUT,*) ' Emission ',JSPEC,' : ',TRIM(YSPEC_NAME)
   CHN%CEMIS_NAME(JSPEC) = YSPEC_NAME(1:12)
-! 
+!
 ! Read  the potential emission of species for each snap
   DO JSNAP=1,CHN%NEMIS_SNAP
     WRITE(YRECFM,'("SN",I2.2,"_",A7)') JSNAP,CHN%CEMIS_NAME(JSPEC)
@@ -159,10 +159,10 @@ DO JSPEC = 1,CHN%NEMIS_NBR ! Loop on the number of species
 ! Read the temporal profiles of all snaps
   YRECFM = "E_"//TRIM(CHN%CEMIS_NAME(JSPEC))//"_M"
   IF (HPROGRAM=="NC    ") THEN
-    CALL READ_SURF_FIELD2D(HPROGRAM,ZTEMP,YRECFM,YCOMMENT,HDIR='-')          
+    CALL READ_SURF_FIELD2D(HPROGRAM,ZTEMP,YRECFM,YCOMMENT,HDIR='-')
     CHN%XSNAP_MONTHLY(:,:,JSPEC) = ZTEMP(1:CHN%NSNAP_M,:)
   ELSE
-    CALL READ_SURF_FIELD2D(HPROGRAM,CHN%XSNAP_MONTHLY(:,:,JSPEC),YRECFM,YCOMMENT,HDIR='-')          
+    CALL READ_SURF_FIELD2D(HPROGRAM,CHN%XSNAP_MONTHLY(:,:,JSPEC),YRECFM,YCOMMENT,HDIR='-')
   ENDIF
   YRECFM = "E_"//TRIM(CHN%CEMIS_NAME(JSPEC))//"_D"
   IF (HPROGRAM=="NC    ") THEN

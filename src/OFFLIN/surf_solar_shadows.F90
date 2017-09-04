@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########################################################################
 SUBROUTINE SURF_SOLAR_SHADOWS (PMAP,PXHAT,PYHAT,PCOSZEN,PSINZEN,PAZIMSOL,  &
@@ -64,7 +64,7 @@ REAL, DIMENSION(:,:),     INTENT(IN) :: PZS_XY     ! orography at vort. points
 REAL, DIMENSION(:),       INTENT(IN) :: ZXHAT_ll   ! X coordinate (all processors)
 REAL, DIMENSION(:),       INTENT(IN) :: ZYHAT_ll   ! Y coordinate (all processors)
 INTEGER,                  INTENT(IN) :: IIOR_ll    ! position of SW corner of current processor domain
-!                                                  ! in the entire domain (I index along X coordinate) 
+!                                                  ! in the entire domain (I index along X coordinate)
 !                                                  ! (both including the 1 point border)
 INTEGER,                  INTENT(IN) :: IJOR_ll    ! position of SW corner of current processor domain
 !                                                  ! in the entire domain (J index along Y coordinate)
@@ -105,7 +105,7 @@ REAL                   :: ZY       ! the sun beam
 REAL                   :: ZZ       !
 REAL                   :: ZA       ! X, Y coordinates of a point
 REAL                   :: ZB       ! projected according to sun dir.
-REAL                   :: ZDX      ! current distance of the sun beam 
+REAL                   :: ZDX      ! current distance of the sun beam
 REAL                   :: ZDY      ! to the next X or Y side box limit
 REAL                   :: ZZI      ! initial position of the sun beam
 REAL                   :: ZZCURV   ! offset due to earth curve surface
@@ -436,8 +436,8 @@ PB = -         ZSINAZIM*PX +         ZCOSAZIM*PY
 END SUBROUTINE PROJ_SOLAR
 !
 SUBROUTINE SOLAR_INTERC(PA,PB,PAD,PBD,OF)
-REAL, DIMENSION(3), INTENT(IN)  :: PA  ! X coordinate 
-REAL, DIMENSION(3), INTENT(IN)  :: PB  ! Y coordinate 
+REAL, DIMENSION(3), INTENT(IN)  :: PA  ! X coordinate
+REAL, DIMENSION(3), INTENT(IN)  :: PB  ! Y coordinate
 REAL,               INTENT(IN)  :: PAD ! Z coordinate
 REAL,               INTENT(IN)  :: PBD ! X coordinate
 LOGICAL,            INTENT(OUT) :: OF  ! true if interception occurs

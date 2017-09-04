@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################################
       SUBROUTINE GET_VEG_n(HPROGRAM, KI, U, IO, S, NP, NPE, PLAI, PVH)
@@ -24,7 +24,7 @@
 !!
 !!    AUTHOR
 !!    ------
-!!	P. Aumond	
+!!	P. Aumond
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -43,7 +43,7 @@ USE MODD_DATA_COVER_PAR
 
 USE MODI_GET_LUOUT
 USE MODI_VEGTYPE_TO_PATCH
-!                                
+!
 USE MODI_ABOR1_SFX
 !
 IMPLICIT NONE
@@ -51,7 +51,7 @@ IMPLICIT NONE
 !*       0.1   Declarations of arguments
 !              -------------------------
 !
-CHARACTER(LEN=6),   INTENT(IN)   :: HPROGRAM    
+CHARACTER(LEN=6),   INTENT(IN)   :: HPROGRAM
 INTEGER,            INTENT(IN)   :: KI         ! number of points
 !
 TYPE(SURF_ATM_t), INTENT(INOUT) :: U
@@ -60,8 +60,8 @@ TYPE(ISBA_S_t), INTENT(INOUT) :: S
 TYPE(ISBA_NP_t), INTENT(INOUT) :: NP
 TYPE(ISBA_NPE_t), INTENT(INOUT) :: NPE
 !
-REAL, DIMENSION(KI), INTENT(OUT) :: PVH    ! Tree height 
-REAL, DIMENSION(KI), INTENT(OUT) :: PLAI   
+REAL, DIMENSION(KI), INTENT(OUT) :: PVH    ! Tree height
+REAL, DIMENSION(KI), INTENT(OUT) :: PLAI
 !-------------------------------------------------------------------------------
 !
 !
@@ -69,7 +69,7 @@ REAL, DIMENSION(KI), INTENT(OUT) :: PLAI
 !              -------------------------------
 !
 !  Arrays defined for each tile
-!  
+!
 !
 TYPE(ISBA_P_t), POINTER :: PK
 TYPE(ISBA_PE_t), POINTER :: PEK
@@ -79,7 +79,7 @@ REAL, DIMENSION(U%NSIZE_FULL)      :: ZH_TREE_FULL, ZLAI_FULL
 REAL, DIMENSION(U%NSIZE_NATURE)    :: ZH_TREE, ZLAI,ZWORK
 INTEGER:: IPATCH_TRBE, IPATCH_TRBD, IPATCH_TEBE, IPATCH_TEBD, IPATCH_TENE, &
           IPATCH_BOBD, IPATCH_BONE, IPATCH_BOND, IMASK, JP
-! 
+!
 !-------------------------------------------------------------------------------
 !
 !*   0. Logical unit for writing out
@@ -136,9 +136,9 @@ DO JP = 1,IO%NPATCH
     !
   ENDIF
   !
-ENDDO  
+ENDDO
 !
-WHERE(ZWORK(:)/=0.) 
+WHERE(ZWORK(:)/=0.)
   ZH_TREE(:) = ZH_TREE(:)/ZWORK(:)
   ZLAI(:) = ZLAI(:)/ZWORK(:)
 END WHERE
@@ -150,7 +150,7 @@ END DO
 !
 ZLAI_FULL(:) = U%XNATURE(:) * ZLAI_FULL(:)
 !
-!*       2. Envoi les variables vers mesonH 
+!*       2. Envoi les variables vers mesonH
 !             ------------------------------
 
 IF ( SIZE(PVH) /= SIZE(ZH_TREE_FULL) ) THEN

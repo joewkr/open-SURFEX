@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE WRITE_DIAG_TEB_n (DTCO, HSELECT, U, TM, GDM, GRM, HPROGRAM,HWRITE)
@@ -16,11 +16,11 @@ SUBROUTINE WRITE_DIAG_TEB_n (DTCO, HSELECT, U, TM, GDM, GRM, HPROGRAM,HWRITE)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -69,16 +69,16 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('WRITE_DIAG_TEB_N',0,ZHOOK_HANDLE)
 IF (HWRITE/='PGD') THEN
-!        
+!
    IF (TM%TD%O%XDIAG_TSTEP==XUNDEF .OR. &
          ABS(NINT(TM%TOP%TTIME%TIME/TM%TD%O%XDIAG_TSTEP)*TM%TD%O%XDIAG_TSTEP-TM%TOP%TTIME%TIME)<1.E-3 ) THEN
       CALL WRITE_DIAG_SEB_TEB_n(DTCO, HSELECT, U, TM%CHT, TM%TD%O, TM%TD%D, TM%TD%DUT, HPROGRAM)
       DO JP=1,TM%TOP%NTEB_PATCH
         CALL WRITE_DIAG_MISC_TEB_n(DTCO, HSELECT, U, TM%TD%NDMTC%AL(JP), TM%TD%NDMT%AL(JP), TM%TD%MTO, &
                                    GDM%VD%ND%AL(JP), GDM%VD%NDE%AL(JP), GDM%VD%NDEC%AL(JP), &
-                                   GRM%VD%ND%AL(JP), GRM%VD%NDE%AL(JP), GRM%VD%NDEC%AL(JP), & 
+                                   GRM%VD%ND%AL(JP), GRM%VD%NDE%AL(JP), GRM%VD%NDEC%AL(JP), &
                                    TM%NT%AL(JP), TM%TOP, HPROGRAM,JP)
-      END DO      
+      END DO
    END IF
 !
 ENDIF

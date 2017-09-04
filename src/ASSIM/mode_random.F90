@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_RANDOM
 ! A module for random number generation from the following distributions:
@@ -122,13 +122,13 @@ CALL RANDOM_SEED(size = IIN)
 ALLOCATE(ISEED(IIN))
 !
 CALL SYSTEM_CLOCK(COUNT=ICLOCK)
-!         
+!
 ISEED(:) = ICLOCK + 37 * (/ (I - 1, I = 1, IIN) /)
 !
 CALL RANDOM_SEED(PUT = ISEED)
-!         
+!
 DEALLOCATE(ISEED)
-!      
+!
 IF (LHOOK) CALL DR_HOOK('MODE_RANDOM_NUMBER:INIT_RANDOM_SEED',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_RANDOM_SEED

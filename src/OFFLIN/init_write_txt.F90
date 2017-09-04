@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INIT_WRITE_TXT (HSELECT, HREC,OWFL)
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -46,7 +46,7 @@ IMPLICIT NONE
  CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
 !
 !
- CHARACTER(LEN=12),   INTENT(IN)     :: HREC    
+ CHARACTER(LEN=12),   INTENT(IN)     :: HREC
 LOGICAL,             INTENT(INOUT)  :: OWFL
 INTEGER                             :: IP, IVAR, IFIELD, JFIELD
 !LOGICAL                             :: LMATCH
@@ -83,9 +83,9 @@ ELSE
 !
   IF (SIZE(HSELECT)==0) THEN
 !
-    IF ( (HREC(5:7)/='_OC'                          ) .AND.  & 
-          (HREC(4:6)/='_OC'                          ) .AND.  &           
-          (HREC(1:3)/='SEA'                          ) .AND.  &    
+    IF ( (HREC(5:7)/='_OC'                          ) .AND.  &
+          (HREC(4:6)/='_OC'                          ) .AND.  &
+          (HREC(1:3)/='SEA'                          ) .AND.  &
           (HREC(1:2)/='DX'                           ) .AND.  &
           (HREC(1:2)/='DY'                           ) .AND.  &
           (HREC(1:4)/='CLAY'                         ) .AND.  &
@@ -133,7 +133,7 @@ ELSE
           (HREC(1:6)/='DRIVEG'                       ) .AND.  &
           (HREC(1:5)/='RRVEG'                        ) .AND.  &
           (HREC(1:8)/='BLD_DESC'                     ) .AND.  &
-          (HREC(1:2)/='Z0'                           )        ) THEN  
+          (HREC(1:2)/='Z0'                           )        ) THEN
 
       IVAR = IVAR+1
       IF (IVAR-NUNIT0>JPVAR) THEN
@@ -143,10 +143,10 @@ ELSE
       NVAR(IVAR-NUNIT0) = IVAR
       OPEN(UNIT=IVAR,FILE=TRIM(HREC)//'.TXT',FORM='FORMATTED')
       OWFL=.TRUE.
-   
+
     ELSE
       IP = 1
-      DO WHILE (CVARN(IP).NE.'                ') 
+      DO WHILE (CVARN(IP).NE.'                ')
         IP=IP+1
       ENDDO
       CVARN(IP) = HREC
@@ -154,13 +154,13 @@ ELSE
     ENDIF
 !
   ELSE
-!        
+!
     IFIELD=0
     DO JFIELD=1,SIZE(HSELECT)
       IF (HSELECT(JFIELD)== '            ') EXIT
       IFIELD=IFIELD+1
     ENDDO
-  
+
     !CALL TEST_RECORD_LEN("ASCII ",HREC,HSELECT,LMATCH)
 
     !IF (.NOT. LMATCH ) THEN

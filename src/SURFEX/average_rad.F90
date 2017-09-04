@@ -1,21 +1,21 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE AVERAGE_RAD(PFRAC_TILE,                              &
                    PDIR_ALB_TILE, PSCA_ALB_TILE, PEMIS_TILE, PTRAD_TILE,  &
-                   PDIR_ALB, PSCA_ALB, PEMIS, PTRAD                       )  
+                   PDIR_ALB, PSCA_ALB, PEMIS, PTRAD                       )
 !     #################################################################
 !
 !
-!!****  *AVERAGE_RAD*  
+!!****  *AVERAGE_RAD*
 !!
 !!    PURPOSE
 !!    -------
 !      Average the radiative fluxes from the land and water surfaces depending on the
 !      fraction of each surface cover type in the mesh area.
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -23,19 +23,19 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      S. Belair           * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    10/03/95 
+!!      Original    10/03/95
 !!      V.Masson    20/03/96  remove abnormal averages and average TS**4 instead
 !!                            of TS
 !!      (J.Stein)   27/03/96 use only H and LE in the soil scheme
@@ -57,7 +57,7 @@ IMPLICIT NONE
 !
 !*      0.1    declarations of arguments
 !
-REAL, DIMENSION(:,:),   INTENT(IN) :: PFRAC_TILE    ! Fraction in a mesh-area of 
+REAL, DIMENSION(:,:),   INTENT(IN) :: PFRAC_TILE    ! Fraction in a mesh-area of
 !                                                   ! a given surface
 REAL, DIMENSION(:,:),   INTENT(IN) :: PEMIS_TILE    ! emissivity
 REAL, DIMENSION(:,:,:), INTENT(IN) :: PDIR_ALB_TILE ! direct albedo
@@ -89,7 +89,7 @@ INSWB = SIZE(PDIR_ALB_TILE,2)
 !              -----------------------------------------------------------
 !
 ! albedo:
-! 
+!
 PDIR_ALB   (:,:) = 0.
 PSCA_ALB   (:,:) = 0.
 !

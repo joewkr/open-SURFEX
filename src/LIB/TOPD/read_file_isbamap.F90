@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ##########################
@@ -10,8 +10,8 @@
 !!
 !!    PURPOSE
 !!    -------
-!        
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -21,11 +21,11 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-!!     
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -97,9 +97,9 @@ ELSE IF(UG%G%CGRID.EQ.'LONLAT REG') THEN
     !
     ZDXI(:)=(ZLONMAX-ZLONMIN)/(IIMAX-1)
     ZDYI(:)=(ZLATMAX-ZLATMIN)/(IJMAX-1)
-ELSE IF (UG%G%CGRID=='IGN') THEN 
+ELSE IF (UG%G%CGRID=='IGN') THEN
   CALL GET_GRIDTYPE_IGN(UG%G%XGRID_PAR,KLAMBERT=ILAMBERT,KL=INI,PX=ZXN,PY=ZYN,PDX=ZDXI,PDY=ZDYI)
-  INI=KI        
+  INI=KI
 ELSE
     CALL ABOR1_SFX("READ_FILE_ISBAMAP: TYPE DE GRILLE NON GERE PAR LE CODE")
 ENDIF

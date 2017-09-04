@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_SBL_n (DTCO, U, SB, OSBL, HPROGRAM, HSURF)
 !     #########################################
 !
 !!****  *READ_SBL_n* - reads TEB fields
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      E. Martin   01/2012 Add LSBL_COLD_START
 !-------------------------------------------------------------------------------
 !
@@ -124,7 +124,7 @@ IF (.NOT.OSBL) THEN
   ALLOCATE(SB%XP  (0,0))
   IF (HSURF=="TOWN  ") THEN
     ALLOCATE(SB%XLM (0,0))
-    ALLOCATE(SB%XLEPS(0,0))  
+    ALLOCATE(SB%XLEPS(0,0))
   ENDIF
   ALLOCATE(SB%XDZ (0,0))
   ALLOCATE(SB%XZF (0,0))
@@ -208,17 +208,17 @@ IF(YREAD=='ALL') THEN
   !
   !* Monin-Obhukov length
   IF (IVERSION<7 .OR. HSURF/="TOWN  ") THEN
-    YRECFM=TRIM(YBASE)//'_LMO ' 
-    CALL READ_SURF(HPROGRAM,YRECFM,SB%XLMO(:,1),IRESP) 
+    YRECFM=TRIM(YBASE)//'_LMO '
+    CALL READ_SURF(HPROGRAM,YRECFM,SB%XLMO(:,1),IRESP)
     DO JLAYER = 2,SB%NLVL
       SB%XLMO(:,JLAYER) = SB%XLMO(:,1)
-    ENDDO    
+    ENDDO
   ELSE
     DO JLAYER=1,SB%NLVL
       WRITE(YRECFM,'(A10,I2.2)') TRIM(YBASE)//'_MO',JLAYER
       CALL READ_SURF(HPROGRAM,YRECFM,SB%XLMO(:,JLAYER),IRESP)
     ENDDO
-  ENDIF    
+  ENDIF
   !
   !* Pressure
   DO JLAYER=1,SB%NLVL

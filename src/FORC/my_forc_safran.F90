@@ -24,7 +24,7 @@ SUBROUTINE MY_FORC_SAFRAN(HEXPER,HYEAR,HYEAR2,KNI,KNPTS,           &
 !!
 !
 !----------------------------------------------------------------------------
-!      
+!
 !*    0.     Declaration of dummy arguments
 !            ------------------------------
 !
@@ -43,7 +43,7 @@ INTEGER, INTENT(IN)          :: KNPTS     ! number of forcing instants
 INTEGER, INTENT(OUT)         :: KMONTH    ! month of simulation begining
 INTEGER, INTENT(OUT)         :: KDAY      ! day   of simulation begining
 REAL,    INTENT(OUT)         :: PTIME     ! time  of simulation begining (s)
-REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PCO2      ! CO2 concentration (kg/m3) 
+REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PCO2      ! CO2 concentration (kg/m3)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PDIR_SW   ! Solar direct   radiation (W/m2)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PSCA_SW   ! Solar diffused radiation (W/m2)
 REAL*4, DIMENSION(KNPTS,KNI), INTENT(OUT) :: PLW       ! Longwave radiation (W/m2)
@@ -63,7 +63,7 @@ REAL, DIMENSION(KNI),       INTENT(OUT) :: PLAT      ! latitude  (degrees)
 !*    1.     Declaration of user local variables
 !            -----------------------------------
 !
-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ! Input file:
 !
 CHARACTER(LEN=*), PARAMETER       :: YFILE_DIR= '/cnrm/mosayc/data1/martin/NO_SAVE/SAFRAN/CLIM-SIM/'
@@ -82,14 +82,14 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('MY_FORC_SAFRAN',0,ZHOOK_HANDLE)
 
-KDAY    = 01          ! starting day 
+KDAY    = 01          ! starting day
 
 KMONTH  = 08          ! starting month
 
 PTIME   =    0.       ! starting time (s)
 !
 !-----------------------------------------------------------------------------
-!      
+!
 !      3.    grid definition
 !            ---------------
 !
@@ -97,14 +97,14 @@ PLON(:)   = 1.300
 PLAT(:)   = 43.484
 !
 !----------------------------------------------------------------------------
-!      
+!
 !        4.    orography definition
 !               --------------------
-!      
+!
 PZS(:)   = 113.
-!      
+!
 !-----------------------------------------------------------------------------
-!      
+!
 !      5.    Forcing height
 !            --------------
 !
@@ -112,12 +112,12 @@ PZREF(:)   = 2.
 PUREF(:)   = 10.
 !
 !----------------------------------------------------------------------------
-!      
+!
 !*      6.   Initialization of forcing variables
 !            -----------------------------------
 !
 !----------------------------------------------------------------------------
-!      
+!
 !        3.1    reading forcing file
 !               --------------------
 !
@@ -189,7 +189,7 @@ CLOSE(UNIT=17)
 !!        6. Fills Surfex forcing variables
 !!           ------------------------------
 !!
-!PCO2(:,:)    = 0.000620   ! (kg/m3, equivalent to 350 ppm) 
+!PCO2(:,:)    = 0.000620   ! (kg/m3, equivalent to 350 ppm)
 !!
 !PDIR_SW(:,:) = 0.8*ZRG(:,:)
 !PSCA_SW(:,:) = 0.2*ZRG(:,:)

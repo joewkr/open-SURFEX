@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_DUMMY_n (DUU, KSIZE_FULL, HPROGRAM)
@@ -43,7 +43,7 @@ IMPLICIT NONE
 TYPE(DUMMY_SURF_FIELDS_t), INTENT(INOUT) :: DUU
 INTEGER, INTENT(IN) :: KSIZE_FULL
 !
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     ! 
+ CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     !
 !
 !*       0.2   Declarations of local variables
 !              -------------------------------

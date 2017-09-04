@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_ISBA_ASCLLV (DTCO, UG, U, USS, HPROGRAM,HSURF,KLUOUT,PFIELD)
@@ -16,11 +16,11 @@ SUBROUTINE PREP_ISBA_ASCLLV (DTCO, UG, U, USS, HPROGRAM,HSURF,KLUOUT,PFIELD)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     P. Le Moigne 
+!!     P. Le Moigne
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -45,7 +45,7 @@ USE MODD_SURF_PAR,       ONLY : XUNDEF
 USE MODD_PREP_ISBA,      ONLY : CTYPE_HUG     , CTYPE_TG     , &
                                   CFILE_HUG_SURF, CFILE_TG_SURF, &
                                   CFILE_HUG_ROOT, CFILE_TG_ROOT, &
-                                  CFILE_HUG_DEEP, CFILE_TG_DEEP  
+                                  CFILE_HUG_DEEP, CFILE_TG_DEEP
 USE MODI_PGD_FIELD
 USE MODI_GET_LATLONMASK_n
 USE MODI_ABOR1_SFX
@@ -105,15 +105,15 @@ IF (.NOT.ALLOCATED(NNUM)) THEN
     ENDDO
   ENDIF
   IF (NPROC>1) THEN
-#ifdef SFX_MPI          
+#ifdef SFX_MPI
     CALL MPI_BCAST(NINDEX,SIZE(NINDEX)*KIND(NINDEX)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(NNUM,SIZE(NNUM)*KIND(NNUM)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
     CALL MPI_BCAST(UG%NGRID_FULL_PAR,KIND(UG%NGRID_FULL_PAR)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
 #endif
     IF (NRANK/=NPIO) ALLOCATE(UG%XGRID_FULL_PAR(UG%NGRID_FULL_PAR))
-#ifdef SFX_MPI    
+#ifdef SFX_MPI
     CALL MPI_BCAST(UG%XGRID_FULL_PAR,&
-      SIZE(UG%XGRID_FULL_PAR)*KIND(UG%XGRID_FULL_PAR)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)  
+      SIZE(UG%XGRID_FULL_PAR)*KIND(UG%XGRID_FULL_PAR)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
 #endif
   ENDIF
 ENDIF
@@ -143,11 +143,11 @@ SELECT CASE(HSURF)
   CASE('WG     ')
 
     CALL PGD_FIELD(DTCO, UG, U, USS, HPROGRAM,'HUG_SURF: relative humidity','NAT',CFILE_HUG_SURF,   &
-                        CTYPE_HUG,XUNDEF,ZFIELD(:,1))  
+                        CTYPE_HUG,XUNDEF,ZFIELD(:,1))
     CALL PGD_FIELD(DTCO, UG, U, USS, HPROGRAM,'HUG_ROOT: relative humidity','NAT',CFILE_HUG_ROOT,   &
-                        CTYPE_HUG,XUNDEF,ZFIELD(:,2))  
+                        CTYPE_HUG,XUNDEF,ZFIELD(:,2))
     CALL PGD_FIELD(DTCO, UG, U, USS, HPROGRAM,'HUG_DEEP: relative humidity','NAT',CFILE_HUG_DEEP,   &
-                        CTYPE_HUG,XUNDEF,ZFIELD(:,3))  
+                        CTYPE_HUG,XUNDEF,ZFIELD(:,3))
 
     ALLOCATE(PFIELD(IL,3,NVEGTYPE))
     DO JV=1,NVEGTYPE
@@ -161,11 +161,11 @@ SELECT CASE(HSURF)
   CASE('TG     ')
 
     CALL PGD_FIELD(DTCO, UG, U, USS, HPROGRAM,'TG_SURF: temperature','NAT',CFILE_TG_SURF,   &
-                        CTYPE_TG,XUNDEF,ZFIELD(:,1))  
+                        CTYPE_TG,XUNDEF,ZFIELD(:,1))
     CALL PGD_FIELD(DTCO, UG, U, USS, HPROGRAM,'TG_ROOT: temperature','NAT',CFILE_TG_ROOT,   &
-                        CTYPE_TG,XUNDEF,ZFIELD(:,2))  
+                        CTYPE_TG,XUNDEF,ZFIELD(:,2))
     CALL PGD_FIELD(DTCO, UG, U, USS, HPROGRAM,'TG_DEEP: temperature','NAT',CFILE_TG_DEEP,   &
-                        CTYPE_TG,XUNDEF,ZFIELD(:,3))  
+                        CTYPE_TG,XUNDEF,ZFIELD(:,3))
 
     ALLOCATE(PFIELD(IL,3,NVEGTYPE))
     DO JV=1,NVEGTYPE

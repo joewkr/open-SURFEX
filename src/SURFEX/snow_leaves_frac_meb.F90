@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################################################################
 SUBROUTINE SNOW_LEAVES_FRAC_MEB(PPSN, PPALPHAN,      &
@@ -12,13 +12,13 @@ SUBROUTINE SNOW_LEAVES_FRAC_MEB(PPSN, PPALPHAN,      &
                                           PDELTAVN, PMELTVN )
 !   ############################################################################
 !
-!!****  *SNOW_LEAVES_FRAC_MEB*  
+!!****  *SNOW_LEAVES_FRAC_MEB*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculate desnity, maximum snow load etc for intercepted snow
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -31,11 +31,11 @@ SUBROUTINE SNOW_LEAVES_FRAC_MEB(PPSN, PPALPHAN,      &
 !!    ------------------
 !!
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -71,7 +71,7 @@ REAL, DIMENSION(:), INTENT(IN)   :: PLAIV
 !                                     PLAIV      = canopy vegetation leaf area index
 !
 REAL, DIMENSION(:), INTENT(IN)   :: PCHIP, PTV
-!                                     PCHIP      = view factor (for LW) 
+!                                     PCHIP      = view factor (for LW)
 !                                     PTV        = Canopy T (K)
 !
 REAL, DIMENSION(:), INTENT(OUT)  :: PWRVNMAX
@@ -120,7 +120,7 @@ REAL, PARAMETER             :: ZMELTF        = 5.556E-6   ! Snow melt factor
 REAL, PARAMETER             :: ZLAI_MIN      = 0.001      ! (m2 m-2) Below this (numerical) threshold, interception
                                                           ! by the canopy is not assumed to occur
                                                           ! as canopy essentially buried.
-REAL, PARAMETER             :: ZRHOVN_TMAX   = 279.85403  ! (K) corresponds to a snow density of 
+REAL, PARAMETER             :: ZRHOVN_TMAX   = 279.85403  ! (K) corresponds to a snow density of
                                                           ! 750 kg m-3 (presumably the max).
                                                           ! Obtained by inverting the snow density Eq
                                                           ! for Tv below assuming a density of 750
@@ -145,7 +145,7 @@ PWRVNMAX(:) = 0.0
 ZLAI(:)     = PLAIV(:)*(1.-PPSN(:)+PPSN(:)*(1.-PPALPHAN(:)))
 !
 ! If snow buries the vegetation canopy (i.e. ZLAI~=0), we do not need the following:
-! 
+!
 WHERE(ZLAI(:) > ZLAI_MIN .AND. PLAIV(:)/=XUNDEF)
 !
 ! Snow density

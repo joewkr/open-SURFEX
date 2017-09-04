@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE AVERAGED_ALBEDO_EMIS_ISBA (IO, S, NK, NP, NPE, &
@@ -15,7 +15,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -37,7 +37,7 @@
 !!     A. Bogatchev 09/2005 EBA snow option
 !!     B. Decharme  2008    The fraction of vegetation covered by snow must be
 !                            <= to ZSNG
-!!     B. Decharme  2013    new coupling variable and optimization    
+!!     B. Decharme  2013    new coupling variable and optimization
 !!     P. Samuelsson 10/2014 MEB
 !----------------------------------------------------------------------------
 !
@@ -78,7 +78,7 @@ TYPE(ISBA_NP_t), INTENT(INOUT) :: NP
 TYPE(ISBA_NPE_t), INTENT(INOUT) :: NPE
 !
 REAL, DIMENSION(:,:),   INTENT(IN)   :: PTG1        ! soil surface temperature
-REAL, DIMENSION(:),     INTENT(IN)   :: PZENITH     
+REAL, DIMENSION(:),     INTENT(IN)   :: PZENITH
 REAL, DIMENSION(:),     INTENT(IN)   :: PSW_BANDS   ! middle wavelength of each band
 !
 REAL, DIMENSION(:,:),   INTENT(OUT)  :: PDIR_ALB    ! averaged direct albedo  (per wavelength)
@@ -99,9 +99,9 @@ TYPE(ISBA_K_t), POINTER :: KK
 TYPE(ISBA_P_t), POINTER :: PK
 TYPE(ISBA_PE_t), POINTER :: PEK
 !
-REAL, DIMENSION(SIZE(PZENITH),SIZE(PSW_BANDS),IO%NPATCH) :: ZDIR_ALB_PATCH 
+REAL, DIMENSION(SIZE(PZENITH),SIZE(PSW_BANDS),IO%NPATCH) :: ZDIR_ALB_PATCH
 !                                                     ! direct albedo
-REAL, DIMENSION(SIZE(PZENITH),SIZE(PSW_BANDS),IO%NPATCH) :: ZSCA_ALB_PATCH 
+REAL, DIMENSION(SIZE(PZENITH),SIZE(PSW_BANDS),IO%NPATCH) :: ZSCA_ALB_PATCH
 !                                                     ! diffuse albedo
 REAL, DIMENSION(SIZE(PZENITH),IO%NPATCH) :: ZEMIS_PATCH   ! emissivity with snow-flood
 REAL, DIMENSION(SIZE(PZENITH),IO%NPATCH) :: ZTSRAD_PATCH  ! Tsrad
@@ -109,7 +109,7 @@ REAL, DIMENSION(SIZE(PZENITH),IO%NPATCH) :: ZTSURF_PATCH  ! Tsurf
 REAL, DIMENSION(SIZE(PTG1,1)) :: ZEMIS         ! emissivity with flood
 !
 REAL, DIMENSION(SIZE(PTG1,1)) :: ZSNOWDEPTH    ! Total snow depth
-REAL, DIMENSION(SIZE(PTG1,1)) :: ZPALPHAN      ! Snow/canopy ratio factor 
+REAL, DIMENSION(SIZE(PTG1,1)) :: ZPALPHAN      ! Snow/canopy ratio factor
 REAL, DIMENSION(SIZE(PTG1,1)) :: ZLW_RAD       ! Fake downwelling LW rad
 REAL, DIMENSION(SIZE(PTG1,1)) :: ZLW_UP        ! Upwelling LW rad
 REAL, DIMENSION(SIZE(PTG1,1)) :: ZLWNET_N      ! LW net for snow surface
@@ -159,16 +159,16 @@ ENDDO
 !             -----------------------------------------------
 !
 DO JP = 1,IO%NPATCH
-  CALL ALBEDO(IO%CALBEDO, NPE%AL(JP) ) 
+  CALL ALBEDO(IO%CALBEDO, NPE%AL(JP) )
 ENDDO
 !
 !*    2.      averaged albedo and emis. on natural continental surfaces (with prognostic snow)
 !             ---------------------------------------------------------
 !
-! A dummy downwelling LW radiation can be used for calculation of radiative surface temp 
+! A dummy downwelling LW radiation can be used for calculation of radiative surface temp
 !
 ZLW_RAD(:) = 300.0
-!    
+!
 !* Initialization of albedo for each wavelength, emissivity and snow/flood fractions
 !
 DO JP = 1,IO%NPATCH
@@ -243,9 +243,9 @@ DO JP  =  1,IO%NPATCH
     ZEMIS(1:ISIZE) = PEK%XEMIS(:)
     !
     IF(IO%LFLOOD.AND.LEXPLICIT_SNOW)THEN
-      WHERE(PEK%XPSN(:)<1.0.AND.PEK%XEMIS(:)/=XUNDEF)          
+      WHERE(PEK%XPSN(:)<1.0.AND.PEK%XEMIS(:)/=XUNDEF)
         ZEMIS(1:ISIZE) = ((1.-KK%XFF(:)-PEK%XPSN(:))*PEK%XEMIS(:) + KK%XFF(:)*KK%XEMISF(:)) /(1.-PEK%XPSN(:))
-      ENDWHERE   
+      ENDWHERE
     ENDIF
     !
     IF (.NOT.LEXPLICIT_SNOW) THEN
@@ -256,7 +256,7 @@ DO JP  =  1,IO%NPATCH
         IF (PEK%XEMIS(JI)/=XUNDEF .AND. ZEMIS_PATCH(IMASK,JP)/=0.) THEN
           ZTSRAD_PATCH(IMASK,JP) =( ( (1.-PEK%XPSN(JI)) * ZEMIS(JI)*PTG1(JI,JP)**4            &
                                      +    PEK%XPSN(JI) *PEK%TSNOW%EMIS(JI)*PEK%TSNOW%TS(JI)**4 ) )**0.25  &
-                                 / ZEMIS_PATCH(IMASK,JP)**0.25  
+                                 / ZEMIS_PATCH(IMASK,JP)**0.25
         END IF
       ENDDO
     END IF
@@ -269,7 +269,7 @@ END DO
 !
  CALL AVERAGE_RAD(S%XPATCH,                                                  &
                   ZDIR_ALB_PATCH, ZSCA_ALB_PATCH, ZEMIS_PATCH, ZTSRAD_PATCH, &
-                  PDIR_ALB,       PSCA_ALB,       PEMIS,       PTSRAD        )  
+                  PDIR_ALB,       PSCA_ALB,       PEMIS,       PTSRAD        )
 !
 !* averaged effective temperature
 !

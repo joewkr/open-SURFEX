@@ -53,13 +53,13 @@
 #export F_FILEINF=yes     # or detail  # I/O measurement
 #
 export DR_HOOK=1
-export DR_HOOK_OPT=prof 
+export DR_HOOK_OPT=prof
 #
 set -x
 pwd
 #
 case $LOADL_STEP_NAME in
-step_1) 
+step_1)
   cd $TEMP
   #
   echo " copie des fichiers ecoclimap "
@@ -121,7 +121,7 @@ step_2)
   mv gmon.out   $TEMP/PROFILING/offline_gmon.out
   mv log* $TEMP/PROFILING
   #
-  for file in drhook.prof.* 
+  for file in drhook.prof.*
   do
   mv $file $TEMP/PROFILING/offline_$file
   done

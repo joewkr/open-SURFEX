@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INIT_IO_SURF_n (DTCO, U, HPROGRAM,HMASK,HSCHEME,HACTION,HNAME)
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    09/2003 
+!!      Original    09/2003
 !!      Modified    04/2004 by P. LeMoigne: add HACTION if ASCII mode selected
 !!      Modified    01/2009 by B. Decjharme: add HPROGRAM if FA mode selected
 !!      Modified    08/2015 by S. Senesi : handle XIOS output mode

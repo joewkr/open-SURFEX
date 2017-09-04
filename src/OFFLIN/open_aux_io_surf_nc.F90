@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################
       SUBROUTINE OPEN_AUX_IO_SURF_NC (&
@@ -42,7 +42,7 @@
 !
 !
 USE MODD_IO_SURF_NC,ONLY: NMASK,NFULL,CMASK, NLUOUT, &
-                            CFILEIN_NC, NID_NC, NFULL_AUX 
+                            CFILEIN_NC, NID_NC, NFULL_AUX
 USE MODI_GET_LUOUT
 USE MODI_READ_SURF
 !
@@ -65,7 +65,7 @@ IMPLICIT NONE
  CHARACTER(LEN=28), INTENT(IN)  :: HFILE     ! file name
  CHARACTER(LEN=6),  INTENT(IN)  :: HFILETYPE ! main program
  CHARACTER(LEN=6),  INTENT(IN)  :: HMASK
- CHARACTER(LEN=1), INTENT(IN) :: HDIR  
+ CHARACTER(LEN=1), INTENT(IN) :: HDIR
 !
 !*       0.2   Declarations of local variables
 !              -------------------------------

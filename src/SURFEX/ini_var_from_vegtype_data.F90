@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INI_VAR_FROM_VEGTYPE_DATA (DTCO, DTV, UG, U, &
@@ -12,7 +12,7 @@
 !!    interpol field with n pts
 !!
 !!    METHOD
-!!    ------ 
+!!    ------
 !!
 !!    EXTERNAL
 !!    --------
@@ -69,7 +69,7 @@ TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 INTEGER,                      INTENT(IN   ) :: ILUOUT
  CHARACTER(LEN=*),             INTENT(IN   ) :: HNAME
 REAL, DIMENSION(:,:),         INTENT(INOUT) :: PFIELD
-REAL, DIMENSION(:), OPTIONAL, INTENT(IN   ) :: PDEF 
+REAL, DIMENSION(:), OPTIONAL, INTENT(IN   ) :: PDEF
 !
 !*    0.2    Declaration of local variables
 !            ------------------------------
@@ -112,8 +112,8 @@ DO JVEGTYPE=1,IVEGTYPE
   ELSE
     CALL INTERPOL_FIELD(UG, U, &
                         HPROGRAM,ILUOUT,NSIZE_TOT,ZFIELD_TOT,HNAME)
-  ENDIF 
-  CALL PACK_SAME_RANK(IMASK,ZFIELD_TOT,PFIELD(:,JVEGTYPE))  
+  ENDIF
+  CALL PACK_SAME_RANK(IMASK,ZFIELD_TOT,PFIELD(:,JVEGTYPE))
 ENDDO
 !
 DEALLOCATE(IMASK)

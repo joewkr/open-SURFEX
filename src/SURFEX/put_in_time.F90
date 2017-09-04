@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE PUT_IN_TIME(HNAME,HTYPE,NTIME1,NTIME2,PDATA)
 
@@ -57,14 +57,14 @@ ELSEIF (NTIME1==2) THEN !2 values: winter and summer
     ENDDO
     DO JJ=10,12
       PDATA(:,JJ,:)=ZDATA(:,1,:) !from 21 september to 31 december
-    ENDDO          
+    ENDDO
   ELSE
     CALL ABOR1_SFX('PUT_IN_TIME: WITH NTIME1=2, NTIME2 MUST BE =36 OR =12 (WINTER AND SUMMER VALUES) '//&
-                   'PROBLEM VAR '//HNAME//''//HTYPE)          
+                   'PROBLEM VAR '//HNAME//''//HTYPE)
   ENDIF
 ELSE
   I1=NTIME2/NTIME1
-  I2=NTIME2/I1  
+  I2=NTIME2/I1
   IF (I2.NE.NTIME1)THEN
      WRITE(YTIME1,'(I2.2)')NTIME1
      WRITE(YTIME2,'(I2.2)')NTIME2

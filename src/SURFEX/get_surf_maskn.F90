@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #####################################################
       SUBROUTINE GET_SURF_MASK_n (DTCO, U, &
                                   HTYPE,KDIM,KMASK,KLU,KLUOUT)
 !     #####################################################
 !
-!!****  *GET_SURF_MASK_n* - routine to define the masks between all surface 
+!!****  *GET_SURF_MASK_n* - routine to define the masks between all surface
 !!    points and each of the four surface types
 !!
 !!    PURPOSE
@@ -62,7 +62,7 @@ TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 INTEGER, INTENT(IN)              :: KDIM     ! dimension of mask
 INTEGER, DIMENSION(KDIM), INTENT(OUT) :: KMASK    ! mask for reading of the files
 INTEGER, INTENT(INOUT)           :: KLU      ! expected physical size of full surface array
-INTEGER, INTENT(IN)              :: KLUOUT   ! output listing logical unit 
+INTEGER, INTENT(IN)              :: KLUOUT   ! output listing logical unit
 !
 !*       0.2   Declarations of local variables
 !              -------------------------------
@@ -127,7 +127,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('GET_SURF_MASK_N:GET_MASK',0,ZHOOK_HANDLE)
 !
 IF (YTYPE.NE.'FULL' .AND. YTYPE.NE.'EXTZON') THEN
-  !      
+  !
   IF (.NOT. ASSOCIATED(U%XSEA)) THEN
     CALL CONVERT_COVER_FRAC(DTCO, &
                             U%XCOVER,U%LCOVER,ZSEA,ZNATURE,ZTOWN,ZWATER)

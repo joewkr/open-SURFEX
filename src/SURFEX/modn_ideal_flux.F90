@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODN_IDEAL_FLUX
 !     ##################
 !
-!!****  *MODN_IDEAL_FLUX - declaration of keys for 
+!!****  *MODN_IDEAL_FLUX - declaration of keys for
 !!
 !!    PURPOSE
 !!    -------
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -32,8 +32,8 @@
 !
 USE MODD_IDEAL_FLUX, ONLY : NFORC_MAX, NFORCF, NFORCT, XSFTH_f=>XSFTH, XSFTQ_f=>XSFTQ, &
                             XSFCO2_f=>XSFCO2, CUSTARTYPE, XUSTAR_f=>XUSTAR, XZ0, XALB, &
-                            XEMIS, XTSRAD_t=>XTSRAD, XTIMEF_f=>XTIMEF, XTIMET_t=>XTIMET   
-  
+                            XEMIS, XTSRAD_t=>XTSRAD, XTIMEF_f=>XTIMEF, XTIMET_t=>XTIMET
+
 IMPLICIT NONE
 !
 REAL, DIMENSION(NFORC_MAX) :: XSFTH

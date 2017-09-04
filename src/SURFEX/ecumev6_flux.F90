@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE ECUMEV6_FLUX(PZ0SEA,PTA,PEXNA,PRHOA,PSST,PSSS,PEXNS,PQA,PVMOD, &
@@ -17,12 +17,12 @@
 !!
 !!    PURPOSE
 !!    -------
-!       Calculate the surface turbulent fluxes of heat, moisture, and momentum 
+!       Calculate the surface turbulent fluxes of heat, moisture, and momentum
 !       over sea surface + corrections due to rainfall & Webb effect.
 !!
 !!**  METHOD
 !!    ------
-!       The estimation of the transfer coefficients relies on the iterative 
+!       The estimation of the transfer coefficients relies on the iterative
 !       computation of the scaling parameters U*/Teta*/q*. The convergence is
 !       supposed to be reached in NITERFL iterations maximum.
 !       Neutral transfer coefficients for momentum/temperature/humidity
@@ -54,7 +54,7 @@
 !!      Modified        09/2012  B. Decharme: CD correction
 !!      Modified        09/2012  B. Decharme: limitation of Ri in surface_ri.F90
 !!      Modified        10/2012  P. Le Moigne: extra inputs for FLake use
-!!      Modified        06/2013  B. Decharme: bug in z0 (output) computation 
+!!      Modified        06/2013  B. Decharme: bug in z0 (output) computation
 !!      Modified        12/2013  S. Belamari: ZRF computation updated:
 !!                                1. ZP00/PPA in ZDWAT, ZLVA in ZDQSDT/ZBULB/ZRF
 !!                                2. ZDWAT/ZDTMP in ZBULB/ZRF (Gosnell et al 95)
@@ -542,7 +542,7 @@ IF (OPRECIP) THEN
 !       5.2. Sensible heat flux due to rainfall (ZRF, W/m2)
 !
 ! See Eq.12 in GoF95 with ZCPWA as specific heat of water at atm level (J/kg/K),
-! ZDQSDT from Clausius-Clapeyron relation, ZDWAT as water vapor diffusivity 
+! ZDQSDT from Clausius-Clapeyron relation, ZDWAT as water vapor diffusivity
 ! (Eq.13-3 of Pruppacher and Klett, 1978), ZDTMP as heat diffusivity, and ZBULB
 ! as wet-bulb factor (Eq.11 in GoF95).
 !
@@ -577,7 +577,7 @@ ENDIF
 !
 !-------------------------------------------------------------------------------
 !
-!       7.   FINAL STEP : TOTAL SURFACE FLUXES AND DERIVED DIAGNOSTICS. 
+!       7.   FINAL STEP : TOTAL SURFACE FLUXES AND DERIVED DIAGNOSTICS.
 !       ---------------------------------------------------------------
 !
 !       7.1. Richardson number

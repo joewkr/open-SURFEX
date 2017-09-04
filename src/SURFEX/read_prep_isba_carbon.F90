@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PREP_ISBA_CARBON(HPROGRAM,HRESPSL)
 !     #######################################################
 !
-!!****  *READ_PREP_ISBA_CARBON* - routine to read the configuration for soil 
+!!****  *READ_PREP_ISBA_CARBON* - routine to read the configuration for soil
 !!                              carbon in ISBA fields preparation
 !!
 !!    PURPOSE
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    03/2009 
+!!      Original    03/2009
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -82,9 +82,9 @@ NAMELIST/NAM_PREP_ISBA_CARBON/CRESPSL
 IF (LHOOK) CALL DR_HOOK('READ_PREP_ISBA_CARBON',0,ZHOOK_HANDLE)
 !
 IF (LNAM_READ) THEN
- !   
+ !
  CRESPSL = 'DEF'
- ! 
+ !
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
  CALL OPEN_NAMELIST(HPROGRAM,ILUNAM)
  !

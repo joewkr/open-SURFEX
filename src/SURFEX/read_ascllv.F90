@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_ASCLLV (UG, U, USS, &
                               HPROGRAM,HSUBROUTINE,HFILENAME)
 !     ##############################################################
 !
-!!**** *READ_ASCLLV* reads a binary latlonvalue file and call treatment 
+!!**** *READ_ASCLLV* reads a binary latlonvalue file and call treatment
 !!                   subroutine
 !!
 !!    PURPOSE
@@ -138,9 +138,9 @@ DO
     !
     !*    5.     Call to the adequate subroutine (point by point treatment)
     !            ----------------------------------------------------------
-    !     
+    !
     CALL PT_BY_PT_TREATMENT(UG, U, USS, ILUOUT, &
-            ZLAT(1:ICPT), ZLON(1:ICPT), ZVALUE(1:ICPT), HSUBROUTINE    )  
+            ZLAT(1:ICPT), ZLON(1:ICPT), ZVALUE(1:ICPT), HSUBROUTINE    )
     !
     ICPT = 0
     ZLAT  (:) = 0.

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE AVERAGE1_MESH(UG,KLUOUT,KNBLINES,PLAT,PLON,PVALUE,OMULTITYPE,KFACT,PNODATA)
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -88,7 +88,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !*    1.     Get position
 !            ------------
-! 
+!
 IF (LHOOK) CALL DR_HOOK('AVERAGE1_MESH',0,ZHOOK_HANDLE)
 !
 ! to calculate the mesh indexes only where pvalue /= pnodata
@@ -106,7 +106,7 @@ IF (.NOT.PRESENT(PNODATA)) ZVALUE(:) = PVALUE(:)
 !
 !*    2.     Loop on all input data points
 !            -----------------------------
-! 
+!
 DO JOV = 1, NOVMX
   !
   bloop: &
@@ -116,7 +116,7 @@ DO JOV = 1, NOVMX
 !            -----------------
 !
     IDX = IINDEX(JOV,JL)
- 
+
     IF (IDX==0) CYCLE bloop
 !
 !*    4.     Summation

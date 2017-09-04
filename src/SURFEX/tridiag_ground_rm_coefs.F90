@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE TRIDIAG_GROUND_RM_COEFS(PTSTEP,PDEPTH,PTEMP,PHEATCAP,PCONDTRM,              &
      PSOURCE,PTDEEP_A,PTDEEP_B,PCONDA_DELZ,PA_COEF,PB_COEF)
 !
 !
-!!****  *TRIDIAG_GROUND_RM_COEF*  
+!!****  *TRIDIAG_GROUND_RM_COEF*
 !!
 !!    PURPOSE
 !!    -------
@@ -21,8 +21,8 @@ SUBROUTINE TRIDIAG_GROUND_RM_COEFS(PTSTEP,PDEPTH,PTEMP,PHEATCAP,PCONDTRM,       
 !     This routine is used to
 !     eliminate T2(t+dt) (sub-surface T at time t+dt) from an energy balance Eq (where T1=Tsfc)
 !     NOTE the solution is computed from TRIDIAG_GROUND_RM_SOLN.F90
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -32,9 +32,9 @@ SUBROUTINE TRIDIAG_GROUND_RM_COEFS(PTSTEP,PDEPTH,PTEMP,PHEATCAP,PCONDTRM,       
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !
@@ -48,7 +48,7 @@ SUBROUTINE TRIDIAG_GROUND_RM_COEFS(PTSTEP,PDEPTH,PTEMP,PHEATCAP,PCONDTRM,       
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    21/03/11 
+!!      Original    21/03/11
 !!      Modif       23/02/12 A. Boone: Optimization
 !!      Modif       03/2013  A. Boone: MEB
 !!      Modif       06/2013  A. Boone: use TN=B+A FN form for lower BC
@@ -69,7 +69,7 @@ IMPLICIT NONE
 !
 REAL,                 INTENT(IN)  :: PTSTEP        ! time-step                         (s)
 REAL, DIMENSION(:,:), INTENT(IN)  :: PDEPTH        ! soil layer depth                  (m)
-REAL, DIMENSION(:,:), INTENT(IN)  :: PTEMP         ! surface and sub-surface soil 
+REAL, DIMENSION(:,:), INTENT(IN)  :: PTEMP         ! surface and sub-surface soil
 !                                                  ! temperature profile               (K)
 REAL, DIMENSION(:,:), INTENT(IN)  :: PHEATCAP      ! soil heat capacity                (J/K/m3)
 REAL, DIMENSION(:,:), INTENT(IN)  :: PCONDTRM      ! soil thermal conductivity         (W/m/K)
@@ -87,8 +87,8 @@ REAL, DIMENSION(:),   INTENT(IN)  :: PTDEEP_A, PTDEEP_B
 !                                                  ! Tdeep = PTDEEP_B + PTDEEP_A * PDEEP_FLUX
 !                                                  ! (with PDEEP_FLUX in W/m2)
 !
-REAL, DIMENSION(:),   INTENT(OUT) :: PCONDA_DELZ   ! ratio: ground flux thermal 
-                                                   ! conductivity/ 
+REAL, DIMENSION(:),   INTENT(OUT) :: PCONDA_DELZ   ! ratio: ground flux thermal
+                                                   ! conductivity/
                                                    ! ground flux thickness             (W/m2/K)
 REAL, DIMENSION(:,:), INTENT(OUT) :: PA_COEF       ! RM67 A-soil coefficient           (-)
 REAL, DIMENSION(:,:), INTENT(OUT) :: PB_COEF       ! RM67 B-soil coefficient           (K)
@@ -100,12 +100,12 @@ INTEGER                                        :: JJ, JI, INL, INI
 REAL, DIMENSION(SIZE(PDEPTH,1),SIZE(PDEPTH,2)) :: ZD_G             ! soil layer thicknesses             (m)
 REAL, DIMENSION(SIZE(PDEPTH,1),SIZE(PDEPTH,2)) :: ZDLZ             ! thickness between layer mid_points (m)
 REAL, DIMENSION(SIZE(PDEPTH,1),SIZE(PDEPTH,2)) :: ZLAMBDA          ! ratio of thermal cond to dz        (W/m2/K)
-REAL, DIMENSION(SIZE(PDEPTH,1),SIZE(PDEPTH,2)) :: ZGHEATCAP        ! effective heat capacity         
+REAL, DIMENSION(SIZE(PDEPTH,1),SIZE(PDEPTH,2)) :: ZGHEATCAP        ! effective heat capacity
 !                                                                  ! coefficient                        (J/K/m2)
-REAL, DIMENSION(SIZE(PDEPTH,1),SIZE(PDEPTH,2)) :: ZTHRM            ! interfacial therm. cond.           (W/m/K) 
+REAL, DIMENSION(SIZE(PDEPTH,1),SIZE(PDEPTH,2)) :: ZTHRM            ! interfacial therm. cond.           (W/m/K)
 REAL, DIMENSION(SIZE(PDEPTH,1))                :: ZC_COEF          ! working denominator for coefs
 REAL, DIMENSION(SIZE(PDEPTH,1))                :: ZA_COEFD         !
-REAL, DIMENSION(SIZE(PDEPTH,1))                :: ZB_COEFD         ! 
+REAL, DIMENSION(SIZE(PDEPTH,1))                :: ZB_COEFD         !
 REAL, DIMENSION(SIZE(PDEPTH,1),SIZE(PDEPTH,2)) :: ZSINK            ! sink term (can be input)
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -134,7 +134,7 @@ INL              = SIZE(PDEPTH,2)
 ZD_G(:,1)         = PDEPTH(:,1)
 DO JJ=2,INL
    DO JI=1,INI
-      ZD_G(JI,JJ) = PDEPTH(JI,JJ) - PDEPTH(JI,JJ-1)  
+      ZD_G(JI,JJ) = PDEPTH(JI,JJ) - PDEPTH(JI,JJ-1)
    ENDDO
 ENDDO
 ZD_G(:,:)         = MAX(ZDZ_MIN, ZD_G(:,:)) ! just for numerical reasons
@@ -161,10 +161,10 @@ DO JJ=1,INL-1
                      (ZD_G(JI,JJ)  /PCONDTRM(JI,JJ)  ))
    ENDDO
 ENDDO
-ZTHRM(:,INL)        = PCONDTRM(:,INL) 
+ZTHRM(:,INL)        = PCONDTRM(:,INL)
 !
 !
-! Energy sink: 
+! Energy sink:
 ! NOTE for now, set this part to zero as accounted for elsewhere.
 !!!ZSINK(:,:)       = -PPHASE(:,:)*PTSTEP/ZGHEATCAP(:,:)
 !
@@ -203,8 +203,8 @@ WHERE(PTDEEP_B(:) == XUNDEF) ! no flux at model base
 
    ZA_COEFD(:)    = XUNDEF
    ZB_COEFD(:)    = XUNDEF
-   
-ELSEWHERE 
+
+ELSEWHERE
 
 ! corresponds to Dirichlet or Neumann type lower BC (non-zero flux)
 
@@ -235,7 +235,7 @@ DO JJ=INL-1,2,-1
 ENDDO
 !
 ! NOTE: uppermost coefficients have been kept at
-!       zero (initial value)/not computed as they're 
+!       zero (initial value)/not computed as they're
 !       not used in computations (implicit in surface E budget
 !       computed elsewhere)
 !

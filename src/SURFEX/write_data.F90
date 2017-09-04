@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
       SUBROUTINE WRITE_DATA(HPROGRAM)
@@ -46,7 +46,7 @@ USE MODD_DATA_COVER,     ONLY : XDATA_TOWN, XDATA_NATURE, XDATA_SEA, XDATA_WATER
                                   XDATA_LAI, XDATA_VEGTYPE, XDATA_H_TREE,           &
                                   XDATA_GROUND_DEPTH, XDATA_ROOT_DEPTH,             &
                                   TDATA_SEED, TDATA_REAP, XDATA_WATSUP, XDATA_IRRIG,&
-                                  XDATA_LAI_ALL_YEARS  
+                                  XDATA_LAI_ALL_YEARS
 USE MODD_DATA_COVER_PAR, ONLY : CNAMES, NVEGTYPE
 !
 
@@ -85,7 +85,7 @@ IF (NVT_IRR/=0) THEN
   CNVT(2) =  "NVT_ROCK"      ! no vegetation (rocks)
   CNVT(3) =  "NVT_SNOW"      ! permanent snow and ice
   CNVT(4) =  "NVT_TEBD"      ! temperate broadleaf deciduous trees
-  CNVT(5) =  "NVT_BONE"      ! boreal needleleaf evergreen trees 
+  CNVT(5) =  "NVT_BONE"      ! boreal needleleaf evergreen trees
   CNVT(6) =  "NVT_TRBE"      ! tropical broadleaf evergreen trees
   CNVT(7) =  "NVT_C3  "      ! C3 cultures types
   CNVT(8) =  "NVT_C4  "      ! C4 cultures types
@@ -110,7 +110,7 @@ ELSE
   CNVT(6) =  "NVT_TRBD"      ! tropical  broadleaf  deciduous trees
   CNVT(7) =  "NVT_TEBE"      ! temperate broadleaf  evergreen trees
   CNVT(8) =  "NVT_TRBE"      ! tropical broadleaf evergreen trees
-  CNVT(9) =  "NVT_BONE"      ! boreal needleleaf evergreen trees 
+  CNVT(9) =  "NVT_BONE"      ! boreal needleleaf evergreen trees
   CNVT(10)=  "NVT_TENE"      ! temperate needleleaf evergreen trees
   CNVT(11)=  "NVT_BOND"      ! boreal    needleleaf deciduous trees
   CNVT(12)=  "NVT_GRAS"      ! temperate grassland C3
@@ -142,11 +142,11 @@ DO JK=1,19
   IF (XDATA_VEGTYPE(JCOVER,JK)==0.) CYCLE
   IF (ALL(XDATA_LAI_ALL_YEARS(JCOVER,:,JK)==0.)) THEN
     WRITE(*,FMT='(A29,A8,A5)') &
-           'XDATA_LAI_ALL_YEARS(ICOVER,:,',CNVT(JK),')= 0.'  
+           'XDATA_LAI_ALL_YEARS(ICOVER,:,',CNVT(JK),')= 0.'
     CYCLE
   END IF
   WRITE(*,FMT='(A29,A8,A7)') &
-           'XDATA_LAI_ALL_YEARS(ICOVER,:,',CNVT(JK),')= (/ &'  
+           'XDATA_LAI_ALL_YEARS(ICOVER,:,',CNVT(JK),')= (/ &'
   DO JDEC=1,18
     CF=', '
     IF (JDEC==18) CF='  '
@@ -162,7 +162,7 @@ DO JK=1,19
          MAX(XDATA_LAI_ALL_YEARS(JCOVER,(JDEC-1)*12+9,JK),0.1),', ', &
          MAX(XDATA_LAI_ALL_YEARS(JCOVER,(JDEC-1)*12+10,JK),0.1),', ', &
          MAX(XDATA_LAI_ALL_YEARS(JCOVER,(JDEC-1)*12+11,JK),0.1),', ', &
-         MAX(XDATA_LAI_ALL_YEARS(JCOVER,(JDEC-1)*12+12,JK),0.1),CF,'&'   
+         MAX(XDATA_LAI_ALL_YEARS(JCOVER,(JDEC-1)*12+12,JK),0.1),CF,'&'
   END DO
   WRITE(*,FMT='(A7)') '     /)'
 END DO
@@ -170,40 +170,40 @@ WRITE(*,FMT='(A1)') '!'
 DO JK=1,19
   IF (XDATA_VEGTYPE(JCOVER,JK)==0.) CYCLE
   WRITE(*,FMT='(A21,A8,A3,F4.2)') &
-           'XDATA_VEGTYPE(ICOVER,',CNVT(JK),')= ',XDATA_VEGTYPE(JCOVER,JK)  
+           'XDATA_VEGTYPE(ICOVER,',CNVT(JK),')= ',XDATA_VEGTYPE(JCOVER,JK)
 END DO
 WRITE(*,FMT='(A1)') '!'
 DO JK=4,6
   IF (XDATA_VEGTYPE(JCOVER,JK)==0.) CYCLE
   WRITE(*,FMT='(A20,A8,A3,F4.1)') &
-           'XDATA_H_TREE(ICOVER,',CNVT(JK),')= ',XDATA_H_TREE(JCOVER,JK)  
+           'XDATA_H_TREE(ICOVER,',CNVT(JK),')= ',XDATA_H_TREE(JCOVER,JK)
 END DO
 WRITE(*,FMT='(A1)') '!'
 DO JK=1,19
   IF (XDATA_VEGTYPE(JCOVER,JK)==0.) CYCLE
   WRITE(*,FMT='(A24,A8,A3,F4.1)') &
-           'XDATA_ROOT_DEPTH(ICOVER,',CNVT(JK),')= ',XDATA_ROOT_DEPTH(JCOVER,JK)  
+           'XDATA_ROOT_DEPTH(ICOVER,',CNVT(JK),')= ',XDATA_ROOT_DEPTH(JCOVER,JK)
 END DO
 WRITE(*,FMT='(A1)') '!'
 DO JK=1,19
   IF (XDATA_VEGTYPE(JCOVER,JK)==0.) CYCLE
   WRITE(*,FMT='(A26,A8,A3,F4.1)') &
-           'XDATA_GROUND_DEPTH(ICOVER,',CNVT(JK),')= ',XDATA_GROUND_DEPTH(JCOVER,JK)  
+           'XDATA_GROUND_DEPTH(ICOVER,',CNVT(JK),')= ',XDATA_GROUND_DEPTH(JCOVER,JK)
 END DO
 WRITE(*,FMT='(A1)') '!'
 IF (XDATA_VEGTYPE(JCOVER,9)/=0.) THEN
   WRITE(*,FMT='(A18,A8,A15,I2.2)') &
-          'TDATA_SEED(ICOVER,',CNVT(9),')%TDATE%MONTH= ',TDATA_SEED(JCOVER,9)%TDATE%MONTH  
+          'TDATA_SEED(ICOVER,',CNVT(9),')%TDATE%MONTH= ',TDATA_SEED(JCOVER,9)%TDATE%MONTH
   WRITE(*,FMT='(A18,A8,A15,I2.2)') &
-          'TDATA_SEED(ICOVER,',CNVT(9),')%TDATE%DAY  = ',TDATA_SEED(JCOVER,9)%TDATE%DAY  
+          'TDATA_SEED(ICOVER,',CNVT(9),')%TDATE%DAY  = ',TDATA_SEED(JCOVER,9)%TDATE%DAY
   WRITE(*,FMT='(A18,A8,A15,I2.2)') &
-          'TDATA_REAP(ICOVER,',CNVT(9),')%TDATE%MONTH= ',TDATA_REAP(JCOVER,9)%TDATE%MONTH  
+          'TDATA_REAP(ICOVER,',CNVT(9),')%TDATE%MONTH= ',TDATA_REAP(JCOVER,9)%TDATE%MONTH
   WRITE(*,FMT='(A18,A8,A15,I2.2)') &
-          'TDATA_REAP(ICOVER,',CNVT(9),')%TDATE%DAY  = ',TDATA_REAP(JCOVER,9)%TDATE%DAY  
+          'TDATA_REAP(ICOVER,',CNVT(9),')%TDATE%DAY  = ',TDATA_REAP(JCOVER,9)%TDATE%DAY
   WRITE(*,FMT='(A20,A8,A3,F4.1)') &
-           'XDATA_WATSUP(ICOVER,',CNVT(9),')= ',XDATA_WATSUP(JCOVER,9)  
+           'XDATA_WATSUP(ICOVER,',CNVT(9),')= ',XDATA_WATSUP(JCOVER,9)
   WRITE(*,FMT='(A20,A8,A3,F4.1)') &
-           'XDATA_IRRIG (ICOVER,',CNVT(9),')= ',XDATA_IRRIG (JCOVER,9)  
+           'XDATA_IRRIG (ICOVER,',CNVT(9),')= ',XDATA_IRRIG (JCOVER,9)
 END IF
 WRITE(*,FMT='(A20,I3.3)') 'END SUBROUTINE COVER',JCOVER
 END DO

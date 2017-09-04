@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 
 MODULE MODE_READ_SURF_COV
@@ -77,7 +77,7 @@ INTEGER, DIMENSION(SIZE(PFIELD,2)) :: IMASK
  CHARACTER(LEN=16)  :: YREC
  CHARACTER(LEN=1)   :: YDIR
  CHARACTER(LEN=4)  :: YLVL
-INTEGER :: IFLAG 
+INTEGER :: IFLAG
 INTEGER            :: IPIO_SAVE, IPAS, JP, IDEB, IFIN, JJ
 INTEGER            :: JCOVER, JPROC, IPROC
 INTEGER            :: IL1, IL2, IDX_SAVE, IDX, IVAL
@@ -205,13 +205,13 @@ ELSE
         !
         !reads one cover by task
         !
-        !number of the I/O task for this read 
+        !number of the I/O task for this read
         NPIO = NRANK
         !
         !reading of the whol cover (HDIR='A')
         CALL READ_SURF(HPROGRAM,YREC,ZFIELD,KRESP,YCOMMENT,'A')
         !
-        !NPIO rebecomes the I/O task 
+        !NPIO rebecomes the I/O task
         NPIO = IPIO_SAVE
         !
         IDX = IDX_SAVE + JP
@@ -224,7 +224,7 @@ ELSE
           !
           !NPIO needs to know all covers read
           IF (NRANK/=NPIO) THEN
-            IDX = IDX + 1 
+            IDX = IDX + 1
 #ifdef SFX_MPI
             CALL MPI_SEND(ZFIELD,SIZE(ZFIELD)*KIND(ZFIELD)/4,MPI_REAL,NPIO,IDX,NCOMM,INFOMPI)
 #endif
@@ -235,7 +235,7 @@ ELSE
         ELSE
           CALL ABOR1_SFX("READ_SURFX2COV:HDIR MUST BE H OR A OR E")
         ENDIF
-        !   
+        !
       ENDIF
       !
     ENDIF
@@ -261,13 +261,13 @@ IF (LHOOK) CALL DR_HOOK('READ_SURF_COV_4',0,ZHOOK_HANDLE_OMP)
             ITREQ(JPROC+1) = JPROC+1
           ELSE
             ITREQ(JPROC+1) = JPROC
-          ENDIF    
-          !     
+          ENDIF
+          !
           IF (JPROC/=NRANK) THEN
             IDX = IDX_SAVE + JP + 1
-            !each task receives the part of the cover read that concerns it 
+            !each task receives the part of the cover read that concerns it
             !only NPIO in cas of HDIR/=H
-#ifdef SFX_MPI            
+#ifdef SFX_MPI
             CALL MPI_RECV(ZWORKR(:,ITREQ(JPROC+1)),SIZE(ZWORKR,1)*KIND(ZWORKR)/4,&
                           MPI_REAL,JPROC,IDX,NCOMM,ISTATUS,INFOMPI)
 #endif
@@ -280,7 +280,7 @@ IF (LHOOK) CALL DR_HOOK('READ_SURF_COV_4',0,ZHOOK_HANDLE_OMP)
 !$OMP END DO
 #endif
 IF (LHOOK) CALL DR_HOOK('READ_SURF_COV_4',1,ZHOOK_HANDLE_OMP)
-!$OMP END PARALLEL 
+!$OMP END PARALLEL
 
 !
       IF (LHOOK) CALL DR_HOOK('READ_SURF_COV_5',0,ZHOOK_HANDLE)
@@ -325,7 +325,7 @@ IF (LHOOK) CALL DR_HOOK('READ_SURF_COV_6',1,ZHOOK_HANDLE_OMP)
   DEALLOCATE(ZWORKR)
   DEALLOCATE(ZFIELD)
   IMASKF=>NULL()
-  !  
+  !
   IF (LHOOK) CALL DR_HOOK('READ_SURF_COV_7',1,ZHOOK_HANDLE)
   !
 ENDIF

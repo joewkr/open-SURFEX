@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_PGD_TEB_PAR_n (BDD, DTB, DTGD, DTGR, DTT, HSELECT, &
@@ -8,7 +8,7 @@
 !     ################################################
 !
 !!****  *WRITESURF_PGD_TEB_PAR_n* - reads ISBA physiographic fields
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -696,7 +696,7 @@ IF (TOP%CBEM .EQ. 'BEM') THEN
     YCOMMENT='X_Y_'//YRECFM//' (-)'
     CALL WRITE_SURF(HSELECT, &
                  HPROGRAM,YRECFM,DTB%XPAR_SHGC_SH,IRESP,YCOMMENT)
-  ENDIF  
+  ENDIF
   !
   YRECFM='L_FLOOR_HEIG'
   YCOMMENT=YRECFM
@@ -862,7 +862,7 @@ IF (TOP%CBEM .EQ. 'BEM') THEN
     CALL WRITE_SURF(HSELECT, &
                  HPROGRAM,YRECFM,DTB%XPAR_NATVENT,IRESP,YCOMMENT)
   ENDIF
-  !  
+  !
 ENDIF
 !
 ! Flag for data for gardens
@@ -977,7 +977,7 @@ IF (TOP%LGREENROOF .AND. GRO%LPAR) THEN
     CALL WRITE_SURF(HSELECT, &
                  HPROGRAM,YRECFM,DTGR%XPAR_LAI(:,JTIME,1),IRESP,HCOMMENT=YCOMMENT)
   END DO
-! 
+!
 ENDIF
 !-------------------------------------------------------------------------------
 !

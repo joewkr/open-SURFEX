@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_CPL_GCM_n (HSELECT, U, HPROGRAM)
@@ -11,9 +11,9 @@
 !!
 !!    PURPOSE
 !!    -------
-!!       The purpose of this routine is to store the 
-!!       physical fields into the restart file . Indeed, 
-!!       when ARPEGE/ALADIN is used, theses fields 
+!!       The purpose of this routine is to store the
+!!       physical fields into the restart file . Indeed,
+!!       when ARPEGE/ALADIN is used, theses fields
 !!       are not initialized at the begin of a run.
 !!
 !!
@@ -22,7 +22,7 @@
 !!
 !!    EXTERNAL
 !!    --------
-!!      
+!!
 !!
 !!
 !!    IMPLICIT ARGUMENTS

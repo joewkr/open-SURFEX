@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CH_INIT_DEP_ISBA_n (CHI, NCHI, NP, DTCO, KPATCH, OCOVER, PCOVER, &
@@ -20,7 +20,7 @@
 !!    and a surface mixing ratio for each species:
 !!    Flux = v_exchange * ( C(first model level) )
 !!    Exchange velocity and surface concentration will be read from
-!!    the general purpose input file, or, 
+!!    the general purpose input file, or,
 !!    if CCH_DRY_DEP = "WES89", the Wesley method will be used
 !!    to calculate the dry deposition velocities. The wesely code
 !!    has been separate into four subroutines: ch_teb_depn.f90 for town area;
@@ -51,13 +51,13 @@
 !!    05/08/96 (K. Suhre) restructured
 !!    19/02/98 (P. Tulet) add explicit dry deposition for chemical species
 !!    11/08/98 (N. Asencio) add parallel code
-!!    29/03/99 (K. Suhre) add IKB = MIN(2,SIZE(PSVT,3)) 
+!!    29/03/99 (K. Suhre) add IKB = MIN(2,SIZE(PSVT,3))
 !!                        so that this subroutine can be called by the box model
 !!    16/01/01 (P. Tulet) restructured
-!!    18/01/01 (P. Tulet) add patch vegetative class, town and water/sea 
-!!                        for friction velocity and aerodynamical resistance 
+!!    18/01/01 (P. Tulet) add patch vegetative class, town and water/sea
+!!                        for friction velocity and aerodynamical resistance
 !!    18/07/03 (P. Tulet) surface externalisation
-!!    
+!!
 !!
 !!    EXTERNAL
 !!    --------
@@ -71,7 +71,7 @@ USE MODI_CH_OPEN_INPUTB  ! open the general purpose ASCII input file
 USE MODI_CONVERT_COVER_CH_ISBA
 !
 USE MODD_CH_ISBA,        ONLY: XRCCLAYSO2, XRCCLAYO3, XRCSANDSO2, XRCSANDO3, &
-                                 XRCSNOWSO2, XRCSNOWO3, XLANDREXT  
+                                 XRCSNOWSO2, XRCSNOWO3, XLANDREXT
 USE MODD_CH_SURF
 USE MODD_SURF_PAR,       ONLY : XUNDEF
 !!
@@ -104,13 +104,13 @@ INTEGER,                         INTENT(IN)  :: KLU      ! number of points
 !
 !*      0.2    declarations of local variables
 !
- CHARACTER(LEN=40) :: YFORMAT    
+ CHARACTER(LEN=40) :: YFORMAT
 ! format for input
  CHARACTER(LEN=40) :: YOUTFORMAT = '(A32,2E15.5)'
 ! format for output
 INTEGER :: IRESIS         ! number of chemical reactivity factor to be read
  CHARACTER(LEN=40), DIMENSION(:), ALLOCATABLE :: YRESISNAME !resistance name
-REAL             , DIMENSION(:), ALLOCATABLE :: ZRESISVAL 
+REAL             , DIMENSION(:), ALLOCATABLE :: ZRESISVAL
 ! chemical reactivity factor value
 !
 INTEGER :: JI, JNREAL, JP ! loop control variables
@@ -120,7 +120,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
   !
   !        1. Default values
-  !        
+  !
   IF (LHOOK) CALL DR_HOOK('CH_INIT_DEP_ISBA_N',0,ZHOOK_HANDLE)
   XRCCLAYSO2 = XUNDEF
   XRCCLAYO3  = XUNDEF
@@ -156,7 +156,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
     !
     ! open input file
     WRITE(KLUOUT,*) &
-           "CH_INIT_DEP_ISBA_n: reading  reactivity factor "  
+           "CH_INIT_DEP_ISBA_n: reading  reactivity factor "
     CALL CH_OPEN_INPUTB("SURF_RES", KCH, KLUOUT)
     !
     ! read number of input surface resistance IRESIS
@@ -171,7 +171,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
     ALLOCATE(YRESISNAME(IRESIS))
     ALLOCATE(ZRESISVAL(IRESIS))
     !
-    ! read reactivity factor 
+    ! read reactivity factor
     DO JI = 1, IRESIS
       READ(KCH,YFORMAT) YRESISNAME(JI), ZRESISVAL(JI)
       WRITE(KLUOUT,YFORMAT) YRESISNAME(JI), ZRESISVAL(JI)
@@ -179,13 +179,13 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
     ! close file
     DO JNREAL = 1, IRESIS
-      IF ('LANDREXT'== YRESISNAME(JNREAL) (1:8)) XLANDREXT = ZRESISVAL(JNREAL) 
+      IF ('LANDREXT'== YRESISNAME(JNREAL) (1:8)) XLANDREXT = ZRESISVAL(JNREAL)
       IF ('RCSANDSO2'== YRESISNAME(JNREAL) (1:9)) XRCSANDSO2 = ZRESISVAL(JNREAL)
-      IF ('RCSANDO3'== YRESISNAME(JNREAL) (1:8)) XRCSANDO3  = ZRESISVAL(JNREAL) 
+      IF ('RCSANDO3'== YRESISNAME(JNREAL) (1:8)) XRCSANDO3  = ZRESISVAL(JNREAL)
       IF ('RCCLAYSO2'== YRESISNAME(JNREAL) (1:9)) XRCCLAYSO2 = ZRESISVAL(JNREAL)
-      IF ('RCCLAYO3'== YRESISNAME(JNREAL) (1:8)) XRCCLAYO3  = ZRESISVAL(JNREAL) 
+      IF ('RCCLAYO3'== YRESISNAME(JNREAL) (1:8)) XRCCLAYO3  = ZRESISVAL(JNREAL)
       IF ('RCSNOWSO2'== YRESISNAME(JNREAL) (1:9)) XRCSNOWSO2 = ZRESISVAL(JNREAL)
-      IF ('RCSNOWO3'== YRESISNAME(JNREAL) (1:8)) XRCSNOWO3  = ZRESISVAL(JNREAL) 
+      IF ('RCSNOWO3'== YRESISNAME(JNREAL) (1:8)) XRCSNOWO3  = ZRESISVAL(JNREAL)
     END DO
     !
       WRITE(KLUOUT,'(A)') '----------------------------------------------------'
@@ -193,13 +193,13 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
       WRITE(KLUOUT,'(A)') 'surface resistances (s/m)'
       WRITE(KLUOUT,'(I4)') 7
       WRITE(KLUOUT,'(A)') YOUTFORMAT
-      WRITE(KLUOUT,YOUTFORMAT) 'LANDREXT',   XLANDREXT 
-      WRITE(KLUOUT,YOUTFORMAT) 'RCSANDSO2',  XRCSANDSO2 
-      WRITE(KLUOUT,YOUTFORMAT) 'RCSANDO3',   XRCSANDO3  
-      WRITE(KLUOUT,YOUTFORMAT) 'RCCLAYSO2',  XRCCLAYSO2 
-      WRITE(KLUOUT,YOUTFORMAT) 'RCCLAYO3',   XRCCLAYO3  
-      WRITE(KLUOUT,YOUTFORMAT) 'RCSNOWSO2',  XRCSNOWSO2 
-      WRITE(KLUOUT,YOUTFORMAT) 'RCSNOWO3',   XRCSNOWO3  
+      WRITE(KLUOUT,YOUTFORMAT) 'LANDREXT',   XLANDREXT
+      WRITE(KLUOUT,YOUTFORMAT) 'RCSANDSO2',  XRCSANDSO2
+      WRITE(KLUOUT,YOUTFORMAT) 'RCSANDO3',   XRCSANDO3
+      WRITE(KLUOUT,YOUTFORMAT) 'RCCLAYSO2',  XRCCLAYSO2
+      WRITE(KLUOUT,YOUTFORMAT) 'RCCLAYO3',   XRCCLAYO3
+      WRITE(KLUOUT,YOUTFORMAT) 'RCSNOWSO2',  XRCSNOWSO2
+      WRITE(KLUOUT,YOUTFORMAT) 'RCSNOWO3',   XRCSNOWO3
     !
    DEALLOCATE(YRESISNAME)
    DEALLOCATE(ZRESISVAL)

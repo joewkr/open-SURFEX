@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_ADJ_MES_LONLATVAL(KGRID_PAR,KL,PGRID_PAR,KLEFT,KRIGHT,KTOP,KBOTTOM)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -109,7 +109,7 @@ DO JLAT=1,KL
         IF ( ZX(JLON) < ZX(JLAT) .AND. &                     ! Y left X in x direction
            ( KLEFT(JLAT)==0                     .OR. &     ! left not assigned yet
              ZECY < ABS(ZY(MAX(1,KLEFT(JLAT)))-ZY(JLAT)) .OR. &     ! this y point is closer to x in y direction
-             ZECX < ABS(ZX(MAX(1,KLEFT(JLAT)))-ZX(JLAT)) ) ) THEN   ! this y point is closer to x in x direction            
+             ZECX < ABS(ZX(MAX(1,KLEFT(JLAT)))-ZX(JLAT)) ) ) THEN   ! this y point is closer to x in x direction
           !
           KLEFT(JLAT)=JLON
           !
@@ -122,7 +122,7 @@ DO JLAT=1,KL
           !
         ENDIF
         !
-      ENDIF  
+      ENDIF
       !
     ENDIF
     !

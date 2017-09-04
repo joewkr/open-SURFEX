@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ###########################
@@ -25,7 +25,7 @@ SUBROUTINE TOPODYN_LAT(PRW,PDEF,PKAPPA,PKAPPAC,GTOPD)
 !     AUTHOR
 !     ------
 !
-!     G.-M. Saulnier * LTHE * 
+!     G.-M. Saulnier * LTHE *
 !     K. Chancibault * CNRM *
 !
 !     MODIFICATIONS
@@ -76,7 +76,7 @@ REAL                 :: ZDMAXAV,ZKAV   ! averaged maximal deficit and averaged s
 REAL                 :: ZFUNC
 REAL                 :: ZDIF,ZDIFMIN   ! difference calcul
 REAL                 :: ZNAS, ZNAD     ! temporary saturated and dry relative catchment area
-REAL                 :: ZAS,ZAD        ! saturated and dry relative catchment area 
+REAL                 :: ZAS,ZAD        ! saturated and dry relative catchment area
 REAL                 :: ZA             ! total catchment area
 REAL                 :: ZTMP
 !
@@ -107,7 +107,7 @@ ZAD=1.
 !
 DO JJ = 1,NNCAT
   !*    0.    Initialisation
-  !           -------------- 
+  !           --------------
   ZMASK(:) = 0.0
   ZRW(:) = 0.0
   ZDMAX(:) = 0.0
@@ -119,7 +119,7 @@ DO JJ = 1,NNCAT
   !
   ZKAV = 0.
   !
-  ZRW(:) = PRW(JJ,:) 
+  ZRW(:) = PRW(JJ,:)
   ZDMAX(:) = XDMAXT(JJ,:)
   ZDX = XDXT(JJ)
   ZM = XMPARA(JJ)
@@ -143,7 +143,7 @@ DO JJ = 1,NNCAT
   WHERE (ZMASK == 0.0) ZMASK = XUNDEF
   !
   !
-  !*    1.    Calcul of hydrological similarity and topographic indexes 
+  !*    1.    Calcul of hydrological similarity and topographic indexes
   !           ---------------------------------------------------------
   !*    1.1   Calcul of averaged deficit and initialisation of indexes
   !           --------------------------------------------------------
@@ -155,7 +155,7 @@ DO JJ = 1,NNCAT
     !
     IF (ZMASK(J1)/=XUNDEF) THEN
       !
-      PKAPPA(JJ,J1) = ZRW(J1) 
+      PKAPPA(JJ,J1) = ZRW(J1)
       INPCON = INPCON + 1
       ZDINI(J1) = ZDMAX(J1) - ZRW(J1)
       !
@@ -183,7 +183,7 @@ DO JJ = 1,NNCAT
   !
   IF (INPCON >= NNMC(JJ)/1000) THEN
     !
-    ZDAV = ZDAV / INPCON 
+    ZDAV = ZDAV / INPCON
     ZDAV = ZDAV / ZM
     !
     !*    1.2   Propagation of indexes
@@ -217,7 +217,7 @@ DO JJ = 1,NNCAT
       J2 = J2 + 1
       !
     ENDDO
-    !   
+    !
     DO J1 = J2,NNMC(JJ)
       !
       IF (ZMASK(J1)/=XUNDEF) THEN
@@ -261,8 +261,8 @@ DO JJ = 1,NNCAT
       ZNDMAXAV = 0.0
       ZNKAV = 0.0
       !
-      DO J2=1,I_DIM      
-        !      
+      DO J2=1,I_DIM
+        !
         IF ( ZKAPPA_PACK(J2).GE.ZKVAL ) THEN
           ! saturated pixel
           INAS = INAS + 1
@@ -275,7 +275,7 @@ DO JJ = 1,NNCAT
         ENDIF
         !
       ENDDO
-      ! 
+      !
       IF (INAD == 0) THEN
         ZNDMAXAV = 0.0
       ELSE
@@ -309,7 +309,7 @@ DO JJ = 1,NNCAT
         !
       ENDIF
       !
-    ENDDO   
+    ENDDO
     !
     !*    2.     Local deficits calculation
     !            --------------------------
@@ -332,7 +332,7 @@ DO JJ = 1,NNCAT
       !
     ENDIF
     !
-    !*    2.2    Local deficits 
+    !*    2.2    Local deficits
     !            --------------
     !
    ! ZSOMME=0.0
@@ -393,7 +393,7 @@ DO JJ = 1,NNCAT
     PKAPPAC(JJ) = XUNDEF
     !
   ENDIF
-  ! 
+  !
 ENDDO
 !
 IF (LHOOK) CALL DR_HOOK('TOPODYN_LAT',1,ZHOOK_HANDLE)

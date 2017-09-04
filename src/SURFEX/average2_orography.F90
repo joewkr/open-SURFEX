@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
       SUBROUTINE AVERAGE2_OROGRAPHY (USS)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -100,8 +100,8 @@ DO JL=1,SIZE(USS%XSIL_ZS)
   ZMAXY(:) = MAXVAL(XSSQO(JL,:,:),DIM=1)
   GSEGY(:) = ANY   (LSSQO(JL,:,:),DIM=1)
   USS%XSIL_ZS(JL) =0.5*(  SUM(ZMAXX(:),MASK=GSEGX(:)) / COUNT(GSEGX(:)) &
-                        + SUM(ZMAXY(:),MASK=GSEGY(:)) / COUNT(GSEGY(:)) )  
-  
+                        + SUM(ZMAXY(:),MASK=GSEGY(:)) / COUNT(GSEGY(:)) )
+
 END DO
 !
 !
@@ -124,7 +124,7 @@ DO JI = 1,SIZE(USS%XAVG_ZS)
   ENDIF
 
 ENDDO
-!    
+!
 IF (LHOOK) CALL DR_HOOK('AVERAGE2_OROGRAPHY',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------

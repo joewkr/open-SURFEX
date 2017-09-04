@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !------------------------------------------------------------
 !     ##########################
@@ -10,8 +10,8 @@
 !!
 !!    PURPOSE
 !!    -------
-!        
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -21,11 +21,11 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-!!     
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -87,7 +87,7 @@ ENDDO
 !
 WRITE(NUNIT,*) XX0(KCAT)
 WRITE(NUNIT,*) XY0(KCAT)
-WRITE(NUNIT,*) NNXC(KCAT) 
+WRITE(NUNIT,*) NNXC(KCAT)
 WRITE(NUNIT,*) NNYC(KCAT)
 WRITE(NUNIT,*) ZOUT
 WRITE(NUNIT,*) XDXT(KCAT)
@@ -104,7 +104,7 @@ DO JI=1,NNYC(KCAT)
     ENDIF
   ENDDO
 ENDDO
-! 
+!
  CALL CLOSE_FILE('ASCII ',NUNIT)
 !
 IF (LHOOK) CALL DR_HOOK('WRITE_FILE_VECMAP',1,ZHOOK_HANDLE)

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
         SUBROUTINE BEM(BOP, T, B, DMT, PTSTEP, PSUNTIME, KDAY, PPS, PRHOA, PT_CAN,  &
@@ -15,53 +15,53 @@
 !!    PURPOSE
 !!    -------
 !
-!     Computes the temperature and humidity evolution of indoor air, 
-!     building energy demand, HVAC energy consumption, 
+!     Computes the temperature and humidity evolution of indoor air,
+!     building energy demand, HVAC energy consumption,
 !     waste heat from HVAC systems, and heat fluxes from indoor to building surfaces.
 !
 !
 !!**  METHOD
 !     ------
 !
-!              NOMENCLATURE: bld  - refers to building plant area; 
-!                            floor- refers to building plant area multiplied 
+!              NOMENCLATURE: bld  - refers to building plant area;
+!                            floor- refers to building plant area multiplied
 !                                   by the number of floors;
 !                            wall - refers to wall area (excluding windows).
-!                            win  - refers to window area. 
-!                            mass - refers to internal mass area. 
+!                            win  - refers to window area.
+!                            mass - refers to internal mass area.
 !
 !
 !        solar radiation transmitted through windows
 !        *******************************************
 !
-!     Qsol_tr_win = Qsol_facade * tr_win * GR 
+!     Qsol_tr_win = Qsol_facade * tr_win * GR
 !
 !
 !        indoor wall conv/rad heat transfer coefficients
 !        ***********************************************
 !
-!     The calculation of CHTC accounts for favorable or unfavorable convection 
+!     The calculation of CHTC accounts for favorable or unfavorable convection
 !     depending on the relative position between the hot layer and cold layer
 !
-! 
+!
 !        building energy demand
 !        **********************
 !
 !     Calculation of the cooling and heating, sensible and latent building energy demand.
-!     The sensible demand includes the convective heat transfer from indoor surfaces, the 
+!     The sensible demand includes the convective heat transfer from indoor surfaces, the
 !     convective fraction of internal heat gains, and sensible infiltration/ventilation heat
 !     gains. The latent demand includes the latent fraction of internal heat gains and latent
-!     infiltration/ventilation heat gains.  
+!     infiltration/ventilation heat gains.
 !
 !        surface areas and volummes (referred to m2_bld)
 !        ***********************************************
 !
 !     Awall   =  WALL_O_HOR * (1 - GR) / BLD [m2_wall/m2_bld]
-!     Awin    =  WALL_O_HOR * GR / BLD       [m2_win/m2_bld]   
-!     Amass   =  2 * N_FLOOR                  [m2_mass/m2_bld]  
+!     Awin    =  WALL_O_HOR * GR / BLD       [m2_win/m2_bld]
+!     Amass   =  2 * N_FLOOR                  [m2_mass/m2_bld]
 !     N_FLOOR  =  BLD_HEIGHT / FLOOR_HEIGHT   [#]
-!     Aroof   =  1                           [m2_roof/m2_bld]  
-!     Afloor  =  1                           [m2_floor/m2_bld]   
+!     Aroof   =  1                           [m2_roof/m2_bld]
+!     Afloor  =  1                           [m2_floor/m2_bld]
 !     Vol_air =  BLD_HEIGHT                  [m3_bld/m2_bld]
 !
 !
@@ -69,34 +69,34 @@
 !        *************************************
 !
 
-!                                  dTin  
+!                                  dTin
 !     Vol_air * ro_air * cp_air * ---- = h_wall * Awall * (Twall - Tin)
 !                                   dt    + h_roof * Aroof * (Troof -Tin)
 !                                         + h_floor * Afloor *(Tfloor - Tin)
-!                                         + h_mass * Amass * (Tmass - Tin)  
+!                                         + h_mass * Amass * (Tmass - Tin)
 !                                         + h_win * Awin * (Twin - Tin)
 !                                         + Qig * (1 - fig_rad) * (1-fig_lat)
-!                                         + Vinf * ro_air * cp_air * (Tout - Tin) 
-!                                         + Vsys * ro_air * cp_air * (Tsys - Tin) 
+!                                         + Vinf * ro_air * cp_air * (Tout - Tin)
+!                                         + Vsys * ro_air * cp_air * (Tsys - Tin)
 !
 !
 !        evolution of the internal specific humidity
 !        *******************************************
 !
-!                                  dQin  
+!                                  dQin
 !      Vol_air * ro_air * lv_air * ---- = Qig * fig_lat
-!                                   dt    + Vinf * ro_air * lv_air * (Qout - Qin) 
-!                                         + Vsys * ro_air * lv_air * (Qsys - Qin) 
+!                                   dt    + Vinf * ro_air * lv_air * (Qout - Qin)
+!                                         + Vsys * ro_air * lv_air * (Qsys - Qin)
 !
 !
 !        heat fluxes from indoor to surfaces
 !        ***********************************
 !
 !      Qin_wall  = h_wall  * (Tin - Twall)  [W/m2_wall]
-!      Qin_roof  = h_roof  * (Tin - Troof)  [W/m2_roof] 
-!      Qin_floor = h_floor * (Tin - Tfloor) [W/m2_floor] 
-!      Qin_mass  = h_wall  * (Tin - Tmass)  
-!                + Qig * fig_rad * (1-fig_lat)/ 2  
+!      Qin_roof  = h_roof  * (Tin - Troof)  [W/m2_roof]
+!      Qin_floor = h_floor * (Tin - Tfloor) [W/m2_floor]
+!      Qin_mass  = h_wall  * (Tin - Tmass)
+!                + Qig * fig_rad * (1-fig_lat)/ 2
 !                + Qsol_tr_win              [W/m2_mass]
 !
 !
@@ -154,7 +154,7 @@ USE MODD_BEM_n, ONLY : BEM_t
 USE MODD_DIAG_MISC_TEB_n, ONLY : DIAG_MISC_TEB_t
 !
 USE MODD_CSTS,ONLY : XCPD,XSTEFAN,XLVTT,XG, XRV, XRD
- 
+
 USE MODE_THERMOS
 USE MODE_PSYCHRO
 USE MODI_DX_AIR_COOLING_COIL_CV
@@ -187,9 +187,9 @@ REAL, DIMENSION(:),   INTENT(IN)  :: PU_CAN    ! Canyon wind speed (m s-1)
 REAL, DIMENSION(:),   INTENT(OUT)  :: PHU_BLD       ! Indoor relative humidity 0 < (-) < 1
 REAL, DIMENSION(:),   INTENT(IN)  :: PT_RAD_IND    ! Indoor mean radiant temperature [K]
 !
-REAL, DIMENSION(:),   INTENT(OUT)  :: PFLX_BLD_FL! Heat flux from indoor air to floor 
+REAL, DIMENSION(:),   INTENT(OUT)  :: PFLX_BLD_FL! Heat flux from indoor air to floor
                                                     ! [W m-2(bld)]
-REAL, DIMENSION(:),   INTENT(OUT)  :: PFLX_BLD_MA ! Heat flux from indoor air to mass 
+REAL, DIMENSION(:),   INTENT(OUT)  :: PFLX_BLD_MA ! Heat flux from indoor air to mass
                                                     ! [W m-2(bld)]
 REAL, DIMENSION(:),   INTENT(IN) :: PRADHT_IN     ! Indoor radiant heat transfer coefficient
                                                     ! [W K-1 m-2]
@@ -205,7 +205,7 @@ REAL, DIMENSION(:)  , INTENT(IN)  :: PCONV_WIN_BLD   ! Conv. fluxes between wind
 REAL, DIMENSION(:)  , INTENT(IN)  :: PLOAD_IN_FL  ! solar + int heat gain on floor W/m2 [floor]
 REAL, DIMENSION(:)  , INTENT(IN)  :: PLOAD_IN_MA   ! solar + int heat gain on floor W/m2 [mass]
 !
-!*      0.2    Declarations of local variables 
+!*      0.2    Declarations of local variables
 !
 INTEGER                        :: IRF        ! Number of roof layers
 INTEGER                        :: IWL        ! Number of wall layers
@@ -214,7 +214,7 @@ INTEGER                        :: IWL        ! Number of wall layers
 REAL, DIMENSION(SIZE(B%XTI_BLD)) :: ZFAN_AP      ! Fan design pressure increase [Pa]
 REAL, DIMENSION(SIZE(B%XTI_BLD)) :: ZFAN_EFF     ! Fan total efficiency
 !
-LOGICAL, DIMENSION(SIZE(B%XTI_BLD)):: GSCHED     ! Day-night schedule flag 
+LOGICAL, DIMENSION(SIZE(B%XTI_BLD)):: GSCHED     ! Day-night schedule flag
                                                ! *to be transported to inputs*
 !
 REAL, DIMENSION(SIZE(B%XTI_BLD)) :: ZF_NIGHT     ! Reduction factor of int.gains at night
@@ -222,17 +222,17 @@ REAL, DIMENSION(SIZE(B%XTI_BLD)) :: ZF_DAY       ! Amplification factor of int.g
 !
 REAL, DIMENSION(SIZE(B%XTI_BLD)):: ZAC_IN_MA_COOL, ZAC_IN_FL_COOL, &
                                  ZAC_IN_RF_COOL, ZAC_IN_WL_A_COOL, &
-                                 ZAC_IN_WL_B_COOL, ZAC_IN_WIN_COOL   
+                                 ZAC_IN_WL_B_COOL, ZAC_IN_WIN_COOL
 REAL, DIMENSION(SIZE(B%XTI_BLD)):: ZAC_IN_MA_HEAT, ZAC_IN_FL_HEAT, &
                                  ZAC_IN_RF_HEAT, ZAC_IN_WL_A_HEAT, &
-                                 ZAC_IN_WL_B_HEAT, ZAC_IN_WIN_HEAT   
+                                 ZAC_IN_WL_B_HEAT, ZAC_IN_WIN_HEAT
 !
 REAL, DIMENSION(SIZE(B%XTI_BLD)):: ZQIN          ! Internal heat gains [W m-2(bld)]
 !
 REAL, DIMENSION(SIZE(B%XTI_BLD)):: ZV_VENT       ! Ventilation flow rate [m3 s-1 m-2(bld)]
 REAL, DIMENSION(SIZE(B%XTI_BLD)):: ZINF          ! Infiltration flow rate [m3 s-1 m-2(bld)]
 !
-LOGICAL, DIMENSION(SIZE(B%XTI_BLD)):: GNAT_VENT  ! Is Natural ventilation active ? 
+LOGICAL, DIMENSION(SIZE(B%XTI_BLD)):: GNAT_VENT  ! Is Natural ventilation active ?
 REAL, DIMENSION(SIZE(B%XTI_BLD)):: ZNAT_VENT     ! Nat.vent airflow rate [m3 s-1 m-2(bld)]
 REAL,DIMENSION(SIZE(B%XTI_BLD)) :: ZTI_BLD       ! Indoor air temperature at time step t + dt [K]
 REAL,DIMENSION(SIZE(B%XTI_BLD)) :: ZTI_BLD_OPEN  ! Indoor air temperature if windows opened
@@ -311,7 +311,7 @@ END WHERE
 
 ! *Change of units AC/H -> [m3 s-1 m-2(bld)]
 ZV_VENT(:) = B%XV_VENT(:) * T%XBLD_HEIGHT(:) / 3600.
-ZINF   (:) = B%XINF   (:) * T%XBLD_HEIGHT(:) / 3600.  
+ZINF   (:) = B%XINF   (:) * T%XBLD_HEIGHT(:) / 3600.
 !
 !*      2.   heat balance for building floor and mass
 !            ----------------------------------------
@@ -358,7 +358,7 @@ DO JJ=1,SIZE(ZAC_IN_WIN_COOL)
    ZAC_IN_MA_COOL  (JJ) = MAX(1., ZAC_IN_MA_COOL (JJ))
    ZAC_IN_RF_COOL  (JJ) = MAX(1., ZAC_IN_RF_COOL (JJ))
    ZAC_IN_FL_COOL  (JJ) = MAX(1., ZAC_IN_FL_COOL (JJ))
-   
+
    ZAC_IN_WL_A_HEAT(JJ) = MAX(1., ZAC_IN_WL_A_HEAT(JJ))
    ZAC_IN_WL_B_HEAT(JJ) = MAX(1., ZAC_IN_WL_B_HEAT(JJ))
    ZAC_IN_WIN_HEAT (JJ) = MAX(1., ZAC_IN_WIN_HEAT(JJ))
@@ -373,7 +373,7 @@ ENDDO
 DO JJ=1,SIZE(PT_CAN)
   ! *first guess of indoor temperature
 
-  ZTI_BLD(JJ) = B%XTI_BLD(JJ) + PTSTEP/(ZRHOI(JJ) * XCPD * T%XBLD_HEIGHT(JJ))    & 
+  ZTI_BLD(JJ) = B%XTI_BLD(JJ) + PTSTEP/(ZRHOI(JJ) * XCPD * T%XBLD_HEIGHT(JJ))    &
           * (  T%XWALL_O_BLD(JJ) * PCONV_WL_BLD(JJ) + B%XGLAZ_O_BLD (JJ) * PCONV_WIN_BLD(JJ)  &
              + B%XMASS_O_BLD(JJ) * ZCONV_MA_BLD(JJ) + PCONV_RF_BLD(JJ) + ZCONV_FL_BLD(JJ)   &
              + ZQIN(JJ) * (1 - B%XQIN_FRAD(JJ))  * (1 - B%XQIN_FLAT(JJ)) )
@@ -404,11 +404,11 @@ DO JJ=1,SIZE(PT_CAN)
         END IF
         !
         ZTI_BLD_OPEN  (JJ) = ZTI_BLD(JJ) &
-                + ZNAT_VENT(JJ)            * PTSTEP/T%XBLD_HEIGHT(JJ) * (PT_CAN(JJ) - B%XTI_BLD(JJ)) 
+                + ZNAT_VENT(JJ)            * PTSTEP/T%XBLD_HEIGHT(JJ) * (PT_CAN(JJ) - B%XTI_BLD(JJ))
         ZTI_BLD_CLOSED(JJ) = ZTI_BLD(JJ) &
-                + (ZINF(JJ) + ZV_VENT(JJ)) * PTSTEP/T%XBLD_HEIGHT(JJ) * (PT_CAN(JJ) - B%XTI_BLD(JJ)) 
+                + (ZINF(JJ) + ZV_VENT(JJ)) * PTSTEP/T%XBLD_HEIGHT(JJ) * (PT_CAN(JJ) - B%XTI_BLD(JJ))
         !
-        GNAT_VENT(JJ) = (ZTI_BLD_OPEN(JJ) <= DMT%XTCOOL_TARGET (JJ) .AND. &            
+        GNAT_VENT(JJ) = (ZTI_BLD_OPEN(JJ) <= DMT%XTCOOL_TARGET (JJ) .AND. &
                          ZTI_BLD_OPEN(JJ) <  ZTI_BLD_CLOSED(JJ) .AND. &
                          ZTI_BLD_OPEN(JJ) >  DMT%XTHEAT_TARGET (JJ) + 4.)
         !
@@ -416,7 +416,7 @@ DO JJ=1,SIZE(PT_CAN)
         GNAT_VENT(JJ) = .FALSE.
       ENDIF
       B%LNATVENT_NIGHT(JJ) = GNAT_VENT(JJ)
-    ELSE 
+    ELSE
       GNAT_VENT(JJ) = B%LNATVENT_NIGHT(JJ)
     ENDIF
     !
@@ -428,9 +428,9 @@ DO JJ=1,SIZE(PT_CAN)
     !
     GNAT_VENT(JJ) = ( PSUNTIME(JJ) > 18.*3600. .AND. PSUNTIME(JJ) < 21.*3600.  &
                       .AND. PT_CAN(JJ) < B%XTI_BLD(JJ)+2.       &
-                      .AND. PT_CAN(JJ) > DMT%XTHEAT_TARGET(JJ)    & 
+                      .AND. PT_CAN(JJ) > DMT%XTHEAT_TARGET(JJ)    &
                       .AND. ( B%XTI_BLD(JJ) > DMT%XTHEAT_TARGET(JJ)+5. &
-                       .OR. B%XTI_BLD(JJ) == DMT%XTCOOL_TARGET(JJ) )   ) 
+                       .OR. B%XTI_BLD(JJ) == DMT%XTCOOL_TARGET(JJ) )   )
     GNAT_VENT(JJ) = GNAT_VENT(JJ) .OR. B%LNATVENT_NIGHT(JJ)
     !
   ENDIF
@@ -445,7 +445,7 @@ DO JJ=1,SIZE(PT_CAN)
 
   ! *If natural surventilation ACTIVE
   IF (GNAT_VENT(JJ)) THEN
-     ! 
+     !
      CALL GET_NAT_VENT(B%XTI_BLD(JJ), PT_CAN(JJ), PU_CAN(JJ), B%XGR(JJ), &
                        B%XFLOOR_HW_RATIO(JJ), T%XBLD_HEIGHT(JJ), ZNAT_VENT(JJ)     )
      !
@@ -453,17 +453,17 @@ DO JJ=1,SIZE(PT_CAN)
      ZINF        (JJ) = 0.
      !
      DMT%XH_BLD_COOL (JJ) = 0.0         ! No HVAC consumption
-     DMT%XH_BLD_HEAT (JJ) = 0.0    
+     DMT%XH_BLD_HEAT (JJ) = 0.0
      DMT%XLE_BLD_COOL(JJ) = 0.0         ! No HVAC consumption
-     DMT%XLE_BLD_HEAT(JJ) = 0.0   
-     !    
+     DMT%XLE_BLD_HEAT(JJ) = 0.0
+     !
      DMT%XT_BLD_COOL (JJ) = 0.0         ! No HVAC consumption
-     DMT%XHVAC_COOL  (JJ) = 0.0    
+     DMT%XHVAC_COOL  (JJ) = 0.0
      DMT%XT_SYS      (JJ) = B%XTI_BLD(JJ) ! No mechanical ventilation
-     DMT%XQ_SYS      (JJ) = B%XQI_BLD(JJ) ! 
+     DMT%XQ_SYS      (JJ) = B%XQI_BLD(JJ) !
      DMT%XH_WASTE    (JJ) = 0.0
-     DMT%XLE_WASTE   (JJ) = 0.0     
-     DMT%XFAN_POWER  (JJ) = 0.0    
+     DMT%XLE_WASTE   (JJ) = 0.0
+     DMT%XFAN_POWER  (JJ) = 0.0
      DMT%XHVAC_HEAT  (JJ) = 0.0
      !
      DMT%XM_SYS  (JJ) = 0.0
@@ -471,7 +471,7 @@ DO JJ=1,SIZE(PT_CAN)
      DMT%XCAP_SYS(JJ) = 0.0
      !
   ! *If natural surventilation INACTIVE
-  ELSE 
+  ELSE
     !
     ZNAT_VENT(JJ) = 0.
     !
@@ -481,7 +481,7 @@ DO JJ=1,SIZE(PT_CAN)
     !
     DMT%XH_BLD_COOL(JJ) = T%XWALL_O_BLD(JJ)/2. * (ZAC_IN_WL_A_COOL(JJ) * (T%XT_WALL_A(JJ,IWL) - DMT%XTCOOL_TARGET(JJ))  &
                                             + ZAC_IN_WL_B_COOL(JJ) * (T%XT_WALL_B(JJ,IWL) - DMT%XTCOOL_TARGET(JJ))) &
-                         + B%XGLAZ_O_BLD(JJ) * ZAC_IN_WIN_COOL(JJ) * (B%XT_WIN2(JJ)       - DMT%XTCOOL_TARGET(JJ))  &    
+                         + B%XGLAZ_O_BLD(JJ) * ZAC_IN_WIN_COOL(JJ) * (B%XT_WIN2(JJ)       - DMT%XTCOOL_TARGET(JJ))  &
                           + ZAC_IN_MA_COOL (JJ)* B%XMASS_O_BLD(JJ) * (B%XT_MASS(JJ,1)     - DMT%XTCOOL_TARGET(JJ))  &
                                               + ZAC_IN_RF_COOL(JJ) * (T%XT_ROOF(JJ,IRF)   - DMT%XTCOOL_TARGET(JJ))  &
                                               + ZAC_IN_FL_COOL(JJ) * (B%XT_FLOOR(JJ,1)    - DMT%XTCOOL_TARGET(JJ))  &
@@ -490,7 +490,7 @@ DO JJ=1,SIZE(PT_CAN)
     !
     DMT%XH_BLD_HEAT(JJ) = - ( T%XWALL_O_BLD(JJ)/2. * (ZAC_IN_WL_A_HEAT(JJ) * (T%XT_WALL_A(JJ,IWL) - DMT%XTHEAT_TARGET(JJ))  &
                                                 + ZAC_IN_WL_B_HEAT(JJ) * (T%XT_WALL_B(JJ,IWL) - DMT%XTHEAT_TARGET(JJ))) &
-                             + B%XGLAZ_O_BLD(JJ) * ZAC_IN_WIN_HEAT(JJ) * (B%XT_WIN2(JJ)       - DMT%XTHEAT_TARGET(JJ))  &    
+                             + B%XGLAZ_O_BLD(JJ) * ZAC_IN_WIN_HEAT(JJ) * (B%XT_WIN2(JJ)       - DMT%XTHEAT_TARGET(JJ))  &
                               +  ZAC_IN_MA_HEAT(JJ)* B%XMASS_O_BLD(JJ) * (B%XT_MASS(JJ,1)     - DMT%XTHEAT_TARGET(JJ))  &
                                                   + ZAC_IN_RF_HEAT(JJ) * (T%XT_ROOF(JJ,IRF)   - DMT%XTHEAT_TARGET(JJ))  &
                                                   + ZAC_IN_FL_HEAT(JJ) * (B%XT_FLOOR(JJ,1)    - DMT%XTHEAT_TARGET(JJ))  &
@@ -498,37 +498,37 @@ DO JJ=1,SIZE(PT_CAN)
                                   + (ZINF(JJ) + ZV_VENT(JJ)) * ZRHOI(JJ) * XCPD * (PT_CAN(JJ) - DMT%XTHEAT_TARGET(JJ)))
     !
     ZQCOOL_TRGT(JJ) = 0.62198 * B%XHR_TARGET(JJ) * PSAT(DMT%XTCOOL_TARGET(JJ)) / &
-                      (PPS(JJ)- B%XHR_TARGET(JJ) * PSAT(DMT%XTCOOL_TARGET(JJ)))    
+                      (PPS(JJ)- B%XHR_TARGET(JJ) * PSAT(DMT%XTCOOL_TARGET(JJ)))
     !
     DMT%XLE_BLD_COOL(JJ) = ZQIN(JJ) * B%XQIN_FLAT(JJ)                                           &
-               + (ZINF(JJ) + ZV_VENT(JJ)) * ZRHOI(JJ) * XLVTT * (PQ_CAN(JJ) - ZQCOOL_TRGT(JJ)) 
+               + (ZINF(JJ) + ZV_VENT(JJ)) * ZRHOI(JJ) * XLVTT * (PQ_CAN(JJ) - ZQCOOL_TRGT(JJ))
     !
     ZQHEAT_TRGT(JJ) = 0.62198 * B%XHR_TARGET(JJ) * PSAT(DMT%XTHEAT_TARGET(JJ)) / &
-                      (PPS(JJ)- B%XHR_TARGET(JJ) * PSAT(DMT%XTHEAT_TARGET(JJ)))    
+                      (PPS(JJ)- B%XHR_TARGET(JJ) * PSAT(DMT%XTHEAT_TARGET(JJ)))
     !
     DMT%XLE_BLD_HEAT(JJ) = ZQIN(JJ) * B%XQIN_FLAT(JJ)                                           &
-              + (ZINF(JJ) + ZV_VENT(JJ)) * ZRHOI(JJ) * XLVTT * (PQ_CAN(JJ) - ZQHEAT_TRGT(JJ))       
+              + (ZINF(JJ) + ZV_VENT(JJ)) * ZRHOI(JJ) * XLVTT * (PQ_CAN(JJ) - ZQHEAT_TRGT(JJ))
     !
     ! * Autosize calculations
     !
     IF (BOP%LAUTOSIZE .AND. KDAY==15) THEN
       !
       IF (DMT%XH_BLD_COOL(JJ) > B%XAUX_MAX(JJ))  THEN
-        !  
+        !
         B%XAUX_MAX    (JJ) = DMT%XH_BLD_COOL(JJ)
         !
-        ! Cooling coil sensible heat rate 
+        ! Cooling coil sensible heat rate
         ZSHR        (JJ) = MIN(XCPD * (DMT%XTCOOL_TARGET(JJ) - B%XT_ADP(JJ)) /           &
                                   (ENTH_FN_T_Q(DMT%XTCOOL_TARGET(JJ),ZQCOOL_TRGT(JJ)) -  &
                                    ENTH_FN_T_Q(B%XT_ADP(JJ),QSAT(B%XT_ADP(JJ),PPS(JJ)))), 1.)
         ! Cooling Coil Capacity [W m-2(bld)]
-        B%XCAP_SYS_RAT(JJ) = DMT%XH_BLD_COOL(JJ) / ZSHR(JJ) 
+        B%XCAP_SYS_RAT(JJ) = DMT%XH_BLD_COOL(JJ) / ZSHR(JJ)
         !
         ! Cooling rated air flow rate [kg s-1 m-2(bld)]
         ZM_SYS_RAT  (JJ) = DMT%XH_BLD_COOL(JJ) / XCPD / (DMT%XTCOOL_TARGET(JJ)-(14.0+273.16))
         IF (ZM_SYS_RAT(JJ) > B%XM_SYS_RAT(JJ)) B%XM_SYS_RAT(JJ) = ZM_SYS_RAT(JJ)
         !
-        ! Impose condition 
+        ! Impose condition
         IF (B%XM_SYS_RAT(JJ)/ZRHOI(JJ)/B%XCAP_SYS_RAT(JJ) < 0.00004027) THEN
           B%XCAP_SYS_RAT(JJ) = B%XM_SYS_RAT(JJ)/ZRHOI(JJ)/0.00004027
         ELSE IF (B%XM_SYS_RAT(JJ)/ZRHOI(JJ)/B%XCAP_SYS_RAT(JJ) > 0.00006041) THEN
@@ -554,7 +554,7 @@ DO JJ=1,SIZE(PT_CAN)
     ZXMIX (JJ) = ZV_VENT(JJ) * ZRHOI(JJ) / DMT%XM_SYS(JJ)
     ZT_MIX(JJ) = ZXMIX(JJ) * PT_CAN(JJ) + (1.-ZXMIX(JJ)) * B%XTI_BLD(JJ)
     ZQ_MIX(JJ) = ZXMIX(JJ) * PQ_CAN(JJ) + (1.-ZXMIX(JJ)) * B%XQI_BLD(JJ)
-    ! 
+    !
     ! ---------------------------------------------
     ! * COOLING system : Performance and Waste heat
     ! ---------------------------------------------
@@ -588,15 +588,15 @@ DO JJ=1,SIZE(PT_CAN)
                                       ZQ_MIX(JJ), B%XCOP_RAT(JJ), B%XCAP_SYS_RAT(JJ),          &
                                       B%XT_ADP(JJ), B%XF_WATER_COND(JJ), DMT%XM_SYS(JJ),      &
                                       DMT%XH_BLD_COOL(JJ), DMT%XH_WASTE(JJ), DMT%XLE_WASTE(JJ), &
-                                      DMT%XCOP(JJ), DMT%XCAP_SYS(JJ), DMT%XT_SYS(JJ), & 
+                                      DMT%XCOP(JJ), DMT%XCAP_SYS(JJ), DMT%XT_SYS(JJ), &
                                       DMT%XQ_SYS(JJ), DMT%XHVAC_COOL(JJ), DMT%XT_BLD_COOL(JJ) )
           !
         ENDIF !end type of cooling system
 
-        !!! case of system without atmospheric releases. I-e releases in soil/water F_WATER_COND < 0 
+        !!! case of system without atmospheric releases. I-e releases in soil/water F_WATER_COND < 0
         IF (B%XF_WATER_COND(JJ) < 0) THEN
-          DMT%XH_WASTE(JJ) = 0. 
-          DMT%XLE_WASTE(JJ) = 0. 
+          DMT%XH_WASTE(JJ) = 0.
+          DMT%XLE_WASTE(JJ) = 0.
         ENDIF
         !!!!
         !
@@ -622,7 +622,7 @@ DO JJ=1,SIZE(PT_CAN)
         DMT%XQ_SYS(JJ) = ZQ_MIX(JJ)
         !
         DMT%XHVAC_HEAT  (JJ) = DMT%XH_BLD_HEAT(JJ) / B%XEFF_HEAT(JJ)
-        DMT%XH_WASTE    (JJ) = DMT%XHVAC_HEAT(JJ) - DMT%XH_BLD_HEAT(JJ)  
+        DMT%XH_WASTE    (JJ) = DMT%XHVAC_HEAT(JJ) - DMT%XH_BLD_HEAT(JJ)
         DMT%XLE_WASTE   (JJ) = 0.0
         DMT%XH_BLD_COOL (JJ) = 0.0
         DMT%XLE_BLD_COOL(JJ) = 0.0
@@ -634,21 +634,21 @@ DO JJ=1,SIZE(PT_CAN)
      ! ------------------------------
      ! * NEITHEIR COOLING NOR HEATING
      ! ------------------------------
-     ! 
+     !
      ELSE
         !
         DMT%XH_BLD_COOL (JJ) = 0.0
-        DMT%XH_BLD_HEAT (JJ) = 0.0 
+        DMT%XH_BLD_HEAT (JJ) = 0.0
         DMT%XLE_BLD_COOL(JJ) = 0.0
         DMT%XLE_BLD_HEAT(JJ) = 0.0
         !
-        DMT%XT_BLD_COOL (JJ) = 0.0 
+        DMT%XT_BLD_COOL (JJ) = 0.0
         DMT%XHVAC_COOL  (JJ) = 0.0
         DMT%XT_SYS      (JJ) = ZT_MIX(JJ)
         DMT%XQ_SYS      (JJ) = ZQ_MIX(JJ)
         DMT%XH_WASTE    (JJ) = 0.0
         DMT%XLE_WASTE   (JJ) = 0.0
-        DMT%XFAN_POWER  (JJ) = 0.0     
+        DMT%XFAN_POWER  (JJ) = 0.0
         DMT%XHVAC_HEAT  (JJ) = 0.0
         !
      END IF !end for heating/cooling sytem
@@ -664,10 +664,10 @@ ENDDO
 ! EVOLUTION OF THE INTERNAL TEMPERATURE AND HUMIDITY
 !###################################################
 !
-ZTI_BLD(:) = ( ZTI_BLD(:) + PTSTEP/T%XBLD_HEIGHT(:) *                   & 
+ZTI_BLD(:) = ( ZTI_BLD(:) + PTSTEP/T%XBLD_HEIGHT(:) *                   &
             ((ZINF(:) + ZNAT_VENT(:)) * PT_CAN(:) + DMT%XM_SYS(:) / ZRHOI(:) * (DMT%XT_SYS(:) ) )) &
           / (1. + PTSTEP/T%XBLD_HEIGHT(:)*(ZINF(:) + ZNAT_VENT(:) + DMT%XM_SYS(:) / ZRHOI(:))  )
-ZQI_BLD(:) = ( B%XQI_BLD(:) +  PTSTEP/T%XBLD_HEIGHT(:) *                    & 
+ZQI_BLD(:) = ( B%XQI_BLD(:) +  PTSTEP/T%XBLD_HEIGHT(:) *                    &
              (ZQIN(:) * B%XQIN_FLAT(:) / (ZRHOI(:) * XLVTT) + (ZINF(:) + ZNAT_VENT(:)) * (PQ_CAN(:))   &
               + DMT%XM_SYS(:) / ZRHOI(:)     * (DMT%XQ_SYS(:) ) ))&
           / (1. + PTSTEP/T%XBLD_HEIGHT(:)* (ZINF(:) + ZNAT_VENT(:) + DMT%XM_SYS(:) / ZRHOI(:))  )
@@ -677,9 +677,9 @@ B%XTI_BLD(:) = ZTI_BLD(:)
 B%XQI_BLD(:) = ZQI_BLD(:)
 !
 ! Waste heat due to infiltration/ventilation
-ZWASTE   (:) = (ZINF(:)+ZV_VENT(:)+ZNAT_VENT(:)) * ZRHOI(:) 
+ZWASTE   (:) = (ZINF(:)+ZV_VENT(:)+ZNAT_VENT(:)) * ZRHOI(:)
 DMT%XH_WASTE (:) = DMT%XH_WASTE (:) + ZWASTE(:) * XCPD  * (B%XTI_BLD(:) - PT_CAN(:))
-DMT%XLE_WASTE(:) = DMT%XLE_WASTE(:) + ZWASTE(:) * XLVTT * (B%XQI_BLD(:) - PQ_CAN(:)) 
+DMT%XLE_WASTE(:) = DMT%XLE_WASTE(:) + ZWASTE(:) * XLVTT * (B%XQI_BLD(:) - PQ_CAN(:))
 !
 !
 IF (LHOOK) CALL DR_HOOK('BEM',1,ZHOOK_HANDLE)

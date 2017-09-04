@@ -60,7 +60,7 @@ while [ $pert -le $npert ]; do
 
   # Copy stored simulation results
   cp $SRC_SURFEX/MY_RUN/SODA/OUTPUT/PREP_OFFLINE$mbr.$suffix PREP_EKF_PERT$pert.$suffix
- 
+
   pert=$(( $pert + 1 ))
 done
 

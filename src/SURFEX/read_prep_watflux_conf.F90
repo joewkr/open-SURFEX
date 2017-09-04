@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PREP_WATFLUX_CONF(HPROGRAM,HVAR,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,&
@@ -75,8 +75,8 @@ LOGICAL,           INTENT(OUT) :: OUNIF    ! flag for prescribed uniform field
 !*       0.2   Declarations of local variables
 !              -------------------------------
 !
-INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears 
-                                    ! at the open of the file in LFI  routines 
+INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears
+                                    ! at the open of the file in LFI  routines
 INTEGER           :: ILUNAM         ! Logical unit of namelist file
 !
  CHARACTER(LEN=28) :: YNAMELIST      ! namelist file
@@ -124,7 +124,7 @@ END IF
 !* Is an uniform field prescribed?
 !  ------------------------------
 !
-    OUNIF = (XTS_WATER_UNIF/=XUNDEF) 
+    OUNIF = (XTS_WATER_UNIF/=XUNDEF)
 !
 !-------------------------------------------------------------------------------
 !

@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ####################################################################
-      SUBROUTINE ALBEDO(HALBEDO, PEK, PSNOW, OMASK    )  
+      SUBROUTINE ALBEDO(HALBEDO, PEK, PSNOW, OMASK    )
 !     ####################################################################
 !
-!!****  *ALBEDO*  
+!!****  *ALBEDO*
 !!
 !!    PURPOSE
 !!    -------
-!  computes the albedo of for different types (patches) 
+!  computes the albedo of for different types (patches)
 ! of natural continental parts, from
 ! vegetation albedo and soil albedo.
 ! Soil albedo is estimated from sand fraction.
 ! A correction due to the soil humidity is used.
 !
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,20 +24,20 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
-!!      F.Solmon  /  V. Masson          
+!!      F.Solmon  /  V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original     
+!!      Original
 !!                  01/2004  Externalization (V. Masson)
 !-------------------------------------------------------------------------------
 !
@@ -100,13 +100,13 @@ IF (PRESENT(PSNOW)) ZSNOW(:) = PSNOW(:)
 WHERE (GMASK(:) .AND. PEK%XVEG(:)/=XUNDEF)
 
   PEK%XALBVIS(:) = ( (1.-PEK%XVEG(:)) * PEK%XALBVIS_SOIL(:) + PEK%XVEG(:)  * PEK%XALBVIS_VEG (:)) &
-         * (1-ZSNOW(:)) + XANSMAX  * ZSNOW(:)   
+         * (1-ZSNOW(:)) + XANSMAX  * ZSNOW(:)
   !
   PEK%XALBNIR(:) = ( (1.-PEK%XVEG(:)) * PEK%XALBNIR_SOIL(:) + PEK%XVEG(:)  * PEK%XALBNIR_VEG (:)) &
-         * (1-ZSNOW(:)) + XANSMAX  * ZSNOW(:)   
+         * (1-ZSNOW(:)) + XANSMAX  * ZSNOW(:)
   !
   PEK%XALBUV (:) = ( (1.-PEK%XVEG(:)) * PEK%XALBUV_SOIL (:) + PEK%XVEG(:)  * PEK%XALBUV_VEG  (:)) &
-         * (1-ZSNOW(:)) + XANSMAX  * ZSNOW(:)   
+         * (1-ZSNOW(:)) + XANSMAX  * ZSNOW(:)
 END WHERE
 !
 IF (LHOOK) CALL DR_HOOK('ALBEDO',1,ZHOOK_HANDLE)

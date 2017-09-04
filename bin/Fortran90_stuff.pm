@@ -6,7 +6,7 @@ use SelfLoader;
 
 #SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 #SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 #SFX_LIC for details. version 1.
 
 use Data::Dumper qw(Dumper);
@@ -4146,7 +4146,7 @@ sub create_interface_module {
   my @intz=();
   my @intfb=();
   my $cur_fname='';
-  
+
 #RJ: choose interface simple vs generic
   ${f90s_INTFB_GENERIC}=0;
   ${f90s_INTFB_INC_IMPNONE}=0;

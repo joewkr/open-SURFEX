@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE ALBEDO_FROM_NIR_VIS(PSW_BANDS,PALBNIR,PALBVIS,PALBUV,PDIR_ALB,PSCA_ALB)
@@ -33,7 +33,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    02/2003 
+!!      Original    02/2003
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -74,7 +74,7 @@ PSCA_ALB(:,:) = XUNDEF
 !
 IF (ISWB==1) THEN
   WHERE(PALBNIR(:)/= XUNDEF) PDIR_ALB(:,1) = 0.5*(PALBNIR(:)+PALBVIS(:))
-ELSE 
+ELSE
   DO JSWB=1,ISWB
     IF (PSW_BANDS(JSWB)>XRED_EDGE ) THEN      ! XRED_EDGE=0.7 micro-m
       PDIR_ALB(:,JSWB) = PALBNIR(:)

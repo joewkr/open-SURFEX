@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################################
       SUBROUTINE CANOPY_GRID_UPDATE(KI,PH,PZFORC,SB)
 !     #########################################
 !
 !!****  *CANOPY_GRID_UPDATE* - set the upper levels at and just below forcing level
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/2006 
+!!      Original    07/2006
 !!      S. Riette   Oct 2010 Vectorisation
 !-------------------------------------------------------------------------------
 !

@@ -98,15 +98,15 @@ GREFROZEN = .TRUE.
 
 DO JST=1,SIZE(PSNOWSWE,2)
   DO JJ=1,SIZE(PSNOWSWE,1)
-    
+
     IF (PSNOWSWE(JJ,JST)>0) THEN
-    
+
       ! In this routine Crocus diagnostics are perpendicular to the slope.
-      ! The projection is done in diag_misc_isban             
-    
+      ! The projection is done in diag_misc_isban
+
       ZG1 = PSNOWGRAN1(JJ,JST)/99.
       ZRFIN = 0.17*PSNOWRHO(JJ,JST)-31
-    
+
       IF (PSNOWGRAN1(JJ,JST)>=0) THEN
         !Non dendritic case
 
@@ -164,7 +164,7 @@ DO JST=1,SIZE(PSNOWSWE,2)
             PSNOWRAM(JJ,JST)=2
           ENDIF
         CASE (IFIN_AR,IGEL,IGOB_FON,IRON_ANG)
-      
+
           IF (LTHERM) THEN
             PSNOWRAM(JJ,JST)=MAX(10.,0.103*PSNOWRHO(JJ,JST)-19.666)
           ELSE
@@ -174,7 +174,7 @@ DO JST=1,SIZE(PSNOWSWE,2)
               PSNOWRAM(JJ,JST)=MAX(2.,0.16*PSNOWRHO(JJ,JST)-54)
             ENDIF
           END IF
-      
+
         CASE (IPL,IPL_GOB)
           IF (PSNOWSIZE(JJ,JST)>0.8) THEN
             PSNOWRAM(JJ,JST)=MAX(3.,ZRFIN)*(0.8-PSNOWSIZE(JJ,JST))+2*PSNOWSIZE(JJ,JST)
@@ -223,20 +223,20 @@ DO JST=1,SIZE(PSNOWSWE,2)
       ENDIF
 
       IF(PSNOWAGE(JJ,JST)<=3)THEN
-        PSNOWDEPTH_3DAYS(JJ) = PSNOWDEPTH_3DAYS(JJ) + PSNOWDZ (JJ,JST)    
+        PSNOWDEPTH_3DAYS(JJ) = PSNOWDEPTH_3DAYS(JJ) + PSNOWDZ (JJ,JST)
         PSNOWSWE_3DAYS  (JJ) = PSNOWSWE_3DAYS  (JJ) + PSNOWSWE(JJ,JST)
       ENDIF
-    
+
       IF(PSNOWAGE(JJ,JST)<=5)THEN
-        PSNOWDEPTH_5DAYS(JJ) = PSNOWDEPTH_5DAYS(JJ) + PSNOWDZ (JJ,JST)    
+        PSNOWDEPTH_5DAYS(JJ) = PSNOWDEPTH_5DAYS(JJ) + PSNOWDZ (JJ,JST)
         PSNOWSWE_5DAYS  (JJ) = PSNOWSWE_5DAYS  (JJ) + PSNOWSWE(JJ,JST)
       ENDIF
-  
+
       IF(PSNOWAGE(JJ,JST)<=7)THEN
-        PSNOWDEPTH_7DAYS(JJ) = PSNOWDEPTH_7DAYS(JJ) + PSNOWDZ (JJ,JST)    
+        PSNOWDEPTH_7DAYS(JJ) = PSNOWDEPTH_7DAYS(JJ) + PSNOWDZ (JJ,JST)
         PSNOWSWE_7DAYS  (JJ) = PSNOWSWE_7DAYS  (JJ) + PSNOWSWE(JJ,JST)
       END IF
-    
+
       ! Ram sonde penetration
       IF ((GRAM(JJ)).AND.(PSNOWRAM(JJ,JST)<=2.)) THEN
         PSNOWRAM_SONDE(JJ)=PSNOWRAM_SONDE(JJ)+PSNOWDZ(JJ,JST)
@@ -255,8 +255,8 @@ DO JST=1,SIZE(PSNOWSWE,2)
         PSNOW_REFROZENTHICKNESS(JJ)=PSNOW_REFROZENTHICKNESS(JJ)+PSNOWDZ(JJ,JST)
       ELSE
         GREFROZEN(JJ)=.FALSE.
-      ENDIF    
-    
+      ENDIF
+
       ! Specific surface area
       IF ( HSNOWMETAMO=='B92' ) THEN
         PSNOWSSA(JJ,JST) = 6. / (XRHOLI*ZDIAM)
@@ -267,5 +267,5 @@ DO JST=1,SIZE(PSNOWSWE,2)
     END IF
   END DO
 END DO
-  
+
 END SUBROUTINE SNOWCRO_DIAG

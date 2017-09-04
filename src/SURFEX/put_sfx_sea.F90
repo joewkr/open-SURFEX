@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PUT_SFX_SEA (S, U, W, KLUOUT,OCPL_SEAICE,OWATER,PSEA_SST,PSEA_UCU, &
-                             PSEA_VCU,PSEAICE_SIT,PSEAICE_CVR,PSEAICE_ALB )  
+                             PSEA_VCU,PSEAICE_SIT,PSEAICE_CVR,PSEAICE_ALB )
 !     ####################################################
 !
 !!****  *PUT_SFX_SEA* - routine to put some variables from
@@ -94,7 +94,7 @@ IF (LHOOK) CALL DR_HOOK('PUT_SFX_SEA',0,ZHOOK_HANDLE)
 !              ---------------------
 !
 IF(U%NSIZE_SEA>0)THEN
-! 
+!
   CALL TREAT_SEA(U%NSIZE_SEA)
 !
 ENDIF
@@ -271,7 +271,7 @@ IF (LHOOK) CALL DR_HOOK('PUT_SFX_SEA:CHECK_SEA',0,ZHOOK_HANDLE)
 IF(ANY(PFIELD(:)>=XUNDEF))THEN
   WRITE(KLUOUT,*)'PUT_SFX_SEA: problem after get '//TRIM(HCOMMENT)//' from OASIS'
   WRITE(KLUOUT,*)'PUT_SFX_SEA: some points not defined = ',COUNT(PFIELD(:)>=XUNDEF)
-  CALL ABOR1_SFX('PUT_SFX_SEA: problem after get '//TRIM(HCOMMENT)//' from OASIS')          
+  CALL ABOR1_SFX('PUT_SFX_SEA: problem after get '//TRIM(HCOMMENT)//' from OASIS')
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('PUT_SFX_SEA:CHECK_SEA',1,ZHOOK_HANDLE)

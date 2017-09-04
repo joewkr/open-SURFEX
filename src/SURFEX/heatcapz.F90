@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE HEATCAPZ(PSANDZ,PHCAPSOIL)
 !   ###############################################################
-!!****  *HEATCAPZ*  
+!!****  *HEATCAPZ*
 !!
 !!    PURPOSE
 !!    -------
@@ -19,7 +19,7 @@
 !     used in explicit calculation of CG (soil thermal
 !     inertia): it is an option. DEFAULT is method of
 !     Noilhan and Planton (1989) (see SOIL.F90).
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -29,14 +29,14 @@
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Peters-Lidard et al. 1998 (JAS)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -67,7 +67,7 @@ IMPLICIT NONE
 !
 REAL,   DIMENSION(:,:), INTENT(IN) :: PSANDZ     ! soil sand fraction (-)
 !
-REAL,   DIMENSION(:,:), INTENT(OUT):: PHCAPSOIL  ! soil solid heat capacity (J K-1 m-3) 
+REAL,   DIMENSION(:,:), INTENT(OUT):: PHCAPSOIL  ! soil solid heat capacity (J K-1 m-3)
 !
 !*      0.2    declarations of local variables
 !
@@ -80,7 +80,7 @@ IF (LHOOK) CALL DR_HOOK('HEATCAPZ',0,ZHOOK_HANDLE)
 PHCAPSOIL(:,:) = XUNDEF
 !
 WHERE(PSANDZ(:,:)/=XUNDEF)
-!   
+!
 !  Soil solid heat capacity from Peters-Lidard et al. 1998
 !
    PHCAPSOIL(:,:) = XSPHSOIL*XDRYWGHT

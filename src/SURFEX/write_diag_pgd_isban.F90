@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITE_DIAG_PGD_ISBA_n (DTCO, HSELECT, U, CHI, NCHI, OSURF_DIAG_ALBEDO, &
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!      Modified    10/2004 by P. Le Moigne: add XZ0REL, XVEGTYPE_PATCH
 !!      Modified    11/2005 by P. Le Moigne: limit length of VEGTYPE_PATCH field names
 !!      Modified    11/2013 by B. Decharme : XPATCH now in writesurf_isban.F90
@@ -138,7 +138,7 @@ IF (IO%CPHOTO=='NON' .OR. IO%CPHOTO=='AST') THEN
   DO JP = 1,IO%NPATCH
     CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
                 NP%AL(JP)%NR_P,NPE%AL(JP)%XLAI(:),ILU,S%XWORK_WR)
-  ENDDO  
+  ENDDO
   !
 ENDIF
 !
@@ -152,7 +152,7 @@ YCOMMENT='vegetation fraction (-)'
 DO JP = 1,IO%NPATCH
   CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
               NP%AL(JP)%NR_P,NPE%AL(JP)%XVEG(:),ILU,S%XWORK_WR)
-ENDDO  
+ENDDO
 !
 !* Surface roughness length (without snow)
 !
@@ -172,7 +172,7 @@ IF (ISIZE_LMEB_PATCH>0) THEN
 DO JP = 1,IO%NPATCH
   CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
               NP%AL(JP)%NR_P,NPE%AL(JP)%XGNDLITTER(:),ILU,S%XWORK_WR)
-ENDDO    
+ENDDO
   !
   YRECFM='Z0LITTER'
   YCOMMENT='MEB: ground litter roughness length (without snow) (m)'
@@ -180,7 +180,7 @@ ENDDO
 DO JP = 1,IO%NPATCH
   CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
               NP%AL(JP)%NR_P,NPE%AL(JP)%XZ0LITTER(:),ILU,S%XWORK_WR)
-ENDDO    
+ENDDO
   !
 ENDIF
 !
@@ -192,19 +192,19 @@ DO JL=1,SIZE(NP%AL(1)%XDG,2)
   IF (JL<10) THEN
     WRITE(YRECFM,FMT='(A2,I1)') 'DG',JL
   ELSE
-    WRITE(YRECFM,FMT='(A2,I2)') 'DG',JL          
+    WRITE(YRECFM,FMT='(A2,I2)') 'DG',JL
   ENDIF
   YCOMMENT='soil depth'//' (M)'
 DO JP = 1,IO%NPATCH
   CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
               NP%AL(JP)%NR_P,NP%AL(JP)%XDG(:,JL),ILU,S%XWORK_WR)
-ENDDO    
+ENDDO
 END DO
 !
 !* Averaged Soil depth
 !
 IF(IO%NPATCH>1)THEN
-!        
+!
   ZDG(:,:)=0.0
   DO JP=1,IO%NPATCH
     PK => NP%AL(JP)
@@ -220,10 +220,10 @@ IF(IO%NPATCH>1)THEN
     WRITE(YLVL,'(I4)')JL
     YRECFM='DG'//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))
     YRECFM=YRECFM(:LEN_TRIM(YRECFM))//'_ISBA'
-    YCOMMENT='averaged soil depth layer '//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))//' (m)'   
+    YCOMMENT='averaged soil depth layer '//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))//' (m)'
     CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,ZDG(:,JL),IRESP,HCOMMENT=YCOMMENT)
   END DO
-!        
+!
 ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -255,20 +255,20 @@ IF(IO%CISBA=='DIF')THEN
   DO JP = 1,IO%NPATCH
     CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
                 NP%AL(JP)%NR_P,NP%AL(JP)%XDROOT(:),ILU,S%XWORK_WR)
-  ENDDO    
+  ENDDO
   !
   YRECFM='DG2_DIF'
   YCOMMENT='DG2 depth in ISBA-DIF'
   DO JP = 1,IO%NPATCH
     CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
               NP%AL(JP)%NR_P,NP%AL(JP)%XDG2(:),ILU,S%XWORK_WR)
-  ENDDO    
-  !  
+  ENDDO
+  !
   IF(IO%NPATCH>1)THEN
     YRECFM='DG2_DIF_ISBA'
-    YCOMMENT='Averaged DG2 depth in ISBA-DIF'  
-    CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,ZDG2(:),IRESP,HCOMMENT=YCOMMENT)          
-  ENDIF  
+    YCOMMENT='Averaged DG2 depth in ISBA-DIF'
+    CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,ZDG2(:),IRESP,HCOMMENT=YCOMMENT)
+  ENDIF
   !
   !* Runoff depth
   !
@@ -277,23 +277,23 @@ IF(IO%CISBA=='DIF')THEN
   DO JP = 1,IO%NPATCH
     CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
                 NP%AL(JP)%NR_P,NP%AL(JP)%XRUNOFFD(:),ILU,S%XWORK_WR)
-  ENDDO    
+  ENDDO
   !
   !* Total soil depth for mositure
   !
     YCOMMENT='Total soil depth for moisture in ISBA-DIF'
-  DO JP = 1,IO%NPATCH 
+  DO JP = 1,IO%NPATCH
     WRITE(YPAT,'(I2)') JP
     YRECFM='DTOT_DIF'
     YRECFM=ADJUSTL(YRECFM(:LEN_TRIM(YRECFM)))//'P'//ADJUSTL(YPAT(:LEN_TRIM(YPAT)))
     CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,ZWORK2(:,JP),IRESP,HCOMMENT=YCOMMENT)
-  ENDDO  
+  ENDDO
   DEALLOCATE(ZWORK2)
   !
   IF(IO%NPATCH>1)THEN
     YRECFM='DTOTDF_ISBA'
-    YCOMMENT='Averaged Total soil depth for moisture in ISBA-DIF'   
-    CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,ZDTOT(:),IRESP,HCOMMENT=YCOMMENT)          
+    YCOMMENT='Averaged Total soil depth for moisture in ISBA-DIF'
+    CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,ZDTOT(:),IRESP,HCOMMENT=YCOMMENT)
   ENDIF
   !
   !* Root fraction for each patch
@@ -305,8 +305,8 @@ IF(IO%CISBA=='DIF')THEN
       IF (JL<10) THEN
         WRITE(YRECFM,FMT='(A8,I1)') 'ROOTFRAC',JL
       ELSE
-        WRITE(YRECFM,FMT='(A8,I2)') 'ROOTFRAC',JL          
-      ENDIF  
+        WRITE(YRECFM,FMT='(A8,I2)') 'ROOTFRAC',JL
+      ENDIF
       YCOMMENT='root fraction by layer (-)'
       ZWORK1(:)=XUNDEF
       DO JI=1,SIZE(PK%XDG,1)
@@ -327,14 +327,14 @@ IF(IO%CISBA=='DIF')THEN
      IF (JL<10) THEN
        WRITE(YRECFM,FMT='(A7,I1)') 'FRACSOC',JL
      ELSE
-       WRITE(YRECFM,FMT='(A7,I2)') 'FRACSOC',JL          
-     ENDIF  
+       WRITE(YRECFM,FMT='(A7,I2)') 'FRACSOC',JL
+     ENDIF
      YCOMMENT='SOC fraction by layer (-)'
      CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,S%XFRACSOC(:,JL),IRESP,HCOMMENT=YCOMMENT)
     ENDDO
   ENDIF
 !
-ENDIF        
+ENDIF
 !
 !-------------------------------------------------------------------------------
 !
@@ -342,9 +342,9 @@ DO JL=1,SIZE(NP%AL(1)%XDG,2)
   IF (JL<10) THEN
     WRITE(YRECFM,FMT='(A4,I1)') 'WSAT',JL
   ELSE
-    WRITE(YRECFM,FMT='(A4,I2)') 'WSAT',JL          
-  ENDIF  
-  YCOMMENT='soil porosity by layer (m3/m3)'  
+    WRITE(YRECFM,FMT='(A4,I2)') 'WSAT',JL
+  ENDIF
+  YCOMMENT='soil porosity by layer (m3/m3)'
   CALL WRITE_SURF(HSELECT, &
                   HPROGRAM,YRECFM,K%XWSAT(:,JL),IRESP,HCOMMENT=YCOMMENT)
 ENDDO
@@ -353,8 +353,8 @@ DO JL=1,SIZE(NP%AL(1)%XDG,2)
   IF (JL<10) THEN
     WRITE(YRECFM,FMT='(A3,I1)') 'WFC',JL
   ELSE
-    WRITE(YRECFM,FMT='(A3,I2)') 'WFC',JL          
-  ENDIF  
+    WRITE(YRECFM,FMT='(A3,I2)') 'WFC',JL
+  ENDIF
   YCOMMENT='field capacity by layer (m3/m3)'
   CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,K%XWFC(:,JL),IRESP,HCOMMENT=YCOMMENT)
 ENDDO
@@ -363,11 +363,11 @@ DO JL=1,SIZE(NP%AL(1)%XDG,2)
   IF (JL<10) THEN
     WRITE(YRECFM,FMT='(A5,I1)') 'WWILT',JL
   ELSE
-    WRITE(YRECFM,FMT='(A5,I2)') 'WWILT',JL          
-  ENDIF  
+    WRITE(YRECFM,FMT='(A5,I2)') 'WWILT',JL
+  ENDIF
   YCOMMENT='wilting point by layer (m3/m3)'
   CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,K%XWWILT(:,JL),IRESP,HCOMMENT=YCOMMENT)
-ENDDO     
+ENDDO
 !
 !-------------------------------------------------------------------------------
 ! For Earth System Model
@@ -394,7 +394,7 @@ IF(IO%CHORT=='SGH'.AND.IO%CISBA/='DIF')THEN
   DO JP = 1,IO%NPATCH
     CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
                 NP%AL(JP)%NR_P,NP%AL(JP)%XD_ICE(:),ILU,S%XWORK_WR)
-  ENDDO    
+  ENDDO
 ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -402,7 +402,7 @@ ENDIF
 !* Fraction of each vegetation type in the grid cell
 !
 DO JL=1,SIZE(S%XVEGTYPE_PATCH,2)
-  WRITE(YPAS,'(I2)') JL 
+  WRITE(YPAS,'(I2)') JL
   YLVLV=ADJUSTL(YPAS(:LEN_TRIM(YPAS)))
   WRITE(YRECFM,FMT='(A9)') 'VEGTYPE'//YLVLV
   YCOMMENT='fraction of each vegetation type in the grid cell'//' (-)'
@@ -415,14 +415,14 @@ END DO
 IF(IO%NPATCH>1.AND.SIZE(S%XVEGTYPE_PATCH,2)/=SIZE(S%XVEGTYPE_PATCH,3))THEN
 !
   DO JL=1,SIZE(S%XVEGTYPE_PATCH,2)
-    WRITE(YPAS,'(I2)') JL 
+    WRITE(YPAS,'(I2)') JL
     YLVLV=ADJUSTL(YPAS(:LEN_TRIM(YPAS)))
     WRITE(YRECFM,FMT='(A9)') 'VEGTY_'//YLVLV
     YCOMMENT='fraction of each vegetation type in each patch'//' (-)'
     DO JP = 1,IO%NPATCH
       CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
                   NP%AL(JP)%NR_P,NP%AL(JP)%XVEGTYPE_PATCH(:,JL),ILU,S%XWORK_WR)
-    ENDDO      
+    ENDDO
   END DO
 !
 ENDIF
@@ -507,7 +507,7 @@ IF (OSURF_DIAG_ALBEDO) THEN
     CALL UNPACK_SAME_RANK(NP%AL(JP)%NR_P, NPE%AL(JP)%XALBVIS_SOIL, ZWORK(:,JP))
     WHERE (ZWORK(:,JP)/=XUNDEF) ZWORK(:,1) = ZWORK(:,JP)
   ENDDO
-  CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,ZWORK(:,1),IRESP,HCOMMENT=YCOMMENT)  
+  CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,ZWORK(:,1),IRESP,HCOMMENT=YCOMMENT)
 !
 !-------------------------------------------------------------------------------
 !
@@ -560,14 +560,14 @@ IF (CHI%CCH_DRY_DEP=='WES89' .AND. CHI%SVI%NBEQ>0) THEN
   DO JP = 1,IO%NPATCH
     CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
                 NP%AL(JP)%NR_P,NCHI%AL(JP)%XSOILRC_SO2(:),ILU,S%XWORK_WR)
-  ENDDO  
+  ENDDO
   !
   YRECFM='SOILRC_O3'
   YCOMMENT='bare soil resistance for O3 (?)'
   DO JP = 1,IO%NPATCH
     CALL  WRITE_FIELD_1D_PATCH(HSELECT,HPROGRAM,YRECFM,YCOMMENT,JP,&
                 NP%AL(JP)%NR_P,NCHI%AL(JP)%XSOILRC_O3(:),ILU,S%XWORK_WR)
-  ENDDO   
+  ENDDO
 END IF
 !
 !-------------------------------------------------------------------------------

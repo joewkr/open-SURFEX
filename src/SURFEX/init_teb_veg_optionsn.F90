@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
 SUBROUTINE INIT_TEB_VEG_OPTIONS_n (CHT, OSURF_DIAG_ALBEDO, OGREENROOF, GDO, GRO, HPROGRAM)
@@ -83,7 +83,7 @@ IMPLICIT NONE
 !
 TYPE(CH_TEB_t), INTENT(INOUT) :: CHT
 LOGICAL, INTENT(OUT) :: OSURF_DIAG_ALBEDO
-LOGICAL, INTENT(IN) :: OGREENROOF 
+LOGICAL, INTENT(IN) :: OGREENROOF
 TYPE(ISBA_OPTIONS_t), INTENT(INOUT) :: GDO
 TYPE(ISBA_OPTIONS_t), INTENT(INOUT) :: GRO
 !
@@ -101,7 +101,7 @@ CHARACTER(LEN=4 ) :: YLVL
 INTEGER :: JLAYER ! loop counter on layers
 !
 REAL                              :: ZOUT_TSTEP
-CHARACTER(LEN=3)                  :: YRAIN 
+CHARACTER(LEN=3)                  :: YRAIN
 LOGICAL                           :: GCANOPY_DRAG
 LOGICAL                           :: GGLACIER
 LOGICAL                           :: GFLOOD
@@ -134,10 +134,10 @@ IF (LNAM_READ) THEN
  !               --------
  !
  !        1.1. Hard defaults
- !      
+ !
  !       Definition of default options for ISBA (in MODD_TEB_VEG_n)
  !       REM - TSTEP, OUT_TSTEP, CANOPY_DRAG are defined as local variables
- !             because they are already in init_teb.f90 (these options are 
+ !             because they are already in init_teb.f90 (these options are
  !             forced to the same values for TEB and urban green areas)
  !
  CALL DEFAULT_ISBA(GDO%XTSTEP, GDO%XOUT_TSTEP, GDO%CRUNOFF, &
@@ -151,11 +151,11 @@ IF (LNAM_READ) THEN
  CALL DEFAULT_CH_BIO_FLUX(CHT%LCH_BIO_FLUX)
  !
  CALL DEFAULT_CROCUS(GDO%LSNOWDRIFT,GDO%LSNOWDRIFT_SUBLIM,GDO%LSNOW_ABS_ZENITH,&
-                     GDO%CSNOWMETAMO,GDO%CSNOWRAD) 
+                     GDO%CSNOWMETAMO,GDO%CSNOWRAD)
  !
 ENDIF
 !        1.2. Defaults from file header
-!    
+!
  CALL READ_DEFAULT_TEB_VEG_n(CHT, GDO, HPROGRAM)
 !
  CALL READ_TEB_VEG_CONF_n(CHT, GDO, HPROGRAM)
@@ -211,7 +211,7 @@ IF (IVERSION>7 .OR. IVERSION==7 .AND. IBUGFIX>=2) THEN
   IF (IVERSION>7 .OR. IVERSION==7 .AND. IBUGFIX>=3) YRECFM='GD_TR_ML'
   CALL READ_SURF(HPROGRAM,YRECFM,GDO%LTR_ML,IRESP)
   !
-ELSE 
+ELSE
   GDO%LTR_ML = .FALSE.
 ENDIF
 !
@@ -247,12 +247,12 @@ IF (GDO%CPHOTO=='NIT') GDO%NNBIOMASS=3
 IF (OGREENROOF) THEN
   !
   GRO%NPATCH = 1
-  GRO%CRESPSL   = GDO%CRESPSL  
+  GRO%CRESPSL   = GDO%CRESPSL
   !
   YRECFM='GR_ISBA'
   CALL READ_SURF(HPROGRAM,YRECFM,GRO%CISBA,IRESP)
   !
-  GRO%CPEDOTF   = GDO%CPEDOTF  
+  GRO%CPEDOTF   = GDO%CPEDOTF
   GRO%CPHOTO    = GDO%CPHOTO
   !
   YRECFM='GR_LAYER'
@@ -271,11 +271,11 @@ IF (OGREENROOF) THEN
   GRO%CALBEDO = GDO%CALBEDO
   GRO%CC1DRY = GDO%CC1DRY
   GRO%CSOILFRZ = GDO%CSOILFRZ
-  GRO%CDIFSFCOND = GDO%CDIFSFCOND 
+  GRO%CDIFSFCOND = GDO%CDIFSFCOND
   GRO%CSNOWRES = GDO%CSNOWRES
   GRO%CCPSURF = GDO%CCPSURF
-  GRO%XCGMAX = GDO%XCGMAX 
-  GRO%XCDRAG = GDO%XCDRAG 
+  GRO%XCGMAX = GDO%XCGMAX
+  GRO%XCDRAG = GDO%XCDRAG
   GRO%CKSAT = GDO%CKSAT
   GRO%LSOC = GDO%LSOC
   GRO%CRAIN = GDO%CRAIN

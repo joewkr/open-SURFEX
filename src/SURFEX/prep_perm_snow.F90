@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_PERM_SNOW (IO, KK, PK, PEK)
@@ -17,11 +17,11 @@ SUBROUTINE PREP_PERM_SNOW (IO, KK, PK, PEK)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -84,7 +84,7 @@ REAL, DIMENSION(:),   ALLOCATABLE   :: ZD          ! new snow total depth
 REAL, DIMENSION(:,:), ALLOCATABLE   :: ZDEPTH      ! depth of each layer
 REAL, DIMENSION(:,:), ALLOCATABLE :: ZT          ! new snow temperature profile
 REAL, DIMENSION(:),   ALLOCATABLE   :: ZPSN        ! permanent snow fraction
-REAL, DIMENSION(:,:), ALLOCATABLE   :: ZWAT        ! 
+REAL, DIMENSION(:,:), ALLOCATABLE   :: ZWAT        !
 !
 LOGICAL, DIMENSION(:,:), ALLOCATABLE :: GWORK
 INTEGER                              :: IWORK
@@ -135,7 +135,7 @@ ELSE
 ENDIF
 
 IF (ALL(ZPSN0(:)==0.)) THEN
-  DEALLOCATE(ZPSN) 
+  DEALLOCATE(ZPSN)
   IF (LHOOK) CALL DR_HOOK('PREP_PERM_SNOW',1,ZHOOK_HANDLE)
   RETURN
 END IF
@@ -208,19 +208,19 @@ IF (PEK%TSNOW%SCHEME=='3-L'.OR.PEK%TSNOW%SCHEME=='CRO') THEN
   IF(IO%LGLACIER.AND.PEK%TSNOW%NLAYER>=6)THEN
     WHERE(GWORK(:,1))
       PEK%TSNOW%RHO(:,1) = ZRHOL1
-    END WHERE 
+    END WHERE
     IF(PEK%TSNOW%NLAYER>=6.AND.PEK%TSNOW%NLAYER<12)THEN
       WHERE(GWORK(:,2))
        PEK%TSNOW%RHO(:,2) = ZRHOL1 + 100.
-      END WHERE 
+      END WHERE
       WHERE(GWORK(:,3))
        PEK%TSNOW%RHO(:,3) = ZRHOL1 + 250.
-      END WHERE 
+      END WHERE
     ELSE
       DO JL=2,PEK%TSNOW%NLAYER
         WHERE(GWORK(:,JL))
           PEK%TSNOW%RHO(:,JL) = MIN(ZRHOSMAX,PEK%TSNOW%RHO(:,JL-1)+100.)
-        END WHERE     
+        END WHERE
       ENDDO
     ENDIF
   ENDIF
@@ -234,7 +234,7 @@ IF (PEK%TSNOW%SCHEME=='3-L'.OR.PEK%TSNOW%SCHEME=='CRO') THEN
   END DO
   DO JL=1+PEK%TSNOW%NLAYER/4,PEK%TSNOW%NLAYER
     WHERE(GWORK(:,JL))
-      PEK%TSNOW%AGE(:,JL) = 3650.*FLOAT(JL-1)/ FLOAT(PEK%TSNOW%NLAYER) 
+      PEK%TSNOW%AGE(:,JL) = 3650.*FLOAT(JL-1)/ FLOAT(PEK%TSNOW%NLAYER)
     END WHERE
   END DO
 !
@@ -247,16 +247,16 @@ END IF
 IF (PEK%TSNOW%SCHEME=='CRO') THEN
 DO JL=1,PEK%TSNOW%NLAYER/4
   WHERE(GWORK(:,JL))
-    PEK%TSNOW%GRAN1(:,JL) = MIN(-1.,-99.* (1.-4*FLOAT(JL)/FLOAT(PEK%TSNOW%NLAYER))) 
-    PEK%TSNOW%GRAN2(:,JL) = 50. 
-    PEK%TSNOW%HIST(:,JL) = 0 
+    PEK%TSNOW%GRAN1(:,JL) = MIN(-1.,-99.* (1.-4*FLOAT(JL)/FLOAT(PEK%TSNOW%NLAYER)))
+    PEK%TSNOW%GRAN2(:,JL) = 50.
+    PEK%TSNOW%HIST(:,JL) = 0
   END WHERE
 END DO
 DO JL=1+PEK%TSNOW%NLAYER/4,PEK%TSNOW%NLAYER
   WHERE(GWORK(:,JL))
-    PEK%TSNOW%GRAN1(:,JL) = 99. 
-    PEK%TSNOW%GRAN2(:,JL) = 0.0003 
-    PEK%TSNOW%HIST(:,JL) = 0 
+    PEK%TSNOW%GRAN1(:,JL) = 99.
+    PEK%TSNOW%GRAN2(:,JL) = 0.0003
+    PEK%TSNOW%HIST(:,JL) = 0
   END WHERE
 END DO
 END IF
@@ -271,7 +271,7 @@ END IF
 ALLOCATE(ZWSNOW(SIZE(PEK%XTG,1)))
 ZWSNOW(:) = 0.
 DO JL=1,PEK%TSNOW%NLAYER
-  ZWSNOW(:) = ZWSNOW(:) + PEK%TSNOW%WSNOW(:,JL) 
+  ZWSNOW(:) = ZWSNOW(:) + PEK%TSNOW%WSNOW(:,JL)
 END DO
 !
 !* new total snow content
@@ -320,7 +320,7 @@ DEALLOCATE(ZD)
 !              -----------------------
 !
 ALLOCATE(ZT(SIZE(PEK%TSNOW%WSNOW,1),SIZE(PEK%TSNOW%WSNOW,2)))
-!       
+!
 SELECT CASE(PEK%TSNOW%SCHEME)
   CASE('1-L')
     ZT(:,:) = PEK%TSNOW%T (:,:)
@@ -339,7 +339,7 @@ DO JL=1,PEK%TSNOW%NLAYER
   ELSE
       WHERE(ZWSNOW_PERM(:)>0. .AND. ZWSNOW(:)==0)GWORK(:,JL)=.TRUE.
   ENDIF
-!  
+!
   WHERE(GWORK(:,JL))
       ZT(:,JL) = MIN(PEK%XTG(:,SIZE(PEK%XTG,2)),XTT)
   END WHERE

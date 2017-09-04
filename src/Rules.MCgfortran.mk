@@ -9,7 +9,7 @@ USE_SPLR = YES
 #
 #OBJDIR_PATH=/home/escj/azertyuiopqsdfghjklm/wxcvbn/azertyuiopqsdfghjklmwxcvbn
 #
-OPT_BASE  = -fdefault-real-8 -fdefault-double-8 -fno-second-underscore -fpic  -ffpe-trap=overflow,zero,invalid -fbacktrace -fconvert=swap 
+OPT_BASE  = -fdefault-real-8 -fdefault-double-8 -fno-second-underscore -fpic  -ffpe-trap=overflow,zero,invalid -fbacktrace -fconvert=swap
 #
 OPT_PERF0 = -O0
 OPT_PERF2 = -O2
@@ -70,7 +70,7 @@ F77FLAGS      = $(FCFLAGS_OMP) $(OPT)
 FX90 = $(F90)
 FX90FLAGS     = $(FCFLAGS_OMP) $(OPT)
 #
-LDFLAGS   =  $(FCFLAGS_OMP) 
+LDFLAGS   =  $(FCFLAGS_OMP)
 #
 # preprocessing flags
 #

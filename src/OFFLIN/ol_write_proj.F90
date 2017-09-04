@@ -23,7 +23,7 @@ USE PARKIND1  ,ONLY : JPRB
 USE NETCDF
 !
 IMPLICIT NONE
-! 
+!
  CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
 INTEGER,               INTENT(IN) :: KFILE_ID
 TYPE(SURF_ATM_GRID_t), INTENT(INOUT) :: UG
@@ -91,7 +91,7 @@ SELECT CASE(UG%G%CGRID)
     ELSE
       YATT_TITLE2(ISIZE) = "longitude_of_central_meridian"
     ENDIF
-    ZATT(ISIZE) = ZLON0 
+    ZATT(ISIZE) = ZLON0
 
     ISIZE = ISIZE + 1
     YATT_TITLE2(ISIZE) = "latitude_of_projection_origin"
@@ -102,13 +102,13 @@ SELECT CASE(UG%G%CGRID)
     ENDIF
 
     ZX1(1) = ZX(1)
-    ZY1(1) = ZY(1)    
-    DEALLOCATE(ZX,ZY)    
+    ZY1(1) = ZY(1)
+    DEALLOCATE(ZX,ZY)
     ZLAT1(1) = ZLAT0
     ZLON1(1) = ZLON0
     CALL XY_CONF_PROJ(ZLAT0,ZLON0,ZRPK,0.,ZLATOR,ZLONOR,ZX2,ZY2,ZLAT1,ZLON1)
     ISIZE = ISIZE + 1
-    YATT_TITLE2(ISIZE) = "false_easting" 
+    YATT_TITLE2(ISIZE) = "false_easting"
     ZATT(ISIZE) = NINT((ZX2(1)-ZX1(1))*100.)/100.
     ISIZE = ISIZE + 1
     YATT_TITLE2(ISIZE) = "false_northing"
@@ -117,7 +117,7 @@ SELECT CASE(UG%G%CGRID)
     ISIZE = ISIZE + 1
     YATT_TITLE2(ISIZE) = "rotation"
     ZATT(ISIZE) = ZBETA
-    
+
     IF (ZRESX/=0.) THEN
       ISIZE = ISIZE + 1
       YATT_TITLE2(ISIZE) = "x_resolution"
@@ -126,10 +126,10 @@ SELECT CASE(UG%G%CGRID)
       YATT_TITLE2(ISIZE) = "y_resolution"
       ZATT(ISIZE) = ZRESY
     ENDIF
-    
+
     ZSIN = SIN(ZLAT0*(XPI/180.))
     IF (ABS(ZRPK)==1.OR.ZRPK==0..OR.NINT(ZSIN*100.)==NINT(ZRPK*100.)) THEN
-    
+
       ISIZE = ISIZE + 1
       YATT_TITLE2(ISIZE) = 'standard_parallel'
       ZATT(ISIZE) = ZLAT0
@@ -137,9 +137,9 @@ SELECT CASE(UG%G%CGRID)
       CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
             YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:ISIZE),&
             PATT_FLOAT=ZATT(1:ISIZE))
-      
+
     ELSE
-       
+
       YATT_TITLE3(1) = "standard_parallel"
       ZATT2D(1,1) = ASIN(ZRPK)*(180./XPI)
       ZATT2D(1,2) = 2*ZLAT0-ASIN(ZRPK)*(180./XPI)
@@ -147,7 +147,7 @@ SELECT CASE(UG%G%CGRID)
       CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
           YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:ISIZE),&
           PATT_FLOAT=ZATT(1:ISIZE),HATT_TITLE3=YATT_TITLE3(1:1),PATT_FLOAT2D=ZATT2D(1:1,:))
-        
+
     ENDIF
 
 
@@ -174,7 +174,7 @@ SELECT CASE(UG%G%CGRID)
     YATT_TITLE(3) = "lon_number_by_lat"
     YATT(2) = "var: gauss_latitudes"
     YATT(3) = "var: lon_number_by_lat"
-    
+
     ! geoid
     YATT_TITLE2(1) = 'earth_radius'
     ZATT(1) = 6371229.
@@ -186,7 +186,7 @@ SELECT CASE(UG%G%CGRID)
     YATT_TITLE2(4) = "pole_lat"
     ZATT(3) = NINT(ZLON0*100.)/100.
     ZATT(4) = NINT(ZLAT0*100.)/100.
-    
+
     CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
               YATT_TITLE(1:3),YATT(1:3),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:4),&
               PATT_FLOAT=ZATT(1:4))
@@ -214,7 +214,7 @@ SELECT CASE(UG%G%CGRID)
 
     CALL GET_GRIDTYPE_CARTESIAN(UG%XGRID_FULL_PAR,KL=IL)
     ALLOCATE(ZDX(IL),ZDY(IL))
-    CALL GET_GRIDTYPE_CARTESIAN(UG%XGRID_FULL_PAR,PDX=ZDX,PDY=ZDY)    
+    CALL GET_GRIDTYPE_CARTESIAN(UG%XGRID_FULL_PAR,PDX=ZDX,PDY=ZDY)
     ZRESX = ZDX(1)
     ZRESY = ZDY(1)
     DEALLOCATE(ZDX,ZDY)
@@ -260,7 +260,7 @@ SELECT CASE(UG%G%CGRID)
     ! geoid
     YATT_TITLE2(1) = 'earth_radius'
     ZATT(1) = 6371229.
-    
+
     ISIZE = 1
     IF (ZRESX/=0.) THEN
       ISIZE = ISIZE + 1
@@ -270,9 +270,9 @@ SELECT CASE(UG%G%CGRID)
       YATT_TITLE2(ISIZE) = "y_resolution"
       ZATT(ISIZE) = ZRESY
     ENDIF
-    
+
     CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
-                 YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:ISIZE),&     
+                 YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:ISIZE),&
                  PATT_FLOAT=ZATT(1:ISIZE))
 
 
@@ -286,8 +286,8 @@ SELECT CASE(UG%G%CGRID)
     ! geoid
     YATT_TITLE2(1) = 'earth_radius'
     ZATT(1) = 6371229.
-                         
-    YATT_TITLE2(2) = "grid_north_pole_longitude"    
+
+    YATT_TITLE2(2) = "grid_north_pole_longitude"
     YATT_TITLE2(3) = "grid_north_pole_latitude"
     ZATT(2) = ZLON0
     ZATT(3) = ZLAT0
@@ -304,11 +304,11 @@ SELECT CASE(UG%G%CGRID)
       YATT_TITLE2(ISIZE) = "y_resolution"
       ZATT(ISIZE) = ZRESY
     ENDIF
- 
+
     CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
                   YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,&
                   HATT_TITLE2=YATT_TITLE2(1:ISIZE),PATT_FLOAT=ZATT(1:ISIZE))
-        
+
 
   CASE ("LONLATVAL ")
 
@@ -317,7 +317,7 @@ SELECT CASE(UG%G%CGRID)
     ! geoid
     YATT_TITLE2(1) = 'earth_radius'
     ZATT(1) = 6371229.
-    
+
     CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
                         YATT_TITLE(1:1),YATT(1:1),IVAR_ID,NF90_INT,&
                   HATT_TITLE2=YATT_TITLE2(1:1),PATT_FLOAT=ZATT(1:1))
@@ -350,11 +350,11 @@ SELECT CASE(UG%G%CGRID)
           ZLON0 = 2.33722917
           ZX0 = 600000.
           ZY0 = 5657616.674
-            
+
         CASE(2)
           ZLAT0 = 46.8
           ZLAT2(1) = 45.88935133333
-          ZLAT2(2) = 47.68760866666     
+          ZLAT2(2) = 47.68760866666
           ZLON0 = 2.33722917
           ZX0 = 600000.
           ZY0 = 6199695.768
@@ -362,35 +362,35 @@ SELECT CASE(UG%G%CGRID)
         CASE(3)
           ZLAT0 = 44.1
           ZLAT2(1) = 43.19290816666
-          ZLAT2(2) = 44.96513966666    
+          ZLAT2(2) = 44.96513966666
           ZLON0 = 2.33722917
           ZX0 = 600000.
           ZY0 = 6791905.085
-          
+
         CASE(4)
           ZLAT0 = 42.165
           ZLAT2(1) = 41.55623266666
-          ZLAT2(2) = 42.76726466666      
+          ZLAT2(2) = 42.76726466666
           ZLON0 = 2.33722917
           ZX0 = 234.358
           ZY0 = 7239161.542
-  
+
         CASE(5)
           ZLAT0 = 46.8
           ZLAT2(1) = 45.88935133333
-          ZLAT2(2) = 47.68760866666     
+          ZLAT2(2) = 47.68760866666
           ZLON0 = 2.33722917
           ZX0 = 600000.
           ZY0 = 8199695.768
-  
+
         CASE(6)
           ZLAT0 = 46.5
           ZLAT2(1) = 44.
-          ZLAT2(2) = 49.         
+          ZLAT2(2) = 49.
           ZLON0 = 3.
           ZX0 = 700000.
           ZY0 = 12655612.050
-            
+
       END SELECT
 
       YATT_TITLE(1) = "grid_mapping_name"
@@ -406,7 +406,7 @@ SELECT CASE(UG%G%CGRID)
 
       ISIZE = ISIZE + 1
       YATT_TITLE2(ISIZE) = "longitude_of_central_meridian"
-      ZATT(ISIZE) = ZLON0 
+      ZATT(ISIZE) = ZLON0
 
       ISIZE = ISIZE + 1
       YATT_TITLE2(ISIZE) = "latitude_of_projection_origin"
@@ -418,15 +418,15 @@ SELECT CASE(UG%G%CGRID)
       ZX1(1) = MINVAL(ZX)
       ZY1(1) = MINVAL(ZY)
       ISIZE = ISIZE + 1
-      YATT_TITLE2(ISIZE) = "false_easting" 
+      YATT_TITLE2(ISIZE) = "false_easting"
       ZATT(ISIZE) = ZX2(1)-ZX1(1)
       ISIZE = ISIZE + 1
       YATT_TITLE2(ISIZE) = "false_northing"
       ZATT(ISIZE) = ZY2(1)-ZY1(1)
-        
+
       YATT_TITLE3(1) = "standard_parallel"
       ZATT2D(1,:) = ZLAT2(:)
-         
+
       IF (ALL(ZDX(2:)==ZDX(1))) THEN
         ISIZE = ISIZE + 1
         YATT_TITLE2(ISIZE) = "x_resolution"
@@ -441,7 +441,7 @@ SELECT CASE(UG%G%CGRID)
       CALL DEF_VAR_NETCDF(HSELECT,KFILE_ID,"Projection_Type","",IDIMID,&
             YATT_TITLE(1:2),YATT(1:2),IVAR_ID,NF90_INT,HATT_TITLE2=YATT_TITLE2(1:ISIZE),&
             PATT_FLOAT=ZATT(1:ISIZE),HATT_TITLE3=YATT_TITLE3(1:1),PATT_FLOAT2D=ZATT2D(1:1,:))
-  
+
       DEALLOCATE(ZX,ZY,ZDX,ZDY)
 
    ENDIF
@@ -450,7 +450,7 @@ SELECT CASE(UG%G%CGRID)
 
     CALL ABOR1_SFX("OL_WRITE_PROJ: PROJECTION "//UG%G%CGRID//" NOT DEFINED")
 
-END SELECT 
+END SELECT
 !
 IF (LHOOK) CALL DR_HOOK('OL_WRITE_PROJ',1,ZHOOK_HANDLE)
 !

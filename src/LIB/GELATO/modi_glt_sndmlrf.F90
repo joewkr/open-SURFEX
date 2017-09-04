@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,23 +28,23 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ========================= MODULE modi_glt_sndmlrf =========================
 ! =======================================================================
 !
 ! This routine was created for Gelato version 3, i.e. Gelato is under the
-! form of a routine inserted in the OPA 8 code. 
-! It allows Gelato to transmit the forcing the ocean needs as a routine 
+! form of a routine inserted in the OPA 8 code.
+! It allows Gelato to transmit the forcing the ocean needs as a routine
 ! glt_output argument.
-!  
+!
 ! Created : 10/1999 (D. Salas y Melia)
 ! Modified: 02/2000 (D. Salas y Melia)
 !    Suppress the computation of stress derivatives
@@ -52,11 +52,11 @@
 !    Adaptation to the new Gelato interface
 ! Modified: 06/2010 (D. Salas y Melia)
 !    Collects the mass of snow that is lost/gained due to advection
-!  processes and redistribute it under sea ice (by hemisphere) 
+!  processes and redistribute it under sea ice (by hemisphere)
 ! Modified: 12/2011 (A. Voldoire)
 !    New ice/water fluxes interface CALL + add sio from tzdfl to tptfl
-! Modified: 07/2012 (D. Salas y Melia) 
-!    Parallelism 
+! Modified: 07/2012 (D. Salas y Melia)
+!    Parallelism
 !
 ! --------------------- BEGIN MODULE modi_glt_sndmlrf -----------------------
 !
@@ -144,22 +144,22 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
         tzdfl
 !
 !
-! 
+!
 ! 1. Momentum flux
 ! =================
 !
 ! .. Transmitted u and v stress components (N.m-2). This stress is the
 ! result of a weighing between ice-ocean stress (for ice covered areas)
 ! and air-ocean stress.
-!       - Note that in glt_gelato, Tx(i,j) and Ty(i,j) are respectively 
-! defined at the middle of the western and southern corners of T(i,j) 
-! cell. 
+!       - Note that in glt_gelato, Tx(i,j) and Ty(i,j) are respectively
+! defined at the middle of the western and southern corners of T(i,j)
+! cell.
 !       - The glt_output stress should be defined also on Arakawa-C grid,
-! but with Tx(i,j) at the middle of the eastern corner of T(i,j) cell 
+! but with Tx(i,j) at the middle of the eastern corner of T(i,j) cell
 ! and Ty(i,j) at the middle of the northern corner of T(i,j) cell.
 !       - So the glt_output grid should be shifted by one grid cell along
-! the X and Y axis. To achieve that, the initial fields are bounded, 
-! then 
+! the X and Y axis. To achieve that, the initial fields are bounded,
+! then
 !
 ! .. Sea ice total fraction and lead fraction
 !
@@ -170,7 +170,7 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
 !
   pustar(:,:) = SQRT( SQRT(tptfl(:,:)%xio**2+tptfl(:,:)%yio**2)/rhosw )
 !
-! .. Where ocean depth is less than 80m, assume that ice-water stress 
+! .. Where ocean depth is less than 80m, assume that ice-water stress
 ! is equal to ice-air stress multiplied by leads fraction
 ! (we assume that sea ice does not exert any stress on water)
 !
@@ -185,7 +185,7 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
   tpdia(:,:)%otx = -zfsit(:,:)*tptfl(:,:)%xio
   ztxgw(:,:) = -tpdia(:,:)%otx + zfld(:,:)*tpatc(:,:)%ztx
 !
-  ztxgw(:,:) = ztxgw(:,:)*FLOAT( tpdom(:,:)%umk ) 
+  ztxgw(:,:) = ztxgw(:,:)*FLOAT( tpdom(:,:)%umk )
 !
 ! .. Global ice+air/water stress : v-component
 !
@@ -193,7 +193,7 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
   tpdia(:,:)%oty = -zfsit(:,:)*tptfl(:,:)%yio
   ztygw(:,:) = -tpdia(:,:)%oty + zfld(:,:)*tpatc(:,:)%mty
 !
-  ztygw(:,:) = ztygw(:,:)*FLOAT( tpdom(:,:)%vmk ) 
+  ztygw(:,:) = ztygw(:,:)*FLOAT( tpdom(:,:)%vmk )
 
 #if ! defined in_surfex
   CALL gltools_bound( 'U','vector',ztxgw )
@@ -223,33 +223,33 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
     zent(:,:,:) = 0.
 !
 ! -> north hemisphere
-    ycrit = ( tpdom(:,:)%lat>0..AND.tpdom(:,:)%tmk==1.AND.zfsit(:,:)>epsil1 ) 
+    ycrit = ( tpdom(:,:)%lat>0..AND.tpdom(:,:)%tmk==1.AND.zfsit(:,:)>epsil1 )
     zdm(1,:,:) = zdm(1,:,:) + gltools_adjflx( tpdom,ycrit,tpdia%ddn )
 ! -> south hemisphere
-    ycrit = ( tpdom(:,:)%lat<0..AND.tpdom(:,:)%tmk==1.AND.zfsit(:,:)>epsil1 ) 
+    ycrit = ( tpdom(:,:)%lat<0..AND.tpdom(:,:)%tmk==1.AND.zfsit(:,:)>epsil1 )
     zdm(1,:,:) = zdm(1,:,:) + gltools_adjflx( tpdom,ycrit,tpdia%ddn )
 !
     CALL glt_updtfl('FW2O', tpml,tzdfl,zdm,pent=zent )
 !
 !
-! 2.3. Effect of sea ice 
+! 2.3. Effect of sea ice
 ! -----------------------
 !
     zdm(:,:,:) = 0.
     zent(:,:,:) = 0.
     zsalt(:,:,:) = 0.
 !
-! .. Compute average ice mass and salinity changes 
+! .. Compute average ice mass and salinity changes
 ! (note that %dds is in kg.kg-1)
 !
 ! -> north hemisphere
-    ycrit = ( tpdom(:,:)%lat>0..AND.tpdom(:,:)%tmk==1.AND.zfsit(:,:)>epsil1 ) 
+    ycrit = ( tpdom(:,:)%lat>0..AND.tpdom(:,:)%tmk==1.AND.zfsit(:,:)>epsil1 )
     zmsi = gltools_adjflx( tpdom,ycrit,tpdia%ddi )
     zmsa = gltools_adjflx( tpdom,ycrit,tpdia%dds )
     WHERE( ABS( zmsi(:,:) )>epsil2 )
         zssi(:,:) = zmsa(:,:)/zmsi(:,:)
       ELSEWHERE
-        zmsi(:,:) = 0. 
+        zmsi(:,:) = 0.
         zssi(:,:) = 0.
     ENDWHERE
     zdm(1,:,:) = zdm(1,:,:) + zmsi(:,:)
@@ -257,13 +257,13 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
     zsalt(1,:,:) = zsalt(1,:,:) + 1000.*zssi(:,:) ! should be provided in g.kg-1
 !
 ! -> south hemisphere
-    ycrit = ( tpdom(:,:)%lat<0..AND.tpdom(:,:)%tmk==1.AND.zfsit(:,:)>epsil1 ) 
+    ycrit = ( tpdom(:,:)%lat<0..AND.tpdom(:,:)%tmk==1.AND.zfsit(:,:)>epsil1 )
     zmsi = gltools_adjflx( tpdom,ycrit,tpdia%ddi )
     zmsa = gltools_adjflx( tpdom,ycrit,tpdia%dds )
     WHERE( ABS( zmsi(:,:) )>epsil2 )
         zssi(:,:) = zmsa(:,:)/zmsi(:,:)
       ELSEWHERE
-        zmsi(:,:) = 0. 
+        zmsi(:,:) = 0.
         zssi(:,:) = 0.
     ENDWHERE
     zdm(1,:,:) = zdm(1,:,:) + zmsi(:,:)
@@ -278,7 +278,7 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
 !
     CALL glt_updtfl('I2O', tpml,tzdfl,zdm,pent=zent,psalt=zsalt )
 !
-! 
+!
 ! 2.4. Add up correction to initial fluxes
 ! -----------------------------------------
 !
@@ -325,7 +325,7 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
 ! 3.3. Transmitted water fluxes (kg.m-2.s-1)
 ! -------------------------------------------
 !
-! .. Note that here the sign convention is that a water flux is 
+! .. Note that here the sign convention is that a water flux is
 ! positive is the ocean gains fresh water
 !
 ! Concentration / dilution flux
@@ -339,7 +339,7 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
   tpall_oce(:,:)%cdf = zwork2(:,:)
 !
 ! Salt flux
-!  Note that the ocean uses the concentration/dilution flux or the salt flux not both  
+!  Note that the ocean uses the concentration/dilution flux or the salt flux not both
 !
   zwork2(:,:) =  &
     ( tptfl(:,:)%sio )*FLOAT( tpdom(:,:)%tmk )
@@ -370,7 +370,7 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
 !
 ! .. u-component
 !
-  zwork2(:,:) = ztxgw(:,:)*FLOAT( tpdom(:,:)%umk ) 
+  zwork2(:,:) = ztxgw(:,:)*FLOAT( tpdom(:,:)%umk )
 #if ! defined in_surfex
   CALL gltools_bound( 'U','vector',zwork2 )
 #endif
@@ -395,7 +395,7 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
   tpall_oce(:,:)%ust = zwork2(:,:)
 
 
-! 
+!
 END SUBROUTINE glt_sndmlrf
 !
 ! --------------------- END SUBROUTINE glt_sndmlrf --------------------------

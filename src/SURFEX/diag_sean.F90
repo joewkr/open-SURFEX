@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE DIAG_SEA_n (DLO, DL, DLC, SD, HSEA, HPROGRAM, DUP, DUPC, KMASK )
@@ -16,11 +16,11 @@ SUBROUTINE DIAG_SEA_n (DLO, DL, DLC, SD, HSEA, HPROGRAM, DUP, DUPC, KMASK )
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -68,7 +68,7 @@ IF (LHOOK) CALL DR_HOOK('DIAG_SEA_N',0,ZHOOK_HANDLE)
 IF (HSEA=='SEAFLX') THEN
   CALL DIAG_EVAP(SD%O, SD%D, SD%DC, HPROGRAM, DUP, DUPC, KMASK)
 ELSEIF (HSEA=='FLUX') THEN
-  CALL DIAG_EVAP(DLO, DL, DLC, HPROGRAM, DUP, DUPC, KMASK)            
+  CALL DIAG_EVAP(DLO, DL, DLC, HPROGRAM, DUP, DUPC, KMASK)
 ELSE IF (HSEA=='NONE  ') THEN
   CALL INIT_BUD(SD%O, DUP, DUPC, XUNDEF)
 END IF

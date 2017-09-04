@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_OCEAN_NETCDF(HPROGRAM,HSURF,HFILE,HFILETYPE,&
-                              KLUOUT,HNCVARNAME,PFIELD)  
+                              KLUOUT,HNCVARNAME,PFIELD)
 !     #################################################################################
 !
 !!****  *PREP_OCEAN_NETCDF* - prepares oceanic fields from Mercator analysis
@@ -17,7 +17,7 @@ SUBROUTINE PREP_OCEAN_NETCDF(HPROGRAM,HSURF,HFILE,HFILETYPE,&
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -46,7 +46,7 @@ IMPLICIT NONE
  CHARACTER(LEN=28),  INTENT(IN)  :: HFILE     ! file name
  CHARACTER(LEN=6),   INTENT(IN)  :: HFILETYPE ! file type
 INTEGER,            INTENT(IN)  :: KLUOUT    ! output listing logical unit
- CHARACTER(LEN=28),  INTENT(IN), OPTIONAL   :: HNCVARNAME!var to read 
+ CHARACTER(LEN=28),  INTENT(IN), OPTIONAL   :: HNCVARNAME!var to read
 REAL, POINTER, DIMENSION(:,:,:)   :: PFIELD    ! field to interpolate horizontally
 !
 !*      0.2    declarations of local variables

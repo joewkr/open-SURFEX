@@ -1,14 +1,14 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CANOPY_EVOL_TEMP(SB, KI, PTSTEP, KIMPL ,PTHA, PK, PDKDDVDZ, &
-                                  PSFLUX_T, PFORC_T, PDFORC_TDT, PTH, PWTH, PALFA, PBETA) 
+                                  PSFLUX_T, PFORC_T, PDFORC_TDT, PTH, PWTH, PALFA, PBETA)
 !     #########################################
 !
-!!****  *CANOPY_EVOL_TEMP* - evolution of wind in canopy 
-!!                        
+!!****  *CANOPY_EVOL_TEMP* - evolution of wind in canopy
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -33,7 +33,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/2006 
+!!      Original    07/2006
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -55,7 +55,7 @@ TYPE(CANOPY_t), INTENT(INOUT) :: SB
 !
 INTEGER,                  INTENT(IN)    :: KI        ! number of horizontal points
 REAL,                     INTENT(IN)    :: PTSTEP    ! time-step                             (s)
-INTEGER,                  INTENT(IN)    :: KIMPL     ! implicitation code: 
+INTEGER,                  INTENT(IN)    :: KIMPL     ! implicitation code:
 !                                                    ! 1 : computes only alfa and beta coupling
 !                                                    !     coefficients for all variables
 !                                                    ! 2 : computes temporal evolution of the
@@ -89,8 +89,8 @@ REAL, DIMENSION(KI,SB%NLVL)   :: ZEXT     ! external forcing at full levels
 REAL, DIMENSION(KI,SB%NLVL)   :: ZDEXTDV  ! derivative of external forcing as a
 !                                       ! function of vertical variable
 !                                       ! (at full levels)
-REAL, DIMENSION(KI,SB%NLVL)   :: ZTH      ! work variable : pot. temp at futur instant 
-!                                       ! (or past at the end of the routine) 
+REAL, DIMENSION(KI,SB%NLVL)   :: ZTH      ! work variable : pot. temp at futur instant
+!                                       ! (or past at the end of the routine)
 REAL, DIMENSION(KI)         :: ZDTHADT  ! dTHa/dt   at forcing level
 REAL, DIMENSION(KI)         :: ZDWTHDZ  ! dw'Th'/dz at forcing level
 LOGICAL                     :: LIMPL
@@ -144,7 +144,7 @@ END DO
 !
  CALL  CANOPY_EVOL_FIELD(KI, SB%NLVL, PTSTEP, KIMPL, PK, PDKDDVDZ,       &
                          PSFLUX_T, PFORC_T, PDFORC_TDT, SB%XDZ, SB%XDZF, &
-                         ZEXT, ZDEXTDV, PTH, PWTH, PALFA, PBETA         ) 
+                         ZEXT, ZDEXTDV, PTH, PWTH, PALFA, PBETA         )
 !
 IF (LHOOK) CALL DR_HOOK('CANOPY_EVOL_TEMP',1,ZHOOK_HANDLE)
 !----------------------------------------------------------------

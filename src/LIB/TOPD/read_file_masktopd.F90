@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ##########################
@@ -10,8 +10,8 @@
 !!
 !!    PURPOSE
 !!    -------
-!        
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -21,11 +21,11 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-!!     
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -112,10 +112,10 @@ JP_IN_M(:)=1
   !
   YNAME=TRIM(CCAT(JCAT))//TRIM('.mask_surf')
   CALL OPEN_FILE('ASCII ',NUNIT,YNAME,'FORMATTED','READ')
-  ! 
+  !
   IEOF=0
   DO WHILE(IEOF==0)
-      READ(NUNIT,*,IOSTAT=IEOF) JMESH,ITMP 
+      READ(NUNIT,*,IOSTAT=IEOF) JMESH,ITMP
       NMASKI(JMESH,JCAT,JP_IN_M(JMESH))=ITMP
       JP_IN_M(JMESH)=JP_IN_M(JMESH)+1
   ENDDO

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PT_BY_PT_TREATMENT (UG, U, USS, &
@@ -8,14 +8,14 @@
                                      KNBLINES,PNODATA,OMULTITYPE,KFACT)
 !     ###################################################################
 !
-!!**** *PT_BY_PT_TREATMENT* 
+!!**** *PT_BY_PT_TREATMENT*
 !!
 !!    PURPOSE
 !!    -------
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -34,7 +34,7 @@
 !!    ------------
 !!
 !!    Original    12/09/95
-!!                27/03/96 (V. Masson) modify the arguments for the call of 
+!!                27/03/96 (V. Masson) modify the arguments for the call of
 !!                         interpolation subroutine
 !!                06/2009 (B. Decharme) call Topographic index statistics calculation
 !----------------------------------------------------------------------------
@@ -126,21 +126,21 @@ SELECT CASE (HSUBROUTINE)
     ELSE
       CALL AVERAGE1_LDB(UG, KLUOUT,INBLINES,PLAT,PLON,PVALUE,'D')
     ENDIF
-        
+
   CASE ('A_LDBS')
     IF (PRESENT(PNODATA)) THEN
       CALL AVERAGE1_LDB(UG, KLUOUT,INBLINES,PLAT,PLON,PVALUE,'S',PNODATA)
     ELSE
       CALL AVERAGE1_LDB(UG, KLUOUT,INBLINES,PLAT,PLON,PVALUE,'S')
     ENDIF
-        
+
   CASE ('A_MESH')
     IF (PRESENT(PNODATA)) THEN
       CALL AVERAGE1_MESH(UG, KLUOUT,INBLINES,PLAT,PLON,PVALUE,GMULTITYPE,IFACT,PNODATA)
     ELSE
       CALL AVERAGE1_MESH(UG,KLUOUT,INBLINES,PLAT,PLON,PVALUE,GMULTITYPE,IFACT)
     ENDIF
-        
+
 END SELECT
 IF (LHOOK) CALL DR_HOOK('PT_BY_PT_TREATMENT',1,ZHOOK_HANDLE)
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_SBL_n (HSELECT, OSBL, SB, HPROGRAM, HWRITE, HSURF)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      E. Martin   01/2012 avoid write of XUNDEF fields
 !-------------------------------------------------------------------------------
 !
@@ -52,7 +52,7 @@ IMPLICIT NONE
 !*       0.1   Declarations of arguments
 !              -------------------------
 !
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT 
+ CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
  LOGICAL, INTENT(IN) :: OSBL
 !
 TYPE(CANOPY_t), INTENT(INOUT) :: SB
@@ -68,7 +68,7 @@ TYPE(CANOPY_t), INTENT(INOUT) :: SB
 INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears
  CHARACTER(LEN=8) :: YBASE
  CHARACTER(LEN=12) :: YRECFM         ! Name of the article to be read
- CHARACTER(LEN=13) :: YFORMAT 
+ CHARACTER(LEN=13) :: YFORMAT
  CHARACTER(LEN=100):: YCOMMENT       ! Comment string
 !
 INTEGER :: JL  ! loop counter on layers
@@ -169,8 +169,8 @@ IF (HWRITE/='PRE') THEN
       WRITE(YRECFM,'(A10,I2.2)') TRIM(YBASE)//'_MO',JL
       YCOMMENT='Monin-Obukhov length (m)'
       CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,SB%XLMO(:,JL),IRESP,HCOMMENT=YCOMMENT)
-    END DO 
-    !  
+    END DO
+    !
     !* mixing length
     !
     IF (ASSOCIATED(SB%XLM)) THEN
@@ -189,8 +189,8 @@ IF (HWRITE/='PRE') THEN
         YCOMMENT='mixing length (m)'
         CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,SB%XLEPS(:,JL),IRESP,HCOMMENT=YCOMMENT)
       END DO
-    END IF 
-    !   
+    END IF
+    !
   ELSE
     YRECFM=TRIM(YBASE)//'_LMO     '
     CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,SB%XLMO(:,SB%NLVL),IRESP,HCOMMENT=YCOMMENT)

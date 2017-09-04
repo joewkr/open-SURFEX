@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE SUBSCALE_AOS (U, UG, USS, OZ0EFFI, OZ0EFFJ)
 !     #############################################
 !
-!!*SUBSCALE_AOS  computes the sum of the ratio: (h'-h)/L when  h'/L >h/L  
+!!*SUBSCALE_AOS  computes the sum of the ratio: (h'-h)/L when  h'/L >h/L
 !!                  the ' is for subgrid scale orography
 !!
 !!
 !!    METHOD
 !!    ------
 !!    See M.Georgelin and al. July 1994, Monthly Weather Review.
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -84,9 +84,9 @@ INTEGER :: JISS, JJSS  ! loop indexes for subsquares arrays
 INTEGER :: JNEXT       ! loop index on subgrid meshes
 INTEGER :: INEXT       ! index to add to JISS or JJSS to obtain the following
 !                      ! point containing a data in a segment
-INTEGER, DIMENSION(:), ALLOCATABLE :: ILEFT   ! index of left   grid mesh 
-INTEGER, DIMENSION(:), ALLOCATABLE :: IRIGHT  ! index of right  grid mesh 
-INTEGER, DIMENSION(:), ALLOCATABLE :: ITOP    ! index of top    grid mesh 
+INTEGER, DIMENSION(:), ALLOCATABLE :: ILEFT   ! index of left   grid mesh
+INTEGER, DIMENSION(:), ALLOCATABLE :: IRIGHT  ! index of right  grid mesh
+INTEGER, DIMENSION(:), ALLOCATABLE :: ITOP    ! index of top    grid mesh
 INTEGER, DIMENSION(:), ALLOCATABLE :: IBOTTOM ! index of bottom grid mesh
 !
 !*    0.3    Declaration of counters inside a grid (JL)
@@ -129,8 +129,8 @@ INTEGER, DIMENSION(:,:,:), ALLOCATABLE :: ISSQOT, ISSQO
 REAL, DIMENSION(:,:,:), ALLOCATABLE :: ZSSQO
 LOGICAL, DIMENSION(:), ALLOCATABLE :: GZ0EFFI, GZ0EFFJ
 REAL, DIMENSION(:), ALLOCATABLE   :: ZDX, ZDY, ZSEA, ZAVG_ZS, ZMESH_SIZE    ! grid mesh size in x direction
-REAL, DIMENSION(:), ALLOCATABLE   :: ZAOSIP_ALL, ZAOSIM_ALL, ZAOSJP_ALL, ZAOSJM_ALL 
-REAL, DIMENSION(:), ALLOCATABLE   :: ZHO2IP_ALL, ZHO2IM_ALL, ZHO2JP_ALL, ZHO2JM_ALL 
+REAL, DIMENSION(:), ALLOCATABLE   :: ZAOSIP_ALL, ZAOSIM_ALL, ZAOSJP_ALL, ZAOSJM_ALL
+REAL, DIMENSION(:), ALLOCATABLE   :: ZHO2IP_ALL, ZHO2IM_ALL, ZHO2JP_ALL, ZHO2JM_ALL
 REAL :: ZSLOPEIP ! x mean slope
 REAL :: ZSLOPEJP ! y mean slope
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -149,19 +149,19 @@ OZ0EFFJ(:)=.FALSE.
 IF (NRANK==NPIO) THEN
   ALLOCATE(ZSEA      (U%NDIM_FULL))
   ALLOCATE(ZAVG_ZS   (U%NDIM_FULL))
-  ALLOCATE(ZMESH_SIZE(U%NDIM_FULL))  
+  ALLOCATE(ZMESH_SIZE(U%NDIM_FULL))
   ALLOCATE(ISSQOT(U%NDIM_FULL,NSSO,NSSO))
   ALLOCATE(ZSSQO (U%NDIM_FULL,NSSO,NSSO))
 ELSE
   ALLOCATE(ZSEA      (0))
-  ALLOCATE(ZAVG_ZS   (0)) 
+  ALLOCATE(ZAVG_ZS   (0))
   ALLOCATE(ISSQOT(0,0,0))
   ALLOCATE(ZSSQO (0,0,0))
 ENDIF
 !
  CALL GATHER_AND_WRITE_MPI(U%XSEA,ZSEA)
  CALL GATHER_AND_WRITE_MPI(USS%XAVG_ZS,ZAVG_ZS)
- CALL GATHER_AND_WRITE_MPI(UG%G%XMESH_SIZE,ZMESH_SIZE)  
+ CALL GATHER_AND_WRITE_MPI(UG%G%XMESH_SIZE,ZMESH_SIZE)
  CALL GATHER_AND_WRITE_MPI(XSSQO,ZSSQO)
 !
 ALLOCATE(ISSQO(SIZE(XSSQO,1),NSSO,NSSO))
@@ -191,7 +191,7 @@ IF (NRANK==NPIO) THEN
   ALLOCATE(ZHO2IM_ALL(U%NDIM_FULL),ZHO2IP_ALL(U%NDIM_FULL),&
            ZAOSIM_ALL(U%NDIM_FULL),ZAOSIP_ALL(U%NDIM_FULL))
   ALLOCATE(ZHO2JM_ALL(U%NDIM_FULL),ZHO2JP_ALL(U%NDIM_FULL),&
-           ZAOSJM_ALL(U%NDIM_FULL),ZAOSJP_ALL(U%NDIM_FULL))   
+           ZAOSJM_ALL(U%NDIM_FULL),ZAOSJP_ALL(U%NDIM_FULL))
   GZ0EFFI(:) = .FALSE.
   GZ0EFFJ(:) = .FALSE.
   !
@@ -208,7 +208,7 @@ IF (NRANK==NPIO) THEN
       ZSLOPEIP =  0.5 * ( ZAVG_ZS(IRIGHT(JL)) - ZAVG_ZS(JL) ) &
                             / ( 0.5 * (ZDX(IRIGHT(JL)) + ZDX(JL)) ) &
                       + 0.5 * ( ZAVG_ZS(JL) - ZAVG_ZS(ILEFT (JL)) ) &
-                            / ( 0.5 * (ZDX(JL)  + ZDX(ILEFT(JL))) )  
+                            / ( 0.5 * (ZDX(JL)  + ZDX(ILEFT(JL))) )
     ELSE
       ZSLOPEIP = 0.
     END IF
@@ -216,7 +216,7 @@ IF (NRANK==NPIO) THEN
       ZSLOPEJP =  0.5 * ( ZAVG_ZS(ITOP(JL))     - ZAVG_ZS(JL) ) &
                             / ( 0.5 * (ZDY(ITOP(JL))     + ZDY(JL)) ) &
                       + 0.5 * ( ZAVG_ZS(JL) - ZAVG_ZS(IBOTTOM (JL)) ) &
-                            / ( 0.5 * (ZDY(JL)  + ZDY(IBOTTOM(JL))) )  
+                            / ( 0.5 * (ZDY(JL)  + ZDY(IBOTTOM(JL))) )
     ELSE
       ZSLOPEJP = 0.
     END IF
@@ -314,7 +314,7 @@ IF (NRANK==NPIO) THEN
 !*    3.4.2  A/S term
 !
         ZSSAOS =  ZSSQO(IL,INEXT,JJSS) - ZSSQO(JL,JISS,JJSS) &
-                  - ZSLOPE * ZDXEFF * JNEXT  
+                  - ZSLOPE * ZDXEFF * JNEXT
         IF (ZSSAOS>0.) ZAIP=ZAIP+ZSSAOS
         IF (ZSSAOS<0.) ZAIM=ZAIM-ZSSAOS
 !
@@ -440,7 +440,7 @@ IF (NRANK==NPIO) THEN
 !*    4.4.2  A/S term
 !
         ZSSAOS =  ZSSQO(IL,JISS,INEXT) - ZSSQO(JL,JISS,JJSS) &
-                  - ZSLOPE * ZDYEFF * JNEXT  
+                  - ZSLOPE * ZDYEFF * JNEXT
         IF (ZSSAOS>0.) ZAJP=ZAJP+ZSSAOS
         IF (ZSSAOS<0.) ZAJM=ZAJM-ZSSAOS
 !
@@ -489,14 +489,14 @@ IF (NRANK==NPIO) THEN
     END IF
 !
   END DO
-  ! 
+  !
 ELSE
   ALLOCATE(ZHO2IM_ALL(0),ZHO2IP_ALL(0),ZAOSIM_ALL(0),ZAOSIP_ALL(0))
   ALLOCATE(ZHO2JM_ALL(0),ZHO2JP_ALL(0),ZAOSJM_ALL(0),ZAOSJP_ALL(0))
 ENDIF
 !
 DEALLOCATE(ZSSQO,ISSQOT)
-DEALLOCATE(ZSEA)  
+DEALLOCATE(ZSEA)
 DEALLOCATE(ZAVG_ZS)
 !
  CALL READ_AND_SEND_MPI(ZAOSIP_ALL,USS%XAOSIP)

@@ -1,6 +1,6 @@
 #SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 #SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 #SFX_LIC for details. version 1.
 ##########################################################
 #                                                        #
@@ -10,16 +10,16 @@
 #OBJDIR_PATH=/home/escj/azertyuiopqsdfghjklm/wxcvbn/azertyuiopqsdfghjklmwxcvbn
 #
 # use splr.pl script for dependency generation
-# 
+#
 DO_ASM = NO
 USE_SPLR = YES
 USE_SPLR_WRAP = NO
 #AVOID_CPP = YES
 AVOID_CPP = NO
 #
-OPT_BASE   =  -convert big_endian -r8 -g -assume nosource_include -assume byterecl -fpic -traceback -fp-model precise 
+OPT_BASE   =  -convert big_endian -r8 -g -assume nosource_include -assume byterecl -fpic -traceback -fp-model precise
 #-switch fe_inline_all_arg_copy_inout
-OPT_PERF0  =  -O0 
+OPT_PERF0  =  -O0
 OPT_PERF2  =  -O2 -fpe0 -ftz
 OPT_CHECK  =  -fp-stack-check -ftrapuv -fpe3 -fp-speculation=strict -check all
 # -diag-error  -debug full -assume fpe_summary -openmp-report2
@@ -85,7 +85,7 @@ F77FLAGS  = $(FCFLAGS_OMP) $(OPT)
 # -132
 FX90 = $(F90)
 FX90FLAGS = $(FCFLAGS_OMP) $(OPT)
-# -132 
+# -132
 #
 #LDFLAGS    =  -Wl,-noinhibit-exec  -Wl,-warn-once $(PAR)
 LDFLAGS    =  $(FCFLAGS_OMP) -Wl,-warn-once $(PAR) -ldl -lrt
@@ -101,7 +101,7 @@ FPPFLAGS_SURFEX    =
 #RJ #FPPFLAGS_SURCOUCHE = -DMNH_MPI_DOUBLE_PRECISION -DMNH_LINUX -DMNH_MPI_ISEND -DDEV_NULLL -DMNH_MPI_RANK_KIND=$(MNH_MPI_RANK_KIND)
 #RJ FPPFLAGS_RAD       =
 #RJ FPPFLAGS_NEWLFI    = -DSWAPIO -DLINUX -DLFI_INT=${LFI_INT} -DLFI_RECL=${LFI_RECL}
-#RJ FPPFLAGS_MNH       = -DMNH 
+#RJ FPPFLAGS_MNH       = -DMNH
 #
 # Gribex flags
 #

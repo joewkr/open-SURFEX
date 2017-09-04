@@ -1,17 +1,17 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CH_EMISSION_TO_ATM_n (CHN, SV, &
                                        PSFSV,PRHOA)
 !     ######################################################################
 !!
-!!***  *CH_EMISSION_TO_ATM_n* - 
+!!***  *CH_EMISSION_TO_ATM_n* -
 !!
 !!    PURPOSE
 !!    -------
-!!      
+!!
 !!
 !!**  METHOD
 !!    ------
@@ -93,12 +93,12 @@ CURPRONOS=>CHN%TSPRONOSLIST
 !
 DO WHILE(ASSOCIATED(CURPRONOS))
   IF (CURPRONOS%NAMINDEX > ISV) CALL ABOR1_SFX('CH_EMISSION_FLUXN: FATAL ERROR')
-  !  
+  !
   ZEMIS(:,CURPRONOS%NAMINDEX) = 0.
   !
   ! Loop on the number of agreg. coeff.
   DO JSPEC=1,CURPRONOS%NBCOEFF
-    !   Compute agregated flux    
+    !   Compute agregated flux
     ZEMIS(:,CURPRONOS%NAMINDEX) = ZEMIS(:,CURPRONOS%NAMINDEX)+ &
             CURPRONOS%XCOEFF(JSPEC)*CHN%XEMIS_FIELDS(:,CURPRONOS%NEFINDEX(JSPEC))
   END DO

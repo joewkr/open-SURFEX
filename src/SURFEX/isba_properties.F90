@@ -1,37 +1,37 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE ISBA_PROPERTIES(IO, PEK, PDIR_SW, PSCA_SW, PSW_BANDS, KSW,  &
                                  PASNOW, PANOSNOW, PESNOW, PENOSNOW,         &
                                  PTSSNOW, PTSNOSNOW,                         &
-                                 PALBNIR_TVEG, PALBVIS_TVEG, PALBNIR_TSOIL, PALBVIS_TSOIL )  
+                                 PALBNIR_TVEG, PALBVIS_TVEG, PALBNIR_TSOIL, PALBVIS_TSOIL )
 !     ##########################################################################
 !
-!!****  *ISBA_PROPERTIES*  
+!!****  *ISBA_PROPERTIES*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates grid-averaged albedo and emissivity (according to snow scheme)
-!         
+!
 !!    EXTERNAL
 !!    --------
 !!
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    AUTHOR
 !!    ------
 !!
 !!	S. Belair           * Meteo-France *
 !!
 !!    MODIFICATIONS
-!!    ------------- 
-!!      
+!!    -------------
+!!
 !!      P. Samuelsson  02/2012  MEB
 !!
 !-------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ USE MODD_ISBA_n, ONLY : ISBA_PE_t
 !
 USE MODD_TYPE_SNOW
 USE MODD_SNOW_PAR   , ONLY : XEMISSN, XEMCRIN, XSNOWDMIN, &
-                               XRHOSMAX_ES, XRHOSMIN_ES  
+                               XRHOSMAX_ES, XRHOSMIN_ES
 USE MODD_WATER_PAR  , ONLY : XEMISWAT
 !
 USE MODI_ISBA_SNOW_FRAC
@@ -64,10 +64,10 @@ TYPE(ISBA_PE_t), INTENT(INOUT) :: PEK
 REAL, DIMENSION(:,:), INTENT(IN)   :: PDIR_SW            ! direct incoming solar radiation
 REAL, DIMENSION(:,:), INTENT(IN)   :: PSCA_SW            ! diffus incoming solar radiation
 REAL, DIMENSION(:)  , INTENT(IN)   :: PSW_BANDS          ! mean wavelength of each shortwave band (m)
-INTEGER,              INTENT(IN)   :: KSW                ! number of short-wave spectral bands            
+INTEGER,              INTENT(IN)   :: KSW                ! number of short-wave spectral bands
 !
 REAL, DIMENSION(:)  , INTENT(OUT)  :: PASNOW    ! = snow albedo
-REAL, DIMENSION(:)  , INTENT(OUT)  :: PANOSNOW  ! = snow free albedo 
+REAL, DIMENSION(:)  , INTENT(OUT)  :: PANOSNOW  ! = snow free albedo
 REAL, DIMENSION(:)  , INTENT(OUT)  :: PESNOW    ! = snow emissivity
 REAL, DIMENSION(:)  , INTENT(OUT)  :: PENOSNOW  ! = snow free emissivity
 REAL, DIMENSION(:)  , INTENT(OUT)  :: PTSSNOW   ! = snow radiative temperature
@@ -94,7 +94,7 @@ IF (LHOOK) CALL DR_HOOK('ISBA_PROPERTIES',0,ZHOOK_HANDLE)
 !
  CALL ISBA_SNOW_FRAC(PEK%TSNOW%SCHEME, PEK%TSNOW%WSNOW, PEK%TSNOW%RHO, PEK%TSNOW%ALB, &
                      PEK%XVEG, PEK%XLAI, PEK%XZ0, &
-                     PEK%XPSN, PEK%XPSNV_A, PEK%XPSNG, PEK%XPSNV )  
+                     PEK%XPSN, PEK%XPSNV_A, PEK%XPSNG, PEK%XPSNV )
 !
 !-------------------------------------------------------------------------------
 !*      2.     Compute snow-free albedo

@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_NETCDF (UG, U, USS, &
                               HPROGRAM,HSUBROUTINE,HFILENAME,HNCVARNAME)
 !     ##############################################################
 !
-!!**** *READ_NETCDF* reads a netcdf file and copy lat/lon/val then call treatment 
+!!**** *READ_NETCDF* reads a netcdf file and copy lat/lon/val then call treatment
 !!                   subroutine
 !!
 !!    PURPOSE
@@ -73,7 +73,7 @@ REAL, DIMENSION(:),ALLOCATABLE :: ZLATI    ! array of values extract from netcdf
 !
 INTEGER      :: ILUOUT                     ! output listing
 INTEGER      :: JLOOP                      ! loop indice
-INTEGER      :: JDIMENSION                 ! dimensions of ZVALU,ZLAT, 
+INTEGER      :: JDIMENSION                 ! dimensions of ZVALU,ZLAT,
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
                                            ! and ZLON arrays
 !----------------------------------------------------------------------------
@@ -99,11 +99,11 @@ ALLOCATE(ZLONG(JDIMENSION))
 !            ------------------------------
 !
 DO JLOOP=1,SIZE(ZVALU)
-! 
+!
   ZLON  = ZLONG(JLOOP)
   ZLAT  = ZLATI(JLOOP)
   ZVALUE= ZVALU(JLOOP)
-! 
+!
   ZLON=ZLON+NINT((180.-ZLON)/360.)*360.
   !
   JLAT = 1 + INT( ( ZLAT + 90. ) * 2. )
@@ -117,10 +117,10 @@ DO JLOOP=1,SIZE(ZVALU)
 !
 !*    5.     Call to the adequate subroutine (point by point treatment)
 !            ----------------------------------------------------------
-! 
+!
   CALL PT_BY_PT_TREATMENT(UG, U, USS, &
                           ILUOUT,  (/ ZLAT /) , (/ ZLON /) , (/ ZVALUE /) , &
-                            HSUBROUTINE                                       )  
+                            HSUBROUTINE                                       )
 !
 !-------------------------------------------------------------------------------
 ENDDO

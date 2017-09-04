@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !################################################
 SUBROUTINE DAY_OF_WEEK(PYEAR, PMONTH, PDAY, PDOW)
@@ -19,7 +19,7 @@ SUBROUTINE DAY_OF_WEEK(PYEAR, PMONTH, PDAY, PDOW)
 !! AUTHOR
 !! ------
 !! G. Pigeon *Météo-France*
-!! 
+!!
 !! MODIFICATIONS
 !! -------------
 !! Original  02/2010
@@ -42,9 +42,9 @@ IF (LHOOK) CALL DR_HOOK('DAY_OF_WEEK',0,ZHOOK_HANDLE)
 !
 YR = PYEAR
 MN = PMONTH
-   
+
 !   IF JANUARY OR FEBRUARY, ADJUST MONTH AND YEAR
-   
+
 IF (MN .LE. 2) THEN
    MN = MN + 12
    YR = YR - 1

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
       SUBROUTINE INIT_NATURE_n (DTCO, OREAD_BUDGETC, UG, U, USS, GCP, IM, &
@@ -9,7 +9,7 @@
                                 HSV,PCO2,PRHOA,PZENITH,PAZIM,PSW_BANDS,   &
                                 PDIR_ALB,PSCA_ALB,PEMIS,PTSRAD,PTSURF,    &
                                 KYEAR, KMONTH,KDAY, PTIME, TPDATE_END,    &
-                                HATMFILE,HATMFILETYPE,HTEST              )  
+                                HATMFILE,HATMFILETYPE,HTEST              )
 !     #############################################################
 !
 !!****  *INIT_NATURE_n* - routine to choose initialization of vegetation scheme
@@ -37,7 +37,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    27/09/96 
+!!      Original    27/09/96
 !!       V.Masson   18/08/97 call to fmread directly with dates and strings
 !!       V.Masson   15/03/99 new PGD treatment with COVER types
 !        F.Solmon  06/00   adaptation for patch approach
@@ -94,7 +94,7 @@ TYPE(SV_t), INTENT(INOUT) :: SV
 !
  CHARACTER(LEN=6),                 INTENT(IN)  :: HPROGRAM  ! program calling surf. schemes
  CHARACTER(LEN=3),                 INTENT(IN)  :: HINIT     ! choice of fields to initialize
-LOGICAL,                          INTENT(IN)  :: OLAND_USE ! 
+LOGICAL,                          INTENT(IN)  :: OLAND_USE !
 INTEGER,                          INTENT(IN)  :: KI        ! number of points
 INTEGER,                          INTENT(IN)  :: KSV       ! number of scalars
 INTEGER,                          INTENT(IN)  :: KSW       ! number of short-wave spectral bands
@@ -140,7 +140,7 @@ IF (U%CNATURE=='NONE  ') THEN
 ELSE IF (U%CNATURE=='FLUX  ') THEN
   CALL INIT_IDEAL_FLUX(DGO, DL, DLC, OREAD_BUDGETC, HPROGRAM, HINIT, &
                        KI, KSV, KSW, HSV, PDIR_ALB, PSCA_ALB, PEMIS,   &
-                       PTSRAD, PTSURF, 'OK'    )  
+                       PTSRAD, PTSURF, 'OK'    )
 ELSE IF (U%CNATURE=='ISBA  ' .OR. U%CNATURE=='TSZ0') THEN
   CALL INIT_ISBA_n(DTCO, OREAD_BUDGETC, UG, U, USS, GCP, &
                    IM, DTZ, NDST, SLT, SV, &
@@ -148,7 +148,7 @@ ELSE IF (U%CNATURE=='ISBA  ' .OR. U%CNATURE=='TSZ0') THEN
                    PCO2, PRHOA, PZENITH, PAZIM, PSW_BANDS,        &
                    PDIR_ALB, PSCA_ALB, PEMIS, PTSRAD, PTSURF,     &
                    KYEAR, KMONTH, KDAY, PTIME, TPDATE_END,        &
-                   HATMFILE, HATMFILETYPE, 'OK'     )  
+                   HATMFILE, HATMFILETYPE, 'OK'     )
 END IF
 IF (LHOOK) CALL DR_HOOK('INIT_NATURE_N',1,ZHOOK_HANDLE)
 !

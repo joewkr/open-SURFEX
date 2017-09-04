@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !####################################################################
     SUBROUTINE PREPS_FOR_MEB_DRAG(LCVEL, LFORC_MEASURE,                   &
-                             PZ0, PZ0H, PZ0EFF, PH_VEG, PZREF,           & 
+                             PZ0, PZ0H, PZ0EFF, PH_VEG, PZREF,           &
                              PTC, PTA, PQC, PQA, PUREF, PVMOD,            &
                              PEXNA, PEXNS, PDIRCOSZW, PDISPH,             &
                              PVELC, PZVMOD, PRI, PRA,                     &
@@ -24,15 +24,15 @@
 !     vegetation (PVELC). Used for input to surface_air_meb.
 !     Only used for double energy balance
 !     Also calculates PRA,PCH,PCDN and PCD
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -77,13 +77,13 @@ REAL, DIMENSION(:), INTENT(IN)   ::  PZ0, PZ0H, PZ0EFF,PH_VEG, PZREF, PUREF, PVM
 !                                     PZ0EFF  = roughness length for momentum (orographic)
 !                                     PH_VEG = height of the vegetation
 !                                     PZREF = height of the lowest model layer
-!                                     PUREF = reference height of the wind 
+!                                     PUREF = reference height of the wind
 !                                             NOTE this is different from PZREF
 !                                             ONLY in stand-alone/forced mode,
 !                                             NOT when coupled to a model (MesoNH)
 !                                     PVMOD = module of the horizontal wind
 !
-REAL, DIMENSION(:), INTENT(IN)   ::  PTC, PTA, PQC, PQA 
+REAL, DIMENSION(:), INTENT(IN)   ::  PTC, PTA, PQC, PQA
 !                                     PTC = temperature of the canopy air
 !                                     PTA = temperature of the lowest model layer
 !                                     PQC = specific humidity of the canopy air
@@ -150,7 +150,7 @@ IF(LFORC_MEASURE) THEN
 !
 ELSE
 !
-! When running a numerical model it is assumed that PZREF is the distance between the 
+! When running a numerical model it is assumed that PZREF is the distance between the
 ! lowest model layer and displacement height, thus the "trees are below surface"
 !
    ZCUR(:)  = MAX(PZREF(:),PH_VEG(:)-PDISPH(:)+XLIMH)

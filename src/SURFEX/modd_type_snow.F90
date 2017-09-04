@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #####################
       MODULE MODD_TYPE_SNOW
@@ -11,23 +11,23 @@
 !!    PURPOSE
 !!    -------
 !       The purpose of this declarative module is to define
-!      the surface snow types. 
+!      the surface snow types.
 !
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      NONE 
+!!      NONE
 !!
 !!    REFERENCE
-!!    --------- 
-!!       
+!!    ---------
+!!
 !!    AUTHOR
 !!    ------
 !!      P. Jabouille   *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    20/01/99                      
+!!      Original    20/01/99
 !!      F. solmon   01/06/00 adaptation for patch approach  (+1D)
 !!      V. Masson   01/2004  surface externalization
 !!      P. Samuelsson 07/2014 additional snow albedos

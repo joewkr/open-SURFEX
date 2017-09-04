@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#######################
 MODULE MODI_VEG_HEIGHT_FROM_LAI
@@ -68,7 +68,7 @@ END MODULE MODI_VEG_HEIGHT_FROM_LAI
 !     Calculates vegetation height from leaf
 !    area index and type of vegetation
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -78,13 +78,13 @@ END MODULE MODI_VEG_HEIGHT_FROM_LAI
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -129,7 +129,7 @@ REAL                            :: ZALLEN_H    ! Allen formula for height
 REAL                            :: ZLAI        ! LAI for vegetated areas
 !
 REAL                            :: ZAVG_H      ! averaged height
-REAL                            :: ZZREF       ! reference height        
+REAL                            :: ZZREF       ! reference height
 !
 INTEGER                         :: JTYPE       ! loop counter
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -163,7 +163,7 @@ IF (LTREEDRAG) THEN
   PH_VEG(NVT_TENE) = ZLAI / 6.                  ! forest
   PH_VEG(NVT_BOBD) = ZLAI / 6.                  ! forest
   PH_VEG(NVT_BOND) = ZLAI / 6.                  ! forest
-  PH_VEG(NVT_SHRB) = ZLAI / 6.                  ! forest  
+  PH_VEG(NVT_SHRB) = ZLAI / 6.                  ! forest
   IF (NVT_FLTR>0) PH_VEG(NVT_FLTR) = ZLAI / 6.
 ELSE
   PH_VEG(NVT_TEBD) = PH_TREE                  ! forest
@@ -174,7 +174,7 @@ ELSE
   PH_VEG(NVT_TENE) = PH_TREE                  ! forest
   PH_VEG(NVT_BOBD) = PH_TREE                  ! forest
   PH_VEG(NVT_BOND) = PH_TREE                  ! forest
-  PH_VEG(NVT_SHRB) = PH_TREE                  ! forest  
+  PH_VEG(NVT_SHRB) = PH_TREE                  ! forest
   IF (NVT_FLTR>0) PH_VEG(NVT_FLTR) = PH_TREE
 END IF
 PH_VEG(NVT_GRAS) = ZLAI / 6.                    ! grassland
@@ -220,7 +220,7 @@ END FUNCTION VEG_HEIGHT_FROM_LAI_0D
 !     Calculates vegetation height from leaf
 !    area index and type of vegetation
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -230,13 +230,13 @@ END FUNCTION VEG_HEIGHT_FROM_LAI_0D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -280,7 +280,7 @@ REAL, DIMENSION(SIZE(PLAI))                  :: ZALLEN_H    ! Allen formula for 
 REAL, DIMENSION(SIZE(PLAI))                  :: ZLAI        ! LAI for vegetated areas
 !
 REAL, DIMENSION(SIZE(PLAI))                  :: ZAVG_H      ! averaged height
-REAL                                         :: ZZREF       ! reference height        
+REAL                                         :: ZZREF       ! reference height
 !
 INTEGER                                      :: JTYPE       ! loop counter
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -293,7 +293,7 @@ IF (LHOOK) CALL DR_HOOK('MODI_VEG_HEIGHT_FROM_LAI:VEG_HEIGHT_FROM_LAI_1D',0,ZHOO
 PH_VEG(:,:) = XUNDEF
 !
 ZLAI(:) = PLAI(:)
-WHERE ( PVEGTYPE(:,NVT_NO  ) + PVEGTYPE(:,NVT_ROCK) + PVEGTYPE(:,NVT_SNOW) < 1.) 
+WHERE ( PVEGTYPE(:,NVT_NO  ) + PVEGTYPE(:,NVT_ROCK) + PVEGTYPE(:,NVT_SNOW) < 1.)
   ZLAI(:) = PLAI(:) / (1.-PVEGTYPE(:,NVT_NO)-PVEGTYPE(:,NVT_ROCK)-PVEGTYPE(:,NVT_SNOW))
 END WHERE
 !
@@ -318,7 +318,7 @@ IF (LTREEDRAG) THEN
   PH_VEG(:,NVT_TENE) = ZLAI(:) / 6.         ! forest
   PH_VEG(:,NVT_BOBD) = ZLAI(:) / 6.         ! forest
   PH_VEG(:,NVT_BOND) = ZLAI(:) / 6.         ! forest
-  PH_VEG(:,NVT_SHRB) = ZLAI(:) / 6.         ! forest  
+  PH_VEG(:,NVT_SHRB) = ZLAI(:) / 6.         ! forest
   IF (NVT_FLTR>0) PH_VEG(:,NVT_FLTR) = ZLAI(:) / 6.
 ELSE
   PH_VEG(:,NVT_TEBD) = PH_TREE(:)           ! forest
@@ -330,7 +330,7 @@ ELSE
   PH_VEG(:,NVT_BOBD) = PH_TREE(:)           ! forest
   PH_VEG(:,NVT_BOND) = PH_TREE(:)           ! forest
   PH_VEG(:,NVT_SHRB) = PH_TREE(:)           ! forest
-  IF (NVT_FLTR>0) PH_VEG(:,NVT_FLTR) = PH_TREE(:)  
+  IF (NVT_FLTR>0) PH_VEG(:,NVT_FLTR) = PH_TREE(:)
 END IF
 PH_VEG(:,NVT_GRAS) = ZLAI(:) / 6.           ! grassland
 PH_VEG(:,NVT_BOGR) = ZLAI(:) / 6.           ! boreal grassland
@@ -375,7 +375,7 @@ END FUNCTION VEG_HEIGHT_FROM_LAI_1D
 !     Calculates vegetation height from leaf
 !    area index and type of vegetation
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -385,13 +385,13 @@ END FUNCTION VEG_HEIGHT_FROM_LAI_1D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -436,7 +436,7 @@ REAL, DIMENSION(SIZE(PLAI,1),SIZE(PLAI,2))                  :: ZALLEN_H ! Allen 
 REAL, DIMENSION(SIZE(PLAI,1),SIZE(PLAI,2))                  :: ZLAI     ! LAI for vegetated areas
 !
 REAL, DIMENSION(SIZE(PLAI,1),SIZE(PLAI,2))                  :: ZAVG_H   ! averaged height
-REAL                                                        :: ZZREF    ! reference height        
+REAL                                                        :: ZZREF    ! reference height
 !
 INTEGER                                                     :: JTYPE    ! loop counter
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -449,7 +449,7 @@ IF (LHOOK) CALL DR_HOOK('MODI_VEG_HEIGHT_FROM_LAI:VEG_HEIGHT_FROM_LAI_2D',0,ZHOO
 PH_VEG(:,:,:)=XUNDEF
 !
 ZLAI(:,:) = PLAI(:,:)
-WHERE ( PVEGTYPE(:,:,NVT_NO  ) + PVEGTYPE(:,:,NVT_ROCK) + PVEGTYPE(:,:,NVT_SNOW) < 1.) 
+WHERE ( PVEGTYPE(:,:,NVT_NO  ) + PVEGTYPE(:,:,NVT_ROCK) + PVEGTYPE(:,:,NVT_SNOW) < 1.)
   ZLAI(:,:) = PLAI(:,:) / (1.-PVEGTYPE(:,:,NVT_NO)-PVEGTYPE(:,:,NVT_ROCK)-PVEGTYPE(:,:,NVT_SNOW))
 END WHERE
 !
@@ -462,7 +462,7 @@ END WHERE
 IF (NVT_PARK>0) THEN
   PH_VEG(:,:,NVT_PARK) = ZLAI(:,:) / 6.               ! irr. grassland
 ELSEIF (NVT_FLGR>0) THEN
-  PH_VEG(:,:,NVT_FLGR) = ZLAI(:,:) / 6. 
+  PH_VEG(:,:,NVT_FLGR) = ZLAI(:,:) / 6.
 ENDIF
 !
 IF (LTREEDRAG) THEN
@@ -474,7 +474,7 @@ IF (LTREEDRAG) THEN
   PH_VEG(:,:,NVT_TENE) = ZLAI(:,:) / 6.         ! forest
   PH_VEG(:,:,NVT_BOBD) = ZLAI(:,:) / 6.         ! forest
   PH_VEG(:,:,NVT_BOND) = ZLAI(:,:) / 6.         ! forest
-  PH_VEG(:,:,NVT_SHRB) = ZLAI(:,:) / 6.         ! forest  
+  PH_VEG(:,:,NVT_SHRB) = ZLAI(:,:) / 6.         ! forest
   IF (NVT_FLTR>0) PH_VEG(:,:,NVT_FLTR) = ZLAI(:,:) / 6.
 ELSE
   PH_VEG(:,:,NVT_TEBD) = PH_TREE(:,:)           ! forest
@@ -485,7 +485,7 @@ ELSE
   PH_VEG(:,:,NVT_TENE) = PH_TREE(:,:)           ! forest
   PH_VEG(:,:,NVT_BOBD) = PH_TREE(:,:)           ! forest
   PH_VEG(:,:,NVT_BOND) = PH_TREE(:,:)           ! forest
-  PH_VEG(:,:,NVT_SHRB) = PH_TREE(:,:)           ! forest   
+  PH_VEG(:,:,NVT_SHRB) = PH_TREE(:,:)           ! forest
   IF (NVT_FLTR>0) PH_VEG(:,:,NVT_FLTR) = PH_TREE(:,:)
 END IF
 PH_VEG(:,:,NVT_GRAS) = ZLAI(:,:) / 6.               ! grassland
@@ -533,7 +533,7 @@ END FUNCTION VEG_HEIGHT_FROM_LAI_2D
 !     Calculates vegetation height from leaf
 !    area index and type of vegetation for each patch
 !    (most of types; forest and vineyards; grassland)
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -543,13 +543,13 @@ END FUNCTION VEG_HEIGHT_FROM_LAI_2D
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!        F.Solmon
@@ -558,7 +558,7 @@ END FUNCTION VEG_HEIGHT_FROM_LAI_2D
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    25/03/99
-!!      
+!!
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -608,7 +608,7 @@ END WHERE
 IF (NVT_PARK>0) THEN
   IF (PLAI(NVT_PARK)/=XUNDEF) PH_VEG(NVT_PARK) = PLAI(NVT_PARK) / 6.          ! irr. grasslands
 ELSEIF (NVT_FLGR>0) THEN
-  IF (PLAI(NVT_FLGR)/=XUNDEF) PH_VEG(NVT_FLGR) = PLAI(NVT_FLGR) / 6.    
+  IF (PLAI(NVT_FLGR)/=XUNDEF) PH_VEG(NVT_FLGR) = PLAI(NVT_FLGR) / 6.
 ENDIF
 IF (LTREEDRAG) THEN
   IF (PLAI(NVT_TEBD)/=XUNDEF) PH_VEG(NVT_TEBD) = PLAI(NVT_TEBD) / 6.        ! broadleaf forest
@@ -619,7 +619,7 @@ IF (LTREEDRAG) THEN
   IF (PLAI(NVT_TENE)/=XUNDEF) PH_VEG(NVT_TENE) = PLAI(NVT_TENE) / 6.        ! euqatorial forest
   IF (PLAI(NVT_BOBD)/=XUNDEF) PH_VEG(NVT_BOBD) = PLAI(NVT_BOBD) / 6.        ! broadleaf forest
   IF (PLAI(NVT_BOND)/=XUNDEF) PH_VEG(NVT_BOND) = PLAI(NVT_BOND) / 6.        ! coniferous forest
-  IF (PLAI(NVT_SHRB)/=XUNDEF) PH_VEG(NVT_SHRB) = PLAI(NVT_SHRB) / 6.        ! euqatorial forest  
+  IF (PLAI(NVT_SHRB)/=XUNDEF) PH_VEG(NVT_SHRB) = PLAI(NVT_SHRB) / 6.        ! euqatorial forest
   IF (NVT_FLTR>0) THEN
     IF (PLAI(NVT_FLTR)/=XUNDEF) PH_VEG(NVT_FLTR) = PLAI(NVT_FLTR) / 6.
   ENDIF
@@ -632,7 +632,7 @@ ELSE
   IF (PH_TREE(NVT_TENE)/=XUNDEF) PH_VEG(NVT_TENE) = PH_TREE(NVT_TENE)          ! euqatorial forest
   IF (PH_TREE(NVT_BOBD)/=XUNDEF) PH_VEG(NVT_BOBD) = PH_TREE(NVT_BOBD)          ! broadleaf forest
   IF (PH_TREE(NVT_BOND)/=XUNDEF) PH_VEG(NVT_BOND) = PH_TREE(NVT_BOND)          ! coniferous forest
-  IF (PH_TREE(NVT_SHRB)/=XUNDEF) PH_VEG(NVT_SHRB) = PH_TREE(NVT_SHRB)          ! euqatorial forest  
+  IF (PH_TREE(NVT_SHRB)/=XUNDEF) PH_VEG(NVT_SHRB) = PH_TREE(NVT_SHRB)          ! euqatorial forest
   IF (NVT_FLTR>0) THEN
     IF (PH_TREE(NVT_FLTR)/=XUNDEF) PH_VEG(NVT_FLTR) = PH_TREE(NVT_FLTR)
   ENDIF
@@ -655,7 +655,7 @@ ELSE
   IF (NVT_C3>0) THEN
     IF (ZALLEN_H(NVT_C3  )/=XUNDEF) PH_VEG(NVT_C3  ) = MIN(1. , ZALLEN_H(NVT_C3) )  ! cultures
   ELSEIF (NVT_C3W>0 .AND. NVT_C3S>0) THEN
-    IF (ZALLEN_H(NVT_C3W )/=XUNDEF) PH_VEG(NVT_C3W ) = MIN(1. , ZALLEN_H(NVT_C3W) ) 
+    IF (ZALLEN_H(NVT_C3W )/=XUNDEF) PH_VEG(NVT_C3W ) = MIN(1. , ZALLEN_H(NVT_C3W) )
     IF (ZALLEN_H(NVT_C3S )/=XUNDEF) PH_VEG(NVT_C3S ) = MIN(1. , ZALLEN_H(NVT_C3S) )
   ENDIF
   IF (ZALLEN_H(NVT_C4  )/=XUNDEF) PH_VEG(NVT_C4  ) = MIN(2.5, ZALLEN_H(NVT_C4) )  ! C4 types

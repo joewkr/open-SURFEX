@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !###############
 MODULE MODN_SFX_OASIS
@@ -14,7 +14,7 @@ MODULE MODN_SFX_OASIS
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -46,9 +46,9 @@ REAL             :: XTSTEP_CPL_LAKE = -1.0  ! Coupling time step for lake
 !
 ! Output variables
 !
-CHARACTER(LEN=8) :: CRUNOFF     = '        '   ! Surface runoff 
-CHARACTER(LEN=8) :: CDRAIN      = '        '   ! Deep drainage 
-CHARACTER(LEN=8) :: CCALVING    = '        '   ! Calving flux 
+CHARACTER(LEN=8) :: CRUNOFF     = '        '   ! Surface runoff
+CHARACTER(LEN=8) :: CDRAIN      = '        '   ! Deep drainage
+CHARACTER(LEN=8) :: CCALVING    = '        '   ! Calving flux
 CHARACTER(LEN=8) :: CSRCFLOOD   = '        '   ! Floodplains freshwater flux
 !
 ! Input variables
@@ -75,28 +75,28 @@ CHARACTER(LEN=8) :: CLAKE_WATF  = '        '   ! Net freshwater flux
 !
 !-------------------------------------------------------------------------------
 !
-! * Sea variables for Surfex - Oasis coupling 
+! * Sea variables for Surfex - Oasis coupling
 !
 !-------------------------------------------------------------------------------
 !
 ! Sea Output variables
 !
-CHARACTER(LEN=8) :: CSEA_FWSU = '        '   ! zonal wind stress 
-CHARACTER(LEN=8) :: CSEA_FWSV = '        '   ! meridian wind stress 
+CHARACTER(LEN=8) :: CSEA_FWSU = '        '   ! zonal wind stress
+CHARACTER(LEN=8) :: CSEA_FWSV = '        '   ! meridian wind stress
 CHARACTER(LEN=8) :: CSEA_HEAT = '        '   ! Non solar net heat flux
 CHARACTER(LEN=8) :: CSEA_SNET = '        '   ! Solar net heat flux
-CHARACTER(LEN=8) :: CSEA_WIND = '        '   ! module of 10m wind speed 
-CHARACTER(LEN=8) :: CSEA_FWSM = '        '   ! module of wind stress 
-CHARACTER(LEN=8) :: CSEA_EVAP = '        '   ! Evaporation 
-CHARACTER(LEN=8) :: CSEA_RAIN = '        '   ! Rainfall 
-CHARACTER(LEN=8) :: CSEA_SNOW = '        '   ! Snowfall 
+CHARACTER(LEN=8) :: CSEA_WIND = '        '   ! module of 10m wind speed
+CHARACTER(LEN=8) :: CSEA_FWSM = '        '   ! module of wind stress
+CHARACTER(LEN=8) :: CSEA_EVAP = '        '   ! Evaporation
+CHARACTER(LEN=8) :: CSEA_RAIN = '        '   ! Rainfall
+CHARACTER(LEN=8) :: CSEA_SNOW = '        '   ! Snowfall
 CHARACTER(LEN=8) :: CSEA_WATF = '        '   ! Net freshwater flux
 !
 ! Sea-ice Output variables
-!  
+!
 CHARACTER(LEN=8) :: CSEAICE_HEAT = '        '   ! Sea-ice non solar net heat flux
-CHARACTER(LEN=8) :: CSEAICE_SNET = '        '   ! Sea-ice solar net heat flux 
-CHARACTER(LEN=8) :: CSEAICE_EVAP = '        '   ! Sea-ice sublimation 
+CHARACTER(LEN=8) :: CSEAICE_SNET = '        '   ! Sea-ice solar net heat flux
+CHARACTER(LEN=8) :: CSEAICE_EVAP = '        '   ! Sea-ice sublimation
 !
 ! Sea Input variables
 !

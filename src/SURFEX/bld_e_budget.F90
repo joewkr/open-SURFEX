@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE BLD_E_BUDGET( OTI_EVOL, PTSTEP, PBLD, PWALL_O_HOR,      &
-                             PRHOA, PT_ROOF, PT_WALL, PTI_BLD, PTS_FLOOR )  
+                             PRHOA, PT_ROOF, PT_WALL, PTI_BLD, PTS_FLOOR )
 !   ##########################################################################
 !
-!!****  *BLD_E_BUDGET*  
+!!****  *BLD_E_BUDGET*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the evoultion of the temperature of inside building air
-        
-!     
+
+!
 !!**  METHOD
 !     ------
 !
@@ -46,11 +46,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -58,7 +58,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    24/08/00 
+!!      Original    24/08/00
 !
 !-------------------------------------------------------------------------------
 !
@@ -134,7 +134,7 @@ ENDWHERE
 !
 !*      5.   internal temperature set to a minimum value (heating)
 !            -----------------------------------------------------
-! 
+!
 PTI_BLD(:) = MAX( PTI_BLD(:) , PTS_FLOOR (:) )
 !
 IF (LHOOK) CALL DR_HOOK('BLD_E_BUDGET',1,ZHOOK_HANDLE)

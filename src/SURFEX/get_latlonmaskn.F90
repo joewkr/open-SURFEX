@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_LATLONMASK_n (UG, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -33,7 +33,7 @@
 !*    0.     DECLARATION
 !            -----------
 !
-!      
+!
 !
 USE MODD_SURF_ATM_GRID_n, ONLY : SURF_ATM_GRID_t
 !
@@ -50,9 +50,9 @@ IMPLICIT NONE
 !
 TYPE(SURF_ATM_GRID_t), INTENT(INOUT) :: UG
 !
- CHARACTER(LEN=10), INTENT(OUT)             ::  HGRID      
-REAL, DIMENSION(:), POINTER                ::  PGRID_PAR      
-INTEGER, INTENT(OUT)                       ::  KGRID_PAR      
+ CHARACTER(LEN=10), INTENT(OUT)             ::  HGRID
+REAL, DIMENSION(:), POINTER                ::  PGRID_PAR
+INTEGER, INTENT(OUT)                       ::  KGRID_PAR
 LOGICAL, DIMENSION(:,:), INTENT(OUT)       ::  OLATLONMASK
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !

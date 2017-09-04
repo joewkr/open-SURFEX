@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_DUMMY (DTCO, DUU, UG, U, USS, HPROGRAM)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -106,7 +106,7 @@ IF (LHOOK) CALL DR_HOOK('PGD_DUMMY',0,ZHOOK_HANDLE)
 !             -------------------
 !
  CALL READ_NAM_PGD_DUMMY(HPROGRAM, IDUMMY_NBR, YDUMMY_NAME, YDUMMY_AREA, &
-                          CDUMMY_ATYPE, CDUMMY_FILE, CDUMMY_FILETYPE      )  
+                          CDUMMY_ATYPE, CDUMMY_FILE, CDUMMY_FILETYPE      )
 !
 DUU%NDUMMY_NBR     = IDUMMY_NBR
 ALLOCATE(DUU%CDUMMY_NAME(DUU%NDUMMY_NBR))
@@ -130,7 +130,7 @@ DO JNBR=1,DUU%NDUMMY_NBR
   CATYPE = CDUMMY_ATYPE(JNBR)
   CALL PGD_FIELD(DTCO, UG, U, USS, &
                  HPROGRAM,DUU%CDUMMY_NAME(JNBR),DUU%CDUMMY_AREA(JNBR),CDUMMY_FILE(JNBR), &
-                   CDUMMY_FILETYPE(JNBR),XUNDEF,DUU%XDUMMY_FIELDS(:,JNBR)              )  
+                   CDUMMY_FILETYPE(JNBR),XUNDEF,DUU%XDUMMY_FIELDS(:,JNBR)              )
   CATYPE = 'ARI'
 END DO
 IF (LHOOK) CALL DR_HOOK('PGD_DUMMY',1,ZHOOK_HANDLE)

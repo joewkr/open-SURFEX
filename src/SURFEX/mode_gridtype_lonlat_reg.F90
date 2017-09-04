@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##############################
       MODULE MODE_GRIDTYPE_LONLAT_REG
@@ -19,7 +19,7 @@ CONTAINS
 !############################################################################
 !     ####################################################################
       SUBROUTINE PUT_GRIDTYPE_LONLAT_REG(PGRID_PAR,PLONMIN,PLONMAX,             &
-                                           PLATMIN,PLATMAX,KLON,KLAT,KL,PLON,PLAT )  
+                                           PLATMIN,PLATMAX,KLON,KLAT,KL,PLON,PLAT )
 !     ####################################################################
 !
 !!****  *PUT_GRIDTYPE_LONLAT_REG* - routine to store in PGRID_PAR the horizontal grid
@@ -30,7 +30,7 @@ CONTAINS
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -79,7 +79,7 @@ END SUBROUTINE PUT_GRIDTYPE_LONLAT_REG
 !     ####################################################################
       SUBROUTINE GET_GRIDTYPE_LONLAT_REG(PGRID_PAR,PLONMIN,PLONMAX, &
                                            PLATMIN,PLATMAX,KLON,KLAT, &
-                                           KL,PLON,PLAT               )  
+                                           KL,PLON,PLAT               )
 !     ####################################################################
 !
 !!****  *GET_GRIDTYPE_LONLAT_REG* - routine to get from PGRID_PAR the horizontal grid
@@ -90,7 +90,7 @@ END SUBROUTINE PUT_GRIDTYPE_LONLAT_REG
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -143,14 +143,14 @@ END SUBROUTINE GET_GRIDTYPE_LONLAT_REG
 !
 !      ###################################################
        SUBROUTINE LATLON_LONLAT_REG(PLONMIN,PLONMAX,PLATMIN,PLATMAX,&
-                                      KLON,KLAT,PLON,PLAT             )  
+                                      KLON,KLAT,PLON,PLAT             )
 !      ###################################################
 !
 !!****  *LATLON_LONLAT_REG * - Routine to compute geographical coordinates
 !!
 !!     PURPOSE
 !!     -------
-!!       
+!!
 !!     AUTHOR
 !!     ------
 !!      V. Masson  *Meteo-France*
@@ -173,13 +173,13 @@ REAL,               INTENT(IN)  :: PLATMIN  ! minimum latitude
 REAL,               INTENT(IN)  :: PLATMAX  ! maximum latitude
 INTEGER,            INTENT(IN)  :: KLON     ! number of points in longitude
 INTEGER,            INTENT(IN)  :: KLAT     ! number of points in latitude
-REAL, DIMENSION(:), INTENT(OUT) :: PLON,PLAT    
-                                            ! returned geographic latitudes and 
-                                            ! longitudes of the processed points 
+REAL, DIMENSION(:), INTENT(OUT) :: PLON,PLAT
+                                            ! returned geographic latitudes and
+                                            ! longitudes of the processed points
                                             ! (degrees).
 !
 !*     0.2    Declarations of local variables
-! 
+!
 INTEGER :: JLON, JLAT
 INTEGER :: JL
 INTEGER :: JC
@@ -191,7 +191,7 @@ JL = 0
 !
 DO JLAT=1,KLAT
   DO JLON=1,KLON
-    JC = JLON + (JLAT-1) * KLON 
+    JC = JLON + (JLAT-1) * KLON
     JL = JL + 1
     PLON(JL) = PLONMIN + (PLONMAX-PLONMIN) * (FLOAT(JLON)-0.5) / FLOAT(KLON)
     PLAT(JL) = PLATMIN + (PLATMAX-PLATMIN) * (FLOAT(JLAT)-0.5) / FLOAT(KLAT)

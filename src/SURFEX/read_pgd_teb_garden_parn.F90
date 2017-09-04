@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PGD_TEB_GARDEN_PAR_n (DTV, IO, KDIM, HPROGRAM)
 !     ################################################
 !
 !!****  *READ_PGD_TEB_GARDEN_PAR_n* - reads ISBA physiographic fields
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      P. Le Moigne 12/2004 : add type of photosynthesis
 !!      R. Alkama    05/2012 : Add 7 new vegtypes (19 rather than 12)
 !!      B. Decharme    05/13 : new param for equatorial forest
@@ -51,7 +51,7 @@ USE MODD_ISBA_OPTIONS_n, ONLY : ISBA_OPTIONS_t
 USE MODD_CSTS,              ONLY : XDAY
 USE MODD_SURF_PAR,          ONLY : XUNDEF
 USE MODD_ISBA_PAR,          ONLY : XOPTIMGRID, NOPTIMLAYER
-USE MODD_DATA_COVER_PAR,    ONLY : NVT_NO, NVT_ROCK, NVT_SNOW, NVT_TEBD,     & 
+USE MODD_DATA_COVER_PAR,    ONLY : NVT_NO, NVT_ROCK, NVT_SNOW, NVT_TEBD,     &
                                      NVT_BONE, NVT_TRBE, NVT_C3, NVT_C4,     &
                                      NVT_IRR, NVT_GRAS, NVT_TROG,NVT_PARK,   &
                                      NVT_TRBD, NVT_TEBE, NVT_TENE, NVT_BOBD, &
@@ -335,7 +335,7 @@ DTV%XPAR_F2I     (:,1) = 0.3
 DTV%XPAR_Z0_O_Z0H(:,1) = 10.
 !
 ! Defensive/offensive strategy (1/0)
-DTV%LPAR_STRESS  (:,1) = .FALSE. 
+DTV%LPAR_STRESS  (:,1) = .FALSE.
 !
 DO JI=1,KDIM
 !
@@ -378,12 +378,12 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_BONE)>0. )  ZDATA_ALBUV_VEG(JI,1)= 0.0425
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TENE)>0. )  ZDATA_ALBUV_VEG(JI,1)= 0.0425
  IF(DTV%XPAR_VEGTYPE(JI,NVT_BOND)>0. )  ZDATA_ALBUV_VEG(JI,1)= 0.0425
- IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_ALBUV_VEG(JI,1)= 0.0380 
+ IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_ALBUV_VEG(JI,1)= 0.0380
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_ALBUV_VEG(JI,1) = 0.0525
- ENDIF 
+ ENDIF
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )  ZDATA_ALBUV_VEG(JI,2)= 0.0800
- IF(DTV%XPAR_VEGTYPE(JI,NVT_BOGR)>0. )  ZDATA_ALBUV_VEG(JI,2)= 0.0800 
+ IF(DTV%XPAR_VEGTYPE(JI,NVT_BOGR)>0. )  ZDATA_ALBUV_VEG(JI,2)= 0.0800
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )  ZDATA_ALBUV_VEG(JI,2)= 0.1250
  IF (NVT_IRR>0) THEN
    IF(DTV%XPAR_VEGTYPE(JI,NVT_IRR )>0. )  ZDATA_ALBUV_VEG(JI,2)= 0.0450
@@ -397,16 +397,16 @@ DO JI=1,KDIM
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.) THEN
   DTV%XPAR_ALBNIR_VEG(JI,1,1) =  ( ZDATA_ALBNIR_VEG(JI,1)*DTV%XPAR_FRAC_HVEG(JI)   &
                             + ZDATA_ALBNIR_VEG(JI,2)*DTV%XPAR_FRAC_LVEG(JI) ) &
-                          / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)    )  
+                          / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)    )
 !
   DTV%XPAR_ALBVIS_VEG(JI,1,1) =  ( ZDATA_ALBVIS_VEG(JI,1)*DTV%XPAR_FRAC_HVEG(JI)   &
                             + ZDATA_ALBVIS_VEG(JI,2)*DTV%XPAR_FRAC_LVEG(JI) ) &
-                          / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)    )  
-! 
+                          / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)    )
+!
   DTV%XPAR_ALBUV_VEG (JI,1,1) =  ( ZDATA_ALBUV_VEG (JI,1)*DTV%XPAR_FRAC_HVEG(JI)   &
                             + ZDATA_ALBUV_VEG (JI,2)*DTV%XPAR_FRAC_LVEG(JI) ) &
-                          / ( DTV%XPAR_FRAC_HVEG (JI)+DTV%XPAR_FRAC_LVEG(JI)   )  
- ENDIF 
+                          / ( DTV%XPAR_FRAC_HVEG (JI)+DTV%XPAR_FRAC_LVEG(JI)   )
+ ENDIF
 !
 ! Min stomatal resistance
  ZDATA_RSMIN(JI,:)= 40.
@@ -420,14 +420,14 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_BOND)>0. )  ZDATA_RSMIN(JI,1)= 150.
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_RSMIN(JI,1) = 150.
- ENDIF 
+ ENDIF
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_RSMIN(JI,1)= XEVERG_RSMIN
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )  ZDATA_RSMIN(JI,2)= 120.
  IF(DTV%XPAR_VEGTYPE(JI,NVT_C4  )>0. )  ZDATA_RSMIN(JI,2)= 120.
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)              &
     DTV%XPAR_RSMIN(JI,1) =  ( ZDATA_RSMIN(JI,1)*DTV%XPAR_FRAC_HVEG(JI)     &
                        + ZDATA_RSMIN(JI,2)*DTV%XPAR_FRAC_LVEG(JI)   ) &
-                     / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )  
+                     / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )
 !
 ! Gamma parameter
  ZDATA_GAMMA(JI,:)= 0.
@@ -442,11 +442,11 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_GAMMA(JI,1)= 0.04
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_GAMMA(JI,1) = 0.04
- ENDIF 
+ ENDIF
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)              &
     DTV%XPAR_GAMMA(JI,1) =  ( ZDATA_GAMMA(JI,1)*DTV%XPAR_FRAC_HVEG(JI)     &
                        + ZDATA_GAMMA(JI,2)*DTV%XPAR_FRAC_LVEG(JI)   ) &
-                     / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )  
+                     / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )
 !
 ! Wrmax_cf
  ZDATA_WRMAX_CF(JI,:)= 0.2
@@ -461,11 +461,11 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_WRMAX_CF(JI,1)= 0.1
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_WRMAX_CF(JI,1) = 0.1
- ENDIF 
+ ENDIF
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)                    &
     DTV%XPAR_WRMAX_CF(JI,1) =  ( ZDATA_WRMAX_CF(JI,1)*DTV%XPAR_FRAC_HVEG(JI)     &
                           + ZDATA_WRMAX_CF(JI,2)*DTV%XPAR_FRAC_LVEG(JI)   ) &
-                        / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)    )  
+                        / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)    )
 !
 ! Rgl
  ZDATA_RGL(JI,:)= 100.
@@ -480,11 +480,11 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_RGL(JI,1)= 30.
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_RGL(JI,1) = 30.
- ENDIF 
+ ENDIF
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)            &
     DTV%XPAR_RGL(JI,1) =  ( ZDATA_RGL(JI,1)*DTV%XPAR_FRAC_HVEG(JI)       &
                      + ZDATA_RGL(JI,2)*DTV%XPAR_FRAC_LVEG(JI)     ) &
-                   / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )  
+                   / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )
 !
 ! Cv
  ZDATA_CV(JI,:)= 2.E-5
@@ -499,11 +499,11 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_CV(JI,1)= 1.E-5
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_CV(JI,1) = 1.E-5
- ENDIF 
+ ENDIF
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)           &
     DTV%XPAR_CV(JI,1) =  ( ZDATA_CV(JI,1)*DTV%XPAR_FRAC_HVEG(JI)        &
                     + ZDATA_CV(JI,2)*DTV%XPAR_FRAC_LVEG(JI)      ) &
-                  / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )  
+                  / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )
 !
 ! Mesophyll conductance (m s-1)
  ZDATA_GMES(JI,:)=0.020
@@ -518,7 +518,7 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_GMES(JI,1)= 0.001
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_GMES(JI,1) = 0.001
- ENDIF 
+ ENDIF
  IF (NVT_C3>0) THEN
    IF(DTV%XPAR_VEGTYPE(JI,NVT_C3  )>0. )  ZDATA_GMES(JI,2)= 0.003
  ENDIF
@@ -535,10 +535,10 @@ DO JI=1,KDIM
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)             &
     DTV%XPAR_GMES(JI,1) =  ( ZDATA_GMES(JI,1)*DTV%XPAR_FRAC_HVEG(JI)      &
                       + ZDATA_GMES(JI,2)*DTV%XPAR_FRAC_LVEG(JI)    ) &
-                    / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )  
+                    / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )
 !
 ! Ecosystem Respiration (kg/kg.m.s-1)
- ZDATA_RE25(JI,:)= 3.0E-7 
+ ZDATA_RE25(JI,:)= 3.0E-7
  IF(DTV%XPAR_VEGTYPE(JI,NVT_BONE)>0. )  ZDATA_RE25(JI,1)= 1.5E-7
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TENE)>0. )  ZDATA_RE25(JI,1)= 1.5E-7
  IF(DTV%XPAR_VEGTYPE(JI,NVT_BOND)>0. )  ZDATA_RE25(JI,1)= 1.5E-7
@@ -546,7 +546,7 @@ DO JI=1,KDIM
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)             &
     DTV%XPAR_RE25(JI,1) =  ( ZDATA_RE25(JI,1)*DTV%XPAR_FRAC_HVEG(JI)      &
                       + ZDATA_RE25(JI,2)*DTV%XPAR_FRAC_LVEG(JI)    ) &
-                    / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )  
+                    / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )
 !
 ! Cuticular conductance (m s-1)
  ZDATA_GC(JI,:)=0.00025
@@ -558,17 +558,17 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_BONE)>0. )  ZDATA_GC(JI,1)= 0.
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TENE)>0. )  ZDATA_GC(JI,1)= 0.
  IF(DTV%XPAR_VEGTYPE(JI,NVT_BOND)>0. )  ZDATA_GC(JI,1)= 0.
- IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_GC(JI,1)= 0.00015  
+ IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_GC(JI,1)= 0.00015
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_GC(JI,1) = 0.00015
- ENDIF 
+ ENDIF
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)           &
     DTV%XPAR_GC(JI,1) =  ( ZDATA_GC(JI,1)*DTV%XPAR_FRAC_HVEG(JI)        &
                     + ZDATA_GC(JI,2)*DTV%XPAR_FRAC_LVEG(JI)      ) &
-                  / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )  
+                  / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )
 !
 ! Ratio d(biomass)/d(lai) (kg/m2)
- ZDATA_BSLAI(JI,:)=0.36 
+ ZDATA_BSLAI(JI,:)=0.36
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TEBD)>0. )  ZDATA_BSLAI(JI,1)= 0.25
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBD)>0. )  ZDATA_BSLAI(JI,1)= 0.25
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TEBE)>0. )  ZDATA_BSLAI(JI,1)= 0.25
@@ -580,7 +580,7 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_BSLAI(JI,1)= 0.25
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_BSLAI(JI,1) = 0.25
- ENDIF 
+ ENDIF
  IF (NVT_C3>0) THEN
    IF(DTV%XPAR_VEGTYPE(JI,NVT_C3  )>0. )  ZDATA_BSLAI(JI,2)= 0.06
  ENDIF
@@ -597,7 +597,7 @@ DO JI=1,KDIM
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)              &
     DTV%XPAR_BSLAI(JI,1) =  ( ZDATA_BSLAI(JI,1)*DTV%XPAR_FRAC_HVEG(JI)     &
                        + ZDATA_BSLAI(JI,2)*DTV%XPAR_FRAC_LVEG(JI)   ) &
-                     / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )  
+                     / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )
 !
 ! Maximum air saturation deficit tolerate by vegetation (kg/kg)
  ZDATA_DMAX(JI,:) = 0.1
@@ -612,11 +612,11 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_DMAX(JI,1)= 0.1
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_DMAX(JI,1) = 0.1
- ENDIF 
+ ENDIF
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)             &
     DTV%XPAR_DMAX(JI,1) =  ( ZDATA_DMAX(JI,1)*DTV%XPAR_FRAC_HVEG(JI)      &
                       + ZDATA_DMAX(JI,2)*DTV%XPAR_FRAC_LVEG(JI)    ) &
-                    / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )  
+                    / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) )
 !
 ! e-folding time for senescence (days)
  ZDATA_SEFOLD(JI,:)=90. * XDAY
@@ -631,13 +631,13 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_SEFOLD(JI,1)= 365.* XDAY
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_SEFOLD(JI,1) = 365.*XDAY
- ENDIF 
+ ENDIF
  IF (NVT_C3>0) THEN
    IF(DTV%XPAR_VEGTYPE(JI,NVT_C3  )>0. )  ZDATA_SEFOLD(JI,2)=  60.* XDAY
  ENDIF
  IF (NVT_C3W>0) THEN
    IF(DTV%XPAR_VEGTYPE(JI,NVT_C3W )>0. )  ZDATA_SEFOLD(JI,2)=  60.* XDAY
- ENDIF 
+ ENDIF
  IF (NVT_C3S>0) THEN
    IF(DTV%XPAR_VEGTYPE(JI,NVT_C3S )>0. )  ZDATA_SEFOLD(JI,2)=  60.* XDAY
  ENDIF
@@ -648,7 +648,7 @@ DO JI=1,KDIM
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)                &
     DTV%XPAR_SEFOLD(JI,1) =  ( ZDATA_SEFOLD(JI,1)*DTV%XPAR_FRAC_HVEG(JI)     &
                         + ZDATA_SEFOLD(JI,2)*DTV%XPAR_FRAC_LVEG(JI)   ) &
-                      / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)  )  
+                      / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)  )
 !
 ! Minimum LAI (m2/m2)
  ZDATA_LAIMIN (JI,:) = 0.3
@@ -659,7 +659,7 @@ DO JI=1,KDIM
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)                &
     DTV%XPAR_LAIMIN(JI,1) =  ( ZDATA_LAIMIN(JI,1)*DTV%XPAR_FRAC_HVEG(JI)     &
                         + ZDATA_LAIMIN(JI,2)*DTV%XPAR_FRAC_LVEG(JI)   ) &
-                      / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)  )  
+                      / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)  )
 !
 ! Leaf aera ratio sensitivity to nitrogen concentration
  ZDATA_CE_NITRO(JI,:)=7.68
@@ -674,13 +674,13 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_CE_NITRO(JI,1)= 4.83
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_CE_NITRO(JI,1) = 4.83
- ENDIF 
+ ENDIF
  IF (NVT_C3>0) THEN
    IF(DTV%XPAR_VEGTYPE(JI,NVT_C3  )>0. )  ZDATA_CE_NITRO(JI,2)= 3.79
  ENDIF
  IF (NVT_C3W>0) THEN
    IF(DTV%XPAR_VEGTYPE(JI,NVT_C3W )>0. )  ZDATA_CE_NITRO(JI,2)= 3.79
- ENDIF 
+ ENDIF
  IF (NVT_C3S>0) THEN
    IF(DTV%XPAR_VEGTYPE(JI,NVT_C3S )>0. )  ZDATA_CE_NITRO(JI,2)= 3.79
  ENDIF
@@ -694,7 +694,7 @@ DO JI=1,KDIM
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)                    &
     DTV%XPAR_CE_NITRO(JI,1) =  ( ZDATA_CE_NITRO(JI,1)*DTV%XPAR_FRAC_HVEG(JI)     &
                           + ZDATA_CE_NITRO(JI,2)*DTV%XPAR_FRAC_LVEG(JI)   ) &
-                        / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)    )  
+                        / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)    )
 !
 ! Lethal minimum value of leaf area ratio
  ZDATA_CF_NITRO(JI,:)=-4.33
@@ -709,7 +709,7 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_CF_NITRO(JI,1)= 0.12
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_CF_NITRO(JI,1) = 2.53
- ENDIF 
+ ENDIF
  IF (NVT_C3>0) THEN
    IF(DTV%XPAR_VEGTYPE(JI,NVT_C3  )>0. )  ZDATA_CF_NITRO(JI,2)=  9.84
  ENDIF
@@ -729,7 +729,7 @@ DO JI=1,KDIM
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)                    &
     DTV%XPAR_CF_NITRO(JI,1) =  ( ZDATA_CF_NITRO(JI,1)*DTV%XPAR_FRAC_HVEG(JI)     &
                           + ZDATA_CF_NITRO(JI,2)*DTV%XPAR_FRAC_LVEG(JI)   ) &
-                        / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)    )  
+                        / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)    )
 !
 ! Nitrogen concentration of active biomass
  ZDATA_CNA_NITRO(JI,:)=1.3
@@ -744,7 +744,7 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_CNA_NITRO(JI,1)= 1.7
  IF (NVT_FLTR>0) THEN
    IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_CNA_NITRO(JI,1) = 2.0
- ENDIF 
+ ENDIF
  IF(DTV%XPAR_VEGTYPE(JI,NVT_C4  )>0. )  ZDATA_CNA_NITRO(JI,2)= 1.9
  IF (NVT_IRR>0) THEN
    IF(DTV%XPAR_VEGTYPE(JI,NVT_IRR )>0. )  ZDATA_CNA_NITRO(JI,2)= 1.9
@@ -752,7 +752,7 @@ DO JI=1,KDIM
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)                      &
     DTV%XPAR_CNA_NITRO(JI,1) =  ( ZDATA_CNA_NITRO(JI,1)*DTV%XPAR_FRAC_HVEG(JI)     &
                            + ZDATA_CNA_NITRO(JI,2)*DTV%XPAR_FRAC_LVEG(JI)   ) &
-                         / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)     )  
+                         / ( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI)     )
 !
 ! Ground layers
  IF (IO%NGROUND_LAYER<=3) THEN
@@ -769,7 +769,7 @@ DO JI=1,KDIM
    IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_DG(JI,2,1)= 2.0
    IF (NVT_FLTR>0) THEN
      IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_DG(JI,2,1) = 2.0
-   ENDIF 
+   ENDIF
    !
    IF(DTV%XPAR_VEGTYPE(JI,NVT_NO  )>0. )  ZDATA_DG(JI,2,3)= 0.5
    IF(DTV%XPAR_VEGTYPE(JI,NVT_ROCK)>0. )  ZDATA_DG(JI,2,3)= 0.5
@@ -788,7 +788,7 @@ DO JI=1,KDIM
       IF(DTV%XPAR_VEGTYPE(JI,NVT_TRBE)>0. )  ZDATA_DG(JI,3,1)= 3.0
       IF (NVT_FLTR>0) THEN
         IF (DTV%XPAR_VEGTYPE(JI,NVT_FLTR)>0.) ZDATA_DG(JI,3,1) = 3.0
-      ENDIF 
+      ENDIF
       !
       IF(DTV%XPAR_VEGTYPE(JI,NVT_NO  )>0. )  ZDATA_DG(JI,3,3)= 1.0
       IF(DTV%XPAR_VEGTYPE(JI,NVT_ROCK)>0. )  ZDATA_DG(JI,3,3)= 1.0
@@ -796,13 +796,13 @@ DO JI=1,KDIM
    ENDIF
    DTV%XPAR_DG(JI,:,1) =    ZDATA_DG(JI,:,1)*DTV%XPAR_FRAC_HVEG(JI)   &
                        + ZDATA_DG(JI,:,2)*DTV%XPAR_FRAC_LVEG(JI) &
-                       + ZDATA_DG(JI,:,3)*DTV%XPAR_FRAC_NVEG(JI)  
+                       + ZDATA_DG(JI,:,3)*DTV%XPAR_FRAC_NVEG(JI)
  ELSEIF (IO%NGROUND_LAYER<=NOPTIMLAYER) THEN
    DTV%XPAR_DG(JI,:,1) = XOPTIMGRID(:)
  ELSE
    CALL ABOR1_SFX("READ_PGD_TEB_GARDEN_PAR: WITH MORE THAN 14 SOIL LAYERS, "//&
      "WITHOUT ECOCLIMAP, GARDEN CANNOT RUN")
- ENDIF 
+ ENDIF
 !
 ! Root fractions
  DTV%XPAR_ROOTFRAC(JI,IO%NGROUND_LAYER,1) = 1.
@@ -820,14 +820,14 @@ DO JI=1,KDIM
  IF (DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI) .GT. 0.)                           &
      DTV%XPAR_LAI     (JI,JTIME,1) = ( DTV%XPAR_LAI_HVEG(JI,JTIME)*DTV%XPAR_FRAC_HVEG(JI)  &
                                 + DTV%XPAR_LAI_LVEG(JI,JTIME)*DTV%XPAR_FRAC_LVEG(JI)) &
-                               /( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI))  
+                               /( DTV%XPAR_FRAC_HVEG(JI)+DTV%XPAR_FRAC_LVEG(JI))
 ! Fraction of vegetation
   DTV%XPAR_VEG     (JI,JTIME,1) = VEG_FROM_LAI  (DTV%XPAR_LAI    (JI,JTIME,1),       &
-                                            DTV%XPAR_VEGTYPE(JI,:),GAGRI_TO_GRASS)  
+                                            DTV%XPAR_VEGTYPE(JI,:),GAGRI_TO_GRASS)
 ! Roughness length for momentum
   DTV%XPAR_Z0      (JI,JTIME,1) = Z0V_FROM_LAI  (DTV%XPAR_LAI    (JI,JTIME,1),       &
                                             DTV%XPAR_H_TREE (JI,1),           &
-                                            DTV%XPAR_VEGTYPE(JI,:),GAGRI_TO_GRASS)  
+                                            DTV%XPAR_VEGTYPE(JI,:),GAGRI_TO_GRASS)
 ! Emissivity
   DTV%XPAR_EMIS    (JI,JTIME,1) = EMIS_FROM_VEG (DTV%XPAR_VEG    (JI,JTIME,1),       &
                                             DTV%XPAR_VEGTYPE(JI,:))

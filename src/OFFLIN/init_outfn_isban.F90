@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE INIT_OUTFN_ISBA_n (IM, UG, U, HSELECT, OSNOWDIMNC, HPROGRAM, KLUOUT)
@@ -43,12 +43,12 @@
 !!      modified    04-09,by A.L. Gibelin : Add respiration diagnostics
 !!      modified    05-09,by A.L. Gibelin : Add carbon spinup
 !!      modified    07-09,by A.L. Gibelin : Add carbon prognostic variables
-!!  
+!!
 !!      modified    09-12,by B. Decharme  : delete LPROVAR_TO_DIAG for prognostic variables
 !!                                           delete NWG_LAYER
 !!                                           Erroneous description in diag comments
 !!      modified    06-13,by B. Decharme  : good dimension for Tg,Wg,et Wgi
-!!                                           bug : TSN_VEG if Snowlayer = 1 ; 
+!!                                           bug : TSN_VEG if Snowlayer = 1 ;
 !!                                           bug : TSRAD_P and not TTSRAD_P
 !!                                           add diag (Qsb,Subl) and Snow noted SN
 !!      modified    10-14,by P. Samuelsson: Added MEB output
@@ -107,16 +107,16 @@ INTEGER,         INTENT(IN) :: KLUOUT
  CHARACTER(LEN=100),DIMENSION(1)  :: YATT_TITLE,YATT
  CHARACTER(LEN=40),DIMENSION(1)   :: YDATE
  CHARACTER(LEN=13),DIMENSION(1)   :: YUNIT1,YUNIT2
- CHARACTER(LEN=100)               :: YCOMMENT  
+ CHARACTER(LEN=100)               :: YCOMMENT
  CHARACTER(LEN=50)                :: YFILE
  CHARACTER(LEN=12)                :: YRECFM
  CHARACTER(LEN=3)                 :: YPAS,YPAT
  CHARACTER(LEN=6)                 :: YLVL
  CHARACTER(LEN=3)                 :: YISBA
- CHARACTER(LEN=1)                 :: YNDAYS 
+ CHARACTER(LEN=1)                 :: YNDAYS
  CHARACTER(LEN=2)                 :: YLVLV
  CHARACTER(LEN=3) :: YSNOW_SCHEME
-! 
+!
 TYPE(DATE_TIME) :: TPTIME
 REAL,DIMENSION(:),POINTER     :: ZX,ZY
 REAL,DIMENSION(:), POINTER    :: ZLAT,ZLON
@@ -143,7 +143,7 @@ ISNOW_LAYER  = IM%NPE%AL(1)%TSNOW%NLAYER
 !
  CALL GET_DIM_FULL_n(U%NDIM_FULL,INI)
  CALL GET_ISBA_CONF_n(IM%O,ISNOW_LAYER,YISBA,INPATCH,INLVLD,INLVLS,INBIOMASS,&
-                       INLITTER,INLITTLEVS,INSOILCARB)  
+                       INLITTER,INLITTLEVS,INSOILCARB)
 !
 INSNLAYER = 1
 IF ( OSNOWDIMNC ) INSNLAYER = ISNOW_LAYER
@@ -174,11 +174,11 @@ YATT_TITLE(1)='units'
 !
 YFILE='ISBA_PROGNOSTIC.OUT.nc'
  CALL CREATE_FILE(YFILE,IDIMS,YNAME_DIM,IFILE_ID,IDDIMALL)
-JRET=NF90_REDEF(IFILE_ID) 
+JRET=NF90_REDEF(IFILE_ID)
 !
  CALL OL_WRITE_PROJ(HSELECT,IFILE_ID,UG)
 !
-DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT) 
+DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT)
   IF (TRIM(YFILE)==TRIM(XNETCDF_FILENAME_OUT(JFILE))) THEN
     XNETCDF_FILEID_OUT(JFILE) = IFILE_ID
     EXIT
@@ -196,12 +196,12 @@ IF (.NOT. IM%ID%DM%LPROSNOW) THEN
   !
   YFILE='ISBA_DIAGNOSTICS.OUT.nc'
   CALL CREATE_FILE(YFILE,IDIMS,YNAME_DIM,IFILE_ID,IDDIMALL)
-  JRET=NF90_REDEF(IFILE_ID) 
+  JRET=NF90_REDEF(IFILE_ID)
   YATT ='dimensionless'
   !
   CALL OL_WRITE_PROJ(HSELECT,IFILE_ID,UG)
   !
-  DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT) 
+  DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT)
     IF (TRIM(YFILE)==TRIM(XNETCDF_FILENAME_OUT(JFILE))) THEN
       XNETCDF_FILEID_OUT(JFILE) = IFILE_ID
       EXIT
@@ -221,7 +221,7 @@ IF (IM%ID%O%LSURF_BUDGETC) THEN
   !
   CALL OL_WRITE_PROJ(HSELECT,IFILE_ID,UG)
   !
-  DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT) 
+  DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT)
     IF (TRIM(YFILE)==TRIM(XNETCDF_FILENAME_OUT(JFILE))) THEN
       XNETCDF_FILEID_OUT(JFILE) = IFILE_ID
       EXIT
@@ -245,16 +245,16 @@ IF( LASSIM.OR.IM%ID%O%LPGD ) THEN
   !
   CALL OL_WRITE_PROJ(HSELECT,IFILE_ID,UG)
   !
-  DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT) 
+  DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT)
     IF (TRIM(YFILE)==TRIM(XNETCDF_FILENAME_OUT(JFILE))) THEN
       XNETCDF_FILEID_OUT(JFILE) = IFILE_ID
       EXIT
     ENDIF
-  ENDDO  
+  ENDDO
   !
   CALL OL_WRITE_COORD(HSELECT,YFILE,IFILE_ID,IDDIMALL,YATT_TITLE,YNAME_DIM,&
                       YUNIT1,YUNIT2,IDIM1,YDATE,ZX,ZY,ZLON,ZLAT)
-  !  
+  !
 ENDIF
 !
 ! 7. Create file for analysis increments for EKF
@@ -265,15 +265,15 @@ IF(LASSIM .AND. CASSIM_ISBA=='EKF  ') THEN
   YFILE='ISBA_ANALYSIS.OUT.nc'
   CALL CREATE_FILE(YFILE,IDIMS,YNAME_DIM,IFILE_ID,IDDIMALL)
   JRET=NF90_REDEF(IFILE_ID)
-  !  
+  !
   CALL OL_WRITE_PROJ(HSELECT,IFILE_ID,UG)
   !
-  DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT) 
+  DO JFILE = 1,SIZE(XNETCDF_FILENAME_OUT)
     IF (TRIM(YFILE)==TRIM(XNETCDF_FILENAME_OUT(JFILE))) THEN
       XNETCDF_FILEID_OUT(JFILE) = IFILE_ID
       EXIT
     ENDIF
-  ENDDO  
+  ENDDO
   !
   CALL OL_WRITE_COORD(HSELECT,YFILE,IFILE_ID,IDDIMALL,YATT_TITLE,YNAME_DIM,&
                       YUNIT1,YUNIT2,IDIM1,YDATE,ZX,ZY,ZLON,ZLAT)

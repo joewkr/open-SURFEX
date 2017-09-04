@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,14 +28,14 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ========================= MODULE modd_glt_param ===========================
 ! =======================================================================
@@ -106,11 +106,11 @@ MODULE modd_glt_param
 !                      atmosphere)
 !       nsnwrad=1  --> generates a negative heat flux sent to the ocean by
 !                      Gelato, due to the melting of snow into the ocean
-!  - nleviti    : sea ice is levitating over the ocean or not 
+!  - nleviti    : sea ice is levitating over the ocean or not
 !       nleviti=0  --> sea ice is not levitating (a freshwater flux due to the
 !                      melting/freezing of ice is sent to the ocean model)
 !                  --> sea ice is levitating
-!  - nsalflx    : ice-ocean salt flux parameterisation 
+!  - nsalflx    : ice-ocean salt flux parameterisation
 !                 (if 2 or 3, check ocean topmost level dz parameter rn_htopoc in
 !                 the namelist !)
 !       nsalflx=1  --> approximated calculation
@@ -121,7 +121,7 @@ MODULE modd_glt_param
 !       nextqoc=0  --> the %qoc is computed by Gelato
 ! - nicesub    : ice sublimation
 !       nicesub=1  --> take ice sublimation into account (non heat conservative)
-!       nicesub=0  --> no ice sublimation 
+!       nicesub=0  --> no ice sublimation
 ! - cnflxin    : input fluxes
 !       cnflxin    --> 'mixed' : only one flux, to share between water/ice
 !       cnflxin    --> 'double': one flux for water, one flux for ice
@@ -145,9 +145,9 @@ CHARACTER(10) ::  &
 !  - xfsidmpeft : sea ice fraction damping e-folding time (in days)
 !  - chsidmp    : sea ice thickness constraint
 !       chsidmp='NONE'       --> no sea ice thickness constraint
-!       chsidmp='DAMP_ADD'   --> damp (thickness of all ice categories is 
+!       chsidmp='DAMP_ADD'   --> damp (thickness of all ice categories is
 !         modified by the same value: h_i => h_i + add)
-!       chsidmp='DAMP_FAC'   --> damp (thickness of all ice categories is 
+!       chsidmp='DAMP_FAC'   --> damp (thickness of all ice categories is
 !         modified by the same factor: h_i => h_i * fac)
 !       chsidmp='PRESCRIBE'  --> prescribe
 !  - xhsidmpeft : sea ice thickness damping e-folding time (in days)
@@ -166,18 +166,18 @@ REAL ::  &
 !       cdiafmt='VMAR5'   --> IPCC AR5 vairmer format
 !       cdiafmt='NCAR5'   --> IPCC AR5 NetCDF format (not active yet)
 !       cdiafmt='XIOS'    --> Use XIOS I/O server (NetCDF format and
-!         diags namelist shared with Nemo - works only within Nemo yet) 
-!  - cdialev    : diagnostics level 
+!         diags namelist shared with Nemo - works only within Nemo yet)
+!  - cdialev    : diagnostics level
 !       . cdialev can include one, two or all of the letters b, d and t
-!       . If cdiafmt='GELATO' 
+!       . If cdiafmt='GELATO'
 !           - 1: makes the 2D diag. file (2D fields), called
 !          '2d.[ave|ins].vairmer'. Contains: ice concentration, thickness,
 !          velocity components, thin ice+thick ice, snow thickness).
 !       .   - 2:  add more detailed 2D diagnostics to the 2D diag file,
-!          like: solar short wave flux, non solar flux, water flux crossing 
+!          like: solar short wave flux, non solar flux, water flux crossing
 !          the leads+sea ice ensemble...
-!       .   - 3: makes the 0d.ins.vairmer diag. file (0D fields). 
-!          Contains: sea ice area, extent, volume, for both hemispheres + 
+!       .   - 3: makes the 0d.ins.vairmer diag. file (0D fields).
+!          Contains: sea ice area, extent, volume, for both hemispheres +
 !          transports at most Arctic Straits
 !           - Example: cdialev=13 or 31 means that you want only the 2d basic
 !          diagnostics + 0d diagnostic.
@@ -187,19 +187,19 @@ REAL ::  &
 !           - 3: save only the priority 3 fields
 !           - x: save only my personal fields (additional)
 !           - note fields e.g. in priority 2 fields can have a space dimension
-!          equal to grid size nxglo*nyglo or equal to 1 
+!          equal to grid size nxglo*nyglo or equal to 1
 !           - VMAR5: glt_output in Vairmer; NCAR5: glt_output in NetCDF.
 !           - Example: cdialev=123x means you want all AR5 fields + yours
-!       . If cdiafmt='XIOS' : levels are handled in dedicated diag namelist 
+!       . If cdiafmt='XIOS' : levels are handled in dedicated diag namelist
 !  - dttave     : period for averaged fields (days, optional, default=365)
 !  - navedia    : average the glt_output over dttave and the whole run (N/A for XIOS)
-!  - ninsdia    : glt_output delivered once per time step (N/A for XIOS) 
+!  - ninsdia    : glt_output delivered once per time step (N/A for XIOS)
 !  - ndiamax    : maximum number of diagnostic files
-!  - nsavinp    : allows to save glt_gelato routine input in a file (used in 
+!  - nsavinp    : allows to save glt_gelato routine input in a file (used in
 !                 coupled mode)
 !       nsavinp=0 --> glt_gelato routine input is not saved
 !       nsavinp=1 --> glt_gelato routine input is saved in a file
-!  - nsavout    : allows to save glt_gelato routine glt_output in a file (used in 
+!  - nsavout    : allows to save glt_gelato routine glt_output in a file (used in
 !                 coupled mode)
 !       nsavout=0 --> glt_gelato routine input is not saved
 !       nsavout=1 --> glt_gelato routine input is saved in a file
@@ -297,7 +297,7 @@ REAL ::  &
   xfsimax, xicethcr, xhsimin
 !
 !
-! 1.9. Parameterizations 
+! 1.9. Parameterizations
 ! -----------------------
 !
 ! .. If you need a standard parameterization of low clouds (not simulated
@@ -306,7 +306,7 @@ REAL ::  &
 ! (it is not recommended to use values other than 0...)
 !  - alblc      : albedo of low clouds
 !  - xlmelt     : lateral melting parameterization factor
-!  - xswhdfr    : fraction of the solar radiation absorbed by snow that 
+!  - xswhdfr    : fraction of the solar radiation absorbed by snow that
 ! is involved in the vertical heat diffusion (the rest contributes to direct
 ! warming/melting)
 !  - albyngi    : parameterisation of young ice albedo (exponential formulation)
@@ -324,7 +324,7 @@ REAL ::  &
 ! ---------------------
 !
 !  - ngrdlu     : unit for reading the grid
-!  - nsavlu     : unit for writing input/output fields for Gelato 
+!  - nsavlu     : unit for writing input/output fields for Gelato
 !  - nrstlu     : unit for reading/writing Gelato restart
 !  - n0vilu     : unit for writing 0D Glt Instantaneous diags
 !  - n0valu     : unit for writing 0D Glt Instantaneous diags
@@ -342,11 +342,11 @@ INTEGER ::  &
   nxvilu, nxvalu, nibglu, nspalu, noutlu, ntimlu
 !
 !
-! 1.11. Path to keep Gelato I/O fields 
+! 1.11. Path to keep Gelato I/O fields
 ! -------------------------------------
 !
 ! .. You must define this path (complete), but without "/" at the end if
-! you want to keep Gelato daily input/output variables (for example to 
+! you want to keep Gelato daily input/output variables (for example to
 ! "replay" a simulation with input/output data obtained in coupled mode).
 ! This variable is used only if nsavinp=1 or nsavout=1.
 !
@@ -360,8 +360,8 @@ CHARACTER(80) ::  &
 ! ---------------------------------------------------
 !  - cn_grdname   : grid name
 !  - nn_readf     : are we reading inpfld files as an input
-!  - nn_fisrt     : first iteration number 
-!  - nn_final     : last iteration number 
+!  - nn_fisrt     : first iteration number
+!  - nn_final     : last iteration number
 !  - nn_step      : step between two iterations
 !  - nn_iglo      : number of cells along the x-axis
 !  - nn_jglo      : number of cells along the y-axis
@@ -449,7 +449,7 @@ INTEGER ::  &
   na
 !
 !
-! 
+!
 ! 3. Parameters deduced from other initializations
 ! =================================================
 !
@@ -483,7 +483,7 @@ REAL ::  &
 REAL ::  &
   xdomsrf_g
 !
-! .. Total surface of the reduced grid ocean domain (redefined at every 
+! .. Total surface of the reduced grid ocean domain (redefined at every
 ! time step in thermo)
 !
 REAL ::  &
@@ -496,8 +496,8 @@ INTEGER ::  &
   nnflxin
 !
 !
-! 
-! 4. Parameters related to multi-processing 
+!
+! 4. Parameters related to multi-processing
 ! ==========================================
 !
 ! .. Are we multi-processed (using MPI)
@@ -509,10 +509,10 @@ LOGICAL :: &
 ! .. Print levels in gltout
 LOGICAL :: &
      lp1,lp2,lp3,lp4,lp5
-! .. What is the mpi multi-processing channel number 
+! .. What is the mpi multi-processing channel number
 INTEGER ::  &
      gelato_communicator
-! .. Which are the leading process number, the current process number 
+! .. Which are the leading process number, the current process number
 !    the total number of procs for Gelato and OPA
 INTEGER ::  &
      gelato_leadproc, gelato_myrank, gelato_nprocs
@@ -532,7 +532,7 @@ INTEGER, DIMENSION(:), ALLOCATABLE ::  &
 INTEGER, DIMENSION(:), ALLOCATABLE ::  &
      nytab
 ! Index number of every grid point in the global grid (i,j)
-INTEGER, DIMENSION(:,:), ALLOCATABLE ::  &    
+INTEGER, DIMENSION(:,:), ALLOCATABLE ::  &
      nindi,nindj
 !
 !
@@ -545,7 +545,7 @@ INTEGER ::  &
 REAL ::  &
   xtime
 CHARACTER(80) ::  &
-  clabel 
+  clabel
 !
 END MODULE modd_glt_param
 !

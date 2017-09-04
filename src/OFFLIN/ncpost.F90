@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
         PROGRAM NCPOST
@@ -25,7 +25,7 @@ USE MODD_OFF_SURFEX_n
 !
         USE MODI_END_IO_SURF_n
         USE MODI_INIT_IO_SURF_n
-        IMPLICIT NONE        
+        IMPLICIT NONE
 
         REAL, ALLOCATABLE, DIMENSION(:)   ::   ZLOC
         REAL, ALLOCATABLE, DIMENSION(:)   ::   ZWRK
@@ -52,7 +52,7 @@ USE MODD_OFF_SURFEX_n
         INTEGER    ::   IPATCH, JPATCH
         INTEGER    ::   IBEG, IEND
 
-        
+
 
         !plm
         !=====================================================================
@@ -65,12 +65,12 @@ USE MODD_OFF_SURFEX_n
         !=====================================================================
 
         IF (LHOOK) CALL DR_HOOK('NCPOST',0,ZHOOK_HANDLE)
-        CALL SURFEX_ALLOC_LIST(1)  
+        CALL SURFEX_ALLOC_LIST(1)
        CALL GOTO_MODEL(1)
 
         !=====================================================================
         !*
-        !** get domain size and read latitudes and longitudes 
+        !** get domain size and read latitudes and longitudes
         !*
         !=====================================================================
 
@@ -78,7 +78,7 @@ USE MODD_OFF_SURFEX_n
         IF (.NOT.LCOORD) THEN
 
            INQUIRE(FILE='PGD.txt', EXIST=LINITS)
-      
+
            IF (.NOT. LINITS) THEN
               WRITE(*,*)' Now grid attributes are only in the PGD file'
               WRITE(*,*)' NO INPUT FILE FOUND FOR NCPOST'
@@ -93,7 +93,7 @@ USE MODD_OFF_SURFEX_n
            CALL READ_SURF('ASCII ','DIM_FULL', INI, IRET)
            CALL READ_SURF('ASCII ','GRID_TYPE', CGRID_TYPE, IRET)
 
-        
+
            ALLOCATE(XLON(INI))
            ALLOCATE(XLAT(INI))
 
@@ -123,7 +123,7 @@ USE MODD_OFF_SURFEX_n
            ENDDO
 
            CALL END_IO_SURF_n('ASCII ')
-                   
+
         ENDIF
 
         !=====================================================================
@@ -142,7 +142,7 @@ USE MODD_OFF_SURFEX_n
 
         CALL OPEN_FILEIN_OL
         CALL INIT_IO_SURF_n(YSC%DTCO, YSC%U, 'OFFLIN','FULL  ','SURF  ','READ ')
-        
+
         CALL READ_SURF('OFFLIN','DIM_FULL', INI, IRET)
         ALLOCATE(XLON(INI))
         ALLOCATE(XLAT(INI))
@@ -191,7 +191,7 @@ USE MODD_OFF_SURFEX_n
         WRITE(NLUOUT,*) ' '
         WRITE(NLUOUT,*) ' ERROR WHEN READING ARTICLE',HREC
         WRITE(NLUOUT,*) ' '
-        
+
 
         IF (LHOOK) CALL DR_HOOK('NCPOST',1,ZHOOK_HANDLE)
         CONTAINS

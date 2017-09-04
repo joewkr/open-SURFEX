@@ -6,15 +6,15 @@ use Data::Dumper;
 
 #SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 #SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 #SFX_LIC for details. version 1.
 #
 $Data::Dumper::Indent = 1;
 
 our($nest_par);
 our @ISA      = qw(Exporter);
-our @EXPORT   = qw(study setup_parse pre_tidy remove_macro expcont 
-                   process_include_files tidy tidy_decl getvars 
+our @EXPORT   = qw(study setup_parse pre_tidy remove_macro expcont
+                   process_include_files tidy tidy_decl getvars
 		   find_unused_vars remove_unused_vars doctor_viol
 		   fix_doctor_viol various cont_lines f90_indent
 		   writefile readfile create_interface_block
@@ -42,7 +42,7 @@ sub study{
 #                     - 23 means first and last executable statement in program unit
 # $href->{prog_unit}  - program unit number (numbered from 0)
 # $href->{number}     - statement number (numbered from 0)
- 
+
 # Further attributes will be assigned later (action attributes)
 
   my($statements,$prog_info) = @_;
@@ -94,12 +94,12 @@ sub study{
     }
     elsif(/^\t\t\t\t/) {
       $href->{indent}="                ";
-    }   
+    }
 
     if($type_def) {
  #     $href->{content}='typedef';
     }
-    
+
 # Comment
 CRACK:    {
       if(/^\s*!/ || /^\s*$/ || /^\s*\*/ || /^C/ || /^c/) {
@@ -111,8 +111,8 @@ CRACK:    {
       s/^[0-9]*//;
       s/^[ ]*//;
       s/\!.*\n/\n/g;                        # Remove trailing comments in all lines
- 
-# Program name statement 
+
+# Program name statement
       if($content eq 'unknown' and ! $in_interface) {
 	$prog_unit=&parse_prog_unit(\$unit_name,\@args);
 	if($prog_unit) {
@@ -144,7 +144,7 @@ CRACK:    {
 	  &study_exec(\$content2,$prog_info,\$study_called);
 	}
       }
-      
+
 
       if($content eq 'unknown') {
 # Specification statemnts
@@ -264,7 +264,7 @@ CRACK:    {
 	}
 	elsif(/^BLOCK DATA$/) {
 	  $content='statmf';
-	}	
+	}
 	elsif(/^END TYPE\b/){
 	  $content='type_def';
 	  $type_def=0;
@@ -280,7 +280,7 @@ CRACK:    {
       if($content eq 'unknown') {
 	$decl=0;
 	$exec=0;
-	
+
 	if(/^CONTAINS\b/) {
 	  $content='CONTAINS';
 	  $in_contain=1;
@@ -305,7 +305,7 @@ CRACK:    {
 	elsif(/^\@/) {
 	  $content='compiler_directive';
 	}
-	
+
 	else{
 	  if(/^END\b/) {
 	    $prog_unit=pop(@punit);
@@ -318,10 +318,10 @@ CRACK:    {
 	      }
 	    }
 	  }
-	} 
+	}
       }
     }
-    
+
     if($in_interface and $content ne 'INTERFACE') {
       $content='in_interface';
       $exec=0;
@@ -340,7 +340,7 @@ CRACK:    {
 #    unless($content eq 'comment') {
 #      my @tmpvar=/\b$name\b/g;
 #      my $i=0;
-#      foreach my $tmp (@tmpvar){ 
+#      foreach my $tmp (@tmpvar){
 #	$href->{'tokens'}[$i]=$tmp;
 #	$i++;
 #	if(! $study_called and $unit_count > -1) {
@@ -348,7 +348,7 @@ CRACK:    {
 #	}
 #      }
 #    }
-               
+
     $href->{content}=$content;
     $href->{content2}=$content2 if($content2);
     $href->{decl}=$decl;
@@ -380,11 +380,11 @@ CRACK:    {
 	  if(/^\s*$name\s*\(\s*:/){
 	    $stat_func_suspicion=0;
 #	    print " A $_";
-	   } 
+	   }
 	  elsif(/^\s*$name\s*\(\s*$name\s*:/){
 	    $stat_func_suspicion=0;
 #	    print " B $_";
-	  } 
+	  }
 	  elsif(/^\s*$name\s*\(\s*\d+/){
 	    $stat_func_suspicion=0;
 #	    print " C $_";
@@ -401,7 +401,7 @@ CRACK:    {
 	$prev_unit_count=$unit_count;
 	$content=$href->{content};
       }
-      $lastexec[$unit_count]=$href->{number}  unless ($unit_count < 0);  
+      $lastexec[$unit_count]=$href->{number}  unless ($unit_count < 0);
 # No prog_unit assigned, include file?
     }
   }
@@ -415,7 +415,7 @@ CRACK:    {
 	}
 	else{
 	  $$statements[$last]->{exec}=23;
-	}      
+	}
       }
     }
   }
@@ -602,8 +602,8 @@ sub study_exec{
 #
 #   my($lines,$indent)=@_
 #   foreach (@$lines) {
-#	
-#	
+#
+#
 #   }
 #}
 #===================================================================================
@@ -638,7 +638,7 @@ sub remove_macro {
   for (@$lines) {
     next if(/^ *$/ | /^ *!/);
 # The following two substitutions should be restored at end of processing
-    s/(\'[^!]*)!+(.*\')/$1\£$2/;   # Protect against mischief 
+    s/(\'[^!]*)!+(.*\')/$1\£$2/;   # Protect against mischief
     s/(["][^!]*)!+(.*["])/$1\£$2/;      # Protect against mischief
     $im=$im+/JPIM\b/i unless($im);
     $rb=$rb+/JPRB\b/i unless($rb);
@@ -682,7 +682,7 @@ sub remove_macro {
 
 #==========================================================================
 sub readfile  {
-# Read file 
+# Read file
   my($fname)=@_;
   my(@lines);
   if(!open(INFIL,$fname)) {
@@ -733,9 +733,9 @@ sub expcont {
         $statm.=$_;}
       next;
     }
-    
+
     elsif($prev && /^ *!/) {
-      $statm.=$_;      
+      $statm.=$_;
       next;
     }
     elsif($prev && /^ *$/) {    # print " 44 $statm";
@@ -854,7 +854,7 @@ sub cont_lines {
 #==========================================================================
 sub getvars {
 # Return list of locally declared variables with type and scope information
-# 
+#
   my($statements,$prog_info,$vars,$use_vars) = @_;
   my ($test,$type,@vars1,$func,$prog_unit,$dum,$tmp_name,@pu_args);
   my ($preserve,$rank,$href);
@@ -867,7 +867,7 @@ sub getvars {
   foreach $href (@$statements) {
     next if($href->{content} eq 'comment');           # Skip comments
     next if($href->{exec});                        # Don't look in executable statements
-    next if($$prog_info{is_module} and ! $href->{in_contain}); # Unless inside CONTAIN skip module 
+    next if($$prog_info{is_module} and ! $href->{in_contain}); # Unless inside CONTAIN skip module
     $prog_unit=$href->{prog_unit};
     if($href->{content} eq 'FUNCTION') {
       $_=$href->{statement};
@@ -911,7 +911,7 @@ sub getvars {
 	}
 	if($_ eq $func) {
 	  $$vars{$_}{type_spec}="f";
-	} 
+	}
 	else {
 	  if($href->{content} eq 'FUNCTION') {
 	    $$vars{$_}{type_spec}='f';
@@ -952,7 +952,7 @@ sub getvars {
       push(@extract,$href->{statement});
     }
   }
-  
+
   foreach my $var (keys (%$vars)) {
     next if($$vars{$var}{rank} > 0);   # Can't be a function if rank > 0
     next if($$vars{$var}{type_spec} eq 's' | $$vars{$var}{type_spec} eq 'f');
@@ -975,7 +975,7 @@ sub getvars {
   }
 # ---------------------------------------------------------------------
 # Assign  "usage" in Doctor sense to variable (default usage is 'local')
-# 
+#
   foreach $href (@$statements) {
 # Is the varaible a dummy argument
     if($href->{content} eq 'FUNCTION' or $href->{content} eq 'SUBROUTINE') {
@@ -1115,10 +1115,10 @@ sub find_unused_vars {
   }
   for (@tokens) {
     if(exists($$vars{$_})){
-      $$vars{$_}{uses}++; 
+      $$vars{$_}{uses}++;
     }
     if(exists($$use_vars{$_})){
-      $$use_vars{$_}{uses}++; 
+      $$use_vars{$_}{uses}++;
     }
   }
 # If it appears only one time (which must be in a declaration) it is unused
@@ -1147,7 +1147,7 @@ sub remove_unused_vars {
       }
       if(/\b$var\b/i) {
 #	print $_;
-	
+
 	if(/\b$var\b *\(/i) {
 #	  print "ZYZ $var $_";
 	  s/\b$var\b *$nest_par *(=\s*\(\/.*\/\))*//si;
@@ -1155,7 +1155,7 @@ sub remove_unused_vars {
 	}
 	s/\b$var\b\s*=\s*\d+(\.\d*)*//i;
 	s/\b$var\b *(\* *\d+)*//i if($href->{content} eq 'CHARACTER') ;
-	s/\b$var\b//i; 
+	s/\b$var\b//i;
 #	print $_;
         s/^.+:: *\n$//;
         s/^.+:: *\!.*\n$//;
@@ -1207,9 +1207,9 @@ sub tidy_decl {
     next unless($href->{decl} == 2);
     $_=$href->{statement};
     $content=$href->{content};
-    
+
     if($content eq 'CHARACTER') {
-      s/CHARACTER *\* *(\w+)/CHARACTER \(LEN = $1\)/i; 
+      s/CHARACTER *\* *(\w+)/CHARACTER \(LEN = $1\)/i;
       s/CHARACTER *\* *\(\*\)/CHARACTER \(LEN = \*\)/i;
       s/CHARACTER *\* *\( *(\w+) *\)/CHARACTER \(LEN = $1)/i;
     }
@@ -1255,7 +1255,7 @@ sub doctor_viol {
 #      print "DOCTOR VIOL - ",$var," $type $zz $prog_unit\n";
       $$fix_doc{$var}=$zz.'_'.$var.','.$prog_unit
     }
-  }  
+  }
 }
 #==========================================================================
 
@@ -1269,7 +1269,7 @@ sub fix_doctor_viol {
 
   VIOL:foreach $doc_viol (keys (%$fix_doc)) {
     # Let's allow some violations
-    for (@allowed){ 
+    for (@allowed){
       next VIOL if($doc_viol eq $_);
     }
 
@@ -1293,11 +1293,11 @@ sub fix_doctor_viol {
       $href->{statement}=$_;
     }
   }
-  
+
 }
 #==========================================================================
 sub various{
-# 
+#
   my($statements,$prog_info,$vars) = @_;
   my($punit,@args,$tmp_name,$cont,$statm);
   my($href,$exec);
@@ -1342,7 +1342,7 @@ sub various{
       }
     }
   }
-	
+
 
 
 #------------------------------------------------------------------
@@ -1409,11 +1409,11 @@ sub various{
 #	print "WARNING:USE without ONLY \n";
       }
     }
-  }    
+  }
 }
 #==========================================================================
 sub insert_hook{
-# 
+#
   my($statements,$prog_info,$vars) = @_;
   my($punit,@args,$tmp_name,$cont,$statm);
   my($href,$exec);
@@ -1434,7 +1434,7 @@ sub insert_hook{
 #  my $indent2="";
   my $indent3=0;
   my ($decl,$remember,$remember2);
-  
+
   foreach $href (@$statements) {
     $cont=$href->{content};
     $implicitnone=1 if($cont eq 'IMPLICIT NONE');
@@ -1451,7 +1451,7 @@ sub insert_hook{
       $remember3=$cont;
       $indent=$href->{indent};
       }
-      
+
     #comptage des commentaires après le début du module, pour positionner les lignes HOOK
     if ($cont eq 'comment'){
       $nb_comment++ if ($remember3 eq 'MODULE');
@@ -1469,24 +1469,24 @@ sub insert_hook{
 #      print "resetting hook status \n";
     }
 
-    if($cont eq 'FUNCTION' or $cont eq 'SUBROUTINE' or 
+    if($cont eq 'FUNCTION' or $cont eq 'SUBROUTINE' or
        $cont eq 'PROGRAM'){ # Need name of routine
       $_=$href->{statement};
       &parse_prog_unit(\$unit_name,\@args);
       $unit_name=uc($unit_name);
 # If in module pre-pend module name
-      $unit_name=$$prog_info{module_name}.':'.$unit_name if($$prog_info{is_module}); 
+      $unit_name=$$prog_info{module_name}.':'.$unit_name if($$prog_info{is_module});
       $remember=0;
     }
 
     #print "cont $cont \n";
     #numero de la ligne et indentation de la dernière déclaration
-    $remember=$href->{number} if($decl == 2); 
+    $remember=$href->{number} if($decl == 2);
     $indent3=$href->{indent} if($decl == 2);
     #numéro de la ligne du début du module, de la subroutine ou de la fonction
     $remember2=$href->{number} if ($cont eq 'MODULE' or $cont eq 'SUBROUTINE' or $cont eq 'FUNCTION');
-           
-    #si on n'est pas dans un module et qu'on arrive à la fin d'une subroutine ou d'une fonction, on remet 
+
+    #si on n'est pas dans un module et qu'on arrive à la fin d'une subroutine ou d'une fonction, on remet
     #les compteurs à zéro
      if (($cont eq 'END SUBROUTINE' or $cont eq 'END FUNCTION') and !$$prog_info{is_module} and !$in_contain) {
 	$hook_status = 0;
@@ -1506,7 +1506,7 @@ sub insert_hook{
 	$href->{pre_insert} = "";
 	$href->{pre_insert} = "!\n" if ($prev_cont ne 'comment');
 	$href->{pre_insert} = $href->{pre_insert}.$indent."USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK\n".
-	  $indent."USE PARKIND1  ,ONLY : JPRB\n". 
+	  $indent."USE PARKIND1  ,ONLY : JPRB\n".
 	  "!\n";
 	$parkind1_inserted=1;
 	$hook_status=1;
@@ -1518,14 +1518,14 @@ sub insert_hook{
        $hook_status=1;
        $parkind1_inserted=1;
       }
-      #si on n'est pas dans un module et qu'il y a plusieurs subroutines ou fonctions, il faut remettre les lignes HOOK 
+      #si on n'est pas dans un module et qu'il y a plusieurs subroutines ou fonctions, il faut remettre les lignes HOOK
       #à chaque fois
       elsif (!$$prog_info{is_module} && ($cont eq 'SUBROUTINE' or $cont eq 'FUNCTION') && $implicitnone==0 ) {
         $$statements[$remember2+$nb_comment]->{post_insert}= "!\n".$indent."USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK\n".
 	  $indent."USE PARKIND1  ,ONLY : JPRB\n"."!\n";
        $hook_status=1;
        $parkind1_inserted=1;
-	      
+
       }
     }
 
@@ -1553,7 +1553,7 @@ sub insert_hook{
       else {
 	$href->{pre_insert}=$indent."REAL(KIND=JPRB) :: ZHOOK_HANDLE\n\n".$indent.
 	    "IF (LHOOK) CALL DR_HOOK(\'${unit_name}\',0,ZHOOK_HANDLE)\n";
-      }   
+      }
 #      if($cont eq 'IF') {
 #	if($href->{content2} eq 'RETURN') {
 #	  $_=$href->{statement};
@@ -1583,7 +1583,7 @@ sub insert_hook{
 	  s/\)$/ .AND. LHOOK\)/;
 	  $href->{pre_insert}=$href->{pre_insert}."$_ CALL DR_HOOK(\'${unit_name}\',1,ZHOOK_HANDLE)\n";
 	}
-      }	
+      }
     }
     $hook_status=1 if($in_contain && $hook_status==3); # Reset hook status in CONTAIN region
     #$indent2=$href->{indent};
@@ -1611,7 +1611,7 @@ sub doc_char{
     elsif($usage eq "namvar") {
       $prefix="I" unless($var=~/^[MNIJ]/i);
     }
-    else { 
+    else {
       die "Unknown usage";
     }
   }
@@ -1629,7 +1629,7 @@ sub doc_char{
     elsif($usage eq "namvar") {
       $prefix="Z" if ($var=~/^[PIJKLMNCY]/i);
     }
-    else { 
+    else {
       die "Unknown usage";
     }
   }
@@ -1647,7 +1647,7 @@ sub doc_char{
     elsif($usage eq "namvar") {
       $prefix="LL" unless($var=~/^L/i);
     }
-    else { 
+    else {
       die "Unknown usage";
     }
   }
@@ -1665,7 +1665,7 @@ sub doc_char{
     elsif($usage eq "namvar") {
       $prefix="CL" unless($var=~/^C/i);
     }
-    else { 
+    else {
       die "Unknown usage";
     }
   }
@@ -1683,7 +1683,7 @@ sub doc_char{
     elsif($usage eq "namvar") {
       $prefix="YL" unless($var=~/^Y/i);
     }
-    else { 
+    else {
       die "Unknown usage";
     }
   }
@@ -1697,7 +1697,7 @@ sub doc_char{
   ($prefix);
 }
 #==========================================================================
-     
+
 sub parse_prog_unit {
 # Find out program type,program name and arguments for program statement
   my($unit_name,$args)=@_;
@@ -1760,7 +1760,7 @@ sub setup_parse {
 sub f90_indent {
 # Indent free-format F90 program to our standards
   my($line_hash,$lines)=@_;
-  my($delta)='  '; 
+  my($delta)='  ';
   my($cur_indent)='';
   @$lines=();
   foreach my $href (@$line_hash) {
@@ -1828,7 +1828,7 @@ sub f90_indent {
       }
     }
 #    print "$cur_indent$cont_line$_";
-    
+
     $_=$cur_indent.$cont_line.$_;
     push(@$lines,$_);
     $cur_indent.=$delta if( $post_chg );
@@ -1894,7 +1894,7 @@ sub tidy {
       s/\bFLOAT\b/REAL/g;
       s/\bfloat\b/real/g;
     }
-    
+
     $href->{statement}=$_;
   }
 }
@@ -1927,7 +1927,7 @@ sub process_include_files {
 # Study the read in file and add more attributes
       &study($incs);
 #      print Dumper($incs,$dum);
-      
+
     }
   }
 }
@@ -2000,7 +2000,7 @@ sub create_interface_block {
   }
 print "debut".$debut;
 # Create interface block
-  if($debut eq 1) { 
+  if($debut eq 1) {
   foreach $href (@$statements) {
     my %myhref=%$href;       # We have to make a copy rather that another reference
     my $myhref=\%myhref;     # since we have to modify statements for this purpose only
@@ -2019,9 +2019,9 @@ print "debut".$debut;
       if($myhref->{content} eq 'SUBROUTINE') { $tstatm=~s/^([A-Za-z0-9]+)\ ([A-Za-z0-9]+)/$2/;}
       if($myhref->{content} eq 'FUNCTION') { $tstatm=~s/^([A-Za-z0-9]+)\ FUNCTION\ ([A-Za-z0-9]+)/$2/;}
       $tstatm=~s/^([^\(]+)(.*)/$1/;
-      $tstatm0=$tstatm; 
-      $tstatm0=~s/(^[^\n]+\n)(((.*)\n)+)/$1/;    
-      $myhref->{pre_insert} = "      MODULE MODI_".$tstatm0."      INTERFACE\n";	    
+      $tstatm0=$tstatm;
+      $tstatm0=~s/(^[^\n]+\n)(((.*)\n)+)/$1/;
+      $myhref->{pre_insert} = "      MODULE MODI_".$tstatm0."      INTERFACE\n";
       #$myhref->{pre_insert} = "INTERFACE\n";
 #      print '1',$myhref->{statement};
       push(@$interface_block,$myhref);
@@ -2045,7 +2045,7 @@ print "debut".$debut;
       else {
 	if (/^USEMODD_TYPE/ || /^USEMODD_FMDECLAR/) {
 	push(@$interface_block,$myhref);  # Always include USE without ONLY for safety
-      }  
+      }
     }}
     if($myhref->{decl} == 1 or $myhref->{decl} == 2) {
       $_=uc($myhref->{statement});
@@ -2090,12 +2090,12 @@ print "debut".$debut;
 #    $href->{statement}=$_;
 #  }
  else {
-   foreach $href (@$statements) { 
+   foreach $href (@$statements) {
       my %myhref=%$href;       # We have to make a copy rather that another reference
       my $myhref=\%myhref;     # since we have to modify statements for this purpose only
       #print '6',$myhref->{statement};
       push(@$interface_block,$myhref);
-} 
+}
  }
 }
 
@@ -2213,14 +2213,14 @@ sub remake_arg_decl{
 	  if($dims=~/\b$arg\b/i) {
 	    $arghash{$arg}{dimuse}=1;
 	  }
-	}  
+	}
       }
     }
   }
   my $insert_line=0;
   foreach $href (@$statements) {
     last if($href->{prog_unit} >0);
-    if($href->{decl} == 2 or $href->{content} eq 'PARAMETER') {                 
+    if($href->{decl} == 2 or $href->{content} eq 'PARAMETER') {
       $_=uc($href->{statement});
       next unless /\bPARAMETER\b/;
       my @tmpvar=/\b$name\b/g;
@@ -2231,7 +2231,7 @@ sub remake_arg_decl{
       }
     }
   }
-      
+
 # Gather info to decide INTENT status
   my $inif=0;
   my @inif_stack=();
@@ -2262,7 +2262,7 @@ sub remake_arg_decl{
 	  }
 	}
       }
-      
+
       if($href->{content} eq 'scal_assign' or $href->{content} eq 'array_assign') {
 	s/\s//g;
 	($left,$right)=/^(.+)=(.+)$/;
@@ -2291,7 +2291,7 @@ sub remake_arg_decl{
 	}
       }
       elsif($href->{content} eq 'IF' ) {
-	if($href->{content2} eq 'scal_assign' or $href->{content2} eq 'array_assign' or 
+	if($href->{content2} eq 'scal_assign' or $href->{content2} eq 'array_assign' or
 	   $href->{content2} eq 'CALL') {
 	  s/\n//g;
 	  ($left,$right)=/^\s*(IF\b\s*$nest_par)(.+)/i;
@@ -2383,7 +2383,7 @@ sub remake_arg_decl{
 	$cur_inif=$href->{number};
 	push @inif_stack,$cur_inif;
       }
-    }	  
+    }
   }
 
 # Create INTENT statemant based on gathered info
@@ -2451,7 +2451,7 @@ sub remake_arg_decl{
 	s/::\s*,/::/;
       }
  #   print "AFTER $arg $_\n";
-      $$statements[$arghash{$arg}{linedec}]->{statement}=$_; 
+      $$statements[$arghash{$arg}{linedec}]->{statement}=$_;
     }
   }
 
@@ -2492,7 +2492,7 @@ sub remake_arg_decl{
   }
   else{
     foreach $href (@$statements) {
-      if($href->{decl} == 2) {                 
+      if($href->{decl} == 2) {
 	$href->{pre_insert}=$newdecl;
 	last;
       }
@@ -2522,7 +2522,7 @@ sub propag_arg{
   my $interesting=0;
   %argpos=();
   foreach my $call (@call_args) {
-    
+
 #    print "CALL $called $call \n" ;
     if($call=~/(.+)=(.+)/) {
       $call=$2; #This just by-passes the problem
@@ -2546,7 +2546,7 @@ sub propag_arg{
       my $unit_name;
       print "FILE $fname FOUND \n";
       my @lines = &readfile($fname);
-      my @loc_statements=(); 
+      my @loc_statements=();
       &expcont(\@lines,\@loc_statements);
       foreach my $href (@loc_statements) {
 	$_=$href->{statement};
@@ -2597,7 +2597,7 @@ sub propag_arg{
     }
   }
 }
-  
+
 sub add_interface_blocks {
 # Add interface block for called routines
   use File::Find;
@@ -2630,7 +2630,7 @@ sub add_interface_blocks {
       $already_in{$_}++;
       next;
     }
-    
+
 # Find last declaration
     if($href->{decl}) {
       next if($href->{content} eq 'FORMAT');
@@ -2639,7 +2639,7 @@ sub add_interface_blocks {
     }
 # Find calls
     next unless($href->{exec});
-    if($href->{content} eq 'CALL' or 
+    if($href->{content} eq 'CALL' or
        (exists  $href->{content2} and$ href->{content2} eq 'CALL') ) {
       $_=$href->{statement};
       /\s*\bCALL\b\s*($name)/i;
@@ -2650,7 +2650,7 @@ sub add_interface_blocks {
       $call_names{$call}++;
     }
   }
-  
+
 
 # Check that routine exists in IFS
   @call_names_found=();
@@ -2679,7 +2679,7 @@ sub add_interface_blocks {
 	  }
 	  else {
 	    $href->{post_insert}="\n".$block;
-	  }	    
+	  }
 	  last;
 	}
       }
@@ -2692,7 +2692,7 @@ sub add_interface_blocks {
       }
       else {
 	$href->{post_insert}="\n".$block;
-      }	    
+      }
     }
 # Remove from EXTERNAL statement where interface block has been added
     foreach $href (@$statements) {
@@ -2705,7 +2705,7 @@ sub add_interface_blocks {
 	s/^(\s*EXTERNAL\s*),/$1/i;
 	s/^(\s*EXTERNAL.*),\s*$/$1/i;
 	s/^\s*EXTERNAL\s*,*\s*$//i;
-	$href->{statement}=$_;	
+	$href->{statement}=$_;
       }
     }
   }
@@ -2718,7 +2718,7 @@ sub calls_wanted {
   my $call=$1;
   if($call_names{$call}) {
     push(@call_names_found,$call);
-  }    
+  }
 }
 sub remove_some_comments{
   my($statements) = @_;
@@ -2733,7 +2733,7 @@ sub remove_some_comments{
 	}
 	else {
 	  $prev_empty=1;
-	} 
+	}
 	next;
       }
       $prev_empty=0;
@@ -2753,7 +2753,7 @@ sub remove_some_comments{
       $prev_empty=0;
     }
   }
-}      
+}
 sub get_calls_inc {
   my($statements,$calls,$intfb) = @_;
   foreach my $href (@$statements) {
@@ -2775,4 +2775,4 @@ sub get_calls_inc {
       $$intfb{$1}=2 if(/["](\S+)\.h["]/); # For old-style interface blocks
     }
   }
-}      
+}

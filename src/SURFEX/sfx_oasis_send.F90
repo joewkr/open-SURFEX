@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########
 SUBROUTINE SFX_OASIS_SEND(KLUOUT,KI,KDATE,OSEND_LAND,OSEND_LAKE,OSEND_SEA,      &
@@ -18,7 +18,7 @@ SUBROUTINE SFX_OASIS_SEND(KLUOUT,KI,KDATE,OSEND_LAND,OSEND_LAKE,OSEND_SEA,      
 !!    -------
 !!
 !!    Attention : all fields are sent in Pa, m/s, W/m2 or kg/m2/s
-!!   
+!!
 !!
 !!
 !!**  METHOD
@@ -37,12 +37,12 @@ SUBROUTINE SFX_OASIS_SEND(KLUOUT,KI,KDATE,OSEND_LAND,OSEND_LAKE,OSEND_SEA,      
 !!
 !!    AUTHOR
 !!    ------
-!!	B. Decharme   *Meteo France*	
+!!	B. Decharme   *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    10/2013
-!!    10/2016 B. Decharme : bug surface/groundwater coupling 
+!!    10/2016 B. Decharme : bug surface/groundwater coupling
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -50,7 +50,7 @@ SUBROUTINE SFX_OASIS_SEND(KLUOUT,KI,KDATE,OSEND_LAND,OSEND_LAKE,OSEND_SEA,      
 !
 USE MODN_SFX_OASIS,  ONLY : XTSTEP_CPL_SEA, XTSTEP_CPL_LAKE, &
                             XTSTEP_CPL_LAND
-!                    
+!
 USE MODD_SURF_PAR,   ONLY : XUNDEF, NUNDEF
 !
 USE MODD_SFX_OASIS
@@ -148,11 +148,11 @@ IF(OSEND_LAND)THEN
     CALL CHECK_SFX_SEND(KLUOUT,IERR,YCOMMENT,ZWRITE(:,1))
   ENDIF
 !
-  IF(LCPL_FLOOD)THEN      
+  IF(LCPL_FLOOD)THEN
     YCOMMENT='flood freshwater flux over land (P-E-I)'
     CALL OUTVAR(PLAND_SRCFLOOD,XTSTEP_CPL_LAND,ZWRITE(:,1))
     CALL OASIS_PUT(NSRCFLOOD_ID,KDATE,ZWRITE(:,:),IERR)
-    CALL CHECK_SFX_SEND(KLUOUT,IERR,YCOMMENT,ZWRITE(:,1)) 
+    CALL CHECK_SFX_SEND(KLUOUT,IERR,YCOMMENT,ZWRITE(:,1))
   ENDIF
 !
 ENDIF
@@ -331,7 +331,7 @@ PWRITE(:) = XUNDEF
 IF (KERR/=OASIS_OK.AND.KERR<OASIS_SENT) THEN
    WRITE(KLUOUT,'(A,I4)')'Return OASIS code from sending '//TRIM(HCOMMENT)//' : ',KERR
    CALL ABOR1_SFX('SFX_OASIS_SEND: problem sending '//TRIM(HCOMMENT))
-ENDIF 
+ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('SFX_OASIS_SEND:CHECK_SFX_SEND',1,ZHOOK_HANDLE)
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE VEGETATION_UPDATE (DTCO, DTV, KDIM, IO, KK, PK, PEK, KPATCH,  &
@@ -14,7 +14,7 @@
 !
 !     performs the time evolution of vegetation parameters
 !       at UTC midnight for prescribed parameters, with effective change each ten days
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -24,13 +24,13 @@
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -38,7 +38,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/03/03 
+!!      Original    01/03/03
 !!
 !!      P Le Moigne 09/2005 AGS modifs of L. Jarlan
 !!      P Samuelsson 10/2014 MEB
@@ -127,7 +127,7 @@ IF ( MOD(MIN(TTIME%TDATE%DAY,30),10)==1 .AND. TTIME%TIME - PTSTEP < 0.) THEN
   IF (IO%LECOCLIMAP .OR. HSFTYPE=='NAT') THEN
     !
     !* new year ? --> recomputes data LAI and derivated parameters (usefull in case of ecoclimap2)
-    IF (KPATCH==1) CALL UPDATE_DATA_COVER(DTCO, DTV, KDIM, IO%NPATCH, IO%LMEB_PATCH, TTIME%TDATE%YEAR)  
+    IF (KPATCH==1) CALL UPDATE_DATA_COVER(DTCO, DTV, KDIM, IO%NPATCH, IO%LMEB_PATCH, TTIME%TDATE%YEAR)
     !
     IF (HSFTYPE=='NAT') THEN
       !
@@ -135,7 +135,7 @@ IF ( MOD(MIN(TTIME%TDATE%DAY,30),10)==1 .AND. TTIME%TIME - PTSTEP < 0.) THEN
         CALL INIT_ISBA_MIXPAR(DTCO, DTV, KDIM, IO, IDECADE,IDECADE2,PCOVER,OCOVER,HSFTYPE)
       ELSE
         IDECADE2 = IDECADE
-        IF (DTV%NTIME==2) IDECADE2 = IDECADE2 + 10 
+        IF (DTV%NTIME==2) IDECADE2 = IDECADE2 + 10
         IDECADE2 = (IDECADE2-1) * DTV%NTIME / 36 + 1
         IF (DTV%NTIME==2 .AND. IDECADE2==3) IDECADE2 = 1
       ENDIF
@@ -178,7 +178,7 @@ IF ( MOD(MIN(TTIME%TDATE%DAY,30),10)==1 .AND. TTIME%TIME - PTSTEP < 0.) THEN
       PEK%XALBNIR_VEG(:) = 0.30
       PEK%XALBVIS_VEG(:) = 0.30
       PEK%XALBUV_VEG (:) = 0.06
-      PEK%XEMIS      (:) = 0.94                
+      PEK%XEMIS      (:) = 0.94
     END WHERE
     IF (IO%CPHOTO/='NON') THEN
       WHERE (OABSENT(:))
@@ -186,14 +186,14 @@ IF ( MOD(MIN(TTIME%TDATE%DAY,30),10)==1 .AND. TTIME%TIME - PTSTEP < 0.) THEN
         PEK%XBSLAI     (:) = 0.36
         PEK%XLAIMIN    (:) = 0.3
         PEK%XSEFOLD    (:) = 90*86400.
-        PEK%XGC        (:) = 0.00025                  
+        PEK%XGC        (:) = 0.00025
       END WHERE
       WHERE (OABSENT(:)) PEK%XF2I(:) = 0.3
       IF (IO%CPHOTO=='NIT' .OR. IO%CPHOTO=='NCB') THEN
         WHERE (OABSENT(:))
           PEK%XCE_NITRO  (:) = 7.68
           PEK%XCF_NITRO  (:) = -4.33
-          PEK%XCNA_NITRO (:) = 1.3                      
+          PEK%XCNA_NITRO (:) = 1.3
         END WHERE
       ENDIF
     ENDIF
@@ -205,7 +205,7 @@ IF ( MOD(MIN(TTIME%TDATE%DAY,30),10)==1 .AND. TTIME%TIME - PTSTEP < 0.) THEN
     CALL ALBEDO(IO%CALBEDO, PEK )
     !
     !* effective roughness length
-    IF (.NOT.OALB) CALL SUBSCALE_Z0EFF(ISSK,PEK%XZ0,.FALSE.  )  
+    IF (.NOT.OALB) CALL SUBSCALE_Z0EFF(ISSK,PEK%XZ0,.FALSE.  )
     !
   ENDIF
   !

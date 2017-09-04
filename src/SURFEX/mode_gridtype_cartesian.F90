@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##############################
       MODULE MODE_GRIDTYPE_CARTESIAN
@@ -19,7 +19,7 @@ CONTAINS
 !############################################################################
 !     ####################################################################
       SUBROUTINE PUT_GRIDTYPE_CARTESIAN(PGRID_PAR,PLAT0,PLON0,         &
-                                          KIMAX,KJMAX,PX,PY,PDX,PDY      )  
+                                          KIMAX,KJMAX,PX,PY,PDX,PDY      )
 !     ####################################################################
 !
 !!****  *PUT_GRIDTYPE_CARTESIAN* - routine to store in PGRID_PAR the horizontal grid
@@ -30,7 +30,7 @@ CONTAINS
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -78,7 +78,7 @@ END SUBROUTINE PUT_GRIDTYPE_CARTESIAN
 !############################################################################
 !     ####################################################################
       SUBROUTINE GET_GRIDTYPE_CARTESIAN(PGRID_PAR,PLAT0,PLON0,           &
-                                          KIMAX,KJMAX,PX,PY,PDX,PDY,KL     )  
+                                          KIMAX,KJMAX,PX,PY,PDX,PDY,KL     )
 !     ####################################################################
 !
 !!****  *GET_GRIDTYPE_CARTESIAN* - routine to get from PGRID_PAR the horizontal grid
@@ -89,7 +89,7 @@ END SUBROUTINE PUT_GRIDTYPE_CARTESIAN
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -106,7 +106,7 @@ REAL,               INTENT(OUT), OPTIONAL :: PLAT0    ! reference latitude
 REAL,               INTENT(OUT), OPTIONAL :: PLON0    ! reference longitude
 INTEGER,            INTENT(OUT), OPTIONAL :: KIMAX    ! number of points in I direction
 INTEGER,            INTENT(OUT), OPTIONAL :: KJMAX    ! number of points in J direction
-REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PX       ! X conformal coor. of grid mesh 
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PX       ! X conformal coor. of grid mesh
 REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PY       ! Y conformal coor. of grid mesh
 REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PDX      ! X grid mesh size
 REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PDY      ! Y grid mesh size
@@ -165,7 +165,7 @@ END SUBROUTINE GET_GRIDTYPE_CARTESIAN
 !
 !!**   METHOD
 !!     ------
-!!       
+!!
 !!     AUTHOR
 !!     ------
 !!      V. Masson  *Meteo France*
@@ -185,19 +185,19 @@ IMPLICIT NONE
 !
 REAL,                 INTENT(IN) :: PLAT0  ! Reference latitude
 REAL,                 INTENT(IN) :: PLON0  ! Reference longitude
-REAL, DIMENSION(:),   INTENT(OUT):: PLAT,PLON    
+REAL, DIMENSION(:),   INTENT(OUT):: PLAT,PLON
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
-                                           ! returned geographic latitudes and 
-                                           ! longitudes of the processed points 
+                                           ! returned geographic latitudes and
+                                           ! longitudes of the processed points
                                            ! (degrees).
 !
 !*     0.2    Declarations of local variables
-! 
+!
 !--------------------------------------------------------------------------------
 !
 IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_CARTESIAN:LATLON_CARTESIAN',0,ZHOOK_HANDLE)
-PLON(:) = PLON0 
-PLAT(:) = PLAT0 
+PLON(:) = PLON0
+PLAT(:) = PLAT0
 IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_CARTESIAN:LATLON_CARTESIAN',1,ZHOOK_HANDLE)
 !
 !---------------------------------------------------------------------------------

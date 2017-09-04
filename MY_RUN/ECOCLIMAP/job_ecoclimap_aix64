@@ -2,7 +2,7 @@
 #@ class	= np
 #@ job_name	= offline.sfx
 #@ job_type     = parallel
-#@ node        = 1 
+#@ node        = 1
 #@ tasks_per_node = 1
 #@ error 	= $(job_name).$(host).$(jobid).out
 #@ output 	= $(job_name).$(host).$(jobid).out
@@ -17,7 +17,7 @@
 #export F_FILEINF=yes     # or detail  # I/O measurement
 #
 #export DR_HOOK=1
-#export DR_HOOK_OPT=prof 
+#export DR_HOOK_OPT=prof
 #=========================================================================
 set -x
 cd $TMPDIR

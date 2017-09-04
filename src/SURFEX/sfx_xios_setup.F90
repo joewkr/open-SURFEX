@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE SFX_XIOS_SETUP(YSC, KCOMM, KLUOUT, KYEAR, KMONTH, KDAY, PTIME, PTSTEP, &
      KDIM1, KDIM2, KEXT1, PCLAT, PCLON, KXINDEX, ODXMASK,&
@@ -14,7 +14,7 @@ SUBROUTINE SFX_XIOS_SETUP(YSC, KCOMM, KLUOUT, KYEAR, KMONTH, KDAY, PTIME, PTSTEP
 !!
 !!
 !!     IMPLICIT ARGUMENTS :
-!!     -------------------- 
+!!     --------------------
 !!
 !!     LXIOS, YXIOS_CONTEXT, TXIOS_CONTEXT
 !!
@@ -28,7 +28,7 @@ SUBROUTINE SFX_XIOS_SETUP(YSC, KCOMM, KLUOUT, KYEAR, KMONTH, KDAY, PTIME, PTSTEP
 !!     REFERENCE
 !!     ---------
 !!
-!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 - 
+!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 -
 !!     svn co -r 515 http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS/branchs/xios-1.0 <dir> ; cd <dir>/doc ; ....
 !!
 !!     AUTHOR
@@ -56,7 +56,7 @@ USE MODD_XIOS      , ONLY : LXIOS,TXIOS_CONTEXT,YXIOS_CONTEXT, &
      YWGROUND_LAYER_DIM_NAME, YWIGROUND_LAYER_DIM_NAME, NBASE_XIOS_FREQ, &
      YSWBAND_DIM_NAME, YPATCH_DIM_NAME
 !
-#ifdef WXIOS 
+#ifdef WXIOS
 USE XIOS, ONLY : XIOS_CONTEXT_INITIALIZE, XIOS_GET_HANDLE,   &
      XIOS_SET_CURRENT_CONTEXT, XIOS_SET_TIMESTEP, XIOS_DATE, &
      XIOS_DURATION, XIOS_DEFINE_CALENDAR, XIOS_GETVAR,       &
@@ -84,7 +84,7 @@ INTEGER,            INTENT(IN) :: KYEAR     ! current year (UTC)
 INTEGER,            INTENT(IN) :: KMONTH    ! current month (UTC)
 INTEGER,            INTENT(IN) :: KDAY      ! current day (UTC)
 REAL,               INTENT(IN) :: PTIME     ! current time since midnight (UTC,s)
-REAL,               INTENT(IN) :: PTSTEP    ! model time step 
+REAL,               INTENT(IN) :: PTSTEP    ! model time step
 INTEGER,            INTENT(IN) :: KDIM1     ! Geometry param. (see  sfx_set_domain)
 INTEGER,            INTENT(IN) :: KDIM2     ! Geometry param. (see  sfx_set_domain)
 INTEGER,            INTENT(IN) :: KEXT1     ! Geometry param. (see  sfx_set_domain)
@@ -111,20 +111,20 @@ REAL(KIND=JPRB)    :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('SFX_XIOS_SETUP',0,ZHOOK_HANDLE)
 !
-IF (.NOT. LXIOS ) THEN 
+IF (.NOT. LXIOS ) THEN
    CALL DR_HOOK('SFX_XIOS_SETUP',1,ZHOOK_HANDLE)
    RETURN
 ENDIF
 !
 #ifndef WXIOS
 !
-IF (LXIOS) THEN 
+IF (LXIOS) THEN
    CALL ABOR1_SFX('SFX_XIOS_INIT_CONTEXT : cannot setup : Surfex was compiled without XIOS support')
 ELSE
    LXIOS_DEF_CLOSED=.TRUE.
 ENDIF
 !
-#else 
+#else
 !
 LXIOS_DEF_CLOSED=.FALSE.
 !
@@ -143,7 +143,7 @@ LXIOS_DEF_CLOSED=.FALSE.
  CALL XIOS_CONTEXT_INITIALIZE(YXIOS_CONTEXT, KCOMM)
  CALL XIOS_GET_HANDLE(YXIOS_CONTEXT, TXIOS_CONTEXT)
  CALL XIOS_SET_CURRENT_CONTEXT(TXIOS_CONTEXT)
-! 
+!
 
 ! -----------------------------------------------------------------------------
 !
@@ -178,7 +178,7 @@ TDTIME%SECOND = INT(PTSTEP*NBASE_XIOS_FREQ)
 !
 ! ---------------------------------------------------------------------------------
 !
-!   Declare a 'full' domain and one domain per tile 
+!   Declare a 'full' domain and one domain per tile
 !
 ! ---------------------------------------------------------------------------------
 !
@@ -207,7 +207,7 @@ TDTIME%SECOND = INT(PTSTEP*NBASE_XIOS_FREQ)
    ! CALL SET_AXIS(YSEAICE_LAYER_DIM_NAME, KSIZE=)
 !ENDIF
 !
-!  Force XIOS inheritance inorder that fields declarations can 
+!  Force XIOS inheritance inorder that fields declarations can
 !  fully account for user settings
 !
 !   CALL XIOS_SOLVE_INHERITANCE()

@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,21 +28,21 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ========================= MODULE modd_types_glt ===========================
 ! =======================================================================
 !
 ! Goal:
 ! -----
-!  This module contains the definitions of all the structured 
+!  This module contains the definitions of all the structured
 ! variables used in Gelato.
 !
 ! Created : 1996 (D. Salas y Melia)
@@ -52,13 +52,13 @@
 ! Modified: 2010/06 (D. Salas y Melia)
 !           New CMIP5 diagnostics
 ! Modified: 2011/12 (A. Voldoire)
-!           New diagnostics were added to compute water balance 
+!           New diagnostics were added to compute water balance
 ! Modified: 2012/01 (M. Chevallier)
 !           Explicit melt pond parameterisation
 ! Modified: 2012/11 (D. Salas y Melia)
-!           Introduce a 'super-structure'. Add ice-ocean stress 
+!           Introduce a 'super-structure'. Add ice-ocean stress
 !           components to t_tfl
-! Modified: 2013/07 (S. Senesi) : #ifdef in_surfex for dynamic arrays 
+! Modified: 2013/07 (S. Senesi) : #ifdef in_surfex for dynamic arrays
 !           in t_glt
 ! -----------------------------------------------------------------------
 !
@@ -104,14 +104,14 @@ TYPE t_dom
 END TYPE t_dom
 !
 !
-! 
+!
 ! 2. Structures defining the forcing data
 ! ========================================
 !
 ! 2.1. Ocean mixed layer forcing
 ! -------------------------------
 !
-! .. This type contains all variables describing the state of the 
+! .. This type contains all variables describing the state of the
 ! ocean mixed layer, that influences sea ice and leads from the bottom.
 !
 TYPE t_mxl
@@ -146,7 +146,7 @@ END TYPE t_mxl
 ! 2.2. Atmospheric forcing, independent of the nature of the surface
 ! -------------------------------------------------------------------
 !
-! .. Liquid and solid precipitation does not depend on the surface on 
+! .. Liquid and solid precipitation does not depend on the surface on
 ! which they fall. We suppose here that the stress is not different on
 ! a snow, water or bare ice surface, which is not totally the case in
 ! reality.
@@ -173,7 +173,7 @@ END TYPE t_atm
 !
 ! .. This structure may concern sea ice or open water. It contains:
 !       - short wave absorbed flux
-!       - non solar heat flux (i.e the sum of long wave, latent and 
+!       - non solar heat flux (i.e the sum of long wave, latent and
 !       sensible heat fluxes)
 !       - the derivative of this flux by surface temperature
 !       - the evaporation rate
@@ -265,7 +265,7 @@ END TYPE t_sit
 TYPE t_vtp
 ! Vertical gltools_enthalpy profile in the slab (J.kg-1)
     REAL ::  &
-        ent         
+        ent
 ! Vertical salinity profile (g.kg-1)
     REAL ::  &
         vsp
@@ -275,7 +275,7 @@ END TYPE t_vtp
 ! 3.4. Leads - 0D variables
 ! --------------------------
 !
-! .. May be removed in subsequent versions, unless more physics takes 
+! .. May be removed in subsequent versions, unless more physics takes
 ! places in leads
 !
 TYPE t_opw
@@ -289,7 +289,7 @@ TYPE t_opw
 END TYPE t_opw
 !
 !
-! 
+!
 ! 4. Output structures
 ! =====================
 !
@@ -300,22 +300,22 @@ END TYPE t_opw
 ! with the ocean model)
 !
 ! .. This structure contains all heat, non solar and solar short wave heat
-! fluxes that cross leads or sea ice to reach the mixed layer. The 
+! fluxes that cross leads or sea ice to reach the mixed layer. The
 ! interest of these fluxes lies mainly in the framework of ocean/sea ice
-! coupling, and the classifications of variables is the following 
+! coupling, and the classifications of variables is the following
 ! inside the type, if type_var%xyz
-!       x = (l,t,s,c,w) are respectively short wave, non solar, 
-! concentration/dilution equivalent water flux (also called virtual 
-! water flux) and fresh water mass fluxes. Heat fluxes are in W.m-2 and 
-! water virtual fluxes, water fluxes and salt fluxes are in kg.m-2.s-1. 
+!       x = (l,t,s,c,w) are respectively short wave, non solar,
+! concentration/dilution equivalent water flux (also called virtual
+! water flux) and fresh water mass fluxes. Heat fluxes are in W.m-2 and
+! water virtual fluxes, water fluxes and salt fluxes are in kg.m-2.s-1.
 !       y or z = (i,l,o) are respectively sea ice, lead and mixed layer.
 ! y is the medium the flux originates from, and z is the destination
-! medium. 
+! medium.
 !
-! * Example : flx%wio is the fresh water flux from sea ice to the mixed 
+! * Example : flx%wio is the fresh water flux from sea ice to the mixed
 ! layer.
-! 
-! .. Note that this structure also contains the ice-ocean stress 
+!
+! .. Note that this structure also contains the ice-ocean stress
 ! components along x and y (respectively xio and yio)
 !
 TYPE t_tfl
@@ -328,11 +328,11 @@ TYPE t_tfl
   REAL ::  &
         cio     ! Note that clo would be identical to wlo
   REAL ::  &
-        wio,wlo 
+        wio,wlo
   REAL ::  &
         xio,yio
 END TYPE t_tfl
-!    
+!
 !
 ! 4.2. Fluxes transmitted to the ocean model
 ! -------------------------------------------
@@ -372,11 +372,11 @@ END TYPE t_2oc
 ! 4.3. Surface description, sent to the atmosphere (through the ocean model ?)
 ! -----------------------------------------------------------------------------
 !
-! .. This structure includes a fraction, albedo and temperature. Two cases 
+! .. This structure includes a fraction, albedo and temperature. Two cases
 ! arise:
 !       - if single physics is used (only one input flux to be shared between
-!       the different kinds of surface): the fraction should be the total 
-!       fraction of sea ice. The temperature and albedo should be weighted over 
+!       the different kinds of surface): the fraction should be the total
+!       fraction of sea ice. The temperature and albedo should be weighted over
 !       water and sea ice.
 !       - if double physics is used, the fraction is stille the total fraction
 !       of sea ice, but the temperature and albedo are now weighted over
@@ -410,7 +410,7 @@ TYPE t_bud
 ! Input heat flux on sea ice in the grid cell (bottom)
   REAL ::  &
         bii
-! Input heat flux due to snow falls on sea ice 
+! Input heat flux due to snow falls on sea ice
   REAL ::  &
         nii
 ! Input heat flux due to snow falls on leads
@@ -453,13 +453,13 @@ END TYPE t_bud
 ! 4.5. Diagnostics
 ! -----------------
 !
-! .. Note that here the sea ice net bottom melting [kg.m-2.s-1] is deduced 
+! .. Note that here the sea ice net bottom melting [kg.m-2.s-1] is deduced
 ! from dsi-lsi-mrt-mrl
 !
 ! FIELDS
 !
 TYPE t_dia
-! 
+!
 ! Sea ice u and v velocity on C-grid (m.s-1)
   REAL ::  &
         uvl,vvl
@@ -505,7 +505,7 @@ TYPE t_dia
 ! Sea ice mass change due to the constraint [kg.m-2.s-1]
   REAL ::  &
         dci
-! Sea ice concentration for constraint [%] 
+! Sea ice concentration for constraint [%]
   REAL ::  &
         cst
 ! Sea ice fresh water content change for all glt_thermo processes [kg.m-2.s-1]
@@ -583,7 +583,7 @@ TYPE t_dia
 ! Transport X and Y-components [kg.s-1]
   REAL ::  &
         xtr,ytr
-! Spare fields 
+! Spare fields
   REAL ::  &
         sp1,sp2
 ! Sublimation
@@ -653,19 +653,19 @@ END TYPE t_ind
 ! --------------------------------
 !
 TYPE t_def
-! 
+!
 ! Field definition
   CHARACTER(80) ::  &
-    def 
+    def
 ! Field long name
   CHARACTER(80) ::  &
-    lna 
+    lna
 ! Field short name
   CHARACTER(80) ::  &
-    sna 
+    sna
 ! Field units
   CHARACTER(80) ::  &
-    uni 
+    uni
 ! Field location ('T', 'U' or 'V')
   CHARACTER(80) ::  &
     loc
@@ -680,7 +680,7 @@ END TYPE t_def
 ! ===================
 !
 ! This structures includes all structures that are needed by the different
-! parts of Gelato that are invoked from parts of the host program (e.g. 
+! parts of Gelato that are invoked from parts of the host program (e.g.
 ! surface-scheme or ocean model)
 !
 TYPE t_glt
@@ -699,7 +699,7 @@ TYPE t_glt
 ! Bathymetry (in meters)
   REAL, DIMENSION(:,:), POINTER ::  &
     bat
-! Main domain 
+! Main domain
   TYPE(t_dom), DIMENSION(:,:), POINTER ::  &
     dom
 #if ! defined in_surfex
@@ -749,7 +749,7 @@ TYPE t_glt
     sit_d
 !
 !
-! 5.4. Ice and mixed layer states 
+! 5.4. Ice and mixed layer states
 ! --------------------------------
 !
   TYPE(t_evp), DIMENSION(:,:), POINTER ::  &

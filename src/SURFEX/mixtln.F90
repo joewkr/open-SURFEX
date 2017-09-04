@@ -1,17 +1,17 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE MIXTL_n (O, OR, PLAT, PFSOL,PFNSOL,PSFTEAU,PSFU,PSFV,PSEATEMP)
 !     #######################################################################
 !
-!!****  *MIXTLN (1D MODEL)*  
+!!****  *MIXTLN (1D MODEL)*
 !!
 !!    PURPOSE
 !!    -------
 !     Oceanic 1D model in TKE Closure scheme
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -19,30 +19,30 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-!     Gaspar et al, 1990 : A simple eddy kinetic energy model for simulations of 
-!     the oceanic vertical mixing : Tests at station Papa and Long-term upper ocean 
-!     study site, JGR, 95,C9, 16,179--16,193. 
-!!      
+!     Gaspar et al, 1990 : A simple eddy kinetic energy model for simulations of
+!     the oceanic vertical mixing : Tests at station Papa and Long-term upper ocean
+!     study site, JGR, 95,C9, 16,179--16,193.
+!!
 !!    AUTHOR
 !!    ------
-!!     C. Lebeaupin  *Météo-France* 
+!!     C. Lebeaupin  *Météo-France*
 !!
 !!    MODIFICATIONS
 !!    -------------
 !!      Original     02/2008
 !!     01/2012 : H. Giordani, P. Peyrille
-!!                       Add FLAGS: 
+!!                       Add FLAGS:
 !!                       LREL_TS: relaxation on T, S
 !!                       LREL_CUR: damping on current
 !!                       FOR LREL_CUR: implicit and explicit codinf is made
 !!                       for conveniency, DTREL=Ucur term, DSREL=VCURterm
 !!                Corrections:
-!!                   coriolis terms in current equation, 
-!!                   richardson nb in diapycnal mixing, 
+!!                   coriolis terms in current equation,
+!!                   richardson nb in diapycnal mixing,
 !!                   remove threshold value for mixing tendency
 !!    07/2012, P. Le Moigne : CMO1D phasing
 !!    09/2016, C. Lebeaupin Brossier: XSEATEND and initialization
@@ -220,7 +220,7 @@ ZWE(:) = 0.
 ZZDRHO(:) = 0.
 ZDTFSOL(:) = 0.
 ZT(:) = 0.
-ZS(:) = 0.    
+ZS(:) = 0.
 ZU(:) = 0.
 ZV(:) = 0.
 ZE(:) = 0.
@@ -246,7 +246,7 @@ DO JPT=1,SIZE(PFSOL)
   ZSEAT(:) = O%XSEAT(JPT,:)
   ZSEAS(:) = O%XSEAS(JPT,:)
   ZSEAU(:) = O%XSEAU(JPT,:)
-  ZSEAV(:) = O%XSEAV(JPT,:)    
+  ZSEAV(:) = O%XSEAV(JPT,:)
   ZSEAE(:) = O%XSEAE(JPT,:)
   !
   ZSEAU_REL(:) = OR%XSEAU_REL(JPT,:)
@@ -288,7 +288,7 @@ DO JPT=1,SIZE(PFSOL)
 !
 !------------------------------------------------------------------------------
 !
-!       2.     Oceanic vertical mixing 
+!       2.     Oceanic vertical mixing
 !              -----------------------
 !!
 !!       2.a    Diapycnal mixing
@@ -312,11 +312,11 @@ DO JPT=1,SIZE(PFSOL)
       ZDRHODZ=(ZZDRHO(J)-ZZDRHO(J+1))/XDZ1(J)
       ZDU=ZSEAU(J+1)-ZSEAU(J)
       ZDV=ZSEAV(J+1)-ZSEAV(J)
-      IF((ZDU*ZDU+ZDV*ZDV).LE.1.E-7) THEN 
+      IF((ZDU*ZDU+ZDV*ZDV).LE.1.E-7) THEN
         ZRICH = 0.8
       ELSE
         ZRICH = -ZALG*ZDRHODZ/(ZDU**2+ZDV**2)/XK4(J)
-      ENDIF  
+      ENDIF
 !coefficient de mélange aux ondes internes
       ZKMEWM(J)=1.E-3
       ZKMEWS(J)=1.E-4
@@ -331,17 +331,17 @@ DO JPT=1,SIZE(PFSOL)
     ENDDO
     !plm si ldiapycnal=F zkmes non modofie et zrich ne sert a rien !
     !plm ELSE
-    !plm  ZRICH=-ZALG*ZDRHODZ / (ZDU**2+ZDV**2) / XK4(J) 
-    !  
+    !plm  ZRICH=-ZALG*ZDRHODZ / (ZDU**2+ZDV**2) / XK4(J)
+    !
   ENDIF
 !
-!       2.b    Mixing length and coefficient 
+!       2.b    Mixing length and coefficient
 !              -----------------------------
 !
   DO J=IUP,IBOT-1
 
     ZEE=ZSEAE(J)**2/ZALG
-    ZXROD=(ZZDRHO(J)+ ZZDRHO(J+1))*0.5   
+    ZXROD=(ZZDRHO(J)+ ZZDRHO(J+1))*0.5
 
     ZXLME=0.
     ZPOT=0.
@@ -378,7 +378,7 @@ DO JPT=1,SIZE(PFSOL)
     IF (JIN==J) THEN
       ZXLPE=2.*(XZ2(J)-XZHOC(J))/(ZZDRHO(J)-ZXROD)/ZALG
       ZXLPE=SQRT(ZXLPE)*ZSEAE(J)
-    ELSE 
+    ELSE
       IF (JIN/=NOCKMIN) THEN
         ZXDL=- (ZEE-ZPOT)/(ZZDRHO(JIN)-ZXROD)
         ZXLPE=ZXLPE+ZXDL
@@ -387,7 +387,7 @@ DO JPT=1,SIZE(PFSOL)
 
     ZLE(J)=SQRT(ZXLME*ZXLPE)
     ZKMEL(J)=XCKL*ZLE(J)*ZSEAE(J)
-  
+
   ENDDO
 
   ZLE(IBOT)=ZLE(IBOT-1)
@@ -406,20 +406,20 @@ DO JPT=1,SIZE(PFSOL)
 !
   IF (OR%LREL_CUR) THEN
     DO J=IUP,IBOT
-      ZUDTREL(J) =  - (ZSEAU(J)-ZSEAU_REL(J))  / OR%XTAU_REL 
-      ZVDTREL(J) =  - (ZSEAV(J)-ZSEAV_REL(J))  / OR%XTAU_REL 
+      ZUDTREL(J) =  - (ZSEAU(J)-ZSEAU_REL(J))  / OR%XTAU_REL
+      ZVDTREL(J) =  - (ZSEAV(J)-ZSEAV_REL(J))  / OR%XTAU_REL
     ENDDO
   ENDIF
   !
   DO J=IUP,IBOT
     ! flux solaire
-    ZDTFSOL(J) = XRAY(J)*ZFSOL/XDZ2(J) 
+    ZDTFSOL(J) = XRAY(J)*ZFSOL/XDZ2(J)
   ENDDO
 !
   IF (OR%LREL_TS) THEN
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! RELAXATION IS MADE INSTEAD OF FLUX CORRECTION
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     DO J=IUP,IBOT
       ! flux non solaire
       ZTDTREL(J) =  - (ZSEAT(J)-ZSEAT_REL(J)) / OR%XTAU_REL
@@ -429,14 +429,14 @@ DO JPT=1,SIZE(PFSOL)
 !
   IF (OR%LFLX_CORR) THEN
     ! NO relaxation
-    ! Barnier correction on surface fluxes          
+    ! Barnier correction on surface fluxes
     ! flux non solaire corrige
     ZTDTREL(IUP) =  OR%XQCORR *(ZSEAT_REL(IUP)-ZSEAT(IUP)) / (XRHOSW*XCPSW)
     ZFNSOL = ZFNSOL + ZTDTREL(IUP)
   ENDIF
 !
 ! flux non solaire
-  ZDTFNSOL = ZFNSOL/XDZ2(IUP) 
+  ZDTFNSOL = ZFNSOL/XDZ2(IUP)
 !
 !!
 !loop on levels
@@ -450,41 +450,41 @@ DO JPT=1,SIZE(PFSOL)
 
     IF (J<IBOT) THEN
       IF (J>IUP) THEN
-        ZA (J) = O%XOCEAN_TSTEP * XK1(J) * (ZKMEL(J-1) + ZKMES(J-1) + ZKMEWS(J-1) + ZKMED(J-1)) 
+        ZA (J) = O%XOCEAN_TSTEP * XK1(J) * (ZKMEL(J-1) + ZKMES(J-1) + ZKMEWS(J-1) + ZKMED(J-1))
         ZAI(J) = O%XOCEAN_TSTEP * XK1(J) * (ZKMEL(J-1) + ZKMES(J-1) + ZKMEWM(J-1) + ZKMED(J-1))
         ZA2(J) = O%XOCEAN_TSTEP * XK2(J) * ZKMELM(J)
       ENDIF
-      ZC (J) = O%XOCEAN_TSTEP * XK2(J) * (ZKMEL(J)   + ZKMES(J)   + ZKMEWS(J)   + ZKMED(J)) 
+      ZC (J) = O%XOCEAN_TSTEP * XK2(J) * (ZKMEL(J)   + ZKMES(J)   + ZKMEWS(J)   + ZKMED(J))
       ZCI(J) = O%XOCEAN_TSTEP * XK2(J) * (ZKMEL(J)   + ZKMES(J)   + ZKMEWM(J)   + ZKMED(J))
       ZC2(J) = O%XOCEAN_TSTEP * XK3(J) * ZKMELM(J+1)
     ENDIF
-  
+
     ZB (J) = 1. - ZA (J) - ZC (J)
     ZBI(J) = 1. - ZAI(J) - ZCI(J)
     ZB2(J) = 1. - ZA2(J) - ZC2(J) + O%XOCEAN_TSTEP * ZSEAE(J)/ZLE(J)/XZCE
 
-    ZAU(J)    = ZAI(J) * (1.,0.) 
-    ZCU(J)    = ZCI(J) * (1.,0.) 
+    ZAU(J)    = ZAI(J) * (1.,0.)
+    ZCU(J)    = ZCI(J) * (1.,0.)
     ZBU(J)    = ZBI(J) * (1.,0.) + O%XOCEAN_TSTEP * ZF * XGAMA * (0.,1.)
-    
 
-    ZOMT(J)   = 1./(ZB (J) - ZA (J) * ZOMT(J-1) * ZC (J-1)) 
-    ZOMS(J)   = 1./(ZB (J) - ZA (J) * ZOMS(J-1) * ZC (J-1))    
-    ZOMU(J)   = 1./(ZBU(J) - ZAU(J) * ZOMU(J-1) * ZCU(J-1)) 
+
+    ZOMT(J)   = 1./(ZB (J) - ZA (J) * ZOMT(J-1) * ZC (J-1))
+    ZOMS(J)   = 1./(ZB (J) - ZA (J) * ZOMS(J-1) * ZC (J-1))
+    ZOMU(J)   = 1./(ZBU(J) - ZAU(J) * ZOMU(J-1) * ZCU(J-1))
     ZOME(J)   = 1./(ZB2(J) - ZA2(J) * ZOME(J-1) * ZC2(J-1))
- 
 
-    ZYT(J)    = ZSEAT(J) + O%XOCEAN_TSTEP * (ZDTFSOL(J) + ADVT(J)) 
-    ZYS(J)    = ZSEAS(J) + O%XOCEAN_TSTEP * (             ADVS(J))  
+
+    ZYT(J)    = ZSEAT(J) + O%XOCEAN_TSTEP * (ZDTFSOL(J) + ADVT(J))
+    ZYS(J)    = ZSEAS(J) + O%XOCEAN_TSTEP * (             ADVS(J))
     IF (OR%LREL_TS) THEN
       IF (.NOT.OR%LFLX_CORR) ZYT(J) = ZYT(J) + O%XOCEAN_TSTEP * ZTDTREL(J)
       ZYS(J) = ZYS(J) + O%XOCEAN_TSTEP * ZSDTREL(J)
     ENDIF
-    
+
     ZUC(J,1)  = ZSEAU(J)*(1.,0.) + ZSEAV(J)*(0.,1.)
     ZYU(J)    = ZUC(J,1) + O%XOCEAN_TSTEP * (ZUC(J,1)*ZF*(1.-XGAMA)*(0.,-1.) + ADVU(J)*(1.,0.) + ADVV(J)*(0.,1.))
     ! damping on current if LREL_CUR=T in explicit scheme
-    IF (OR%LREL_CUR) ZYU(J) = ZYU(J) + O%XOCEAN_TSTEP * (ZUDTREL(J)*(1.,0.) + ZVDTREL(J)*(0.,1.))  
+    IF (OR%LREL_CUR) ZYU(J) = ZYU(J) + O%XOCEAN_TSTEP * (ZUDTREL(J)*(1.,0.) + ZVDTREL(J)*(0.,1.))
 
     IF (J<IBOT) THEN
       ZDRHODZ   = (ZZDRHO(J)-ZZDRHO(J+1))/XDZ1(J)
@@ -518,9 +518,9 @@ DO JPT=1,SIZE(PFSOL)
 !---------------------------------------------------------------------------------------------------
 !
   ZT(IBOT)    = ZWT(IBOT)
-  ZS(IBOT)    = ZWS(IBOT)  
+  ZS(IBOT)    = ZWS(IBOT)
   ZUC(IBOT,2) = ZWU(IBOT)
-  ZE(IBOT)    = ZWE(IBOT)  
+  ZE(IBOT)    = ZWE(IBOT)
   DO J=IBOT-1,IUP,-1
     ZT (J)   = ZWT(J) - ZC (J) * ZOMT(J) * ZT (J+1)
     ZS (J)   = ZWS(J) - ZC (J) * ZOMS(J) * ZS (J+1)
@@ -541,7 +541,7 @@ DO JPT=1,SIZE(PFSOL)
     !ZDIFFV(J) = ZTENDE(J) - ZSEAE(J)*(ZPDY(J) + ZPTH(J))
     !
     ZSEAT(J)  = ZT(J)
-    ZSEAS(J)  = ZS(J)    
+    ZSEAS(J)  = ZS(J)
     ZSEAU(J)  = ZU(J)
     ZSEAV(J)  = ZV(J)
     ZSEAE(J)  = ZE(J)
@@ -553,7 +553,7 @@ DO JPT=1,SIZE(PFSOL)
 !!
   IF (O%LPROGSST) O%XSEATEND(JPT) = (ZT(IUP)-O%XSEAT(JPT,IUP)) / O%XOCEAN_TSTEP
   ZSEAT(NOCKMIN)  = ZT(IUP)
-  ZSEAS(NOCKMIN)  = ZS(IUP)  
+  ZSEAS(NOCKMIN)  = ZS(IUP)
   ZSEAU(NOCKMIN)  = ZU(IUP)
   ZSEAV(NOCKMIN)  = ZV(IUP)
   ZSEAE(NOCKMIN)  = ZE(IUP)
@@ -561,8 +561,8 @@ DO JPT=1,SIZE(PFSOL)
   !bathymetrie
   DO J=IUP,IBOT
     IF (O%XSEABATH(JPT,J)==0.) THEN
-      ZSEAT(J)  = ZSEAT(J-1) 
-      ZSEAS(J)  = ZSEAS(J-1)            
+      ZSEAT(J)  = ZSEAT(J-1)
+      ZSEAS(J)  = ZSEAS(J-1)
       ZSEAU(J)  = ZSEAU(J-1)
       ZSEAV(J)  = ZSEAV(J-1)
       ZSEAE(J)  = ZSEAE(J-1)
@@ -592,7 +592,7 @@ DO JPT=1,SIZE(PFSOL)
   O%XDTFNSOL(JPT) = ZDTFNSOL
 
 ENDDO
-!  
+!
 IF (LHOOK) CALL DR_HOOK('MIXTL_N',1,ZHOOK_HANDLE)
 !
 !!-------------------------------------------------------------------------------

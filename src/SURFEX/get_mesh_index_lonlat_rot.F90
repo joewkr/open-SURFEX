@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################
       SUBROUTINE GET_MESH_INDEX_LONLAT_ROT(KL,PGRID_PAR,PLAT,PLON,KINDEX,KSSO,KISSOX,KISSOY)
@@ -78,7 +78,7 @@ IF (.NOT. ALLOCATED(XLATLIM)) THEN
 !
   CALL GET_GRIDTYPE_LONLAT_ROT(PGRID_PAR,                                 &
                                  ZWEST,ZSOUTH,ZDLON,ZDLAT,XPOLON,XPOLAT,  &
-                                 NLON,NLAT                                )  
+                                 NLON,NLAT                                )
 !
 !----------------------------------------------------------------------------
 !
@@ -108,7 +108,7 @@ END IF
 !
  CALL REGROT_LONLAT_ROT(PLON,PLAT,ZLON,ZLAT,    &
                              KL,1,KL,1,        &
-                             XPOLON,XPOLAT,1   )  
+                             XPOLON,XPOLAT,1   )
 !
 WHERE (ZLON(:)>180.) ZLON(:)=ZLON(:)-360.
 WHERE (ZLON(:)<-180.) ZLON(:)=ZLON(:)+360.
@@ -129,7 +129,7 @@ END IF
 !
 DO JL=1,SIZE(ZLAT)
   IF (     ZLON(JL)<XLONLIM(1) .OR. ZLON(JL)>=XLONLIM(NLON+1) &
-        .OR. ZLAT(JL)<XLATLIM(1) .OR. ZLAT(JL)>=XLATLIM(NLAT+1) ) THEN  
+        .OR. ZLAT(JL)<XLATLIM(1) .OR. ZLAT(JL)>=XLATLIM(NLAT+1) ) THEN
     KINDEX(JL) = 0
     IF (KSSO/=0) THEN
       KISSOX(JL) = 0

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PREP_GREENROOF_SNOW(HPROGRAM,HSNOW,KSNOW_LAYER,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,OUNIF)
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    08/2011 
+!!      Original    08/2011
 !!     M. Lafaysse  08/2013 init XZSNOW or XLWCSNOW
 !      B. Decharme  07/2013 ES snow grid layer can be > to 3 (default 12)
 !-------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ INTEGER, INTENT(OUT)           :: KSNOW_LAYER  ! number of snow layers
  CHARACTER(LEN=28), OPTIONAL, INTENT(OUT) :: HFILE        ! file name
  CHARACTER(LEN=6),  OPTIONAL, INTENT(OUT) :: HFILETYPE    ! file type
  CHARACTER(LEN=28), OPTIONAL, INTENT(OUT) :: HFILEPGD       ! file name
- CHARACTER(LEN=6),  OPTIONAL, INTENT(OUT) :: HFILEPGDTYPE    ! file type  
+ CHARACTER(LEN=6),  OPTIONAL, INTENT(OUT) :: HFILEPGDTYPE    ! file type
  LOGICAL,           OPTIONAL, INTENT(OUT) :: OUNIF  ! uniform snow
 !
 !*       0.2   Declarations of local variables
@@ -88,7 +88,7 @@ LOGICAL :: LSNOW_IDEAL, LSNOW_FRAC_TOT, LSWEMAX
 REAL :: XASNOW, XSWEMAX
 REAL, DIMENSION(NSNOW_LAYER_MAX) :: XWSNOW, XZSNOW, XRSNOW, XTSNOW, XLWCSNOW, XSG1SNOW, XSG2SNOW,&
                                     XHISTSNOW, XAGESNOW
-INTEGER           :: JLAYER                                    
+INTEGER           :: JLAYER
 !
 REAL, DIMENSION(NSNOW_LAYER_MAX) :: XWSNOW_GR, XZSNOW_GR, XRSNOW_GR, XTSNOW_GR, XLWCSNOW_GR, &
                                     XSG1SNOW_GR, XSG2SNOW_GR, XHISTSNOW_GR, XAGESNOW_GR
@@ -101,14 +101,14 @@ INTEGER           :: ILUNAM         ! namelist file logical unit
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 NAMELIST/NAM_PREP_ISBA_SNOW/CSNOW, NSNOW_LAYER, CFILE_SNOW, CTYPE_SNOW,  &
-                            CFILEPGD_SNOW, CTYPEPGD_SNOW,                & 
+                            CFILEPGD_SNOW, CTYPEPGD_SNOW,                &
                             LSNOW_IDEAL, LSNOW_FRAC_TOT, LSNOW_PREP_PERM,&
                             XWSNOW, XZSNOW, XTSNOW, XLWCSNOW, XRSNOW, XASNOW,              &
                             XSG1SNOW, XSG2SNOW, XHISTSNOW, XAGESNOW,     &
                             LSWEMAX, XSWEMAX
 
 NAMELIST/NAM_PREP_GREENROOF_SNOW/CSNOW_GR, NSNOW_LAYER_GR, CFILE_SNOW_GR, CTYPE_SNOW, &
-                            CFILEPGD_SNOW_GR, CTYPEPGD_SNOW,                & 
+                            CFILEPGD_SNOW_GR, CTYPEPGD_SNOW,                &
                             LSNOW_IDEAL_GR, XWSNOW_GR, XZSNOW_GR, XTSNOW_GR, &
                             XLWCSNOW_GR, XRSNOW_GR, XASNOW_GR
 !-------------------------------------------------------------------------------
@@ -125,23 +125,23 @@ IF (LNAM_READ) THEN
   NSNOW_LAYER_GR    = 3
   !
   CFILE_SNOW_GR     = '                         '
-  CTYPE_SNOW     = '      '  
+  CTYPE_SNOW     = '      '
   CFILEPGD_SNOW_GR    = '                         '
-  CTYPEPGD_SNOW    = '      '      
+  CTYPEPGD_SNOW    = '      '
   !
   LSNOW_IDEAL_GR    = .FALSE.
   LSNOW_PREP_PERM = .TRUE.
   !
   XWSNOW_GR(:)      = 0.
-  XZSNOW_GR(:) = XUNDEF  
+  XZSNOW_GR(:) = XUNDEF
   XRSNOW_GR(:)      = XRHOSMAX
   XTSNOW_GR(:)      = XTT
   XLWCSNOW_GR(:) = 0.
-  XASNOW_GR         = XANSMIN  
+  XASNOW_GR         = XANSMIN
   XSG1SNOW_GR(:)    = XUNDEF
   XSG2SNOW_GR(:)    = XUNDEF
   XHISTSNOW_GR(:)   = XUNDEF
-  XAGESNOW_GR(:)    = XUNDEF  
+  XAGESNOW_GR(:)    = XUNDEF
   !
   CALL GET_LUOUT(HPROGRAM,ILUOUT)
   CALL OPEN_NAMELIST(HPROGRAM,ILUNAM)
@@ -163,11 +163,11 @@ IF (LNAM_READ) THEN
     XRSNOW(:) = XRHOSMAX
     XTSNOW(:) = XTT
     XLWCSNOW(:) = 0.
-    XASNOW = XANSMIN  
+    XASNOW = XANSMIN
     XSG1SNOW(:) = XUNDEF
     XSG2SNOW(:) = XUNDEF
     XHISTSNOW(:) = XUNDEF
-    XAGESNOW(:) = XUNDEF    
+    XAGESNOW(:) = XUNDEF
     !
     READ(UNIT=ILUNAM,NML=NAM_PREP_ISBA_SNOW)
     CALL TEST_NAM_VAR_SURF(ILUOUT,'CSNOW',CSNOW,'D95','3-L','EBA','NON','CRO')
@@ -200,7 +200,7 @@ IF (LNAM_READ) THEN
   IF ( CSNOW_GR=='NON')                                         NSNOW_LAYER_GR = 0
   IF ( CSNOW_GR=='D95' .OR. CSNOW_GR=='EBA')                       NSNOW_LAYER_GR = 1
   IF (CSNOW_GR=='3-L' .AND. NSNOW_LAYER_GR<=2) NSNOW_LAYER_GR = 12
-  !  
+  !
   IF (NSNOW_LAYER_GR > NSNOW_LAYER_MAX) THEN
     WRITE(ILUOUT,*) '------------------------------------'
     WRITE(ILUOUT,*) 'Please update modd_prep_snow.f90 routine : '
@@ -255,28 +255,28 @@ LFILE=(LEN_TRIM(CFILE_SNOW_GR)>0.AND.LEN_TRIM(CTYPE_SNOW)>0 &
 !
 IF (PRESENT(OUNIF)) LFILE=(LFILE .AND. .NOT.OUNIF)
 !
-IF(PRESENT(HFILE))THEN 
+IF(PRESENT(HFILE))THEN
   IF(LFILE)THEN
      HFILE = CFILE_SNOW_GR
   ELSE
      HFILE = '                         '
   ENDIF
 ENDIF
-IF(PRESENT(HFILETYPE))THEN 
+IF(PRESENT(HFILETYPE))THEN
   IF(LFILE)THEN
      HFILETYPE = CTYPE_SNOW
   ELSE
      HFILETYPE = '      '
   ENDIF
 ENDIF
-IF(PRESENT(HFILEPGDTYPE))THEN 
+IF(PRESENT(HFILEPGDTYPE))THEN
   IF(LFILE)THEN
      HFILEPGDTYPE = CTYPEPGD_SNOW
   ELSE
      HFILEPGDTYPE = '      '
   ENDIF
 ENDIF
-IF(PRESENT(HFILEPGD))THEN 
+IF(PRESENT(HFILEPGD))THEN
   IF(LFILE)THEN
      HFILEPGD = CFILEPGD_SNOW_GR
   ELSE

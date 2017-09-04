@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE HORIBL_SURF_EXTRAP(PILA1,PILO1,PILA2,PILO2,KINLA,KINLO,KILEN,PARIN, &
-                                  KOLEN,KP,PXOUT,PYOUT,PAROUT,KLUOUT,OINTERP,PILATARRAY  )  
+                                  KOLEN,KP,PXOUT,PYOUT,PAROUT,KLUOUT,OINTERP,PILATARRAY  )
 !   ###########################################################################
 !
 !!****  *HORIBL_SURF_EXTRAP* - horitontal bilinear interpolation
@@ -113,7 +113,7 @@ INCLUDE "mpif.h"
 #endif
 !
 !*      0.1. Declaration of arguments
-!         
+!
 REAL,                      INTENT(IN)  :: PILA1   ! Lat. (y) of first input point KDGSA
 REAL,                      INTENT(IN)  :: PILO1   ! Lon. (x) of first input point
 REAL,                      INTENT(IN)  :: PILA2   ! Lat. (y) of last input point KDGEN
@@ -132,10 +132,10 @@ INTEGER,                   INTENT(IN)  :: KLUOUT  ! output listing logical unit
 REAL, DIMENSION(:), INTENT(IN), OPTIONAL :: PILATARRAY
 !
 !*      0.2. Declaration of local variables
-!          
+!
 #ifdef SFX_MPI
 INTEGER, DIMENSION(MPI_STATUS_SIZE) :: ISTATUS
-#endif  
+#endif
  ! Variables implied in the extension procedure
 INTEGER :: ICOUNT, JL, INL
  ! Loop counters
@@ -180,7 +180,7 @@ IF (LHOOK) CALL DR_HOOK('HORIBL_SURF_EXTRAP_4',0,ZHOOK_HANDLE)
 !
 IF (PRESENT(PILATARRAY)) THEN
   CALL HOR_EXTRAPOL_SURF(KLUOUT,'LALO',KILEN,PILA1,PILA2,PILO1,PILO2,KINLA,KINLO,&
-                         KP,PARIN,PYOUT,PXOUT,PAROUT,OINTERP,PILATARRAY)        
+                         KP,PARIN,PYOUT,PXOUT,PAROUT,OINTERP,PILATARRAY)
 ELSE
   CALL HOR_EXTRAPOL_SURF(KLUOUT,'LALO',KILEN,PILA1,PILA2,PILO1,PILO2,KINLA,KINLO,&
                          KP,PARIN,PYOUT,PXOUT,PAROUT,OINTERP)

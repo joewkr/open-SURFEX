@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DIAG_TEB_INIT_n (DGO, D, DUT, HPROGRAM,KLU,KSW)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!       V. Masson  10/2013 Adds integrated UTCI diagnostics
 !       B. decharme 04/2013 : Add DIAG_TS
 !-------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ IF (DGO%LSURF_BUDGET) THEN
   ALLOCATE(D%XSFCO2(KLU))
   D%XSFCO2   = XUNDEF
 ELSE
-  ALLOCATE(D%XSFCO2(0))  
+  ALLOCATE(D%XSFCO2(0))
 END IF
 !
 !* miscellaneous fields
@@ -112,13 +112,13 @@ IF (DGO%N2M>0 .AND. DUT%LUTCI) THEN
   DUT%XUTCIC_IN       = 0.
   DUT%XUTCIC_OUTSUN   = 0.
   DUT%XUTCIC_OUTSHADE = 0.
-  !  
+  !
 ELSE
   ALLOCATE(DUT%XUTCI_IN       (0))
   ALLOCATE(DUT%XUTCI_OUTSUN   (0))
   ALLOCATE(DUT%XUTCI_OUTSHADE (0))
   ALLOCATE(DUT%XTRAD_SUN      (0))
-  ALLOCATE(DUT%XTRAD_SHADE    (0))        
+  ALLOCATE(DUT%XTRAD_SHADE    (0))
   ALLOCATE(DUT%XUTCIC_IN      (0,0))
   ALLOCATE(DUT%XUTCIC_OUTSUN  (0,0))
   ALLOCATE(DUT%XUTCIC_OUTSHADE(0,0))

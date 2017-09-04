@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE HORIBL_SURF_GRIDIN(KINLA,KINLO,KILEN,PARIN,KOLEN,&
                                  ODVECT,KLUOUT,OGLOBS,OGLOBN,OGLOBLON,KP,&
-                                 PARIN0_OUT,PARIN_OUT,KLSMIN_OUT,KLSMIN,KLSMOUT,KMASK )  
+                                 PARIN0_OUT,PARIN_OUT,KLSMIN_OUT,KLSMIN,KLSMOUT,KMASK )
 !   ###########################################################################
 !
 !!****  *HORIBL_SURF_GRIDIN* - horitontal bilinear interpolation
@@ -113,7 +113,7 @@ INCLUDE "mpif.h"
 #endif
 !
 !*      0.1. Declaration of arguments
-!         
+!
 INTEGER,                   INTENT(IN)  :: KINLA   ! Number of parallels
 INTEGER, DIMENSION(:), INTENT(IN)  :: KINLO   ! Number of point along a parallel
 INTEGER,                   INTENT(IN)  :: KILEN   ! size of input arrays
@@ -133,10 +133,10 @@ INTEGER, DIMENSION(:,:), INTENT(IN), OPTIONAL  :: KLSMIN  ! input land/sea mask
 INTEGER, DIMENSION(:), INTENT(IN), OPTIONAL  :: KLSMOUT ! output land/sea mask
 !
 !*      0.2. Declaration of local variables
-!            
+!
 REAL,   DIMENSION(:,:), ALLOCATABLE :: ZARIN     ! Extended input datas
 REAL, DIMENSION(:,:,:), ALLOCATABLE :: ZOUT
-REAL :: ZVECT     ! -1 if input is vectorial 
+REAL :: ZVECT     ! -1 if input is vectorial
  ! Variables implied in the extension procedure
 INTEGER, DIMENSION(:,:), ALLOCATABLE :: ILSMIN    ! Extended land/sea mask
 INTEGER, DIMENSION(:,:), ALLOCATABLE :: IP
@@ -181,7 +181,7 @@ ZVECT = 1.
 IF (ODVECT) ZVECT=-1.
 !
 IF (NRANK==NPIO) THEN
-       
+
   IBIGSIZE = KILEN
   IF (OGLOBS  ) IBIGSIZE=IBIGSIZE+(4+KINLO(    1))+(4+KINLO(      2))
   IF (OGLOBN  ) IBIGSIZE=IBIGSIZE+(4+KINLO(KINLA))+(4+KINLO(KINLA-1))
@@ -198,7 +198,7 @@ IF (NRANK==NPIO) THEN
 !
 !    /---------------\
 !    |               |
-!   [.] [.] [....   ...] [.] [.] 
+!   [.] [.] [....   ...] [.] [.]
 !        |            |
 !        \------------/
 !
@@ -224,7 +224,7 @@ IF (NRANK==NPIO) THEN
         ENDDO
         KMASK(ID2  ) = JIP
         KMASK(ID2+1) = JIP+1
-        
+
         ZARIN(JOP  ,JT) = PARIN(ID1-2,JT)
         ZARIN(JOP+1,JT) = PARIN(ID1-1,JT)
         ZARIN(JOP+2:ID2-1,JT) = PARIN(JIP:ID1-1,JT)
@@ -256,7 +256,7 @@ IF (NRANK==NPIO) THEN
 !
 ! 2.6.2 Compute the south pole extension
 !
-! Pole extension is performed by copying the first half datas to the last half 
+! Pole extension is performed by copying the first half datas to the last half
 ! datas of the extension parallel :
 !
 !  [.] [.] [....] [....] [.] [.]
@@ -269,16 +269,16 @@ IF (NRANK==NPIO) THEN
       IOF1 = 4 + KINLO(2)
       IOF2 = IOF1 + 4 + KINLO(1)
       IMID = (KINLO(1)+4) / 2
-      ZARIN(IOF1+1:IOF1+IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)  
-      ZARIN(IOF1+IMID+1:IOF1+KINLO(1)+4,JT) = ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(1)+4-IMID+2,JT)  
+      ZARIN(IOF1+1:IOF1+IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
+      ZARIN(IOF1+IMID+1:IOF1+KINLO(1)+4,JT) = ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(1)+4-IMID+2,JT)
       IF (LDLSM) THEN
-        ILSMIN(IOF1+1:IOF1+IMID,JT) = ILSMIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)  
-        ILSMIN(IOF1+IMID+1:IOF1+KINLO(1)+4,JT) = ILSMIN(IOF2+1+2:IOF2+KINLO(1)+4-IMID+2,JT)  
+        ILSMIN(IOF1+1:IOF1+IMID,JT) = ILSMIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
+        ILSMIN(IOF1+IMID+1:IOF1+KINLO(1)+4,JT) = ILSMIN(IOF2+1+2:IOF2+KINLO(1)+4-IMID+2,JT)
       END IF
       IOF2 = IOF2 + 4 + KINLO(1)
       IMID = (KINLO(2)+4) / 2
       ZARIN(1:IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
-      ZARIN(IMID+1:KINLO(2)+4,JT) = ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(2)+4-IMID+2,JT)  
+      ZARIN(IMID+1:KINLO(2)+4,JT) = ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(2)+4-IMID+2,JT)
       IF (LDLSM) THEN
         ILSMIN(1:IMID,JT) = ILSMIN(IOF2+1+IMID:IOF2+2*IMID,JT)
         ILSMIN(IMID+1:KINLO(2)+4,JT) = ILSMIN(IOF2+1+2:IOF2+KINLO(2)+4-IMID+2,JT)
@@ -291,24 +291,24 @@ IF (NRANK==NPIO) THEN
       IOF1 = IBIGSIZE - (4+KINLO(KINLA-1)) - (4+KINLO(KINLA))
       IOF2 = IOF1 - (4+KINLO(KINLA))
       IMID = (KINLO(KINLA)+4) / 2
-      ZARIN(IOF1+1:IOF1+IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)  
+      ZARIN(IOF1+1:IOF1+IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
       ZARIN(IOF1+IMID+1:IOF1+KINLO(KINLA)+4,JT) = &
-          ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(KINLA)+4-IMID+2,JT)  
+          ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(KINLA)+4-IMID+2,JT)
       IF (LDLSM) THEN
-        ILSMIN(IOF1+1:IOF1+IMID,JT) = ILSMIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)  
+        ILSMIN(IOF1+1:IOF1+IMID,JT) = ILSMIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
         ILSMIN(IOF1+IMID+1:IOF1+KINLO(KINLA)+4,JT) = &
-            ILSMIN(IOF2+1+2:IOF2+KINLO(KINLA)+4-IMID+2,JT)  
+            ILSMIN(IOF2+1+2:IOF2+KINLO(KINLA)+4-IMID+2,JT)
       END IF
       IOF1 = IOF1 + (4+KINLO(KINLA))
       IOF2 = IOF2 - (4+KINLO(KINLA-1))
       IMID = (KINLO(KINLA-1)+4) / 2
-      ZARIN(IOF1+1:IOF1+IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)  
+      ZARIN(IOF1+1:IOF1+IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
       ZARIN(IOF1+IMID+1:IOF1+KINLO(KINLA-1)+4,JT) = &
-          ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(KINLA-1)+4-IMID+2,JT)  
+          ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(KINLA-1)+4-IMID+2,JT)
       IF (LDLSM) THEN
-        ILSMIN(IOF1+1:IOF1+IMID,JT) = ILSMIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)  
+        ILSMIN(IOF1+1:IOF1+IMID,JT) = ILSMIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
         ILSMIN(IOF1+IMID+1:IOF1+KINLO(KINLA-1)+4,JT) = &
-            ILSMIN(IOF2+1+2:IOF2+KINLO(KINLA-1)+4-IMID+2,JT)  
+            ILSMIN(IOF2+1+2:IOF2+KINLO(KINLA-1)+4-IMID+2,JT)
       END IF
     END IF
     !
@@ -342,22 +342,22 @@ IF (LHOOK) CALL DR_HOOK('HORIBL_SURF_GRIDIN_3',0,ZHOOK_HANDLE)
   IEXT(1) = MINVAL(KP)
   IEXT(2) = MAXVAL(KP)
   IDX_I = IDX_I + 1
-#ifdef SFX_MPI  
+#ifdef SFX_MPI
   CALL MPI_SEND(IEXT,2*KIND(IEXT)/4,MPI_INTEGER,NPIO,IDX_I,NCOMM,INFOMPI)
-#endif  
+#endif
     IF (LHOOK) CALL DR_HOOK('HORIBL_SURF_GRIDIN_3',1,ZHOOK_HANDLE)
     IF (LHOOK) CALL DR_HOOK('HORIBL_SURF_GRIDIN_4',0,ZHOOK_HANDLE)
     ISIZE = IEXT(2)-IEXT(1)+1
     ALLOCATE(ZDARIN(ISIZE,INL))
     ALLOCATE(IDLS(ISIZE,INL))
     IDX_I = IDX_I + 1
-#ifdef SFX_MPI    
+#ifdef SFX_MPI
   CALL MPI_RECV(ZDARIN,SIZE(ZDARIN)*KIND(ZDARIN)/4,MPI_REAL,NPIO,IDX_I,NCOMM,ISTATUS,INFOMPI)
-#endif  
+#endif
   IDX_I = IDX_I + 1
-#ifdef SFX_MPI  
+#ifdef SFX_MPI
   CALL MPI_RECV(IDLS,SIZE(IDLS)*KIND(IDLS)/4,MPI_INTEGER,NPIO,IDX_I,NCOMM,ISTATUS,INFOMPI)
-#endif  
+#endif
   IF (LHOOK) CALL DR_HOOK('HORIBL_SURF_GRIDIN_4',1,ZHOOK_HANDLE)
 ELSE
 #ifdef SFX_MPI
@@ -366,9 +366,9 @@ ELSE
   DO J=0,NPROC-1
     IF (LHOOK) CALL DR_HOOK('HORIBL_SURF_GRIDIN_2',0,ZHOOK_HANDLE_OMP)
     IF (J/=NPIO) THEN
-#ifdef SFX_MPI            
+#ifdef SFX_MPI
       CALL MPI_RECV(IEXT,2*KIND(IEXT)/4,MPI_INTEGER,J,IDX_I+1,NCOMM,ISTATUS,INFOMPI)
-#endif      
+#endif
     ELSE
       IEXT(1) = MINVAL(KP)
       IEXT(2) = MAXVAL(KP)
@@ -387,7 +387,7 @@ ELSE
     IF (LHOOK) CALL DR_HOOK('HORIBL_SURF_GRIDIN_30',1,ZHOOK_HANDLE_OMP)
     IF (LHOOK) CALL DR_HOOK('HORIBL_SURF_GRIDIN_40',0,ZHOOK_HANDLE_OMP)
     IF (J/=NPIO) THEN
-#ifdef SFX_MPI            
+#ifdef SFX_MPI
       CALL MPI_SEND(ZDARIN,SIZE(ZDARIN)*KIND(ZDARIN)/4,MPI_REAL,J,IDX_I+2,NCOMM,INFOMPI)
       CALL MPI_SEND(IDLS,SIZE(IDLS)*KIND(IDLS)/4,MPI_INTEGER,J,IDX_I+3,NCOMM,INFOMPI)
 #endif

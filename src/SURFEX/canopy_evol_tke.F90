@@ -1,14 +1,14 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CANOPY_EVOL_TKE(SB, KI, PTSTEP, PRHOA, PFORC_E, PDFORC_EDE, &
-                                 PTH, PUW, PWTH, PWQ, PLEPS )  
+                                 PTH, PUW, PWTH, PWQ, PLEPS )
 !     #########################################
 !
-!!****  *CANOPY_EVOL_TKE* - evolution of wind in canopy 
-!!                        
+!!****  *CANOPY_EVOL_TKE* - evolution of wind in canopy
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -33,7 +33,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/2006 
+!!      Original    07/2006
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -130,7 +130,7 @@ ZDP(:,1) = - PUW(:,2) * ZDUDZ(:,2) * (SB%XZF(:,2)/SB%XZ(:,1))
 ! other levels
 DO JLAYER=2,SB%NLVL-1
   ZDP(:,JLAYER) = - 0.5 * (PUW(:,JLAYER)   * ZDUDZ(:,JLAYER)  ) &
-                    - 0.5 * (PUW(:,JLAYER+1) * ZDUDZ(:,JLAYER+1))  
+                    - 0.5 * (PUW(:,JLAYER+1) * ZDUDZ(:,JLAYER+1))
 END DO
 !
 !* upper level using an extrapolation using a 1/z law
@@ -150,7 +150,7 @@ ZTP(:,:) = -999.
 ! other levels
 DO JLAYER=1,SB%NLVL-1
   ZTP(:,JLAYER) = XG/PTH(:,JLAYER) * 0.5 * ( (PWTH(:,JLAYER) + PWTH(:,JLAYER+1) )          &
-                             + (XRV/XRD-1) * (PWQ (:,JLAYER) + PWQ (:,JLAYER)   )/PRHOA(:) )  
+                             + (XRV/XRD-1) * (PWQ (:,JLAYER) + PWQ (:,JLAYER)   )/PRHOA(:) )
 END DO
 !
 !* upper level
@@ -188,7 +188,7 @@ ZDEXTDV = ZDEXTDV + PDFORC_EDE(:,:)
 !
 !* note that dissipation is implicited
 !
- CALL TRIDIAG_SURF(SB%XTKE,ZF,ZDFDDVDZ,ZEXT,ZDEXTDV,PTSTEP,SB%XDZF,SB%XDZ,ZTKE)  
+ CALL TRIDIAG_SURF(SB%XTKE,ZF,ZDFDDVDZ,ZEXT,ZDEXTDV,PTSTEP,SB%XDZF,SB%XDZ,ZTKE)
 !
 !-------------------------------------------------------------------------------
 !

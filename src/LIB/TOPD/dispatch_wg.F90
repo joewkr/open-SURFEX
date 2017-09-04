@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !
 !     ##########################
@@ -11,7 +11,7 @@
 !!    PURPOSE
 !!    -------
 !      from  AVERAGE_DIAG_MISC_ISBA_n
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -21,11 +21,11 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-!!     
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -34,7 +34,7 @@
 !!    MODIFICATIONS
 !!    -------------
 !!
-!!      Original  02/2011 
+!!      Original  02/2011
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -60,10 +60,10 @@ TYPE(ISBA_NPE_t), INTENT(INOUT) :: NPE
  REAL, DIMENSION(:,:), INTENT(IN) :: PWG
  REAL, DIMENSION(:,:), INTENT(IN) :: PWGI
  REAL, DIMENSION(:,:), INTENT(IN) :: PDG
-!      
+!
 !*      0.2    declarations of local variables
  INTEGER                         :: JJ, JLAYER, JPATCH ! loop indexes
- INTEGER                         :: IDEPTH 
+ INTEGER                         :: IDEPTH
  INTEGER                         :: INI, INP
  REAL                            :: ZWORK,ZTMP, ZWORK2
  REAL, DIMENSION(SIZE(S%XPATCH,1)) :: ZSUMPATCH
@@ -90,8 +90,8 @@ IF (INP/=1)THEN
      IMASK = NP%AL(JP)%NR_P(JJ)
      IF ((S%XPATCH(IMASK,JP)/=XUNDEF).AND.(S%XPATCH(IMASK,JP)/=0.).AND.(XATOP(IMASK)==1.)) THEN
        WHERE (NPE%AL(JP)%XWG(JJ,:)/=XUNDEF)
-         NPE%AL(JP)%XWG(JJ,:) = PWG(IMASK,:) 
-         NPE%AL(JP)%XWGI(JJ,:)= PWGI(IMASK,:) 
+         NPE%AL(JP)%XWG(JJ,:) = PWG(IMASK,:)
+         NPE%AL(JP)%XWGI(JJ,:)= PWGI(IMASK,:)
          NP%AL(JP)%XDG(JJ,:)  = PDG (IMASK,:)
        ENDWHERE
      ENDIF
@@ -101,20 +101,20 @@ IF (INP/=1)THEN
 ELSE
  DO JP=1,INP
    DO JJ=1,NP%AL(JP)%NSIZE_P
-     IMASK = NP%AL(JP)%NR_P(JJ)        
-     NPE%AL(1)%XWG (JJ,:) = PWG(IMASK,:) 
-     NPE%AL(1)%XWGI(JJ,:) = PWGI(IMASK,:) 
+     IMASK = NP%AL(JP)%NR_P(JJ)
+     NPE%AL(1)%XWG (JJ,:) = PWG(IMASK,:)
+     NPE%AL(1)%XWGI(JJ,:) = PWGI(IMASK,:)
      NP%AL(1)%XDG(JJ,:)   = PDG (IMASK,:)
    ENDDO
  ENDDO
 ENDIF
 !
 DO JP = 1,INP
-  WHERE (NPE%AL(JP)%XWG(:,:)<XWGMIN) 
+  WHERE (NPE%AL(JP)%XWG(:,:)<XWGMIN)
     NPE%AL(JP)%XWG(:,:)=XWGMIN
   ENDWHERE
 ENDDO
- !     
+ !
 IF (LHOOK) CALL DR_HOOK('DISPATCH_WG',1,ZHOOK_HANDLE)
 
 END SUBROUTINE DISPATCH_WG

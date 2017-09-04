@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE INTERPOL_SBL( PZ, PIN, PH, POUT)
@@ -11,8 +11,8 @@
 !!    -------
 !     This routine do interpolation of field from canopy levels to a defined
 !     height. Interpolation is linear.
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !     We search for the levels aroud the specified height of interpolation and
@@ -25,13 +25,13 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !     Sebastien Riette
@@ -89,7 +89,7 @@ DO WHILE(ANY(POUT(:)==XUNDEF) .AND. ILEVEL/=SIZE(PZ,2))
     !Interpolation between ILEVEL and ILEVEL+1
     POUT(:)=PIN(:,ILEVEL) + &
               (PIN(:,ILEVEL+1)-PIN(:,ILEVEL)) * &
-              (PH-PZ(:,ILEVEL)) / (PZ(:,ILEVEL+1)-PZ(:,ILEVEL))  
+              (PH-PZ(:,ILEVEL)) / (PZ(:,ILEVEL+1)-PZ(:,ILEVEL))
 
   END WHERE
   ILEVEL=ILEVEL+1

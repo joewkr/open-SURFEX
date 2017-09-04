@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE READ_NAMELISTS_FLAKE_n (FM, HPROGRAM, HINIT)
 !     #######################################################
 !
-!---------------------------    
+!---------------------------
 !
 !
 USE MODD_SURFEX_n, ONLY : FLAKE_MODEL_t
@@ -44,7 +44,7 @@ IF (LHOOK) CALL DR_HOOK('READ_NAMELISTS_FLAKE_N',0,ZHOOK_HANDLE)
 !
  CALL DEFAULT_DIAG_FLAKE(N2M,LSURF_BUDGET,L2M_MIN_ZS,LRAD_BUDGET,LCOEF,LSURF_VARS, &
                          LWATER_PROFILE,LSURF_BUDGETC,LRESET_BUDGETC,XDIAG_TSTEP,  &
-                         XZWAT_PROFILE             )  
+                         XZWAT_PROFILE             )
 !
  CALL READ_DEFAULT_FLAKE_n(FM%CHF, FM%DFO, FM%DMF, FM%F, HPROGRAM)
 !

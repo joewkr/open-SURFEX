@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################
       MODULE MODD_BEM_n
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -85,13 +85,13 @@ TYPE BEM_t
   REAL, POINTER, DIMENSION(:)   :: XT_WIN2       ! Indoor window temperature [K]
   REAL, POINTER, DIMENSION(:)   :: XQI_BLD       ! Indoor air specific humidity [kg kg-1]
   REAL, POINTER, DIMENSION(:)   :: XV_VENT       ! Ventilation flow rate [AC/H]
-  REAL, POINTER, DIMENSION(:)   :: XCAP_SYS_HEAT ! Capacity of the heating system 
+  REAL, POINTER, DIMENSION(:)   :: XCAP_SYS_HEAT ! Capacity of the heating system
                                                  ! [W m-2(bld)]
   REAL, POINTER, DIMENSION(:)   :: XCAP_SYS_RAT  ! Rated capacity of the cooling system
                                                  ! [W m-2(bld)]
   REAL, POINTER, DIMENSION(:)   :: XT_ADP        ! Apparatus dewpoint temperature of the
                                                  ! cooling coil [K]
-  REAL, POINTER, DIMENSION(:)   :: XM_SYS_RAT    ! Rated HVAC mass flow rate 
+  REAL, POINTER, DIMENSION(:)   :: XM_SYS_RAT    ! Rated HVAC mass flow rate
                                                  ! [kg s-1 m-2(bld)]
   REAL, POINTER, DIMENSION(:)   :: XCOP_RAT      ! Rated COP of the cooling system
   REAL, POINTER, DIMENSION(:)   :: XT_WIN1       ! outdoor window temperature [K]
@@ -105,13 +105,13 @@ TYPE BEM_t
   LOGICAL, POINTER, DIMENSION(:):: LSHADE        ! flag to activate shading devices -> LOGICAL in the code
   REAL,    POINTER, DIMENSION(:):: XSHADE        ! flag to activate shading devices -> REAL for i/o 0. or 1.
   CHARACTER(LEN=4), POINTER, DIMENSION(:) :: CNATVENT ! flag to activate natural ventilation 'NONE', 'MANU', 'AUTO'
-  REAL,    POINTER, DIMENSION(:):: XNATVENT      ! flag to describe surventilation system for i/o 
+  REAL,    POINTER, DIMENSION(:):: XNATVENT      ! flag to describe surventilation system for i/o
                                                  ! 0 for NONE, 1 for MANU and 2 for AUTO
   LOGICAL, POINTER, DIMENSION(:):: LSHAD_DAY     !Has shading been necessary this day ?
   LOGICAL, POINTER, DIMENSION(:):: LNATVENT_NIGHT !Has nocturnal surventilation been necessary and possible this night ?
   !
   !indoor relative surfaces and view factors
-  REAL, POINTER, DIMENSION(:) :: XN_FLOOR        ! Number of floors     
+  REAL, POINTER, DIMENSION(:) :: XN_FLOOR        ! Number of floors
   REAL, POINTER, DIMENSION(:) :: XGLAZ_O_BLD    ! Window area [m2_win/m2_bld]
   REAL, POINTER, DIMENSION(:) :: XMASS_O_BLD    ! Mass area [m2_mass/m2_bld]
   REAL, POINTER, DIMENSION(:) :: XFLOOR_HW_RATIO ! H/W ratio of 1 floor level
@@ -131,7 +131,7 @@ TYPE BEM_t
   REAL, POINTER, DIMENSION(:) :: XF_MASS_WIN     ! View factor mass-window
 
 
-! 
+!
 END TYPE BEM_t
 !
 TYPE BEM_NP_t
@@ -227,8 +227,8 @@ ELSE
   DO JP=1,KPATCH
     CALL BEM_INIT(YNBEM%AL(JP))
   ENDDO
-  DEALLOCATE(YNBEM%AL)  
-ENDIF 
+  DEALLOCATE(YNBEM%AL)
+ENDIF
 IF (LHOOK) CALL DR_HOOK("MODD_BEM_N:BEM_NP_INIT",1,ZHOOK_HANDLE)
 END SUBROUTINE BEM_NP_INIT
 !

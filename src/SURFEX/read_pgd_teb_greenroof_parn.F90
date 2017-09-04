@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PGD_TEB_GREENROOF_PAR_n (DTV, IO, S, K, KDIM, HPROGRAM)
 !     ################################################
 !
 !!****  *READ_PGD_TEB_GREENROOF_PAR_n* - reads ISBA physiographic fields
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -32,9 +32,9 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
-!!      P. Le Moigne 12/2004 : add type of photosynthesis 
-!!      C. de Munck  02/2012 : added parameterisation for sedum species under NVT_TROG 
+!!      Original    01/2003
+!!      P. Le Moigne 12/2004 : add type of photosynthesis
+!!      C. de Munck  02/2012 : added parameterisation for sedum species under NVT_TROG
 !-------------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -51,7 +51,7 @@ USE MODD_ISBA_n, ONLY : ISBA_S_t, ISBA_K_t
 USE MODD_CSTS,                 ONLY : XDAY
 USE MODD_SURF_PAR,             ONLY : XUNDEF
 USE MODD_DATA_COVER_PAR,       ONLY : NVEGTYPE, NVT_GRAS, NVT_TROG
-!paramètres ci-dessus à initialiser pour les GR (sauf XPAR_OM_GR, XPAR_SAND_GR, XPAR_CLAY_GR qui sont lues) 
+!paramètres ci-dessus à initialiser pour les GR (sauf XPAR_OM_GR, XPAR_SAND_GR, XPAR_CLAY_GR qui sont lues)
 USE MODD_PREP_TEB_GREENROOF,   ONLY : NGRID_LEVEL, XGRID_SOIL
 !
 USE MODI_READ_SURF
@@ -212,12 +212,12 @@ DTV%XPAR_CNA_NITRO      (:,:) = XUNDEF
 !---------------------------------------------------------------------------
 ! Vegtypes adapted to greenroofs:
 !--------------------------------
-! NPATCH = 1 
+! NPATCH = 1
 ! 2D cases : all greenroofs have same vegetation (defined by CTYP_GR)
 ! (CTYP_GR == 'GRASS') <=> NVT_GRAS (10)
 !  ** OR **
 ! (CTYP_GR == 'SEDUM') <=> NVT_TROG (11)
-! NB1: => no aggregation of vegetype parameters needed 
+! NB1: => no aggregation of vegetype parameters needed
 ! NB2: Functions existing for gardens are used for initial greenroofs
 !      This will need to be refined specifically for greenroofs
 !
@@ -233,10 +233,10 @@ DTV%XPAR_F2I(:,:) = 0.3
 DTV%XPAR_Z0_O_Z0H(:,:) = 10.
 !
 ! Defensive/offensive strategy (1/0)
-DTV%LPAR_STRESS(:,:) = .FALSE. 
+DTV%LPAR_STRESS(:,:) = .FALSE.
 !
 DO JI=1,KDIM
-! 
+!
 ! Vegetation albedo: near-IR, visible, and UV albedo
 ! * Will need to be adapted to greenroof GRASS and SEDUM species *
 ! * vérifier si/où l'abedo ds l'UV est utilisé *
@@ -249,33 +249,33 @@ DO JI=1,KDIM
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )  DTV%XPAR_ALBUV_VEG(JI,:,:) = 0.0800
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )  DTV%XPAR_ALBUV_VEG(JI,:,:) = 0.1250
 !
-! Min stomatal resistance  
+! Min stomatal resistance
  !IF(XPAR_VEGTYPE(JI,NVT_GRAS)>0. )  XPAR_RSMIN(JI)= 40 (dans isba & garden)
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )  DTV%XPAR_RSMIN(JI,:)= 120  ! for GRASS
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )  DTV%XPAR_RSMIN(JI,:)= 150. ! for SEDUM
  !IF(XPAR_VEGTYPE(JI,NVT_TROG)>0. )  XPAR_RSMIN(JI)= 120.
-! 
-! Gamma parameter 
+!
+! Gamma parameter
 ! (* Check if values needs to be refined for GRASS and SEDUM *)
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )  DTV%XPAR_GAMMA(JI,:)= 0.
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )  DTV%XPAR_GAMMA(JI,:)= 0.
 !
-! Wrmax_cf 
+! Wrmax_cf
 ! (* Check if needs to be refined for GRASS and SEDUM greenroofs *)
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )  DTV%XPAR_WRMAX_CF(JI,:)= 0.2
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )  DTV%XPAR_WRMAX_CF(JI,:)= 0.2
 !
-! Rgl 
+! Rgl
 ! (* Check if needs to be refined for GRASS and SEDUM greenroofs *)
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )  DTV%XPAR_RGL(JI,:)= 100.
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )  DTV%XPAR_RGL(JI,:)= 100.
 !
-! Cv 
+! Cv
 ! (* Check if needs to be refined for GRASS and SEDUM greenroofs *)
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )  DTV%XPAR_CV(JI,:)= 2.E-5
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )  DTV%XPAR_CV(JI,:)= 2.E-5
 !
-!! Mesophyll conductance (m s-1) 
+!! Mesophyll conductance (m s-1)
 ! (* Check if needs to be refined for GRASS and SEDUM greenroofs *)
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )  DTV%XPAR_GMES(JI,:)= 0.020
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )  DTV%XPAR_GMES(JI,:)= 0.020
@@ -288,7 +288,7 @@ DO JI=1,KDIM
 !
 ! Cuticular conductance (m s-1)
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )  DTV%XPAR_GC(JI,:)= 0.00025
- IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )  DTV%XPAR_GC(JI,:)= 0.00025        
+ IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )  DTV%XPAR_GC(JI,:)= 0.00025
 !
 ! Ratio d(biomass)/d(lai) (kg/m2)
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )  DTV%XPAR_BSLAI(JI,:)= 0.36
@@ -335,7 +335,7 @@ DO JI=1,KDIM
  DTV%XPAR_ROOTFRAC(JI, 6,:)  = 1.
 !
 ! Depth of the soil column for the calculation of the frozen soil fraction (m)
- DTV%XPAR_DICE(JI,:) = DTV%XPAR_DG(JI,1,:) 
+ DTV%XPAR_DICE(JI,:) = DTV%XPAR_DG(JI,1,:)
 !
 DO JTIME=1,DTV%NTIME
 ! Leaf Area Index
@@ -343,7 +343,7 @@ DO JTIME=1,DTV%NTIME
 ! Fraction of vegetation on greenroof
 !* Will need to be refined for greenroofs *)
   !XPAR_VEG (JI,1,JTIME) = VEG_FROM_LAI (XPAR_LAI_GR(JI,JTIME),   &
-  !                                       XPAR_VEGTYPE(JI,:),GAGRI_TO_GRASS)  
+  !                                       XPAR_VEGTYPE(JI,:),GAGRI_TO_GRASS)
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )   DTV%XPAR_VEG (JI,JTIME,:) = 0.9
  !IF(XPAR_VEGTYPE(JI,NVT_TROG)>0. )   XPAR_VEG (JI,JTIME) = 1.0
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )   DTV%XPAR_VEG (JI,JTIME,:) = 0.95
@@ -352,12 +352,12 @@ DO JTIME=1,DTV%NTIME
 !* Will need to be refined for greenroofs *)
  IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )   DTV%XPAR_Z0 (JI,JTIME,:) = 0.01
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )   DTV%XPAR_Z0 (JI,JTIME,:) = 0.01
- !                                        
+ !
 ! Emissivity
 !* Will need to be refined for greenroofs *)
   !XPAR_EMIS (JI,1,JTIME) = EMIS_FROM_VEG (XPAR_VEG    (JI,1,JTIME),&
-  !                                         XPAR_VEGTYPE(JI,:))  
- IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )   DTV%XPAR_EMIS (JI,JTIME,:) = 0.95 
+  !                                         XPAR_VEGTYPE(JI,:))
+ IF(DTV%XPAR_VEGTYPE(JI,NVT_GRAS)>0. )   DTV%XPAR_EMIS (JI,JTIME,:) = 0.95
  IF(DTV%XPAR_VEGTYPE(JI,NVT_TROG)>0. )   DTV%XPAR_EMIS (JI,JTIME,:) = 0.83 ! Feng. et al. (2010)
 
 END DO

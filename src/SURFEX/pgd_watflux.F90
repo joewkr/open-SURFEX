@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_WATFLUX (DTCO, U, G, W, HPROGRAM)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -108,7 +108,7 @@ ALLOCATE(G%XLAT       (G%NDIM))
 ALLOCATE(G%XLON       (G%NDIM))
 ALLOCATE(G%XMESH_SIZE (G%NDIM))
 !
- CALL PACK_PGD(DTCO, U, HPROGRAM, 'WATER ', G, W%LCOVER, W%XCOVER, W%XZS )  
+ CALL PACK_PGD(DTCO, U, HPROGRAM, 'WATER ', G, W%LCOVER, W%XCOVER, W%XZS )
 !
 !-------------------------------------------------------------------------------
 IF (NRANK==NPIO) CALL WRITE_COVER_TEX_WATER

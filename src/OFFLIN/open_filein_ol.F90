@@ -1,16 +1,16 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######
       SUBROUTINE OPEN_FILEIN_OL
 !     #######################################################
-!!****  *OPEN_FILEIN_OL* - 
+!!****  *OPEN_FILEIN_OL* -
 
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO
 !
 USE MODD_OL_FILEID, ONLY : XNETCDF_FILENAME_IN, XID_IN, &
-                            XVAR_TO_FILEIN, XID_VARIN 
+                            XVAR_TO_FILEIN, XID_VARIN
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -32,7 +32,7 @@ IF (NRANK==NPIO) THEN
   !
   INB=0
   ALLOCATE(ITEMP(SIZE(XNETCDF_FILENAME_IN)))
-  ! 
+  !
   DO JFILE=1,SIZE(XNETCDF_FILENAME_IN)
     INQUIRE(FILE=XNETCDF_FILENAME_IN(JFILE),EXIST=LLEXIST)
     IF (LLEXIST) THEN

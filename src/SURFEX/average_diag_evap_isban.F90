@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################
 SUBROUTINE AVERAGE_DIAG_EVAP_ISBA_n (OSURF_BUDGETC, DE, DEC, NDE, NDEC, NP, KNPATCH, &
@@ -8,12 +8,12 @@ SUBROUTINE AVERAGE_DIAG_EVAP_ISBA_n (OSURF_BUDGETC, DE, DEC, NDE, NDEC, NP, KNPA
 !#############################
 !
 !
-!!****  *AVERAGE_DIAG_EVAP_ISBA_n*  
+!!****  *AVERAGE_DIAG_EVAP_ISBA_n*
 !!
 !!    PURPOSE
 !!    -------
 !      Average the cumulated diagnostics from all ISBA tiles
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -21,12 +21,12 @@ SUBROUTINE AVERAGE_DIAG_EVAP_ISBA_n (OSURF_BUDGETC, DE, DEC, NDE, NDEC, NP, KNPA
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      P. Le Moigne           * Meteo-France *
@@ -35,7 +35,7 @@ SUBROUTINE AVERAGE_DIAG_EVAP_ISBA_n (OSURF_BUDGETC, DE, DEC, NDE, NDEC, NP, KNPA
 !!    -------------
 !!      Original    11/03
 !!      B. Decharme 2008     New diag for the water budget
-!!      B. Decharme 2012     New diag for snow 
+!!      B. Decharme 2012     New diag for snow
 !!                                        carbon
 !!                                        isab water budget
 !!                  2013                  Sublimation
@@ -61,7 +61,7 @@ IMPLICIT NONE
 !
 LOGICAL, INTENT(IN) :: OSURF_BUDGETC
 TYPE(DIAG_EVAP_ISBA_t), INTENT(INOUT) :: DE
-TYPE(DIAG_EVAP_ISBA_t), INTENT(INOUT) :: DEC 
+TYPE(DIAG_EVAP_ISBA_t), INTENT(INOUT) :: DEC
 TYPE(DIAG_EVAP_ISBA_NP_t), INTENT(INOUT) :: NDE
 TYPE(DIAG_EVAP_ISBA_NP_t), INTENT(INOUT) :: NDEC
 TYPE(ISBA_NP_t), INTENT(INOUT) :: NP
@@ -100,7 +100,7 @@ IF (DE%LSURF_EVAP_BUDGET) THEN
   IF (ISIZE_LMEB_PATCH>0) CALL INIT_MEB_BUD(DE)
   !
   IF(DE%LWATER_BUDGET)THEN
-    !  
+    !
     CALL INIT_WATER_BUD(DE)
     !
     DE%XRAINFALL  (:) = PRAIN(:) * PTSTEP
@@ -108,22 +108,22 @@ IF (DE%LSURF_EVAP_BUDGET) THEN
     !
   ENDIF
   !
-  CALL MAKE_AVERAGE_EVAP(DE,NDE)  
-  ! 
+  CALL MAKE_AVERAGE_EVAP(DE,NDE)
+  !
   ! Ice calving flux
-  !  
-  IF(OGLACIER)THEN 
+  !
+  IF(OGLACIER)THEN
 
     DE%XICEFLUX(:)= 0.
     DO JP=1,KNPATCH
       DO JI=1,NP%AL(JP)%NSIZE_P
         IMASK = NP%AL(JP)%NR_P(JI)
-        DE%XICEFLUX(IMASK) = DE%XICEFLUX(IMASK) + NP%AL(JP)%XPATCH(JI) * NDE%AL(JP)%XICEFLUX(JI)      
+        DE%XICEFLUX(IMASK) = DE%XICEFLUX(IMASK) + NP%AL(JP)%XPATCH(JI) * NDE%AL(JP)%XICEFLUX(JI)
       END DO
     END DO
 
   END IF
-  !  
+  !
 ENDIF
 !
 !       2.     Surface Cumulated Energy fluxes
@@ -141,7 +141,7 @@ IF (OSURF_BUDGETC) THEN
   ! Isba water budget and reservoir time tendencies
   !
   IF(DE%LWATER_BUDGET)THEN
-    !  
+    !
     CALL INIT_WATER_BUD(DEC)
     !
     DEC%XRAINFALL  (:) = DEC%XRAINFALL (:) + PRAIN(:) * PTSTEP
@@ -152,19 +152,19 @@ IF (OSURF_BUDGETC) THEN
   CALL MAKE_AVERAGE_EVAP(DEC,NDEC)
   !
   ! Ice calving flux
-  !  
-  IF(OGLACIER)THEN 
+  !
+  IF(OGLACIER)THEN
 
     DEC%XICEFLUX(:)= 0.
     DO JP=1,KNPATCH
       DO JI=1,NP%AL(JP)%NSIZE_P
         IMASK = NP%AL(JP)%NR_P(JI)
-        DEC%XICEFLUX(IMASK) = DEC%XICEFLUX(IMASK) + NP%AL(JP)%XPATCH(JI) * NDEC%AL(JP)%XICEFLUX(JI)      
+        DEC%XICEFLUX(IMASK) = DEC%XICEFLUX(IMASK) + NP%AL(JP)%XPATCH(JI) * NDEC%AL(JP)%XICEFLUX(JI)
       END DO
     END DO
 
   END IF
-!  
+!
 END IF
 !
 IF (LHOOK) CALL DR_HOOK('AVERAGE_DIAG_EVAP_ISBA_N',1,ZHOOK_HANDLE)
@@ -211,7 +211,7 @@ DO JP=1,KNPATCH
     DEA%XDRAIN (IMASK) = DEA%XDRAIN (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XDRAIN(JI)
     !
     ! Soil lateral subsurface flux
-    DEA%XQSB   (IMASK) = DEA%XQSB   (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XQSB(JI)        
+    DEA%XQSB   (IMASK) = DEA%XQSB   (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XQSB(JI)
     !
     ! Supersaturation runoff
     DEA%XRUNOFF(IMASK) = DEA%XRUNOFF(IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XRUNOFF(JI)
@@ -224,55 +224,55 @@ DO JP=1,KNPATCH
     !
     ! Precipitation intercepted by the vegetation
     DEA%XRRVEG (IMASK) = DEA%XRRVEG (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XRRVEG(JI)
-    !      
+    !
     ! Snow melt
     DEA%XMELT  (IMASK) = DEA%XMELT  (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XMELT(JI)
-    !      
+    !
     ! Flood infiltartion
     DEA%XIFLOOD(IMASK) = DEA%XIFLOOD(IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XIFLOOD(JI)
-    !      
-    ! Precipitation intercepted by the floodplains   
+    !
+    ! Precipitation intercepted by the floodplains
     DEA%XPFLOOD(IMASK) = DEA%XPFLOOD(IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XPFLOOD(JI)
-    !      
-    ! Floodplains evaporation  
+    !
+    ! Floodplains evaporation
     DEA%XLE_FLOOD (IMASK) = DEA%XLE_FLOOD (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLE_FLOOD (JI)
     DEA%XLEI_FLOOD(IMASK) = DEA%XLEI_FLOOD(IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLEI_FLOOD(JI)
-    !      
+    !
     ! irrigation rate (as soil input)
     DEA%XIRRIG_FLUX(IMASK) = DEA%XIRRIG_FLUX(IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XIRRIG_FLUX(JI)
     !
     ! Gross primary production
     DEA%XGPP      (IMASK) = DEA%XGPP      (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XGPP(JI)
     !
-    ! Autotrophic respiration 
+    ! Autotrophic respiration
     DEA%XRESP_AUTO(IMASK) = DEA%XRESP_AUTO(IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XRESP_AUTO(JI)
     !
     ! Ecosystem respiration
-    DEA%XRESP_ECO (IMASK) = DEA%XRESP_ECO (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XRESP_ECO(JI)  
-    !        
+    DEA%XRESP_ECO (IMASK) = DEA%XRESP_ECO (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XRESP_ECO(JI)
+    !
     IF (ISIZE_LMEB_PATCH>0) THEN
       DEA%XLELITTER (IMASK) = DEA%XLELITTER (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLELITTER (JI)
       DEA%XLELITTERI(IMASK) = DEA%XLELITTERI(IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLELITTERI(JI)
       DEA%XDRIPLIT  (IMASK) = DEA%XDRIPLIT  (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XDRIPLIT  (JI)
-      DEA%XRRLIT    (IMASK) = DEA%XRRLIT    (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XRRLIT    (JI)     
+      DEA%XRRLIT    (IMASK) = DEA%XRRLIT    (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XRRLIT    (JI)
 
       DEA%XLEV_CV   (IMASK) = DEA%XLEV_CV   (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLEV_CV   (JI)
       DEA%XLES_CV   (IMASK) = DEA%XLES_CV   (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLES_CV   (JI)
       DEA%XLETR_CV  (IMASK) = DEA%XLETR_CV  (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLETR_CV  (JI)
-      DEA%XLER_CV   (IMASK) = DEA%XLER_CV   (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLER_CV   (JI)      
-      DEA%XLE_CV    (IMASK) = DEA%XLE_CV    (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLE_CV    (JI)       
-      DEA%XH_CV     (IMASK) = DEA%XH_CV     (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XH_CV     (JI)   
+      DEA%XLER_CV   (IMASK) = DEA%XLER_CV   (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLER_CV   (JI)
+      DEA%XLE_CV    (IMASK) = DEA%XLE_CV    (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLE_CV    (JI)
+      DEA%XH_CV     (IMASK) = DEA%XH_CV     (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XH_CV     (JI)
       DEA%XMELT_CV  (IMASK) = DEA%XMELT_CV  (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XMELT_CV  (JI)
-      DEA%XFRZ_CV   (IMASK) = DEA%XFRZ_CV   (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XFRZ_CV   (JI)   
+      DEA%XFRZ_CV   (IMASK) = DEA%XFRZ_CV   (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XFRZ_CV   (JI)
 
       DEA%XLETR_GV  (IMASK) = DEA%XLETR_GV  (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLETR_GV  (JI)
       DEA%XLER_GV   (IMASK) = DEA%XLER_GV   (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLER_GV   (JI)
-      DEA%XLE_GV    (IMASK) = DEA%XLE_GV    (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLE_GV    (JI)      
-      DEA%XH_GV     (IMASK) = DEA%XH_GV     (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XH_GV     (JI)      
+      DEA%XLE_GV    (IMASK) = DEA%XLE_GV    (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLE_GV    (JI)
+      DEA%XH_GV     (IMASK) = DEA%XH_GV     (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XH_GV     (JI)
 
       DEA%XLE_GN    (IMASK) = DEA%XLE_GN    (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLE_GN    (JI)
       DEA%XEVAP_GN  (IMASK) = DEA%XEVAP_GN  (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XEVAP_GN  (JI)
-      DEA%XH_GN     (IMASK) = DEA%XH_GN     (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XH_GN     (JI)      
+      DEA%XH_GN     (IMASK) = DEA%XH_GN     (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XH_GN     (JI)
       DEA%XSR_GN    (IMASK) = DEA%XSR_GN    (IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XSR_GN    (JI)
       DEA%XSWDOWN_GN(IMASK) = DEA%XSWDOWN_GN(IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XSWDOWN_GN(JI)
       DEA%XLWDOWN_GN(IMASK) = DEA%XLWDOWN_GN(IMASK) + NP%AL(JP)%XPATCH(JI) * NDEA%AL(JP)%XLWDOWN_GN(JI)
@@ -295,7 +295,7 @@ ENDDO
 ! Isba water budget and reservoir time tendencies
 !
 IF(DE%LWATER_BUDGET)THEN
-  !  
+  !
   DO JP=1,KNPATCH
   DO JI=1,NP%AL(JP)%NSIZE_P
     IMASK = NP%AL(JP)%NR_P(JI)

@@ -1,14 +1,14 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-SUBROUTINE SFX_XIOS_DECLARE_FIELD(HREC, HDOMAIN, HAXIS, KLEV, HAXIS2, KLEV2, HCOMMENT ,KFREQOP) 
+SUBROUTINE SFX_XIOS_DECLARE_FIELD(HREC, HDOMAIN, HAXIS, KLEV, HAXIS2, KLEV2, HCOMMENT ,KFREQOP)
 !!
 !!
 !!     PURPOSE
 !!     --------
 !!
-!!     Declare field HREC and some attributes to XIOS if needed 
+!!     Declare field HREC and some attributes to XIOS if needed
 
 !!      If 'units' or 'long_name' attribute is not defined using XIOS
 !!     config files , use HCOMMENT to declare it. Same for domain and
@@ -17,9 +17,9 @@ SUBROUTINE SFX_XIOS_DECLARE_FIELD(HREC, HDOMAIN, HAXIS, KLEV, HAXIS2, KLEV2, HCO
 !!     If haxis si provided and is the name of dimension 'patch' and
 !!     haxis2 is not provided, rather proceed by a loop of 2D
 !!     fields declarations
-!!  
+!!
 !!     IMPLICIT ARGUMENTS :
-!!     -------------------- 
+!!     --------------------
 !!
 !!     EXTERNAL
 !!     --------
@@ -29,8 +29,8 @@ SUBROUTINE SFX_XIOS_DECLARE_FIELD(HREC, HDOMAIN, HAXIS, KLEV, HAXIS2, KLEV2, HCO
 !!     REFERENCE
 !!     ---------
 !!
-!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 - 
-!!     svn co -r 515 http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS/branchs/xios-1.0 <dir> 
+!!     XIOS Reference guide - Yann Meurdesoif - 10/10/2014 -
+!!     svn co -r 515 http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS/branchs/xios-1.0 <dir>
 !!       cd <dir>/doc ; ....
 !!
 !!     AUTHOR
@@ -69,7 +69,7 @@ IMPLICIT NONE
  CHARACTER(LEN=*)   ,INTENT(IN)            :: HREC     ! field id
  CHARACTER(LEN=*)   ,INTENT(IN), OPTIONAL  :: HDOMAIN  ! name of the horiz domain
  CHARACTER(LEN=*)   ,INTENT(IN), OPTIONAL  :: HAXIS    ! name of the additional axis
-INTEGER             ,INTENT(IN), OPTIONAL  :: KLEV     ! Axis size 
+INTEGER             ,INTENT(IN), OPTIONAL  :: KLEV     ! Axis size
  CHARACTER(LEN=*)   ,INTENT(IN), OPTIONAL  :: HAXIS2   ! name of second additional axis
 INTEGER            ,INTENT(IN), OPTIONAL  :: KLEV2    ! Second axis size
  CHARACTER(LEN=*)   ,INTENT(IN), OPTIONAL  :: HCOMMENT ! Comment string a la Surfex
@@ -105,13 +105,13 @@ YLCOMMENT=''
 IF (PRESENT(HCOMMENT)) YLCOMMENT=TRIM(HCOMMENT)
 IFREQOP=0
 IF (PRESENT(KFREQOP)) IFREQOP=KFREQOP
-ILEV=0          
+ILEV=0
 IF (PRESENT(KLEV))     ILEV=KLEV
-ILEV2=0         
+ILEV2=0
 IF (PRESENT(KLEV2))    ILEV2=KLEV2
-YAXIS=''        
+YAXIS=''
 IF (PRESENT(HAXIS))    YAXIS=TRIM(HAXIS)
-YAXIS2=''       
+YAXIS2=''
 IF (PRESENT(HAXIS2))   YAXIS2=TRIM(HAXIS2)
 !
 IF (PRESENT(HAXIS) .AND. (YAXIS==TRIM(YPATCH_DIM_NAME)) .AND. .NOT. PRESENT(HAXIS2)) THEN
@@ -120,10 +120,10 @@ IF (PRESENT(HAXIS) .AND. (YAXIS==TRIM(YPATCH_DIM_NAME)) .AND. .NOT. PRESENT(HAXI
   ! actually used : proceed by declaring a set of individual arrays
   IF ( ILEV == 0 ) CALL XIOS_GET_AXIS_ATTR(HAXIS, n_glo=ILEV)
   DO IIDIM=1,ILEV
-    IF ( IIDIM < 10 ) THEN 
+    IF ( IIDIM < 10 ) THEN
       WRITE(YIDIM,'(I1)') IIDIM
     ELSE
-      IF ( IIDIM < 100 ) THEN 
+      IF ( IIDIM < 100 ) THEN
         WRITE(YIDIM,'(I2)') IIDIM
       ELSE
         WRITE(YIDIM,'(I2)') IIDIM
@@ -136,7 +136,7 @@ IF (PRESENT(HAXIS) .AND. (YAXIS==TRIM(YPATCH_DIM_NAME)) .AND. .NOT. PRESENT(HAXI
 ELSE
   !
   ! Standard case
-  ! 
+  !
   CALL SFX_XIOS_DECLARE_FIELD_INTERNAL(HREC, YLDOMAIN, YLCOMMENT, IFREQOP)
   IF (PRESENT(HAXIS))  CALL SFX_XIOS_DECLARE_AXIS_INTERNAL(HREC,YAXIS,ILEV)
   IF (PRESENT(HAXIS2)) CALL SFX_XIOS_DECLARE_AXIS_INTERNAL(HREC,YAXIS2,ILEV2,OSECOND=.TRUE.)
@@ -148,9 +148,9 @@ IF (LHOOK) CALL DR_HOOK('SFX_XIOS_DECLARE_FIELD',1,ZHOOK_HANDLE)
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-CONTAINS 
+CONTAINS
 
-SUBROUTINE SFX_XIOS_DECLARE_FIELD_INTERNAL(HREC, HDOMAIN, HCOMMENT , KFREQOP) 
+SUBROUTINE SFX_XIOS_DECLARE_FIELD_INTERNAL(HREC, HDOMAIN, HCOMMENT , KFREQOP)
 USE MODD_XIOS,       ONLY     : COUTPUT_DEFAULT
 USE MODD_SURF_PAR,   ONLY     : XUNDEF
 USE YOMHOOK    , ONLY         : LHOOK,   DR_HOOK
@@ -191,11 +191,11 @@ IF (LHOOK) CALL DR_HOOK('SFX_XIOS_DECLARE_FIELD',0,ZHOOK_HANDLE)
 !$OMP SINGLE
 !
 ! ----------------------------------------------------------------------
-!  We are still in the XIOS init phase =>  Define field if necessary 
+!  We are still in the XIOS init phase =>  Define field if necessary
 ! ----------------------------------------------------------------------
 !
 IF (.NOT. XIOS_IS_VALID_FIELD(HREC))  THEN
-        
+
   CALL XIOS_GET_HANDLE("field_definition",fieldgroup_hdl)
   CALL XIOS_ADD_CHILD(fieldgroup_hdl,field_hdl,HREC)
   !IF (.NOT. XIOS_IS_VALID_FIELD("default_field")) &
@@ -206,7 +206,7 @@ IF (.NOT. XIOS_IS_VALID_FIELD(HREC))  THEN
   ! If default_ouput file is defined, add this field to it
   ! ----------------------------------------------------------------------
   !
-  IF ( XIOS_IS_VALID_FILE(COUTPUT_DEFAULT)) THEN 
+  IF ( XIOS_IS_VALID_FILE(COUTPUT_DEFAULT)) THEN
     CALL XIOS_GET_HANDLE(COUTPUT_DEFAULT,file_hdl)
     CALL XIOS_ADD_CHILD(file_hdl,field_hdl)
     CALL XIOS_SET_ATTR(field_hdl,field_ref=HREC)
@@ -218,10 +218,10 @@ ENDIF
 !  If field attribute 'domain' is not defined, set it
 ! ----------------------------------------------------------------------
 !
- CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,grid_ref=GGRIDDEF) 
- CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,domain_ref=GISDEF) 
+ CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,grid_ref=GGRIDDEF)
+ CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,domain_ref=GISDEF)
 !
-IF (  .NOT. GISDEF .AND. .NOT. GGRIDDEF ) THEN 
+IF (  .NOT. GISDEF .AND. .NOT. GGRIDDEF ) THEN
   IF (TRIM(HDOMAIN)=='') &
         CALL ABOR1_SFX('SFX_XIOS_DECLARE_FIELD_INTERNAL : MUST PROVIDE HDOMAIN '//HREC)
   !if (trim(hrec)=='PFRSO1') write(0,*) 'Setting domain for PFRSO1 !!!'
@@ -235,18 +235,18 @@ ENDIF
 ! If prec  is not defined , set it to the provided value (def : timestep)
 ! ----------------------------------------------------------------------
 !
-! CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,name=GISDEF) 
-!IF ( .NOT. GISDEF ) THEN 
+! CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,name=GISDEF)
+!IF ( .NOT. GISDEF ) THEN
 !  CALL XIOS_SET_FIELD_ATTR(HREC, name=trim(HREC))
 !ENDIF
 !
 ! ------------------------------------------------------------------------
-! If field attribute 'unit' is not defined or empty, try to guess a value 
+! If field attribute 'unit' is not defined or empty, try to guess a value
 ! from HCOMMENT (using rightmost string between parenthesis)
 ! ------------------------------------------------------------------------
 !
  CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,unit=GISDEF)
-IF ( .NOT. GISDEF ) THEN 
+IF ( .NOT. GISDEF ) THEN
    IPO=INDEX(HCOMMENT,"(",.TRUE.)
    IPF=INDEX(HCOMMENT,")",.TRUE.)
    IF ( (IPO > 0) .AND. (IPF>IPO+1) ) THEN
@@ -255,12 +255,12 @@ IF ( .NOT. GISDEF ) THEN
 ENDIF
 !
 ! ----------------------------------------------------------------------
-! If field attribute 'long_name' is not defined or empty, set it 
+! If field attribute 'long_name' is not defined or empty, set it
 ! ----------------------------------------------------------------------
 !
- CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,long_name=GISDEF) 
-IF ( .NOT. GISDEF .AND. (TRIM(HCOMMENT) /= '') ) THEN 
-  IF (IPO > 1) THEN 
+ CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,long_name=GISDEF)
+IF ( .NOT. GISDEF .AND. (TRIM(HCOMMENT) /= '') ) THEN
+  IF (IPO > 1) THEN
     CALL XIOS_SET_FIELD_ATTR(HREC,long_name=TRIM(HCOMMENT(1:IPO-1)))
   ELSE
     CALL XIOS_SET_FIELD_ATTR(HREC,long_name=TRIM(HCOMMENT(:)))
@@ -281,7 +281,7 @@ IF (LHOOK) CALL DR_HOOK('SFX_XIOS_DECLARE_FIELD_INTERNAL',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE SFX_XIOS_DECLARE_FIELD_INTERNAL
 
-SUBROUTINE SFX_XIOS_DECLARE_AXIS_INTERNAL(HREC, HAXIS, KLEV, OSECOND) 
+SUBROUTINE SFX_XIOS_DECLARE_AXIS_INTERNAL(HREC, HAXIS, KLEV, OSECOND)
 !
 USE YOMHOOK    , ONLY         : LHOOK,   DR_HOOK
 USE PARKIND1   , ONLY         : JPRB
@@ -298,7 +298,7 @@ IMPLICIT NONE
 !   Arguments
 !
 CHARACTER(LEN=*)   ,INTENT(IN) :: HREC     ! field id
-CHARACTER(LEN=*)   ,INTENT(IN) :: HAXIS    ! axis name 
+CHARACTER(LEN=*)   ,INTENT(IN) :: HAXIS    ! axis name
 INTEGER            ,INTENT(IN) :: KLEV     ! axis size
 LOGICAL            ,INTENT(IN),OPTIONAL :: OSECOND  ! Is it a second axis
 !
@@ -312,11 +312,11 @@ REAL(KIND=JPRB)    :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('SFX_XIOS_DECLARE_AXIS_INTERNAL',0,ZHOOK_HANDLE)
 !
 #ifdef WXIOS
- CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,grid_ref=GGRIDDEF) 
-IF (.NOT. GGRIDDEF ) THEN 
+ CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,grid_ref=GGRIDDEF)
+IF (.NOT. GGRIDDEF ) THEN
   ! If an axis is already declared, just do nothing, except
   ! if it is second call
-  CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,axis_ref=GISDEF) 
+  CALL XIOS_IS_DEFINED_FIELD_ATTR(HREC,axis_ref=GISDEF)
   IF ( .NOT. GISDEF .OR. PRESENT(OSECOND)) THEN
     IF ( TRIM(HAXIS) == '')  THEN
       GVALID_AXIS=.FALSE.
@@ -329,8 +329,8 @@ IF (.NOT. GGRIDDEF ) THEN
       GVALID_AXIS=XIOS_IS_VALID_AXIS(trim(HAXIS))
       YAXIS=TRIM(HAXIS)
     ENDIF
-    IF (.NOT. GVALID_AXIS) THEN 
-       IF ( KLEV /= 0) THEN 
+    IF (.NOT. GVALID_AXIS) THEN
+       IF ( KLEV /= 0) THEN
           CALL SET_AXIS(TRIM(HAXIS),KSIZE=KLEV)
           !write(0,*) 'calling set_axis for '//trim(yaxis)//" "//HREC ; call flush(0)
        ELSE

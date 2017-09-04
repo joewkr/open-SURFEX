@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PREP_SURF_ATM_CONF(HPROGRAM,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,&
@@ -33,7 +33,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!      P. Le Moigne 10/2005, Phasage Arome
 !-------------------------------------------------------------------------------
 !
@@ -70,8 +70,8 @@ INTEGER,           INTENT(IN)  :: KLUOUT      ! logical unit of output listing
 !*       0.2   Declarations of local variables
 !              -------------------------------
 !
-INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears 
-                                    ! at the open of the file in LFI  routines 
+INTEGER           :: IRESP          ! IRESP  : return-code if a problem appears
+                                    ! at the open of the file in LFI  routines
 INTEGER           :: ILUNAM         ! Logical unit of namelist file
 !
  CHARACTER(LEN=28) :: YNAMELIST      ! namelist file

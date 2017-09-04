@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 
 MODULE MODE_READ_SURF_LAYERS
@@ -198,13 +198,13 @@ ELSE
         !
         !reads one cover by task
         !
-        !number of the I/O task for this read 
+        !number of the I/O task for this read
         NPIO = NRANK
         !
         !reading of the whol cover (HDIR='A')
         CALL MAKE_CHOICE_ARRAY(HPROGRAM, INPATCH, ODIM, YREC, ZFIELD, HDIR='A', KPATCH=IPATCH)
         !
-        !NPIO rebecomes the I/O task 
+        !NPIO rebecomes the I/O task
         NPIO = IPIO_SAVE
         !
         IDX = IDX_SAVE + JP
@@ -217,7 +217,7 @@ ELSE
           !
           !NPIO needs to know all covers read
           IF (NRANK/=NPIO) THEN
-            IDX = IDX + 1 
+            IDX = IDX + 1
 #ifdef SFX_MPI
             CALL MPI_SEND(ZFIELD,SIZE(ZFIELD)*KIND(ZFIELD)/4,MPI_REAL,NPIO,IDX,NCOMM,INFOMPI)
 #endif
@@ -228,7 +228,7 @@ ELSE
         ELSE
           CALL ABOR1_SFX("READ_SURF_LAYERS:HDIR MUST BE H OR A OR E")
         ENDIF
-        !   
+        !
       ENDIF
       !
     ENDIF
@@ -254,13 +254,13 @@ IF (LHOOK) CALL DR_HOOK('READ_SURF_LAYERS_4',0,ZHOOK_HANDLE_OMP)
             ITREQ(JPROC+1) = JPROC+1
           ELSE
             ITREQ(JPROC+1) = JPROC
-          ENDIF    
-          !     
+          ENDIF
+          !
           IF (JPROC/=NRANK) THEN
             IDX = IDX_SAVE + JP + 1
-            !each task receives the part of the cover read that concerns it 
+            !each task receives the part of the cover read that concerns it
             !only NPIO in cas of HDIR/=H
-#ifdef SFX_MPI            
+#ifdef SFX_MPI
             CALL MPI_RECV(ZWORKR(:,:,ITREQ(JPROC+1)),SIZE(ZWORKR,1)*SIZE(ZWORKR,2)*KIND(ZWORKR)/4,&
                           MPI_REAL,JPROC,IDX,NCOMM,ISTATUS,INFOMPI)
 #endif
@@ -273,7 +273,7 @@ IF (LHOOK) CALL DR_HOOK('READ_SURF_LAYERS_4',0,ZHOOK_HANDLE_OMP)
 !$OMP END DO
 #endif
 IF (LHOOK) CALL DR_HOOK('READ_SURF_LAYERS_4',1,ZHOOK_HANDLE_OMP)
-!$OMP END PARALLEL 
+!$OMP END PARALLEL
 
 !
       IF (LHOOK) CALL DR_HOOK('READ_SURF_LAYERS_5',0,ZHOOK_HANDLE)
@@ -318,7 +318,7 @@ IF (LHOOK) CALL DR_HOOK('READ_SURF_LAYERS_6',1,ZHOOK_HANDLE_OMP)
   DEALLOCATE(ZWORKR)
   DEALLOCATE(ZFIELD)
   IMASKF=>NULL()
-  !  
+  !
   IF (LHOOK) CALL DR_HOOK('READ_SURF_LAYERS_7',1,ZHOOK_HANDLE)
   !
 ENDIF

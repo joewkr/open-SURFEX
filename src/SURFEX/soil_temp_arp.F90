@@ -1,33 +1,33 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE SOIL_TEMP_ARP(PTSTEP,PA,PB,PC,PGAMMAT,PTDEEP,PSODELX,PTG)
 !     ############################################################
 !
-!!****  *SOIL_TEMP_ARP*  
+!!****  *SOIL_TEMP_ARP*
 !
 !!    PURPOSE
 !!    -------
-!     This subroutine solves the ARPEGE 1-d surface and deep force-restore 
-!     'PTG' using the backward-difference scheme (implicit) as in soil_heatdiff. 
+!     This subroutine solves the ARPEGE 1-d surface and deep force-restore
+!     'PTG' using the backward-difference scheme (implicit) as in soil_heatdiff.
 !     The eqs are solved rapidly by taking advantage of the
 !     fact that the matrix is tridiagonal. Soln to the eqs:
 !
-!                   dTi       S1   
+!                   dTi       S1
 !                   --- =  Ct --  (Gi - Gi+1)
 !                   dt        Si
 !
 !     with        |  G1 = Rn-H-LE
 !                 |
 !                 |         2Pi         1
-!                 |  Gi = ------  -------------- (Ti-1 - Ti) 
+!                 |  Gi = ------  -------------- (Ti-1 - Ti)
 !                 |       Ct*Day  S1 (Si-1 + Si)
-!                 
+!
 !
 !     where Si = pulsation depth, i=1 is the surface
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -43,10 +43,10 @@
 !!
 !!    USE MODD_SURF_PAR
 !!    USE MODI_TRIDIAG_GROUND
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      B. Decharme          * Meteo-France *
@@ -84,7 +84,7 @@ REAL, DIMENSION(:), INTENT(IN)     :: PTDEEP, PGAMMAT
 !                                               (surface temperature) depth.
 !                                      PGAMMAT  = Deep soil heat transfer coefficient:
 !                                                assuming homogeneous soil so that
-!                                                this can be prescribed in units of 
+!                                                this can be prescribed in units of
 !                                                (1/days): associated time scale with
 !                                                PTDEEP.
 REAL, DIMENSION(:), INTENT (IN)     ::  PSODELX   ! Pulsation for each layer (Only used if LTEMP_ARP=True)
@@ -100,7 +100,7 @@ INTEGER                             :: JJ ! Loop counter
 INTEGER                             :: INLVLD ! Number of points and grid layers
 !
 REAL, DIMENSION(SIZE(PTG,1),SIZE(PTG,2))  :: ZTGM, ZFRCV, ZAMTRX, ZBMTRX,     &
-                                             ZCMTRX, ZLAMBDA, ZALPHA  
+                                             ZCMTRX, ZLAMBDA, ZALPHA
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !-------------------------------------------------------------------------------
@@ -143,30 +143,30 @@ ZFRCV (:,1) =  PB(:)*ZTGM(:,1)+PC(:)-2.0*XPI*ZTGM(:,2)/XDAY
 ! Interior Grid
 !
 DO JJ=2,INLVLD-1
-   ZAMTRX(:,JJ) = -ZLAMBDA(:,JJ-1) 
+   ZAMTRX(:,JJ) = -ZLAMBDA(:,JJ-1)
    ZBMTRX(:,JJ) =  ZALPHA(:,JJ) + ZLAMBDA(:,JJ-1) + ZLAMBDA(:,JJ)
    ZCMTRX(:,JJ) = -ZLAMBDA(:,JJ)
-   ZFRCV(:,JJ)  =  ZALPHA(:,JJ)*ZTGM(:,JJ) 
+   ZFRCV(:,JJ)  =  ZALPHA(:,JJ)*ZTGM(:,JJ)
 ENDDO
 !
 ! Lower BC: 2 currently accounted for, Either zero flux
-! or a fixed temperature 'TDEEP' 
+! or a fixed temperature 'TDEEP'
 !
-ZAMTRX(:,INLVLD) = -ZLAMBDA(:,INLVLD-1) 
-ZCMTRX(:,INLVLD) =  0.0                
+ZAMTRX(:,INLVLD) = -ZLAMBDA(:,INLVLD-1)
+ZCMTRX(:,INLVLD) =  0.0
 !
 WHERE(PTDEEP(:) /= XUNDEF .AND. PGAMMAT(:) /= XUNDEF)
    ZBMTRX(:,INLVLD) =  ZALPHA(:,INLVLD) + ZLAMBDA(:,INLVLD-1) + PTSTEP*PGAMMAT(:)/XDAY
    ZFRCV (:,INLVLD) =  ZALPHA(:,INLVLD)*ZTGM(:,INLVLD) + PTSTEP*PGAMMAT(:)*PTDEEP(:)/XDAY
 ELSEWHERE
-   ZBMTRX(:,INLVLD) =  ZALPHA(:,INLVLD) + ZLAMBDA(:,INLVLD-1) 
-   ZFRCV (:,INLVLD) =  ZALPHA(:,INLVLD)*ZTGM(:,INLVLD) 
+   ZBMTRX(:,INLVLD) =  ZALPHA(:,INLVLD) + ZLAMBDA(:,INLVLD-1)
+   ZFRCV (:,INLVLD) =  ZALPHA(:,INLVLD)*ZTGM(:,INLVLD)
 END WHERE
 !
 !-------------------------------------------------------------------------------
 !
-! Compute ZTGM (solution vector) 
-! used for systems of equations involving tridiagonal 
+! Compute ZTGM (solution vector)
+! used for systems of equations involving tridiagonal
 ! matricies.
 !
  CALL TRIDIAG_GROUND(ZAMTRX,ZBMTRX,ZCMTRX,ZFRCV,ZTGM)

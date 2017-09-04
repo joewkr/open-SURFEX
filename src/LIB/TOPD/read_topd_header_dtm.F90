@@ -1,17 +1,17 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
       SUBROUTINE READ_TOPD_HEADER_DTM(HPROGRAM,HFILE,HFORM,PX0,PY0,KNXC,KNYC,PNUL,PDXT)
 !     #######################
 !
-!!****  *READ_TOPD_HEADER*  
+!!****  *READ_TOPD_HEADER*
 !!
 !!    PURPOSE
 !!    -------
-!     This routine aims at reading topographic files header 
+!     This routine aims at reading topographic files header
 !     for a given file (then for a cathment)
 !
 !!**  METHOD
@@ -23,17 +23,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -65,16 +65,16 @@ IMPLICIT NONE
  CHARACTER(LEN=*),  INTENT(IN)  :: HPROGRAM   !
  CHARACTER(LEN=*),  INTENT(IN)  :: HFILE      ! File to be read
  CHARACTER(LEN=*),  INTENT(IN)  :: HFORM      ! Format of the file to be read
-REAL,              INTENT(OUT) :: PX0        ! abcissa of bottom-left pixel   
-REAL,              INTENT(OUT) :: PY0        ! ordinate of bottom-left pixel   
-INTEGER,           INTENT(OUT) :: KNXC       ! number of topographixc grid points along abcissa axis   
-INTEGER,           INTENT(OUT) :: KNYC       ! number of topographixc grid points along ordinate axis   
+REAL,              INTENT(OUT) :: PX0        ! abcissa of bottom-left pixel
+REAL,              INTENT(OUT) :: PY0        ! ordinate of bottom-left pixel
+INTEGER,           INTENT(OUT) :: KNXC       ! number of topographixc grid points along abcissa axis
+INTEGER,           INTENT(OUT) :: KNYC       ! number of topographixc grid points along ordinate axis
 REAL,              INTENT(OUT) :: PNUL       ! undifined value in topographic files
-REAL,              INTENT(OUT) :: PDXT       ! catchment rid mesh size   
+REAL,              INTENT(OUT) :: PDXT       ! catchment rid mesh size
 !
 !*      0.2    declarations of local variables
 !
-INTEGER                   :: JJ          ! loop control 
+INTEGER                   :: JJ          ! loop control
 INTEGER                   :: ILUOUT      ! Unit of the files
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ WRITE(ILUOUT,*) 'Open ',HFILE,'header'
  CALL OPEN_FILE(HPROGRAM,NUNIT,HFILE,HFORM,HACTION='READ')
 !
 DO JJ=1,5
-  READ(NUNIT,*) 
+  READ(NUNIT,*)
 ENDDO
 !
 READ(NUNIT,*) PX0
@@ -112,4 +112,4 @@ END SUBROUTINE READ_TOPD_HEADER_DTM
 
 
 
- 
+

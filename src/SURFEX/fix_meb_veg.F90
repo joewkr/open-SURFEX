@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
       SUBROUTINE FIX_MEB_VEG (DTV, KDIM, OMEB_PATCH, KPATCH)
@@ -59,7 +59,7 @@ USE MODD_DATA_ISBA_n, ONLY : DATA_ISBA_t
 USE MODD_DATA_COVER,     ONLY : XDATA_VEG
 USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE
 !
-USE MODI_VEGTYPE_TO_PATCH 
+USE MODI_VEGTYPE_TO_PATCH
 !
 !
 !
@@ -120,6 +120,6 @@ ENDDO
 !
 IF (LHOOK) CALL DR_HOOK('FIX_MEB_VEG',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
-!   
+!
 END SUBROUTINE FIX_MEB_VEG
 

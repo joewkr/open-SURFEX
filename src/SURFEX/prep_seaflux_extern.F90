@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_SEAFLUX_EXTERN (GCP,HPROGRAM,HSURF,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,KLUOUT,PFIELD)
@@ -105,7 +105,7 @@ SELECT CASE(HSURF)
     CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'SEA   ')
     CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
     CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
-    WHERE (ZMASK(:)==0.) PFIELD(:,1) = XUNDEF    
+    WHERE (ZMASK(:)==0.) PFIELD(:,1) = XUNDEF
 !
 !*      5.  Sea surface salinity
 !           --------------------
@@ -120,7 +120,7 @@ SELECT CASE(HSURF)
       CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'SEA   ')
       CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
       CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
-      WHERE (ZMASK(:)==0.) PFIELD(:,1) = XUNDEF      
+      WHERE (ZMASK(:)==0.) PFIELD(:,1) = XUNDEF
     ELSE
       PFIELD = 0.0
     ENDIF

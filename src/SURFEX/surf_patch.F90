@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#####################
 MODULE MODI_SURF_PATCH
@@ -18,7 +18,7 @@ REAL, DIMENSION(:,:,:), OPTIONAL, INTENT(OUT) :: PVEGTYPE_PATCH  ! vegtype fract
 END SUBROUTINE SURF_PATCH_2D
       SUBROUTINE SURF_PATCH_1D(KPATCH,KNPATCH,PVEGTYPE,PPATCH,PVEGTYPE_PATCH)
 
-INTEGER               , INTENT(IN)  :: KPATCH   ! 
+INTEGER               , INTENT(IN)  :: KPATCH   !
 INTEGER               , INTENT(IN)  :: KNPATCH   ! number of patches
 REAL, DIMENSION(:,:),   INTENT(IN)  :: PVEGTYPE ! vegtype fractions
 REAL, DIMENSION(:),   INTENT(OUT) :: PPATCH   ! patch weight in nature fraction
@@ -51,15 +51,15 @@ END MODULE MODI_SURF_PATCH
 !!    --------
 !!
 !!
-!! 
+!!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -120,7 +120,7 @@ END DO
 IF (PRESENT(PVEGTYPE_PATCH)) THEN
   DO JPATCH=1,KNPATCH
     DO JVEG=1,NVEGTYPE
-      WHERE (PVEGTYPE (:,JVEG) /= XUNDEF .AND. PPATCH(:,JPATCH)/= 0.) 
+      WHERE (PVEGTYPE (:,JVEG) /= XUNDEF .AND. PPATCH(:,JPATCH)/= 0.)
         PVEGTYPE_PATCH(:,JVEG,JPATCH) = PVEGTYPE_PATCH(:,JVEG,JPATCH) / PPATCH(:,JPATCH)
       END WHERE
     END DO
@@ -154,15 +154,15 @@ END SUBROUTINE SURF_PATCH_2D
 !!    --------
 !!
 !!
-!! 
+!!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -223,7 +223,7 @@ DO JVEG=1,NVEGTYPE
 END DO
 IF (PRESENT(PVEGTYPE_PATCH)) THEN
   DO JVEG=1,NVEGTYPE
-    WHERE (PVEGTYPE (:,JVEG) /= XUNDEF .AND. PPATCH(:)/= 0.) 
+    WHERE (PVEGTYPE (:,JVEG) /= XUNDEF .AND. PPATCH(:)/= 0.)
       PVEGTYPE_PATCH(:,JVEG) = PVEGTYPE_PATCH(:,JVEG) / PPATCH(:)
     END WHERE
   END DO

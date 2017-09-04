@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##############################
       MODULE MODE_GRIDTYPE_LONLATVAL
@@ -29,7 +29,7 @@ CONTAINS
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    02/2010 
+!!      Original    02/2010
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -82,7 +82,7 @@ END SUBROUTINE PUT_GRIDTYPE_LONLATVAL
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    02/2010 
+!!      Original    02/2010
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -158,14 +158,14 @@ END SUBROUTINE GET_GRIDTYPE_LONLATVAL
 !!
 !!     REFERENCE
 !!     ---------
-!!       
+!!
 !!     AUTHOR
 !!     ------
 !!      S.Faroux   *Meteo-France*
 !!
 !!     MODIFICATION
 !!     ------------
-!!       Original  02/2010        
+!!       Original  02/2010
 !-------------------------------------------------------------------------------
 !
 !*     0.     DECLARATIONS
@@ -174,20 +174,20 @@ END SUBROUTINE GET_GRIDTYPE_LONLATVAL
 IMPLICIT NONE
 !
 !*     0.1    Declarations of arguments and results
-!       
+!
 REAL, DIMENSION(:),   INTENT(IN) :: PX,PY
-                                           ! given conformal coordinates of the 
+                                           ! given conformal coordinates of the
                                            ! processed points (meters);
-REAL, DIMENSION(:),   INTENT(OUT):: PLAT,PLON    
+REAL, DIMENSION(:),   INTENT(OUT):: PLAT,PLON
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
-                                           ! returned geographic latitudes and 
-                                           ! longitudes of the processed points 
+                                           ! returned geographic latitudes and
+                                           ! longitudes of the processed points
                                            ! (degrees).
 !
 !
       IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_LONLATVAL:LATLON_LONLATVAL',0,ZHOOK_HANDLE)
       PLON(:)=PX(:)
-!   
+!
       PLAT(:)=PY(:)
 IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_LONLATVAL:LATLON_LONLATVAL',1,ZHOOK_HANDLE)
 !

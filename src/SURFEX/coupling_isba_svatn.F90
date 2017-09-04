@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_ISBA_SVAT_n (DTCO, UG, U, USS, IM, NDST, SLT, HPROGRAM, HCOUPLING, PTSTEP, &
@@ -10,11 +10,11 @@ SUBROUTINE COUPLING_ISBA_SVAT_n (DTCO, UG, U, USS, IM, NDST, SLT, HPROGRAM, HCOU
                                  PSW_BANDS, PPS, PPA, PSFTQ, PSFTH, PSFTS, PSFCO2, PSFU, PSFV,&
                                  PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF, PZ0, PZ0H, PQSURF, &
                                  PPEW_A_COEF, PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF,          &
-                                 PPET_B_COEF, PPEQ_B_COEF, HTEST    )  
+                                 PPET_B_COEF, PPEQ_B_COEF, HTEST    )
 !     ###############################################################################
 !
-!!****  *COUPLING_ISBA_SVAT_n * - Chooses the time method (explicit, 
-!!        implicit, time-spliting) for ISBA scheme   
+!!****  *COUPLING_ISBA_SVAT_n * - Chooses the time method (explicit,
+!!        implicit, time-spliting) for ISBA scheme
 !!
 !!    PURPOSE
 !!    -------
@@ -24,11 +24,11 @@ SUBROUTINE COUPLING_ISBA_SVAT_n (DTCO, UG, U, USS, IM, NDST, SLT, HPROGRAM, HCOU
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -137,10 +137,10 @@ REAL, DIMENSION(KI), INTENT(IN) :: PPEQ_B_COEF
 !
 !*      0.2    declarations of local variables
 !
-REAL, DIMENSION(KI)     :: ZSFTH   ! surface temperature flux 
-REAL, DIMENSION(KI)     :: ZSFTQ   ! surface water vapor flux 
-REAL, DIMENSION(KI)     :: ZSFCO2  ! surface CO2 flux 
-REAL, DIMENSION(KI,KSV) :: ZSFTS   ! surface scalar flux   
+REAL, DIMENSION(KI)     :: ZSFTH   ! surface temperature flux
+REAL, DIMENSION(KI)     :: ZSFTQ   ! surface water vapor flux
+REAL, DIMENSION(KI)     :: ZSFCO2  ! surface CO2 flux
+REAL, DIMENSION(KI,KSV) :: ZSFTS   ! surface scalar flux
 REAL, DIMENSION(KI)     :: ZSFU    ! zonal momentum flux
 REAL, DIMENSION(KI)     :: ZSFV    ! meridian momentum flux
 REAL, DIMENSION(KI)     :: ZTRAD   ! surface radiative temperature
@@ -206,10 +206,10 @@ PZ0     = 0.0
 PZ0H    = 0.0
 PQSURF  = 0.0
 !
-ZSFTH   = 0.0  ! surface temperature flux 
-ZSFTQ   = 0.0  ! surface water vapor flux 
-ZSFCO2  = 0.0  ! surface CO2 flux 
-ZSFTS   = 0.0  ! surface scalar flux   
+ZSFTH   = 0.0  ! surface temperature flux
+ZSFTQ   = 0.0  ! surface water vapor flux
+ZSFCO2  = 0.0  ! surface CO2 flux
+ZSFTS   = 0.0  ! surface scalar flux
 ZSFU    = 0.0  ! zonal momentum flux
 ZSFV    = 0.0  ! meridian momentum flux
 ZTRAD   = 0.0  ! surface radiative temperature
@@ -239,7 +239,7 @@ DO JT=1,IT
                                  PDIR_SW, PSCA_SW, PSW_BANDS, PPS, PPA, ZSFTQ, ZSFTH, ZSFTS,   &
                                  ZSFCO2, ZSFU, ZSFV, ZTRAD, ZDIR_ALB, ZSCA_ALB, ZEMIS, ZTSURF, &
                                  ZZ0, ZZ0H, ZQSURF, PPEW_A_COEF, PPEW_B_COEF, PPET_A_COEF,     &
-                                 PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, 'OK'    ) 
+                                 PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, 'OK'    )
 !
   PSFTQ    = PSFTQ    + ZSFTQ    / ZT
   PSFTH    = PSFTH    + ZSFTH    / ZT
@@ -252,11 +252,11 @@ DO JT=1,IT
   PSCA_ALB = PSCA_ALB + ZSCA_ALB / ZT
   PTSURF   = PTSURF   + ZTSURF   / ZT
   PQSURF   = PQSURF   + ZQSURF   / ZT
-!  
+!
   ZWORK_LW  = ZWORK_LW  + ZEMIS*ZTRAD**4 / ZT
   ZWORK_Z0  = ZWORK_Z0  + (1.0/(LOG(PUREF(:)/ZZ0 ))**2) / ZT
   ZWORK_Z0H = ZWORK_Z0H + (1.0/(LOG(PZREF(:)/ZZ0H))**2) / ZT
-!  
+!
 END DO
 !
 !* radiative temperature retrieved from upward longwave flux

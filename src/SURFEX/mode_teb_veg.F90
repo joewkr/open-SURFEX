@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_TEB_VEG
 !
@@ -26,7 +26,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('MODE_TEB_VEG:INIT_IF_DIF',0,ZHOOK_HANDLE)
 !
 WHERE(PMASK(:)/=0.)
-  P%NWG_LAYER(:)=KGROUND_LAYER 
+  P%NWG_LAYER(:)=KGROUND_LAYER
   P%XDG2  (:)=0.0
   P%XDROOT(:)=0.0
 ENDWHERE
@@ -70,7 +70,7 @@ WHERE (PMASK(:)==0.)
   PEK%XALBVIS_VEG(:)=0.30
   PEK%XALBUV_VEG(:)=0.06
   PEK%XEMIS(:)=0.94
-ENDWHERE  
+ENDWHERE
 IF (IO%CPHOTO/='NON') THEN
   WHERE (PMASK(:)==0.)
     PEK%XGMES(:)=0.020
@@ -81,12 +81,12 @@ IF (IO%CPHOTO/='NON') THEN
     P%XRE25(:)=3.6E-7
     PEK%XGC(:)=0.00025
   END WHERE
-  WHERE (PMASK(:)==0.) 
+  WHERE (PMASK(:)==0.)
     P%XDMAX(:)=0.1
     PEK%XF2I(:)=0.3
   END WHERE
   IF (IO%CPHOTO=='NIT' .OR. IO%CPHOTO=='NCB') THEN
-    WHERE (PMASK(:)==0.)      
+    WHERE (PMASK(:)==0.)
       PEK%XCE_NITRO(:)=7.68
       PEK%XCF_NITRO(:)=-4.33
       PEK%XCNA_NITRO(:)=1.3
@@ -100,7 +100,7 @@ IF(IO%CISBA/='DIF')THEN
     END WHERE
   ENDDO
 ELSE
-  WHERE (PMASK(:)==0.) 
+  WHERE (PMASK(:)==0.)
     P%XDG(:,1)=0.01
     P%XDG(:,2)=0.04
     P%XROOTFRAC(:,1)=0.
@@ -111,16 +111,16 @@ ELSE
       P%XDG(:,JL)=0.1*(JL-2)
       P%XROOTFRAC(:,JL)=0.
     END WHERE
-  ENDDO       
-  WHERE (PMASK(:)==0.) 
+  ENDDO
+  WHERE (PMASK(:)==0.)
     P%NWG_LAYER(:)=IO%NGROUND_LAYER
     P%XDROOT   (:)=0.0
     P%XDG2     (:)=P%XDG(:,IO%NGROUND_LAYER-1)
-  ENDWHERE    
-ENDIF  
-WHERE (PMASK(:)==0.) 
+  ENDWHERE
+ENDIF
+WHERE (PMASK(:)==0.)
   P%XD_ICE(:)=0.8*P%XDG(:,2)
-END WHERE  
+END WHERE
 !
 IF (LHOOK) CALL DR_HOOK('MODE_TEB_VEG:INIT_IF_NOVEG',1,ZHOOK_HANDLE)
 !

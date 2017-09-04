@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_FLAKE (DTCO, FG, F, UG, U, USS, HPROGRAM,ORM_RIVER)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -131,7 +131,7 @@ NAMELIST/NAM_DATA_FLAKE/ YWATER_DEPTH, YWATER_DEPTH_STATUS, YWATER_DEPTHFILETYPE
                          XUNIF_WATER_FETCH, YT_BS, YT_BSFILETYPE, XUNIF_T_BS,         &
                          YDEPTH_BS, YDEPTH_BSFILETYPE, XUNIF_DEPTH_BS,                &
                          YEXTCOEF_WATER, YEXTCOEF_WATERFILETYPE, XUNIF_EXTCOEF_WATER, &
-                         XMAX_DEPTH  
+                         XMAX_DEPTH
 !-------------------------------------------------------------------------------
 !
 IF (LHOOK) CALL DR_HOOK('PGD_FLAKE',0,ZHOOK_HANDLE)
@@ -193,23 +193,23 @@ ALLOCATE(FG%XLAT       (FG%NDIM))
 ALLOCATE(FG%XLON       (FG%NDIM))
 ALLOCATE(FG%XMESH_SIZE (FG%NDIM))
 !
- CALL PACK_PGD(DTCO, U, HPROGRAM, 'WATER ', FG, F%LCOVER, F%XCOVER, F%XZS  )  
+ CALL PACK_PGD(DTCO, U, HPROGRAM, 'WATER ', FG, F%LCOVER, F%XCOVER, F%XZS  )
 !
 !-------------------------------------------------------------------------------
 !
 !*    5.      Water depth
 !             -----------
 !
-ALLOCATE(F%XWATER_DEPTH  (FG%NDIM)) 
+ALLOCATE(F%XWATER_DEPTH  (FG%NDIM))
 !
 IF (TRIM(YWATER_DEPTH)==TRIM(CLAKELDB) .AND. TRIM(YWATER_DEPTHFILETYPE)=='DIRECT') THEN
-  !      
+  !
   IF (TRIM(YWATER_DEPTH_STATUS)=='') THEN
      WRITE(ILUOUT,*)'Depth Status file name not initialized'
      WRITE(ILUOUT,*)'add YWATER_DEPTH_STATUS="GlobalLakeStatus" in NAM_DATA_FLAKE'
      CALL ABOR1_SFX('PGD_FLAKE: STATUS INPUT FILE NAME NOT SET')
   ELSEIF (TRIM(YWATER_DEPTH_STATUS)==TRIM(CSTATUSLDB)) THEN
-     ALLOCATE(IWATER_STATUS  (FG%NDIM))       
+     ALLOCATE(IWATER_STATUS  (FG%NDIM))
      CALL TREAT_GLOBAL_LAKE_DEPTH(DTCO, UG, U, USS, &
                                   HPROGRAM,F%XWATER_DEPTH(:),IWATER_STATUS(:))
   ELSE
@@ -229,7 +229,7 @@ ELSE
      WRITE(ILUOUT,*)'energy budget, please use the two files for the  '
      WRITE(ILUOUT,*)'Kourzeneva 2009 method: ',CLAKELDB(1:LEN_TRIM(CLAKELDB)),' ',&
                                                CSTATUSLDB(1:LEN_TRIM(CSTATUSLDB))
-     CALL ABOR1_SFX('PGD_FLAKE: WITH THIS VERSION OF FLAKE, LRM_RIVER MUST BE TRUE')         
+     CALL ABOR1_SFX('PGD_FLAKE: WITH THIS VERSION OF FLAKE, LRM_RIVER MUST BE TRUE')
   ENDIF
   !
   CATYPE='INV'
@@ -246,7 +246,7 @@ WRITE(ILUOUT,*)'MAXIMUM LAKE DEPTH = ',XMAX_DEPTH
 !*    6.      Wind fetch
 !             ----------
 !
-ALLOCATE(F%XWATER_FETCH  (FG%NDIM)) 
+ALLOCATE(F%XWATER_FETCH  (FG%NDIM))
 !
 CATYPE='ARI'
 CALL PGD_FIELD(DTCO, UG, U, USS, &
@@ -257,7 +257,7 @@ CALL PGD_FIELD(DTCO, UG, U, USS, &
 !*    7.      Sediments bottom temperature
 !             ----------------------------
 !
-ALLOCATE(F%XT_BS         (FG%NDIM)) 
+ALLOCATE(F%XT_BS         (FG%NDIM))
 !
 CATYPE='ARI'
 CALL PGD_FIELD(DTCO, UG, U, USS, &
@@ -268,7 +268,7 @@ CALL PGD_FIELD(DTCO, UG, U, USS, &
 !*    8.      Depth of sediments layer
 !             ------------------------
 !
-ALLOCATE(F%XDEPTH_BS     (FG%NDIM)) 
+ALLOCATE(F%XDEPTH_BS     (FG%NDIM))
 !
 CATYPE='INV'
 CALL PGD_FIELD(DTCO, UG, U, USS, &
@@ -279,13 +279,13 @@ CALL PGD_FIELD(DTCO, UG, U, USS, &
 !*    9.      Water extinction coefficient
 !             ----------------------------
 
-ALLOCATE(F%XEXTCOEF_WATER(FG%NDIM)) 
+ALLOCATE(F%XEXTCOEF_WATER(FG%NDIM))
 !
 CATYPE='ARI'
 CALL PGD_FIELD(DTCO, UG, U, USS, &
                  HPROGRAM,'water extinction coefficient','WAT', &
                  YEXTCOEF_WATER,YEXTCOEF_WATERFILETYPE,XUNIF_EXTCOEF_WATER, &
-                 F%XEXTCOEF_WATER(:))  
+                 F%XEXTCOEF_WATER(:))
 !
 !-------------------------------------------------------------------------------
 !

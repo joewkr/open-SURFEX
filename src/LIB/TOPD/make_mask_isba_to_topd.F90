@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
       SUBROUTINE MAKE_MASK_ISBA_TO_TOPD(KI)
 !     #######################
 !
-!!****  *MAKE_MASK_ISBA_TO_TOPD*  
+!!****  *MAKE_MASK_ISBA_TO_TOPD*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     Create a mask for each Surfex mesh and each catchment. 
-!         
-!     
+!     Create a mask for each Surfex mesh and each catchment.
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,15 +24,15 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!                          
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-     
+
 !!    AUTHOR
 !!    ------
 !!
-!!      K. Chancibault  * CNRM * 
+!!      K. Chancibault  * CNRM *
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -79,7 +79,7 @@ DO JCAT = 1,NNCAT
     IF ((NMASKT(JCAT,JPIX)/=0).AND.(NMASKT(JCAT,JPIX)/=NUNDEF)) THEN
       !indice du point du bassin versant dans la maille isba
       INBPIX_IN_MESH(NMASKT(JCAT,JPIX)) = INBPIX_IN_MESH(NMASKT(JCAT,JPIX)) + 1
-      ! nmaski associe à la maille isba, au bassin versant et au numéro du point 
+      ! nmaski associe à la maille isba, au bassin versant et au numéro du point
       ! du bassin versant dans la maille isba, l'indice du point dans le bassin
       ! versant
       NMASKI(NMASKT(JCAT,JPIX),JCAT,INBPIX_IN_MESH(NMASKT(JCAT,JPIX))) = JPIX

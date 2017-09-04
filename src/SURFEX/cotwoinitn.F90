@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-      SUBROUTINE COTWOINIT_n (IO, S, PK, PEK, PCO2  )  
+      SUBROUTINE COTWOINIT_n (IO, S, PK, PEK, PCO2  )
 !     #######################################################################
 !
-!!****  *COTWOINIT*  
+!!****  *COTWOINIT*
 !!
 !!    PURPOSE
 !!    -------
 !
-!     Initialize model to calculate net assimilation of 
+!     Initialize model to calculate net assimilation of
 !     CO2 and leaf conductance.
-!              
+!
 !!**  METHOD
 !!    ------
 !     Calvet at al (1998) [from model of Jacobs(1994)]
@@ -24,15 +24,15 @@
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    USE MODD_CO2V_PAR
-!!    USE MODI_COTWO  
+!!    USE MODI_COTWO
 !!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Calvet et al. (1998)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -49,12 +49,12 @@
 !!      (L. Jarlan)   10/2004:   initialization of DMAX
 !!      P Le Moigne   09/2005    AGS modifs of L. Jarlan
 !!      S. Lafont     03/2009    change unit of AMAX
-!!      A.L. Gibelin  04/2009    TAU_WOOD for NCB option 
-!!      A.L. Gibelin  04/2009    Suppress useless GPP and RDK arguments 
+!!      A.L. Gibelin  04/2009    TAU_WOOD for NCB option
+!!      A.L. Gibelin  04/2009    Suppress useless GPP and RDK arguments
 !!      A.L. Gibelin  07/2009    Suppress PPST and PPSTF as outputs
 !!      B. Decharme   05/2012    Optimization
 !!      R. Alkama     05/2012    add 7 new vegtype (19  instead 12)
-!!      C. Delire     01/2014    Define a dummy LAI from top and total lai for Dark respiration 
+!!      C. Delire     01/2014    Define a dummy LAI from top and total lai for Dark respiration
 !!
 !-------------------------------------------------------------------------------
 !
@@ -69,10 +69,10 @@ USE MODD_CSTS,           ONLY : XMD
 USE MODD_CO2V_PAR,       ONLY : XTOPT, XFZERO1, XFZERO2, XFZEROTROP, XEPSO, XGAMM, XQDGAMM, &
                                   XQDGMES, XT1GMES, XT2GMES, XAMAX,               &
                                   XQDAMAX, XT1AMAX, XT2AMAX, XAH, XBH,            &
-                                  XDSPOPT, XIAOPT, XAW, XBW, XMCO2, XMC, XTAU_WOOD  
-! 
+                                  XDSPOPT, XIAOPT, XAW, XBW, XMCO2, XMC, XTAU_WOOD
+!
 USE MODE_COTWO,          ONLY : GAULEG
-USE MODI_COTWO  
+USE MODI_COTWO
 !
 !*       0.     DECLARATIONS
 !               ------------
@@ -102,7 +102,7 @@ INTEGER                           :: ICO2TYPE  ! type of CO2 vegetation
 INTEGER                           :: IRAD      ! with or without new radiative transfer
 !
 REAL, DIMENSION(SIZE(PK%XANMAX))     :: ZGS, ZGAMMT, ZTOPT, ZANMAX, ZGMEST, ZGPP, ZRDK, ZEPSO
-!                                    ZTOPT     = optimum  temperature for compensation 
+!                                    ZTOPT     = optimum  temperature for compensation
 !                                                point
 !                                    ZANMAX    = maximum photosynthesis rate
 !                                    ZGS       = leaf conductance
@@ -112,9 +112,9 @@ REAL, DIMENSION(SIZE(PK%XANMAX))     :: ZGS, ZGAMMT, ZTOPT, ZANMAX, ZGMEST, ZGPP
 !
 !
 REAL, DIMENSION(SIZE(PK%XANMAX))     :: ZCO2INIT3, ZCO2INIT4, ZCO2INIT5, ZCO2INIT2,ZCO2INIT1
-!                                    working arrays for initializing surface 
+!                                    working arrays for initializing surface
 !                                    temperature, saturation deficit, global radiation,
-!                                    optimum temperature for determining maximum 
+!                                    optimum temperature for determining maximum
 !                                    photosynthesis rate, and soil water stress (none)
 REAL, DIMENSION(SIZE(PK%XDMAX))      :: ZDMAX
 REAL, DIMENSION(SIZE(PK%XDMAX))      :: ZWORK
@@ -204,7 +204,7 @@ DO JCLASS=1,NVEGTYPE
     ICLASS=NVT_GRAS
   ELSE
     ICLASS=JCLASS
-  ENDIF    
+  ENDIF
   !
   PK%XTAU_WOOD(:) = PK%XTAU_WOOD(:) + XTAU_WOOD(ICLASS) * PK%XVEGTYPE_PATCH(:,JCLASS)
   PK%XAMAX    (:) = PK%XAMAX    (:) + XAMAX    (ICLASS) * PK%XVEGTYPE_PATCH(:,JCLASS)
@@ -222,7 +222,7 @@ PK%XQDAMAX(:)=LOG(PK%XQDAMAX(:))
 !
 ! compute temperature responses:
 !
-!before optimization (with non log PK%XQDGAMM) : 
+!before optimization (with non log PK%XQDGAMM) :
 !ZGAMMT(:) = PK%XGAMM(:)*(PK%XQDGAMM(:)**(0.1*(ZTOPT(:)-25.0)))
 ZWORK (:) = (0.1*(ZTOPT(:)-25.0)) * PK%XQDGAMM(:)
 ZGAMMT(:) = PK%XGAMM(:)*EXP(ZWORK(:))
@@ -232,14 +232,14 @@ ZGAMMT(:) = PK%XGAMM(:)*EXP(ZWORK(:))
 ZWORK (:) = (0.1*(ZTOPT(:)-25.0)) * PK%XQDAMAX(:)
 ZANMAX(:) = ( PK%XAMAX(:)*EXP(ZWORK(:)) )                   &
                /( (1.0+EXP(0.3*(PK%XT1AMAX(:)-ZTOPT(:))))*  &
-                  (1.0+EXP(0.3*(ZTOPT(:)-PK%XT2AMAX(:)))) )  
+                  (1.0+EXP(0.3*(ZTOPT(:)-PK%XT2AMAX(:)))) )
 !
 !before optimization (with non log PK%XQDGMES) :
 !ZGMEST(:) = ( PEK%XGMES(:)*PK%XQDGMES(:)**(0.1*(ZTOPT(:)-25.0)) )    &
 ZWORK (:) = (0.1*(ZTOPT(:)-25.0)) * PK%XQDGMES(:)
 ZGMEST(:) = ( PEK%XGMES(:)*EXP(ZWORK(:)) )                   &
                /( (1.0+EXP(0.3*(PK%XT1GMES(:)-ZTOPT(:))))*  &
-                  (1.0+EXP(0.3*(ZTOPT(:)-PK%XT2GMES(:)))) )  
+                  (1.0+EXP(0.3*(ZTOPT(:)-PK%XT2GMES(:)))) )
 !
 !
 ! initialize other variables: (using optimum values for some variables)
@@ -248,7 +248,7 @@ ZCO2INIT3(:) = XDSPOPT
 ZCO2INIT4(:) = XIAOPT
 ZCO2INIT5(:) = 1.0
 !
-! Define a dummy LAI from top (zco2init2=0.1) and total lai (zco2init=1) for Dark respiration extinction parameterization 
+! Define a dummy LAI from top (zco2init2=0.1) and total lai (zco2init=1) for Dark respiration extinction parameterization
 !
 ZCO2INIT2(:) = 0.1
 ZCO2INIT1(:) = 1.0
@@ -276,7 +276,7 @@ ZGAMMT(:)=ZGAMMT(:)*XMCO2/XMD*1e-6
 !
 CALL COTWO(PCO2, ZCO2INIT5, ZCO2INIT4, ZCO2INIT3, ZGAMMT, &
            PK%XFZERO(:), ZEPSO, ZANMAX, ZGMEST, PEK%XGC, ZDMAX,     &
-           PK%XANMAX(:), ZGS, ZRDK, ZCO2INIT2, ZCO2INIT1        )                     
+           PK%XANMAX(:), ZGS, ZRDK, ZCO2INIT2, ZCO2INIT1        )
 ! change by sebastien PK%XEPSO change into ZEPSO for units consistency
 !
 !

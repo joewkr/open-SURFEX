@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################
       MODULE MODD_CANOPY_TURB
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -40,9 +40,9 @@ REAL,SAVE :: XALPSBL   ! constant linking TKE and friction velocity in the SBL
 REAL,SAVE :: XA0       ! Constant a0 for wind pressure-correlations
 REAL,SAVE :: XCTP      ! Constant for temperature and vapor pressure-correlations
 !---------------------------------------------------------------------------
-REAL,SAVE :: XCMFS     ! constant for the momentum flux due to shear   
+REAL,SAVE :: XCMFS     ! constant for the momentum flux due to shear
 !
-REAL,SAVE :: XCSHF        ! constant for the sensible heat flux 
+REAL,SAVE :: XCSHF        ! constant for the sensible heat flux
 !
 REAL,SAVE :: XASBL     ! constant used to define mixing length in the SBL
 !

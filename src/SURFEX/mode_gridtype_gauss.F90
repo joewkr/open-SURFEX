@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !##########################
 MODULE MODE_GRIDTYPE_GAUSS
@@ -25,7 +25,7 @@ CONTAINS
 !     ####################################################################
       SUBROUTINE PUT_GRIDTYPE_GAUSS(PGRID_PAR,KNLATI, PLAPO,PLOPO,PCODIL,KNLOPA, &
                                     KL,PLAT,PLON,PLAT_XY,PLON_XY,PMESH_SIZE    , &
-                                    PLONINF,PLATINF,PLONSUP,PLATSUP              )  
+                                    PLONINF,PLATINF,PLONSUP,PLATSUP              )
 !     ####################################################################
 !
 !!****  *PUT_GRIDTYPE_GAUSS* - routine to store in PGRID_PAR the horizontal grid
@@ -106,8 +106,8 @@ END SUBROUTINE PUT_GRIDTYPE_GAUSS
 !     ####################################################################
       SUBROUTINE GET_GRIDTYPE_GAUSS(PGRID_PAR,KNLATI,                      &
                                       PLAPO,PLOPO,PCODIL,KNLOPA,KL,        &
-                                      PLAT,PLON,PLAT_XY,PLON_XY,PMESH_SIZE,&  
-                                      PLONINF,PLATINF,PLONSUP,PLATSUP      )  
+                                      PLAT,PLON,PLAT_XY,PLON_XY,PMESH_SIZE,&
+                                      PLONINF,PLATINF,PLONSUP,PLATSUP      )
 !     ####################################################################
 !
 !!****  *GET_GRIDTYPE_GAUSS* - routine to get from PGRID_PAR the horizontal grid
@@ -118,7 +118,7 @@ END SUBROUTINE PUT_GRIDTYPE_GAUSS
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -179,63 +179,63 @@ END IF
 !
 IF (PRESENT(PLAT)) THEN
   IF (SIZE(PLAT)/=IL) THEN
-    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLAT') 
+    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLAT')
   END IF
  PLAT(:) = PGRID_PAR(6+INLATI:5+INLATI+IL)
 END IF
 !
 IF (PRESENT(PLON)) THEN
   IF (SIZE(PLON)/=IL) THEN
-    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLON') 
+    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLON')
   END IF
  PLON(:) = PGRID_PAR(6+INLATI+IL:5+INLATI+2*IL)
 END IF
 !
 IF (PRESENT(PLAT_XY)) THEN
   IF (SIZE(PLAT_XY)/=IL) THEN
-    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLAT_XY') 
+    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLAT_XY')
   END IF
  PLAT_XY(:) = PGRID_PAR(6+INLATI+2*IL:5+INLATI+3*IL)
 END IF
 !
 IF (PRESENT(PLON_XY)) THEN
   IF (SIZE(PLON_XY)/=IL) THEN
-    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLON_XY') 
+    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLON_XY')
   END IF
  PLON_XY(:) = PGRID_PAR(6+INLATI+3*IL:5+INLATI+4*IL)
 END IF
 !
 IF (PRESENT(PMESH_SIZE)) THEN
   IF (SIZE(PMESH_SIZE)/=IL) THEN
-    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PMESH_SIZE') 
+    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PMESH_SIZE')
   END IF
  PMESH_SIZE(:) = PGRID_PAR(6+INLATI+4*IL:5+INLATI+5*IL)
 END IF
 !
 IF (PRESENT(PLONINF)) THEN
   IF (SIZE(PLONINF)/=IL) THEN
-    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLONINF') 
+    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLONINF')
   END IF
  PLONINF(:) = PGRID_PAR(6+INLATI+5*IL:5+INLATI+6*IL)
 END IF
 !
 IF (PRESENT(PLATINF)) THEN
   IF (SIZE(PLATINF)/=IL) THEN
-    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLATINF') 
+    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLATINF')
   END IF
  PLATINF(:) = PGRID_PAR(6+INLATI+6*IL:5+INLATI+7*IL)
 END IF
 !
 IF (PRESENT(PLONSUP)) THEN
   IF (SIZE(PLONSUP)/=IL) THEN
-    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLONSUP') 
+    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLONSUP')
   END IF
  PLONSUP(:) = PGRID_PAR(6+INLATI+7*IL:5+INLATI+8*IL)
 END IF
 !
 IF (PRESENT(PLATSUP)) THEN
   IF (SIZE(PLATSUP)/=IL) THEN
-    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLATSUP') 
+    CALL ABOR1_SFX('MODE_GRIDTYPE_GAUSS: WRONG SIZE FOR PLATSUP')
   END IF
  PLATSUP(:) = PGRID_PAR(6+INLATI+8*IL:5+INLATI+9*IL)
 END IF
@@ -323,10 +323,10 @@ DO JP = 1,KL
 ! calculation of the sine and cosine of the longitude
   ZSLO3=(COS(ZLAT2)*COS(ZLON2)*SIN(ZLATP)*SIN(ZLONP)&
       +COS(ZLAT2)*SIN(ZLON2)*COS(ZLONP)&
-      +SIN(ZLAT2)*COS(ZLATP)*SIN(ZLONP)) / COS(ZLAT3)  
+      +SIN(ZLAT2)*COS(ZLATP)*SIN(ZLONP)) / COS(ZLAT3)
   ZCLO3=(COS(ZLAT2)*COS(ZLON2)*SIN(ZLATP)*COS(ZLONP)&
       -COS(ZLAT2)*SIN(ZLON2)*SIN(ZLONP)&
-      +SIN(ZLAT2)*COS(ZLATP)*COS(ZLONP)) / COS(ZLAT3)  
+      +SIN(ZLAT2)*COS(ZLATP)*COS(ZLONP)) / COS(ZLAT3)
 !
 ! Conversion from rectangular to polar to get the longitude
   ZR=SQRT(ZCLO3*ZCLO3+ZSLO3*ZSLO3)
@@ -528,7 +528,7 @@ DO JY=1,KNLATI
   DO JX=1,KNLOPA(JY)
     JL=JL+1
     IF (JY==1) THEN
-      PYSUP(JL) = 90. 
+      PYSUP(JL) = 90.
     ELSE
       PYSUP(JL)= ZWG(JY)+(ZWG(JY-1)-ZWG(JY))/2.
     ENDIF
@@ -548,22 +548,22 @@ END SUBROUTINE GAUSS_GRID_LIMITS
 !############################################################################
   !############################################################################
   !        ####################################################################
-SUBROUTINE XY_GAUSS(PCODIL,KSIZE,PNODATA,PVALUE,PLAT_XY,PLON_XY)  
+SUBROUTINE XY_GAUSS(PCODIL,KSIZE,PNODATA,PVALUE,PLAT_XY,PLON_XY)
   !      ####################################################################
   !
   !!****  *LATLON_GAUSS * - Routine to compute coordinates on a transform sphere
-  !!                        from geographical coordinates            
+  !!                        from geographical coordinates
   !!
   !!     PURPOSE
   !!     -------
-  !        This routine computes the latitude and longitude a real coordinates 
+  !        This routine computes the latitude and longitude a real coordinates
   !        given array to an arpege model coordinates (rotated stretched)
   !
   !
   !
   !!**   METHOD
   !!     ------
-  !!       use of rotations routines (eggmrt) and streching conformal formulae 
+  !!       use of rotations routines (eggmrt) and streching conformal formulae
   !!       to pass from real sphere (PLAT,PLON) transform sphere (PLAT_XY, PLON_XY)
   !!
   !!     EXTERNAL
@@ -574,8 +574,8 @@ SUBROUTINE XY_GAUSS(PCODIL,KSIZE,PNODATA,PVALUE,PLAT_XY,PLON_XY)
   !!     ---------
   !!         Arpege DOC "Sphere Transphormee" Chapitre 7 version du 4/6/1991
   !!         J-D Gril for GEO_GAUSS 2005
-  !!         J-D Gril Doc for EGGANGLES routines (new EGGX) 2005        
-  !!       
+  !!         J-D Gril Doc for EGGANGLES routines (new EGGX) 2005
+  !!
   !!     AUTHOR
   !!     ------
   !!      J-D Gril
@@ -590,7 +590,7 @@ SUBROUTINE XY_GAUSS(PCODIL,KSIZE,PNODATA,PVALUE,PLAT_XY,PLON_XY)
   !             ------------
   !
   USE MODD_GET_MESH_INDEX_GAUSS, ONLY : XLON, XLAT, XCOST, XSINTC, XSINTS, XCOSN, XSINN, &
-                                        XLONP, XLATP, XCOSP, XSINP, XPI, X1, X2, XDR  
+                                        XLONP, XLATP, XCOSP, XSINP, XPI, X1, X2, XDR
   !
   IMPLICIT NONE
   !
@@ -600,10 +600,10 @@ SUBROUTINE XY_GAUSS(PCODIL,KSIZE,PNODATA,PVALUE,PLAT_XY,PLON_XY)
   INTEGER,              INTENT(IN) :: KSIZE
   REAL,                 INTENT(IN) :: PNODATA
   REAL, DIMENSION(:),   INTENT(IN) :: PVALUE  ! value of the point to add
-  REAL, DIMENSION(:),   INTENT(OUT):: PLAT_XY,PLON_XY 
+  REAL, DIMENSION(:),   INTENT(OUT):: PLAT_XY,PLON_XY
   !
   !*     0.2    Declarations of local variables
-  ! 
+  !
   REAL :: ZCOS1, ZV1, ZINVS, ZLAT1, ZCOS2, ZLON1, ZINVC, ZSINN
   REAL :: ZV2,  ZSINT, ZCOST, ZV3, ZLAT2, ZM, ZLON2
   !
@@ -625,7 +625,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',0,ZHOOK_HANDLE_OMP)
     !
     IF (PVALUE(JJ)==PNODATA) CYCLE
     !
-    IDN = MOD(JJ,KSIZE) 
+    IDN = MOD(JJ,KSIZE)
     IF (IDN==0) IDN=KSIZE
     IDT = CEILING(1.*JJ/KSIZE)
     !
@@ -637,14 +637,14 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',0,ZHOOK_HANDLE_OMP)
     !
     ZCOS2 = COS(ZLAT1)
     !
-    ZLON1 = 0.0 
+    ZLON1 = 0.0
     IF (ZCOS2 /= 0.0) THEN
       !ZINVC = 1./ZCOS2
       !ZSINN = - XCOST(IDT)*XSINN(IDN)*ZINVC
       !ZV2 = MIN(1.,MAX(-1.,(XSINTC(IDT)-XSINP*ZCOS1)*ZINVC))
       ZSINN = - XCOST(IDT)*XSINN(IDN)/ZCOS2
       !ZSINN = - COS(XLAT(IDT))*SIN(XLON(IDN)-XLONP)/ZCOS2
-      ZV2 = MIN(1.,MAX(-1.,(XSINTC(IDT)-XSINP*ZCOS1)/ZCOS2))     
+      ZV2 = MIN(1.,MAX(-1.,(XSINTC(IDT)-XSINP*ZCOS1)/ZCOS2))
       !ZV2 = MIN(1.,MAX(-1.,(COS(XLATP)*SIN(XLAT(IDT))-SIN(XLATP)*ZCOS1)/ZCOS2))
       ZLON1 = ACOS(ZV2) * SIGN(1.,ZSINN)
     ENDIF
@@ -674,7 +674,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',0,ZHOOK_HANDLE_OMP)
     !
   ENDDO
 !$OMP END DO
-IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)  
+IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)
 !$OMP END PARALLEL
 !---------------------------------------------------------------------------------
   END SUBROUTINE XY_GAUSS
@@ -682,7 +682,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)
   !############################################################################
   !        ####################################################################
   SUBROUTINE MAP_FACTOR_GAUSS(PLAPO,PLOPO,PCODIL, &
-                                   PLAT,PLON,PMAP)  
+                                   PLAT,PLON,PMAP)
     !      ####################################################################
     !
     !!****  *MAP_FACTOR_GAUSS * - Routine to compute map factor for points
@@ -696,8 +696,8 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)
     !!     ---------
     !!         Arpege DOC "Sphere Transphormee" Chapitre 7 version du 4/6/1991
     !!         J-D Gril for GEO_GAUSS 2005
-    !!         J-D Gril Doc for EGGANGLES routines (new EGGX) 2005        
-    !!       
+    !!         J-D Gril Doc for EGGANGLES routines (new EGGX) 2005
+    !!
     !!     AUTHOR
     !!     ------
     !!      J-D Gril
@@ -722,13 +722,13 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)
     REAL,                 INTENT(IN) :: PLOPO  ! longitude of pole
     REAL,                 INTENT(IN) :: PCODIL ! coefficient of dilatation
     REAL, DIMENSION(:),   INTENT(IN) :: PLAT   ! given geographic latitudes
-    REAL, DIMENSION(:),   INTENT(IN) :: PLON   ! given geographic longitudes    
-    ! 
+    REAL, DIMENSION(:),   INTENT(IN) :: PLON   ! given geographic longitudes
+    !
     REAL, DIMENSION(SIZE(PLAT)),   INTENT(OUT):: PMAP   ! map factor
     !
     !*     0.2    Declarations of local variables
-    ! 
-    ! 
+    !
+    !
     TYPE(LOLA)                          :: TZPOLE
     TYPE(LOLA), DIMENSION(SIZE(PLAT))   :: TZPTCI
     !
@@ -748,7 +748,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)
     TZPTCI(:)%LAT = PLAT(:) * ZDR
     TZPOLE%LON    = ANGLE_DOMAIN(PLOPO,DOM='0+',UNIT='D') * ZDR
     TZPOLE%LAT    = PLAPO * ZDR
-    !    
+    !
     !-------------------------------------------------------------------------------
     !
     !*     2.    Calcul
@@ -875,7 +875,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)
     DO JGL=1,JN
       ZFNN = ZFNN*SQRT(1.-0.25/(JGL**2))
     ENDDO
-    IODD=MOD(JN,2) 
+    IODD=MOD(JN,2)
     ZFN(JN,JN)=ZFNN
     DO JGL=2,JN-IODD,2
       ZFN(JN,JN-JGL)=ZFN(JN,JN-JGL+2)*FLOAT((JGL-1)*(2*JN-JGL+2))/FLOAT(JGL*(2*JN-JGL+1))
@@ -883,11 +883,11 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)
   ENDDO
 
   IODD=MOD(KN,2)
-  IK=IODD   
+  IK=IODD
   DO JGL=IODD,KN,2
     ZFNLAT(IK)=ZFN(KN,JGL)
     IK=IK+1
-  ENDDO 
+  ENDDO
 
   !*       1.2 Find first approximation of the roots of the
   !            Legendre polynomial of degree KN.
@@ -902,7 +902,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)
 
   !     ------------------------------------------------------------------
 
-  !*      2. Computes roots and weights for transformed theta 
+  !*      2. Computes roots and weights for transformed theta
   !          ------------------------------------------------
 
   ZEPS = EPSILON(Z)
@@ -948,7 +948,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)
       ENDIF
 
       ! - Computes weight.
-  
+
       IF(IFLAG == 1)THEN
         DO JN=2-IODD,KN,2
           ! normalised derivative
@@ -1026,7 +1026,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)
   !############################################################################
   !##################################
   SUBROUTINE MESH_SIZE_GAUSS(KL,KNLATI,KNLOPA,PLAPO,PLOPO,PCODIL,&
-                               PLAT_XY,PLAT,PLON,PMESH_SIZE)  
+                               PLAT_XY,PLAT,PLON,PMESH_SIZE)
   !##################################
   !
   !!****  *MESH_SIZE_GAUSS* - routine to compute the global mesh size
@@ -1063,7 +1063,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_GRIDTYPE_GAUSS:XY_GAUSS',1,ZHOOK_HANDLE_OMP)
   !
   INTEGER, DIMENSION(:), ALLOCATABLE :: IXX      ! number of points in the latitude circle of each grid point
   INTEGER, DIMENSION(:), ALLOCATABLE :: IYY      ! latitude circle of each grid point
-  REAL,    DIMENSION(:), ALLOCATABLE :: ZDLAT  ! 
+  REAL,    DIMENSION(:), ALLOCATABLE :: ZDLAT  !
   REAL,    DIMENSION(:), ALLOCATABLE :: PLAT_XY_C  !  pseudo-latitude for each circle
   REAL,    DIMENSION(:), ALLOCATABLE :: ZXX   ! X-length of each mesh in the gaussian grid
   REAL,    DIMENSION(:), ALLOCATABLE :: ZYY   ! Y-length of each mesh in the gaussian grid

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
       SUBROUTINE INIT_TEB_n (DTCO, UG, U, GCP, CHT, DTT, SB, TG, TOP, TPN,    &
@@ -8,7 +8,7 @@
                              HPROGRAM, HINIT, KI, KSV, KSW, HSV, PCO2,        &
                              PRHOA, PZENITH, PAZIM, PSW_BANDS, PDIR_ALB,      &
                              PSCA_ALB, PEMIS, PTSRAD, PTSURF, KYEAR, KMONTH,  &
-                             KDAY, PTIME, HATMFILE, HATMFILETYPE, HTEST )  
+                             KDAY, PTIME, HATMFILE, HATMFILETYPE, HTEST )
 !     #############################################################
 !
 !!****  *INIT_TEB_n* - routine to initialize TEB
@@ -70,7 +70,7 @@ USE MODD_SNOW_PAR, ONLY : XEMISSN
 USE MODD_READ_NAMELIST, ONLY : LNAM_READ
 !
 USE MODD_CHS_AEROSOL,     ONLY: LVARSIGI, LVARSIGJ
-USE MODD_DST_SURF,        ONLY: LVARSIG_DST, NDSTMDE, NDST_MDEBEG, LRGFIX_DST 
+USE MODD_DST_SURF,        ONLY: LVARSIG_DST, NDSTMDE, NDST_MDEBEG, LRGFIX_DST
 USE MODD_SLT_SURF,        ONLY: LVARSIG_SLT, NSLTMDE, NSLT_MDEBEG, LRGFIX_SLT
 USE MODD_SURF_PAR,        ONLY: XUNDEF, NUNDEF
 !
@@ -130,7 +130,7 @@ TYPE(SURF_ATM_GRID_t), INTENT(INOUT) :: UG
 TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 TYPE(GRID_CONF_PROJ_t),INTENT(INOUT) :: GCP
 !
-TYPE(CH_TEB_t), INTENT(INOUT) :: CHT 
+TYPE(CH_TEB_t), INTENT(INOUT) :: CHT
 TYPE(DATA_TEB_t), INTENT(INOUT) :: DTT
 TYPE(CANOPY_t), INTENT(INOUT) :: SB
 TYPE(GRID_t), INTENT(INOUT) :: TG
@@ -142,7 +142,7 @@ TYPE(TEB_NP_t), INTENT(INOUT) :: NT
 TYPE(TEB_DIAG_t), INTENT(INOUT) :: TD
 !
 TYPE(BLD_DESC_t), INTENT(INOUT) :: BDD
-TYPE(BEM_OPTIONS_t), INTENT(INOUT) :: BOP 
+TYPE(BEM_OPTIONS_t), INTENT(INOUT) :: BOP
 TYPE(DATA_BEM_t), INTENT(INOUT) :: DTB
 TYPE(BEM_NP_t), INTENT(INOUT) :: NB
 !
@@ -232,7 +232,7 @@ IF (LNAM_READ) THEN
  !               --------
  !
  !        0.1. Hard defaults
- !  
+ !
   DO JP=1,TOP%NTEB_PATCH
     CALL DEFAULT_TEB(TOP%CZ0H, TOP%XTSTEP, TOP%XOUT_TSTEP, TOP%CCH_BEM, &
                      NT%AL(1)%XDT_RES, NT%AL(1)%XDT_OFF)
@@ -241,12 +241,12 @@ IF (LNAM_READ) THEN
  CALL DEFAULT_DIAG_TEB(TD%O%N2M, TD%O%LSURF_BUDGET, TD%O%L2M_MIN_ZS, TD%O%LRAD_BUDGET,&
                        TD%O%LCOEF, TD%O%LSURF_VARS, TD%MTO%LSURF_MISC_BUDGET, &
                        TD%MTO%LSURF_DIAG_ALBEDO, TD%DUT%LUTCI, TD%O%LPGD,     &
-                       TD%O%XDIAG_TSTEP)  
+                       TD%O%XDIAG_TSTEP)
 !
 ENDIF
 !
 !        0.2. Defaults from file header
-!    
+!
  CALL READ_DEFAULT_TEB_n(CHT, TD%MTO, TD%O, TD%DUT, GRM%O, NT%AL(1), TOP, HPROGRAM)
 !
 !*       1.     Reading of configuration:
@@ -275,8 +275,8 @@ SELECT CASE (HINIT)
     TOP%TTIME%TIME       = XUNDEF
 
   CASE ('PRE')
-    CALL PREP_CTRL_TEB(TD%O, TD%MTO%LSURF_EVAP_BUDGET, TD%MTO%LSURF_MISC_BUDGET, TD%DUT%LUTCI,ILUOUT )           
-    IF (LNAM_READ) CALL READ_NAM_PREP_TEB_n(HPROGRAM)   
+    CALL PREP_CTRL_TEB(TD%O, TD%MTO%LSURF_EVAP_BUDGET, TD%MTO%LSURF_MISC_BUDGET, TD%DUT%LUTCI,ILUOUT )
+    IF (LNAM_READ) CALL READ_NAM_PREP_TEB_n(HPROGRAM)
     CALL READ_TEB_DATE(HPROGRAM,HINIT,ILUOUT,HATMFILE,HATMFILETYPE,KYEAR,KMONTH,KDAY,PTIME,TOP%TTIME)
 
   CASE DEFAULT
@@ -304,7 +304,7 @@ CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'TOWN  ','TEB   ','READ ')
  CALL READ_PGD_TEB_n(DTCO, U, UG, GCP, TOP, TG, BOP, BDD, DTB, DTT, HPROGRAM)
 !
  CALL END_IO_SURF_n(HPROGRAM)
-! 
+!
 !*        Fraction of each patch in the grid mesh
 !
 ILU = SIZE(TOP%XCOVER,1)
@@ -335,9 +335,9 @@ ELSE
   !
   TOP%CROAD_DIR = CROAD_DIR
   TOP%CWALL_OPT = CWALL_OPT
-  !  
+  !
 ENDIF
-!      
+!
 !-----------------------------------------------------------------------------------
 !
 !*              LOOP ON TEB PATCHES
@@ -448,7 +448,7 @@ DO JP=1,TOP%NTEB_PATCH
   IF (TOP%LGARDEN) THEN
   !
     CALL SET_SURFEX_FILEIN(HPROGRAM,'PGD ') ! change input file name to pgd name
-    CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'TOWN  ','TEB   ','READ ')     
+    CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'TOWN  ','TEB   ','READ ')
     IF (JP==1) CALL INIT_TEB_VEG_OPTIONS_n(CHT, TD%MTO%LSURF_DIAG_ALBEDO, TOP%LGREENROOF, GDM%O, GRM%O, HPROGRAM)
     CALL INIT_TEB_GARDEN_PGD_n(DTCO, U, CHT%LCH_BIO_FLUX, TG, NT%AL(JP)%XGARDEN, TOP, &
                                GDM%O, GDM%S, GDM%K, GDM%P, GDM%NPE%AL(JP), GDM%DTV, GDM%GB, &
@@ -469,7 +469,7 @@ END DO ! end of loop on TEB patches
 !* Read irrigation parameters for TEB
 !
  CALL SET_SURFEX_FILEIN(HPROGRAM,'PGD ') ! change input file name to pgd name
- CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'TOWN  ','TEB   ','READ ')     
+ CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'TOWN  ','TEB   ','READ ')
  CALL READ_PGD_TEB_IRRIG_n(TG, TIR, HPROGRAM)
  CALL END_IO_SURF_n(HPROGRAM)
 !
@@ -513,7 +513,7 @@ DO JP=1,TOP%NTEB_PATCH
 !
 !* Case of urban green areas
   IF (TOP%LGARDEN) THEN
-    !     
+    !
     CALL INIT_TEB_GARDEN_n(DTCO, UG, U, TD%MTO, TOP, GDM%O, GDM%DTV, GDM%K, GDM%P, &
                            GDM%NPE%AL(JP), GDM%VD%ND%AL(JP), GDM%VD%NDE%AL(JP), GDM%VD%NDEC%AL(JP), GDM%VD%NDM%AL(JP), &
                            HPROGRAM, HINIT, KI, KSW, PSW_BANDS, JP)
@@ -538,7 +538,7 @@ DO JP=1,TOP%NTEB_PATCH
     ZSCA_SW=0. !
     CALL TEB_VEG_PROPERTIES(NT%AL(JP)%XGARDEN, GDM%O, GDM%NPE%AL(JP), &
                            ZDIR_SW, ZSCA_SW, PSW_BANDS, KSW,      &
-                           ZTS_GARDEN, ZEMIS_GARDEN, ZALB_GARDEN )      
+                           ZTS_GARDEN, ZEMIS_GARDEN, ZALB_GARDEN )
   ELSE
     ZALB_GARDEN = XUNDEF
     ZEMIS_GARDEN= XUNDEF
@@ -548,9 +548,9 @@ DO JP=1,TOP%NTEB_PATCH
   IF (TOP%LGREENROOF) THEN
     ZDIR_SW=0. ! night as first guess for albedo computation
     ZSCA_SW=0. !
-    CALL TEB_VEG_PROPERTIES(NT%AL(JP)%XGREENROOF, GRM%O, GRM%NPE%AL(JP),         & 
+    CALL TEB_VEG_PROPERTIES(NT%AL(JP)%XGREENROOF, GRM%O, GRM%NPE%AL(JP),         &
                               ZDIR_SW, ZSCA_SW, PSW_BANDS, KSW,              &
-                              ZTS_GREENROOF, ZEMIS_GREENROOF, ZALB_GREENROOF )  
+                              ZTS_GREENROOF, ZEMIS_GREENROOF, ZALB_GREENROOF )
   ELSE
     ZALB_GREENROOF  = XUNDEF
     ZEMIS_GREENROOF = XUNDEF
@@ -570,7 +570,7 @@ DO JP=1,TOP%NTEB_PATCH
   ALLOCATE(ZSCA_ALB(ILU))
 !
   CALL AVERAGED_ALBEDO_TEB(TOP,NT%AL(JP),TPN,NB%AL(JP),PZENITH,PAZIM,   &
-                           ZALB_GARDEN, ZALB_GREENROOF,ZDIR_ALB, ZSCA_ALB)  
+                           ZALB_GARDEN, ZALB_GREENROOF,ZDIR_ALB, ZSCA_ALB)
 
   ISWB=SIZE(PSW_BANDS)
   DO JSWB=1,ISWB

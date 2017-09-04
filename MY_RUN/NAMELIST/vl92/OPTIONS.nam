@@ -58,26 +58,26 @@
                        XUNIF_TOWN   = 1.,
                        XUNIF_NATURE = 0.
 /
-&NAM_PGD_GRID          CGRID = 'LONLAT REG' 
+&NAM_PGD_GRID          CGRID = 'LONLAT REG'
 /
-&NAM_LONLAT_REG        XLONMIN = -123.2       , 
-                       XLONMAX = -123.2       , 
-                       XLATMIN = 49.25        , 
-                       XLATMAX = 49.25        , 
-                       NLON    = 1            , 
-                       NLAT    = 1 
+&NAM_LONLAT_REG        XLONMIN = -123.2       ,
+                       XLONMAX = -123.2       ,
+                       XLATMIN = 49.25        ,
+                       XLATMAX = 49.25        ,
+                       NLON    = 1            ,
+                       NLAT    = 1
 /
-&NAM_PGD_SCHEMES       CNATURE = 'ISBA  '    , 
-                       CSEA    = 'SEAFLX'    , 
-                       CTOWN   = 'TEB   '    , 
-                       CWATER  = 'WATFLX' 
+&NAM_PGD_SCHEMES       CNATURE = 'ISBA  '    ,
+                       CSEA    = 'SEAFLX'    ,
+                       CTOWN   = 'TEB   '    ,
+                       CWATER  = 'WATFLX'
 /
 &NAM_ZS                XUNIF_ZS  = 0.
 /
 &NAM_PREP_SURF_ATM NYEAR  = 1992,
                    NMONTH = 8,
                    NDAY   = 10,
-                   XTIME  = 48000. 
+                   XTIME  = 48000.
 /
 &NAM_PREP_TEB      XTI_ROAD= 293.15
                    XTI_BLD = 296.75
@@ -98,17 +98,17 @@
 
 
 
-&NAM_DIAG_SURFn        LSURF_BUDGET = T      , 
+&NAM_DIAG_SURFn        LSURF_BUDGET = T      ,
                        N2M          = 1      ,
                        LCOEF        = F      ,
-                       LSURF_VARS   = F      , 
+                       LSURF_VARS   = F      ,
 		       LSURF_BUDGETC = F
 /
-&NAM_DIAG_SURF_ATMn    LFRAC        = F 
+&NAM_DIAG_SURF_ATMn    LFRAC        = F
 /
-&NAM_DIAG_ISBAn        LPGD              = T , 
-                       LSURF_EVAP_BUDGET = T , 
-                       LSURF_MISC_BUDGET = F  
+&NAM_DIAG_ISBAn        LPGD              = T ,
+                       LSURF_EVAP_BUDGET = T ,
+                       LSURF_MISC_BUDGET = F
 /
-&NAM_DIAG_TEBn         LSURF_MISC_BUDGET = T 
+&NAM_DIAG_TEBn         LSURF_MISC_BUDGET = T
 /

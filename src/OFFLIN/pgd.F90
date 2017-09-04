@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########
       PROGRAM PGD
@@ -12,7 +12,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!
 !!    EXTERNAL
 !!    --------
@@ -40,7 +40,7 @@
 !!    Modification 25/05/96       Modification of splines, correction on z0rel
 !!                                and set limits for some surface varaibles
 !!    Modification 12/06/96       Treatment of a rare case for ZPGDZ0EFF (Masson)
-!!    Modification 22/11/96       removes the filtering. It will have to be 
+!!    Modification 22/11/96       removes the filtering. It will have to be
 !!                                performed in ADVANCED_PREP_PGD (Masson)
 !!    Modification 15/03/99       **** MAJOR MODIFICATION **** (Masson)
 !!                                PGD fields are now defined from the cover
@@ -79,7 +79,7 @@ USE MODD_IO_SURF_NC
 USE MODD_SURF_CONF
 USE MODI_OPEN_NAMELIST
 USE MODI_CLOSE_NAMELIST
-!      
+!
 USE MODI_GET_LONLAT_n
 !
 USE MODI_INIT_INDEX_MPI
@@ -122,7 +122,7 @@ INTEGER            :: ILUNAM
 LOGICAL            :: GFOUND
 !
  CHARACTER(LEN=28)  :: YLUOUT    ='LISTING_PGD'   ! name of the listing
- CHARACTER(LEN=100) :: YNAME 
+ CHARACTER(LEN=100) :: YNAME
 !
 #ifdef SFX_MPI
 INTEGER, DIMENSION(MPI_STATUS_SIZE) :: ISTATUS
@@ -217,7 +217,7 @@ YSC%U%NSIZE_FULL = ISIZE_FULL
 IF (NRANK==NPIO) THEN
   IF (CSURF_FILETYPE=='FA    ') THEN
     LFANOCOMPACT = .TRUE.
-    CALL WRITE_HEADER_FA(YSC%GCP, YSC%UG%G%CGRID, YSC%UG%XGRID_FULL_PAR, CSURF_FILETYPE,'PGD') 
+    CALL WRITE_HEADER_FA(YSC%GCP, YSC%UG%G%CGRID, YSC%UG%XGRID_FULL_PAR, CSURF_FILETYPE,'PGD')
   END IF
 END IF
 !
@@ -258,7 +258,7 @@ IF (NRANK==NPIO) THEN
   IF (CSURF_FILETYPE=='FA    ') THEN
 #ifdef SFX_FA
     CALL FAIRME(IRET,NUNIT_FA,'UNKNOWN')
-#endif    
+#endif
   END IF
 !
   !* add informations in the file

@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODD_DST_n
 
-!Purpose: 
+!Purpose:
 !Declare variables and constants necessary to do the dust calculations
 !Here are only the variables which depend on the grid!
 
@@ -22,12 +22,12 @@ TYPE DST_t
   INTEGER, DIMENSION(:), POINTER   :: NSIZE_PATCH_DST   !Number of points for a patch and a vegetation class
   INTEGER, DIMENSION(:,:), POINTER :: NR_PATCH_DST      !Mask from patch-points to dust-points
   REAL,DIMENSION(:), POINTER         :: Z0_EROD_DST       !Roughness length momentum over erodible dust emitter sfc
-  CHARACTER(LEN=6), DIMENSION(:), POINTER  :: CSV_DST     !Name of scalar variables 
+  CHARACTER(LEN=6), DIMENSION(:), POINTER  :: CSV_DST     !Name of scalar variables
   REAL, DIMENSION(:,:),POINTER    :: XSFDST             !Dust variables to be send to output
   REAL, DIMENSION(:,:),POINTER    :: XSFDSTM            !Dust variables to be send to output
   REAL,DIMENSION(:), POINTER   :: XEMISRADIUS_DST         !Number median radius for each source mode
   REAL,DIMENSION(:), POINTER   :: XEMISSIG_DST            !sigma for each source mode
-  REAL,DIMENSION(:), POINTER   :: XMSS_FRC_SRC            !Mass fraction of each source mode  
+  REAL,DIMENSION(:), POINTER   :: XMSS_FRC_SRC            !Mass fraction of each source mode
   !
 END TYPE DST_t
 !

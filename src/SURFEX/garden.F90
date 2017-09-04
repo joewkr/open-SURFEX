@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE GARDEN (DTCO, G, T, TOP, TIR, DTV, GB, DK, DEK, DMK, GDO, S, K, P, PEK,    &
@@ -10,16 +10,16 @@
                        PSR, PZENITH, PSW, PLW, PVMOD, PALBNIR_TVEG,             &
                        PALBVIS_TVEG, PALBNIR_TSOIL, PALBVIS_TSOIL,              &
                        PRN, PH, PLE, PGFLUX, PSFCO2, PEVAP, PUW, PRUNOFF,       &
-                       PAC, PQSAT, PTSRAD, PAC_AGG, PHU_AGG, PIRRIG         )  
+                       PAC, PQSAT, PTSRAD, PAC_AGG, PHU_AGG, PIRRIG         )
 !   ##########################################################################
 !
-!!****  *GARDEN*  
+!!****  *GARDEN*
 !!
 !!    PURPOSE
 !!    -------
 !
 !!call the vegetation scheme (ISBA) inside TEB
-!     
+!
 !!**  METHOD
 !     ------
 !
@@ -31,11 +31,11 @@
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -217,7 +217,7 @@ CALL AGRI_INIT(YAG)
 !
 CALL TEB_IRRIG(TIR%LPAR_GD_IRRIG, PTSTEP, TPTIME%TDATE%MONTH, PTSUN,        &
                TIR%XGD_START_MONTH, TIR%XGD_END_MONTH, TIR%XGD_START_HOUR,  &
-               TIR%XGD_END_HOUR, TIR%XGD_24H_IRRIG, PIRRIG           ) 
+               TIR%XGD_END_HOUR, TIR%XGD_24H_IRRIG, PIRRIG           )
 !
 ! --------------------------------------------------------------------------------------
 ! Vegetation update (in case of non-interactive vegetation):
@@ -226,7 +226,7 @@ CALL TEB_IRRIG(TIR%LPAR_GD_IRRIG, PTSTEP, TPTIME%TDATE%MONTH, PTSUN,        &
 S%TTIME = TPTIME
 !
 GUPDATED=.FALSE.
-GALB = .FALSE. 
+GALB = .FALSE.
 IF (GDO%CPHOTO=='NIT'.OR.GDO%CPHOTO=='NCB') GALB = .TRUE.
 !
   CALL VEGETATION_UPDATE(DTCO, DTV, G%NDIM, GDO, K, P, PEK, 1,              &
@@ -252,7 +252,7 @@ ALLOCATE(GB%XIACAN(SIZE(PPS),SIZE(S%XABC)))
            PALBNIR_TVEG, PALBVIS_TVEG, PALBNIR_TSOIL, PALBVIS_TSOIL, ZPALPHAN,    &
            ZZ0G_WITHOUT_SNOW, ZZ0_MEBV, ZZ0H_MEBV, ZZ0EFF_MEBV, ZZ0_MEBN,         &
            ZZ0H_MEBN, ZZ0EFF_MEBN, ZTDEEP_A, PCO2, K%XFFG(:), K%XFFV(:),          &
-           ZEMISF, ZUSTAR, PAC_AGG, PHU_AGG, ZRESP_BIOMASS_INST, ZDEEP_FLUX, PIRRIG )     
+           ZEMISF, ZUSTAR, PAC_AGG, PHU_AGG, ZRESP_BIOMASS_INST, ZDEEP_FLUX, PIRRIG )
 !
 IF (PEK%TSNOW%SCHEME=='3-L' .OR. PEK%TSNOW%SCHEME=='CRO') PEK%TSNOW%TS(:)= DMK%XSNOWTEMP(:,1)
 !
@@ -272,7 +272,7 @@ ENDIF
 !
 IF (GDO%CPHOTO=='NIT') THEN
   CALL VEGETATION_EVOL(GDO, DTV, P, PEK, .FALSE., PTSTEP, TPTIME%TDATE%MONTH, TPTIME%TDATE%DAY, &
-                       TPTIME%TIME, G%XLAT, PRHOA, PCO2, YSS, ZRESP_BIOMASS_INST )         
+                       TPTIME%TIME, G%XLAT, PRHOA, PCO2, YSS, ZRESP_BIOMASS_INST )
 END IF
 !
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -330,7 +330,7 @@ ELSEWHERE
   DK%XH      (:) = XUNDEF
   DK%XLE     (:) = XUNDEF
   DK%XGFLUX  (:) = XUNDEF
-  DK%XEVAP   (:) = XUNDEF  
+  DK%XEVAP   (:) = XUNDEF
   DEK%XRUNOFF(:) = XUNDEF
   !
   PAC    (:) = XUNDEF
@@ -342,11 +342,11 @@ END WHERE
 !
 PTSRAD(:) = DK%XTSRAD(:)
 !
-PRN    (:) = DK%XRN    (:) 
-PH     (:) = DK%XH     (:) 
-PLE    (:) = DK%XLE    (:) 
-PGFLUX (:) = DK%XGFLUX (:) 
-PEVAP  (:) = DK%XEVAP  (:) 
+PRN    (:) = DK%XRN    (:)
+PH     (:) = DK%XH     (:)
+PLE    (:) = DK%XLE    (:)
+PGFLUX (:) = DK%XGFLUX (:)
+PEVAP  (:) = DK%XEVAP  (:)
 PRUNOFF(:) =DEK%XRUNOFF(:)
 !
 IF (LHOOK) CALL DR_HOOK('GARDEN',1,ZHOOK_HANDLE)

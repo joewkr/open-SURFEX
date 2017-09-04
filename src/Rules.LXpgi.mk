@@ -8,9 +8,9 @@
 OPT_BASE   =  -r8 -g -Ktrap=fp -fpic -Mbackslash -Munixlogical -byteswapio
 OPT_PERF0  =  -O0 -Kieee
 OPT_PERF2  =  -O2 -Kieee
-#OPT_CUDA  =  -O2 -Mcuda=keepgpu -ta=nvidia,cc20,cuda3.1,host,time -Minfo=accel,intensity,all,ccff  
-OPT_CUDA  =  -O3 -fast -ta=nvidia,cc20,cuda3.1,keepgpu,host -Minfo=all,intensity,ccff 
-OPT_CHECK  =  -C 
+#OPT_CUDA  =  -O2 -Mcuda=keepgpu -ta=nvidia,cc20,cuda3.1,host,time -Minfo=accel,intensity,all,ccff
+OPT_CUDA  =  -O3 -fast -ta=nvidia,cc20,cuda3.1,keepgpu,host -Minfo=all,intensity,ccff
+OPT_CHECK  =  -C
 OPT_PROF  =  -Mprof=time,ccff
 OPT_I8    =  -i8
 #
@@ -45,9 +45,9 @@ OPT_NOCB  = $(OPT_BASE) $(OPT_PERF0)
 endif
 
 ifeq "$(OPTLEVEL)" "CUDA"
-OPT       = $(OPT_BASE) $(OPT_CUDA) 
+OPT       = $(OPT_BASE) $(OPT_CUDA)
 OPT0      = $(OPT_BASE) $(OPT_CUDA) $(OPT_PERF0)
-OPT_NOCB  = $(OPT_BASE) $(OPT_CUDA) 
+OPT_NOCB  = $(OPT_BASE) $(OPT_CUDA)
 endif
 #-Mcuda -ta=nvidia,host,time -Minfo=accel,intensity
 #
@@ -68,7 +68,7 @@ FX90FLAGS =  $(OPT)
 #
 LDFLAGS    =   -Wl,-warn-once $(OPT)
 #
-# preprocessing flags 
+# preprocessing flags
 #
 CPP = cpp -P -traditional -Wcomment
 #
@@ -77,7 +77,7 @@ FPPFLAGS_SURFEX    =
 #RJ FPPFLAGS_SURCOUCHE = -DMNH_MPI_DOUBLE_PRECISION -DMNH_LINUX -DMNH_MPI_BSEND -DMNH_MPI_RANK_KIND=$(MNH_MPI_RANK_KIND)
 #RJ FPPFLAGS_RAD       =
 #RJ FPPFLAGS_NEWLFI    = -DSWAPIO -DLINUX -DLFI_INT=${LFI_INT} -DLFI_RECL=${LFI_RECL}
-#RJ FPPFLAGS_MNH       = -DMNH 
+#RJ FPPFLAGS_MNH       = -DMNH
 
 #
 # Gribex flags

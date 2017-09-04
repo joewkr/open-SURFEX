@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
       SUBROUTINE CONSERV_GLOBAL_MASS (DTCO, U, NP, NPE, PMESH_SIZE, KPATCH, &
                                       ILUOUT, PZDG, PZDG_OLD, HNAME, PFIELD_OLD)
@@ -11,7 +11,7 @@
 !!    -------
 !!
 !!    METHOD
-!!    ------ 
+!!    ------
 !!
 !!    EXTERNAL
 !!    --------
@@ -83,7 +83,7 @@ REAL, DIMENSION(U%NSIZE_NATURE,SIZE(NPE%AL(1)%XWG,2),KPATCH) :: ZFIELD0
 REAL,    DIMENSION(U%NSIZE_NATURE) :: ZFIELD,ZFIELD_OLD, ZFRAC_NAT
 INTEGER, DIMENSION(SIZE(U%XNATURE))  :: IMASK  ! mask for packing from complete field to nature field
 INTEGER                            :: INI, IPATCH, IFULL, ILEV
-INTEGER                            :: JLEV, JP, JJ  ! loop counter 
+INTEGER                            :: JLEV, JP, JJ  ! loop counter
 REAL                               :: ZRATIO_TOT, ZWORK1,ZWORK2
 !
 REAL, DIMENSION(:), ALLOCATABLE :: ZFIELD_TOT, ZFIELD_OLD_TOT, ZFRAC_NAT_TOT
@@ -102,7 +102,7 @@ IF (TRIM(HNAME)=="WG") THEN
 ELSEIF (TRIM(HNAME)=="WGI") THEN
   DO JP = 1,KPATCH
     ZFIELD0(:,:,JP) = NPE%AL(JP)%XWGI(:,:)
-  ENDDO        
+  ENDDO
 ENDIF
 !
 INI   = SIZE(PZDG,1)
@@ -111,7 +111,7 @@ IFULL = SIZE(U%XNATURE )
 !
 ZFRAC_NAT = 1.
  CALL GET_SURF_MASK_n(DTCO, U, 'NATURE',IFULL,IMASK,U%NSIZE_FULL,ILUOUT)
- CALL PACK_SAME_RANK(IMASK,U%XNATURE,ZFRAC_NAT)  
+ CALL PACK_SAME_RANK(IMASK,U%XNATURE,ZFRAC_NAT)
 ZFRAC_NAT(:)=ZFRAC_NAT(:)*PMESH_SIZE(:)
 !
 ZFIELD(:)    =0.0
@@ -159,7 +159,7 @@ ELSE
   CALL MPI_BCAST(ZWORK1,KIND(ZWORK1)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
   CALL MPI_BCAST(ZWORK2,KIND(ZWORK2)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
 #endif
- DEALLOCATE(ZFIELD_TOT,ZFIELD_OLD_TOT,ZFRAC_NAT_TOT)        
+ DEALLOCATE(ZFIELD_TOT,ZFIELD_OLD_TOT,ZFRAC_NAT_TOT)
 ENDIF
 !
 IF(ZWORK2/= 0.)THEN
@@ -175,7 +175,7 @@ IF (TRIM(HNAME)=="WG") THEN
 ELSEIF (TRIM(HNAME)=="WGI") THEN
   DO JP = 1,KPATCH
     NPE%AL(JP)%XWGI(:,:) = ZFIELD0(:,:,JP)
-  ENDDO        
+  ENDDO
 ENDIF
 !
 !-------------------------------------------------------------------------------

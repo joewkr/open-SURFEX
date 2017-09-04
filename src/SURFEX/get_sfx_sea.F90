@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_SFX_SEA (S, U, W, &
@@ -8,7 +8,7 @@
                               PSEA_FWSU,PSEA_FWSV,PSEA_HEAT,PSEA_SNET, &
                               PSEA_WIND,PSEA_FWSM,PSEA_EVAP,PSEA_RAIN, &
                               PSEA_SNOW,PSEA_WATF,                     &
-                              PSEAICE_HEAT,PSEAICE_SNET,PSEAICE_EVAP   )  
+                              PSEAICE_HEAT,PSEAICE_SNET,PSEAICE_EVAP   )
 !     ############################################################################
 !
 !!****  *GET_SFX_SEA* - routine to get some variables from surfex to
@@ -170,7 +170,7 @@ IF(U%NSIZE_SEA>0)THEN
     CALL UNPACK_SAME_RANK(U%NR_SEA(:),S%XCPL_SEAICE_EVAP(:),PSEAICE_EVAP(:),XUNDEF)
     S%XCPL_SEAICE_SNET(:) = 0.0
     S%XCPL_SEAICE_EVAP(:) = 0.0
-    S%XCPL_SEAICE_HEAT(:) = 0.0  
+    S%XCPL_SEAICE_HEAT(:) = 0.0
   ENDIF
 !
 ENDIF
@@ -190,7 +190,7 @@ IF (OWATER.AND.U%NSIZE_WATER>0) THEN
   CALL UNPACK_SAME_RANK(U%NR_WATER(:),W%XCPL_WATER_SNOW(:),ZSNOW(:),XUNDEF)
   CALL UNPACK_SAME_RANK(U%NR_WATER(:),W%XCPL_WATER_FWSM(:),ZFWSM(:),XUNDEF)
 !
-  WHERE(U%XWATER(:)>0.0) 
+  WHERE(U%XWATER(:)>0.0)
     PSEA_WIND(:) = (U%XSEA(:)*PSEA_WIND(:)+U%XWATER(:)*ZWIND(:))/(U%XSEA(:)+U%XWATER(:))
     PSEA_FWSU(:) = (U%XSEA(:)*PSEA_FWSU(:)+U%XWATER(:)*ZFWSU(:))/(U%XSEA(:)+U%XWATER(:))
     PSEA_FWSV(:) = (U%XSEA(:)*PSEA_FWSV(:)+U%XWATER(:)*ZFWSV(:))/(U%XSEA(:)+U%XWATER(:))
@@ -200,7 +200,7 @@ IF (OWATER.AND.U%NSIZE_WATER>0) THEN
     PSEA_RAIN(:) = (U%XSEA(:)*PSEA_RAIN(:)+U%XWATER(:)*ZRAIN(:))/(U%XSEA(:)+U%XWATER(:))
     PSEA_SNOW(:) = (U%XSEA(:)*PSEA_SNOW(:)+U%XWATER(:)*ZSNOW(:))/(U%XSEA(:)+U%XWATER(:))
     PSEA_FWSM(:) = (U%XSEA(:)*PSEA_FWSM(:)+U%XWATER(:)*ZFWSM(:))/(U%XSEA(:)+U%XWATER(:))
-  ENDWHERE 
+  ENDWHERE
 !
   W%XCPL_WATER_WIND(:) = 0.0
   W%XCPL_WATER_EVAP(:) = 0.0
@@ -216,16 +216,16 @@ IF (OWATER.AND.U%NSIZE_WATER>0) THEN
     CALL UNPACK_SAME_RANK(U%NR_WATER(:),W%XCPL_WATERICE_SNET(:),ZSNET_ICE(:),XUNDEF)
     CALL UNPACK_SAME_RANK(U%NR_WATER(:),W%XCPL_WATERICE_HEAT(:),ZHEAT_ICE(:),XUNDEF)
     CALL UNPACK_SAME_RANK(U%NR_WATER(:),W%XCPL_WATERICE_EVAP(:),ZEVAP_ICE(:),XUNDEF)
-    WHERE(U%XWATER(:)>0.0)     
+    WHERE(U%XWATER(:)>0.0)
       PSEAICE_SNET(:) = (U%XSEA(:)*PSEAICE_SNET(:)+U%XWATER(:)*ZSNET_ICE(:))/(U%XSEA(:)+U%XWATER(:))
       PSEAICE_HEAT(:) = (U%XSEA(:)*PSEAICE_HEAT(:)+U%XWATER(:)*ZHEAT_ICE(:))/(U%XSEA(:)+U%XWATER(:))
       PSEAICE_EVAP(:) = (U%XSEA(:)*PSEAICE_EVAP(:)+U%XWATER(:)*ZEVAP_ICE(:))/(U%XSEA(:)+U%XWATER(:))
-    ENDWHERE  
+    ENDWHERE
     W%XCPL_WATERICE_SNET(:) = 0.0
     W%XCPL_WATERICE_EVAP(:) = 0.0
     W%XCPL_WATERICE_HEAT(:) = 0.0
-  ENDIF  
-! 
+  ENDIF
+!
 ENDIF
 !
 !*       4.0   Net water flux

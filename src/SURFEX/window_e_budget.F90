@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE WINDOW_E_BUDGET(B, PEMIS_WIN, PLW_W_TO_WIN, PLW_R_TO_WIN, PLW_G_TO_WIN, &
                            PLW_NR_TO_WIN, PLW_S_TO_WIN, PRAD_RF_WIN, PRAD_WL_WIN,  &
@@ -10,14 +10,14 @@ SUBROUTINE WINDOW_E_BUDGET(B, PEMIS_WIN, PLW_W_TO_WIN, PLW_R_TO_WIN, PLW_G_TO_WI
                            PABS_LW_WIN, PLOAD_IN_WIN)
 !###################################################################################################################################
 !
-!!****  *WINDOW_E_BUDGET*  
+!!****  *WINDOW_E_BUDGET*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the evoultion of window temperature
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
@@ -33,11 +33,11 @@ SUBROUTINE WINDOW_E_BUDGET(B, PEMIS_WIN, PLW_W_TO_WIN, PLW_R_TO_WIN, PLW_G_TO_WI
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -45,7 +45,7 @@ SUBROUTINE WINDOW_E_BUDGET(B, PEMIS_WIN, PLW_W_TO_WIN, PLW_R_TO_WIN, PLW_G_TO_WI
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    04/2011 
+!!      Original    04/2011
 !!      G. Pigeon   10/11/2011 exteranlized window balance from wall_layer_e_budget to window_e_budget and use fluxes from layers for
 !                              which the balance has been computed before (roof and wall) and returns the fluxes to the compartments
 !                              computed afterwards (floor, mass, bld)
@@ -72,12 +72,12 @@ TYPE(BEM_t), INTENT(INOUT) :: B
 !
 REAL, DIMENSION(:), INTENT(IN)    :: PEMIS_WIN    ! window emissivity
 REAL, DIMENSION(:), INTENT(IN)    :: PLW_W_TO_WIN ! Radiative heat trasfer coeff window-wall outdoor
-                                                  ! [W K-1 m-2] 
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_R_TO_WIN ! Radiative heat trasfer coeff window-road 
+                                                  ! [W K-1 m-2]
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_R_TO_WIN ! Radiative heat trasfer coeff window-road
                                                   ! [W K-1 m-2]
 REAL, DIMENSION(:), INTENT(IN)    :: PLW_G_TO_WIN ! Radiative heat trasfer coeff window-garden
 REAL, DIMENSION(:), INTENT(IN)    :: PLW_NR_TO_WIN! Radiative heat trasfer coeff window-snow
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_S_TO_WIN ! Radiative heat trasfer coeff window-sky 
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_S_TO_WIN ! Radiative heat trasfer coeff window-sky
                                                   ! [W K-1 m-2]
 REAL, DIMENSION(:), INTENT(IN)    :: PRAD_RF_WIN  ! rad. fluxes from roof to win [W m-2(roof)]
 REAL, DIMENSION(:), INTENT(IN)    :: PRAD_WL_WIN  ! rad. fluxes from wall to win [W m-2(roof)]
@@ -99,12 +99,12 @@ REAL, DIMENSION(:), INTENT(OUT)   :: PRAD_WIN_MA  ! rad. fluxes from window to m
 REAL, DIMENSION(:), INTENT(OUT)   :: PCONV_WIN_BLD  ! conv. fluxes from window to bld [W m-2(window)]
 REAL, DIMENSION(:), INTENT(OUT)   :: PEMIT_LW_WIN  ! Longwave radiation emitted by the window [W m-2(window)]
 REAL, DIMENSION(:), INTENT(OUT)   :: PABS_LW_WIN   ! Longwave radiation absorbed by the window [W m-2(window)]
-REAL, DIMENSION(:), INTENT(IN)    :: PLOAD_IN_WIN  ! solar + internal heat gain 
+REAL, DIMENSION(:), INTENT(IN)    :: PLOAD_IN_WIN  ! solar + internal heat gain
 !
 !*      0.2    declarations of local variables
 !
 REAL, DIMENSION(SIZE(PT_CANYON)) :: ZT_SKY         ! sky temperature [K]
-REAL, DIMENSION(SIZE(PT_CANYON)) :: ZA12           ! 
+REAL, DIMENSION(SIZE(PT_CANYON)) :: ZA12           !
 REAL, DIMENSION(SIZE(PT_CANYON)) :: ZB2            ! auxiliar variables for window temperature
 REAL, DIMENSION(SIZE(PT_CANYON)) :: ZB1            ! calculations
 REAL, DIMENSION(SIZE(PT_CANYON)) :: ZA21           !
@@ -121,7 +121,7 @@ ENDDO
 !*      1.    Sky temperature
 !             ---------------
 ZT_SKY(:) = (PLW_RAD(:)/XSTEFAN)**0.25
-!  
+!
 ZA12(:) = ZCHTC_IN_WIN(:)   &
          + PRADHT_IN(:) * B%XF_WIN_MASS (:)  &
          + PRADHT_IN(:) * B%XF_WIN_FLOOR(:) &
@@ -167,7 +167,7 @@ PABS_LW_WIN(:)    = PLW_S_TO_WIN (:) * (ZT_SKY (:) - B%XT_WIN1(:)) + &
         PDN_RD(:) * PLW_NR_TO_WIN(:) * (PTSN_RD(:) - B%XT_WIN1(:))
 !
 IF (SIZE(PTS_GD)>0) THEN
-  PABS_LW_WIN(:) = PABS_LW_WIN(:) +  PLW_G_TO_WIN (:) * (PTS_GD (:) - B%XT_WIN1(:))      
+  PABS_LW_WIN(:) = PABS_LW_WIN(:) +  PLW_G_TO_WIN (:) * (PTS_GD (:) - B%XT_WIN1(:))
 ENDIF
 !
 ! outdoor infrared radiation emited by the window

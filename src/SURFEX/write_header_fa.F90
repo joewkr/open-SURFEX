@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !
 !#############################################
@@ -13,10 +13,10 @@ SUBROUTINE WRITE_HEADER_FA (GCP, HGRID, PGRID_PAR, CFILETYPE, HWRITE)
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
-!!                           
+!!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
@@ -44,7 +44,7 @@ USE MODD_GRID_CONF_PROJ_n,  ONLY : GRID_CONF_PROJ_t
 !
 USE MODD_IO_SURF_FA
 !
-USE MODD_CSTS,  ONLY : XPI 
+USE MODD_CSTS,  ONLY : XPI
 !
 USE MODE_GRIDTYPE_CONF_PROJ
 USE MODE_GRIDTYPE_LONLAT_REG
@@ -106,7 +106,7 @@ REAL, DIMENSION(0:1), PARAMETER :: ZNIVA = (/0.,0./)
 REAL, DIMENSION(0:1), PARAMETER :: ZNIVB = (/0.,1./)
 !
 REAL, PARAMETER :: ZREFER = 101325.
-!      
+!
 INTEGER, DIMENSION(11) :: IDATE
 INTEGER, DIMENSION(:), ALLOCATABLE :: INLOPA, INOZPA
 INTEGER :: ITYPTR
@@ -140,7 +140,7 @@ ZCODIL=0.0
 IF (HGRID=="CONF PROJ ") THEN
 !
   CALL GET_GRIDTYPE_CONF_PROJ(PGRID_PAR,ZLAPO,ZLOPO,ZPRPK,ZBETA, &
-                                ZLATMIN,ZLONMIN,ILON,ILAT          )  
+                                ZLATMIN,ZLONMIN,ILON,ILAT          )
 !
   ICOUNT=ILON*ILAT
   ALLOCATE(ZDX(ICOUNT))
@@ -161,7 +161,7 @@ IF (HGRID=="CONF PROJ ") THEN
   ZSINLA(3) = ZLOPO*ZRAD
   ZSINLA(4) = ZLAPO*ZRAD
   ZSINLA(5) = GCP%XLONC*ZRAD
-  ZSINLA(6) = GCP%XLATC*ZRAD  
+  ZSINLA(6) = GCP%XLATC*ZRAD
   ZSINLA(7) = ZDX(1)
   ZSINLA(8) = ZDY(1)
   ZSINLA(13) = 0.0
@@ -189,7 +189,7 @@ ELSEIF (HGRID=="CARTESIAN ") THEN
 ELSEIF (HGRID=="LONLAT REG") THEN
 !
   CALL GET_GRIDTYPE_LONLAT_REG(PGRID_PAR,ZLONMIN,ZLONMAX, &
-                                 ZLATMIN,ZLATMAX,ILON,ILAT  )  
+                                 ZLATMIN,ZLATMAX,ILON,ILAT  )
 !
   CALL GET_LUOUT(CFILETYPE,ILUOUT)
   IL=ILON*ILAT
@@ -244,7 +244,7 @@ ELSEIF (HGRID=="GAUSS     ") THEN
   ALLOCATE(ZLAT_XY(IL))
 !
   CALL GET_GRIDTYPE_GAUSS(PGRID_PAR,PLAPO=ZLAPO,PLOPO=ZLOPO,          &
-                            PCODIL=ZCODIL,KNLOPA=INLOPA,PLAT_XY=ZLAT_XY )  
+                            PCODIL=ZCODIL,KNLOPA=INLOPA,PLAT_XY=ZLAT_XY )
 !
 ! voir plus tard si ce parametre n'est pas deja dans un module !
   IF (ZLAPO>89.99 .AND. ABS(ZLOPO)<0.00001) THEN
@@ -294,10 +294,10 @@ ZBHYBR(0:1)=ZNIVB(0:1)
 ! Reduce verbosity (in case it is not already done)
  CALL FANMSG(0,NLUOUT)
  CALL FACADE(CDNOMC,ITYPTR,ZSLAPO,ZCLOPO,ZSLOPO,ZCODIL,ITRONC,INLATI,INXLON, &
-              INLOPA,INOZPA,ZSINLA,1,ZREFER,ZAHYBR,ZBHYBR,.TRUE.)  
+              INLOPA,INOZPA,ZSINLA,1,ZREFER,ZAHYBR,ZBHYBR,.TRUE.)
 !
  CALL FAITOU(IRET,NUNIT_FA,.TRUE.,CFILEOUT_FA,'UNKNOWN', &
-              .TRUE.,.FALSE.,IVERBFA,0,INB,CDNOMC)  
+              .TRUE.,.FALSE.,IVERBFA,0,INB,CDNOMC)
 !
 IDATE(:)=0
 IDATE(1)=1992

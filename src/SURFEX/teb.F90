@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
     SUBROUTINE TEB  (TOP, T, BOP, B, TIR, DMT, HIMPLICIT_WIND, PTSUN,                   &
@@ -24,7 +24,7 @@
                      PEMIT_LW_RD, PT_RAD_IND, PHU_BLD, PTIME, PE_SHADING )
 !   ##########################################################################
 !
-!!****  *TEB*  
+!!****  *TEB*
 !!
 !!    PURPOSE
 !!    -------
@@ -32,8 +32,8 @@
 !     Computes the evoultion of prognostic variables and the fluxes
 !     over artificial surfaces as towns, taking into account the canyon like
 !     geometry of urbanized areas.
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
@@ -56,7 +56,7 @@
 !
 !      Those are now done in subroutine urban_solar_abs.F90
 !
-!    3 : drag coefficient for momentum 
+!    3 : drag coefficient for momentum
 !        *****************************
 !
 !
@@ -83,7 +83,7 @@
 !
 !
 !
-!   Rn_w = abs_Rg_w 
+!   Rn_w = abs_Rg_w
 !  - sigma * emis_w                                                   * Ts_w**4 (t+dt)
 !  +         emis_w                       *      SVF_w                * Rat
 !  + sigma * emis_w * emis_r              *      SVF_w                * Ts_r**4 (t+dt)
@@ -131,7 +131,7 @@
 !  which is bigger than the horizontal surface (roof+road), leading
 !  to bigger fluxes.
 !
-!   The fluxes due to industrial activity are directly added into the 
+!   The fluxes due to industrial activity are directly added into the
 !  atmosphere
 !
 !
@@ -154,11 +154,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -166,11 +166,11 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    23/01/98 
+!!      Original    23/01/98
 !!     21 / 10 / 2003   P. Tulet    output aerodynamical resistance
 !!     01 / 07 / 2005   P.Le Moigne Exner functions as arguments to urban_fluxes
 !!     17 / 10 / 2005   (G. Pigeon) computation of anthropogenic heat from domestic heating
-!!          01 / 2012   V. Masson   Separates the 2 walls 
+!!          01 / 2012   V. Masson   Separates the 2 walls
 !!     25 / 09 / 2012   B. Decharme new wind implicitation
 !!          07 / 2013   V. Masson   Adds road watering
 !-------------------------------------------------------------------------------
@@ -335,25 +335,25 @@ REAL, DIMENSION(:), INTENT(IN)    :: PLW_S_TO_NR         ! LW contrib. sky      
 ! new arguments after BEM
 !
 INTEGER,            INTENT(IN)     :: KDAY         ! Simulation day
-REAL, DIMENSION(:), INTENT(IN)   :: PLW_WA_TO_WIN ! Radiative heat trasfer coeff wall-window 
-                                                  ! [W K-1 m-2] 
-REAL, DIMENSION(:), INTENT(IN)   :: PLW_WB_TO_WIN ! Radiative heat trasfer coeff wall-window 
-                                                  ! [W K-1 m-2] 
-REAL, DIMENSION(:), INTENT(IN)   :: PLW_G_TO_WIN  ! Radiative heat trasfer coeff garden-window 
+REAL, DIMENSION(:), INTENT(IN)   :: PLW_WA_TO_WIN ! Radiative heat trasfer coeff wall-window
                                                   ! [W K-1 m-2]
-REAL, DIMENSION(:), INTENT(IN)   :: PLW_R_TO_WIN  ! Radiative heat trasfer coeff road-window 
-                                                  ! [W K-1 m-2] 
-REAL, DIMENSION(:), INTENT(IN)   :: PLW_S_TO_WIN ! Radiative heat trasfer coeff window-sky 
+REAL, DIMENSION(:), INTENT(IN)   :: PLW_WB_TO_WIN ! Radiative heat trasfer coeff wall-window
+                                                  ! [W K-1 m-2]
+REAL, DIMENSION(:), INTENT(IN)   :: PLW_G_TO_WIN  ! Radiative heat trasfer coeff garden-window
+                                                  ! [W K-1 m-2]
+REAL, DIMENSION(:), INTENT(IN)   :: PLW_R_TO_WIN  ! Radiative heat trasfer coeff road-window
+                                                  ! [W K-1 m-2]
+REAL, DIMENSION(:), INTENT(IN)   :: PLW_S_TO_WIN ! Radiative heat trasfer coeff window-sky
                                                  ! [W K-1 m-2]
 REAL, DIMENSION(:), INTENT(IN)   :: PLW_WIN_TO_WA! Radiative heat trasfer coeff window-wall
-                                                 ! [W K-1 m-2] 
+                                                 ! [W K-1 m-2]
 REAL, DIMENSION(:), INTENT(IN)   :: PLW_WIN_TO_WB! Radiative heat trasfer coeff window-wall
-                                                 ! [W K-1 m-2] 
-REAL, DIMENSION(:), INTENT(IN)   :: PLW_WIN_TO_R ! Radiative heat trasfer coeff window-road 
                                                  ! [W K-1 m-2]
-REAL, DIMENSION(:), INTENT(IN)   :: PLW_NR_TO_WIN! Radiative heat trasfer coeff road(snow)-win 
+REAL, DIMENSION(:), INTENT(IN)   :: PLW_WIN_TO_R ! Radiative heat trasfer coeff window-road
                                                  ! [W K-1 m-2]
-REAL, DIMENSION(:), INTENT(IN)   :: PLW_WIN_TO_NR! Radiative heat trasfer coeff win-road(snow) 
+REAL, DIMENSION(:), INTENT(IN)   :: PLW_NR_TO_WIN! Radiative heat trasfer coeff road(snow)-win
+                                                 ! [W K-1 m-2]
+REAL, DIMENSION(:), INTENT(IN)   :: PLW_WIN_TO_NR! Radiative heat trasfer coeff win-road(snow)
                                                  ! [W K-1 m-2]
  !new argument for PET calculation
 REAL, DIMENSION(:), INTENT(OUT) :: PEMIT_LW_RD ! LW fluxes emitted by road (W/m2 surf road)
@@ -397,21 +397,21 @@ REAL, DIMENSION(SIZE(PTA)) :: ZTSSN_RD ! road snow temperature
 REAL, DIMENSION(SIZE(PTA)) :: ZIMB_RF      ! residual energy imbalance
                                              ! of the roof for
                                              ! verification
-REAL, DIMENSION(SIZE(PTA)) :: ZIMB_RD      ! road residual energy imbalance 
+REAL, DIMENSION(SIZE(PTA)) :: ZIMB_RD      ! road residual energy imbalance
                                              ! for verification [W m-2]
-REAL, DIMENSION(SIZE(PTA)) :: ZIMB_WL      ! wall residual energy imbalance 
+REAL, DIMENSION(SIZE(PTA)) :: ZIMB_WL      ! wall residual energy imbalance
                                              ! for verification [W m-2]
-REAL, DIMENSION(SIZE(PTA)) :: ZTS_RD       ! road surface temperature 
+REAL, DIMENSION(SIZE(PTA)) :: ZTS_RD       ! road surface temperature
 !                                            ! at previous time-step
-REAL, DIMENSION(SIZE(PTA)) :: ZTS_WL_A     ! wall A surface temperature 
+REAL, DIMENSION(SIZE(PTA)) :: ZTS_WL_A     ! wall A surface temperature
 !                                            ! at previous time-step
-REAL, DIMENSION(SIZE(PTA)) :: ZTS_WL_B     ! wall B surface temperature 
+REAL, DIMENSION(SIZE(PTA)) :: ZTS_WL_B     ! wall B surface temperature
 !                                            ! at previous time-step
-REAL, DIMENSION(SIZE(PTA)) :: ZTS_WL       ! averaged wall surface temperature 
+REAL, DIMENSION(SIZE(PTA)) :: ZTS_WL       ! averaged wall surface temperature
 !                                            ! at previous time-step
-REAL, DIMENSION(SIZE(PTA)) :: ZTS_RF       ! roof surface temperature 
+REAL, DIMENSION(SIZE(PTA)) :: ZTS_RF       ! roof surface temperature
 !                                            ! at previous time-step
-REAL, DIMENSION(SIZE(PTA),SIZE(T%XT_WALL_A,2)) :: ZT_WL ! averaged wall surface temperature 
+REAL, DIMENSION(SIZE(PTA),SIZE(T%XT_WALL_A,2)) :: ZT_WL ! averaged wall surface temperature
 !
 INTEGER :: IWL, IRF                      ! number of wall, roof layer
 REAL, DIMENSION(SIZE(PTA)) :: ZRADHT_IN     ! Indoor radiant heat transfer coefficient
@@ -436,7 +436,7 @@ REAL, DIMENSION(SIZE(PTA)) :: ZLOAD_IN_WL   ! indoor load on wall W/m2[wall]
 REAL, DIMENSION(SIZE(PTA)) :: ZLOAD_IN_WIN   ! indoor load on win W/m2[win]
 REAL, DIMENSION(SIZE(PTA)) :: ZLOAD_IN_MA   ! indoor load on mass W/m2[mass]
 !
-REAL(KIND=JPRB) :: ZHOOK_HANDLE                                             
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 !
 IF (LHOOK) CALL DR_HOOK('TEB',0,ZHOOK_HANDLE)
@@ -577,7 +577,7 @@ SELECT CASE(TOP%CBEM)
    CASE("DEF")
       ZTS_FL(:) = 19. + XTT
       PT_RAD_IND(:) = ( T%XWALL_O_HOR(:) / T%XBLD(:) * ZT_WL(:,IWL) + &
-                  T%XT_ROOF(:,IRF) + ZTS_FL(:) ) / (T%XWALL_O_HOR(:) / T%XBLD(:) + 1. + 1.) 
+                  T%XT_ROOF(:,IRF) + ZTS_FL(:) ) / (T%XWALL_O_HOR(:) / T%XBLD(:) + 1. + 1.)
       ZRADHT_IN(:) = XUNDEF
    CASE("BEM")
       ZTS_FL(:) = B%XT_FLOOR(:,1)
@@ -585,7 +585,7 @@ SELECT CASE(TOP%CBEM)
                    + ZTS_FL(:) + T%XT_ROOF(:,IRF) + B%XT_WIN2(:) * B%XGLAZ_O_BLD(:)) &
                    /(B%XMASS_O_BLD(:) + T%XWALL_O_BLD(:) + 1. + 1. + B%XGLAZ_O_BLD(:))
       !             Assuming indoor surface emissivities of 0.9
-      ZRADHT_IN(:)   = 0.9 * 0.9 * 4 * XSTEFAN * PT_RAD_IND(:)**3          
+      ZRADHT_IN(:)   = 0.9 * 0.9 * 4 * XSTEFAN * PT_RAD_IND(:)**3
 END SELECT
 !
 !
@@ -716,11 +716,11 @@ IF (TOP%LGREENROOF) THEN
                         + T%XGREENROOF(:) * (PRUNOFF_GR(:) + PDRAIN_GR(:))
 ELSE
   DMT%XRUNOFF_ROOF(:) =  DMT%XRUNOFF_STRLROOF(:)
-ENDIF                                                      
+ENDIF
 !
 !-------------------------------------------------------------------------------
 !
-!*      19.    Compute aerodynamical resistance 
+!*      19.    Compute aerodynamical resistance
 !              --------------------------------
 !
 PRESA_TWN(:) = 1. / ( T%XBLD(:) * PAC_RF(:)  + ( 1. - T%XBLD(:)) * PAC_TOP (:))

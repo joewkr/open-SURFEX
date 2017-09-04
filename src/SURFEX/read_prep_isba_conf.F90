@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PREP_ISBA_CONF(HPROGRAM,HVAR,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,&
@@ -50,7 +50,7 @@ USE MODD_PREP_ISBA,  ONLY : CFILE_ISBA, CTYPE, CFILEPGD_ISBA, CTYPEPGD,        &
                             XHUGI_SURF, XHUGI_ROOT, XHUGI_DEEP,                &
                             CFILE_TG, CTYPE_TG,                                &
                             CFILE_TG_SURF, CFILE_TG_ROOT, CFILE_TG_DEEP,       &
-                            XTG_SURF, XTG_ROOT, XTG_DEEP,                      &  
+                            XTG_SURF, XTG_ROOT, XTG_DEEP,                      &
                             XWSNOW, XTSNOW, XRSNOW, XASNOW
 !
 USE MODD_SURF_PAR,   ONLY : XUNDEF
@@ -142,8 +142,8 @@ SELECT CASE (HVAR)
     IF ( LEN_TRIM(CTYPE_HUG )>0       .AND. &
            LEN_TRIM(CFILE_HUG_SURF)>0   .AND. &
            LEN_TRIM(CFILE_HUG_ROOT)>0   .AND. &
-           LEN_TRIM(CFILE_HUG_DEEP)>0         ) THEN  
-       HFILETYPE = CTYPE_HUG 
+           LEN_TRIM(CFILE_HUG_DEEP)>0         ) THEN
+       HFILETYPE = CTYPE_HUG
     END IF
     IF (HVAR=='WGI    ' .AND. HFILETYPE=='ASCLLV') THEN
        OUNIF = .TRUE.
@@ -157,8 +157,8 @@ SELECT CASE (HVAR)
     IF ( LEN_TRIM(CTYPE_TG )>0       .AND. &
            LEN_TRIM(CFILE_TG_SURF)>0   .AND. &
            LEN_TRIM(CFILE_TG_ROOT)>0   .AND. &
-           LEN_TRIM(CFILE_TG_DEEP)>0         ) THEN  
-       HFILETYPE = CTYPE_TG 
+           LEN_TRIM(CFILE_TG_DEEP)>0         ) THEN
+       HFILETYPE = CTYPE_TG
     END IF
 END SELECT
 !
@@ -226,7 +226,7 @@ IF (HFILETYPE=='      ' .AND. .NOT. OUNIF) THEN
     XHUGI_SURF = 0.
     XHUGI_ROOT = 0.
     XHUGI_DEEP = 0.
-  ENDIF                                     
+  ENDIF
   OUNIF = .TRUE.
 END IF
 IF (LHOOK) CALL DR_HOOK('READ_PREP_ISBA_CONF',1,ZHOOK_HANDLE)

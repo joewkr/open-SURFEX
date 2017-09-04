@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################################
       SUBROUTINE READ_SSO_CANOPY_n (DTCO, SB, U, HPROGRAM,HINIT)
 !     #########################################
 !
 !!****  *READ_SSO_CANOPY_n* - reads SSO fields
-!!                        
+!!
 !!
 !!    PURPOSE
 !!    -------
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    05/2010 
+!!      Original    05/2010
 !!      B. Decharme 07/2011  initialize sso_canopy in prep
 !!      E. Martin   01/2012  Avoid writing of XUNDEF canopy fields
 !-------------------------------------------------------------------------------
@@ -129,7 +129,7 @@ ELSE
   !*       3.     Reading of Prognostic fields:
   !               -----------------------------
   !
-  ALLOCATE(SB%XZ(ILU,SB%NLVL))  
+  ALLOCATE(SB%XZ(ILU,SB%NLVL))
   ALLOCATE(SB%XU(ILU,SB%NLVL))
   ALLOCATE(SB%XTKE(ILU,SB%NLVL))
   !
@@ -138,7 +138,7 @@ ELSE
     WRITE(YRECFM,'(A9,I2.2,A1)') 'SSO_CAN_Z',JLAYER,' '
     CALL READ_SURF(HPROGRAM,YRECFM,SB%XZ(:,JLAYER),IRESP)
   END DO
-  !    
+  !
   !* wind in canopy
   DO JLAYER=1,SB%NLVL
     WRITE(YRECFM,'(A9,I2.2,A1)') 'SSO_CAN_U',JLAYER,' '

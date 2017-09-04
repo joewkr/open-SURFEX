@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
-      SUBROUTINE INIT_TOWN_n (DTCO, OREAD_BUDGETC, UG, U, GCP, TM, GDM, GRM, DGO, DL, DLC,  &                        
+      SUBROUTINE INIT_TOWN_n (DTCO, OREAD_BUDGETC, UG, U, GCP, TM, GDM, GRM, DGO, DL, DLC,  &
                               HPROGRAM,HINIT,KI,KSV,KSW, HSV,PCO2,PRHOA,       &
                               PZENITH,PAZIM,PSW_BANDS,PDIR_ALB,PSCA_ALB,       &
                               PEMIS,PTSRAD,PTSURF,KYEAR,KMONTH,KDAY,PTIME,     &
-                              HATMFILE,HATMFILETYPE,HTEST                      )  
+                              HATMFILE,HATMFILETYPE,HTEST                      )
 !     #############################################################
 !
 !!****  *INIT_TOWN_n* - chooses initialization routine for towns
@@ -35,7 +35,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    27/09/96 
+!!      Original    27/09/96
 !!       V.Masson   18/08/97 call to fmread directly with dates and strings
 !!       V.Masson   15/03/99 new PGD treatment with COVER types
 !        F.Solmon  06/00   adaptation for patch approach
@@ -130,7 +130,7 @@ IF (U%CTOWN=='NONE  ') THEN
 ELSE IF (U%CTOWN=='FLUX  ') THEN
   CALL INIT_IDEAL_FLUX(DGO, DL, DLC, OREAD_BUDGETC, &
                        HPROGRAM,HINIT,KI,KSV,KSW,HSV,PDIR_ALB,PSCA_ALB,  &
-                       PEMIS,PTSRAD,PTSURF,'OK'                    )  
+                       PEMIS,PTSRAD,PTSURF,'OK'                    )
 ELSE IF (U%CTOWN=='TEB   ') THEN
   CALL INIT_TEB_n(DTCO, UG, U, GCP, TM%CHT, TM%DTT, TM%SB, TM%G, TM%TOP,        &
                   TM%TPN, TM%TIR, TM%NT, TM%TD, TM%BDD, TM%BOP, TM%DTB, TM%NB,  &

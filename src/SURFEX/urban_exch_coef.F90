@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE URBAN_EXCH_COEF(HZ0H, PZ0_O_Z0H, PTG, PQS, PEXNS, PEXNA, PTA, PQA,   &
                              PZREF, PUREF, PVMOD, PZ0,                            &
-                             PRI, PCD, PCDN, PAC, PRA, PCH                        )  
+                             PRI, PCD, PCDN, PAC, PRA, PCH                        )
 !          #######################################################################
 !
-!!****  *URBAN_DRAG*  
+!!****  *URBAN_DRAG*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the surface drag coefficients over roof, road or town
 !     according several scientific formulations
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -30,11 +30,11 @@ SUBROUTINE URBAN_EXCH_COEF(HZ0H, PZ0_O_Z0H, PTG, PQS, PEXNS, PEXNA, PTA, PQA,   
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -112,12 +112,12 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('URBAN_EXCH_COEF',0,ZHOOK_HANDLE)
 IF (HZ0H=='MASC95') THEN
-! 
+!
   ZZ0H = PZ0 / PZ0_O_Z0H ! fixed ratio for MASC95
   ZDIRCOSZW=1.           ! no orography slope effect taken into account in TEB
 !
   CALL SURFACE_RI(PTG, PQS, PEXNS, PEXNA, PTA, PQA,   &
-                    PZREF, PUREF, ZDIRCOSZW, PVMOD, PRI )  
+                    PZREF, PUREF, ZDIRCOSZW, PVMOD, PRI )
 !
   CALL SURFACE_CD(PRI, PZREF, PUREF, PZ0, ZZ0H, PCD, PCDN)
 !
@@ -151,9 +151,9 @@ ELSEIF(HZ0H=='BRUT82' .OR. HZ0H=='KAND07')THEN
                    ue, fcor, ZTA, PQA,           &
                    PUREF, PZREF, ZVMOD, ZTG, PQS,&
                    hBL, PZ0,ZZ0H,                      &
-                   lzz0, lzz0t, fm, fh,N               )  
+                   lzz0, lzz0t, fm, fh,N               )
 !
-  PCD(:) = (cmu(:)/ue(:))**2  
+  PCD(:) = (cmu(:)/ue(:))**2
   PCDN(:) = (XKARMAN/LOG(PUREF(:)/PZ0(:)))**2
   PAC(:) = (cmu(:)*ctu(:)/ue(:)**2) * ZVMOD(:)
   PRA(:) = 1. / PAC(:)

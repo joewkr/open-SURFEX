@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 ! File %M% from Library %Q%
 ! Version %I% from %G% extracted: %H%
@@ -13,19 +13,19 @@ MODULE modd_flake_paramoptic_ref
 ! Description:
 !
 !  This module contains "reference" values of the optical characteristics
-!  of the lake water, lake ice and snow. These reference values may be used 
-!  if no information about the optical characteristics of the lake in question 
+!  of the lake water, lake ice and snow. These reference values may be used
+!  if no information about the optical characteristics of the lake in question
 !  is available. An exponential decay law for the solar radiation flux is assumed.
 !  In the simplest one-band approximation,
 !  the extinction coefficient for water is set to a large value,
-!  leading to the absorption of 95% of the incoming radiation 
-!  within the uppermost 1 m of the lake water. 
-!  The extinction coefficients for ice and snow are taken from 
-!  Launiainen and Cheng (1998). The estimates for the ice correspond 
-!  to the uppermost 0.1 m of the ice layer and to the clear sky conditions 
+!  leading to the absorption of 95% of the incoming radiation
+!  within the uppermost 1 m of the lake water.
+!  The extinction coefficients for ice and snow are taken from
+!  Launiainen and Cheng (1998). The estimates for the ice correspond
+!  to the uppermost 0.1 m of the ice layer and to the clear sky conditions
 !  (see Table 2 in op. cit.).
 !  Very large values of the extinction coefficients for ice and snow ("opaque")
-!  can be used to prevent penetration of the solar radiation 
+!  can be used to prevent penetration of the solar radiation
 !  through the snow-ice cover.
 !
 !
@@ -37,8 +37,8 @@ MODULE modd_flake_paramoptic_ref
 ! History:
 ! Version    Date       Name
 ! ---------- ---------- ----
-! 1.00       2005/11/17 Dmitrii Mironov 
-!  Initial release 
+! 1.00       2005/11/17 Dmitrii Mironov
+!  Initial release
 ! !VERSION!  !DATE!     <Your name>
 !  <Modification comments>
 !
@@ -53,12 +53,12 @@ MODULE modd_flake_paramoptic_ref
 ! Modules used:
 
 !USE modd_data_parameters, ONLY :      &
-!    ireals                       ,  &! KIND-type parameter for real variables 
-!    iintegers                        ! KIND-type parameter for "normal" integer variables  
+!    ireals                       ,  &! KIND-type parameter for real variables
+!    iintegers                        ! KIND-type parameter for "normal" integer variables
 
 USE modd_flake_derivedtypes, ONLY :   &
     nband_optic_max              ,  &! Maximum value of the wave-length bands
-    opticpar_medium                  ! Derived TYPE   
+    opticpar_medium                  ! Derived TYPE
 
 !==============================================================================
 
@@ -67,9 +67,9 @@ IMPLICIT NONE
 !==============================================================================
 !
 ! Declarations
- 
+
 INTEGER , PRIVATE ::  &! Help variable(s)
-    i                                      ! DO loop index  
+    i                                      ! DO loop index
 
 !  Optical characteristics for water, ice and snow.
 !  The simplest one-band approximation is used as a reference.
@@ -89,10 +89,10 @@ TYPE (opticpar_medium), PARAMETER ::                            &
     opticpar_blueice_ref = opticpar_medium(1,                     &! Blue ice
       (/1., (0.,i=2,nband_optic_max)/),            &
       (/8.4, (1.E+10,i=2,nband_optic_max)/))     , &
-    opticpar_drysnow_ref = opticpar_medium(1,                     &! Dry snow 
+    opticpar_drysnow_ref = opticpar_medium(1,                     &! Dry snow
       (/1., (0.,i=2,nband_optic_max)/),            &
       (/25.0, (1.E+10,i=2,nband_optic_max)/))    , &
-    opticpar_meltingsnow_ref = opticpar_medium(1,                 &! Melting snow 
+    opticpar_meltingsnow_ref = opticpar_medium(1,                 &! Melting snow
       (/1., (0.,i=2,nband_optic_max)/),            &
       (/15.0, (1.E+10,i=2,nband_optic_max)/))    , &
     opticpar_ice_opaque = opticpar_medium(1,                      &! Opaque ice
@@ -100,7 +100,7 @@ TYPE (opticpar_medium), PARAMETER ::                            &
       (/1.0E+07, (1.E+10,i=2,nband_optic_max)/)) , &
     opticpar_snow_opaque = opticpar_medium(1,                     &! Opaque snow
       (/1., (0.,i=2,nband_optic_max)/),            &
-      (/1.0E+07, (1.E+10,i=2,nband_optic_max)/))   
+      (/1.0E+07, (1.E+10,i=2,nband_optic_max)/))
 
 !==============================================================================
 

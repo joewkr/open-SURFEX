@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-SUBROUTINE CH_INIT_NAMES (KLUOUT,HSV, SV, OVARSIGI, OVARSIGJ)  
+SUBROUTINE CH_INIT_NAMES (KLUOUT,HSV, SV, OVARSIGI, OVARSIGJ)
 !!    ###########################################
 !!
 !!*** *CH_INIT_NAMES*
@@ -12,11 +12,11 @@ SUBROUTINE CH_INIT_NAMES (KLUOUT,HSV, SV, OVARSIGI, OVARSIGJ)
 !!    -------
 !!      Read and filter all chemical species into the CSV array
 !!     initialize NSV_CHSBEG and  NSV_CHSEND index for the begin and the ending chemical index
-!!     
+!!
 !!
 !!    REFERENCE
 !!    ---------
-!!    
+!!
 !!    AUTHOR
 !!    ------
 !!    P. Tulet    *Meteo France*

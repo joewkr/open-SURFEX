@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE AVERAGE1_OROGRAPHY (UG,USS, &
@@ -15,7 +15,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -87,9 +87,9 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !*    1.     Get position
 !            ------------
-!     
+!
 IF (LHOOK) CALL DR_HOOK('AVERAGE1_OROGRAPHY',0,ZHOOK_HANDLE)
-!      
+!
 IF (PRESENT(PNODATA)) THEN
   ZVALUE(:) = PVALUE(:)
   ZNODATA = PNODATA
@@ -102,7 +102,7 @@ ENDIF
 !
 !*    2.     Loop on all input data points
 !            -----------------------------
-!    
+!
 bloop: &
 DO JL = 1 , SIZE(PLAT)
 !
@@ -110,7 +110,7 @@ DO JL = 1 , SIZE(PLAT)
 !
 !*    3.     Tests on position
 !            -----------------
-!     
+!
     IF (IINDEX(JOV,JL)==0) CYCLE bloop
 !
 !*    4.     Summation
@@ -133,7 +133,7 @@ DO JL = 1 , SIZE(PLAT)
 !
     NSSO_ALL(IINDEX(JOV,JL),ISSOX(JOV,JL),ISSOY(JOV,JL)) = 1
     XSSO_ALL(IINDEX(JOV,JL),ISSOX(JOV,JL),ISSOY(JOV,JL)) = &
-         MAX (  XSSO_ALL(IINDEX(JOV,JL),ISSOX(JOV,JL),ISSOY(JOV,JL)) , PVALUE(JL) )   
+         MAX (  XSSO_ALL(IINDEX(JOV,JL),ISSOX(JOV,JL),ISSOY(JOV,JL)) , PVALUE(JL) )
 !
 !
 !*    8.     Maximum orography in the mesh

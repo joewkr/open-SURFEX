@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_SURF_VAR_n (FM, IM, SM, TM, WM, DGO, D, UG, U, USS,        &
@@ -10,7 +10,7 @@
                                  PZ0H_WATER, PZ0H_NATURE, PZ0H_TOWN, PQS_SEA,   &
                                  PQS_WATER, PQS_NATURE, PQS_TOWN, PPSNG, PPSNV, &
                                  PZS, PSERIES, PTWSNOW, PSSO_STDEV, PLON, PLAT, &
-                                 PBARE, PLAI_TREE, PH_TREE                    )  
+                                 PBARE, PLAI_TREE, PH_TREE                    )
 !     #######################################################################
 !
 !!****  *GET_SURF_VAR_n* - gets some surface fields on atmospheric grid
@@ -98,7 +98,7 @@ TYPE(SURF_ATM_GRID_t), INTENT(INOUT) :: UG
 TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 TYPE(SSO_t), INTENT(INOUT) :: USS
 !
- CHARACTER(LEN=6),   INTENT(IN)            :: HPROGRAM    
+ CHARACTER(LEN=6),   INTENT(IN)            :: HPROGRAM
 INTEGER,            INTENT(IN)            :: KI         ! number of points
 INTEGER,            INTENT(IN)            :: KS         ! number of points
 !
@@ -130,12 +130,12 @@ REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PQS_WATER  ! surface humidity over 
 REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PQS_NATURE ! surface humidity over nature        (kg/kg)
 REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PQS_TOWN   ! surface humidity over town          (kg/kg)
 !
-REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PPSNG      ! snow fraction over ground           (-)        
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PPSNG      ! snow fraction over ground           (-)
 REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PPSNV      ! snow fraction over vegetation       (-)
 !
-REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PZS        ! surface orography                   (m)    
+REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PZS        ! surface orography                   (m)
 !
-REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PSERIES  ! any surface field for which 
+REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL :: PSERIES  ! any surface field for which
 !                                                       ! mesoNH series are required
 REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PTWSNOW    ! Snow total reservoir
 REAL, DIMENSION(:), INTENT(OUT), OPTIONAL :: PSSO_STDEV ! S.S.O. standard deviation           (m)
@@ -254,7 +254,7 @@ IF ( PRESENT(PQS_SEA) .OR. PRESENT(PZ0_SEA) .OR. PRESENT(PZ0H_SEA) ) THEN
          PQS_SEA(IMASK(JI))  = ZFIELD1(JI)
       END DO
    ENDIF
-   !   
+   !
    IF(PRESENT(PZ0_SEA))THEN
       PZ0_SEA    (:) = XUNDEF
       DO JI = 1, KI_SEA
@@ -296,7 +296,7 @@ IF ( PRESENT(PQS_WATER) .OR. PRESENT(PZ0_WATER) .OR. PRESENT(PZ0H_WATER) ) THEN
          PQS_WATER(IMASK(JI))  = ZFIELD1(JI)
       END DO
    ENDIF
-   !   
+   !
    IF(PRESENT(PZ0_WATER))THEN
       PZ0_WATER    (:) = XUNDEF
       DO JI = 1, KI_WATER
@@ -326,7 +326,7 @@ IF ( PRESENT(PQS_NATURE) .OR. PRESENT(PPSNG) .OR. PRESENT(PPSNV) .OR.  PRESENT(P
       CALL ABOR1_SFX('GET_SURF_VARN: ARGUMENT PNATURE MISSING')
       !
    ENDIF
-   !   
+   !
    KI_NATURE = COUNT(PNATURE (:) > 0.0)
    !
    IMASK(:)=0
@@ -345,7 +345,7 @@ IF ( PRESENT(PQS_NATURE) .OR. PRESENT(PPSNG) .OR. PRESENT(PPSNV) .OR.  PRESENT(P
        PQS_NATURE(IMASK(JI))  = ZFIELD1(JI)
      END DO
    ENDIF
-   !   
+   !
    IF(PRESENT(PZ0_NATURE))THEN
      PZ0_NATURE    (:) = XUNDEF
      DO JI = 1, KI_NATURE
@@ -359,7 +359,7 @@ IF ( PRESENT(PQS_NATURE) .OR. PRESENT(PPSNG) .OR. PRESENT(PPSNV) .OR.  PRESENT(P
        PZ0H_NATURE(IMASK(JI)) = ZFIELD6(JI)
      END DO
    ENDIF
-   !  
+   !
    IF (PRESENT(PPSNG)) THEN
      PPSNG      (:) = XUNDEF
      DO JI = 1, KI_NATURE
@@ -419,8 +419,8 @@ IF ( PRESENT(PQS_NATURE) .OR. PRESENT(PPSNG) .OR. PRESENT(PPSNV) .OR.  PRESENT(P
        ENDDO
      END IF
      !
-   END IF   
-   !   
+   END IF
+   !
 ENDIF
    !
    !-------------------------------------------------------------------------------
@@ -449,7 +449,7 @@ IF ( PRESENT(PQS_TOWN) .OR. PRESENT(PZ0_TOWN) .OR. PRESENT(PZ0H_TOWN) ) THEN
          PQS_TOWN(IMASK(JI))  = ZFIELD1(JI)
       END DO
    ENDIF
-   !   
+   !
    IF(PRESENT(PZ0_TOWN))THEN
       PZ0_TOWN    (:) = XUNDEF
       DO JI = 1, KI_TOWN
@@ -472,7 +472,7 @@ IF (PRESENT(PZS)) THEN
    !
    CALL GET_ZS_n(U, HPROGRAM, KI, ZFIELD1)
    !
-   PZS = ZFIELD1 
+   PZS = ZFIELD1
    !
 END IF
 !
@@ -482,10 +482,10 @@ IF (PRESENT(PSERIES)) THEN
    !
    IF ( .NOT.PRESENT(PWATER) ) THEN
       CALL ABOR1_SFX('GET_SURF_VARN: ARGUMENT PWATER REQUIRED FOR WATER SERIES')
-   ENDIF        
+   ENDIF
    !
    IF ( COUNT(PWATER  (:) > 0.0) > 0.0 ) THEN
-     !   
+     !
      CALL GET_SERIES_n(FM%F, HPROGRAM, KI, KS, ZSERIES)
      !
      PSERIES = ZSERIES

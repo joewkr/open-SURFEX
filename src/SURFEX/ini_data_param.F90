@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
       SUBROUTINE INI_DATA_PARAM(PLAI, PH_TREE,        &
@@ -43,7 +43,7 @@
 !!    ------------
 !!
 !!    Original    06/01/2000
-!!    F.solmon    01/06/2000 adaptation for patch approach: calculation of parameters 
+!!    F.solmon    01/06/2000 adaptation for patch approach: calculation of parameters
 !!                for each vegtypes of basic covers
 !!    V Masson    03/04/2002 set RSMIN value to 120 for NVT_TROG and NVT_C4
 !!    L Jarlan    15/10/2004 modify xdata_gmes following Gibelin
@@ -55,7 +55,7 @@
 !!    R. Alkama      05/12 : Add 7 new vegtype (19 rather than 12)
 !!    B. Decharme    05/13 : new param for equatorial forest
 !!    P. Samuelsson  10/14 : Multi-energy balance (MEB)
-!!Seferian & Delire  06/15 : Updating Nitrogen content and coef (PCF,PCNA) and 
+!!Seferian & Delire  06/15 : Updating Nitrogen content and coef (PCF,PCNA) and
 !                            mesophyl conductance based on TRY database (Kattge et al., GCB 2011) and Jacobs Thesis
 !!
 !----------------------------------------------------------------------------
@@ -64,7 +64,7 @@
 !            -----------
 !
 USE MODD_CSTS,           ONLY : XDAY
-USE MODD_DATA_COVER_PAR, ONLY : NVT_NO, NVT_ROCK, NVT_SNOW, NVT_TEBD,   & 
+USE MODD_DATA_COVER_PAR, ONLY : NVT_NO, NVT_ROCK, NVT_SNOW, NVT_TEBD,   &
                                 NVT_BONE, NVT_TRBE, NVT_C3, NVT_C4,     &
                                 NVT_IRR, NVT_GRAS, NVT_TROG,NVT_PARK,   &
                                 NVT_TRBD, NVT_TEBE, NVT_TENE, NVT_BOBD, &
@@ -195,13 +195,13 @@ IF (PRESENT(PALBVIS_VEG)) THEN
   IF (NVT_FLTR>0) THEN
      PALBVIS_VEG(:,NVT_FLTR) = 0.05
   ENDIF
-ENDIF        
+ENDIF
 !-------------------------------------------------------------------------------
 !*    7.6    albUV (veg only)
 !            -----
 IF (PRESENT(PALBUV_VEG)) THEN
   !
-  PALBUV_VEG(:,:)= 0.06  
+  PALBUV_VEG(:,:)= 0.06
   PALBUV_VEG(:,NVT_TEBD)= 0.0525
   PALBUV_VEG(:,NVT_TRBD)= 0.0525
   PALBUV_VEG(:,NVT_TEBE)= 0.0525
@@ -210,7 +210,7 @@ IF (PRESENT(PALBUV_VEG)) THEN
   PALBUV_VEG(:,NVT_BONE)= 0.0425
   PALBUV_VEG(:,NVT_TENE)= 0.0425
   PALBUV_VEG(:,NVT_BOND)= 0.0425
-  PALBUV_VEG(:,NVT_TRBE)= 0.038 
+  PALBUV_VEG(:,NVT_TRBE)= 0.038
   IF (NVT_FLTR>0) THEN
      PALBUV_VEG(:,NVT_FLTR) = 0.0525
   ENDIF
@@ -246,7 +246,7 @@ IF (PRESENT(PALBUV_VEG)) THEN
     PALBUV_VEG(:,NVT_FLGR)= 0.08
   ENDIF
   !
-ENDIF        
+ENDIF
 !------------------------------------------------------------------------------
 !*    7.7    Rsmin
 !            -----
@@ -286,7 +286,7 @@ ENDIF
 !*    7.8    Gamma
 !            -----
 IF (PRESENT(PGAMMA)) THEN
-  PGAMMA(:,:)= 0. 
+  PGAMMA(:,:)= 0.
   PGAMMA(:,NVT_TEBD)= 0.04
   PGAMMA(:,NVT_TRBD)= 0.04
   PGAMMA(:,NVT_TEBE)= 0.04
@@ -335,7 +335,7 @@ IF (PRESENT(PRGL)) THEN
   IF (NVT_FLTR>0) THEN
      PRGL(:,NVT_FLTR) = 30.
   ENDIF
-ENDIF    
+ENDIF
 !-------------------------------------------------------------------------------
 !*    7.10   Cv
 !            --
@@ -349,21 +349,21 @@ IF (PRESENT(PCV)) THEN
   PCV(:,NVT_BONE)= 1.E-5
   PCV(:,NVT_TENE)= 1.E-5
   PCV(:,NVT_BOND)= 1.E-5
-  PCV(:,NVT_TRBE)= 1.E-5 
+  PCV(:,NVT_TRBE)= 1.E-5
   IF (NVT_FLTR>0) THEN
      PCV(:,NVT_FLTR) = 1.E-5
   ENDIF
-ENDIF    
+ENDIF
 !-------------------------------------------------------------------------------
 !*    7.11   mesophyll conductance (m s-1)
 !            -----------------------------
 !            Uptdated values using Kattge et al. 2009 median values of Vcmax at 25C
 !            (For TRBE, used median + 1 standard deviation)
-!            For C3 tree PFTs : 
-!              gmes = Vcmax / (gamma + Kc*(1 + O2/Ko))    
-!              from Jacobs eq [A8.5] and Farquhar, 1980 eq 42 : gm = dA/dC estimated at Ci=Gamma 
+!            For C3 tree PFTs :
+!              gmes = Vcmax / (gamma + Kc*(1 + O2/Ko))
+!              from Jacobs eq [A8.5] and Farquhar, 1980 eq 42 : gm = dA/dC estimated at Ci=Gamma
 !            For grasses (C3 and C4): used V7 value
-!                crops :  used N. Canal's PhD thesis 
+!                crops :  used N. Canal's PhD thesis
 !            --------------------------------------------------------------------
 IF (PRESENT(PGMES)) THEN
   PGMES(:,:)=0.020
@@ -375,7 +375,7 @@ IF (PRESENT(PGMES)) THEN
   PGMES(:,NVT_BONE)= 0.001
   PGMES(:,NVT_TENE)= 0.001
   PGMES(:,NVT_BOND)= 0.001
-  PGMES(:,NVT_TRBE)= 0.001 
+  PGMES(:,NVT_TRBE)= 0.001
   IF (NVT_FLTR>0) THEN
      PGMES(:,NVT_FLTR) = 0.001
   ENDIF
@@ -407,7 +407,7 @@ IF (PRESENT(PGMES)) THEN
     ENDIF
     !
   ENDIF
-ENDIF    
+ENDIF
 !
 IF (PRESENT(PGMES_ST)) THEN
   !
@@ -463,7 +463,7 @@ IF (PRESENT(PGMES_ST)) THEN
     PGMES_ST(:,NVT_FLGR)= 0.001
   ENDIF
   !
-ENDIF    
+ENDIF
 !-------------------------------------------------------------------------------
 !*    7.11   Ecosystem Respiration (kg m-2 s-1)
 !            -----------------------------------
@@ -484,9 +484,9 @@ IF (PRESENT(PRE25)) THEN
     ENDIF
     PRE25(:,NVT_C4  )= 3.6E-7
     IF (NVT_IRR/=0) THEN
-      PRE25(:,NVT_IRR )= 3.6E-7    
+      PRE25(:,NVT_IRR )= 3.6E-7
     ENDIF
-    !        
+    !
   ELSE
     !
     IF (NVT_C3/=0) THEN
@@ -521,10 +521,10 @@ IF (PRESENT(PGC)) THEN
   PGC(:,NVT_BONE)= 0.
   PGC(:,NVT_TENE)= 0.
   PGC(:,NVT_BOND)= 0.
-  PGC(:,NVT_TRBE)= 0.00015    
+  PGC(:,NVT_TRBE)= 0.00015
   IF (NVT_FLTR>0) THEN
      PGC(:,NVT_FLTR) = 0.00015
-  ENDIF  
+  ENDIF
 ENDIF
 !
 IF (PRESENT(PGC_ST)) THEN
@@ -546,17 +546,17 @@ IF (PRESENT(PGC_ST)) THEN
       PGC_ST(:,NVT_IRR )= 0.00025
     ENDIF
   ENDIF
-  ! 
+  !
   PGC_ST(:,NVT_GRAS)= 0.00025
-  PGC_ST(:,NVT_BOGR)= 0.00025  
-  !    
+  PGC_ST(:,NVT_BOGR)= 0.00025
+  !
   IF (NVT_PARK/=0) THEN
     PGC_ST(:,NVT_PARK)= 0.001
   ELSEIF (NVT_FLGR/=0) THEN
     PGC_ST(:,NVT_FLGR)= 0.001
-  ENDIF 
+  ENDIF
   !
-ENDIF    
+ENDIF
 !-------------------------------------------------------------------------------
 !*    7.11   critical normilized soil water content for stress parameterisation
 !            ------------------------------------------------------------------
@@ -574,10 +574,10 @@ IF (PRESENT(PBSLAI)) THEN
   PBSLAI(:,NVT_BONE)= 0.25
   PBSLAI(:,NVT_TENE)= 0.25
   PBSLAI(:,NVT_BOND)= 0.25
-  PBSLAI(:,NVT_TRBE)= 0.25 
+  PBSLAI(:,NVT_TRBE)= 0.25
   IF (NVT_FLTR>0) THEN
      PBSLAI(:,NVT_FLTR) = 0.25
-  ENDIF 
+  ENDIF
   !
   IF(GAGRI_TO_GRASS)THEN
     !
@@ -589,9 +589,9 @@ IF (PRESENT(PBSLAI)) THEN
     ENDIF
     PBSLAI(:,NVT_C4  )= 0.36
     IF (NVT_IRR/=0) THEN
-      PBSLAI(:,NVT_IRR )= 0.36  
-    ENDIF 
-    !        
+      PBSLAI(:,NVT_IRR )= 0.36
+    ENDIF
+    !
   ELSE
     !
     IF (NVT_C3/=0) THEN
@@ -602,16 +602,16 @@ IF (PRESENT(PBSLAI)) THEN
     ENDIF
     PBSLAI(:,NVT_C4  )= 0.06
     IF (NVT_IRR/=0) THEN
-      PBSLAI(:,NVT_IRR )= 0.06 
+      PBSLAI(:,NVT_IRR )= 0.06
     ENDIF
     !
   ENDIF
   !
 ENDIF
-!    
+!
 IF (PRESENT(PBSLAI_ST)) THEN
   !
-  PBSLAI_ST(:,:)=0.08 
+  PBSLAI_ST(:,:)=0.08
   PBSLAI_ST(:,NVT_TEBD)= 0.125
   PBSLAI_ST(:,NVT_TRBD)= 0.125
   PBSLAI_ST(:,NVT_TEBE)= 0.125
@@ -620,7 +620,7 @@ IF (PRESENT(PBSLAI_ST)) THEN
   PBSLAI_ST(:,NVT_BONE)= 0.50
   PBSLAI_ST(:,NVT_TENE)= 0.50
   PBSLAI_ST(:,NVT_BOND)= 0.50
-  PBSLAI_ST(:,NVT_TRBE)= 0.25 
+  PBSLAI_ST(:,NVT_TRBE)= 0.25
   IF (NVT_FLTR>0) THEN
      PBSLAI_ST(:,NVT_FLTR) = 0.125
   ENDIF
@@ -668,11 +668,11 @@ IF (PRESENT(PDMAX)) THEN
   PDMAX(:,NVT_BONE)= 0.01
   PDMAX(:,NVT_TENE)= 0.01
   PDMAX(:,NVT_BOND)= 0.01
-  PDMAX(:,NVT_TRBE)= 0.01 
+  PDMAX(:,NVT_TRBE)= 0.01
   IF (NVT_FLTR>0) THEN
      PDMAX(:,NVT_FLTR) = 0.01
   ENDIF
-ENDIF    
+ENDIF
 !
 IF (PRESENT(PDMAX_ST)) THEN
   !
@@ -685,7 +685,7 @@ IF (PRESENT(PDMAX_ST)) THEN
   PDMAX_ST(:,NVT_BONE)= 0.124
   PDMAX_ST(:,NVT_TENE)= 0.124
   PDMAX_ST(:,NVT_BOND)= 0.124
-  PDMAX_ST(:,NVT_TRBE)= 0.124 
+  PDMAX_ST(:,NVT_TRBE)= 0.124
   IF (NVT_FLTR>0) THEN
      PDMAX_ST(:,NVT_FLTR) = 0.109
   ENDIF
@@ -704,17 +704,17 @@ IF (PRESENT(PDMAX_ST)) THEN
       PDMAX_ST(:,NVT_IRR )= 0.033
     ENDIF
     !
-  ENDIF  
-  !  
+  ENDIF
+  !
   PDMAX_ST(:,NVT_TROG)= 0.052
   !
-ENDIF    
+ENDIF
 !-------------------------------------------------------------------------------
 !*    7.12   Defensive/offensive strategy (1/0)
 !            ----------------------------
 IF (PRESENT(PSTRESS)) THEN
   !
-  PSTRESS(:,:) = 1. 
+  PSTRESS(:,:) = 1.
   PSTRESS(:,NVT_TEBD)= 0.
   PSTRESS(:,NVT_TRBD)= 0.
   PSTRESS(:,NVT_TEBE)= 0.
@@ -737,21 +737,21 @@ IF (PRESENT(PSTRESS)) THEN
       PSTRESS(:,NVT_IRR )= 0.
     ENDIF
     !
-  ENDIF    
+  ENDIF
   !
   PSTRESS(:,NVT_C4  )= 0.
   !
   PSTRESS(:,NVT_GRAS)= 0.
-  PSTRESS(:,NVT_BOGR)= 0.      
+  PSTRESS(:,NVT_BOGR)= 0.
   PSTRESS(:,NVT_TROG)= 0.
   !
   IF (NVT_PARK/=0) THEN
     PSTRESS(:,NVT_PARK)= 0.
   ELSEIF (NVT_FLGR/=0) THEN
     PSTRESS(:,NVT_FLGR)= 0.
-  ENDIF 
+  ENDIF
   !
-ENDIF    
+ENDIF
 !-------------------------------------------------------------------------------
 !*    7.13   e-folding time for senescence (days)
 !            ------------------------------------
@@ -800,9 +800,9 @@ IF (PRESENT(PSEFOLD)) THEN
       PSEFOLD(:,NVT_IRR )= 60.* XDAY
     ENDIF
     !
-  ENDIF  
-  !  
-ENDIF    
+  ENDIF
+  !
+ENDIF
 !
 ! parameters use in case HPHOTO == 'AST', 'NIT', 'NCB'
 
@@ -820,7 +820,7 @@ IF (PRESENT(PSEFOLD_ST)) THEN
   IF (NVT_FLTR>0) THEN
      PSEFOLD_ST(:,NVT_FLTR) = 365.* XDAY
   ENDIF
-ENDIF    
+ENDIF
 !-------------------------------------------------------------------------------
 !*    7.14   Minimum LAI (m2/m2)
 !            -------------------
@@ -831,12 +831,12 @@ IF (PRESENT(PLAIMIN_OUT)) THEN
   PLAIMIN_OUT(:,NVT_TENE)= 1.0
   PLAIMIN_OUT(:,NVT_BOND)= 1.0
   PLAIMIN_OUT(:,NVT_TRBE)= 1.0
-ENDIF 
+ENDIF
 !--------------------------------------------------------------------
 !
 !*    7.16   Fraction of ground litter
 !            -------------------------
-! 	 
+!
 IF (PRESENT(PGNDLITTER)) THEN
   PGNDLITTER (:,:,:) = 0.
   PGNDLITTER (:,:,NVT_TEBD) = 0.03
@@ -848,14 +848,14 @@ IF (PRESENT(PGNDLITTER)) THEN
   PGNDLITTER (:,:,NVT_BOBD) = 0.03
   PGNDLITTER (:,:,NVT_BOND) = 0.03
   PGNDLITTER (:,:,NVT_SHRB) = 0.03
-ENDIF 
-! 
+ENDIF
+!
 !------------------------------------------------------------------------
 !*    2.20   specific leaf area sensitivity to nitrogen concentration
 !            -----------------------------
-!            corresponds to "e" in (eq 1) from Gibelin et al, 2006 
+!            corresponds to "e" in (eq 1) from Gibelin et al, 2006
 !            SLA = f + e * Nm   with SLA = specific leaf area
-!            kept values from Gibelin et al 2006 
+!            kept values from Gibelin et al 2006
 !            -----------------------------------------------------
 !
 IF (PRESENT(PCE_NITRO)) THEN
@@ -903,14 +903,14 @@ IF (PRESENT(PCE_NITRO)) THEN
   ENDIF
   !
   PCE_NITRO(:,NVT_GRAS)= 5.56
-  PCE_NITRO(:,NVT_BOGR)= 5.56 
-  !  
+  PCE_NITRO(:,NVT_BOGR)= 5.56
+  !
   IF (NVT_PARK/=0) THEN
     PCE_NITRO(:,NVT_PARK)= 5.56
   ELSEIF (NVT_FLGR/=0) THEN
     PCE_NITRO(:,NVT_FLGR)= 5.56
-  ENDIF   
-  ! 
+  ENDIF
+  !
 ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -918,8 +918,8 @@ ENDIF
 !            ----------
 !            intercept of SLA = f + e * Nm  from Gibelin et al, 2006 (eq 1)
 !            kept Gibelin et al values for grasses and crops
-!            used TRY database (Kattge et al., 2011) median values for trees                    
-!            with SLA and Nm from TRY and "e" (PCE_NITRO) from Gibelin et al 2006 
+!            used TRY database (Kattge et al., 2011) median values for trees
+!            with SLA and Nm from TRY and "e" (PCE_NITRO) from Gibelin et al 2006
 !            used Domingues 2011 for TRBE SLA.
 !            ------------------------------------------------------
 IF (PRESENT(PCF_NITRO)) THEN
@@ -933,7 +933,7 @@ IF (PRESENT(PCF_NITRO)) THEN
   PCF_NITRO(:,NVT_BONE)= -0.87
   PCF_NITRO(:,NVT_TENE)= -0.87
   PCF_NITRO(:,NVT_BOND)= 0.68
-  PCF_NITRO(:,NVT_TRBE)= 0.12 ! obtained using f = SLA - e*Nm 
+  PCF_NITRO(:,NVT_TRBE)= 0.12 ! obtained using f = SLA - e*Nm
                                                                  ! with SLA = 8.33 m2/kg_DM (Domingues 2011), Nm=1.7% (TRY)
   IF (NVT_FLTR>0) THEN
      PCF_NITRO(:,NVT_FLTR) = 5.11
@@ -968,21 +968,21 @@ IF (PRESENT(PCF_NITRO)) THEN
   ENDIF
   !
   PCF_NITRO(:,NVT_GRAS)= 6.73
-  PCF_NITRO(:,NVT_BOGR)= 6.73    
+  PCF_NITRO(:,NVT_BOGR)= 6.73
   !
   IF (NVT_PARK/=0) THEN
     PCF_NITRO(:,NVT_PARK)= 6.73
   ELSEIF (NVT_FLGR/=0) THEN
     PCF_NITRO(:,NVT_FLGR)= 6.73
-  ENDIF  
-  ! 
-ENDIF    
+  ENDIF
+  !
+ENDIF
 !-------------------------------------------------------------------------------
 !*    2.22   nitrogen concentration of leaf biomass
 !            ----------
 !            kept Gibelin et al 2006 values for grasses and crops
 !            Nm from TRY database (Kattge et al. GCB 2011) median values for tree PFTs
-!            Nm in mg_N/g_DM and PCNA_NITRO in % --> PCNA_NITRO = Nm * 0.1 
+!            Nm in mg_N/g_DM and PCNA_NITRO in % --> PCNA_NITRO = Nm * 0.1
 !            --------------------------------------------------
 IF (PRESENT(PCNA_NITRO)) THEN
   !
@@ -995,7 +995,7 @@ IF (PRESENT(PCNA_NITRO)) THEN
   PCNA_NITRO(:,NVT_BONE)= 1.21
   PCNA_NITRO(:,NVT_TENE)= 1.21
   PCNA_NITRO(:,NVT_BOND)= 1.94
-  PCNA_NITRO(:,NVT_TRBE)= 1.7 
+  PCNA_NITRO(:,NVT_TRBE)= 1.7
   IF (NVT_FLTR>0) THEN
      PCNA_NITRO(:,NVT_FLTR) = 2.13
   ENDIF
@@ -1019,16 +1019,16 @@ IF (PRESENT(PCNA_NITRO)) THEN
     PCNA_NITRO(:,NVT_C3S )= 1.3
   ENDIF
   !
-  PCNA_NITRO(:,NVT_GRAS)= 1.3 
+  PCNA_NITRO(:,NVT_GRAS)= 1.3
   PCNA_NITRO(:,NVT_BOGR)= 1.3
   !
   IF (NVT_PARK/=0) THEN
     PCNA_NITRO(:,NVT_PARK)= 1.3
   ELSEIF (NVT_FLGR/=0) THEN
     PCNA_NITRO(:,NVT_FLGR)= 1.3
-  ENDIF  
-  !  
-ENDIF    
+  ENDIF
+  !
+ENDIF
 !-------------------------------------------------------------------------------
 !*    7.15   Jackson (1996) coefficient for cumulative root fraction
 !            -------------------------------------------------------
@@ -1056,8 +1056,8 @@ IF (PRESENT(PROOT_EXTINCTION)) THEN
     PROOT_EXTINCTION(:,NVT_C4  )= 0.943
     IF (NVT_IRR/=0) THEN
       PROOT_EXTINCTION(:,NVT_IRR )= 0.943
-    ENDIF  
-    !        
+    ENDIF
+    !
   ELSE
     !
     IF (NVT_C3/=0) THEN
@@ -1073,7 +1073,7 @@ IF (PRESENT(PROOT_EXTINCTION)) THEN
     !
   ENDIF
   !
-  PROOT_EXTINCTION(:,NVT_BOGR)= 0.914      
+  PROOT_EXTINCTION(:,NVT_BOGR)= 0.914
   PROOT_EXTINCTION(:,NVT_TROG)= 0.972
   !
 ENDIF
@@ -1101,11 +1101,11 @@ IF (PRESENT(PSOILRC_SO2)) THEN
   PSOILRC_SO2(:,NVT_BONE)= 500.
   PSOILRC_SO2(:,NVT_TENE)= 500.
   PSOILRC_SO2(:,NVT_BOND)= 500.
-  PSOILRC_SO2(:,NVT_TRBE)= 200. 
+  PSOILRC_SO2(:,NVT_TRBE)= 200.
   IF (NVT_FLTR>0) THEN
      PSOILRC_SO2(:,NVT_FLTR) = 500.
-  ENDIF  
-  ! 
+  ENDIF
+  !
   IF(GAGRI_TO_GRASS)THEN
     !
     IF (NVT_C3/=0) THEN
@@ -1135,13 +1135,13 @@ IF (PRESENT(PSOILRC_SO2)) THEN
   ENDIF
   !
   PSOILRC_SO2(:,NVT_GRAS)= 350.
-  PSOILRC_SO2(:,NVT_BOGR)= 350. 
-  !    
+  PSOILRC_SO2(:,NVT_BOGR)= 350.
+  !
   IF (NVT_PARK/=0) THEN
     PSOILRC_SO2(:,NVT_PARK)= 350.
   ELSEIF (NVT_FLGR/=0) THEN
     PSOILRC_SO2(:,NVT_FLGR)= 350.
-  ENDIF  
+  ENDIF
   !
   PSOILRC_SO2(:,NVT_TROG)= 350.
   PSOILRC_SO2(:,NVT_NO  )=1000.
@@ -1167,7 +1167,7 @@ IF (PRESENT(PSOILRC_O3)) THEN
   PSOILRC_O3(:,NVT_TRBE)= 500.
   IF (NVT_FLTR>0) THEN
      PSOILRC_O3(:,NVT_FLTR) = 200.
-  ENDIF 
+  ENDIF
   !
   IF(GAGRI_TO_GRASS)THEN
     !
@@ -1179,9 +1179,9 @@ IF (PRESENT(PSOILRC_O3)) THEN
     ENDIF
     PSOILRC_O3(:,NVT_C4  )= 200.
     IF (NVT_IRR/=0) THEN
-      PSOILRC_O3(:,NVT_IRR )= 200.  
-    ENDIF  
-    !        
+      PSOILRC_O3(:,NVT_IRR )= 200.
+    ENDIF
+    !
   ELSE
     !
     IF (NVT_C3/=0) THEN
@@ -1198,13 +1198,13 @@ IF (PRESENT(PSOILRC_O3)) THEN
   ENDIF
   !
   PSOILRC_O3(:,NVT_GRAS)= 200.
-  PSOILRC_O3(:,NVT_BOGR)= 200.  
-  !  
+  PSOILRC_O3(:,NVT_BOGR)= 200.
+  !
   IF (NVT_PARK/=0) THEN
     PSOILRC_O3(:,NVT_PARK)= 200.
   ELSEIF (NVT_FLGR/=0) THEN
     PSOILRC_O3(:,NVT_FLGR)= 200.
-  ENDIF   
+  ENDIF
   !
   PSOILRC_O3(:,NVT_TROG)= 200.
   PSOILRC_O3(:,NVT_NO  )= 400.
@@ -1218,35 +1218,35 @@ ENDIF
 IF (PRESENT(PVEG_OUT) .AND. PRESENT(PLAI)) THEN
   DO JM=1,SIZE(PVEG_OUT,2)
     DO JC = 1,SIZE(PVEG_OUT,1)
-      PVEG_OUT(JC,JM,:) = VEG_FROM_LAI(PLAI(JC,JM,:),GAGRI_TO_GRASS)        
-    ENDDO 
+      PVEG_OUT(JC,JM,:) = VEG_FROM_LAI(PLAI(JC,JM,:),GAGRI_TO_GRASS)
+    ENDDO
   ENDDO
 ELSEIF (PRESENT(PVEG_OUT) .AND. .NOT. PRESENT(PLAI)) THEN
- CALL ABOR1_SFX("INI_DATA_PARAM: WHEN CALLING WITH PVEG_OUT, PLAI MUST BE IN ARGUMENTS TOO") 
+ CALL ABOR1_SFX("INI_DATA_PARAM: WHEN CALLING WITH PVEG_OUT, PLAI MUST BE IN ARGUMENTS TOO")
 ENDIF
-! 
-     
+!
+
 IF (PRESENT(PGREEN) .AND. PRESENT(PLAI)) THEN
   DO JM=1,SIZE(PGREEN,2)
     DO JC = 1,SIZE(PGREEN,1)
-      PGREEN(JC,JM,:) = GREEN_FROM_LAI(PLAI(JC,JM,:),GAGRI_TO_GRASS)  
+      PGREEN(JC,JM,:) = GREEN_FROM_LAI(PLAI(JC,JM,:),GAGRI_TO_GRASS)
     ENDDO
   ENDDO
 ELSEIF (PRESENT(PGREEN) .AND. .NOT. PRESENT(PLAI)) THEN
  CALL ABOR1_SFX("INI_DATA_PARAM: WHEN CALLING WITH PGREEN, PLAI MUST BE IN ARGUMENTS TOO")
-ENDIF     
+ENDIF
 !-------------------------------------------------------------------------------
 !*    7.16   z0
 !            --
 IF (PRESENT(PZ0) .AND. PRESENT(PLAI) .AND. PRESENT(PH_TREE)) THEN
   DO JM=1,SIZE(PZ0,2)
     DO JC = 1,SIZE(PZ0,1)
-      PZ0(JC,JM,:) = Z0V_FROM_LAI(PLAI(JC,JM,:),PH_TREE(JC,:),GAGRI_TO_GRASS)  
+      PZ0(JC,JM,:) = Z0V_FROM_LAI(PLAI(JC,JM,:),PH_TREE(JC,:),GAGRI_TO_GRASS)
     ENDDO
   ENDDO
 ELSEIF (PRESENT(PZ0) .AND. (.NOT. PRESENT(PLAI) .OR. .NOT. PRESENT(PH_TREE))) THEN
   CALL ABOR1_SFX("INI_DATA_PARAM: WHEN CALLING WITH PZ0, PLAI AND PH_TREE MUST BE IN ARGUMENTS TOO")
-ENDIF   
+ENDIF
 !-------------------------------------------------------------------------------
 !*    7.17   z0/z0h
 !            ------
@@ -1258,9 +1258,9 @@ IF (PRESENT(PEMIS_ECO) .AND. (PRESENT(PVEG_IN).OR.PRESENT(PVEG_OUT))) THEN
   DO JM=1,SIZE(PEMIS_ECO,2)
     DO JC = 1,SIZE(PEMIS_ECO,1)
       IF (PRESENT(PVEG_OUT)) THEN
-        PEMIS_ECO(JC,JM,:) = EMIS_FROM_VEG(PVEG_OUT(JC,JM,:))  
+        PEMIS_ECO(JC,JM,:) = EMIS_FROM_VEG(PVEG_OUT(JC,JM,:))
       ELSEIF (PRESENT(PVEG_IN)) THEN
-        PEMIS_ECO(JC,JM,:) = EMIS_FROM_VEG(PVEG_IN(JC,JM,:))  
+        PEMIS_ECO(JC,JM,:) = EMIS_FROM_VEG(PVEG_IN(JC,JM,:))
       ENDIF
     ENDDO
   ENDDO
@@ -1276,21 +1276,21 @@ ENDIF
 IF (PRESENT(PH_VEG) .AND. PRESENT(PLAI) .AND. PRESENT(PH_TREE)) THEN
   DO JM=1,SIZE(PH_VEG,2)
     DO JC = 1,SIZE(PH_VEG,1)
-      PH_VEG(JC,JM,:) = VEG_HEIGHT_FROM_LAI(PLAI(JC,JM,:),PH_TREE(JC,:),GAGRI_TO_GRASS )  
+      PH_VEG(JC,JM,:) = VEG_HEIGHT_FROM_LAI(PLAI(JC,JM,:),PH_TREE(JC,:),GAGRI_TO_GRASS )
     ENDDO
   ENDDO
 ELSEIF (PRESENT(PH_VEG) .AND. (.NOT. PRESENT(PLAI) .OR. .NOT. PRESENT(PH_TREE))) THEN
   CALL ABOR1_SFX("INI_DATA_PARAM: WHEN CALLING WITH PH_VEG, PLAI AND PH_TREE MUST BE IN ARGUMENTS TOO")
-ENDIF   
+ENDIF
 !
 !-------------------------------------------------------------------------------
 !
 !*    7.21   z0 understory litter
 !            --------------------
-! 
+!
 IF (PRESENT(PZ0LITTER)) THEN
   PZ0LITTER(:,:,:)  = 0.013 ! Roughness for bare soil
-ENDIF   
+ENDIF
 !
 !-------------------------------------------------------------------------------
 !

@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,21 +28,21 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 !* Solves vertical heat diffusion for an ice + snow slab.
 !
 ! Created : 02/2010 (D. Salas y Melia)
-! Modified: 03/2010 (D. Salas y Melia) 
+! Modified: 03/2010 (D. Salas y Melia)
 !    Now a single routine solves the heat diffusion scheme either for an ice
 !    slab or for an ice + snow slab
-! 
+!
 !THXS_SFX!MODULE modi_glt_vhdslab_r
 !THXS_SFX!INTERFACE
 !THXS_SFX!!
@@ -133,11 +133,11 @@ SUBROUTINE glt_vhdslab_r  &
 !
 !
 !
-! 1. Initializations 
+! 1. Initializations
 ! ===================
 !
 ! 1.1. Build the M matrix of the system (M*x = y) and glt_invert it
-! ------------------------------------------------------------- 
+! -------------------------------------------------------------
 !
 ! Snow layer boolean
   IF ( PRESENT(osnow) ) THEN
@@ -156,7 +156,7 @@ SUBROUTINE glt_vhdslab_r  &
 !
 ! Surface melting boolean
 ! MAJOR MODIFICATION SINCE IPCC VERSION
-! We assume the final temperature will probably correspond to melting 
+! We assume the final temperature will probably correspond to melting
 ! if current temperature is melting point AND top conduction flux
 ! is positive (in principle, a surface gradient condition would be more
 ! correct...)
@@ -175,7 +175,7 @@ SUBROUTINE glt_vhdslab_r  &
 !
   IF ( .NOT. gsnow ) zmat(0,0) = 1.
 !
-  IF ( llmeltop ) THEN 
+  IF ( llmeltop ) THEN
       IF (lp4) THEN
           WRITE(noutlu,*) '=================================='
           WRITE(noutlu,*) '   Temp. condition: ztsfb=',ztsfb
@@ -232,7 +232,7 @@ SUBROUTINE glt_vhdslab_r  &
       END DO
   ENDIF
 !
-! .. Invert the matrix 
+! .. Invert the matrix
 !
   zmatinv = zmat
   CALL glt_invert( 1,zmatinv )
@@ -243,7 +243,7 @@ SUBROUTINE glt_vhdslab_r  &
 !
   IF ( .NOT. gsnow ) zy(0) = 0.
 !
-  IF ( llmeltop ) THEN 
+  IF ( llmeltop ) THEN
       zy(itop)   = ztsm
       IF ( llmelt(itop) ) THEN
           zy(itop+1) = ztsi_m0(itop)
@@ -272,12 +272,12 @@ SUBROUTINE glt_vhdslab_r  &
     ELSE
       zy(nilay+1) = (zg1+zg2)*zetaikp1(nilay)*zmlf + ztsi0(nilay) +  &
         xswhdfr*pswtra(1)*zetai(nilay)
-  ENDIF 
+  ENDIF
 !
 !
 ! 1.3. Solve the system
 ! ----------------------
-! 
+!
 ! .. Now we update the vertical temperature profile
 !
   IF ( lp4 .OR. llredo ) THEN
@@ -304,7 +304,7 @@ SUBROUTINE glt_vhdslab_r  &
 !
 ! 1.4. Update variables
 ! ---------------------
-! 
+!
 ! .. Surface temperature
   ptsfa = MAX( zx(itop),pptsfmin )
 !
@@ -320,7 +320,7 @@ SUBROUTINE glt_vhdslab_r  &
 !
 ! .. (melting case): derive top conductive heat flux
   llmeltop = ( ptsfa>=ztsm )
-  IF ( llmeltop ) THEN 
+  IF ( llmeltop ) THEN
     zcondt_m = -zkodzi(itop)* ( ptsia(itop) - ptsfa )
   ELSE
     zcondt_m = pnsftop
@@ -349,7 +349,7 @@ SUBROUTINE glt_vhdslab_r  &
 !!  write(noutlu,*) 'ptsia =',ptsia
   ptsia(:) = MIN( ptsia(:),ztsi_m0(:) )
 !!  write(noutlu,*) 'ptsia =',ptsia
-!    
+!
 ! .. Deduce which part of the top non-solar flux is devoted to melting
   pqtopmelt = znsftop0-zcondt_m+zmelt
 !!  pqtopmelt = zmelt
@@ -364,7 +364,7 @@ SUBROUTINE glt_vhdslab_r  &
       WRITE(noutlu,*) 'New vtp     :'
       WRITE(noutlu,*) ptsia
       WRITE(noutlu,*) 'zcondt   =',znsftop0
-  ENDIF 
+  ENDIF
 !
 ! .. Melting surface boolean
   osmelt = llmeltop
@@ -400,7 +400,7 @@ SUBROUTINE glt_vhdslab_r  &
         zdht
       WRITE(noutlu,*) '  Top melting flux:',  &
         pqtopmelt
-! 
+!
 !!      WRITE(noutlu,*) 'Enthalpy change per time unit (layers):'
 !!      WRITE(noutlu,*) '----------------------------------------'
 !!      WRITE(noutlu,*) ( ptsia(:)-ztsi0(:) ) * zinvetai(:)
@@ -413,7 +413,7 @@ SUBROUTINE glt_vhdslab_r  &
       zbl = zdht + pqtopmelt -  &
         ( pcondb + xswhdfr*SUM(pswtra(1:nilay+1-itop)) +  &
           pnsftop + zderiv*( ptsfa-ztsf0 ) )
-      WRITE(noutlu,*) zbl 
+      WRITE(noutlu,*) zbl
       IF ( ABS(zbl)>0.1 ) THEN
         IF (lwg) THEN
           WRITE(noutlu,*)'Imbalance'
@@ -424,7 +424,7 @@ SUBROUTINE glt_vhdslab_r  &
           WRITE(noutlu,*)'-zcondt_m=',-zcondt_m
           WRITE(noutlu,*)'zmelt    =',zmelt
         ENDIF
-      ENDIF 
+      ENDIF
 !
   ENDIF
 !

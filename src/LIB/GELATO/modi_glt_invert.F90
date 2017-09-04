@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,14 +28,14 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ========================= MODULE modi_glt_invert ==========================
 ! =======================================================================
@@ -44,18 +44,18 @@
 ! -----
 ! Solves a system of the form :
 !                           M * X = Y
-! where M is a (n,n) matrix), X and Y are two n component vectors 
+! where M is a (n,n) matrix), X and Y are two n component vectors
 ! (Y is given and X is the solution).
 !
 ! Method:
 ! -------
 ! Use a Gauss-Jordan method (note that the number of inferior diagonals
 ! should be specified). For example, if in any column of index j, all
-! M(i,j) elements are zero for i>j+k (k fixed), and there is an index 
+! M(i,j) elements are zero for i>j+k (k fixed), and there is an index
 ! j for which M(j+k,j) is non zero, the number of inferior diagonals is
 ! k.
-!  
-! Created: D. Salas y Melia, 05/02 
+!
+! Created: D. Salas y Melia, 05/02
 !
 !
 ! -------------------- BEGIN MODULE modi_glt_invert -------------------------
@@ -110,7 +110,7 @@ SUBROUTINE glt_invert(kdiag,pmat)
 !
 ! .. Allocate and initialize work matrix
 !
-  ALLOCATE( zmat(iim,2*iim) ) 
+  ALLOCATE( zmat(iim,2*iim) )
   zmat(:,:) = 0.
   zmat(:,1:iim) = pmat(:,:)
   DO ji=1,iim
@@ -130,7 +130,7 @@ SUBROUTINE glt_invert(kdiag,pmat)
       CALL gltools_glterr( 'invert','','STOP')
   ENDIF
 !
-! 
+!
 ! 2.2. Transformation of the matrix into an upper triangular matrix
 ! -----------------------------------------------------------------
 !
@@ -169,7 +169,7 @@ SUBROUTINE glt_invert(kdiag,pmat)
   END DO
 !
 !
-! 2.4. Output 
+! 2.4. Output
 ! -----------
 !
   pmat(:,:) = zmat(:,iim+1:2*iim)

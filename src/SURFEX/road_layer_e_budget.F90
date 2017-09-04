@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
     SUBROUTINE ROAD_LAYER_E_BUDGET(T, B, PTSTEP, PDN_ROAD, PRHOA, PAC_ROAD, PAC_ROAD_WAT, &
@@ -12,25 +12,25 @@
                                    PLEFREE_ROAD, PIMB_ROAD, PRR )
 !   ##########################################################################
 !
-!!****  *ROAD_LAYER_E_BUDGET*  
+!!****  *ROAD_LAYER_E_BUDGET*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the evoultion of roads surface temperatures
-!         
-!     
+!
+!
 !!**  METHOD
 !     ------
 !
-!    6 : equations for evolution of Ts_road 
+!    6 : equations for evolution of Ts_road
 !        **********************************
 !
 !
-!     dTr_1(t) / dt = 1/(dr_1*Cr_1) * (  Rn_r - H_r - LE_r 
+!     dTr_1(t) / dt = 1/(dr_1*Cr_1) * (  Rn_r - H_r - LE_r
 !                                      - 2*Kr_1*(Tr_1-Tr_2)/(dr_1 +dr_2)       )
 !
-!     dTr_k(t) / dt = 1/(dr_k*Cr_k) * (- 2*Kr_k-1*(Tr_k-Tr_k-1)/(dr_k-1 +dr_k) 
+!     dTr_k(t) / dt = 1/(dr_k*Cr_k) * (- 2*Kr_k-1*(Tr_k-Tr_k-1)/(dr_k-1 +dr_k)
 !                                      - 2*Kr_k  *(Tr_k-Tr_k+1)/(dr_k+1 +dr_k) )
 !
 !       with
@@ -68,11 +68,11 @@
 !!
 !!    MODD_CST
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -80,13 +80,13 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    23/01/98 
+!!      Original    23/01/98
 !!                  21/11/01 (V. Masson and A. Lemonsu) bug of latent flux
 !!                           for very strong evaporation (all reservoir emptied
 !!                           in one time-step)
 !!                     02/11 (V. Masson) split of the routine for roads and walls separately
 !!      G. Pigeon      09/2012: add heating/cooling of rain from air temperature
-!!                             to surface road temp. for the road energy budget 
+!!                             to surface road temp. for the road energy budget
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -136,10 +136,10 @@ REAL, DIMENSION(:), INTENT(IN)    :: PTS_WALL_B   ! wall surface temperature
 REAL, DIMENSION(:), INTENT(IN)    :: PTSNOW_ROAD  ! road snow temperature
 REAL, DIMENSION(:), INTENT(IN)    :: PTS_GARDEN   ! green area surface temperature
 !
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_WA_TO_R   ! LW interactions wall  -> road 
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_WB_TO_R   ! LW interactions wall  -> road 
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_S_TO_R    ! LW interactions sky   -> road 
-REAL, DIMENSION(:), INTENT(IN)    :: PLW_WIN_TO_R ! LW interactions window -> road 
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_WA_TO_R   ! LW interactions wall  -> road
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_WB_TO_R   ! LW interactions wall  -> road
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_S_TO_R    ! LW interactions sky   -> road
+REAL, DIMENSION(:), INTENT(IN)    :: PLW_WIN_TO_R ! LW interactions window -> road
 !
 REAL, DIMENSION(:), INTENT(OUT)   :: PEMIT_LW_ROAD! LW flux emitted by the road (W/m2 of road)
 REAL, DIMENSION(:), INTENT(OUT)   :: PDQS_ROAD    !heat storage inside the road
@@ -148,7 +148,7 @@ REAL, DIMENSION(:), INTENT(OUT)   :: PHFREE_ROAD  ! sensible heat flux on the
                                                   ! snow free part of the road [W m-2]
 REAL, DIMENSION(:), INTENT(OUT)   :: PLEFREE_ROAD ! latent heat flux on the
                                                   ! snow free part of the road [W m-2]
-REAL, DIMENSION(:), INTENT(OUT)   :: PIMB_ROAD    ! road residual energy imbalance 
+REAL, DIMENSION(:), INTENT(OUT)   :: PIMB_ROAD    ! road residual energy imbalance
                                                   ! for verification [W m-2]
 REAL, DIMENSION(:), INTENT(IN)    :: PRR          ! rain rate [kg m-2 s-1]
 
@@ -190,7 +190,7 @@ IF (LHOOK) CALL DR_HOOK('ROAD_LAYER_E_BUDGET',0,ZHOOK_HANDLE)
 !
 IROAD_LAYER = SIZE(T%XT_ROAD,2)
 !
-DO JJ=1, SIZE(PDN_ROAD) 
+DO JJ=1, SIZE(PDN_ROAD)
   !
   ZDN_ROAD(JJ) = PDN_ROAD (JJ)
   ZDF_ROAD(JJ) = 1. - ZDN_ROAD (JJ)
@@ -215,7 +215,7 @@ ENDDO
 !
 !*      2.4    qsat, dqsat/dTs, and humidity for roads
 !              ---------------------------------------
-! 
+!
 ZDQSAT_ROAD(:) = DQSAT(ZTS_ROAD(:),PPS(:),PQSAT_ROAD(:))
 !
 !-------------------------------------------------------------------------------
@@ -232,7 +232,7 @@ DO JJ=1,SIZE(T%XT_ROAD,1)
              + XCPD/PEXNS(JJ) * ZRHO_ACF_R(JJ) * ( PT_LOWCAN(JJ) - ZEXPL * ZTS_ROAD(JJ) ) &
              + ZDF_ROAD(JJ)*PABS_SW_ROAD(JJ) + ZDN_ROAD(JJ)*PGSNOW_ROAD(JJ)               &
              + XLVTT * ZRHO_ACF_R_WAT(JJ) * PDELT_ROAD(JJ)                                &
-               * ( PQ_LOWCAN(JJ) - PQSAT_ROAD(JJ) + ZIMPL * ZDQSAT_ROAD(JJ) * ZTS_ROAD(JJ) )     
+               * ( PQ_LOWCAN(JJ) - PQSAT_ROAD(JJ) + ZIMPL * ZDQSAT_ROAD(JJ) * ZTS_ROAD(JJ) )
   !
   ZB(JJ,1) = ZB(JJ,1) &
              + ZIMPL * ZDF_ROAD(JJ) * ( PLW_S_TO_R(JJ) + PLW_WA_TO_R(JJ) + &
@@ -243,10 +243,10 @@ DO JJ=1,SIZE(T%XT_ROAD,1)
              + ZDF_ROAD(JJ) * (                                             &
                PLW_S_TO_R  (JJ) * (ZT_SKY    (JJ) - ZEXPL * ZTS_ROAD(JJ))   &
              + PLW_WIN_TO_R(JJ) * (B%XT_WIN1 (JJ) - ZEXPL * ZTS_ROAD(JJ))   &
-             + PLW_WA_TO_R (JJ) * (PTS_WALL_A(JJ) - ZEXPL * ZTS_ROAD(JJ))   & 
+             + PLW_WA_TO_R (JJ) * (PTS_WALL_A(JJ) - ZEXPL * ZTS_ROAD(JJ))   &
              + PLW_WB_TO_R (JJ) * (PTS_WALL_B(JJ) - ZEXPL * ZTS_ROAD(JJ))   &
-             + PRR(JJ) * XCL *    (PT_LOWCAN (JJ) - ZEXPL * ZTS_ROAD(JJ) ))   !heat/cool rain     
-  !     
+             + PRR(JJ) * XCL *    (PT_LOWCAN (JJ) - ZEXPL * ZTS_ROAD(JJ) ))   !heat/cool rain
+  !
 ENDDO
 !
 !

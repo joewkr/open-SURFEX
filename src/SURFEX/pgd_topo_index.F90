@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_TOPO_INDEX (DTCO, UG, U, USS, S, OCTI, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -56,7 +56,7 @@ USE MODD_PGD_GRID,       ONLY : NL
 USE MODD_PGDWORK,        ONLY : XALL, XEXT_ALL, NSIZE_ALL, &
                                 XMIN_WORK, XMAX_WORK,     &
                                 XMEAN_WORK, XSTD_WORK,    &
-                                XSKEW_WORK, NSIZE, XSUMVAL 
+                                XSKEW_WORK, NSIZE, XSUMVAL
 !
 USE MODD_SURF_PAR,       ONLY : XUNDEF
 !
@@ -145,7 +145,7 @@ IF(LEN_TRIM(HCTI)==0)THEN
   ALLOCATE(S%XTI_MEAN(0))
   ALLOCATE(S%XTI_STD (0))
   ALLOCATE(S%XTI_SKEW(0))
-!        
+!
 !-------------------------------------------------------------------------------
 ELSE
 !-------------------------------------------------------------------------------
@@ -230,13 +230,13 @@ ELSE
 #endif
 CALL INIT_IO_SURF_n(DTCO, U, &
                            YFILETYPE,'FULL  ','SURF  ','READ ')
-     ENDIF     
-!   
-     CALL READ_SURF(YFILETYPE,'TI_MIN' ,XMIN_WORK ,IRET) 
+     ENDIF
+!
+     CALL READ_SURF(YFILETYPE,'TI_MIN' ,XMIN_WORK ,IRET)
      CALL READ_SURF(YFILETYPE,'TI_MAX' ,XMAX_WORK ,IRET)
      CALL READ_SURF(YFILETYPE,'TI_MEAN',XMEAN_WORK,IRET)
-     CALL READ_SURF(YFILETYPE,'TI_STD' ,XSTD_WORK ,IRET) 
-     CALL READ_SURF(YFILETYPE,'TI_SKEW',XSKEW_WORK,IRET) 
+     CALL READ_SURF(YFILETYPE,'TI_STD' ,XSTD_WORK ,IRET)
+     CALL READ_SURF(YFILETYPE,'TI_SKEW',XSKEW_WORK,IRET)
 !
      CALL END_IO_SURF_n(YFILETYPE)
 !
@@ -249,12 +249,12 @@ CALL INIT_IO_SURF_n(DTCO, U, &
 !
      ALLOCATE(NSIZE_ALL(U%NDIM_FULL,1))
      ALLOCATE(XEXT_ALL (U%NDIM_FULL,2))
-     ALLOCATE(XALL     (U%NDIM_FULL,3,1))     
+     ALLOCATE(XALL     (U%NDIM_FULL,3,1))
 !
      NSIZE_ALL(:,1) = 0.
      XEXT_ALL (:,1) = -99999.
      XEXT_ALL (:,2) = 99999.
-     XALL   (:,:,1) = 0.     
+     XALL   (:,:,1) = 0.
 !
      XMAX_WORK(:) =-99999.
 !
@@ -276,7 +276,7 @@ CALL INIT_IO_SURF_n(DTCO, U, &
           XSTD_WORK (:) = XUNDEF
           XSKEW_WORK(:) = XUNDEF
           NSIZE   (:,1) = 0
-     ENDWHERE 
+     ENDWHERE
 !
      WHERE(U%XNATURE(:)>0.0.AND.XSKEW_WORK(:)<=-8.0)
           XMIN_WORK (:) = XUNDEF
@@ -285,7 +285,7 @@ CALL INIT_IO_SURF_n(DTCO, U, &
           XSTD_WORK (:) = XUNDEF
           XSKEW_WORK(:) = XUNDEF
           NSIZE   (:,1) = 0
-     ENDWHERE             
+     ENDWHERE
 !
      WHERE(U%XNATURE(:)==0.)
           XMIN_WORK (:) = XUNDEF
@@ -294,7 +294,7 @@ CALL INIT_IO_SURF_n(DTCO, U, &
           XSTD_WORK (:) = XUNDEF
           XSKEW_WORK(:) = XUNDEF
           NSIZE   (:,1) = 0
-     ENDWHERE   
+     ENDWHERE
 !
 !-------------------------------------------------------------------------------
 !
@@ -305,14 +305,14 @@ CALL INIT_IO_SURF_n(DTCO, U, &
 !
 !      Topographic index linear regression for Topmodel if topo ref at 1km
 !      pan and king (2012) 1km to 2m
-!    
+!
        CALL CTIREG(LREG,LREG10,LREG2)
 !
        IF(ALL(XMEAN_WORK(:)==XUNDEF))LREG=.FALSE.
 !
        IF(LREG)THEN
-!          
-         WRITE(ILUOUT,*)'WITH DIF, TOPO INDEX USED REGRESSIONS OF ' 
+!
+         WRITE(ILUOUT,*)'WITH DIF, TOPO INDEX USED REGRESSIONS OF '
 !
          ALLOCATE(ZDELTA     (IFULL))
          ALLOCATE(ZMEAN_INI  (IFULL))
@@ -356,8 +356,8 @@ CALL INIT_IO_SURF_n(DTCO, U, &
          WHERE(XMEAN_WORK(:)/=XUNDEF.AND.(XMAX_WORK(:)-XMIN_WORK(:))>0.2)
                XSTD_WORK (:)=MAX(0.2,XSTD_WORK (:))
                XSKEW_WORK(:)=MAX(0.2,XSKEW_WORK(:))
-         ENDWHERE         
-!           
+         ENDWHERE
+!
          WHERE(XMEAN_WORK(:)>0.0.AND.XMEAN_WORK(:)/=XUNDEF)
                ZDELTA   (:)= (XMEAN_WORK(:)-ZMEAN_INI(:))
                XMIN_WORK(:)= MAX(             0.0,XMIN_WORK(:)+ZDELTA(:))
@@ -376,9 +376,9 @@ CALL INIT_IO_SURF_n(DTCO, U, &
          DEALLOCATE(ZTI_MEAN )
          DEALLOCATE(ZTI_STD  )
          DEALLOCATE(ZTI_SKEW )
-!     
+!
        ENDIF
-!  
+!
      ENDIF
 !
 !-------------------------------------------------------------------------------
@@ -404,7 +404,7 @@ CALL INIT_IO_SURF_n(DTCO, U, &
           XSTD_WORK (:) = XUNDEF
           XSKEW_WORK(:) = XUNDEF
           NSIZE   (:,1) = -1
-    ENDWHERE   
+    ENDWHERE
 !
     IF(ALL(NSIZE(:,1)==0.0))NSIZE(:,1)=-1
 !
@@ -429,7 +429,7 @@ CALL INIT_IO_SURF_n(DTCO, U, &
   CALL PACK_SAME_RANK(IMASK,XMEAN_WORK,S%XTI_MEAN)
   CALL PACK_SAME_RANK(IMASK,XSTD_WORK ,S%XTI_STD)
   CALL PACK_SAME_RANK(IMASK,XSKEW_WORK,S%XTI_SKEW)
-!  
+!
 !-------------------------------------------------------------------------------
 !
   DEALLOCATE(XMIN_WORK )
@@ -449,8 +449,8 @@ IF (LHOOK) CALL DR_HOOK('PGD_TOPO_INDEX',1,ZHOOK_HANDLE)
 !
 CONTAINS
 !
-SUBROUTINE CTIREG(OREG,OREG10,OREG2)  
-!      
+SUBROUTINE CTIREG(OREG,OREG10,OREG2)
+!
 !*    0.     DECLARATION
 !            -----------
 !
@@ -541,22 +541,22 @@ DO JHEAD=1,7
            YSTRING1=YSTRING(8:100)
          CASE('north')
            IHEAD=2
-           YSTRING1=YSTRING(7:100)           
+           YSTRING1=YSTRING(7:100)
          CASE('south')
            IHEAD=3
-           YSTRING1=YSTRING(7:100) 
+           YSTRING1=YSTRING(7:100)
          CASE('east:')
            IHEAD=4
-           YSTRING1=YSTRING(6:100)  
+           YSTRING1=YSTRING(6:100)
          CASE('west:')
            IHEAD=5
-           YSTRING1=YSTRING(6:100)  
+           YSTRING1=YSTRING(6:100)
          CASE('rows:')
            IHEAD=6
-           YSTRING1=YSTRING(6:100) 
+           YSTRING1=YSTRING(6:100)
          CASE('cols:')
            IHEAD=7
-           YSTRING1=YSTRING(6:100) 
+           YSTRING1=YSTRING(6:100)
   END SELECT
 !
 !*         2.2   Test on presence of geographical descritor (N, E, S or W)

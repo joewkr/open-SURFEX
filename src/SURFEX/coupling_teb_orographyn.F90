@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_TEB_OROGRAPHY_n (DTCO, DST, SLT, TM, GDM, GRM, HPROGRAM, HCOUPLING,      &
@@ -11,7 +11,7 @@ SUBROUTINE COUPLING_TEB_OROGRAPHY_n (DTCO, DST, SLT, TM, GDM, GRM, HPROGRAM, HCO
                                      PSFCO2, PSFU, PSFV, PTRAD, PDIR_ALB, PSCA_ALB, PEMIS,   &
                                      PTSURF, PZ0, PZ0H, PQSURF, PPEW_A_COEF, PPEW_B_COEF,    &
                                      PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF,     &
-                                     HTEST               )  
+                                     HTEST               )
 !     ###############################################################################
 !
 !!****  *COUPLING_TEB_OROGRAPHY_n * - Modifies the input forcing if not
@@ -25,11 +25,11 @@ SUBROUTINE COUPLING_TEB_OROGRAPHY_n (DTCO, DST, SLT, TM, GDM, GRM, HPROGRAM, HCO
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -54,7 +54,7 @@ USE MODD_CSTS,    ONLY : XCPD, XRD, XP00
 USE MODD_SURF_ATM, ONLY : LVERTSHIFT
 !
 USE MODI_FORCING_VERT_SHIFT
-! 
+!
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -175,7 +175,7 @@ IF(LVERTSHIFT)THEN
   ZLW  (:) = XUNDEF
   ZRAIN(:) = XUNDEF
   ZSNOW(:) = XUNDEF
-!     
+!
    CALL FORCING_VERT_SHIFT(PZS, TM%TOP%XZS, PTA, PQA, PPA, PRHOA, PLW, PRAIN, PSNOW, &
                            ZTA, ZQA, ZPA, ZRHOA, ZLW, ZRAIN, ZSNOW         )
 !

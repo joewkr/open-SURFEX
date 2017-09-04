@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE ICE_SEA_FLUX(PZ0ICE,                                       &
@@ -8,17 +8,17 @@
                               PVMOD, PZREF, PUREF,                            &
                               PPS, PQSAT,                                     &
                               PSFTH, PSFTQ, PUSTAR,                           &
-                              PCD, PCDN, PCH, PRI, PRESA, PZ0HICE             )  
+                              PCD, PCDN, PCH, PRI, PRESA, PZ0HICE             )
 !     #######################################################################
 !
 !
-!!****  *ICE_SEA_FLUX*  
+!!****  *ICE_SEA_FLUX*
 !!
 !!    PURPOSE
 !!    -------
 !      Calculate the surface fluxes of heat, moisture, and momentum over
-!       sea ice. adapted from WATER_FLUX  
-!     
+!       sea ice. adapted from WATER_FLUX
+!
 !!**  METHOD
 !!    ------
 !
@@ -26,20 +26,20 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!    XCD_ICE_CST, from MODD_SEAFLUX
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      S. Belair           * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original      01/09/95 
+!!      Original      01/09/95
 !!      (J.Stein)     16/11/95  use PUSLOPE and Theta to compute Ri
 !!      (P.Lacarrere) 19/03/96  bug in the ZTHVI and ZTHVIS computations
 !!      (J.Stein)     27/03/96  use only H and LE in the soil scheme
@@ -59,7 +59,7 @@
 USE MODD_CSTS,       ONLY : XG, XCPD
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 USE MODD_SURF_ATM,   ONLY : LDRAG_COEF_ARP, LRRGUST_ARP, XRRSCALE, &
-                            XRRGAMMA, XUTILGUST     
+                            XRRGAMMA, XUTILGUST
 USE MODD_SNOW_PAR,   ONLY : XZ0SN, XZ0HSN
 USE MODN_SEAFLUX_n,  ONLY : XCD_ICE_CST
 !
@@ -95,8 +95,8 @@ REAL, DIMENSION(:), INTENT(IN)       :: PRR   ! rain rate
 REAL, DIMENSION(:), INTENT(IN)       :: PRS   ! snow rate
 !
 REAL, DIMENSION(:), INTENT(INOUT)    :: PZ0ICE! roughness length over the sea ice
-!                                         
-!                                         
+!
+!
 !  surface fluxes : latent heat, sensible heat, friction fluxes
 REAL, DIMENSION(:), INTENT(OUT)      :: PSFTH ! heat flux  (W/m2)
 REAL, DIMENSION(:), INTENT(OUT)      :: PSFTQ ! water flux (kg/m2/s)
@@ -160,7 +160,7 @@ PQSAT(:) = QSAT(PTICE(:),PPS(:))
 
  CALL SURFACE_RI(PTICE,PQSAT,PEXNS,PEXNA,PTA,PQA, &
                   PZREF, PUREF, ZDIRCOSZW,PVMOD,PRI)
-!                  
+!
 !
 !       2.2    Z0 for  sea ice
 !              --------------------
@@ -176,12 +176,12 @@ PZ0ICE (:) = XZ0SN
 !
 ZVMOD(:)=WIND_THRESHOLD(PVMOD(:),PUREF(:))
 !
-IF ( XCD_ICE_CST == 0.0 ) THEN 
+IF ( XCD_ICE_CST == 0.0 ) THEN
 !
   IF (LDRAG_COEF_ARP) THEN
 !
      CALL SURFACE_CDCH_1DARP(PZREF, PZ0ICE, PZ0HICE , ZVMOD, PTA, PTICE, &
-                             PQA, PQSAT, PCD, PCDN, PCH                 )  
+                             PQA, PQSAT, PCD, PCDN, PCH                 )
 !
      ZRA(:) = 1. / ( PCH(:) * ZVMOD(:) )
 !
@@ -195,10 +195,10 @@ IF ( XCD_ICE_CST == 0.0 ) THEN
 !
 ELSE
 !
-! Using variable transfer coefficients is not appropriate on seaice 
+! Using variable transfer coefficients is not appropriate on seaice
 ! with simple bulk functions.
-! A constant value (e.g. 1.5.e-3 ) is preferable, and used except if the  
-! user request backward compatibility by setting XCD_ICE_CST to 0 (DEFAULT). 
+! A constant value (e.g. 1.5.e-3 ) is preferable, and used except if the
+! user request backward compatibility by setting XCD_ICE_CST to 0 (DEFAULT).
 !
    PCD (:)=XCD_ICE_CST
    PCDN(:)=XCD_ICE_CST
@@ -214,7 +214,7 @@ PRESA(:) = ZRA(:)
 IF (LRRGUST_ARP) THEN
   ZFP(:)=MAX(0.0,PRR(:)+PRS(:))
   ZRRCOR(:)=SQRT(1.0+((((ZFP(:)/(ZFP(:)+XRRSCALE))**XRRGAMMA)*XUTILGUST)**2) &
-      /(PCD(:)*ZVMOD(:)**2))  
+      /(PCD(:)*ZVMOD(:)**2))
 
   PCD  = PCD*ZRRCOR
   PCH  = PCH*ZRRCOR

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################
       MODULE MODD_SEAFLUX_n
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -46,15 +46,15 @@ IMPLICIT NONE
 
 TYPE SEAFLUX_t
 !
-! General surface: 
+! General surface:
 !
   REAL, POINTER, DIMENSION(:)   :: XZS     ! orography
   REAL, POINTER, DIMENSION(:,:) :: XCOVER  ! fraction of each ecosystem       (-)
   LOGICAL, POINTER, DIMENSION(:):: LCOVER  ! GCOVER(i)=T --> ith cover field is not 0.
   LOGICAL                       :: LSBL    ! T: SBL scheme between sea and atm. forcing level
-!                                          ! F: no atmospheric layers below forcing level      
+!                                          ! F: no atmospheric layers below forcing level
   LOGICAL                       :: LHANDLE_SIC ! T: we do weight seaice and open sea fluxes
-  CHARACTER(LEN=6)              :: CSEAICE_SCHEME! Name of the seaice scheme 
+  CHARACTER(LEN=6)              :: CSEAICE_SCHEME! Name of the seaice scheme
   REAL, POINTER, DIMENSION(:)   :: XSEABATHY   ! bathymetry
 !
   LOGICAL                       :: LINTERPOL_SST ! Interpolation of monthly SST
@@ -71,7 +71,7 @@ TYPE SEAFLUX_t
   REAL                          :: XSEAICE_TSTEP ! Sea ice model time step
   REAL                          :: XCD_ICE_CST   ! Turbulent exchange coefficient for seaice
   REAL                          :: XSI_FLX_DRV   ! Derivative of fluxes on seaice w.r.t to the temperature (W m-2 K-1)
-  
+
 !
 ! Type of formulation for the fluxes
 !
@@ -82,7 +82,7 @@ TYPE SEAFLUX_t
   LOGICAL                           :: LPWEBB      ! flag for Webb correction
   INTEGER                           :: NZ0         ! set to 0,1 or 2 according to Z0 formulation
                                                    ! 0= ARPEGE / 1= Smith (1988) / 2= Direct
-  INTEGER                           :: NGRVWAVES   ! set to 0,1 or 2 according to the 
+  INTEGER                           :: NGRVWAVES   ! set to 0,1 or 2 according to the
                                                    ! gravity waves model used in coare30_flux
   REAL                              :: XICHCE      ! CE coef calculation for ECUME
   LOGICAL                           :: LPERTFLUX   ! flag for stochastic flux perturbation
@@ -119,7 +119,7 @@ TYPE SEAFLUX_t
   REAL, POINTER, DIMENSION(:) :: XCPL_SEA_RAIN ! Rainfall for ESM coupling
   REAL, POINTER, DIMENSION(:) :: XCPL_SEA_SNOW ! Snowfall for ESM coupling
   REAL, POINTER, DIMENSION(:) :: XCPL_SEA_FWSM ! wind stress for ESM coupling
-!  
+!
   REAL, POINTER, DIMENSION(:) :: XCPL_SEAICE_SNET ! Solar net heat flux for ESM coupling
   REAL, POINTER, DIMENSION(:) :: XCPL_SEAICE_HEAT ! Non solar net heat flux
   REAL, POINTER, DIMENSION(:) :: XCPL_SEAICE_EVAP ! Ice sublimation for ESM coupling
@@ -134,9 +134,9 @@ TYPE SEAFLUX_t
 ! Date:
 !
   TYPE (DATE_TIME)                      :: TTIME   ! current date and time
-  TYPE (DATE_TIME)                      :: TZTIME  
+  TYPE (DATE_TIME)                      :: TZTIME
   LOGICAL                               :: LTZTIME_DONE
-  INTEGER                               :: JSX  
+  INTEGER                               :: JSX
 !
 ! Time-step:
 !
@@ -211,9 +211,9 @@ YSEAFLUX%CINTERPOL_SIT=' '
 YSEAFLUX%XFREEZING_SST=-1.8
 YSEAFLUX%XSIC_EFOLDING_TIME=0. ! means : no damping
 YSEAFLUX%XSIT_EFOLDING_TIME=0. ! means : no damping
-YSEAFLUX%XSEAICE_TSTEP=XUNDEF 
+YSEAFLUX%XSEAICE_TSTEP=XUNDEF
 YSEAFLUX%XCD_ICE_CST=0.
-YSEAFLUX%XSI_FLX_DRV=-20. 
+YSEAFLUX%XSI_FLX_DRV=-20.
 YSEAFLUX%CSEA_FLUX=' '
 YSEAFLUX%CSEA_ALB=' '
 YSEAFLUX%LPWG=.FALSE.

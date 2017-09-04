@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
 SUBROUTINE INIT_TEB_GARDEN_PGD_n (DTCO, U, OCH_BIO_FLUX, G, PGARDEN, TOP, IO, S, K, P, PEK, DTV, GB,  &
@@ -162,7 +162,7 @@ ENDIF
 !
 !* allocation of urban green area variables
 !
- CALL ALLOCATE_TEB_VEG_PGD(PEK, S, K, P, OPATCH1, KI, NVEGTYPE, IO%NGROUND_LAYER )  
+ CALL ALLOCATE_TEB_VEG_PGD(PEK, S, K, P, OPATCH1, KI, NVEGTYPE, IO%NGROUND_LAYER )
 !
 !
 !*       2.1    Cover, soil and orographic fields:
@@ -211,7 +211,7 @@ IF (OPATCH1) THEN
     CALL CONVERT_PATCH_ISBA(DTCO, DTV, IO, IDECADE, IDECADE, TOP%XCOVER, TOP%LCOVER,&
                         .FALSE.,'GRD', 1, K, P, PEK, &
                         .TRUE., .FALSE., .FALSE., .FALSE., .FALSE., .FALSE., &
-                        PSOILGRID=IO%XSOILGRID  )   
+                        PSOILGRID=IO%XSOILGRID  )
   ELSE
     CALL INIT_FROM_DATA_TEB_VEG_n(DTV, K, P, PEK, IDECADE, .FALSE., .TRUE., .FALSE.,.FALSE.)
   ENDIF
@@ -222,7 +222,7 @@ IF (OPATCH1) THEN
   ALLOCATE(S%XHEA_WR(0,0,1))
   ALLOCATE(S%XAGE_WR(0,0,1))
   ALLOCATE(S%XSG1_WR(0,0,1))
-  ALLOCATE(S%XSG2_WR(0,0,1)) 
+  ALLOCATE(S%XSG2_WR(0,0,1))
   ALLOCATE(S%XHIS_WR(0,0,1))
   !
 END IF
@@ -238,7 +238,7 @@ END IF
 IF (.NOT. IO%LPAR) THEN
   CALL CONVERT_PATCH_ISBA(DTCO, DTV, IO, IDECADE, IDECADE, TOP%XCOVER, TOP%LCOVER,&
                         .FALSE.,'GRD', 1, K, P, PEK, &
-                        .FALSE., .TRUE., .FALSE., .FALSE., .FALSE., .FALSE.  )   
+                        .FALSE., .TRUE., .FALSE., .FALSE., .FALSE., .FALSE.  )
 ELSE
 
   CALL INIT_FROM_DATA_TEB_VEG_n(DTV, K, P, PEK, IDECADE, .FALSE., .FALSE., .TRUE.,.FALSE.)
@@ -257,18 +257,18 @@ ALLOCATE(YSS%XAOSIP(0))
  CALL INIT_VEG_PGD_n(YSS, DTV, IO, S, K, K, P, PEK, YAG, KI,    &
      HPROGRAM, 'TOWN  ',ILUOUT, KI, TOP%TTIME%TDATE%MONTH, &
      .FALSE., .FALSE., ZTDEEP_CLI, ZGAMMAT_CLI, &
-     .FALSE., ZTHRESHOLD, HINIT, PCO2, PRHOA ) 
+     .FALSE., ZTHRESHOLD, HINIT, PCO2, PRHOA )
 !
 !-------------------------------------------------------------------------------
 !
 IF(IO%CISBA=='DIF'.AND.IO%LSOC)THEN
   CALL ABOR1_SFX('INIT_TEB_GARDEN_PGDn: SUBGRID Soil organic matter'//&
  ' effect (LSOC) NOT YET IMPLEMENTED FOR GARDEN')
-ELSEIF (IO%CISBA=='3-L'.AND.IO%CKSAT=='EXP') THEN 
+ELSEIF (IO%CISBA=='3-L'.AND.IO%CKSAT=='EXP') THEN
   CALL ABOR1_SFX('INIT_TEB_GARDEN_PGDn: topmodel exponential decay not implemented for garden')
 ENDIF
 !
-IF(IO%CKSAT=='SGH' .AND. IO%CISBA/='DIF' .AND. HINIT/='PRE')THEN 
+IF(IO%CKSAT=='SGH' .AND. IO%CISBA/='DIF' .AND. HINIT/='PRE')THEN
   ZF(:)=MIN(4.0/P%XDG(:,2),XF_DECAY)
   CALL EXP_DECAY_SOIL_FR(IO%CISBA, ZF, P)
 ENDIF

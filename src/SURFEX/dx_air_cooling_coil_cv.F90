@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE DX_AIR_COOLING_COIL_CV(PT_CANYON, PQ_CANYON, PPS, PRHOA,    &
                              PT_IN, PQ_IN, PCOP_RAT, PCAP_SYS_RAT,     &
@@ -59,7 +59,7 @@ REAL :: ZD1
 REAL :: ZE1
 REAL :: ZF1
 ! Total cooling capacity modifier curve function of flow fraction (desactivated)
-!REAL :: ZCAPFLOW      
+!REAL :: ZCAPFLOW
 !REAL :: ZA2
 !REAL :: ZB2
 !REAL :: ZC2
@@ -70,7 +70,7 @@ REAL :: ZD3
 REAL :: ZE3
 REAL :: ZF3
 ! Energy input ratio modifier curve function of flow fraction (desactivated)
-!REAL :: ZEIRFLOW      
+!REAL :: ZEIRFLOW
 !REAL :: ZA4
 !REAL :: ZB4
 !REAL :: ZC4
@@ -90,7 +90,7 @@ IF (LHOOK) CALL DR_HOOK('DX_AIR_COOLING_COIL_CV',0,ZHOOK_HANDLE)
 ! Total cooling capacity modifier curve function of temperature
 ! Obtained from default vaules of EnergyPlus SingleSpeedDX
 ! DOE-2.1E, COOL-CAP-FT for PTAC w/ SI temps
-!  FurnaceDX DX Coil Cap-FT, Minimum Value of x, 12.77778;  
+!  FurnaceDX DX Coil Cap-FT, Minimum Value of x, 12.77778;
 !                            Maximum Value of x, 23.88889;
 !                            Minimum Value of y, 23.88889;
 !                            Maximum Value of y, 46.11111
@@ -102,14 +102,14 @@ ZE1 =  0.000005249   !- Coefficient5 y**2
 ZF1 =  -0.00000972   !- Coefficient6 x*y
 ! Total cooling capacity modifier curve function of flow fraction
 ! DOE-2.1E, RATED-CCAP-FFLOW for PTAC
-!  FurnaceDX DX Coil Cap-FF, Minimum Value of x, 0.5;  
+!  FurnaceDX DX Coil Cap-FF, Minimum Value of x, 0.5;
 !                            Maximum Value of x, 1.5;
 !ZA2 =  0.8           !- Coefficient1 Constant
 !ZB2 =  0.2           !- Coefficient2 x
 !ZC2 =  0             !- Coefficient3 x**2
 ! Energy input ratio modifier curve function of temperature
 ! DOE-2.1E, COOL-EIR-FT for PTAC w/ SI temps
-!  FurnaceDX DX Coil EIR-FT,  Minimum Value of x, 12.77778;  
+!  FurnaceDX DX Coil EIR-FT,  Minimum Value of x, 12.77778;
 !                            Maximum Value of x, 23.88889;
 !                            Minimum Value of y, 23.88889;
 !                            Maximum Value of y, 46.11111
@@ -121,23 +121,23 @@ ZE3 = 0.000437951    !- Coefficient5 y**2
 ZF3 = -0.000728028   !- Coefficient6 x*y
 ! Energy input ratio modifier curve function of flow fraction
 ! DOE-2.1E, RATED-CEIR-FFLOW for PTAC
-!  FurnaceDX DX Coil EIR-FF, Minimum Value of x, 0.5;  
+!  FurnaceDX DX Coil EIR-FF, Minimum Value of x, 0.5;
 !                            Maximum Value of x, 1.5;
 !ZA4 = 1.1552         !- Coefficient1 Constant
 !ZB4 = -0.1808        !- Coefficient2 x
 !ZC4 = 0.0256         !- Coefficient3 x**2
 ! Part load fraction correlation
 ! PLF = l.- Cd(1.-PLR) where Cd = 0.15
-!  FurnaceDX DX Coil PLF, Minimum Value of x, 0.0;  
+!  FurnaceDX DX Coil PLF, Minimum Value of x, 0.0;
 !                         Maximum Value of x, 1.0;
 ZA5 = 0.85           !- Coefficient1 Constant
 ZB5 = 0.15           !- Coefficient2 x
 ZC5 = 0              !- Coefficient3 x**2
 !
 !
-!*      C.     Total cooling capacity 
+!*      C.     Total cooling capacity
 !              ----------------------
-! 
+!
 IF (PM_SYS/PRHOA/PCAP_SYS_RAT < 0.00004027) THEN
      PM_SYS = 0.00004027*PCAP_SYS_RAT*PRHOA
 !     PRINT*,'ERROR: HVAC supply air flow rate must be greater than 0.00004027m3/s/W'
@@ -149,7 +149,7 @@ END IF
 ! Wet-bulb temperature entering the cooling coil
 ZTW_IN      = TWB_FROM_TPQ(PT_IN, PPS, PQ_IN)
 !
-! Dry-bulb temperature of the air entering an air-cooled condenser 
+! Dry-bulb temperature of the air entering an air-cooled condenser
 ! or wet-bulb temp entering a water-cooled condenser
 ZTWB_CANYON = TWB_FROM_TPQ(PT_CANYON, PPS, PQ_CANYON)
 ZT_COND     = ZTWB_CANYON + (PT_CANYON - ZTWB_CANYON)*(1. - PF_WATER_COND)
@@ -205,7 +205,7 @@ END IF
 !
 !*      D. HVAC efficiency and electrical power consumed by the DX unit
 !          ------------------------------------------------------------
-! 
+!
 ! Energy input ratio modifier curve function of temperature
 ZEIRTEMP = ZA3 + (ZTW_IN -273.15) * (ZB3 + ZC3*(ZTW_IN -273.15))  &
                + (ZT_COND-273.15) * (ZD3 + ZE3*(ZT_COND-273.15))  &

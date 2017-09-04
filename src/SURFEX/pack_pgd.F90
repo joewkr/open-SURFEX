@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-      SUBROUTINE PACK_PGD (DTCO, U, HPROGRAM, HSURF, G, OCOVER, PCOVER, PZS, PDIR     )  
+      SUBROUTINE PACK_PGD (DTCO, U, HPROGRAM, HSURF, G, OCOVER, PCOVER, PZS, PDIR     )
 !     ##############################################################
 !
 !!**** *PACK_PGD* packs ISBA physiographic fields from all surface points to ISBA points
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -121,7 +121,7 @@ ILU=0
  CALL GET_LCOVER_n(U,HPROGRAM,JPCOVER,OCOVER)
 !
 IF (IL==0) THEN
-  ALLOCATE(PCOVER(0,0)) 
+  ALLOCATE(PCOVER(0,0))
   IF (LHOOK) CALL DR_HOOK('PACK_PGD',1,ZHOOK_HANDLE)
   RETURN
 ENDIF

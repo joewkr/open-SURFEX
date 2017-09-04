@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
       SUBROUTINE READ_CSVDATA_TEB (BDD, &
@@ -32,7 +32,7 @@
 !!    MODIFICATION
 !!    ------------
 !!
-!!    Original    05/2012 
+!!    Original    05/2012
 !
 !----------------------------------------------------------------------------
 !
@@ -149,7 +149,7 @@ DO
   YSTRING6=' '
 !* reads the record
   READ(ILUNAM,END=98,FMT='(A400)') YSTRING
-!* analyses if the record has been written in French convention 
+!* analyses if the record has been written in French convention
   CALL FRENCH_TO_ENGLISH(YSTRING)
 !* reads the string
   IF (LEN_TRIM(YSTRING)>0) &
@@ -188,7 +188,7 @@ DO
   YSTRING6=' '
 !* reads the record
   READ(ILUNAM,END=99,FMT='(A400)') YSTRING
-!* analyses if the record has been written in French convention 
+!* analyses if the record has been written in French convention
   CALL FRENCH_TO_ENGLISH(YSTRING)
 !* reads the string
   IF (LEN_TRIM(YSTRING)>0) &
@@ -508,7 +508,7 @@ DO
   YSTRING2 = ''
 !* reads the record
  READ(ILUNAM,END=101,FMT='(A400)') YSTRING
-!* analyses if the record has been written in French convention 
+!* analyses if the record has been written in French convention
   CALL FRENCH_TO_ENGLISH(YSTRING)
 !* reads the string
   IF (LEN_TRIM(YSTRING)>0) &
@@ -541,7 +541,7 @@ DO
   YSTRING2 = ''
 !* reads the record
   READ(ILUNAM,END=101,FMT='(A400)') YSTRING
-!* analyses if the record has been written in French convention 
+!* analyses if the record has been written in French convention
   CALL FRENCH_TO_ENGLISH(YSTRING)
 !* reads the string
   IF (LEN_TRIM(YSTRING)>0) &
@@ -607,7 +607,7 @@ DO
   YSTRING8=' '
 !* reads the record
   READ(ILUNAM,END=100,FMT='(A400)') YSTRING
-!* analyses if the record has been written in French convention 
+!* analyses if the record has been written in French convention
   CALL FRENCH_TO_ENGLISH(YSTRING)
 !* reads the string
   IF (LEN_TRIM(YSTRING)>0) &
@@ -690,8 +690,8 @@ INTEGER :: JL
 LOGICAL :: GFRENCH
 !
 GFRENCH = .FALSE.
-!* analyses if the record has been written in French convention 
-!     French  convention (separator is ;  decimal symbol is ,) 
+!* analyses if the record has been written in French convention
+!     French  convention (separator is ;  decimal symbol is ,)
 !  or English convention (separator is ,  decimal symbol is .)
 DO JL=1,400
   IF (HSTRING(JL:JL)==';') GFRENCH=.TRUE.

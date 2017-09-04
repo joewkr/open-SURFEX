@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE AVERAGE1_COVER(UG,U,KLUOUT,KNBLINES,PLAT,PLON,PVALUE,PNODATA)
@@ -15,7 +15,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -74,7 +74,7 @@ REAL, OPTIONAL, INTENT(IN) :: PNODATA
 !            ------------------------------------
 !
 INTEGER, DIMENSION(NOVMX,SIZE(PLAT)) :: IINDEX ! mesh index of all input points
-                                         ! 0 indicates the point is out of the domain                              
+                                         ! 0 indicates the point is out of the domain
 !
 REAL, DIMENSION(:,:,:), ALLOCATABLE :: ZALL
 REAL, DIMENSION(SIZE(PLAT)) :: ZVALUE
@@ -87,7 +87,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !*    1.     Get position
 !            ------------
-!     
+!
 IF (LHOOK) CALL DR_HOOK('AVERAGE1_COVER',0,ZHOOK_HANDLE)
 !
 ICOV = SIZE(XALL,2)
@@ -104,13 +104,13 @@ ENDIF
 !
 !*    2.     Loop on all input data points
 !            -----------------------------
-!     
+!
 bloop: &
 DO JL = 1 , SIZE(PLAT)
 !
 !*    3.     Tests on position
 !            -----------------
-!    
+!
   DO JOV = 1, NOVMX
 
     IF (IINDEX(JOV,JL)==0) CYCLE bloop
@@ -143,7 +143,7 @@ DO JL = 1 , SIZE(PLAT)
         EXIT
       ENDIF
     ENDDO
-    !if the cover is not in the array 
+    !if the cover is not in the array
     IF (IFOUND==0) THEN
       !if we already have some covers for this point
       IF (XALL(IINDEX(JOV,JL),ICOV,2)/=0.) THEN

@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE OL_READ_ATM_CONF_NETCDF (DTCO, U, HGRID, HSURF_FILETYPE, ODELAYEDSTART_NC, KDATESTOP,  &
                                     PDURATION, PTSTEP_FORC, KNI, KYEAR, KMONTH, KDAY, PTIME, &
-                                    PLAT, PLON, PZS, PZREF, PUREF,KTIMESTARTINDEX         )  
+                                    PLAT, PLON, PZS, PZREF, PUREF,KTIMESTARTINDEX         )
 !
 !==================================================================
 !!****  *OL_READ_ATM_CONF* - Initialization routine
@@ -75,13 +75,13 @@ TYPE(SURF_ATM_t), INTENT(INOUT) :: U
  CHARACTER(LEN=*), INTENT(IN)  :: HGRID
  CHARACTER(LEN=6), INTENT(IN)  :: HSURF_FILETYPE
 LOGICAL, INTENT(IN)            :: ODELAYEDSTART_NC ! Allow the simulation to start from a different time step than the first record of a netcdf file
-INTEGER,DIMENSION(4),INTENT(IN) :: KDATESTOP !Allow the simulation to end at a different time step than the last record of a netcdf file 
+INTEGER,DIMENSION(4),INTENT(IN) :: KDATESTOP !Allow the simulation to end at a different time step than the last record of a netcdf file
 INTEGER,          INTENT(OUT) :: KNI
 INTEGER,          INTENT(OUT) :: KYEAR, KMONTH, KDAY
 REAL,             INTENT(OUT) :: PDURATION,PTSTEP_FORC
 REAL,             INTENT(OUT) :: PTIME
 REAL, DIMENSION(:),  POINTER  :: PLAT, PLON
-REAL, DIMENSION(:),  POINTER  :: PZS 
+REAL, DIMENSION(:),  POINTER  :: PZS
 REAL, DIMENSION(:),  POINTER  :: PZREF, PUREF
 INTEGER,          INTENT(OUT) :: KTIMESTARTINDEX ! index from which we start reading FORCING.nc
 !
@@ -136,7 +136,7 @@ IF (NPROC>1) THEN
   CALL MPI_BCAST(INB_FORC,KIND(INB_FORC)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
   CALL MPI_BCAST(GLONLAT1D,1,MPI_LOGICAL,NPIO,NCOMM,INFOMPI)
   CALL MPI_BCAST(INLON1D,KIND(INLON1D)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
-  CALL MPI_BCAST(INLAT1D,KIND(INLAT1D)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)    
+  CALL MPI_BCAST(INLAT1D,KIND(INLAT1D)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
   XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
 #endif
 ENDIF
@@ -149,7 +149,7 @@ PDURATION = ( INB_FORC - 1 ) * PTSTEP_FORC
 !*      2.    Read full grid dimension and date
 !
  CALL SET_SURFEX_FILEIN(HSURF_FILETYPE,'PREP')
-CALL INIT_IO_SURF_n(DTCO, U, HSURF_FILETYPE,'FULL  ','SURF  ','READ ')  
+CALL INIT_IO_SURF_n(DTCO, U, HSURF_FILETYPE,'FULL  ','SURF  ','READ ')
 !
  CALL READ_SURF(HSURF_FILETYPE,'DIM_FULL',IDIM_FULL,IRET)
  CALL READ_SURF(HSURF_FILETYPE,'DTCUR',TTIME,IRET)
@@ -163,7 +163,7 @@ PTIME  = TTIME%TIME
 !
 !*      5.    Geographical initialization
 !
- CALL GET_SIZE_FULL_n('OFFLIN ',IDIM_FULL,U%NSIZE_FULL,KNI) 
+ CALL GET_SIZE_FULL_n('OFFLIN ',IDIM_FULL,U%NSIZE_FULL,KNI)
 !
 ALLOCATE(PLON(KNI))
 ALLOCATE(PLAT(KNI))
@@ -234,23 +234,23 @@ IF (NRANK == NPIO) THEN
       IYEAR  = TZ_DATEFILE(JINDEX)%TDATE%YEAR
       IMONTH = TZ_DATEFILE(JINDEX)%TDATE%MONTH
       IDAY   = TZ_DATEFILE(JINDEX)%TDATE%DAY
-      ZTIME  = TZ_DATEFILE(JINDEX)%TIME* 3600. 
-      
+      ZTIME  = TZ_DATEFILE(JINDEX)%TIME* 3600.
+
       IF ( KYEAR==IYEAR .AND. KMONTH==IMONTH .AND. KDAY==IDAY .AND. PTIME==ZTIME ) THEN
         KTIMESTARTINDEX = JINDEX
         INB_FORC        = INB_FORC-KTIMESTARTINDEX+1
         PDURATION       = ( INB_FORC - 1 ) * PTSTEP_FORC
         EXIT
       END IF
-      
+
     END DO
-    
+
     ! Error if the initial date is not found
     IF ( KTIMESTARTINDEX==-1 ) THEN
       WRITE(ILUOUT,*)'IN THE FORCING FILE, WE CAN NOT FIND THIS INITIAL DATE :',KYEAR,KMONTH,KDAY,PTIME
       CALL ABOR1_SFX('OL_READ_ATM_CONF_NETCDF: DATE INCONSISTENCY')
     END IF
-    
+
   ELSE
 
     KTIMESTARTINDEX = 1
@@ -294,14 +294,14 @@ IF (NRANK == NPIO) THEN
   !
   IF ( ODELAYEDSTART_NC .OR. KDATESTOP(1)/=0 ) THEN
     DEALLOCATE(TZ_DATEFILE)
-  END IF  
+  END IF
   !
 ENDIF
 !
 IF (NPROC>1) THEN
-#ifdef SFX_MPI       
+#ifdef SFX_MPI
   XTIME0 = MPI_WTIME()
-  CALL MPI_BCAST(KTIMESTARTINDEX,KIND(KTIMESTARTINDEX)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)  
+  CALL MPI_BCAST(KTIMESTARTINDEX,KIND(KTIMESTARTINDEX)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
   CALL MPI_BCAST(PDURATION,KIND(PDURATION)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
   XTIME_COMM_READ = XTIME_COMM_READ + (MPI_WTIME() - XTIME0)
 #endif
@@ -328,7 +328,7 @@ IMPLICIT NONE
 INTEGER,            INTENT(OUT) :: KSIZE
 INTEGER,            INTENT(OUT) :: KNI
 REAL,               INTENT(OUT) :: PFIRSTTIMEFILE
-INTEGER,            INTENT(OUT) :: KRESP    
+INTEGER,            INTENT(OUT) :: KRESP
 LOGICAL,            INTENT(OUT) :: OLONLAT1D
 INTEGER,            INTENT(OUT) :: KNLON1D,KNLAT1D
 REAL,DIMENSION(:), POINTER, INTENT(OUT) :: PTIMEFILE
@@ -353,9 +353,9 @@ KRESP=0
 ! 0. find filename
 ! -----------------
  CALL OL_FIND_FILE_READ('time',IFILE_ID)
- 
+
 IF (IFILE_ID.NE.0) THEN
-    
+
   ! 1. Find id of the variable
   !----------------------------
   IRET(1)=NF90_INQ_VARID   (IFILE_ID,'time',IVAR_ID)
@@ -390,7 +390,7 @@ IF (IFILE_ID.NE.0) THEN
     CASE DEFAULT
       CALL ABOR1_SFX('OL_READ_ATM_CONF_NETCDF: TYPE OF TIME VARIABLE NOT KNOWN')
   END SELECT
-  
+
   ! 3. Check for errors
   !--------------------
   DO JRET=1,7
@@ -420,7 +420,7 @@ IF (IFILE_ID.NE.0) THEN
       ! Modif Matthieu Lafaysse
       ! If LON LAT REGULAR grid and 1 dimension LON LAT variables
       ! total dimension is nlon*nlat
-    
+
       OLONLAT1D = .TRUE.
       CALL OL_FIND_FILE_READ('LAT',IFILE_ID)
       IRET(5) = NF90_INQ_VARID(IFILE_ID,'LAT',IVAR_ID)

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_EKF
 !
@@ -98,7 +98,7 @@ IKI = SIZE(PTAB,1)
 DO JL = 1,NVAR   ! control variable (x at previous time step)
   DO JK = 1,NVAR
     DO JI = 1,IKI
-      DO JJ = 1,IO%NPATCH   
+      DO JJ = 1,IO%NPATCH
         DO JJJ = 1,IO%NPATCH
           !
           L1 = JJ+IO%NPATCH*(JL-1)
@@ -112,7 +112,7 @@ DO JL = 1,NVAR   ! control variable (x at previous time step)
             ICPT = ICPT+1
             PTAB(JI,L1,K1) = PTAB_IN(ICPT)
           ENDIF
-          ! 
+          !
         ENDDO
       ENDDO
     ENDDO
@@ -152,7 +152,7 @@ DO JI = 1,KN
     ENDDO
     PA(JJ,JI) = ZSUM/PP(JJ)
   ENDDO
-ENDDO  
+ENDDO
 !
 DO JI = 1,KN
   DO JJ = JI+1,KN
@@ -170,7 +170,7 @@ END SUBROUTINE INVERSE_MATRIX
 
 SUBROUTINE CHOLDC(KN,PA,PP)
 !
-USE MODI_ABOR1_SFX        
+USE MODI_ABOR1_SFX
 !
 IMPLICIT NONE
 !
@@ -186,13 +186,13 @@ IF (LHOOK) CALL DR_HOOK('MODE_EKF:CHOLDC',0,ZHOOK_HANDLE)
 DO JI = 1,KN
   ZSUM = PA(JI,JI)- DOT_PRODUCT(PA(JI,1:JI-1),PA(JI,1:JI-1))
   IF ( ZSUM<=0.0 ) CALL ABOR1_SFX('MODE_EKF: ERROR IN CHOLDC')
-  PP(JI) = SQRT(ZSUM) 
+  PP(JI) = SQRT(ZSUM)
   PA(JI+1:KN,JI) = ( PA(JI,JI+1:KN) - MATMUL(PA(JI+1:KN,1:JI-1),PA(JI,1:JI-1)) )/PP(JI)
 ENDDO
 !
 IF (LHOOK) CALL DR_HOOK('MODE_EKF:CHOLDC',1,ZHOOK_HANDLE)
 !
-END SUBROUTINE CHOLDC 
+END SUBROUTINE CHOLDC
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -266,7 +266,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_EKF:SET_FILEIN',0,ZHOOK_HANDLE)
 IF ( CSURF_FILETYPE == "LFI   " ) THEN
   YFILEIN = TRIM(HFILE)
 #ifdef SFX_LFI
-  CFILEIN_LFI      = YFILEIN 
+  CFILEIN_LFI      = YFILEIN
   CFILE_LFI        = YFILEIN
   CFILEIN_LFI_SAVE = YFILEIN
 #endif

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##############################################################
       SUBROUTINE PACK_GRID_LONLAT_REG(KMASK_SIZE,KMASK,KGRID_PAR1,PGRID_PAR1,KGRID_PAR2,OPACK,PGRID_PAR2)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -77,7 +77,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('PACK_GRID_LONLAT_REG',0,ZHOOK_HANDLE)
  CALL GET_GRIDTYPE_LONLAT_REG(PGRID_PAR1,ZLONMIN,ZLONMAX,     &
-                               ZLATMIN,ZLATMAX,ILON,ILAT, IL   )  
+                               ZLATMIN,ZLATMAX,ILON,ILAT, IL   )
 ALLOCATE(ZLAT1(IL))
 ALLOCATE(ZLON1(IL))
 !
@@ -103,7 +103,7 @@ DEALLOCATE(ZLON1)
 !            ------------------------------
 !
  CALL PUT_GRIDTYPE_LONLAT_REG(ZGRID_PAR2,ZLONMIN,ZLONMAX,                     &
-                               ZLATMIN,ZLATMAX,ILON,ILAT,KMASK_SIZE,ZLON2,ZLAT2)  
+                               ZLATMIN,ZLATMAX,ILON,ILAT,KMASK_SIZE,ZLON2,ZLAT2)
 
 DEALLOCATE(ZLAT2)
 DEALLOCATE(ZLON2)

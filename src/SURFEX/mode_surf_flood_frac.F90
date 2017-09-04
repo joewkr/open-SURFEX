@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !##########################
 MODULE MODE_SURF_FLOOD_FRAC
@@ -11,14 +11,14 @@ MODULE MODE_SURF_FLOOD_FRAC
 !!
 !!    PURPOSE
 !!    -------
-!    
+!
 !      The purpose of this routine is to store here all routines to compute
 !     flood fractions for the ISBA scheme.
 !
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!       NONE          
+!!       NONE
 !!
 !!    REFERENCE
 !!    ---------
@@ -78,7 +78,7 @@ REAL, DIMENSION(SIZE(PPSNV))    :: PFFV    ! Floodplain fraction over vegetation
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('MODE_SURF_FLOOD_FRAC:FLOOD_FRAC_VEG',0,ZHOOK_HANDLE)
-PFFV(:)=PFFLOOD(:)*MIN(1.0,XCFFV/MAX(PLAI(:),0.1))  
+PFFV(:)=PFFLOOD(:)*MIN(1.0,XCFFV/MAX(PLAI(:),0.1))
 !
 WHERE(PFFV(:)>(1.0-PPSNV(:)))PFFV(:)=1.0-PPSNV(:)
 IF (LHOOK) CALL DR_HOOK('MODE_SURF_FLOOD_FRAC:FLOOD_FRAC_VEG',1,ZHOOK_HANDLE)

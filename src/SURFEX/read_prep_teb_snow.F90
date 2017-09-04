@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PREP_TEB_SNOW(HPROGRAM,HSNOW_ROOF,KSNOW_ROOF,HSNOW_ROAD,KSNOW_ROAD,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE)
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    04/2007 
+!!      Original    04/2007
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -77,7 +77,7 @@ INTEGER,           INTENT(OUT) :: KSNOW_ROAD ! snow scheme layers for roads
  CHARACTER(LEN=6),  OPTIONAL, INTENT(OUT) :: HFILETYPE    ! file type
  CHARACTER(LEN=28), OPTIONAL, INTENT(OUT) :: HFILEPGD       ! file name
  CHARACTER(LEN=6),  OPTIONAL, INTENT(OUT) :: HFILEPGDTYPE    ! file type
- 
+
 !
 !*       0.2   Declarations of local variables
 !              -------------------------------
@@ -91,7 +91,7 @@ INTEGER           :: ILUNAM         ! namelist file logical unit
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
 NAMELIST/NAM_PREP_TEB_SNOW/CSNOW_ROOF, CSNOW_ROAD, CFILE_SNOW_TEB, CTYPE_SNOW, &
-                           LSNOW_IDEAL_TEB, CFILEPGD_SNOW_TEB, CTYPEPGD_SNOW,      & 
+                           LSNOW_IDEAL_TEB, CFILEPGD_SNOW_TEB, CTYPEPGD_SNOW,      &
                            XWSNOW_ROOF, XTSNOW_ROOF, XLWCSNOW_ROOF, XRSNOW_ROOF, XASNOW_ROOF, &
                            XWSNOW_ROAD, XTSNOW_ROAD, XLWCSNOW_ROAD, XRSNOW_ROAD, XASNOW_ROAD
 !-------------------------------------------------------------------------------
@@ -107,9 +107,9 @@ IF (LNAM_READ) THEN
   CSNOW_ROAD = '1-L'
   !
   CFILE_SNOW_TEB = '                         '
-  CTYPE_SNOW     = '      ' 
+  CTYPE_SNOW     = '      '
   CFILEPGD_SNOW_TEB = '                         '
-  CTYPEPGD_SNOW     = '      '    
+  CTYPEPGD_SNOW     = '      '
   !
   XWSNOW_ROOF(:) = 0.
   XTSNOW_ROOF(:) = XTT
@@ -165,12 +165,12 @@ HSNOW_ROAD = CSNOW_ROAD
 KSNOW_ROOF = 1
 KSNOW_ROAD = 1
 !
-IF (LEN_TRIM(CFILE_SNOW_TEB)>0 .AND. LEN_TRIM(CTYPE_SNOW)>0 & 
+IF (LEN_TRIM(CFILE_SNOW_TEB)>0 .AND. LEN_TRIM(CTYPE_SNOW)>0 &
         .AND.LEN_TRIM(CFILEPGD_SNOW_TEB)>0.AND.LEN_TRIM(CTYPEPGD_SNOW)>0) THEN
   IF (PRESENT(HFILE)) HFILE = CFILE_SNOW_TEB
   IF (PRESENT(HFILETYPE)) HFILETYPE = CTYPE_SNOW
   IF (PRESENT(HFILEPGD)) HFILEPGD = CFILEPGD_SNOW_TEB
-  IF (PRESENT(HFILEPGDTYPE)) HFILEPGDTYPE = CTYPEPGD_SNOW  
+  IF (PRESENT(HFILEPGDTYPE)) HFILEPGDTYPE = CTYPEPGD_SNOW
 END IF
 !
 IF (LHOOK) CALL DR_HOOK('READ_PREP_TEB_SNOW',1,ZHOOK_HANDLE)

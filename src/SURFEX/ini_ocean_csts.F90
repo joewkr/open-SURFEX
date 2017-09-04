@@ -1,8 +1,8 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-SUBROUTINE INI_OCEAN_CSTS 
+SUBROUTINE INI_OCEAN_CSTS
 !     ##################
 !
 !!****  *INI_OCEAN_CSTS * - routine to initialize the module MODD_OCEAN_CSTS
@@ -11,12 +11,12 @@ SUBROUTINE INI_OCEAN_CSTS
 !!    -------
 !       The purpose of this routine is to initialize  the physical constants
 !     stored in  module MODD_OCEAN_CSTS.
-!      
+!
 !
 !!**  METHOD
 !!    ------
-!!      The physical constants are set to their numerical values 
-!!     
+!!      The physical constants are set to their numerical values
+!!
 !!
 !!    EXTERNAL
 !!    --------
@@ -49,7 +49,7 @@ USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
 !
 IMPLICIT NONE
-!  
+!
 !-------------------------------------------------------------------------------
 !
 !
@@ -86,4 +86,4 @@ IF (LHOOK) CALL DR_HOOK('INI_OCEAN_CSTS',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 !
-END SUBROUTINE INI_OCEAN_CSTS 
+END SUBROUTINE INI_OCEAN_CSTS

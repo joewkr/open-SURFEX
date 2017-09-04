@@ -1,14 +1,14 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
-      SUBROUTINE UPDATE_ESM_ISBA_n (IO, S, K, NK, NP, NPE, KI,KSW,PZENITH,PSW_BANDS,PDIR_ALB,& 
+      SUBROUTINE UPDATE_ESM_ISBA_n (IO, S, K, NK, NP, NPE, KI,KSW,PZENITH,PSW_BANDS,PDIR_ALB,&
                                    PSCA_ALB,PEMIS,PTSRAD,PTSURF      )
 !     ################################################################
 !
-!!****  *UPDATE_ESM_ISBA_n* - update ISBA radiative and physical properties in Earth System Model 
-!!                            after the call to OASIS coupler in order 
+!!****  *UPDATE_ESM_ISBA_n* - update ISBA radiative and physical properties in Earth System Model
+!!                            after the call to OASIS coupler in order
 !!                            to close the energy budget between radiative scheme and surfex
 !!
 !!
@@ -31,7 +31,7 @@
 !!
 !!    AUTHOR
 !!    ------
-!!     B. Decharme 
+!!     B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -155,13 +155,13 @@ DO JP = 1,IO%NPATCH
       IF(PEK%XEMIS(JI)/=XUNDEF.AND.ZEMIS_PATCH(IMASK,JP)/=0.) THEN
         ZTSRAD_PATCH(IMASK,JP) = ( ( (1.-PEK%XPSN(JI))*ZEMIS(IMASK,JP)*PEK%XTG(JI,1)**4     &
                                +  PEK%XPSN(JI) *PEK%TSNOW%EMIS(JI)*PEK%TSNOW%TS(JI)**4 )   &
-                             / ZEMIS_PATCH(IMASK,JP) )**0.25     
+                             / ZEMIS_PATCH(IMASK,JP) )**0.25
       ENDIF
       ZTSURF_PATCH(IMASK,JP) = PEK%XTG(JI,1)*(1.-PEK%XPSN(JI)) + PEK%TSNOW%TS(JI)*PEK%XPSN(JI)
 
     ENDIF
     !
-  ENDDO    
+  ENDDO
   !
 ENDDO
 !
@@ -170,7 +170,7 @@ ENDDO
 !
  CALL AVERAGE_RAD(S%XPATCH,                                                   &
                    ZDIR_ALB_PATCH, ZSCA_ALB_PATCH, ZEMIS_PATCH, ZTSRAD_PATCH, &
-                   PDIR_ALB,       PSCA_ALB,       S%XEMIS_NAT,   S%XTSRAD_NAT    )  
+                   PDIR_ALB,       PSCA_ALB,       S%XEMIS_NAT,   S%XTSRAD_NAT    )
 !
 PEMIS = S%XEMIS_NAT
 PTSRAD = S%XTSRAD_NAT

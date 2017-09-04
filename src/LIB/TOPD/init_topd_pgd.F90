@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
       SUBROUTINE INIT_TOPD_PGD(HPROGRAM)
 !     #######################
 !
-!!****  *INIT_TOPD_PGD*  
+!!****  *INIT_TOPD_PGD*
 !!
 !!    PURPOSE
 !!    -------
-!     This routine aims at initialising the variables 
+!     This routine aims at initialising the variables
 !     needed of running Topmodel for PGD step.
-!              
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,18 +24,18 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
-!!    AUTHOR 
+!!
+!!
+!!    AUTHOR
 !!    ------
 !!
 !!      B. Vincendon    * Meteo-France *
@@ -79,7 +79,7 @@ IMPLICIT NONE
 !*      0.2    declarations of local variables
 !
 !
-INTEGER                   :: JJ,JCAT ! loop control 
+INTEGER                   :: JJ,JCAT ! loop control
 INTEGER                   :: ILUOUT                 ! Unit of the files
 !
 REAL, DIMENSION(:),ALLOCATABLE    :: ZTOPD_READ !Topgraphic variable read

@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-       SUBROUTINE DIAG_INLINE_OCEAN_n (DGO, O, PSEABATHY) 
+       SUBROUTINE DIAG_INLINE_OCEAN_n (DGO, O, PSEABATHY)
 !     ###############################################################################
 !
 !!****  *DIAG_INLINE_SEAFLUX_n * - computes diagnostics during SEAFLUX time-step
@@ -16,11 +16,11 @@
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -37,7 +37,7 @@ USE MODD_OCEAN_CSTS
 USE MODD_OCEAN_GRID
 !
 USE MODD_SURF_PAR,   ONLY : XUNDEF
-! 
+!
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -74,7 +74,7 @@ IF (DGO%LDIAG_OCEAN) THEN
 !
    ZSEADENS(:,:)=XRHOSWREF + &
           (O%XSEAT(:,:)-13.5)*(-0.19494-0.49038E-2*(O%XSEAT(:,:)-13.5))&
-          +0.77475*(O%XSEAS(:,:)-32.6)  
+          +0.77475*(O%XSEAS(:,:)-32.6)
 !
    DO JPT=1,INBPTS
 !
@@ -87,9 +87,9 @@ IF (DGO%LDIAG_OCEAN) THEN
      DO J=IK2,NOCKMAX-1
          ZRHO0(JPT)=XRHOSWREF+DRHOCOMPUTE(O%XSEAT(JPT,J),O%XSEAS(JPT,J))
          ZDRHOX(JPT)=ZRHO0(JPT)-ZRHOCMO(JPT)
-         IF ((ZDRHOX(JPT)<0.).AND.(O%XSEABATH(JPT,J)/=0.))  THEN 
+         IF ((ZDRHOX(JPT)<0.).AND.(O%XSEABATH(JPT,J)/=0.))  THEN
            O%XSEAHMO(JPT)=O%XSEAHMO(JPT)+XDZ1(J)
-         ELSE 
+         ELSE
            EXIT
          ENDIF
      ENDDO
@@ -145,7 +145,7 @@ CONTAINS
              FUNCTION DRHOCOMPUTE(T,S) RESULT(R)
 !            ##########################################
 !
-!!****  *DRHOCOMPUTE* 
+!!****  *DRHOCOMPUTE*
 !!
 !!    PURPOSE
 !!    -------
@@ -158,14 +158,14 @@ CONTAINS
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!     
+!!
 !!    REFERENCE
 !!    ---------
-!!    
-!!     
+!!
+!!
 !!    AUTHOR
 !!    ------
-!!     C. Lebeaupin  *Meteo-France* 
+!!     C. Lebeaupin  *Meteo-France*
 !!
 !!    MODIFICATIONS
 !!    -------------

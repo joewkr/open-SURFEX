@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE ASSIM_ISBA_n (IM, U, HPROGRAM, KI, &
@@ -22,7 +22,7 @@ SUBROUTINE ASSIM_ISBA_n (IM, U, HPROGRAM, KI, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -138,7 +138,7 @@ IF ( CASSIM_ISBA == 'EKF  ' ) THEN
 ELSEIF ( CASSIM_ISBA == 'ENKF ') THEN
   !
   CALL ASSIM_NATURE_ISBA_ENKF(IM%O, IM%S, IM%K, IM%NP, IM%NPE, HPROGRAM, KI, PT2M, PHU2M, HTEST)
-  !  
+  !
 ELSEIF ( CASSIM_ISBA == 'OI   ' ) THEN
   !
   ! Snow analysis/update. Store the original field in the surfex file
@@ -211,7 +211,7 @@ IF ( LEXTRAP_NATURE ) THEN
   GINTERP_NATURE = .FALSE.
   GINTERP_SN     = .FALSE.
   !
-  ! Snow albedo and density are also extrapolated in points 
+  ! Snow albedo and density are also extrapolated in points
   ! which get initial snow in the snow analysis
   WHERE ( ZSWE_EP(:) < 1.0E-10 .AND. PSWE(:)>= 1.0E-10 )
     GINTERP_SN(:) = .TRUE.
@@ -251,7 +251,7 @@ IF ( LEXTRAP_NATURE ) THEN
   ZSNR_EP0(:) = ZSNR_EP(:)
   CALL OI_HOR_EXTRAPOL_SURF(KI,IM%G%XLAT,IM%G%XLON,ZSNR_EP0,IM%G%XLAT,IM%G%XLON,ZSNR_EP,GINTERP_SN)
   ZSNA_EP0(:) = ZSNA_EP(:)
-  CALL OI_HOR_EXTRAPOL_SURF(KI,IM%G%XLAT,IM%G%XLON,ZSNA_EP0,IM%G%XLAT,IM%G%XLON,ZSNA_EP,GINTERP_SN)  
+  CALL OI_HOR_EXTRAPOL_SURF(KI,IM%G%XLAT,IM%G%XLON,ZSNA_EP0,IM%G%XLAT,IM%G%XLON,ZSNA_EP,GINTERP_SN)
   !
   DEALLOCATE(ZWS_EP0,ZWP_EP0,ZTS_EP0,ZTP_EP0,ZTL_EP0,ZSWE_EP0,ZSNR_EP0,ZSNA_EP0)
   !
@@ -267,7 +267,7 @@ IF ( LEXTRAP_NATURE ) THEN
   DEALLOCATE(GINTERP_NATURE,GINTERP_SN)
   !
   DO JI = 1,PK%NSIZE_P
-    IMASK = PK%NR_P(JI)  
+    IMASK = PK%NR_P(JI)
     ! Set extrpolated fields to global
     PEK%XWG (JI,1) = ZWS_EP(IMASK)
     PEK%XWG (JI,2) = ZWP_EP(IMASK)

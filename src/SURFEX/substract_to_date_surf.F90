@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################
       SUBROUTINE SUBSTRACT_TO_DATE_SURF(KYEAR,KMONTH,KDAY,PSEC)
@@ -67,7 +67,7 @@ IF (LHOOK) CALL DR_HOOK('SUBSTRACT_TO_DATE_SURF',0,ZHOOK_HANDLE)
 !*       1.    Return condition: PSEC >0
 !              -------------------------
 !
-DO 
+DO
   IF (PSEC >= 0.) EXIT
 !
 !-------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ DO
           ENDIF
       END SELECT
     ENDIF
-! 
+!
 !*       2.2   Other days
 !              ----------
   ELSE

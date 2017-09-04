@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_PGD_TEB_GARDEN_n (HSELECT, TOP, T, KTIME, IO, K, P, HPROGRAM)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    06/2011 
+!!      Original    06/2011
 !!
 !-------------------------------------------------------------------------------
 !
@@ -97,11 +97,11 @@ YCOMMENT=YRECFM
 !
 IF(IO%CISBA=='DIF') THEN
   DO JL=1,IO%NGROUND_LAYER
-     WRITE(YLVL,'(I4)') JL     
+     WRITE(YLVL,'(I4)') JL
      YRECFM='GD_SGRID'//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))
      YCOMMENT='Depth of TEB Garden soilgrid layer '//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))
      CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,IO%XSOILGRID(JL),IRESP,HCOMMENT=YCOMMENT)
-  END DO 
+  END DO
 ENDIF
 !
 !* number of soil layers
@@ -110,7 +110,7 @@ YRECFM='GD_LAYER'
 YCOMMENT=YRECFM
  CALL WRITE_SURF(HSELECT, HPROGRAM,YRECFM,IO%NGROUND_LAYER,IRESP,HCOMMENT=YCOMMENT)
 !
-!* number of time data for vegetation characteristics (VEG, LAI, EMIS, Z0) 
+!* number of time data for vegetation characteristics (VEG, LAI, EMIS, Z0)
 !
 YRECFM='GD_NTIME'
 YCOMMENT=YRECFM
@@ -121,19 +121,19 @@ YCOMMENT=YRECFM
 YRECFM='GD_CLAY'
 YCOMMENT='X_Y_GD_CLAY'
  CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,K%XCLAY(:,1),IRESP,HCOMMENT=YCOMMENT)
-!        
+!
 ! * sand fraction
 !
 YRECFM='GD_SAND'
 YCOMMENT='X_Y_GD_SAND'
  CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,K%XSAND(:,1),IRESP,HCOMMENT=YCOMMENT)
-!        
+!
 ! * orographic runoff coefficient
 !
 YRECFM='GD_RUNOFFB'
 YCOMMENT='X_Y_GD_RUNOFFB'
  CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,K%XRUNOFFB,IRESP,HCOMMENT=YCOMMENT)
-!        
+!
 ! * subgrid drainage coefficient
 !
 YRECFM='GD_WDRAIN'

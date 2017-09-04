@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_TEB_EXTERN (DTCO, GCP, &
@@ -124,7 +124,7 @@ IF (NRANK/=NPIO) INI = 0
  CALL TOWN_PRESENCE(HFILEPGDTYPE,GTEB,HDIR='-')
 !
 ALLOCATE(ZMASK(INI))
-IF (IVERSION_PGD>=7.AND.GTEB) THEN 
+IF (IVERSION_PGD>=7.AND.GTEB) THEN
   YRECFM='FRAC_TOWN'
   CALL READ_SURF(HFILEPGDTYPE,YRECFM,ZMASK,IRESP,HDIR='A')
 ELSE
@@ -169,7 +169,7 @@ ELSE
       WRITE(YPATCH,FMT='(A,I1,A)') 'T',MIN(KPATCH,ITEB_PATCH),'_'
     END IF
     CALL CLOSE_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE)
-!    
+!
 !---------------------------------------------------------------------------------------
     SELECT CASE(HSURF)
 !---------------------------------------------------------------------------------------
@@ -184,7 +184,7 @@ ELSE
       IF (YSURF=='T_ROAD') YRECFM='ROAD_LAYER'
       IF (YSURF=='T_ROOF') YRECFM='ROOF_LAYER'
       IF (YSURF=='T_WALL') YRECFM='WALL_LAYER'
-      IF (YSURF=='T_FLOO' .OR. YSURF=='T_MASS') THEN 
+      IF (YSURF=='T_FLOO' .OR. YSURF=='T_MASS') THEN
         IF (YBEM=='DEF') THEN
           YRECFM='ROAD_LAYER'
         ELSE
@@ -205,7 +205,7 @@ ELSE
       !
       !* reading of version of the file being read
       GOLD_NAME=(IVERSION_PREP<7 .OR. (IVERSION_PREP==7 .AND. IBUGFIX_PREP<3))
-      !      
+      !
       CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'TOWN  ')
       !
       !* reading option for road orientation
@@ -225,13 +225,13 @@ ELSE
           IF (YSURF =='T_WALL' .AND. YWALL_OPT/='UNIF') THEN
             WRITE(YRECFM,'(A1,A5,I1.1)') HSURF(1:1),HSURF(3:7),JLAYER
           ELSEIF ((YSURF=='T_FLOO' .OR. YSURF=='T_MASS') .AND. YBEM=='DEF') THEN
-            IF (YSURF=='T_FLOO' .AND. JLAYER>1) THEN 
+            IF (YSURF=='T_FLOO' .AND. JLAYER>1) THEN
               WRITE(YRECFM,'(A5,I1.1)') 'TROAD',JLAYER
             ELSE
               WRITE(YRECFM,'(A6)') 'TI_BLD'
             ENDIF
           ELSE
-            WRITE(YRECFM,'(A1,A4,I1.1)') HSURF(1:1),HSURF(3:6),JLAYER            
+            WRITE(YRECFM,'(A1,A4,I1.1)') HSURF(1:1),HSURF(3:6),JLAYER
           END IF
           !
         END IF
@@ -285,7 +285,7 @@ ELSE
           ALLOCATE(PFIELD(SIZE(ZFIELD,1),SIZE(XGRID_FLOOR)))
           CALL INTERP_GRID(ZDEPTH,ZFIELD,XGRID_FLOOR,PFIELD)
         END IF
-        DEALLOCATE(ZDEPTH)        
+        DEALLOCATE(ZDEPTH)
         !
       ENDIF
       !
@@ -305,7 +305,7 @@ ELSE
         CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'TOWN  ')
         CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
         CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
-        WHERE (ZMASK(:)==0.) PFIELD(:,1) = XUNDEF        
+        WHERE (ZMASK(:)==0.) PFIELD(:,1) = XUNDEF
       ELSE
         IF (INI>0) PFIELD(:,1) = XUNDEF
       ENDIF
@@ -337,7 +337,7 @@ ELSE
       YRECFM=ADJUSTL(YRECFM)
       CALL READ_SURF(HFILETYPE,YRECFM,PFIELD(:,1),IRESP,HDIR='E')
       CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
-      WHERE (ZMASK(:)==0.) PFIELD(:,1) = XUNDEF      
+      WHERE (ZMASK(:)==0.) PFIELD(:,1) = XUNDEF
 !
 !---------------------------------------------------------------------------------------
     END SELECT
@@ -364,14 +364,14 @@ ELSE
       !
       CALL OPEN_AUX_IO_SURF(HFILE,HFILETYPE,'NATURE')
       IF (YSURF=='T_FLOO' .OR. YSURF=='T_CAN ' .OR. YSURF=='TI_ROA') THEN
-        CALL MAKE_CHOICE_ARRAY(HFILETYPE, IPATCH, GDIM, 'TG2', ZFIELD(:,:),HDIR='E')  
-      ELSE          
-        CALL MAKE_CHOICE_ARRAY(HFILETYPE, IPATCH, GDIM, 'TG1', ZFIELD(:,:),HDIR='E') 
+        CALL MAKE_CHOICE_ARRAY(HFILETYPE, IPATCH, GDIM, 'TG2', ZFIELD(:,:),HDIR='E')
+      ELSE
+        CALL MAKE_CHOICE_ARRAY(HFILETYPE, IPATCH, GDIM, 'TG1', ZFIELD(:,:),HDIR='E')
       ENDIF
       CALL CLOSE_AUX_IO_SURF(HFILE,HFILETYPE)
       DO JLAYER=1,SIZE(ZFIELD,2)
         WHERE (ZMASK(:)==0.) ZFIELD(:,JLAYER) = XUNDEF
-      ENDDO      
+      ENDDO
       !* fills the whole temperature profile by this soil temperature
       IF (YSURF=='T_ROAD') ILAYER=SIZE(XGRID_ROAD)
       IF (YSURF=='T_ROOF') ILAYER=SIZE(XGRID_ROOF)
@@ -396,7 +396,7 @@ ELSE
       IF (YSURF=='TI_BLD'.OR.YSURF=='T_WIN2') ILAYER=1
       ALLOCATE(PFIELD(INI, ILAYER))
       PFIELD(:,:) = XTI_BLD_DEF
- 
+
     !* building moisture
     CASE('QI_BLD ')
       ALLOCATE(PFIELD(INI,1))

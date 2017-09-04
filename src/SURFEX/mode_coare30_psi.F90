@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_COARE30_PSI
 !
@@ -29,7 +29,7 @@ FUNCTION PSIFUNCTU(PZL) RESULT(PSIFCTU)
 !       -------
 !       To evaluate the stability function psi for wind speed (if KID=1) or
 !       for temperature or humidity profiles (if KID.ne.1) from stability parameter
-!       z/L. 
+!       z/L.
 !
 !       EXTERNAL
 !       --------
@@ -39,10 +39,10 @@ FUNCTION PSIFUNCTU(PZL) RESULT(PSIFCTU)
 !
 !       REFERENCE
 !       ---------
-!       Lik79 : Liu, W. T., K. B. Katsaros, and J. A. Businger, 1979: 
-!       Bulk parameterization of air-sea exchanges of heat and water vapor including 
+!       Lik79 : Liu, W. T., K. B. Katsaros, and J. A. Businger, 1979:
+!       Bulk parameterization of air-sea exchanges of heat and water vapor including
 !       the molecular constraints at the interface. J. Atm. Sci., 36, 1722--1735.
-!       DyH70 : Dyer, A. J., and B. B. Hicks, 1970: Flux-gradient relationship 
+!       DyH70 : Dyer, A. J., and B. B. Hicks, 1970: Flux-gradient relationship
 !       in the constant flux layer. Quart. J. Roy. Meteor. Soc., 96, 715--721.
 !
 !       AUTHOR
@@ -71,14 +71,14 @@ DO JJ=1,SIZE(PZL)
     ZPSIK(JJ)= 2.0 * LOG((1.0+ZX(JJ)       )/2.0) &
              +       LOG((1.0+ZX(JJ)*ZX(JJ))/2.0) &
              - 2.0 * atan(ZX(JJ)) &
-             + 2.0 * atan(1.0)  
+             + 2.0 * atan(1.0)
     !
     ZY(JJ)   = (1.0 - 10.15 * PZL(JJ))**0.3333     ! Convective
     ZPSIC(JJ)= 1.5 * LOG((ZY(JJ)*ZY(JJ)+ZY(JJ)+1.)/3.) &
              - (3.0**0.5) * atan((2.0*ZY(JJ)+1.0)/(3.0**0.5)) &
-             + 4.0        * atan(1.0)/(3.0**0.5) 
+             + 4.0        * atan(1.0)/(3.0**0.5)
     !
-    ZF(JJ)   =PZL(JJ) * PZL(JJ) / (1.0+PZL(JJ)*PZL(JJ)) 
+    ZF(JJ)   =PZL(JJ) * PZL(JJ) / (1.0+PZL(JJ)*PZL(JJ))
     !
     PSIFCTU(JJ)=(1.-ZF(JJ)) * ZPSIK(JJ) + ZF(JJ) * ZPSIC(JJ)
   ELSE
@@ -101,7 +101,7 @@ FUNCTION PSIFUNCTT(PZL) RESULT(PSIFCTT)
 !       -------
 !       To evaluate the stability function psi for wind speed (if KID=1) or
 !       for temperature or humidity profiles (if KID.ne.1) from stability parameter
-!       z/L. 
+!       z/L.
 !
 !       EXTERNAL
 !       --------
@@ -111,10 +111,10 @@ FUNCTION PSIFUNCTT(PZL) RESULT(PSIFCTT)
 !
 !       REFERENCE
 !       ---------
-!       Lik79 : Liu, W. T., K. B. Katsaros, and J. A. Businger, 1979: 
-!       Bulk parameterization of air-sea exchanges of heat and water vapor including 
+!       Lik79 : Liu, W. T., K. B. Katsaros, and J. A. Businger, 1979:
+!       Bulk parameterization of air-sea exchanges of heat and water vapor including
 !       the molecular constraints at the interface. J. Atm. Sci., 36, 1722--1735.
-!       DyH70 : Dyer, A. J., and B. B. Hicks, 1970: Flux-gradient relationship 
+!       DyH70 : Dyer, A. J., and B. B. Hicks, 1970: Flux-gradient relationship
 !       in the constant flux layer. Quart. J. Roy. Meteor. Soc., 96, 715--721.
 !
 !       AUTHOR
@@ -145,9 +145,9 @@ DO JJ=1,SIZE(PZL)
     ZY(JJ)   = (1.0 - 34.15 * PZL(JJ))**0.3333  ! Convective
     ZPSIC(JJ)= 1.5 * LOG((ZY(JJ)*ZY(JJ)+ZY(JJ)+1.0)/3.) &
              - (3.0**0.5) * atan((2.0*ZY(JJ)+1.0)/(3.0**0.5)) &
-             + 4.0        * atan(1.0)/(3.0**0.5)  
+             + 4.0        * atan(1.0)/(3.0**0.5)
     !
-    ZF(JJ)   = PZL(JJ) * PZL(JJ) / (1.0+PZL(JJ)*PZL(JJ)) 
+    ZF(JJ)   = PZL(JJ) * PZL(JJ) / (1.0+PZL(JJ)*PZL(JJ))
     !
     PSIFCTT(JJ)= (1.-ZF(JJ)) * ZPSIK(JJ) + ZF(JJ) * ZPSIC(JJ)
   ELSE

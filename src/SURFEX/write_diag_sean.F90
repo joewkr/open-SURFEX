@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE WRITE_DIAG_SEA_n (DTCO, DUO, U, SM, HPROGRAM,HWRITE)
@@ -16,11 +16,11 @@ SUBROUTINE WRITE_DIAG_SEA_n (DTCO, DUO, U, SM, HPROGRAM,HWRITE)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -35,7 +35,7 @@ USE MODD_SURFEX_n, ONLY : SEAFLUX_MODEL_t
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 !
 USE MODI_WRITE_DIAG_SEAFLUX_n
-! 
+!
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB

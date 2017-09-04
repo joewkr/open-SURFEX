@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE ASSIM_NATURE_ISBA_ENKF(IO, S, K, NP, NPE, HPROGRAM, KI, PT2M, PHU2M, HTEST)
 
@@ -18,9 +18,9 @@ SUBROUTINE ASSIM_NATURE_ISBA_ENKF(IO, S, K, NP, NPE, HPROGRAM, KI, PT2M, PHU2M, 
 !
 ! First version including patches (15 October 2008)
 ! Trygve Aspelien, Separating IO  06/2013
-! Alina Barbu: bug correction of B matrix, otherwise understimation of the gain matrix (11/2013) 
-! Alina Barbu: equivalent analysis of B matrix to ensure its symetric and positiv definiteness properties (11/2013) 
-  
+! Alina Barbu: bug correction of B matrix, otherwise understimation of the gain matrix (11/2013)
+! Alina Barbu: equivalent analysis of B matrix to ensure its symetric and positiv definiteness properties (11/2013)
+
 ! -----------------------------------------------------------------------------
 !
 USE MODD_SURFEX_MPI,    ONLY : NRANK, NPIO
@@ -29,14 +29,14 @@ USE MODD_ASSIM,         ONLY : NOBSTYPE, XERROBS, NVAR, NPRINTLEV, CVAR,   &
                                NECHGU, NBOUTPUT, NOBS, XYO, LENKF, LDENKF, &
                                LPB_CORRELATIONS, LPERTURBATION_RUN,        &
                                LBIAS_CORRECTION, XINFL
-! 
+!
 USE MODD_SURF_PAR,      ONLY : XUNDEF
 !
 USE MODD_ISBA_OPTIONS_n, ONLY : ISBA_OPTIONS_t
 USE MODD_ISBA_n, ONLY : ISBA_S_t, ISBA_K_t, ISBA_NP_t, ISBA_NPE_t, ISBA_P_t, ISBA_PE_t
 !
 #ifdef SFX_ARO
-USE YOMMP0,             ONLY : MYPROC 
+USE YOMMP0,             ONLY : MYPROC
 #endif
 !
 USE YOMHOOK,            ONLY : LHOOK,DR_HOOK
@@ -112,7 +112,7 @@ INTEGER :: IMONTH                     ! current month (UTC)
 INTEGER :: IDAY                       ! current day (UTC)
 INTEGER :: IHOUR
 INTEGER :: IRESP                      ! return code
-INTEGER :: ISTEP                      ! 
+INTEGER :: ISTEP                      !
 INTEGER :: IMYPROC
 INTEGER :: IOBS, IENS
 INTEGER :: ISTAT, ICPT, IUNIT
@@ -144,7 +144,7 @@ IF ( NPRINTLEV>0 .AND. NRANK==NPIO) THEN
 ENDIF
 !
 #ifdef SFX_ARO
-IF ( MYPROC > 0 ) THEN 
+IF ( MYPROC > 0 ) THEN
   IMYPROC = MYPROC
 ELSE
   IMYPROC = 1
@@ -169,7 +169,7 @@ INPATCH = IO%NPATCH
  CALL COFSWI(K%XCLAY(:,1),ZCOFSWI)
 !DO I=1,KI
   !ZSMSAT (I) = 0.001 * (-1.08*100.*XSAND(I,1) + 494.305)
-  !ZWILT  (I) = 0.001 * 37.1342 * ((100.*XCLAY(I,1))**0.5) 
+  !ZWILT  (I) = 0.001 * 37.1342 * ((100.*XCLAY(I,1))**0.5)
 !ENDDO
 !
 ! ====================================================================
@@ -178,7 +178,7 @@ INPATCH = IO%NPATCH
 !
 ! ====================================================================
 !
-!   Time reinitialization 
+!   Time reinitialization
 IYEAR  = S%TTIME%TDATE%YEAR
 IMONTH = S%TTIME%TDATE%MONTH
 IDAY   = S%TTIME%TDATE%DAY
@@ -189,21 +189,21 @@ ZTIME = FLOAT(NECHGU) * 3600.
 !############################# READS OBSERVATIONS ###############################
 !
 ! Map the variables in case we read them from CANARI inline/offline FA files
-! At the moment only T2M and HU2M can be used. If other variables should be used 
+! At the moment only T2M and HU2M can be used. If other variables should be used
 ! they must be added to the interface or be read from file.
 IF ( TRIM(CFILE_FORMAT_OBS) == "FA" ) THEN
   !
   DO IOBS = 1,NOBSTYPE
-    SELECT CASE (TRIM(COBS(IOBS)))   
-      CASE("T2M") 
+    SELECT CASE (TRIM(COBS(IOBS)))
+      CASE("T2M")
         XYO(:,IOBS) = PT2M(:)
-      CASE("HU2M")   
+      CASE("HU2M")
         XYO(:,IOBS) = PHU2M(:)
-      CASE("WG1","LAI")  
+      CASE("WG1","LAI")
         CALL ABOR1_SFX("Mapping of "//COBS(IOBS)//" is not defined in ASSIM_NATURE_ISBA_EKF!")
-    END SELECT                 
+    END SELECT
   ENDDO
-  !  
+  !
 ENDIF
 !
 !//////////////////////TO WRITE OBS/////////////////////////////////////
@@ -301,9 +301,9 @@ DO JI=1,KI
   !
   !---------------- MEAN SIMULATED OBS AVERAGED OVER TILES-----------------------
   ZYF(:,:) = 0.
-  DO JP = 1,INPATCH 
+  DO JP = 1,INPATCH
     IF (S%XPATCH(JI,JP) > 0.0) THEN
-      WHERE ( XF_PATCH(JI,JP,:,:)/=XUNDEF ) 
+      WHERE ( XF_PATCH(JI,JP,:,:)/=XUNDEF )
         ZYF(:,:) = ZYF(:,:) + S%XPATCH(JI,JP)*XF_PATCH(JI,JP,:,:)
       ENDWHERE
     ENDIF
@@ -321,14 +321,14 @@ DO JI=1,KI
   ZX(:) = 0.0
   ZBHT(:,:) = 0.0
   ZHBHT(:,:) = 0.0
-  
+
   DO ISTEP=1,NBOUTPUT
     !
     DO JK = 1,NOBSTYPE
       !
       K1 = (ISTEP-1)*NOBSTYPE + JK
       !
-!--------------------- SET OBSERVATION ERROR ------------------      
+!--------------------- SET OBSERVATION ERROR ------------------
       ZR(K1,K1) = XERROBS(JK)*XERROBS(JK)
       IF ( COBS(JK) .EQ. "LAI" ) THEN
         ZR(K1,K1) = ZR(K1,K1) * XYO(JI,K1)*XYO(JI,K1)
@@ -386,12 +386,12 @@ DO JI=1,KI
                          ZBHT(:,:),ZHBHT(:,:),LPB_CORRELATIONS,CVAR,COBS)
       !
       ZK1(:,:) =  ZHBHT(:,:) + ZR(:,:)
-      ZK2(:,:) = ZK2(:,:) + ZHBHT(:,:) 
+      ZK2(:,:) = ZK2(:,:) + ZHBHT(:,:)
       CALL CHOLDC(NOBS,ZK1(:,:),ZP(:))
       !
       DO IENS = 1,NENS           ! Cholesky decomposition (1)
         !
-        CALL CHOLSL(NOBS,ZK1(:,:),ZP(:),ZINNOV(:,IENS),ZX(:))   ! Cholesky decomposition (2)       
+        CALL CHOLSL(NOBS,ZK1(:,:),ZP(:),ZINNOV(:,IENS),ZX(:))   ! Cholesky decomposition (2)
         ZXINCR(JP,:,IENS) = MATMUL(ZBHT(:,:),ZX(:))
         !
         DO L = 1,NVAR
@@ -413,7 +413,7 @@ DO JI=1,KI
       !
       DO L = 1,NVAR
         !
-        DO JP = 1,INPATCH       
+        DO JP = 1,INPATCH
           !
           IF ( LDENKF .AND. CVAR(L)/="WG3" .AND. CVAR(L)/="TG3" ) THEN
             !
@@ -423,7 +423,7 @@ DO JI=1,KI
                                           + ZALPHA * ( ZA(JP,L,IENS)-ZA_MEAN(JP,L))
             ENDDO
             !
-          ENDIF                 
+          ENDIF
           !apply inflation factor to the ensemble spread
           ZA(JP,L,IENS) = ZA_MEAN(JP,L) + XINFL(L) * (ZA(JP,L,IENS) - ZA_MEAN(JP,L))
           !

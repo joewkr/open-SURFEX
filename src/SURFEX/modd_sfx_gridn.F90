@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODD_SFX_GRID_n
@@ -14,7 +14,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -93,14 +93,14 @@ IF (LHOOK) CALL DR_HOOK("MODD_SFX_GRID_N:GRID_NP_INIT",0,ZHOOK_HANDLE)
 IF (ASSOCIATED(GP%AL)) THEN
   DO JP=1,KPATCH
     CALL GRID_INIT(GP%AL(JP))
-  ENDDO  
+  ENDDO
   DEALLOCATE(GP%AL)
 ELSE
   ALLOCATE(GP%AL(KPATCH))
   DO JP=1,KPATCH
     CALL GRID_INIT(GP%AL(JP))
   ENDDO
-ENDIF  
+ENDIF
 !
 IF (LHOOK) CALL DR_HOOK("MODD_SFX_GRID_N:GRID_NP_INIT",1,ZHOOK_HANDLE)
 END SUBROUTINE GRID_NP_INIT

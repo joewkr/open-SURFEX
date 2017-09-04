@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE THRMCONDZ(PSANDZ,PWSATZ,PCONDDRY,PCONDSLD)
 !   ###############################################################
-!!****  *THRMCONDZ*  
+!!****  *THRMCONDZ*
 !!
 !!    PURPOSE
 !!    -------
@@ -19,7 +19,7 @@
 !     used in explicit calculation of CG (soil thermal
 !     inertia): it is an option. DEFAULT is method of
 !     Noilhan and Planton (1989) (see SOIL.F90).
-!              
+!
 !!**  METHOD
 !!    ------
 !!
@@ -29,14 +29,14 @@
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Peters-Lidard et al. 1998 (JAS)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -103,18 +103,18 @@ END WHERE
 !
 WHERE(ZQUARTZ >  0.20 .AND. PSANDZ(:,:)/=XUNDEF)
    PCONDSLD(:,:)  = (XCONDQRTZ**ZQUARTZ(:,:))*                        &
-                    (XCONDOTH1**(1.0-ZQUARTZ(:,:)))  
+                    (XCONDOTH1**(1.0-ZQUARTZ(:,:)))
 END WHERE
 WHERE(ZQUARTZ <= 0.20 .AND. PSANDZ(:,:)/=XUNDEF)
    PCONDSLD(:,:)  = (XCONDQRTZ**ZQUARTZ(:,:))*                        &
-                    (XCONDOTH2**(1.0-ZQUARTZ(:,:)))  
+                    (XCONDOTH2**(1.0-ZQUARTZ(:,:)))
 ENDWHERE
 !
 ! Soil dry conductivity:
 !
 WHERE(PSANDZ(:,:)/=XUNDEF)
    PCONDDRY(:,:)     = (0.135*ZGAMMAD(:,:) + 64.7)/                   &
-                         (XDRYWGHT - 0.947*ZGAMMAD(:,:))  
+                         (XDRYWGHT - 0.947*ZGAMMAD(:,:))
 END WHERE
 IF (LHOOK) CALL DR_HOOK('THRMCONDZ',1,ZHOOK_HANDLE)
 !

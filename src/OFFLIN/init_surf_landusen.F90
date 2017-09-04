@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
 SUBROUTINE INIT_SURF_LANDUSE_n (DTCO, OREAD_BUDGETC, U, UG, IM, SV, SLT, NDST, &
@@ -11,10 +11,10 @@ SUBROUTINE INIT_SURF_LANDUSE_n (DTCO, OREAD_BUDGETC, U, UG, IM, SV, SLT, NDST, &
                                PEMIS,PTSRAD,PTSURF,                       &
                                KYEAR, KMONTH,KDAY, PTIME,                 &
                                HATMFILE,HATMFILETYPE,                     &
-                               HTEST                                      )  
+                               HTEST                                      )
 !#############################################################
 !
-!!****  *INIT_SURF_LANDUSE_n* - routine to initialize LAND USE 
+!!****  *INIT_SURF_LANDUSE_n* - routine to initialize LAND USE
 !!
 !!    PURPOSE
 !!    -------
@@ -93,7 +93,7 @@ TYPE(SLT_t), INTENT(INOUT) :: SLT
 !
  CHARACTER(LEN=6),                 INTENT(IN)  :: HPROGRAM  ! program calling surf. schemes
  CHARACTER(LEN=3),                 INTENT(IN)  :: HINIT     ! choice of fields to initialize
-LOGICAL,                          INTENT(IN)  :: OLAND_USE ! choice of doing land use or not 
+LOGICAL,                          INTENT(IN)  :: OLAND_USE ! choice of doing land use or not
 INTEGER,                          INTENT(IN)  :: KI        ! number of points
 INTEGER,                          INTENT(IN)  :: KSV       ! number of scalars
 INTEGER,                          INTENT(IN)  :: KSW       ! number of short-wave spectral bands
@@ -154,7 +154,7 @@ IF (NRANK/=NPIO) ALLOCATE(UG%XGRID_FULL_PAR(UG%NGRID_FULL_PAR))
  CALL MPI_BCAST(UG%XGRID_FULL_PAR,&
                 SIZE(UG%XGRID_FULL_PAR)*KIND(UG%XGRID_FULL_PAR)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
 #endif
-!   
+!
 !* initialization for I/O
 !
 CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'NATURE','ISBA  ','READ ')
@@ -182,11 +182,11 @@ IF (.NOT.ASSOCIATED(IM%DTV%XPAR_WATSUP)) ALLOCATE(IM%DTV%XPAR_WATSUP(ILU,IM%DTV%
 !
 !* read new fraction of each vege type
 ! and then extrapolate parameters defined by cover
-!       
+!
  CALL SET_VEGTYPES_FRACTIONS(DTCO, IM%DTV, IM%G%NDIM, IM%O, IM%S, UG, U, HPROGRAM)
 !
 !* re-initialize ISBA with new parameters
-!       
+!
  CALL COMPUTE_ISBA_PARAMETERS(DTCO, OREAD_BUDGETC, UG, U, &
                               IM%O, IM%DTV, IM%SB, IM%S, IM%G, IM%K, IM%NK,  &
                               IM%NG, IM%NP, IM%NPE, IM%NAG, IM%NISS, IM%ISS, &
@@ -196,7 +196,7 @@ IF (.NOT.ASSOCIATED(IM%DTV%XPAR_WATSUP)) ALLOCATE(IM%DTV%XPAR_WATSUP(ILU,IM%DTV%
                               PZENITH,PSW_BANDS,PDIR_ALB,PSCA_ALB, &
                               PEMIS,PTSRAD,PTSURF,HTEST            )
 !-------------------------------------------------------------------------------
-!                       
+!
 IF (LHOOK) CALL DR_HOOK('INIT_SURF_LANDUSE_N',1,ZHOOK_HANDLE)
 !
-END SUBROUTINE INIT_SURF_LANDUSE_n                           
+END SUBROUTINE INIT_SURF_LANDUSE_n

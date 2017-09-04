@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE CH_EMISSION_SNAP_n (CHN, &
@@ -8,7 +8,7 @@
                                     KYEAR,KMONTH,KDAY,PRHOA,PLON      )
 !     ######################################################################
 !!
-!!***  *CH_EMISSION_SNAP_n* - 
+!!***  *CH_EMISSION_SNAP_n* -
 !!
 !!    PURPOSE
 !!    -------
@@ -25,7 +25,7 @@
 !!    -------------
 !!    Original 10/2011
 !!
-!!    A. Alias     07/2016  gmkpack problem : name of the internal subroutine modified 
+!!    A. Alias     07/2016  gmkpack problem : name of the internal subroutine modified
 !!                          because exist already (view SURFEX/day_of_week.F90 )
 !!
 !!    EXTERNAL
@@ -132,7 +132,7 @@ SELECT CASE (CHN%CSNAP_TIME_REF)
       CALL ADD_FORECAST_TO_DATE_SURF(IYEAR(JI,1),IMONTH(JI,1),IDAY(JI,1),ZTIME0(JI))
       CALL SUBSTRACT_TO_DATE_SURF   (IYEAR(JI,1),IMONTH(JI,1),IDAY(JI,1),ZTIME0(JI))
     ENDDO
-    
+
   CASE ('LEGAL')
     ZTIME0(:)=PSIMTIME + CHN%XDELTA_LEGAL_TIME(:) * 3600.
     DO JI=1,KSIZE
@@ -207,14 +207,14 @@ CONTAINS
 SUBROUTINE DAY_OF_WEEK_CH(DATE, MONTH, YEAR, DOW)
 !!    AUTHOR
 !!    ------
-!!    J.Arteta 
+!!    J.Arteta
 !!    Original   August 2010
 !!
 !!
 !!    MODifICATIONS
 !!    -------------
 !!    S. Queguiner 10/2011  DAY:Monday->Sunday => DOW:1->7
-!!    A. Alias     07/2016  gmkpack problem : name of the internal subroutine modified 
+!!    A. Alias     07/2016  gmkpack problem : name of the internal subroutine modified
 !!                          because exist already (view SURFEX/day_of_week.F90 )
 !!
 !

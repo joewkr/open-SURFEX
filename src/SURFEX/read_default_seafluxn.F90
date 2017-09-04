@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_DEFAULT_SEAFLUX_n (CHS, DOC, DGO, DGMSI, O, S, HPROGRAM)
@@ -27,14 +27,14 @@
 !!
 !!    AUTHOR
 !!    ------
-!!	V. Masson   *Meteo France*	
+!!	V. Masson   *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      Modified    01/2006 : sea flux parameterization.
 !!      Modified    09/2013 : S. Senesi : introduce sea-ice scheme
-!!      Modified    01/2015 : R. Séférian : introduce ocean surface albedo 
+!!      Modified    01/2015 : R. Séférian : introduce ocean surface albedo
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -95,7 +95,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('READ_DEFAULT_SEAFLUX_N',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
-! 
+!
  CALL GET_DEFAULT_NAM_n(HPROGRAM,'READ ',ILUDES)
 !
 IF (ILUDES==0 .AND. LHOOK) CALL DR_HOOK('READ_DEFAULT_SEAFLUX_N',1,ZHOOK_HANDLE)
@@ -110,7 +110,7 @@ IF (IMI.NE.-1 .AND. LNAM_READ) THEN
  CALL INIT_NAM_DIAG_OCEANn(DOC)
  CALL INIT_NAM_SEAICEn(DGMSI, S)
 ENDIF
-! 
+!
 IF (LNAM_READ) THEN
  !
  !* reading of namelist
@@ -134,7 +134,7 @@ IF (LNAM_READ) THEN
  CALL TEST_NAM_VAR_SURF(ILUOUT,'CINTERPOL_SST',CINTERPOL_SST,'LINEAR','UNIF  ','QUADRA','NONE  ')
  CALL TEST_NAM_VAR_SURF(ILUOUT,'CINTERPOL_SSS',CINTERPOL_SSS,'LINEAR','UNIF  ','QUADRA','NONE  ')
  CALL TEST_NAM_VAR_SURF(ILUOUT,'CINTERPOL_SIC',CINTERPOL_SIC,'LINEAR','UNIF  ','NONE  ')
- CALL TEST_NAM_VAR_SURF(ILUOUT,'CINTERPOL_SIT',CINTERPOL_SIT,'LINEAR','UNIF  ','NONE  ') 
+ CALL TEST_NAM_VAR_SURF(ILUOUT,'CINTERPOL_SIT',CINTERPOL_SIT,'LINEAR','UNIF  ','NONE  ')
 
 ENDIF
 !

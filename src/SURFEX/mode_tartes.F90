@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_TARTES
 
@@ -13,7 +13,7 @@ MODULE MODE_TARTES
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!       NONE          
+!!       NONE
 !!
 !!    REFERENCE
 !!    ---------
@@ -27,7 +27,7 @@ MODULE MODE_TARTES
 !! ------------------------------------------------
 !!
 !! For optimization on large domains :
-!!     * Loops are inside the subroutines 
+!!     * Loops are inside the subroutines
 !!     * All variables are multi-points (first dimension)
 !!     * Loop on points is the last loop
 !!     * Number of active or effective layers : argument of subroutines
@@ -67,7 +67,7 @@ USE MODD_CONST_TARTES, ONLY: NPNBANDS,XPWAVELENGTHS,XREFICE_R,XREFICE_I,XREFIMP_
 !
 IMPLICIT NONE
 !
-REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWSSA !snow specific surface area (m^2/kg) (npoints,nlayer) 
+REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWSSA !snow specific surface area (m^2/kg) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWRHO !snow density (kg/m^3) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWG0 ! asymmetry parameter of snow grains at nr=1.3 and at non absorbing wavelengths (no unit) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWY0 ! Value of y of snow grains at nr=1.3 (no unit
@@ -92,10 +92,10 @@ REAL, DIMENSION(:,:), INTENT(OUT)   :: PSOILENERGY !(npoints,nbands)
 REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2)*2,NPNBANDS) :: ZDM,ZD,ZDP !3 diagonals of the matrix
 REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2)*2,NPNBANDS) :: ZVECTOR_DIR,ZVECTOR_DIF
 !
-REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2),NPNBANDS) :: ZSNOWSSALB !total single scattering albedo (npoints,nlayer,nbands) 
+REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2),NPNBANDS) :: ZSNOWSSALB !total single scattering albedo (npoints,nlayer,nbands)
 REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2),NPNBANDS) :: ZSNOWG !asymmetry factor (npoints,nlayer,nbands)
 REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2),NPNBANDS) :: ZSNOWALBEDO! Albedo (npoints,nlayer,nbands)
-REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2),NPNBANDS) :: ZKESTAR !Asymptotic Flux Extinction Coefficent (npoints,nlayer,nbands) 
+REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2),NPNBANDS) :: ZKESTAR !Asymptotic Flux Extinction Coefficent (npoints,nlayer,nbands)
 REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2),NPNBANDS) :: ZG_STAR,ZSSALB_STAR,ZGAMMA1,ZGAMMA2
 !
 REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2),NPNBANDS) :: ZDTAUSTAR !Optical depth of each layer
@@ -177,8 +177,8 @@ END DO
 !     PRINT*,ZDM(:,:,JB)
 !     PRINT*,ZD(:,:,JB)
 !     PRINT*,ZDP(:,:,JB)
-!     PRINT*,ZVECTOR_DIR(:,:,JB)    
-!     PRINT*,ZVECTOR_DIF(:,:,JB)    
+!     PRINT*,ZVECTOR_DIR(:,:,JB)
+!     PRINT*,ZVECTOR_DIF(:,:,JB)
 ! END DO
 !
 !3.4 solve the system
@@ -188,7 +188,7 @@ END DO
 ! DO JB=1,NPNBANDS,30
 !     PRINT*,"solution band ",JB
 !     PRINT*,ZXA_DIR(:,:,JB)
-!     PRINT*,ZXA_DIF(:,:,JB)  
+!     PRINT*,ZXA_DIF(:,:,JB)
 ! END DO
 !
 !4 Diagnostics
@@ -246,13 +246,13 @@ SUBROUTINE REFICE()
 ! Interpolate refractive index for pure ice on the prescribed wavelengths
 !
 USE MODD_CONST_TARTES, ONLY: NPNBANDS,XPWAVELENGTHS,XPWAVELENGTHS_M,XREFICE_R,XREFICE_I, &
-                             NPNBANDS_REF,XPWAVELENGTHS_REF,XPREFICE_R,XPREFICE_I,       & 
+                             NPNBANDS_REF,XPWAVELENGTHS_REF,XPREFICE_R,XPREFICE_I,       &
                              XREFICE_NORM,XGINF,XCONST_C
-USE MODD_CSTS, ONLY: XPI, XRHOLI                           
+USE MODD_CSTS, ONLY: XPI, XRHOLI
 !
 USE MODI_ABOR1_SFX
 !
-IMPLICIT NONE                             
+IMPLICIT NONE
 !
 ! Log of PPWAVELENGTHS PPWAVELENGTHS_REF PPREFICE_I for interpolation
 REAL, DIMENSION(NPNBANDS)     :: ZLOG_WL
@@ -318,7 +318,7 @@ USE MODD_CONST_TARTES, ONLY : NPNBANDS,XPWAVELENGTHS,XREFIMP_I
 !
 !PPWAVELENGTHS nanometers
 !
-IMPLICIT NONE  
+IMPLICIT NONE
 !
 REAL, DIMENSION    (NPNBANDS) :: ZWL_UM ! Wavelengths in micrometers (Chang, 1990 formulas)
 REAL, DIMENSION    (NPNBANDS) :: ZINDEX_SOOT_REAL,ZINDEX_SOOT_IMAG ! real and imaginary components of refractive index
@@ -351,7 +351,7 @@ SUBROUTINE SHAPE_PARAMETER_VARIATIONS(PSNOWG0,PSNOWY0,PSNOWW0,PSNOWB0,PSNOWG00,P
 !
 USE MODD_CONST_TARTES, ONLY: NPNBANDS,XREFICE_NORM !number of spectral bands
 !
-IMPLICIT NONE  
+IMPLICIT NONE
 !
 REAL, DIMENSION(:,:), INTENT(IN) :: PSNOWG0 !asymmetry parameter of snow grains at refractive index=1.3 and at non absorbing wavelengths (no unit)   (npoints*nlayers)
 REAL, DIMENSION(:,:), INTENT(IN) :: PSNOWY0 !Value of y of snow grains at  refractive index=1.3 (no unit) (npoints*nlayers)
@@ -373,7 +373,7 @@ IF (LHOOK) CALL DR_HOOK('SHAPE_PARAMETER_VARIATIONS',0,ZHOOK_HANDLE)
 DO JB = 1,NPNBANDS
   PSNOWG00(:,:,JB) = PSNOWG0(:,:) - 0.38  * XREFICE_NORM(JB) !doc equation 73
   PSNOWB  (:,:,JB) = PSNOWB0(:,:) + 0.4   * XREFICE_NORM(JB) !doc equation 77
-  PSNOWW  (:,:,JB) = PSNOWW0(:,:) + 0.17  * XREFICE_NORM(JB) 
+  PSNOWW  (:,:,JB) = PSNOWW0(:,:) + 0.17  * XREFICE_NORM(JB)
   PSNOWY  (:,:,JB) = PSNOWY0(:,:) + 0.752 * XREFICE_NORM(JB) !doc equation 74
 END DO
 !
@@ -393,7 +393,7 @@ IMPLICIT NONE
 !return the spectral absorption of snow due to the impurities
 !see doc Section 2.6
 !
-REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWSSA !snow specific surface area (m^2/kg) (npoints,nlayer) 
+REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWSSA !snow specific surface area (m^2/kg) (npoints,nlayer)
 REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWIMP_DENSITY !impurities density (kg/m^3) (npoints,nlayer,ntypes_impurities)
 REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWIMP_CONTENT !impurities content (g/g) (npoints,nlayer,ntypes_impurities)
 INTEGER, DIMENSION(:), INTENT(IN)   :: KNLVLS_USE !number of active layers
@@ -445,7 +445,7 @@ USE MODD_CONST_TARTES, ONLY: NPNBANDS,XGINF,XCONST_C
 !
 IMPLICIT NONE
 !
-REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWSSA !snow specific surface area (m^2/kg) (npoints,nlayer) 
+REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWSSA !snow specific surface area (m^2/kg) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWRHO !snow density (kg/m^3) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWG0 ! asymmetry parameter of snow grains at nr=1.3 and at non absorbing wavelengths (no unit) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWY0 ! Value of y of snow grains at nr=1.3 (no unit
@@ -455,8 +455,8 @@ REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWIMP_DENSITY !impurities density (kg/
 REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWIMP_CONTENT !impurities content (g/g) (npoints,nlayer,ntypes_impurities)
 INTEGER, DIMENSION(:), INTENT(IN)   :: KNLVLS_USE !number of active layers
 INTEGER, INTENT(IN)                 :: KMAX_USE !maximum number of active layers over the domain
-REAL, DIMENSION(:,:,:), INTENT(OUT) :: PSNOWSSALB !total single scattering albedo (npoints,nlayer,nbands) 
-REAL, DIMENSION(:,:,:), INTENT(OUT) :: PSNOWG !asymmetry factor (npoints,nlayer,nbands) 
+REAL, DIMENSION(:,:,:), INTENT(OUT) :: PSNOWSSALB !total single scattering albedo (npoints,nlayer,nbands)
+REAL, DIMENSION(:,:,:), INTENT(OUT) :: PSNOWG !asymmetry factor (npoints,nlayer,nbands)
 !
 !Local variables
 REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2),NPNBANDS) :: ZSNOWG00,ZSNOWY,ZSNOWW,ZSNOWB
@@ -483,13 +483,13 @@ DO JL = 1,KMAX_USE
         !
         ! calculation of the spectral asymmetry parameter of snow
         ZC(JJ,JL) = XCONST_C(JB) / PSNOWSSA(JJ,JL)
-        !    
+        !
         PSNOWG(JJ,JL,JB) = XGINF(JB) - ( XGINF(JB)-ZSNOWG00(JJ,JL,JB) ) * EXP( -ZSNOWY(JJ,JL,JB)*ZC(JJ,JL) )
        !
         ! co- single scattering albedo of pure snow
         ZPHI        (JJ,JL)       = 2./3. * ZSNOWB(JJ,JL,JB) / ( 1.-ZSNOWW(JJ,JL,JB) )
         ZSNOWCOSSALB(JJ,JL,JB) = 0.5 * ( 1.-ZSNOWW(JJ,JL,JB) ) * ( 1.-EXP( -ZPHI(JJ,JL)*ZC(JJ,JL) ) ) !doc equation 76
-        !    
+        !
       ENDDO
       !
     ENDIF
@@ -514,7 +514,7 @@ END SUBROUTINE SINGLE_SCATTERING_OPTICAL_PARAMETERS
 !--------------------------------------------------------------------------------
 SUBROUTINE INFINITE_MEDIUM_OPTICAL_PARAMETERS(PSNOWSSALB,PSNOWG,KNLVLS_USE,KMAX_USE,PSNOWALBEDO,PKESTAR,&
                                               PG_STAR,PSSALB_STAR,PGAMMA1,PGAMMA2)
-!return albedo and kestar using Delta-Eddington Approximation (The Delta-Eddington Approximation of Radiative Flux Transfer, Jospeh et al (1976)).  
+!return albedo and kestar using Delta-Eddington Approximation (The Delta-Eddington Approximation of Radiative Flux Transfer, Jospeh et al (1976)).
 ! Fluxes in the snowpack depend on these 2 quantities
 ! see doc section 1.4
 !
@@ -523,13 +523,13 @@ USE MODD_SNOW_METAMO, ONLY: XUEPSI
 !
 IMPLICIT NONE
 !
-REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWSSALB !total single scattering albedo (npoints,nlayer,nbands) 
-REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWG !asymmetry factor (npoints,nlayer,nbands) 
+REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWSSALB !total single scattering albedo (npoints,nlayer,nbands)
+REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWG !asymmetry factor (npoints,nlayer,nbands)
 INTEGER, DIMENSION(:), INTENT(IN)   :: KNLVLS_USE !number of active layers
 INTEGER, INTENT(IN)                 :: KMAX_USE !maximum number of active layers over the domain
-REAL, DIMENSION(:,:,:), INTENT(OUT) :: PSNOWALBEDO ! Albedo (npoints,nlayer,nbands) 
-REAL, DIMENSION(:,:,:), INTENT(OUT) :: PKESTAR !Asymptotic Flux Extinction Coefficent (npoints,nlayer,nbands) 
-REAL, DIMENSION(:,:,:), INTENT(OUT) :: PG_STAR,PSSALB_STAR,PGAMMA1,PGAMMA2 !(npoints,nlayer,nbands) 
+REAL, DIMENSION(:,:,:), INTENT(OUT) :: PSNOWALBEDO ! Albedo (npoints,nlayer,nbands)
+REAL, DIMENSION(:,:,:), INTENT(OUT) :: PKESTAR !Asymptotic Flux Extinction Coefficent (npoints,nlayer,nbands)
+REAL, DIMENSION(:,:,:), INTENT(OUT) :: PG_STAR,PSSALB_STAR,PGAMMA1,PGAMMA2 !(npoints,nlayer,nbands)
 !
 INTEGER :: JB,JL,JJ !loop counter
 !
@@ -585,18 +585,18 @@ USE MODD_CONST_TARTES, ONLY: NPNBANDS,XPMAX_OPTICALDEPTH
 !
 IMPLICIT NONE
 !
-REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWSSA !snow specific surface area (m^2/kg) (npoints,nlayer) 
+REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWSSA !snow specific surface area (m^2/kg) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWRHO !snow density (kg/m^3) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)    :: PSNOWDZ !snow depth (m) (npoints,nlayer)
-REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWSSALB  !total single scattering albedo (npoints,nlayer,nbands) 
+REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWSSALB  !total single scattering albedo (npoints,nlayer,nbands)
 REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWG ! asymmetry factor (npoints,nlayer,nbands)
-REAL, DIMENSION(:,:,:), INTENT(IN)  :: PKESTAR !Asymptotic Flux Extinction Coefficent (npoints,nlayer,nbands) 
+REAL, DIMENSION(:,:,:), INTENT(IN)  :: PKESTAR !Asymptotic Flux Extinction Coefficent (npoints,nlayer,nbands)
 INTEGER, DIMENSION(:), INTENT(IN)   :: KNLVLS_USE !number of active layers
 INTEGER, INTENT(IN)                 :: KMAX_USE !maximum number of active layers over the domain
 REAL, DIMENSION(:,:,:), INTENT(OUT) :: PDTAUSTAR !Optical depth of each layer
 REAL, DIMENSION(:,:,:), INTENT(OUT) :: PTAUSTAR !Cumulated optical depth
 !
-REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2)) :: ZSIGEXT  ! Extinction coefficient (npoints,nlayer) 
+REAL, DIMENSION(SIZE(PSNOWSSA,1),SIZE(PSNOWSSA,2)) :: ZSIGEXT  ! Extinction coefficient (npoints,nlayer)
 !
 INTEGER :: JB,JL !loop counters
 !
@@ -619,7 +619,7 @@ DO JB=1,NPNBANDS
     ENDWHERE
     !
   END DO
-  !  
+  !
   !Cumulated optical depth
   !First layer
   PTAUSTAR(:,1,JB) = PDTAUSTAR(:,1,JB)
@@ -629,7 +629,7 @@ DO JB=1,NPNBANDS
       PTAUSTAR(:,JL,JB) = PTAUSTAR(:,JL-1,JB) + PDTAUSTAR(:,JL,JB)
     ENDWHERE
   END DO
-  !  
+  !
 END DO
 
 IF (LHOOK) CALL DR_HOOK('TAUSTAR_VECTOR',1,ZHOOK_HANDLE)
@@ -645,7 +645,7 @@ USE MODD_CONST_TARTES, ONLY : NPNBANDS,XPWAVELENGTHS,XPTAUMAX
 !
 IMPLICIT NONE
 !
-REAL, DIMENSION(:,:,:), INTENT(IN)   :: PKESTAR !Asymptotic Flux Extinction Coefficent (npoints,nlayer,nbands) 
+REAL, DIMENSION(:,:,:), INTENT(IN)   :: PKESTAR !Asymptotic Flux Extinction Coefficent (npoints,nlayer,nbands)
 REAL, DIMENSION(:,:,:), INTENT(IN)   :: PDTAUSTAR !Optical depth of each layer
 INTEGER, DIMENSION(:), INTENT(IN)    :: KNLVLS_USE !number of active layers
 INTEGER, INTENT(IN)                  :: KMAX_USE !maximum number of active layers over the domain
@@ -671,7 +671,7 @@ DO JB = 1,NPNBANDS
     WHERE ( (KNLVLS_USE>=JL) .AND. GEFF )
       ZTAU(:,JL,JB) = ZTAU(:,JL-1,JB) + PKESTAR(:,JL,JB) * PDTAUSTAR(:,JL,JB)
     ELSEWHERE
-      ZTAU(:,JL,JB) = 0.      
+      ZTAU(:,JL,JB) = 0.
     ENDWHERE
     WHERE ( ZTAU(:,JL,JB)>XPTAUMAX )
       KNLVLS_EFF(:,JB) = MAX(1,JL-1)
@@ -679,9 +679,9 @@ DO JB = 1,NPNBANDS
     ENDWHERE
     !
   END DO
-  !  
+  !
   KMAX_EFF(JB) = MAXVAL(KNLVLS_EFF(:,JB))
-  !  
+  !
 END DO
 
 IF (LHOOK) CALL DR_HOOK('ESTIMATE_EFFECTIVE_LAYER_NUMBER',1,ZHOOK_HANDLE)
@@ -700,7 +700,7 @@ USE MODD_CONST_TARTES, ONLY : NPNBANDS
 IMPLICIT NONE
 !
 REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSNOWSSALB !total single scattering albedo (npoints,nlayer,nbands)
-REAL, DIMENSION(:,:,:), INTENT(IN)  :: PKESTAR !Asymptotic Flux Extinction Coefficent (npoints,nlayer,nbands) 
+REAL, DIMENSION(:,:,:), INTENT(IN)  :: PKESTAR !Asymptotic Flux Extinction Coefficent (npoints,nlayer,nbands)
 REAL, DIMENSION(:,:,:), INTENT(IN)  :: PG_STAR ! asymmetry factor * (npoints,nlayer,nbands)
 REAL, DIMENSION(:,:,:), INTENT(IN)  :: PSSALB_STAR
 REAL, DIMENSION(:,:,:), INTENT(IN)  :: PGAMMA1,PGAMMA2
@@ -791,7 +791,7 @@ DO JB = 1,NPNBANDS
 
 
 !       IF (EXP(-PKESTAR(1,JL,JB)*PDTAUSTAR(1,JL,JB))<0.000001) THEN
-!           PRINT*,"WARNING ZFDIAG ",JL," BAND ",JB," : ",EXP(-PKESTAR(1,JL,JB)*PDTAUSTAR(1,JL,JB))     
+!           PRINT*,"WARNING ZFDIAG ",JL," BAND ",JB," : ",EXP(-PKESTAR(1,JL,JB)*PDTAUSTAR(1,JL,JB))
 !       END IF
 !
     DO JI =1,SIZE(KNLVLS_EFF,1)
@@ -800,14 +800,14 @@ DO JB = 1,NPNBANDS
         !
         !See matrix documentation page 8 and formal expressions page 9
         ZFDIAG(JI) = EXP( -PKESTAR(JI,JL,JB)*PDTAUSTAR(JI,JL,JB) )
-        !    
+        !
         !Décalage d'un indice vers la droite par rapport au code python
         PDM(JI,JL*2,JB)   = ( 1. - PSNOWALBEDO(JI,JL,JB)*PSNOWALBEDO(JI,JL+1,JB) ) * ZFDIAG(JI)
         PDM(JI,JL*2+1,JB) = ( 1./PSNOWALBEDO(JI,JL,JB) - PSNOWALBEDO(JI,JL,JB) )   * 1./ZFDIAG(JI)
-        !  
+        !
         PD(JI,JL*2,JB)    = ( 1. - PSNOWALBEDO(JI,JL+1,JB)/PSNOWALBEDO(JI,JL,JB) ) * 1./ZFDIAG(JI)
         PD(JI,JL*2+1,JB)  = PSNOWALBEDO(JI,JL,JB) - PSNOWALBEDO(JI,JL+1,JB)
-        !    
+        !
         !Décalage d'un indice vers la gauche par rapport au code python
         PDP(JI,JL*2,JB)   = PSNOWALBEDO(JI,JL+1,JB) * PSNOWALBEDO(JI,JL+1,JB) - 1.
         PDP(JI,JL*2+1,JB) = PSNOWALBEDO(JI,JL,JB) - 1./PSNOWALBEDO(JI,JL+1,JB)
@@ -817,14 +817,14 @@ DO JB = 1,NPNBANDS
     ENDDO
     !
   ENDDO
-  !  
+  !
   PDP(:,1,JB) = 1. !Décalage d'un indice vers la gauche par rapport au code python
   PD (:,1,JB) = 1.
-  !  
+  !
   DO JI=1,SIZE(PSNOWALBEDO,1)
     !
     ZFDIAG2 = EXP( -PKESTAR(JI,KNLVLS_EFF(JI,JB),JB) * PDTAUSTAR(JI,KNLVLS_EFF(JI,JB),JB) )
-    !      
+    !
     !Décalage d'un indice vers la droite par rapport au code python
     PDM(JI,2*KNLVLS_EFF(JI,JB),JB) = ZFDIAG2    * &
                                       ( PSNOWALBEDO(JI,KNLVLS_EFF(JI,JB),JB)    - PSOILALBEDO(JI,JB) )
@@ -832,7 +832,7 @@ DO JB = 1,NPNBANDS
     PD (JI,2*KNLVLS_EFF(JI,JB),JB) = 1./ZFDIAG2 * &
                                       ( 1./PSNOWALBEDO(JI,KNLVLS_EFF(JI,JB),JB) - PSOILALBEDO(JI,JB) )
   END DO
-  !  
+  !
 END DO
 !
 IF (LHOOK) CALL DR_HOOK('TWO_STREAM_MATRIX',1,ZHOOK_HANDLE)
@@ -882,8 +882,8 @@ DO JB = 1,NPNBANDS
         !
         ZEXP = EXP( -PTAUSTAR(JI,JL,JB)/PCOSZEN(JI) )
         !see expression doc page 9
-        PVECTOR(JI,2*JL,JB)   = ( ZDGM - PSNOWALBEDO(JI,JL+1,JB) * ZDGP ) * ZEXP 
-        PVECTOR(JI,2*JL+1,JB) = ( ZDGP - PSNOWALBEDO(JI,JL,JB)   * ZDGM ) * ZEXP 
+        PVECTOR(JI,2*JL,JB)   = ( ZDGM - PSNOWALBEDO(JI,JL+1,JB) * ZDGP ) * ZEXP
+        PVECTOR(JI,2*JL+1,JB) = ( ZDGP - PSNOWALBEDO(JI,JL,JB)   * ZDGM ) * ZEXP
         !
       END IF
       !
@@ -940,7 +940,7 @@ IF (LHOOK) CALL DR_HOOK('SOLVES_TWO_STREAM2',0,ZHOOK_HANDLE)
 !
 !for now we always compute everything
 DO JB = 1,NPNBANDS
-  !  
+  !
   DO JL=1,KMAX_EFF(JB)
     !
     DO JI=1,SIZE(PDM,1)
@@ -982,7 +982,7 @@ REAL, DIMENSION(:), INTENT(IN)    :: PCOSZEN_DIR,PCOSZEN_DIF  ! cosine of zenith
 REAL, DIMENSION(:,:), INTENT(IN)  :: PSW_RAD_DIR,PSW_RAD_DIF  ! incident radiation W/m^2 (npoints*nbands)
 REAL, DIMENSION(:,:), INTENT(OUT) :: PSNOWALB ! albedo at one wavelength
 !
-REAL,DIMENSION(SIZE(PSW_RAD_DIR,1)) :: ZREF_DIR,ZREF_DIF ! reflected direct and diffuse radiations W/m^2 
+REAL,DIMENSION(SIZE(PSW_RAD_DIR,1)) :: ZREF_DIR,ZREF_DIF ! reflected direct and diffuse radiations W/m^2
                                                          ! for one band
 REAL,DIMENSION(SIZE(PSW_RAD_DIR,1)) :: ZINC ! incident radiation
 !
@@ -996,14 +996,14 @@ DO JB = 1,NPNBANDS
   !
   ! Doc equation 66 (separated in direct and diffuse components)
   ZREF_DIR = ( PXC_DIR(:,JB)+PXD_DIR(:,JB)+PGP_DIR(:,JB) ) * PSW_RAD_DIR(:,JB)
-  ZREF_DIF = ( PXC_DIF(:,JB)+PXD_DIF(:,JB)+PGP_DIF(:,JB) ) * PSW_RAD_DIF(:,JB) 
+  ZREF_DIF = ( PXC_DIF(:,JB)+PXD_DIF(:,JB)+PGP_DIF(:,JB) ) * PSW_RAD_DIF(:,JB)
   ZINC = PSW_RAD_DIR(:,JB)*PCOSZEN_DIR + PSW_RAD_DIF(:,JB)*PCOSZEN_DIF
   WHERE ( ZINC>0. )
     PSNOWALB(:,JB) = (ZREF_DIR+ZREF_DIF) / ZINC
   ELSEWHERE
     PSNOWALB(:,JB) = 0.
   ENDWHERE
-  !  
+  !
 END DO
 
 IF (LHOOK) CALL DR_HOOK('SNOWPACK_ALBEDO',1,ZHOOK_HANDLE)
@@ -1061,7 +1061,7 @@ DO JB = 1,NPNBANDS
                                  PGP(JJ,1,JB) * ZINT3 ) - &
                                ( PXA(JJ,1,JB) * ZINT1 + PXB(JJ,1,JB) * ZINT2 + &
                                  PGM(JJ,1,JB) * ZINT3 + &
-                                 PCOSZEN(JJ) * ZINT4 ) 
+                                 PCOSZEN(JJ) * ZINT4 )
           !
         ELSE
           !
@@ -1077,7 +1077,7 @@ DO JB = 1,NPNBANDS
           !doc equation 63
           ZFDD = PXA(JJ,JL,JB) * ( ZINT1 -1. ) + &
                  PXB(JJ,JL,JB) * ( ZINT2 -1. ) + ( PGM(JJ,JL,JB) + PCOSZEN(JJ) ) * ZDEXP
-          !      
+          !
           PEPROFILE(JJ,JL,JB) = ZFDU - ZFDD !doc equation 61
           !
         ENDIF
@@ -1193,7 +1193,7 @@ USE MODD_SNOW_METAMO,  ONLY : XUEPSI
 !
 IMPLICIT NONE
 !
-REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWGRAN1,PSNOWGRAN2  ! (npoints,nlayer) 
+REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWGRAN1,PSNOWGRAN2  ! (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWRHO !snow density (kg/m^3) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWG0 ! asymmetry parameter of snow grains at nr=1.3 and at non absorbing wavelengths (no unit) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWY0 ! Value of y of snow grains at nr=1.3 (no unit
@@ -1222,7 +1222,7 @@ LOGICAL, INTENT(IN) :: ODEBUG ! Print for debugging
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2),NPNIMP) :: ZSNOWIMP_DENSITY_P !impurities density (kg/m^3) (npoints,nlayer,ntypes_impurities)
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2),NPNIMP) :: ZSNOWIMP_CONTENT_P !impurities content (g/g) (npoints,nlayer,ntypes_impurities)
 !
-REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWGRAN1_P,ZSNOWGRAN2_P  ! (npoints,nlayer) 
+REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWGRAN1_P,ZSNOWGRAN2_P  ! (npoints,nlayer)
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWRHO_P !snow density (kg/m^3) (npoints,nlayer)
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWG0_P ! asymmetry parameter of snow grains at nr=1.3 and at non absorbing wavelengths (no unit) (npoints,nlayer)
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWY0_P ! Value of y of snow grains at nr=1.3 (no unit
@@ -1265,7 +1265,7 @@ IPOINTDAY = 0
 DO JJ = 1,INPOINTS
   IF ( COS(PZENITH(JJ))>XUEPSI .AND. PSW_RAD(JJ)>XUEPSI ) THEN
     !mask for day
-    IPOINTDAY = IPOINTDAY + 1 
+    IPOINTDAY = IPOINTDAY + 1
     IDAYMASK(IPOINTDAY) = JJ
   END IF
 END DO
@@ -1299,7 +1299,7 @@ IF ( IPOINTDAY>=1 ) THEN
       ZSNOWG0_P   (JJ_P,JL) = PSNOWG0   (JJ,JL)
       ZSNOWY0_P   (JJ_P,JL) = PSNOWY0   (JJ,JL)
       ZSNOWW0_P   (JJ_P,JL) = PSNOWW0   (JJ,JL)
-      ZSNOWB0_P   (JJ_P,JL) = PSNOWB0   (JJ,JL)      
+      ZSNOWB0_P   (JJ_P,JL) = PSNOWB0   (JJ,JL)
       ZSNOWDZ_P   (JJ_P,JL) = PSNOWDZ   (JJ,JL)
       !
     END DO
@@ -1316,7 +1316,7 @@ IF ( IPOINTDAY>=1 ) THEN
         JJ = IDAYMASK(JJ_P)
         !
         ZSNOWIMP_DENSITY_P(JJ_P,JL,JIMP) = PSNOWIMP_DENSITY(JJ,JL,JIMP)
-        ZSNOWIMP_CONTENT_P(JJ_P,JL,JIMP) = PSNOWIMP_CONTENT(JJ,JL,JIMP)      
+        ZSNOWIMP_CONTENT_P(JJ_P,JL,JIMP) = PSNOWIMP_CONTENT(JJ,JL,JIMP)
         !
       END DO
       !
@@ -1334,7 +1334,7 @@ IF ( IPOINTDAY>=1 ) THEN
                            ZSNOWIMP_DENSITY_P(1:IPOINTDAY,1:IMAX_USE,1:NPNIMP),                       &
                            ZSNOWIMP_CONTENT_P(1:IPOINTDAY,1:IMAX_USE,1:NPNIMP),                       &
                            ZALB_P(1:IPOINTDAY),ZSW_RAD_P(1:IPOINTDAY),                                &
-                           ZZENITH_P(1:IPOINTDAY),INLVLS_USE_P(1:IPOINTDAY),ZSNOWALB_P(1:IPOINTDAY),  & 
+                           ZZENITH_P(1:IPOINTDAY),INLVLS_USE_P(1:IPOINTDAY),ZSNOWALB_P(1:IPOINTDAY),  &
                            ZRADSINK_P(1:IPOINTDAY,1:IMAX_USE),ZRADXS_P(1:IPOINTDAY),ODEBUG,HSNOWMETAMO)
 #else
   CALL SNOWCRO_CALL_TARTES(ZSNOWGRAN1_P(1:IPOINTDAY,:),ZSNOWGRAN2_P(1:IPOINTDAY,:),ZSNOWRHO_P(1:IPOINTDAY,:),     &
@@ -1392,7 +1392,7 @@ USE MODE_SNOW3L, ONLY : GET_DIAM
 !
 IMPLICIT NONE
 
-REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWGRAN1,PSNOWGRAN2  ! (npoints,nlayer) 
+REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWGRAN1,PSNOWGRAN2  ! (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWRHO !snow density (kg/m^3) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWG0 ! asymmetry parameter of snow grains at nr=1.3 and at non absorbing wavelengths (no unit) (npoints,nlayer)
 REAL, DIMENSION(:,:), INTENT(IN)   :: PSNOWY0 ! Value of y of snow grains at nr=1.3 (no unit
@@ -1420,7 +1420,7 @@ LOGICAL,INTENT(IN) :: ODEBUG ! Print for debugging
 !Local variables
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2),NPNBANDS) :: ZSNOWENERGY !(npoints,nlayer,nbands)
 !
-REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWSSA !snow specific surface area (m^2/kg) (npoints,nlayer) 
+REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWSSA !snow specific surface area (m^2/kg) (npoints,nlayer)
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZSNOWENERGY_BB ! (W/m^2) (npoints,nlayers)
 !
 REAL, DIMENSION(SIZE(PSNOWRHO,1),NPNBANDS) :: ZSW_RAD_DIF ! spectral diffuse incident light (W/m^2) (npoints,nbands)
@@ -1479,50 +1479,50 @@ IF ( ODEBUG ) THEN
 END IF
 !
 !Call tartes model
-! For test and debugging this routine can be called independently by a python interface   
+! For test and debugging this routine can be called independently by a python interface
 !
  CALL TARTES(ZSNOWSSA,PSNOWRHO,PSNOWDZ,PSNOWG0,PSNOWY0,PSNOWW0,PSNOWB0,PSNOWIMP_DENSITY,PSNOWIMP_CONTENT,ZALB,&
              ZSW_RAD_DIF,ZSW_RAD_DIR,COS(PZENITH),KNLVLS_USE,ZSNOWALB,ZSNOWENERGY,ZSOILENERGY)
-! 
+!
     ! Modif ML : in some cases, Tartes is unstable in infra-red wavelengths : control of energy values and apply threshold if necessary
     ! --------------------------------------------------------------------------------------------------------------------
-    
-    
+
+
     ! This does not seem to be necessary at CDP when the effective number of layers is properly limited.
     ! However, we let the comment code because it might happen again.
-    
-!     
+
+!
 !     DO JB=1,NPNBANDS
 !       ! maximum available energy at this wavelength
 !       ZMAX=ZSW_RAD_DIF(:,JB)*PP_MUDIFF+ZSW_RAD_DIR(:,JB)*COS(PZENITH)
 !       ZSNOWENERGY_CUM(:)=0.
 !       DO JL=1,SIZE(PSNOWRHO,2)
-!         DO JJ=1,SIZE(PSNOWRHO,1)        
+!         DO JJ=1,SIZE(PSNOWRHO,1)
 !           IF (JL<=KNLVLS_USE(JJ)) THEN
 !             ZSNOWENERGY_UPPER(JJ)=ZSNOWENERGY_CUM(JJ) !0 for surface layer
 !             ! absorbed energy cumulated from the surface
 !             ZSNOWENERGY_CUM(JJ)=ZSNOWENERGY_CUM(JJ)+ZSNOWENERGY(JJ,JL,JB)
-!             
+!
 !             ! Case when the energy is negative but close to 0. It can occurs in short wavelengths. Force to 0.
 !             IF ((ZSNOWENERGY(JJ,JL,JB)<0).AND. (ZSNOWENERGY(JJ,JL,JB)>-0.1)) THEN
 !               ZSNOWENERGY(JJ,JL,JB)=0.
 !             END IF
-!             
+!
 !             !if the cumulated absorbed energy excess the available energy or if severe negative energy, numerical problem in Tartes : total absorption
 !             IF ((ZSNOWENERGY_CUM(JJ)>ZMAX(JJ)).OR.(ZSNOWENERGY(JJ,JL,JB)<=-0.1)) THEN
-! !               IF (PPWAVELENGTHS(JB)<=1000) THEN             
-!               IF ((PPWAVELENGTHS(JB)<=1000) .AND.(ABS(ZSNOWENERGY_CUM(JJ)-ZMAX(JJ))>0.01)) THEN 
+! !               IF (PPWAVELENGTHS(JB)<=1000) THEN
+!               IF ((PPWAVELENGTHS(JB)<=1000) .AND.(ABS(ZSNOWENERGY_CUM(JJ)-ZMAX(JJ))>0.01)) THEN
 !                 ! Tolerance 0.01 W/m2 of excess energy in the visible
 !                 ! Above, the problem should never happen in visible
-!                 
+!
 !                 PRINT*,"JB=",JB,"JL=",JL
 !                 IF (ZSNOWENERGY_CUM(JJ)>ZMAX(JJ)) PRINT*,"excess energy"
 !                 IF (ZSNOWENERGY(JJ,JL,JB)<0) PRINT*, "negative energy"
-! 
+!
 !                 PRINT*,ZSW_RAD_DIF(JJ,JB),ZSW_RAD_DIR(JJ,JB),ZMAX(JJ),ZSNOWENERGY_CUM(JJ)
-!                 
+!
 !                 PRINT*,"profile :",ZSNOWENERGY(JJ,:,JB)
-!                 
+!
 !                 STOP "FATAL ERROR TARTES !!"
 !               END IF
 !               ! The layer absorbes all the remaining energy at this wavelength
@@ -1533,25 +1533,25 @@ END IF
 !           END IF
 !         END DO
 !       END DO
-!       
+!
 !       ! Threshold on soil absorbed energy
 !       DO JJ=1,SIZE(PSNOWRHO,1)
 !         ZSNOWENERGY_UPPER(JJ)=ZSNOWENERGY_CUM(JJ)
 !         ZSNOWENERGY_CUM(JJ)=ZSNOWENERGY_CUM(JJ)+ZSOILENERGY(JJ,JB)
 !         IF (ZSNOWENERGY_CUM(JJ)>ZMAX(JJ)) THEN
 !           IF (PPWAVELENGTHS(JB)<=1200) THEN
-!                  STOP "FATAL ERROR TARTES (soil excess energy in visible)!!"           
+!                  STOP "FATAL ERROR TARTES (soil excess energy in visible)!!"
 !           END IF
 !           ! The layer absorbes all the remaining energy at this wavelength
 !           ZSOILENERGY(JJ,JB)=ZMAX(JJ)-ZSNOWENERGY_UPPER(JJ)
 !         END IF
 !       END DO
-!       
+!
 !     END DO
 
     ! End modif ML
     ! --------------------------------------------------------------------------------------------------------------------
-!    
+!
 ! Broadband absorbed energy by snowpack and soil
 ZSNOWENERGY_BB = 0.
 ZSOILENERGY_BB = 0.
@@ -1573,17 +1573,17 @@ DO JL = 1,SIZE(PSNOWRHO,2)
     END IF
   END DO
 END DO
-!    
+!
 ! Reflected energy
 ZREFLECTED_BB = PSW_RAD - ZTOTSNOWENERGY - ZSOILENERGY_BB
-! 
+!
 ! Broad band Albedo
 ! PSW_RAD is never 0 because this routine is not called during the night
 PSNOWALB = ZREFLECTED_BB / PSW_RAD
-!   
+!
 ! Source term
 PRADSINK(:,1) = -PSW_RAD(:) + ZREFLECTED_BB + ZSNOWENERGY_BB(:,1)
-!    
+!
 DO JL = 2,SIZE(PSNOWRHO,2)
   PRADSINK(:,JL) = PRADSINK(:,JL-1) + ZSNOWENERGY_BB(:,JL)
 END DO
@@ -1593,6 +1593,6 @@ PRADXS = PSW_RAD - ZTOTSNOWENERGY - ZREFLECTED_BB
 !
 IF (LHOOK) CALL DR_HOOK('SNOWCRO_CALL_TARTES',1,ZHOOK_HANDLE)
 !
-END SUBROUTINE SNOWCRO_CALL_TARTES       
+END SUBROUTINE SNOWCRO_CALL_TARTES
 
 END MODULE MODE_TARTES

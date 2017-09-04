@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ####################################
       SUBROUTINE WRITE_SURF_ATM_n (YSC, HPROGRAM,HWRITE,OLAND_USE)
 !     ####################################
 !
-!!****  *WRITE_SURF_ATM_n* - routine to write surface variables 
+!!****  *WRITE_SURF_ATM_n* - routine to write surface variables
 !!                           in their respective files or in file
 !!
 !!    PURPOSE
@@ -37,7 +37,7 @@
 !!                                       historical files
 !!      Modified    03/2009, B.Decharme: keys for arrange cover
 !!      Modified    04/2009, B.Decharme: write precipitation forcing into the restart file for ARPEGE/ALADIN run
-!       Modified    06/2009, B.Decharme: flag to desactivate writing of horizontal grid 
+!       Modified    06/2009, B.Decharme: flag to desactivate writing of horizontal grid
 !       Modified    08/2009, B.Decharme: BUDGETC for all tiles
 !       Modified    07/2011, B.Decharme: delete write pgd fields
 !       Modified    07/2011, B.Decharme: land_use key for writing semi-prognostic variables
@@ -114,9 +114,9 @@ YCOMMENT='(-)'
  CALL WRITE_SURF(YSC%DUO%CSELECT, HPROGRAM,'BUG    ',NBUGFIX ,IRESP,YCOMMENT)
  CALL WRITE_SURF(YSC%DUO%CSELECT, HPROGRAM,'STORAGETYPE',HWRITE,IRESP,YCOMMENT)
  CALL WRITE_SURF(YSC%DUO%CSELECT, HPROGRAM,'DIM_FULL  ',YSC%U%NDIM_FULL,IRESP,HCOMMENT=YCOMMENT)
- CALL WRITE_SURF(YSC%DUO%CSELECT, HPROGRAM,'WRITE_EXT ',LWRITE_EXTERN,IRESP,HCOMMENT=YCOMMENT)   
+ CALL WRITE_SURF(YSC%DUO%CSELECT, HPROGRAM,'WRITE_EXT ',LWRITE_EXTERN,IRESP,HCOMMENT=YCOMMENT)
 !
- CALL WRITE_SURF(YSC%DUO%CSELECT, HPROGRAM,'SPLIT_PATCH',LSPLIT_PATCH,IRESP,HCOMMENT=YCOMMENT)  
+ CALL WRITE_SURF(YSC%DUO%CSELECT, HPROGRAM,'SPLIT_PATCH',LSPLIT_PATCH,IRESP,HCOMMENT=YCOMMENT)
 !
 YCOMMENT='s'
  CALL WRITE_SURF(YSC%DUO%CSELECT, HPROGRAM,'DTCUR',YSC%U%TTIME,IRESP,YCOMMENT)
@@ -138,9 +138,9 @@ YCOMMENT='flag for accumulated variables'
 !
 IF (YSC%DUO%LSURF_BUDGETC) THEN
    YCOMMENT='time of beginning of accumulation'
-   CALL WRITE_SURF(YSC%DUO%CSELECT, HPROGRAM,'TBUDC',YSC%DUO%TIME_BUDGETC,IRESP,HCOMMENT=YCOMMENT)   
+   CALL WRITE_SURF(YSC%DUO%CSELECT, HPROGRAM,'TBUDC',YSC%DUO%TIME_BUDGETC,IRESP,HCOMMENT=YCOMMENT)
 END IF
-!  
+!
 !         End of IO
 !
  CALL END_IO_SURF_n(HPROGRAM)

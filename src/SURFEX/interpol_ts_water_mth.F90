@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INTERPOL_TS_WATER_MTH (W)
@@ -27,7 +27,7 @@
 !!
 !!    AUTHOR
 !!    ------
-!!      
+!!
 !     B.Decharme  Meteo-France
 !!
 !!    MODIFICATIONS
@@ -55,7 +55,7 @@ IMPLICIT NONE
 !
 !*       0.1   Declaration of arguments
 !------------------------
-! 
+!
 !
 TYPE(WATFLUX_t), INTENT(INOUT) :: W
 !
@@ -65,7 +65,7 @@ TYPE(WATFLUX_t), INTENT(INOUT) :: W
 REAL            :: ZDAT   ! current day in the current month
 REAL            :: ZNDAT  ! number of days in the current month
 INTEGER         :: IMTH0  ! previous month
-INTEGER         :: IMTH1  ! current month 
+INTEGER         :: IMTH1  ! current month
 INTEGER         :: IMTH2  ! next month
 INTEGER         :: INDAYS ! number of days in KMONTH
 !
@@ -102,7 +102,7 @@ ZNDAT= REAL(INDAYS)
 !
 ! The current month correspond to the indice 2 (or 3 if next month))
 !
-IF (W%TTIME%TDATE%MONTH==W%TZTIME%TDATE%MONTH) THEN 
+IF (W%TTIME%TDATE%MONTH==W%TZTIME%TDATE%MONTH) THEN
    IDELTA=0
 ELSE
    IDELTA=1

@@ -10,7 +10,7 @@ OPT_BASE  = -fopenmp -fdefault-real-8 -fdefault-double-8 -g -fno-second-undersco
 OPT_PERF0 = -O0
 OPT_PERF2 = -O2
 OPT_CHECK = -fbounds-check -finit-real=nan
-OPT_I8    = -fdefault-integer-8 
+OPT_I8    = -fdefault-integer-8
 #
 #
 # Integer 4/8 option
@@ -28,8 +28,8 @@ LFI_INT           ?=4
 endif
 #
 #
-OPT       = $(OPT_BASE) $(OPT_PERF2) 
-OPT0      = $(OPT_BASE) $(OPT_PERF0) 
+OPT       = $(OPT_BASE) $(OPT_PERF2)
+OPT0      = $(OPT_BASE) $(OPT_PERF0)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF2)
 #
 ifeq "$(OPTLEVEL)" "DEBUG"
@@ -38,22 +38,22 @@ OPT0      = $(OPT_BASE) $(OPT_PERF0) $(OPT_CHECK)
 OPT_NOCB  = $(OPT_BASE) $(OPT_PERF0)
 endif
 #
-#  
+#
 ifeq "$(VER_MPI)" "MPIAUTO"
 F90 = mpif90
-else         
+else
 F90 = gfortran
 endif
 #
-F90FLAGS      =  $(OPT) 
+F90FLAGS      =  $(OPT)
 F77 = $(F90)
-F77FLAGS      =  $(OPT) 
+F77FLAGS      =  $(OPT)
 FX90 = $(F90)
-FX90FLAGS     =  $(OPT) 
+FX90FLAGS     =  $(OPT)
 #
 LDFLAGS   =   -Wl,-warn-once -fopenmp
 #
-# preprocessing flags 
+# preprocessing flags
 #
 CPP = cpp -P -traditional -Wcomment
 #

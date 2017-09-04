@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE SLOPE_RADIATIVE_EFFECT(PTSTEP,PZENITH,PAZIM,PPS,PTA,PRAIN,PDIR_SW,PLW, &
                                   PZS,PZS_XY,PSLOPANG,PSLOPAZI,PSURF_TRIANGLE     )
 !##############################################################
 !
-!!**** *SLOPE_RADIATIVE_EFFECT* compute direct short-wave radiation modified by slopes and shadows, 
-!                               BUT renormalized on the horizontal surface of the grid mesh  
+!!**** *SLOPE_RADIATIVE_EFFECT* compute direct short-wave radiation modified by slopes and shadows,
+!                               BUT renormalized on the horizontal surface of the grid mesh
 !                               to serve as input for ISBA
 !
 !!
@@ -16,7 +16,7 @@ SUBROUTINE SLOPE_RADIATIVE_EFFECT(PTSTEP,PZENITH,PAZIM,PPS,PTA,PRAIN,PDIR_SW,PLW
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -38,10 +38,10 @@ SUBROUTINE SLOPE_RADIATIVE_EFFECT(PTSTEP,PZENITH,PAZIM,PPS,PTA,PRAIN,PDIR_SW,PLW
 !!    ------------
 !!
 !!    Original    04/11
-!!             29/04/11  : VV implementation of adjustment of incoming longwave 
+!!             29/04/11  : VV implementation of adjustment of incoming longwave
 !!                         radiation as a function of the slope (routine
-!!                         originally implemented in operational chain SCM) 
-!!                         (routine meteo.f90 of Crocus) 
+!!                         originally implemented in operational chain SCM)
+!!                         (routine meteo.f90 of Crocus)
 !!                03/14  : M Lafaysse, modifs for optimization and parallelization
 !----------------------------------------------------------------------------
 !
@@ -74,10 +74,10 @@ REAL, DIMENSION(:,:,:),     INTENT(IN) :: PSLOPANG   ! vertical slope angle of t
 REAL, DIMENSION(:,:,:),     INTENT(IN) :: PSURF_TRIANGLE ! surface of triangles
 
 REAL, DIMENSION(:,:),   INTENT(INOUT) :: PDIR_SW  !   IN : input down (direct) short-wave radiation
-!                                                   OUT : down (direct) short-wave radiation modified by slopes and shadows, 
+!                                                   OUT : down (direct) short-wave radiation modified by slopes and shadows,
 !                                                        BUT renormalized on the horizontal surface of the grid mesh
 REAL, DIMENSION(:),   INTENT(INOUT) :: PLW      !   IN : longwave radiation (on horizontal surf.)
-!                                                   OUT : longwave radiation modified by slopee and valley effects, 
+!                                                   OUT : longwave radiation modified by slopee and valley effects,
 !                                                        BUT renormalized on the horizontal surface of the grid mesh
 !
 !
@@ -101,10 +101,10 @@ REAL, DIMENSION(:,:), ALLOCATABLE :: ZAZIMSOL ! solar azimuthal angle
 ! REAL, DIMENSION(:,:), ALLOCATABLE :: ZSSO_SURF    ! ratio between sloping orography and horizontal surface
 ! REAL, DIMENSION(:), ALLOCATABLE :: ZSSO_SURF_1D   ! ratio between sloping orography and horizontal surface (1D vector)
 REAL, DIMENSION(:,:,:), ALLOCATABLE :: ZDIRFLASWD ! input down (direct) short-wave radiation
-REAL, DIMENSION(:,:,:), ALLOCATABLE :: ZDIRSRFSWD ! down (direct) short-wave radiation modified by slopes and shadows, 
+REAL, DIMENSION(:,:,:), ALLOCATABLE :: ZDIRSRFSWD ! down (direct) short-wave radiation modified by slopes and shadows,
 !                                      ! BUT renormalized on the horizontal surface of the grid mesh
 !                                      ! For both variables, 3rd dimension is wavelength
-REAL, DIMENSION(:), ALLOCATABLE :: ZALPHA ! intermediate variable 
+REAL, DIMENSION(:), ALLOCATABLE :: ZALPHA ! intermediate variable
 !
 REAL, PARAMETER :: VPRES1 = 87000.
 !
@@ -139,16 +139,16 @@ IF (LREVERTGRID) THEN
   DO JY=1,NIYLOC
     IINDY=NIYLOC-JY+1
     DO JX=1,NIXLOC
-      ZCOSZEN (JX+1,IINDY+1) = COS(PZENITH ( JX + (JY-1)*NIXLOC )) 
-      ZSINZEN (JX+1,IINDY+1) = SIN(PZENITH ( JX + (JY-1)*NIXLOC )) 
-      ZAZIMSOL (JX+1,IINDY+1) = PAZIM ( JX + (JY-1)*NIXLOC )      
+      ZCOSZEN (JX+1,IINDY+1) = COS(PZENITH ( JX + (JY-1)*NIXLOC ))
+      ZSINZEN (JX+1,IINDY+1) = SIN(PZENITH ( JX + (JY-1)*NIXLOC ))
+      ZAZIMSOL (JX+1,IINDY+1) = PAZIM ( JX + (JY-1)*NIXLOC )
     END DO
   END DO
 ELSE
   DO JY=1,NIYLOC
     DO JX=1,NIXLOC
-      ZCOSZEN (JX+1,JY+1) = COS(PZENITH ( JX + (JY-1)*NIXLOC )) 
-      ZSINZEN (JX+1,JY+1) = SIN(PZENITH ( JX + (JY-1)*NIXLOC ))    
+      ZCOSZEN (JX+1,JY+1) = COS(PZENITH ( JX + (JY-1)*NIXLOC ))
+      ZSINZEN (JX+1,JY+1) = SIN(PZENITH ( JX + (JY-1)*NIXLOC ))
       ZAZIMSOL (JX+1,JY+1) = PAZIM ( JX + (JY-1)*NIXLOC )
     END DO
   END DO
@@ -249,9 +249,9 @@ ENDIF
 ! !            of opposite slope and correction in case of rain
 ! !            --------------------------------------------------------
 ! ZALPHA(:) = MAX(0.25*(ZSSO_SURF_1D(:)/SQRT(1+ZSSO_SURF_1D(:)**2.))**2., 0.1*PPS(:)/VPRES1)
-! 
+!
 ! PLW(:) = (1-ZALPHA(:))*PLW(:) +ZALPHA(:)*XSTEFAN*PTA(:)**4.
-! 
+!
 ! WHERE(PRAIN(:)*PTSTEP>0.001)
 !         PLW(:) = MAX(PLW(:),0.95*XSTEFAN*PTA(:)**4.)
 ! END WHERE

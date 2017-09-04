@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE MKFLAG_SNOW(TPSNOW)
@@ -17,11 +17,11 @@ SUBROUTINE MKFLAG_SNOW(TPSNOW)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -51,14 +51,14 @@ IF (TPSNOW%SCHEME=='NON' .AND. LHOOK) CALL DR_HOOK('MKFLAG_SNOW',1,ZHOOK_HANDLE)
 IF (TPSNOW%SCHEME=='NON') RETURN
 !
  IF (TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' .OR. TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='3-L' &
-          .OR. TPSNOW%SCHEME=='CRO') THEN  
+          .OR. TPSNOW%SCHEME=='CRO') THEN
   DO JLAYER=1,TPSNOW%NLAYER
     WHERE ( TPSNOW%RHO(:,1)== XUNDEF .AND. TPSNOW%WSNOW(:,JLAYER) > 0.0 .AND. TPSNOW%WSNOW(:,1)/= XUNDEF )
       TPSNOW%WSNOW(:,JLAYER) = 0.0
     END WHERE
   END DO
  END IF
-! 
+!
  IF (TPSNOW%SCHEME=='1-L') THEN
   DO JLAYER=1,TPSNOW%NLAYER
     WHERE ( TPSNOW%WSNOW(:,1)==0. .OR. TPSNOW%WSNOW(:,1)== XUNDEF )
@@ -68,7 +68,7 @@ IF (TPSNOW%SCHEME=='NON') RETURN
  END IF
 !
  IF (TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' .OR. TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='3-L' &
-           .OR. TPSNOW%SCHEME=='CRO') THEN  
+           .OR. TPSNOW%SCHEME=='CRO') THEN
   DO JLAYER=1,TPSNOW%NLAYER
     WHERE ( TPSNOW%WSNOW(:,1)==0. .OR. TPSNOW%WSNOW(:,1)== XUNDEF )
       TPSNOW%RHO(:,JLAYER) = XUNDEF
@@ -96,7 +96,7 @@ IF (TPSNOW%SCHEME=='CRO') THEN
  END IF
 !
  IF (TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' .OR. TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='3-L' &
-          .OR. TPSNOW%SCHEME=='CRO') THEN  
+          .OR. TPSNOW%SCHEME=='CRO') THEN
    WHERE ( TPSNOW%WSNOW(:,1)==0. .OR. TPSNOW%WSNOW(:,1)== XUNDEF )
     TPSNOW%ALB(:) = XUNDEF
     TPSNOW%ALBVIS(:) = XUNDEF

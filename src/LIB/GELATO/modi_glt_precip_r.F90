@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,49 +28,49 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ========================= MODULE modi_glt_precip_r ========================
 ! =======================================================================
 !
 ! Goal:
 ! -----
-!   This module contains a subroutine that takes the physical effect 
+!   This module contains a subroutine that takes the physical effect
 ! of precipitations on sea ice. Depending on the kind of precipitation,
-! snow accumulation can take place, the density of the snow layer 
+! snow accumulation can take place, the density of the snow layer
 ! increasing in time; or if it rains, the bottom of the snow layer
 ! can be transformed into ice...
-!    Note that the physics treated by this routine is altered by 
+!    Note that the physics treated by this routine is altered by
 ! nrn2ice flag (for the time being local to this routine)
-!   ==> If put to 1, the rain is transformed into ice as it 
-! comes in contact with the surface snow, if snow has reached its 
-! maximum density. However, perfect gltools_enthalpy conservation is not 
+!   ==> If put to 1, the rain is transformed into ice as it
+! comes in contact with the surface snow, if snow has reached its
+! maximum density. However, perfect gltools_enthalpy conservation is not
 ! ensured with this method.
-!  ==> If put to 0, if snow has reached its maximum density, more 
-! rain goes to the mixed layer in an energy conservating way. 
-! 
+!  ==> If put to 0, if snow has reached its maximum density, more
+! rain goes to the mixed layer in an energy conservating way.
+!
 !
 ! Method:
 ! -------
 !   Based on Douville (1995)
-! 
+!
 ! Created : 1996/10 (D. Salas y Melia)
 !           Later on modified for rewriting.
-! Modified: 2009/06 (D. Salas y Melia) 
+! Modified: 2009/06 (D. Salas y Melia)
 !           Reduced grid
-! Modified: 2009/07 (D. Salas y Melia) 
+! Modified: 2009/07 (D. Salas y Melia)
 !           Second possible treatment for rain / snow layer interactions.
 !           Overwhelming energy due to rainfall does not go to the
 !           mixed layer, but more logically to the heat diffusion scheme
 ! Modified: 2009/12 (D. Salas y Melia)
-!           New treatment of energy (gltools_enthalpy replaces temperature as 
+!           New treatment of energy (gltools_enthalpy replaces temperature as
 !           a reference variable)
 ! Modified: (A. Voldoire)
 !           new ice/water fluxes interface CALL
@@ -78,7 +78,7 @@
 ! --------------------- BEGIN MODULE modi_glt_precip_r ----------------------
 !
 !THXS_SFX!MODULE modi_glt_precip_r
-!THXS_SFX!INTERFACE 
+!THXS_SFX!INTERFACE
 !THXS_SFX!!
 !THXS_SFX!SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
 !THXS_SFX!  pqmelt )
@@ -89,7 +89,7 @@
 !THXS_SFX!  TYPE(t_mxl), DIMENSION(np), INTENT(in) ::  &
 !THXS_SFX!        tpmxl
 !THXS_SFX!  TYPE(t_atm), DIMENSION(np), INTENT(in) ::  &
-!THXS_SFX!        tpatm   
+!THXS_SFX!        tpatm
 !THXS_SFX!  TYPE(t_sit), DIMENSION(nt,np), INTENT(inout) ::  &
 !THXS_SFX!        tpsit
 !THXS_SFX!  TYPE(t_vtp), DIMENSION(nl,nt,np), INTENT(inout) ::  &
@@ -112,7 +112,7 @@
 ! -----------------------------------------------------------------------
 ! ------------------------ SUBROUTINE glt_precip_r --------------------------
 !
-! * Subroutine which takes physical effects of precipitations over ice 
+! * Subroutine which takes physical effects of precipitations over ice
 ! or snow into account, except the case of rain over non snow covered
 ! sea ice.
 !
@@ -132,7 +132,7 @@ SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
   TYPE(t_mxl), DIMENSION(np), INTENT(in) ::  &
         tpmxl
   TYPE(t_atm), DIMENSION(np), INTENT(in) ::  &
-        tpatm   
+        tpatm
   TYPE(t_sit), DIMENSION(nt,np), INTENT(inout) ::  &
         tpsit
   TYPE(t_vtp), DIMENSION(nl,nt,np), INTENT(inout) ::  &
@@ -185,7 +185,7 @@ SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
   zrsn(:,:) = tpsit(:,:)%rsn
 !
 ! .. We assume that new snow massic gltools_enthalpy is the massic gltools_enthalpy of
-! snow (salinity=0) of temperature tsf 
+! snow (salinity=0) of temperature tsf
 !
   zsalt(:,:) = 0.
   zentsn(:,:) = tpsil(nl,:,:)%ent
@@ -197,9 +197,9 @@ SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
 !
 !
 !
-! 2. Snow aging includes snow density increase 
+! 2. Snow aging includes snow density increase
 ! ============================================
-! 
+!
 ! .. The density increase is exponential towards rhosnwmax
 !
   WHERE ( tpsit(:,:)%esi )
@@ -207,7 +207,7 @@ SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
         (tpsit(:,:)%rsn-rhosnwmax)*exp(-tauf*dtt/xday2sec)
       tpsit(:,:)%hsn =  &
         tpsit(:,:)%hsn * zrsn(:,:) / tpsit(:,:)%rsn
-  ENDWHERE 
+  ENDWHERE
 !
   WHERE ( .NOT.tpsit(:,:)%esi )
       tpsit(:,:)%rsn = rhosnwmin
@@ -262,7 +262,7 @@ SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
 !
 !
 ! .. If there is no snow layer on ice: water goes directly to the ocean
-! (it is assumed this happens not by percolation through sea ice, but goes 
+! (it is assumed this happens not by percolation through sea ice, but goes
 ! to the leads)
 !
     WHERE ( orain(:) .AND. tpsit(jk,:)%esi .AND.  &
@@ -281,11 +281,11 @@ SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
 !   - this is rather physical, however it creates a slight energetic
 ! inconsistency (sea ice thickness increases without any temperature
 ! change, modifying the gltools_enthalpy stored in sea ice)
-!   ==> it should be decided by a namelist parameter whether we do 
+!   ==> it should be decided by a namelist parameter whether we do
 !   this or decide to deliver the precipitation water to the mixed
 ! layer
 !
-    IF ( nrn2ice == 1 ) THEN    ! Transform snow into ice 
+    IF ( nrn2ice == 1 ) THEN    ! Transform snow into ice
 !
         WHERE ( orain(:) .AND. tpsit(jk,:)%esi .AND.  &
         tpsit(jk,:)%hsn>epsil1 .AND.  &
@@ -293,7 +293,7 @@ SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
           tpsit(jk,:)%hsi = tpsit(jk,:)%hsi + tpsit(jk,:)%hsn*  &
             (tpsit(jk,:)%rsn-rhosnwmax)/(rhoice-rhosnwmax)
           tpsit(jk,:)%hsn = tpsit(jk,:)%hsn*  &
-            (rhoice-tpsit(jk,:)%rsn)/(rhoice-rhosnwmax) 
+            (rhoice-tpsit(jk,:)%rsn)/(rhoice-rhosnwmax)
           tpsit(jk,:)%rsn = rhosnwmax
         ENDWHERE
 !
@@ -333,7 +333,7 @@ SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
 ! We do not transform snow into ice (in excess rain goes to the ocean)
 !
       ELSE
-! 
+!
         WHERE ( orain(:) .AND. tpsit(jk,:)%esi .AND.  &
         tpsit(jk,:)%hsn>epsil1 .AND. tpsit(jk,:)%rsn>rhosnwmax  )
           zdmwat(jk,:) = -zhsn(jk,:)*tpsit(jk,:)%fsi*  &
@@ -353,13 +353,13 @@ SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
 ! --------------------------
 !
     zwork(:) = 0.
-    WHERE ( osnow(:) .AND. tpsit(jk,:)%esi ) 
+    WHERE ( osnow(:) .AND. tpsit(jk,:)%esi )
 !
 ! .. Total mass of snow (current snow layer + new snowfalls)
       zqm(:) =  &
         tpsit(jk,:)%hsn*tpsit(jk,:)%rsn + zpcps(:)
 !
-! .. Total snow thickness (current snow layer + new snowfalls) 
+! .. Total snow thickness (current snow layer + new snowfalls)
       tpsit(jk,:)%hsn =  &
         tpsit(jk,:)%hsn + zpcps(:)/rhosnwmin
 !
@@ -379,7 +379,7 @@ SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
     tpdia(:)%o_prsn = tpdia(:)%o_prsn + zwork(:)
 !
 ! .. The change in snow density due to rainfall is not related to a change
-! in snow thickness, but to a liquid water input. Here the temperature of 
+! in snow thickness, but to a liquid water input. Here the temperature of
 ! liquid precipitation is unknown, so we suppose that the gltools_enthalpy of snow
 ! does not change. To achieve this, we have to modify the snow gltools_enthalpy per
 ! mass unit to avoid a change in snow layer enthalpy.
@@ -406,7 +406,7 @@ end do
 !
 !
 ! .. Without any information about rain temperature, we assume that rain falls
-! at 0C (i.e. gltools_enthalpy = 0), hence total snow gltools_enthalpy does not change (i.e. 
+! at 0C (i.e. gltools_enthalpy = 0), hence total snow gltools_enthalpy does not change (i.e.
 ! new snow massic gltools_enthalpy is:
 !    enth_snow = enth_snow_old * mass_snow_old / (mass_snow_old + mass_rain)
 !      tpsil(nilay+1,jk,:)%ent = tpsil(nilay+1,jk,:)%ent *  &
@@ -418,18 +418,18 @@ end do
 ! 3.6. Collect water that goes to the mixed layer
 ! ------------------------------------------------
 !
-! glt_updtfl_r cannot be used here, since rain has no energy as in input 
-! (see updbud.f90), just consider the water flux 
+! glt_updtfl_r cannot be used here, since rain has no energy as in input
+! (see updbud.f90), just consider the water flux
 !  ok since the gltools_enthalpy flux is now optional in glt_updtfl_r
 !
 ! This is tricky... in excess rain has to go to the %wlo flux to be transmitted
-! to the ocean (if the ocean model assumes levitating sea ice). 
-! If this flux is put in %wio, it won't be transmitted to the ocean and water 
+! to the ocean (if the ocean model assumes levitating sea ice).
+! If this flux is put in %wio, it won't be transmitted to the ocean and water
 ! (coming from the atmosphere) will be lost.
 !
   IF ( nrn2ice==0 ) THEN
     CALL glt_updtfl_r('FW2O',tpmxl,tptfl,zdmwat)
-  ENDIF  
+  ENDIF
 !
 !
 ! 4. Correct to avoid further problems due to computer precision
@@ -450,19 +450,19 @@ end do
 !
   zfsit(:) = SUM( tpsit(:,:)%fsi ,DIM=1 )
 !
-! .. Rain flux falling on the sea ice part of the grid cell 
+! .. Rain flux falling on the sea ice part of the grid cell
 !
   tpdia(:)%lip = zfsit(:)*tpatm(:)%lip
 !
-! .. Snow flux falling on the sea ice part of the grid cell 
+! .. Snow flux falling on the sea ice part of the grid cell
 !
   tpdia(:)%sop = zfsit(:)*tpatm(:)%sop
 !CALL glt_aventh(tpsit,tpsil,zei2,zes2)
 !print*,'Enthalpie apres  =',zei2+zes2
 !print*,'Delta Enthalpie  =',(zei2+zes2-zei1-zes1)/dtt
 !print*,'Delta Enthalpie neige =',(zes2-zes1)/dtt
-!print*,'rsn=',tpsit(:,:)%rsn 
-!print*,'hsn=',tpsit(:,:)%hsn 
+!print*,'rsn=',tpsit(:,:)%rsn
+!print*,'hsn=',tpsit(:,:)%hsn
 !print*,'msn =',tpsit%hsn*tpsit%rsn
 !print*,zpcpr
 !print*,'hsi=',tpsit(:,:)%hsi

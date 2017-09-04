@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ####################################################################
-      SUBROUTINE SOIL_ALBEDO(HALBEDO, PWSAT, PWG1, KK, PEK, HBAND)  
+      SUBROUTINE SOIL_ALBEDO(HALBEDO, PWSAT, PWG1, KK, PEK, HBAND)
 !     ####################################################################
 !
-!!****  *SOIL_ALBEDO*  
+!!****  *SOIL_ALBEDO*
 !!
 !!    PURPOSE
 !!    -------
-!  computes the SOIL_ALBEDO of for different types (patches) 
+!  computes the SOIL_ALBEDO of for different types (patches)
 ! of natural continental parts.
 !
 ! Soil SOIL_ALBEDO is estimated from sand fraction.
 ! A correction due to the soil humidity can be used.
 !
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,20 +24,20 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
-!!      F.Solmon  /  V. Masson          
+!!      F.Solmon  /  V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original     
+!!      Original
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -95,17 +95,17 @@ CASE ('EVOL')
       WHERE (PWG1(:)/=XUNDEF) &
         PEK%XALBVIS_SOIL(:) = KK%XALBVIS_WET(:) + &
             (0.25*KK%XALBVIS_DRY(:)-KK%XALBVIS_WET(:)) * (1. - ZX(:)) * &
-       ( ZX(:) + (KK%XALBVIS_DRY(:)-KK%XALBVIS_WET(:)) / (0.25*KK%XALBVIS_DRY(:)-KK%XALBVIS_WET(:)) )  
+       ( ZX(:) + (KK%XALBVIS_DRY(:)-KK%XALBVIS_WET(:)) / (0.25*KK%XALBVIS_DRY(:)-KK%XALBVIS_WET(:)) )
     IF (TRIM(HBAND)=="NIR".OR.TRIM(HBAND)=="ALL") &
-      WHERE (PWG1(:)/=XUNDEF) &      
+      WHERE (PWG1(:)/=XUNDEF) &
         PEK%XALBNIR_SOIL(:) = KK%XALBNIR_WET(:) + &
            (0.25*KK%XALBNIR_DRY(:)-KK%XALBNIR_WET(:)) * (1. - ZX(:)) * &
-      ( ZX(:) + (KK%XALBNIR_DRY(:)-KK%XALBNIR_WET(:)) / (0.25*KK%XALBNIR_DRY(:)-KK%XALBNIR_WET(:)) )  
+      ( ZX(:) + (KK%XALBNIR_DRY(:)-KK%XALBNIR_WET(:)) / (0.25*KK%XALBNIR_DRY(:)-KK%XALBNIR_WET(:)) )
     IF (TRIM(HBAND)=="UV".OR.TRIM(HBAND)=="ALL") &
-      WHERE (PWG1(:)/=XUNDEF) &      
+      WHERE (PWG1(:)/=XUNDEF) &
         PEK%XALBUV_SOIL (:) = KK%XALBUV_WET (:) + &
            (0.25*KK%XALBUV_DRY (:)-KK%XALBUV_WET (:)) * (1. - ZX(:)) * &
-      ( ZX(:) + (KK%XALBUV_DRY (:)-KK%XALBUV_WET (:)) / (0.25*KK%XALBUV_DRY (:)-KK%XALBUV_WET (:)) )  
+      ( ZX(:) + (KK%XALBUV_DRY (:)-KK%XALBUV_WET (:)) / (0.25*KK%XALBUV_DRY (:)-KK%XALBUV_WET (:)) )
 
     !END WHERE
 

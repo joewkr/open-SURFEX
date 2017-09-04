@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################################
       SUBROUTINE PGD_BEM_PAR (DTCO, UG, U, USS, DTB, KDIM, &
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -100,12 +100,12 @@ INTEGER               :: JLAYER    ! loop counter on layers
 INTEGER, PARAMETER                      :: NFLOOR_MAX  = 9
 INTEGER                                 :: NPAR_FLOOR_LAYER ! number of floor layers
 !
-REAL                                    :: XUNIF_SHADE    ! 
- CHARACTER(LEN=28)                       :: CFNAM_SHADE    ! 
- CHARACTER(LEN=6)                        :: CFTYP_SHADE    ! 
-REAL                                    :: XUNIF_NATVENT    ! 
- CHARACTER(LEN=28)                       :: CFNAM_NATVENT    ! 
- CHARACTER(LEN=6)                        :: CFTYP_NATVENT    ! 
+REAL                                    :: XUNIF_SHADE    !
+ CHARACTER(LEN=28)                       :: CFNAM_SHADE    !
+ CHARACTER(LEN=6)                        :: CFTYP_SHADE    !
+REAL                                    :: XUNIF_NATVENT    !
+ CHARACTER(LEN=28)                       :: CFNAM_NATVENT    !
+ CHARACTER(LEN=6)                        :: CFTYP_NATVENT    !
 !
 ! Floor parameters
 !
@@ -113,11 +113,11 @@ REAL, DIMENSION(NFLOOR_MAX)             :: XUNIF_HC_FLOOR     ! floor layers hea
 REAL, DIMENSION(NFLOOR_MAX)             :: XUNIF_TC_FLOOR     ! floor layers thermal conduc (W/K/m)
 REAL, DIMENSION(NFLOOR_MAX)             :: XUNIF_D_FLOOR      ! depth of floor layers      (m)
 REAL                                    :: XUNIF_FLOOR_HEIGHT ! building floor height [m]
- CHARACTER(LEN=28), DIMENSION(NFLOOR_MAX):: CFNAM_HC_FLOOR     ! file name for HC_FLOOR   
+ CHARACTER(LEN=28), DIMENSION(NFLOOR_MAX):: CFNAM_HC_FLOOR     ! file name for HC_FLOOR
  CHARACTER(LEN=28), DIMENSION(NFLOOR_MAX):: CFNAM_TC_FLOOR     ! file name for TC_FLOOR
  CHARACTER(LEN=28), DIMENSION(NFLOOR_MAX):: CFNAM_D_FLOOR      ! file name for D_FLOOR
  CHARACTER(LEN=28)                       :: CFNAM_FLOOR_HEIGHT ! file name for FLOOR_HEIGHT
- CHARACTER(LEN=6),  DIMENSION(NFLOOR_MAX):: CFTYP_HC_FLOOR     ! file type for HC_FLOOR   
+ CHARACTER(LEN=6),  DIMENSION(NFLOOR_MAX):: CFTYP_HC_FLOOR     ! file type for HC_FLOOR
  CHARACTER(LEN=6),  DIMENSION(NFLOOR_MAX):: CFTYP_TC_FLOOR     ! file type for TC_FLOOR
  CHARACTER(LEN=6),  DIMENSION(NFLOOR_MAX):: CFTYP_D_FLOOR      ! file type for D_FLOOR
  CHARACTER(LEN=6)                        :: CFTYP_FLOOR_HEIGHT ! file type for FLOOR_HEIGHT
@@ -129,10 +129,10 @@ REAL                                    :: XUNIF_THEAT_TARGET  !heating setpoint
 REAL                                    :: XUNIF_F_WASTE_CAN  ! fraction of waste heat into the canyon
 REAL                                    :: XUNIF_EFF_HEAT     ! efficiency of the heating system
 REAL                                    :: XUNIF_HR_TARGET    ! Relative humidity setpoint
-REAL                                    :: XUNIF_CAP_SYS_HEAT ! Capacity of the heating system 
+REAL                                    :: XUNIF_CAP_SYS_HEAT ! Capacity of the heating system
 REAL                                    :: XUNIF_CAP_SYS_RAT  ! Rated capacity of the cooling system
 REAL                                    :: XUNIF_T_ADP        ! Apparatus dewpoint temperature of the
-REAL                                    :: XUNIF_M_SYS_RAT    ! Rated HVAC mass flow rate 
+REAL                                    :: XUNIF_M_SYS_RAT    ! Rated HVAC mass flow rate
 REAL                                    :: XUNIF_COP_RAT      ! Rated COP of the cooling system
 REAL                                    :: XUNIF_F_WATER_COND ! fraction of evaporation of condensers
  CHARACTER(LEN=28)                       :: CFNAM_TCOOL_TARGET ! file name for TCOOL_TARGET
@@ -140,10 +140,10 @@ REAL                                    :: XUNIF_F_WATER_COND ! fraction of evap
  CHARACTER(LEN=28)                       :: CFNAM_F_WASTE_CAN  ! file name for F_WASTE_CAN
  CHARACTER(LEN=28)                       :: CFNAM_EFF_HEAT     ! file name for EFF_HEAT
  CHARACTER(LEN=28)                       :: CFNAM_HR_TARGET    ! Relative humidity setpoint
- CHARACTER(LEN=28)                       :: CFNAM_CAP_SYS_HEAT ! Capacity of the heating system 
+ CHARACTER(LEN=28)                       :: CFNAM_CAP_SYS_HEAT ! Capacity of the heating system
  CHARACTER(LEN=28)                       :: CFNAM_CAP_SYS_RAT  ! Rated capacity of the cooling system
  CHARACTER(LEN=28)                       :: CFNAM_T_ADP        ! Apparatus dewpoint temperature of the
- CHARACTER(LEN=28)                       :: CFNAM_M_SYS_RAT    ! Rated HVAC mass flow rate 
+ CHARACTER(LEN=28)                       :: CFNAM_M_SYS_RAT    ! Rated HVAC mass flow rate
  CHARACTER(LEN=28)                       :: CFNAM_COP_RAT      ! Rated COP of the cooling system
  CHARACTER(LEN=28)                       :: CFNAM_F_WATER_COND ! fraction of evaporation of condensers
  CHARACTER(LEN=6)                        :: CFTYP_TCOOL_TARGET ! file type for TCOOL_TARGET
@@ -151,10 +151,10 @@ REAL                                    :: XUNIF_F_WATER_COND ! fraction of evap
  CHARACTER(LEN=6)                        :: CFTYP_F_WASTE_CAN  ! file type for F_WASTE_CAN
  CHARACTER(LEN=6)                        :: CFTYP_EFF_HEAT     ! file type for EFF_HEAT
  CHARACTER(LEN=6)                        :: CFTYP_HR_TARGET    ! Relative humidity setpoint
- CHARACTER(LEN=6)                        :: CFTYP_CAP_SYS_HEAT ! Capacity of the heating system 
+ CHARACTER(LEN=6)                        :: CFTYP_CAP_SYS_HEAT ! Capacity of the heating system
  CHARACTER(LEN=6)                        :: CFTYP_CAP_SYS_RAT  ! Rated capacity of the cooling system
  CHARACTER(LEN=6)                        :: CFTYP_T_ADP        ! Apparatus dewpoint temperature of the
- CHARACTER(LEN=6)                        :: CFTYP_M_SYS_RAT    ! Rated HVAC mass flow rate 
+ CHARACTER(LEN=6)                        :: CFTYP_M_SYS_RAT    ! Rated HVAC mass flow rate
  CHARACTER(LEN=6)                        :: CFTYP_COP_RAT      ! Rated COP of the cooling system
  CHARACTER(LEN=6)                        :: CFTYP_F_WATER_COND ! fraction of evaporation of condensers
 !
@@ -194,8 +194,8 @@ REAL                                    :: XUNIF_V_VENT       ! Ventilation flow
 ! parameters for autosize calculation of the AC systems
 REAL                                    :: XUNIF_T_SIZE_MAX   !
 REAL                                    :: XUNIF_T_SIZE_MIN    !
- CHARACTER(LEN=28)                       :: CFNAM_T_SIZE_MAX    ! 
- CHARACTER(LEN=28)                       :: CFNAM_T_SIZE_MIN    ! 
+ CHARACTER(LEN=28)                       :: CFNAM_T_SIZE_MAX    !
+ CHARACTER(LEN=28)                       :: CFNAM_T_SIZE_MIN    !
  CHARACTER(LEN=6)                        :: CFTYP_T_SIZE_MAX    !
  CHARACTER(LEN=6)                        :: CFTYP_T_SIZE_MIN    !
 !
@@ -208,7 +208,7 @@ NAMELIST/NAM_DATA_BEM/ NPAR_FLOOR_LAYER,                          &
                   XUNIF_TCOOL_TARGET, XUNIF_THEAT_TARGET,         &
                   XUNIF_F_WASTE_CAN, XUNIF_EFF_HEAT,              &
                   XUNIF_F_WATER_COND, XUNIF_HR_TARGET,            &
-                  XUNIF_QIN, XUNIF_QIN_FRAD, XUNIF_QIN_FLAT,      &   
+                  XUNIF_QIN, XUNIF_QIN_FRAD, XUNIF_QIN_FLAT,      &
                   XUNIF_SHGC, XUNIF_U_WIN, XUNIF_GR,XUNIF_SHGC_SH,&
                   XUNIF_INF, XUNIF_V_VENT,                        &
                   XUNIF_CAP_SYS_HEAT,                             &
@@ -222,7 +222,7 @@ NAMELIST/NAM_DATA_BEM/ NPAR_FLOOR_LAYER,                          &
                   CFNAM_TCOOL_TARGET, CFNAM_THEAT_TARGET,         &
                   CFNAM_F_WASTE_CAN, CFNAM_EFF_HEAT,              &
                   CFNAM_F_WATER_COND, CFNAM_HR_TARGET,            &
-                  CFNAM_QIN, CFNAM_QIN_FRAD, CFNAM_QIN_FLAT,      &   
+                  CFNAM_QIN, CFNAM_QIN_FRAD, CFNAM_QIN_FLAT,      &
                   CFNAM_SHGC, CFNAM_U_WIN, CFNAM_GR,              &
                   CFNAM_SHGC_SH, CFNAM_INF, CFNAM_V_VENT,         &
                   CFNAM_CAP_SYS_HEAT,                             &
@@ -234,7 +234,7 @@ NAMELIST/NAM_DATA_BEM/ NPAR_FLOOR_LAYER,                          &
                   CFTYP_TCOOL_TARGET, CFTYP_THEAT_TARGET,         &
                   CFTYP_F_WASTE_CAN, CFTYP_EFF_HEAT,              &
                   CFTYP_F_WATER_COND, CFTYP_HR_TARGET,            &
-                  CFTYP_QIN, CFTYP_QIN_FRAD, CFTYP_QIN_FLAT,      &   
+                  CFTYP_QIN, CFTYP_QIN_FRAD, CFTYP_QIN_FLAT,      &
                   CFTYP_SHGC, CFTYP_U_WIN, CFTYP_GR,              &
                   CFTYP_SHGC_SH, CFTYP_INF, CFTYP_V_VENT,         &
                   CFTYP_CAP_SYS_HEAT,                             &

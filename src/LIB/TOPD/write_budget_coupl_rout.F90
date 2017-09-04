@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !
 !     ##########################
@@ -10,8 +10,8 @@
 !!
 !!    PURPOSE
 !!    -------
-!        
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -21,11 +21,11 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    REFERENCE
 !!    ---------
-!!     
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -34,7 +34,7 @@
 !!    MODIFICATIONS
 !!    -------------
 !!
-!!      Original  03/2008 
+!!      Original  03/2008
 !!                03/2014 (B. Vincendon) add new control variables
 !-------------------------------------------------------------------------------
 !
@@ -87,11 +87,11 @@ DO JCAT=1,NNCAT
   ENDDO
   !
   CALL CLOSE_FILE('ASCII ',NUNIT)
-  ! 
+  !
   YFILE=TRIM('bilan_nobv_')//TRIM(CCAT(JCAT))//TRIM('.txt')
   !
   CALL OPEN_FILE('ASCII ',NUNIT,HFILE=YFILE,HFORM='FORMATTED',HACTION='WRITE')
-  ! 
+  !
   WRITE(NUNIT,*) '     T','         ',YB_VAR(1),'         ',YB_VAR(2),'         ',&
                                       YB_VAR(3),'         ',YB_VAR(4),'         ',&
                                       YB_VAR(5),'         ',YB_VAR(6),'         ',&
@@ -114,13 +114,13 @@ DO JCAT=1,NNCAT
   WRITE(NUNIT,*) '     T','         ',YB_VARQ(1),'         ',YB_VARQ(2),'         ',&
                                       YB_VARQ(3),'         ',YB_VARQ(4),'         ',&
                                       YB_VARQ(5),'         '
-  ! 
+  !
   DO JSTP=1,NNB_TOPD_STEP
     WRITE(NUNIT,YFORM) JSTP,XB_VAR_Q(JSTP,JCAT,1:5)
   ENDDO
   !
   CALL CLOSE_FILE('ASCII ',NUNIT)
-!  ENDIF 
+!  ENDIF
   !
 ENDDO !JCAT
 
@@ -128,7 +128,7 @@ YFORM='(i6,12f15.1)'
 YFILE=TRIM('bilan_tot.txt')
 !
  CALL OPEN_FILE('ASCII ',NUNIT,HFILE=YFILE,HFORM='FORMATTED',HACTION='WRITE')
-!   
+!
 WRITE(NUNIT,*) '     T','         ',YB_VAR(1),'         ',YB_VAR(2),'         ',&
                                     YB_VAR(3),'         ',YB_VAR(4),'         ',&
                                     YB_VAR(5),'         ',YB_VAR(6),'         ',&

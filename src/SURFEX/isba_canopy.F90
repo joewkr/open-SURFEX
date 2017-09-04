@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE ISBA_CANOPY (PCDRAG, KI, SB, PHEIGHT, PCANOPY_DENSITY, PUW_GROUND, PDUWDU_GROUND, &
-                        PFORC_U, PDFORC_UDU, PFORC_E, PDFORC_EDE)  
+                        PFORC_U, PDFORC_UDU, PFORC_E, PDFORC_EDE)
 !     ###############################################################################
 !
 !!****  *ISBA_CANOPY_n * - prepares forcing for canopy air model
@@ -17,11 +17,11 @@ SUBROUTINE ISBA_CANOPY (PCDRAG, KI, SB, PHEIGHT, PCANOPY_DENSITY, PUW_GROUND, PD
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -63,7 +63,7 @@ REAL, DIMENSION(KI,SB%NLVL), INTENT(OUT)   :: PDFORC_EDE! formal derivative of t
 !*      0.2    declarations of local variables
 !
 INTEGER                  :: JLAYER, JJ    ! loop counter on canopy heights
-!         
+!
 REAL, DIMENSION(KI,SB%NLVL) :: ZCDRAG    ! drag coefficient in canopy
 REAL, DIMENSION(KI,SB%NLVL) :: ZDENSITY  ! vegetation density for each canopy level
 REAL, DIMENSION(KI,SB%NLVL) :: ZSV       ! vertical surface for each canopy level
@@ -77,7 +77,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !              -------------------------------------------
 !
 !
-!*      1.1    Proportion of leaves for each canopy level 
+!*      1.1    Proportion of leaves for each canopy level
 !             (parabolic shape, maximum at mid canopy height, with the same
 !             total LAI on the canopy)
 !

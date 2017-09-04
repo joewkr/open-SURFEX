@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE GET_PREP_INTERP(KNP_IN,KNP_OUT,PVEGTYPE,PPATCH_IN,PPATCH_OUT,KMASK_IN)
 !
@@ -36,7 +36,7 @@ ELSE
     IMASK_IN(JI,:) = JI
   ENDDO
 ENDIF
-! 
+!
 ZPATCH_OUT(:,:) = 0.
 !
 ! if NPATCH (in) == NVEGTYPE, the arrays of patches is this of vegtypes
@@ -65,9 +65,9 @@ ELSEIF (KNP_IN==KNP_OUT) THEN
 ! less patches before than after
 ELSEIF (KNP_IN<KNP_OUT) THEN
   !
-  ! to which input patch contributes each output patch?  
+  ! to which input patch contributes each output patch?
   DO JP = 1,KNP_OUT
-    ! which vegtype is in this output patch? 
+    ! which vegtype is in this output patch?
     DO JVEG = 1,NVEGTYPE
       ! output patch in which is this vegtype
       IP_O = VEGTYPE_TO_PATCH(JVEG,KNP_OUT)
@@ -91,9 +91,9 @@ ELSEIF (KNP_IN<KNP_OUT) THEN
 ! more patches before than after
 ELSEIF (KNP_IN>KNP_OUT) THEN
   !
-  ! for each input patch, what is the corresponding output patch? 
+  ! for each input patch, what is the corresponding output patch?
   DO JP = 1,KNP_IN
-    ! which vegtype is in this output patch? 
+    ! which vegtype is in this output patch?
     DO JVEG = 1,NVEGTYPE
       ! input patch in which is this vegtype
       IP_I = VEGTYPE_TO_PATCH(JVEG,KNP_IN)

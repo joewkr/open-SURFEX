@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
        SUBROUTINE FORCING_VERT_SHIFT(PZS_ATM,PZS_SURF,PTA_ATM,PQA_ATM,PPA_ATM, &
                                      PRHOA_ATM,PLW_ATM,PRAIN_ATM,PSNOW_ATM,    &
                                      PTA_SURF,PQA_SURF,PPA_SURF,PRHOA_SURF,    &
-                                     PLW_SURF,PRAIN_SURF,PSNOW_SURF            )  
+                                     PLW_SURF,PRAIN_SURF,PSNOW_SURF            )
 !      #########################################
 !
 !
@@ -18,7 +18,7 @@
 !
 !!**   METHOD
 !!     ------
-!!                      
+!!
 !!     EXTERNAL
 !!     --------
 !!
@@ -33,11 +33,11 @@
 !!     AUTHOR
 !!     ------
 !!       V. Masson
-!! 
+!!
 !!     MODIFICATIONS
 !!     -------------
 !!       Original        07/2003
-!!       B. Decharme     06/2013 bug : qa_surf must be <= qsat_surf 
+!!       B. Decharme     06/2013 bug : qa_surf must be <= qsat_surf
 !!                               add longwave raditions and rain snow partition
 !! ---------------------------------------------------------------------
 !
@@ -114,7 +114,7 @@ ZQSAT_ATM (:) = QSAT(PTA_ATM (:),PPA_ATM (:))
 ZQA_ATM(:) = MIN(PQA_ATM(:)/PRHOA_ATM(:),ZQSAT_ATM(:))
 !
 PPA_SURF(:) = PPA_ATM(:) * EXP ( - XG/XRD/(0.5*(PTA_ATM(:)+PTA_SURF(:))*(1.+((XRV/XRD)-1.)*ZQA_ATM(:))) &
-                              * (PZS_SURF(:)-PZS_ATM(:))                                              )  
+                              * (PZS_SURF(:)-PZS_ATM(:))                                              )
 !
 !-------------------------------------------------------------------------------
 !
@@ -149,7 +149,7 @@ PQA_SURF(:) = ZQA_SURF(:) * PRHOA_SURF(:)
 !            -----------------------
 !
 IF(LVSHIFT_LW)THEN
-!        
+!
 ! Vapour pressures and emissivities (Cosgrove et al., JGR, 2003)
 !
   ZVAP_ATM (:) = ZQA_ATM (:) * PPA_ATM(:)  / ZVAPCOEF

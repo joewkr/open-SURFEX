@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ####################
       MODULE MODD_SSO_n
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -37,7 +37,7 @@ USE PARKIND1  ,ONLY : JPRB
 !
 IMPLICIT NONE
 !
-! utilisé uniquement tel quel. 
+! utilisé uniquement tel quel.
 TYPE SSO_t
 !
 !-----------------------------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ TYPE SSO_t
 !
   REAL, DIMENSION(:), POINTER   :: XSSO_SLOPE         ! slope of S.S.O.
   REAL, DIMENSION(:), POINTER   :: XSSO_ANIS          ! anisotropy of S.S.O.
-  REAL, DIMENSION(:), POINTER   :: XSSO_DIR           ! direction of S.S.O. (deg from N clockwise) 
+  REAL, DIMENSION(:), POINTER   :: XSSO_DIR           ! direction of S.S.O. (deg from N clockwise)
   REAL, DIMENSION(:), POINTER   :: XSSO_STDEV         ! S.S.O. standard deviation           (m)
 !
   REAL, DIMENSION(:), POINTER   :: XAVG_ZS        ! averaged orography                      (m)
@@ -63,7 +63,7 @@ TYPE SSO_t
   REAL, DIMENSION(:), POINTER   :: XMIN_ZS        ! minimum subgrid orography               (m)
 ! Zo threshold
   REAL   :: XFRACZ0                                ! Z0=Min(Z0, Href/XFRACZ0)
-  REAL   :: XCOEFBE                                ! Beljaars coefficient         
+  REAL   :: XCOEFBE                                ! Beljaars coefficient
 !
 !-----------------------------------------------------------------------------------------------------
 !
@@ -81,7 +81,7 @@ TYPE SSO_t
 !
   REAL, DIMENSION(:), POINTER   :: XZ0REL         ! relief roughness length     (m)
 !
-! utilisé par l'atmosphère 
+! utilisé par l'atmosphère
 !
   REAL, DIMENSION(:), POINTER :: XZ0EFFIP, XZ0EFFIM, XZ0EFFJP, XZ0EFFJM
 ! directional total roughness lenghts in 4 coordinate directions
@@ -103,7 +103,7 @@ SUBROUTINE SSO_INIT(YSSO)
 TYPE(SSO_t), INTENT(INOUT) :: YSSO
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK("MODD_SSO_N:SSO_INIT",0,ZHOOK_HANDLE)
-  NULLIFY(YSSO%XZ0EFFJPDIR)  
+  NULLIFY(YSSO%XZ0EFFJPDIR)
   NULLIFY(YSSO%XSSO_SLOPE)
   NULLIFY(YSSO%XSSO_ANIS)
   NULLIFY(YSSO%XSSO_DIR)
@@ -126,7 +126,7 @@ IF (LHOOK) CALL DR_HOOK("MODD_SSO_N:SSO_INIT",0,ZHOOK_HANDLE)
   NULLIFY(YSSO%XZ0EFFIM)
   NULLIFY(YSSO%XZ0EFFJP)
   NULLIFY(YSSO%XZ0EFFJM)
-  
+
 YSSO%CROUGH=' '
 YSSO%XFRACZ0=2.
 YSSO%XCOEFBE=2.
@@ -143,7 +143,7 @@ IF (LHOOK) CALL DR_HOOK("MODD_SSO_N:SSO_NP_INIT",0,ZHOOK_HANDLE)
 IF (ASSOCIATED(YSSO_NP%AL)) THEN
   DO JP = 1,KPATCH
     CALL SSO_INIT(YSSO_NP%AL(JP))
-  ENDDO        
+  ENDDO
   DEALLOCATE(YSSO_NP%AL)
 ELSE
   ALLOCATE(YSSO_NP%AL(KPATCH))

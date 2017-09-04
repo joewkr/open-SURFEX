@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
-SUBROUTINE INIT_ISBA_LANDUSE (DTCO, UG, U, IO, NK, NP, NPE, PMESH_SIZE, HPROGRAM)  
+SUBROUTINE INIT_ISBA_LANDUSE (DTCO, UG, U, IO, NK, NP, NPE, PMESH_SIZE, HPROGRAM)
 !#############################################################
 !
 !!****  *INIT_ISBA_LANDUSE* - routine to initialize land use for ISBA field
@@ -12,7 +12,7 @@ SUBROUTINE INIT_ISBA_LANDUSE (DTCO, UG, U, IO, NK, NP, NPE, PMESH_SIZE, HPROGRAM
 !!    -------
 !     Extrapolation from existing surounding cells with same patch properties:
 !!      (1) IPTS=n  interpol field with n pts
-!!      (2) IPTS=0  conserve cells mass  
+!!      (2) IPTS=0  conserve cells mass
 !!   Case 2 : simple extrapolation based on the inside cell informations.
 !!             this is donne before conserving cell or global mass
 !!
@@ -51,7 +51,7 @@ USE MODD_ISBA_OPTIONS_n, ONLY : ISBA_OPTIONS_t
 USE MODD_ISBA_n, ONLY : ISBA_NK_t, ISBA_NP_t, ISBA_NPE_t, ISBA_P_t, ISBA_PE_t
 !
 USE MODD_TYPE_SNOW
-USE MODD_SURF_PAR,ONLY : XUNDEF                 
+USE MODD_SURF_PAR,ONLY : XUNDEF
 !
 USE MODD_SURFEX_MPI, ONLY : NPROC, NCOMM
 !
@@ -159,7 +159,7 @@ END DO
  CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH, HPROGRAM,ILUOUT,'ALBSNOW ', 0)
 !
 IF (NPE%AL(1)%TSNOW%SCHEME=='1-L'  .OR. NPE%AL(1)%TSNOW%SCHEME=='3-L' .OR. NPE%AL(1)%TSNOW%SCHEME=='CRO') THEN
-  CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'EMISSNOW', 0)    
+  CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'EMISSNOW', 0)
   CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'TSSNOW  ', 0)
 ENDIF
 !
@@ -167,9 +167,9 @@ DO JLAYER=1,NPE%AL(1)%TSNOW%NLAYER
   !
   CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'WSNOW   ', 0, JLAYER)
   !
-  IF (NPE%AL(1)%TSNOW%SCHEME=='3-L' .OR. NPE%AL(1)%TSNOW%SCHEME=='CRO') THEN            
+  IF (NPE%AL(1)%TSNOW%SCHEME=='3-L' .OR. NPE%AL(1)%TSNOW%SCHEME=='CRO') THEN
     CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'TEMPSNOW',0, JLAYER)
-    CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'HEATSNOW', 0, JLAYER)     
+    CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'HEATSNOW', 0, JLAYER)
     CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'AGESNOW ', 0, JLAYER)
   ENDIF
   !
@@ -208,13 +208,13 @@ DO JP = 1,IO%NPATCH
       ZZDG    (1:ISIZE,JLAYER,JP) = PK%XDG    (:,JLAYER)-PK%XDG    (:,JLAYER-1)
       ZZDG_OLD(1:ISIZE,JLAYER,JP) = PK%XDG_OLD(:,JLAYER)-PK%XDG_OLD(:,JLAYER-1)
     ENDDO
-  ELSE     
+  ELSE
     ZZDG    (:,2,JP) = PK%XDG    (:,2)
     ZZDG_OLD(:,2,JP) = PK%XDG_OLD(:,2)
     IF(IO%CISBA=='3-L' )THEN
       ZZDG    (:,3,JP) = PK%XDG    (:,3)-PK%XDG    (:,2)
       ZZDG_OLD(:,3,JP) = PK%XDG_OLD(:,3)-PK%XDG_OLD(:,2)
-    ENDIF 
+    ENDIF
   ENDIF
 ENDDO
 !
@@ -233,7 +233,7 @@ ENDDO
 DEALLOCATE(ZWG_OLD,ZZDG,ZZDG_OLD,ZWGI_OLD)
 !
 !-------------------------------------------------------------------------------
-! Extrapolation with 3 pts 
+! Extrapolation with 3 pts
 !-------------------------------------------------------------------------------
 !
  CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'RESA    ', 3, JLAYER)
@@ -245,7 +245,7 @@ ENDDO
 IF (IO%CPHOTO/='NON') THEN
   !
   CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'AN      ', 3)
-  CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'ANDAY   ', 3)   
+  CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'ANDAY   ', 3)
   CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'ANFM    ', 3)
   CALL INI_VAR_FROM_PATCH(DTCO, UG, U, NP, NPE, IO%NPATCH,HPROGRAM,ILUOUT,'LE      ', 3)
   !
@@ -272,7 +272,7 @@ IF (IO%CPHOTO/='NON') THEN
 ENDIF
 !
 !-------------------------------------------------------------------------------
-!  
+!
 IF (LHOOK) CALL DR_HOOK('INIT_ISBA_LANDUSE',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_ISBA_LANDUSE

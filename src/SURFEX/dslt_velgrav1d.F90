@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE DSLT_VELGRAV1D(PSIG, PRG, PTA, PRHODREF, PRHOP, &
@@ -32,7 +32,7 @@ SUBROUTINE DSLT_VELGRAV1D(PSIG, PRG, PTA, PRHODREF, PRHOP, &
 !
 !*************************************************************
 ! Variables used during the deposition velocity calculation
-! 
+!
 ! PDPK       -Polydisperse diffusivity (m2/s)
 ! PVGK       -Polydisperse settling velocity of the kth moment (m/s)
 !************************************************************
@@ -76,8 +76,8 @@ ZLAMBDA(:)=PMU(:)/PRHODREF(:) * SQRT(1.89d-4*ZGASMW/PTA(:))*1.e6
 
 DO II = 1,SIZE(PRG,2)
 
-  ZRG  (:) = PRG(:,II) * 1E-6 
-  ZLN2S(:) = LOG(PSIG(:,II))**2 
+  ZRG  (:) = PRG(:,II) * 1E-6
+  ZLN2S(:) = LOG(PSIG(:,II))**2
   !
   ZKNG (:) = ZLAMBDA(:) / PRG(:,II)
   !
@@ -87,18 +87,18 @@ DO II = 1,SIZE(PRG,2)
   DO IJ = 0,2
     !
     ZK = REAL(3*IJ)
-   
+
     PDPK(:,3*II+IJ-2) = PDPG(:,II) * &
                         (EXP((-2.*ZK+1.)/2.*ZLN2S(:)) + &
-                        1.246*ZKNG(:) * EXP((-4.*ZK+4)/2.*ZLN2S(:)))  
+                        1.246*ZKNG(:) * EXP((-4.*ZK+4)/2.*ZLN2S(:)))
 
     PVGK(:,3*II+IJ-2) = PVGG(:,II) * &
                         (EXP((4.*ZK+4.)/2.*ZLN2S(:)) + &
-                        1.246*ZKNG(:)* EXP((2.*ZK+1.)/2.*ZLN2S(:)))  
+                        1.246*ZKNG(:)* EXP((2.*ZK+1.)/2.*ZLN2S(:)))
   ENDDO
 
 ENDDO
 IF (LHOOK) CALL DR_HOOK('DSLT_VELGRAV1D',1,ZHOOK_HANDLE)
- 
+
 
 END SUBROUTINE DSLT_VELGRAV1D

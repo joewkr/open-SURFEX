@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE TREAT_FIELD (UG, U, USS, &
                               HPROGRAM,HSCHEME,HFILETYPE,    &
                               HSUBROUTINE,HFILENAME,HFIELD,   &
-                              PPGDARRAY            )  
+                              PPGDARRAY            )
 !     ##############################################################
 !
 !!**** *TREAT_FIELD* chooses which treatment subroutine to use
@@ -16,7 +16,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -37,7 +37,7 @@
 !!    Original    11/09/95
 !!
 !!    Modification
-!!    25/05/96    (V. Masson) remove useless case for HSUBROUTINE   
+!!    25/05/96    (V. Masson) remove useless case for HSUBROUTINE
 !!    29/11/2002  (D. Gazen)  add HSFTYPE argument + call to read_binllvfast routine
 !!    03/2004     (V. MAsson) externalization
 !!    04/2009     (B. Decharme) Special treatement for gaussian grid
@@ -59,14 +59,14 @@ USE MODD_SSO_n, ONLY : SSO_t
 USE MODD_SURF_PAR, ONLY : XUNDEF
 USE MODD_PGDWORK, ONLY : NSIZE, NSIZE_ALL, XALL, NSSO_ALL, XSSO_ALL, &
                          XSUMVAL, XEXT_ALL, CATYPE, &
-                         XSSQO, LSSQO, NSSO, XMIN_WORK, XMAX_WORK, & 
+                         XSSQO, LSSQO, NSSO, XMIN_WORK, XMAX_WORK, &
                          NVALNBR, NVALCOUNT, XVALLIST, JPVALMAX
 !
 USE MODD_SURFEX_OMP, ONLY : NBLOCKTOT
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NPROC, NCOMM, NREQ, NINDEX, IDX_R, &
                                 NSIZE_TASK,NREQ, NSIZE_max=>NSIZE
 !
-USE MODD_DATA_LAKE,      ONLY : NGRADDEPTH_LDB, NGRADSTATUS_LDB 
+USE MODD_DATA_LAKE,      ONLY : NGRADDEPTH_LDB, NGRADSTATUS_LDB
 USE MODD_DATA_COVER_PAR, ONLY : JPCOVER
 !
 USE MODI_INI_SSOWORK
@@ -211,7 +211,7 @@ IF (NPROC>1) THEN
     !
     IF (LHOOK) CALL DR_HOOK('TREAT_FIELD_21',1,ZHOOK_HANDLE)
     !
-!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP) 
+!$OMP PARALLEL PRIVATE(ZHOOK_HANDLE_OMP)
     IF (LHOOK) CALL DR_HOOK('TREAT_FIELD_22',0,ZHOOK_HANDLE_OMP)
 !$OMP DO SCHEDULE(DYNAMIC,1) PRIVATE(JP,ICPT,JI,IREQ,INFOMPI)
     DO JP=0,NPROC-1
@@ -228,7 +228,7 @@ IF (NPROC>1) THEN
         ELSE
           IREQ = JP
         ENDIF
-#ifdef SFX_MPI        
+#ifdef SFX_MPI
         CALL MPI_ISEND(ISIZE(:,:,JP+1),SIZE(ISIZE,1)*SIZE(ISIZE,2)*KIND(ISIZE)/4,&
                              MPI_INTEGER,JP,IDX,NCOMM,NREQ(IREQ),INFOMPI)
 #endif
@@ -248,7 +248,7 @@ IF (NPROC>1) THEN
       !
       IF (JP/=NRANK) THEN
         !each task receives each ISIZE from each task
-#ifdef SFX_MPI        
+#ifdef SFX_MPI
         CALL MPI_RECV(ISIZE0,NSIZE_max*SIZE(ISIZE0,2)*KIND(ISIZE0)/4,MPI_INTEGER,&
                       JP,IDX_SAVE+1+JP,NCOMM,ISTATUS,INFOMPI)
 #endif
@@ -268,7 +268,7 @@ IF (NPROC>1) THEN
       NSIZE(:,:) = NSIZE(:,:) + ISIZE0(1:NSIZE_TASK(NRANK),:)
       !
     ENDDO
-#ifdef SFX_MPI    
+#ifdef SFX_MPI
     CALL MPI_WAITALL(NPROC-1,NREQ(1:NPROC-1),ISTATUS2,INFOMPI)
 #endif
     !
@@ -308,7 +308,7 @@ ELSEIF (HSUBROUTINE=='A_LDBD') THEN
 ELSEIF (HSUBROUTINE=='A_OROG') THEN
   IS2 = 2
 ELSEIF (HSUBROUTINE=='A_CTI ') THEN
-  IS2 = 3 
+  IS2 = 3
 ENDIF
 !
 !
@@ -331,8 +331,8 @@ SELECT CASE (HSUBROUTINE)
       ENDIF
     ENDDO
     !
-    !because each task did not necessarily meet the same number of coves, itcov 
-    !contains the numbers of covers met for all tasks 
+    !because each task did not necessarily meet the same number of coves, itcov
+    !contains the numbers of covers met for all tasks
     IF (NPROC>1) THEN
 #ifdef SFX_MPI
     CALL MPI_ALLGATHER(IS2,KIND(IS2)/4,MPI_INTEGER,&
@@ -343,14 +343,14 @@ SELECT CASE (HSUBROUTINE)
     ENDIF
     !
     !XSUMVAL needs to contain the numbers of times each cover is encountered
-    !for the current task 
+    !for the current task
     ALLOCATE(XSUMVAL(U%NSIZE_FULL,COUNT(U%LCOVER)))
     XSUMVAL(:,:) = 0.
     !
     IF (NPROC>1) THEN
       ALLOCATE(ZVAL(U%NSIZE_FULL,MAXVAL(ITCOV),2))
       DO JP = 0,NPROC-1
-        !the part of XALL concerning the current task is sent 
+        !the part of XALL concerning the current task is sent
         !from each other task
         CALL READ_AND_SEND_MPI(XALL,ZVAL(:,1:ITCOV(JP),:),KPIO=JP)
         DO JL = 1,ITCOV(JP)
@@ -380,7 +380,7 @@ SELECT CASE (HSUBROUTINE)
   CASE ('A_LDBD','A_LDBS','A_OROG','A_CTI ')
     !
     !XSUMVAL needs to contain the numbers of times each quantity is encountered
-    !for the current task    
+    !for the current task
     ALLOCATE(XSUMVAL(U%NSIZE_FULL,IS2))
     XSUMVAL(:,:) = 0.
     IF (NPROC>1) THEN
@@ -412,7 +412,7 @@ SELECT CASE (HSUBROUTINE)
           DO JP = 0,NPROC-1
             CALL READ_AND_SEND_MPI(XEXT_ALL(:,2),ZEXTVAL(:,1),KPIO=JP)
             XMIN_WORK(:) = MIN(XMIN_WORK,ZEXTVAL(:,1))
-          ENDDO   
+          ENDDO
           DEALLOCATE(ZEXTVAL)
         ELSE
           XMAX_WORK(:) = XEXT_ALL(:,1)
@@ -426,18 +426,18 @@ SELECT CASE (HSUBROUTINE)
           DO JP = 0,NPROC-1
             CALL READ_AND_SEND_MPI(XEXT_ALL(:,1),ZEXTVAL(:,1),KPIO=JP)
             USS%XMAX_ZS(:) = MAX(USS%XMAX_ZS,ZEXTVAL(:,1))
-          ENDDO 
+          ENDDO
           DO JP = 0,NPROC-1
             CALL READ_AND_SEND_MPI(XEXT_ALL(:,2),ZEXTVAL(:,1),KPIO=JP)
             USS%XMIN_ZS(:) = MIN(USS%XMIN_ZS,ZEXTVAL(:,1))
-          ENDDO   
+          ENDDO
           DEALLOCATE(ZEXTVAL)
         ELSE
           USS%XMAX_ZS(:) = XEXT_ALL(:,1)
           USS%XMIN_ZS(:) = XEXT_ALL(:,2)
         ENDIF
         !
-        !sso fields   
+        !sso fields
         ALLOCATE(XSSQO(U%NSIZE_FULL,NSSO,NSSO))
         XSSQO(:,:,:) = -XUNDEF
         IF (NPROC>1) THEN
@@ -455,8 +455,8 @@ SELECT CASE (HSUBROUTINE)
         ALLOCATE(LSSQO(U%NSIZE_FULL,NSSO,NSSO))
         LSSQO(:,:,:) = .FALSE.
         IF (NPROC>1) THEN
-          ALLOCATE(I3D_ALL(U%NSIZE_FULL,NSSO,NSSO)) 
-          DO JP = 0,NPROC-1       
+          ALLOCATE(I3D_ALL(U%NSIZE_FULL,NSSO,NSSO))
+          DO JP = 0,NPROC-1
             CALL READ_AND_SEND_MPI(NSSO_ALL,I3D_ALL,KPIO=JP)
             WHERE (I3D_ALL(:,:,:)==1) LSSQO(:,:,:) = .TRUE.
           ENDDO
@@ -553,7 +553,7 @@ SELECT CASE (HSUBROUTINE)
 
   CASE ('A_LDBS')
     CALL AVERAGE2_LDB(PPGDARRAY(:,1),'S',1)
-    
+
   CASE ('A_MESH')
     IF (.NOT. PRESENT(PPGDARRAY)) THEN
       WRITE(ILUOUT,*) 'You asked to average a PGD field with A_MESH option,'

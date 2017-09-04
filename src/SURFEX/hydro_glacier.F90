@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE HYDRO_GLACIER (PTSTEP, PSR, PEK, PICEFLUX)
 !     ########################################################################
 !
-!!****  *HYDRO_GLACIER*  
+!!****  *HYDRO_GLACIER*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculate the ice runoff fluxes over permanent snow area with LGLACIER
 !     option
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -27,17 +27,17 @@
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
-!!      B. Decharme     
+!!      B. Decharme
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    09/09 
+!!      Original    09/09
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -123,14 +123,14 @@ ZSTOMAX(:) = ZSR(:)*PTSTEP+ZGLASTO(:)
 !
 PEK%XICE_STO(:) = MIN(ZSTOMAX(:),PEK%XICE_STO(:))
 !
-!Ice flux calculation                
+!Ice flux calculation
 !
 ZFLUX(:) = (ZGLASTO(:)-PEK%XICE_STO(:))/PTSTEP+ZSR(:)
-!      
+!
 !supress numerical artifacs
 !
 PICEFLUX(:) = MAX(0.0,ZFLUX(:))
-PEK%XICE_STO(:) = PEK%XICE_STO(:) + PICEFLUX(:)-ZFLUX(:)             
+PEK%XICE_STO(:) = PEK%XICE_STO(:) + PICEFLUX(:)-ZFLUX(:)
 !
 WHERE(PEK%XICE_STO(:)<=1.E-10)PEK%XICE_STO(:)=0.0
 !

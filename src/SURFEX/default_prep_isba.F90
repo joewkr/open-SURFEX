@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE DEFAULT_PREP_ISBA
@@ -31,8 +31,8 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
-!!      Modified    03/2007   P. Le Moigne 
+!!      Original    01/2004
+!!      Modified    03/2007   P. Le Moigne
 !!      MEB         10/2014   P. Samuelsson
 !-------------------------------------------------------------------------------
 !
@@ -113,7 +113,7 @@ LEXTRAP_TG   = .FALSE.
 LEXTRAP_WG   = .FALSE.
 LEXTRAP_WGI  = .FALSE.
 LEXTRAP_SN   = .FALSE.
- 
+
 IF (LHOOK) CALL DR_HOOK('DEFAULT_PREP_ISBA',1,ZHOOK_HANDLE)
 
 !-------------------------------------------------------------------------------

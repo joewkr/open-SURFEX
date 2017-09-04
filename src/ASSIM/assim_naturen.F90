@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE ASSIM_NATURE_n (IM, U, HPROGRAM, KI, &
                           PCON_RAIN, PSTRAT_RAIN, PCON_SNOW, PSTRAT_SNOW, &
-                          PCLOUDS,   PLSM,        PEVAPTR,   PEVAP,       & 
+                          PCLOUDS,   PLSM,        PEVAPTR,   PEVAP,       &
                           PSWEC,     PTSC,   PUCLS, PVCLS,                &
                           PTS,       PT2M,        PHU2M,     PSWE,        &
                           HTEST, OD_MASKEXT, PLON, PLAT)
 
 !     ###############################################################################
 !
-!!****  *ASSIM_NATURE_n * - Chooses the surface assimilation schemes for natural continental parts  
+!!****  *ASSIM_NATURE_n * - Chooses the surface assimilation schemes for natural continental parts
 !!
 !!    PURPOSE
 !!    -------
@@ -22,7 +22,7 @@ SUBROUTINE ASSIM_NATURE_n (IM, U, HPROGRAM, KI, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------

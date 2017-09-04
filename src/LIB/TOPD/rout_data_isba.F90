@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #####################
       SUBROUTINE ROUT_DATA_ISBA (DEC, DC, DMI, PMESH_SIZE, IO, NP, NPE, UG, U, HPROGRAM,KI,KSTEP)
 !     #####################
 !
-!!****  *ROUT_DATA_ISBA*  
+!!****  *ROUT_DATA_ISBA*
 !!
 !!    PURPOSE
 !!    -------
 !
 !    Routes runoff and drainage of ISBA with coupling with Topmodel
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,17 +24,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -93,11 +93,11 @@ TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 !
  CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! program calling surf. schemes
 INTEGER, INTENT(IN)          :: KI     ! Grid dimensions
-INTEGER, INTENT(IN)          :: KSTEP  ! current time step 
+INTEGER, INTENT(IN)          :: KSTEP  ! current time step
 !
 !*      0.2    declarations of local variables
 !
-INTEGER                       :: JJ,JI  ! loop control 
+INTEGER                       :: JJ,JI  ! loop control
 INTEGER                       :: ILUOUT      ! unit number of listing file
  CHARACTER(LEN=30)             :: YVAR
 REAL, DIMENSION(KI)           :: ZRUNOFFC_FULL  ! Cumulated runoff from isba on the full domain (kg/m2)

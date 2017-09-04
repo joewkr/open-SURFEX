@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########
 SUBROUTINE SFX_OASIS_END
@@ -44,7 +44,7 @@ USE MODD_SFX_OASIS, ONLY : LOASIS
 #endif
 !
 #ifdef WXIOS
-USE MODD_XIOS , ONLY : LXIOS 
+USE MODD_XIOS , ONLY : LXIOS
 USE XIOS, ONLY : XIOS_FINALIZE
 #endif
 !
@@ -64,9 +64,9 @@ INTEGER                    :: IERR   ! Error info
 !-------------------------------------------------------------------------------
 !
 #ifdef WXIOS
-IF (LXIOS) THEN 
+IF (LXIOS) THEN
 ! XIOS will finalize Oasis if needed
-   CALL XIOS_FINALIZE() 
+   CALL XIOS_FINALIZE()
 ENDIF
 #endif
 !

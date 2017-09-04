@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
       SUBROUTINE INIT_TOPD_OL(HPROGRAM)
 !     #######################
 !
-!!****  *INIT_TOPD_OL*  
+!!****  *INIT_TOPD_OL*
 !!
 !!    PURPOSE
 !!    -------
-!     This routine aims at initialising the variables 
+!     This routine aims at initialising the variables
 !     needed of running Topmodel for OFFLINE step.
-!              
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -24,18 +24,18 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
-!!    AUTHOR 
+!!
+!!
+!!    AUTHOR
 !!    ------
 !!
 !!      B. Vincendon    * Meteo-France *
@@ -85,7 +85,7 @@ IMPLICIT NONE
 !*      0.2    declarations of local variables
 !
 !
-INTEGER                   :: JI,JJ,JCAT,JO ! loop control 
+INTEGER                   :: JI,JJ,JCAT,JO ! loop control
 INTEGER                   :: IOVER                  ! Unit of the files
 INTEGER                   :: ILUOUT                 ! Unit of the files
 INTEGER                   :: IOS
@@ -132,7 +132,7 @@ CALL INIT_TOPD('ASCII ')
       WHERE ( XDGRD(JCAT,1:NNMC(JCAT))/=XUNDEF .AND. XDRIV(JCAT,1:NNMC(JCAT))/=XUNDEF ) &
         XTIME_TOPD_DRAIN(JCAT,1:NNMC(JCAT)) = XDGRD(JCAT,1:NNMC(JCAT)) / XSPEEDG(JCAT) + &
                                               XDRIV(JCAT,1:NNMC(JCAT)) / XSPEEDR(JCAT)
-    ELSE 
+    ELSE
       WRITE(ILUOUT,*) 'You have to choose some values for routing velocities'
     ENDIF
     !

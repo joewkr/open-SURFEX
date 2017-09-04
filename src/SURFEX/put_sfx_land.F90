@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PUT_SFX_LAND (IO, S, K, NK, NP, U, &
                                KLUOUT,OCPL_WTD,OCPL_FLOOD, &
-                              PWTD,PFWTD,PFFLOOD,PPIFLOOD )  
+                              PWTD,PFWTD,PFFLOOD,PPIFLOOD )
 !     #####################################################
 !
 !!****  *PUT_SFX_LAND* - routine to put some land surface variables to surfex
@@ -100,14 +100,14 @@ ENDIF
 !              ------------------------
 !
 IF(OCPL_WTD)THEN
-!    
+!
   K%XWTD    (:) = XUNDEF
   K%XFWTD   (:) = XUNDEF
 !
   YCOMMENT='water table depth'
   CALL PACK_SAME_RANK(U%NR_NATURE(:),PWTD(:),K%XWTD(:))
   CALL CHECK_LAND(YCOMMENT,K%XWTD)
-!  
+!
   YCOMMENT='fraction of water table rise'
   CALL PACK_SAME_RANK(U%NR_NATURE(:),PFWTD(:),K%XFWTD(:))
   CALL CHECK_LAND(YCOMMENT,K%XFWTD)
@@ -122,7 +122,7 @@ IF(OCPL_WTD)THEN
     CALL PACK_SAME_RANK(PK%NR_P,K%XWTD,KK%XWTD)
     CALL PACK_SAME_RANK(PK%NR_P,K%XFWTD,KK%XFWTD)
   ENDDO
-!   
+!
 ENDIF
 !
 IF(OCPL_FLOOD)THEN
@@ -133,7 +133,7 @@ IF(OCPL_FLOOD)THEN
   YCOMMENT='Flood fraction'
   CALL PACK_SAME_RANK(U%NR_NATURE(:),PFFLOOD(:),K%XFFLOOD(:))
   CALL CHECK_LAND(YCOMMENT,K%XFFLOOD)
-!  
+!
   YCOMMENT='Potential flood infiltration'
   CALL PACK_SAME_RANK(U%NR_NATURE(:),PPIFLOOD(:),K%XPIFLOOD(:))
   CALL CHECK_LAND(YCOMMENT,K%XPIFLOOD)
@@ -176,7 +176,7 @@ IF (LHOOK) CALL DR_HOOK('PUT_SFX_LAND:CHECK_LAND',0,ZHOOK_HANDLE)
 IF(ANY(PFIELD(:)>=XUNDEF))THEN
   WRITE(KLUOUT,*)'PUT_SFX_LAND: problem after get '//TRIM(HCOMMENT)//' from OASIS'
   WRITE(KLUOUT,*)'PUT_SFX_LAND: some points not defined = ',COUNT(PFIELD(:)>=XUNDEF)
-  CALL ABOR1_SFX('PUT_SFX_LAND: problem after get '//TRIM(HCOMMENT)//' from OASIS')          
+  CALL ABOR1_SFX('PUT_SFX_LAND: problem after get '//TRIM(HCOMMENT)//' from OASIS')
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('PUT_SFX_LAND:CHECK_LAND',1,ZHOOK_HANDLE)

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_WRITE_SURF_NC
 !
@@ -77,7 +77,7 @@ YATT(1) = HCOMMENT
 IF (GFOUND .AND. LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_NC:WRITE_SURFX0_NC',1,ZHOOK_HANDLE)
 IF (GFOUND) RETURN
 !
-IF (NID_NC /= 0) THEN        
+IF (NID_NC /= 0) THEN
   ! 1. Define the variable
   !----------------------------
   IF (LDEF) THEN
@@ -157,12 +157,12 @@ IF (GFOUND) RETURN
 ! 0. find filename
 ! -----------------
 !
-IF (NID_NC /= 0) THEN    
+IF (NID_NC /= 0) THEN
   ! 1. Find id of the variable
   !----------------------------
   IF (LDEF) THEN
     CALL DEF_VAR_NETCDF(HSELECT, NID_NC, HREC, HREC, IDIMS, YATT_TITLE, YATT, IVAR_ID, NF90_INT)
-    ! 
+    !
     ! 2. Get variable
     !----------------------------
   ELSE
@@ -233,7 +233,7 @@ YATT(1) = HCOMMENT
 IF (GFOUND .AND. LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_NC:WRITE_SURFC0_NC',1,ZHOOK_HANDLE)
 IF (GFOUND) RETURN
 !
-IF (NID_NC /= 0) THEN 
+IF (NID_NC /= 0) THEN
   ! 1. Find id of the variable
   !----------------------------
   IF (LDEF) THEN
@@ -326,7 +326,7 @@ IF (GFOUND) RETURN
 YATT_TITLE(1) = "comment"
 YATT(1) = HCOMMENT
 !
-IF (NID_NC /= 0) THEN        
+IF (NID_NC /= 0) THEN
   !
   IF (LDEF) THEN
     CALL DEF_VAR_NETCDF(HSELECT, NID_NC, HREC, HREC, IDIMS, YATT_TITLE, YATT, IVAR_ID, NF90_CHAR)
@@ -357,8 +357,8 @@ END SUBROUTINE WRITE_SURFL0_NC
       SUBROUTINE WRITE_SURFX1_NC ( HSELECT, HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
 !     #############################################################
 !
-!!****  *WRITEX1* - routine to fill a real 1D array for the externalised surface 
-! 
+!!****  *WRITEX1* - routine to fill a real 1D array for the externalised surface
+!
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NPROC, NCOMM
 !
 !
@@ -393,7 +393,7 @@ INTEGER,             INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem 
                                             ! 'H' : field with
                                             !       horizontal spatial dim.
                                             ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM                                           
+ CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
 !*      0.2   Declarations of local variables
 !
 INTEGER :: IRET0
@@ -433,7 +433,7 @@ YNAME = ""
 IF (GFOUND .AND. LHOOK) CALL DR_HOOK("WRITE_SURF_NC:WRITE_SURFX1_NC",1,ZHOOK_HANDLE)
 IF (GFOUND) RETURN
 !
-IF (NRANK==NPIO) THEN 
+IF (NRANK==NPIO) THEN
   !
   IF (NID_NC /= 0) THEN
     !
@@ -464,21 +464,21 @@ IF (NRANK==NPIO) THEN
     INDIMS = 0
     IDIMIDS(:) = 0
     IDIMLEN(:) = 0
-    YNAME = ""    
+    YNAME = ""
   ENDIF
   !
 ELSE
   INDIMS = 0
   IDIMIDS(:) = 0
   IDIMLEN(:) = 0
-  YNAME = ""    
+  YNAME = ""
 ENDIF
 !
 #ifdef SFX_MPI
 IF (NPROC>1) THEN
   CALL MPI_BCAST(YNAME,LEN(YNAME),MPI_CHARACTER,NPIO,NCOMM,INFOMPI)
   CALL MPI_BCAST(INDIMS,KIND(INDIMS)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
-  CALL MPI_BCAST(IDIMLEN,KIND(IDIMLEN)*SIZE(IDIMLEN)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)  
+  CALL MPI_BCAST(IDIMLEN,KIND(IDIMLEN)*SIZE(IDIMLEN)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
 ENDIF
 #endif
 !
@@ -495,8 +495,8 @@ ELSE
   IF (LDEF) THEN
     IF (NRANK==NPIO) THEN
       CALL DEF_VAR_NETCDF( HSELECT, NID_NC, HREC, HREC, IDIMIDS(1:2), YATT_TITLE, YATT, IVAR_ID, NF90_DOUBLE)
-    ENDIF 
-  ELSE  
+    ENDIF
+  ELSE
     JRET = NF90_INQ_VARID(NID_NC,HREC,IVAR_ID)
     CALL WRITE_DATAX1_NC(IDIMLEN(1)*IDIMLEN(2),INDIMS)
   ENDIF
@@ -537,14 +537,14 @@ IF (HDIR=='-') THEN
 ELSEIF(.NOT.ALLOCATED(NMASK_IGN))THEN
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB1D,NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB1D)
   ENDIF
 ELSE
-  !ign grid 
+  !ign grid
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN)),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN)))
   ENDIF
   CALL UNPACK_SAME_RANK(NMASK_IGN,ZWORK_IGN(1:SIZE(NMASK_IGN)),ZTAB1D)
@@ -554,7 +554,7 @@ IF (NRANK==NPIO) THEN
   ISTART(:) = 1
   ICOUNT(:) = IDIMLEN(1:2)
   IRET(5)=NF90_PUT_VAR(NID_NC,IVAR_ID,ZTAB1D,ISTART,ICOUNT)
-  CALL HANDLE_ERR(IRET(5),HREC) 
+  CALL HANDLE_ERR(IRET(5),HREC)
 ENDIF
 
 !
@@ -568,7 +568,7 @@ END SUBROUTINE WRITE_SURFX1_NC
       SUBROUTINE WRITE_SURFX2_NC ( HSELECT, HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
 !     #############################################################
 !
-!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface 
+!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface
 !
 !
 !
@@ -606,7 +606,7 @@ INTEGER,              INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem
                                              ! 'H' : field with
                                              !       horizontal spatial dim.
                                              ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM                                              
+ CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
 !*      0.2   Declarations of local variables
 !
 INTEGER :: IRET0
@@ -649,8 +649,8 @@ ENDIF
 !
 IF (NRANK==NPIO) THEN
   !
-  IF (NID_NC /= 0) THEN 
-    !    
+  IF (NID_NC /= 0) THEN
+    !
     ! 0. find filename
     ! -----------------
     !
@@ -672,7 +672,7 @@ IF (NRANK==NPIO) THEN
       ENDIF
       IRET(4) = NF90_INQ_DIMID(NID_NC,TRIM(YNAM_DIM),IDIMIDS(3))
       IRET0=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(3),LEN=IDIMLEN(3))
-    ENDIF           
+    ENDIF
     DO JDIM=1,2
       IRET0=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
     ENDDO
@@ -694,7 +694,7 @@ ELSE
   INDIMS = 0
   IDIMIDS(:) = 0
   IDIMLEN(:) = SIZE(PFIELD,2)
-  YNAME = ""        
+  YNAME = ""
 ENDIF
 !
 #ifdef SFX_MPI
@@ -764,14 +764,14 @@ IF (HDIR=='-') THEN
 ELSEIF(.NOT.ALLOCATED(NMASK_IGN))THEN
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB2D(:,1:SIZE(PFIELD,2)),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB2D(:,1:SIZE(PFIELD,2)))
   ENDIF
 ELSE
-  !ign grid 
+  !ign grid
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN),:),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN),:))
   ENDIF
   CALL UNPACK_SAME_RANK(NMASK_IGN,ZWORK_IGN(1:SIZE(NMASK_IGN),:),ZTAB2D(:,1:SIZE(PFIELD,2)))
@@ -781,7 +781,7 @@ IF (NRANK==NPIO) THEN
   ISTART(:) = 1
   ICOUNT(:) = IDIMLEN(1:3)
   IRET(5)=NF90_PUT_VAR(NID_NC,IVAR_ID,ZTAB2D,ISTART,ICOUNT)
-  CALL HANDLE_ERR(IRET(5),HREC)  
+  CALL HANDLE_ERR(IRET(5),HREC)
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_NC:WRITE_SURFX2_NC:WRITE_DATAX2_NC',1,ZHOOK_HANDLE)
@@ -794,7 +794,7 @@ END SUBROUTINE WRITE_SURFX2_NC
       SUBROUTINE WRITE_SURFX3_NC ( HSELECT, HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
 !     #############################################################
 !
-!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface 
+!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface
 !
 !
 !
@@ -833,7 +833,7 @@ INTEGER,              INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem
                                              ! 'H' : field with
                                              !       horizontal spatial dim.
                                              ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM                                              
+ CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
 !*      0.2   Declarations of local variables
 !
 INTEGER :: IRET0
@@ -876,8 +876,8 @@ ENDIF
 !
 IF (NRANK==NPIO) THEN
   !
-  IF (NID_NC /= 0) THEN 
-    !    
+  IF (NID_NC /= 0) THEN
+    !
     ! 0. find filename
     ! -----------------
     !
@@ -898,7 +898,7 @@ IF (NRANK==NPIO) THEN
       IRET0=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(3),LEN=IDIMLEN(3))
       IRET(5) = NF90_INQ_DIMID(NID_NC,"Number_of_Patches",IDIMIDS(4))
       IRET0=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(4),LEN=IDIMLEN(4))
-    ENDIF           
+    ENDIF
     DO JDIM=1,2
       IRET0=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
     ENDDO
@@ -920,7 +920,7 @@ ELSE
   INDIMS = 0
   IDIMIDS(:) = 0
   IDIMLEN(:) = SIZE(PFIELD,2)
-  YNAME = ""        
+  YNAME = ""
 ENDIF
 !
 #ifdef SFX_MPI
@@ -991,14 +991,14 @@ IF (HDIR=='-') THEN
 ELSEIF(.NOT.ALLOCATED(NMASK_IGN))THEN
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB3D(:,1:SIZE(PFIELD,2),1:SIZE(PFIELD,3)),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB3D(:,1:SIZE(PFIELD,2),1:SIZE(PFIELD,3)))
   ENDIF
 ELSE
-  !ign grid 
+  !ign grid
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN),:,:),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN),:,:))
   ENDIF
   CALL UNPACK_SAME_RANK(NMASK_IGN,ZWORK_IGN(1:SIZE(NMASK_IGN),:,:),ZTAB3D(:,1:SIZE(PFIELD,2),1:SIZE(PFIELD,3)))
@@ -1006,9 +1006,9 @@ ENDIF
 !
 IF (NRANK==NPIO) THEN
   ISTART(:) = 1
-  ICOUNT(:) = IDIMLEN(1:4)        
+  ICOUNT(:) = IDIMLEN(1:4)
   IRET(5)=NF90_PUT_VAR(NID_NC,IVAR_ID,ZTAB3D,ISTART,ICOUNT)
-  CALL HANDLE_ERR(IRET(5),HREC)  
+  CALL HANDLE_ERR(IRET(5),HREC)
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_NC:WRITE_SURFX3_NC:WRITE_DATAX3_NC',1,ZHOOK_HANDLE)
@@ -1059,8 +1059,8 @@ INTEGER,                INTENT(OUT) :: KRESP    ! KRESP  : return-code if a prob
                                                ! 'H' : field with
                                                !       horizontal spatial dim.
                                                ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM  
-! 
+ CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
+!
 !*      0.2   Declarations of local variables
 !
 INTEGER :: IRET0
@@ -1101,7 +1101,7 @@ KRESP=0
 IF (GFOUND .AND. LHOOK) CALL DR_HOOK("WRITE_SURF_NC:WRITE_SURFN1_NC",1,ZHOOK_HANDLE)
 IF (GFOUND) RETURN
 !
-IF (NRANK==NPIO) THEN 
+IF (NRANK==NPIO) THEN
   !
   IF (NID_NC /= 0) THEN
     !
@@ -1130,19 +1130,19 @@ IF (NRANK==NPIO) THEN
   ELSE
     IDIMIDS(:) = 0
     IDIMLEN(:) = 0
-    YNAME = ""    
+    YNAME = ""
   ENDIF
   !
 ELSE
   IDIMIDS(:) = 0
   IDIMLEN(:) = 0
-  YNAME = ""    
+  YNAME = ""
 ENDIF
 !
 #ifdef SFX_MPI
 IF (NPROC>1) THEN
   CALL MPI_BCAST(YNAME,LEN(YNAME),MPI_CHARACTER,NPIO,NCOMM,INFOMPI)
-  CALL MPI_BCAST(IDIMLEN,KIND(IDIMLEN)*SIZE(IDIMLEN)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)  
+  CALL MPI_BCAST(IDIMLEN,KIND(IDIMLEN)*SIZE(IDIMLEN)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
 ENDIF
 #endif
 !
@@ -1159,9 +1159,9 @@ ELSE
   IF (LDEF) THEN
     IF (NRANK==NPIO) THEN
       CALL DEF_VAR_NETCDF(HSELECT, NID_NC, HREC, HREC, IDIMIDS(1:2), YATT_TITLE, YATT, IVAR_ID, NF90_INT)
-    ENDIF  
+    ENDIF
   ELSE
-    JRET = NF90_INQ_VARID(NID_NC,HREC,IVAR_ID)    
+    JRET = NF90_INQ_VARID(NID_NC,HREC,IVAR_ID)
     CALL WRITE_DATAN1_NC(IDIMLEN(1)*IDIMLEN(2))
   ENDIF
 ENDIF
@@ -1198,22 +1198,22 @@ IF (HDIR=='-') THEN
 ELSEIF(.NOT.ALLOCATED(NMASK_IGN))THEN
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(KFIELD,ITAB1D,NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(KFIELD,ITAB1D)
   ENDIF
 ELSE
-  !ign grid 
+  !ign grid
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(KFIELD,IWORK_IGN(1:SIZE(NMASK_IGN)),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(KFIELD,IWORK_IGN(1:SIZE(NMASK_IGN)))
   ENDIF
   CALL UNPACK_SAME_RANK(NMASK_IGN,IWORK_IGN(1:SIZE(NMASK_IGN)),ITAB1D)
 ENDIF
 !
-IF (NRANK==NPIO) THEN 
+IF (NRANK==NPIO) THEN
   IRET(5)=NF90_PUT_VAR(NID_NC,IVAR_ID,ITAB1D)
-  CALL HANDLE_ERR(IRET(5),HREC)  
+  CALL HANDLE_ERR(IRET(5),HREC)
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_NC:WRITE_SURFN1_NC:WRITE_DATAN1_NC',1,ZHOOK_HANDLE)
@@ -1265,7 +1265,7 @@ INTEGER,                INTENT(OUT) :: KRESP    ! KRESP  : return-code if a prob
                                                ! 'H' : field with
                                                !       horizontal spatial dim.
                                                ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM                                                 
+ CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
 !*      0.2   Declarations of local variables
 !
 INTEGER :: IRET0
@@ -1308,8 +1308,8 @@ ENDIF
 !
 IF (NRANK==NPIO) THEN
   !
-  IF (NID_NC /= 0) THEN 
-    !    
+  IF (NID_NC /= 0) THEN
+    !
     ! 0. find filename
     ! -----------------
     !
@@ -1327,7 +1327,7 @@ IF (NRANK==NPIO) THEN
       ENDIF
       IRET(4) = NF90_INQ_DIMID(NID_NC,'Number_of_Tile',IDIMIDS(3))
       IRET0=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(3),LEN=IDIMLEN(3))
-    ENDIF           
+    ENDIF
     DO JDIM=1,2
       IRET0=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
     ENDDO
@@ -1349,14 +1349,14 @@ ELSE
   INDIMS = 0
   IDIMIDS(:) = 0
   IDIMLEN(:) = SIZE(KFIELD,2)
-  YNAME = ""        
+  YNAME = ""
 ENDIF
 !
 #ifdef SFX_MPI
 IF (NPROC>1) THEN
   CALL MPI_BCAST(YNAME,LEN(YNAME),MPI_CHARACTER,NPIO,NCOMM,INFOMPI)
   CALL MPI_BCAST(INDIMS,KIND(INDIMS)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
-  CALL MPI_BCAST(IDIMLEN,KIND(IDIMLEN)*SIZE(IDIMLEN)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)  
+  CALL MPI_BCAST(IDIMLEN,KIND(IDIMLEN)*SIZE(IDIMLEN)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
 ENDIF
 #endif
 !
@@ -1373,9 +1373,9 @@ ELSE
   IF (LDEF) THEN
     IF (NRANK==NPIO) THEN
       CALL DEF_VAR_NETCDF(HSELECT, NID_NC, HREC, HREC, IDIMIDS(1:3), YATT_TITLE, YATT, IVAR_ID, NF90_INT)
-    ENDIF 
+    ENDIF
   ELSE
-    JRET = NF90_INQ_VARID(NID_NC,HREC,IVAR_ID)    
+    JRET = NF90_INQ_VARID(NID_NC,HREC,IVAR_ID)
     CALL WRITE_DATAN2_NC(IDIMLEN(1)*IDIMLEN(2),IDIMLEN(3),INDIMS)
   ENDIF
 ENDIF
@@ -1411,14 +1411,14 @@ ITAB2D(:,:) = NUNDEF
 IF(.NOT.ALLOCATED(NMASK_IGN))THEN
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(KFIELD,ITAB2D(:,1:SIZE(KFIELD,2)),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(KFIELD,ITAB2D(:,1:SIZE(KFIELD,2)))
   ENDIF
 ELSE
-  !ign grid 
+  !ign grid
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(KFIELD,IWORK_IGN(1:SIZE(NMASK_IGN),:),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(KFIELD,IWORK_IGN(1:SIZE(NMASK_IGN),:))
   ENDIF
   CALL UNPACK_SAME_RANK(NMASK_IGN,IWORK_IGN(1:SIZE(NMASK_IGN),:),ITAB2D(:,1:SIZE(KFIELD,2)))
@@ -1426,7 +1426,7 @@ ENDIF
 !
 IF (NRANK==NPIO) THEN
   IRET(5)=NF90_PUT_VAR(NID_NC,IVAR_ID,ITAB2D)
-  CALL HANDLE_ERR(IRET(5),HREC)  
+  CALL HANDLE_ERR(IRET(5),HREC)
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_NC:WRITE_SURFN2_NC:WRITE_DATAN2_NC',1,ZHOOK_HANDLE)
@@ -1503,7 +1503,7 @@ KRESP=0
 IF (GFOUND .AND. LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_NC:WRITE_SURFL1_NC',1,ZHOOK_HANDLE)
 IF (GFOUND) RETURN
 !
-IF (NID_NC /= 0) THEN 
+IF (NID_NC /= 0) THEN
   !
   IF (NRANK==NPIO) THEN
     !
@@ -1551,7 +1551,7 @@ DO JRET=1,MIN(SIZE(OFIELD),SIZE(YTAB1D))
   ELSE
     YTAB1D(JRET) ='F'
   ENDIF
-ENDDO  
+ENDDO
 !
 ! 2. Put variable
 !-----------------
@@ -1627,7 +1627,7 @@ IF (GFOUND) RETURN
 !
 DO JWRK=1,4
   !
-  IF (JWRK == 1) THEN 
+  IF (JWRK == 1) THEN
     YRECFM = TRIM(HREC)//'-YEAR'
   ELSEIF (JWRK == 2) THEN
     YRECFM = TRIM(HREC)//'-MONTH'
@@ -1650,26 +1650,26 @@ DO JWRK=1,4
         IRET(JWRK)=NF90_PUT_VAR(NID_NC,IVAR_ID,KYEAR)
       ENDIF
     ELSEIF (JWRK==2) THEN
-      IF (LDEF) THEN    
+      IF (LDEF) THEN
         CALL DEF_VAR_NETCDF(HSELECT, NID_NC, YRECFM, YRECFM, IDIMIDS, YATT_TITLE, YATT, IVAR_ID,NF90_INT)
       ELSE
-        JRET = NF90_INQ_VARID(NID_NC,YRECFM,IVAR_ID)        
+        JRET = NF90_INQ_VARID(NID_NC,YRECFM,IVAR_ID)
         IRET(JWRK)=NF90_PUT_VAR(NID_NC,IVAR_ID,KMONTH)
-      ENDIF        
+      ENDIF
     ELSEIF (JWRK==3) THEN
-      IF (LDEF) THEN    
+      IF (LDEF) THEN
         CALL DEF_VAR_NETCDF(HSELECT, NID_NC, YRECFM, YRECFM, IDIMIDS, YATT_TITLE, YATT, IVAR_ID,NF90_INT)
       ELSE
-        JRET = NF90_INQ_VARID(NID_NC,YRECFM,IVAR_ID)        
+        JRET = NF90_INQ_VARID(NID_NC,YRECFM,IVAR_ID)
         IRET(JWRK)=NF90_PUT_VAR(NID_NC,IVAR_ID,KDAY)
-      ENDIF        
+      ENDIF
     ELSEIF (JWRK==4) THEN
-      IF (LDEF) THEN    
+      IF (LDEF) THEN
         CALL DEF_VAR_NETCDF(HSELECT, NID_NC, YRECFM, YRECFM, IDIMIDS, YATT_TITLE, YATT, IVAR_ID,NF90_DOUBLE)
       ELSE
-        JRET = NF90_INQ_VARID(NID_NC,YRECFM,IVAR_ID)        
+        JRET = NF90_INQ_VARID(NID_NC,YRECFM,IVAR_ID)
         IRET(JWRK)=NF90_PUT_VAR(NID_NC,IVAR_ID,PTIME)
-      ENDIF        
+      ENDIF
     ENDIF
   ENDIF
 ENDDO
@@ -1726,7 +1726,7 @@ KRESP=0
 !
 DO JWRK=1,4
   !
-  IF (JWRK == 1) THEN 
+  IF (JWRK == 1) THEN
     YRECFM = TRIM(HREC)//'-YEAR'
   ELSEIF (JWRK == 2) THEN
     YRECFM = TRIM(HREC)//'-MONTH'
@@ -1758,7 +1758,7 @@ DO JWRK=1,4
     ELSEIF (JWRK==4) THEN
       CALL WRITE_SURFX1_NC(HSELECT, YRECFM,PTIME,IRET(JWRK),HCOMMENT,'-')
     ENDIF
-  ENDIF    
+  ENDIF
   !
 ENDDO
 !
@@ -1814,7 +1814,7 @@ KRESP=0
 !
 DO JWRK=1,4
   !
-  IF (JWRK == 1) THEN 
+  IF (JWRK == 1) THEN
     YRECFM = TRIM(HREC)//'-YEAR'
   ELSEIF (JWRK == 2) THEN
     YRECFM = TRIM(HREC)//'-MONTH'
@@ -1846,7 +1846,7 @@ DO JWRK=1,4
     ELSEIF (JWRK==4) THEN
       CALL WRITE_SURFX2_NC(HSELECT, YRECFM,PTIME,IRET(JWRK),HCOMMENT,'-')
     ENDIF
-  ENDIF          
+  ENDIF
   !
 ENDDO
 !

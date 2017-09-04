@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !option! -O nomove
 !****---------------------------------------------------------------------------
@@ -8,10 +8,10 @@
 !****   ------
 !****  Auteurs :   CB 01/91, BU 05/92, VC 05/93, DG 03/94, PA 09/95, DG 05/96
 !****      Mod : E. Bazile 01/97 Subtraction of the mean temperature and/or
-!****                            humidity bias for the increments used for the 
+!****                            humidity bias for the increments used for the
 !****                            analysis of the soil water
 !****      Mod : D. Giard  03/99 ACSOL -> ACSOLW
-!****            E. Bazile , F. Bouyssel : logical LLLACW is replaced by a 
+!****            E. Bazile , F. Bouyssel : logical LLLACW is replaced by a
 !****                       continuous function ZDACW (LSOLV).
 !****      Mod : F. Taillefer 09/02 : update of surface constants according to SST
 !****      Mod : F. Bouyssel 02/04 : threshold using the solar zenithal angle
@@ -29,7 +29,7 @@ SUBROUTINE OI_CACSTS(KNBPT,PT2INC,PH2INC,PWGINC,PWS_O,                      &
                      PRRCL,PRRSL,PRRCN,PRRSN,PATMNEB,PEVAP,PEVAPTR,         &
                      PITM,PVEG,PALBF,PEMISF,PZ0F,                           &
                      PIVEG,PARG,PD2,PSAB,PLAI,PRSMIN,PZ0H,                  &
-                     PTSC,PTPC,PWSC,PWPC,PSNC,PGELAT,PGELAM,PGEMU)  
+                     PTSC,PTPC,PWSC,PWPC,PSNC,PGELAT,PGELAM,PGEMU)
 !
 !****---------------------------------------------------------------------------
 !**  AIM : INITIALIZES THE PRONOSTIC SURFACE FIELDS
@@ -39,17 +39,17 @@ SUBROUTINE OI_CACSTS(KNBPT,PT2INC,PH2INC,PWGINC,PWS_O,                      &
 !**        CALL CACSTS(....)
 
 !**  INPUT ARGUMENTS :
-!**  ------------------        
-!**                               
-!**        - EXPLICIT - 
+!**  ------------------
+!**
+!**        - EXPLICIT -
 !**                      KNBPT  : real number of treated points
 !**                      PT2INC : analysis increment of T2m
 !**                      PH2INC : analysis increment of Hu2m
-!**                      PSP_SB,PSP_SG,PSP_RR,PSD_VF,PSD_VV,PSD_VX,PSP_CI,PSP_X2    : 
-!**                      buffer of pgd analysis fields 
+!**                      PSP_SB,PSP_SG,PSP_RR,PSD_VF,PSD_VV,PSD_VX,PSP_CI,PSP_X2    :
+!**                      buffer of pgd analysis fields
 !**                      PGELAM, PGELAT, PGEMU : geographical coordinates
 
-!**  OUTPUT ARGUMENTS : 
+!**  OUTPUT ARGUMENTS :
 !**  -------------------
 !**  EXTERN : CAVEGI (FCTVEG) - ACSOLW - TSL
 !**  --------
@@ -79,8 +79,8 @@ IMPLICIT NONE
 !
 INTEGER,INTENT(IN)    :: KNBPT, KDAT, KSSSSS
 !
-REAL   ,INTENT(IN)    :: PT2INC(KNBPT) 
-REAL   ,INTENT(IN)    :: PH2INC(KNBPT) 
+REAL   ,INTENT(IN)    :: PT2INC(KNBPT)
+REAL   ,INTENT(IN)    :: PH2INC(KNBPT)
 REAL   ,INTENT(IN)    :: PWGINC(KNBPT)
 REAL   ,INTENT(IN)    :: PWS_O(KNBPT)
 REAL   ,INTENT(INOUT) :: PTP(KNBPT)
@@ -89,8 +89,8 @@ REAL   ,INTENT(INOUT) :: PTL(KNBPT)
 REAL   ,INTENT(INOUT) :: PSNS(KNBPT)
 REAL   ,INTENT(INOUT) :: PTS(KNBPT)
 REAL   ,INTENT(INOUT) :: PWS(KNBPT)
-REAL   ,INTENT(INOUT) :: PTCLS(KNBPT) 
-REAL   ,INTENT(INOUT) :: PHCLS(KNBPT) 
+REAL   ,INTENT(INOUT) :: PTCLS(KNBPT)
+REAL   ,INTENT(INOUT) :: PHCLS(KNBPT)
 REAL   ,INTENT(INOUT) :: PUCLS(KNBPT)
 REAL   ,INTENT(INOUT) :: PVCLS(KNBPT)
 REAL   ,INTENT(INOUT) :: PSSTC(KNBPT)
@@ -106,15 +106,15 @@ REAL   ,INTENT(IN)    :: PRRSN(KNBPT)
 REAL   ,INTENT(IN)    :: PATMNEB(KNBPT)
 REAL   ,INTENT(IN)    :: PEVAP(KNBPT)
 REAL   ,INTENT(IN)    :: PEVAPTR(KNBPT)
-REAL   ,INTENT(IN)    :: PITM(KNBPT) 
-REAL   ,INTENT(IN) :: PVEG(KNBPT) 
+REAL   ,INTENT(IN)    :: PITM(KNBPT)
+REAL   ,INTENT(IN) :: PVEG(KNBPT)
 REAL   ,INTENT(INOUT) :: PALBF(KNBPT)
 REAL   ,INTENT(INOUT) :: PEMISF(KNBPT)
 REAL   ,INTENT(INOUT) :: PZ0F(KNBPT)
 REAL   ,INTENT(INOUT) :: PIVEG(KNBPT)
 REAL   ,INTENT(INOUT) :: PARG(KNBPT)
 REAL   ,INTENT(INOUT) :: PD2(KNBPT)
-REAL   ,INTENT(INOUT) :: PSAB(KNBPT) 
+REAL   ,INTENT(INOUT) :: PSAB(KNBPT)
 REAL   ,INTENT(INOUT) :: PLAI(KNBPT)
 REAL   ,INTENT(INOUT) :: PRSMIN(KNBPT)
 REAL   ,INTENT(INOUT) :: PZ0H(KNBPT)
@@ -122,9 +122,9 @@ REAL   ,INTENT(IN)    :: PTSC(KNBPT)
 REAL   ,INTENT(IN)    :: PTPC(KNBPT)
 REAL   ,INTENT(IN)    :: PWSC(KNBPT)
 REAL   ,INTENT(IN)    :: PWPC(KNBPT)
-REAL   ,INTENT(IN)    :: PSNC(KNBPT) 
-REAL   ,INTENT(IN)    :: PGELAT(KNBPT) 
-REAL   ,INTENT(IN)    :: PGELAM(KNBPT) 
+REAL   ,INTENT(IN)    :: PSNC(KNBPT)
+REAL   ,INTENT(IN)    :: PGELAT(KNBPT)
+REAL   ,INTENT(IN)    :: PGELAM(KNBPT)
 REAL   ,INTENT(IN)    :: PGEMU(KNBPT)
 !
 REAL, DIMENSION(24) :: ZVGAT1,ZVGAT2,ZVGAT3,ZVGBT1,ZVGBT2,ZVGBT3,ZVGCT1,ZVGCT2
@@ -158,11 +158,11 @@ IF (LHOOK) CALL DR_HOOK('OI_CACSTS',0,ZHOOK_HANDLE)
 !
 ZECHGU = REAL(NECHGU) * 3600.
 !
-!**  1.1 Initialization of raw polynomials and reference fields.   
+!**  1.1 Initialization of raw polynomials and reference fields.
 !
  CALL OI_CAVEGI(ZVGAT1,ZVGAT2,ZVGAT3,ZVGBT1,ZVGBT2,ZVGBT3,ZVGCT1,ZVGCT2, &
                 ZVGAH1,ZVGAH2,ZVGAH3,ZVGBH1,ZVGBH2,ZVGBH3,ZVGCH1,ZVGCH2, &
-                ZSIGT2MP,ZSIGHP2,GSGOBS) 
+                ZSIGT2MP,ZSIGHP2,GSGOBS)
 !
 !
 !*   1.2  Initialization of intermediate variables
@@ -174,11 +174,11 @@ ENDDO
  CALL OI_ACSOLW (1, KNBPT,                        &
                  PARG, PD2, PWS, ZIVEG, PSAB,     &
                  LLDHMT,                          &
-                 ZWFC, ZWPMX, ZWSAT, ZWSMX, ZWWILT)  
+                 ZWFC, ZWPMX, ZWSAT, ZWSMX, ZWWILT)
 !
 !* 1.3. Analytical Jacobians for WG assimilation
 !
- CALL OI_JACOBIANS (KNBPT,PWS_O,PSAB,PARG,PD2,PWP,ZDWG_DWG,ZDWG_DW2) 
+ CALL OI_JACOBIANS (KNBPT,PWS_O,PSAB,PARG,PD2,PWP,ZDWG_DWG,ZDWG_DW2)
 !
 !**---------------------------------------------------------------------
 !**  - 2 - Calculation of analysed fields.
@@ -191,7 +191,7 @@ DO JROF = 1,KNBPT
 !
 ! storage of forecast fields
     ZNEI = MAX(0.0,PSNS(JROF)/(PSNS(JROF)+XWCRIN))
-! update of climatological fields    
+! update of climatological fields
     ZCLI = XRCLIMCA /(1.0+XRCLIMN*ZNEI)
 
     IF ( .NOT. LCLIM ) THEN
@@ -207,7 +207,7 @@ DO JROF = 1,KNBPT
       ZWPC = PWPC(JROF) * ZWPMX(JROF)
       ZSNC = PSNC(JROF)
     ENDIF
-    
+
 !-----------------------------------------------------------------------------------
 !
 !*   2.1  Temperature analysis
@@ -245,7 +245,7 @@ DO JROF = 1,KNBPT
     ZV10M = SQRT(PUCLS(JROF)**2+PVCLS(JROF)**2)
 !
     ZPRECIP = MAX(0.,PRRCL(JROF))+ MAX(0.,PRRSL(JROF)) &
-            + MAX(0.,PRRCN(JROF))+ MAX(0.,PRRSN(JROF))  
+            + MAX(0.,PRRCN(JROF))+ MAX(0.,PRRSN(JROF))
 !
     IF (LFGEL) THEN
       ZWPI = PTL(JROF)
@@ -253,14 +253,14 @@ DO JROF = 1,KNBPT
       ZWPI = 0.0
     ENDIF
 !
-! Surface water forcing to the superficial reservoir 
+! Surface water forcing to the superficial reservoir
 !
     ZDACW =  MIN(1.0,MAX(0.0,ABS(REAL(NINT(ZIVEG(JROF))-NTVGLA))) )  &
            * MIN(1.0,MAX(0.0,REAL(IH)))                              &
            * MIN(1.0,MAX(0.0,REAL(NIDJ)/REAL(NMINDJ)))               &
            * MIN(1.0,MAX(0.0,1.0-ZV10M/(XV10MX+XREPS3)))             &
            * MIN(1.0,MAX(0.0,1.0-ZPRECIP/(XSPRECIP+XREPS3)))         &
-           * MIN(1.0,MAX(0.0,1.0-ZWPI/XSICE))  
+           * MIN(1.0,MAX(0.0,1.0-ZWPI/XSICE))
 !
 ! coefficients : depend on the solar zenithal angle
 !
@@ -312,7 +312,7 @@ DO JROF = 1,KNBPT
 
 ! coefficients : mainly depend on vegetation
 !
-!  fctveg.h 
+!  fctveg.h
 !****---------------Calculation of ZWSD and ZWPD------------------------------------
 !
     CALL OI_FCTVEG(IH,PVEG(JROF),                                            &
@@ -320,19 +320,19 @@ DO JROF = 1,KNBPT
                    ZVGAH1,ZVGAH2,ZVGAH3,ZVGBH1,ZVGBH2,ZVGBH3,ZVGCH1,ZVGCH2,  &
                    ZSIGT2MP,ZSIGHP2,                                         &
                    ZG1,ZG2,ZG3,ZG4,                                          &
-                   ZVGST,ZVGSH,ZVGPT1,ZVGPH1,ZVGPT2,ZVGPH2)  
+                   ZVGST,ZVGSH,ZVGPT1,ZVGPH1,ZVGPT2,ZVGPH2)
 !
 ! coefficients : depend on the observation errors
 ! nb - in our case GSGOBS=.F.
 !
     IF ( GSGOBS ) THEN
       ZZT = ZG1 / ZG2
-      ZZH = ZG3 / ZG4 
+      ZZH = ZG3 / ZG4
     ELSE
       ZZT = 1.0
       ZZH = 1.0
     ENDIF
-    
+
 ! coefficients : depend on the texture
 !
     ZPD = (ZWFC(JROF)-ZWWILT(JROF))/XADWR
@@ -346,7 +346,7 @@ DO JROF = 1,KNBPT
     ZVGST = ZVGST * ZZT
     ZVGSH = ZVGSH * ZZH
 
-    ZLAISRS = PLAI(JROF)/MAX(1.0,PRSMIN(JROF))    
+    ZLAISRS = PLAI(JROF)/MAX(1.0,PRSMIN(JROF))
     ZCWPT   = ( ZVGPT1 + ZLAISRS*ZVGPT2 ) * ZZT
     ZCWPH   = ( ZVGPH1 + ZLAISRS*ZVGPH2 ) * ZZH
 !
@@ -410,7 +410,7 @@ DO JROF = 1,KNBPT
     IF ( LISSEW ) THEN
       ZWPDX = ZWPD
       IF ( NLISSEW >= 3 ) THEN
-        ZWPD = 0.25*(PWPINC3(JROF)+PWPINC2(JROF)+PWPINC1(JROF)+ZWPDX)    
+        ZWPD = 0.25*(PWPINC3(JROF)+PWPINC2(JROF)+PWPINC1(JROF)+ZWPDX)
       ELSE
         ZWPD = 0.0
       ENDIF
@@ -426,7 +426,7 @@ DO JROF = 1,KNBPT
 !
     ZWSA = PWS(JROF) + ZWSD * XRD1 * XRHOLW
     ZWSMIN = XREPS1 * XRD1 * XRHOLW
-    PWS(JROF) = MAX(ZWSMIN,MIN(ZWSMX(JROF),ZWSA)) 
+    PWS(JROF) = MAX(ZWSMIN,MIN(ZWSMX(JROF),ZWSA))
 
 ! minimal total water contents
 !
@@ -463,8 +463,8 @@ DO JROF = 1,KNBPT
 
 !*   2.5  Call back of SST, on sea
 
-!  ELSEIF ( PITM(JROF) <= 0.5 .AND. RCLISST /= 0. .AND. LCLIM ) THEN  
-!    PTS(JROF) = (1.0-RCLISST)*PTS(JROF) + RCLISST *PSSTC(JROF)    
+!  ELSEIF ( PITM(JROF) <= 0.5 .AND. RCLISST /= 0. .AND. LCLIM ) THEN
+!    PTS(JROF) = (1.0-RCLISST)*PTS(JROF) + RCLISST *PSSTC(JROF)
 !    PTP(JROF) = PTS(JROF)
 !   PWS(JROF) = XUNDEF
 !   PWP(JROF) = XUNDEF

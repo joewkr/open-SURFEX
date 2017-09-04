@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##############################
       MODULE MODE_GRIDTYPE_LONLAT_ROT
@@ -20,7 +20,7 @@ CONTAINS
 !     ####################################################################
       SUBROUTINE PUT_GRIDTYPE_LONLAT_ROT(PGRID_PAR,                                 &
                                            PWEST,PSOUTH,PDLON,PDLAT,PPOLON,PPOLAT,  &
-                                           KLON,KLAT,KL,PLON,PLAT                   )  
+                                           KLON,KLAT,KL,PLON,PLAT                   )
 !     ####################################################################
 !
 !!****  *PUT_GRIDTYPE_LONLAT_ROT* - routine to store in PGRID_PAR the horizontal grid
@@ -31,7 +31,7 @@ CONTAINS
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    12/2012 
+!!      Original    12/2012
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -52,7 +52,7 @@ REAL,               INTENT(IN)  :: PPOLAT  ! Latitude of rotated pole  (degrees)
 INTEGER,            INTENT(IN)  :: KLON     ! number of points in longitude
 INTEGER,            INTENT(IN)  :: KLAT     ! number of points in latitude
 INTEGER,            INTENT(IN)  :: KL       ! number of points used
-REAL, DIMENSION(:), INTENT(IN)  :: PLON     ! regular longitudes of all points 
+REAL, DIMENSION(:), INTENT(IN)  :: PLON     ! regular longitudes of all points
 REAL, DIMENSION(:), INTENT(IN)  :: PLAT     ! regular latitudes  of all points
 REAL,   DIMENSION(:),POINTER    :: PGRID_PAR! parameters defining this grid
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -84,7 +84,7 @@ END SUBROUTINE PUT_GRIDTYPE_LONLAT_ROT
 !     ####################################################################
       SUBROUTINE GET_GRIDTYPE_LONLAT_ROT(PGRID_PAR,                                 &
                                            PWEST,PSOUTH,PDLON,PDLAT,PPOLON,PPOLAT,  &
-                                           KLON,KLAT,KL,PLON,PLAT                   )  
+                                           KLON,KLAT,KL,PLON,PLAT                   )
 !     ####################################################################
 !
 !!****  *GET_GRIDTYPE_LONLAT_ROT* - routine to get from PGRID_PAR the horizontal grid
@@ -95,7 +95,7 @@ END SUBROUTINE PUT_GRIDTYPE_LONLAT_ROT
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    12/2012 
+!!      Original    12/2012
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -152,21 +152,21 @@ END SUBROUTINE GET_GRIDTYPE_LONLAT_ROT
 !
 !      ###################################################
        SUBROUTINE LATLON_LONLAT_ROT(PWEST,PSOUTH,PDLON,PDLAT,PPOLON,PPOLAT, &
-                                      KLON,KLAT,PLON,PLAT                   )  
+                                      KLON,KLAT,PLON,PLAT                   )
 !      ###################################################
 !
 !!****  *LATLON_LONLAT_ROT * - Routine to compute regular geographical coordinates
 !!
 !!     PURPOSE
 !!     -------
-!!       
+!!
 !!     AUTHOR
 !!     ------
 !!      P. Samuelsson   SMHI
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    12/2012 
+!!      Original    12/2012
 !-------------------------------------------------------------------------------
 !
 !*     0.     DECLARATIONS
@@ -187,13 +187,13 @@ REAL,               INTENT(IN)  :: PPOLON   ! Longitude of rotated south pole (d
 REAL,               INTENT(IN)  :: PPOLAT   ! Latitude of rotated south pole  (degrees)
 INTEGER,            INTENT(IN)  :: KLON     ! number of points in longitude
 INTEGER,            INTENT(IN)  :: KLAT     ! number of points in latitude
-REAL, DIMENSION(:), INTENT(OUT) :: PLON,PLAT    
-                                            ! returned geographic latitudes and 
-                                            ! longitudes of the processed points 
+REAL, DIMENSION(:), INTENT(OUT) :: PLON,PLAT
+                                            ! returned geographic latitudes and
+                                            ! longitudes of the processed points
                                             ! (degrees).
 !
 !*     0.2    Declarations of local variables
-! 
+!
 INTEGER :: JLON, JLAT
 INTEGER :: JL, KL
 INTEGER :: JC
@@ -223,7 +223,7 @@ END DO
 
  CALL REGROT_LONLAT_ROT(PLON,PLAT,ZLONROT,ZLATROT,   &
                              KL,1,KL,1,             &
-                             PPOLON,PPOLAT,-1       )  
+                             PPOLON,PPOLAT,-1       )
 
 WHERE (PLON(:)>180.) PLON(:)=PLON(:)-360.
 WHERE (PLON(:)<-180.) PLON(:)=PLON(:)+360.

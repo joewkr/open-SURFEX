@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE READ_ALL_NAMELISTS (YSC, HPROGRAM,HINIT,ONAM_READ)
@@ -83,7 +83,7 @@ LNAM_READ = ONAM_READ
 !namelists that can be reread in surfex code
 !
 IF (.NOT.LNAM_READ) THEN
-! 
+!
   LNAM_READ=.TRUE.
   !
   CALL READ_NAMELISTS_SURF_n(YSC%CHU, YSC%DUO, YSC%USS, HPROGRAM,HINIT)
@@ -97,7 +97,7 @@ IF (.NOT.LNAM_READ) THEN
   !
   LNAM_READ=.FALSE.
   !
-  !prep namelists, to be read even if reread in surfex code, 
+  !prep namelists, to be read even if reread in surfex code,
   !because only partially reread
   !
 ELSEIF (HINIT=='PRE') THEN
@@ -105,7 +105,7 @@ ELSEIF (HINIT=='PRE') THEN
   CALL READ_NAM_PREP_SURF_n(HPROGRAM)
   CALL READ_NAM_PREP_FLAKE_n(HPROGRAM)
   CALL READ_NAM_PREP_WATFLUX_n(HPROGRAM)
-  CALL READ_NAM_PREP_SEAFLUX_n(HPROGRAM) 
+  CALL READ_NAM_PREP_SEAFLUX_n(HPROGRAM)
   CALL READ_NAM_PREP_ISBA_n(HPROGRAM)
   CALL READ_NAM_PREP_GARDEN_n(HPROGRAM)
   CALL READ_NAM_PREP_GREENROOF_n(HPROGRAM)

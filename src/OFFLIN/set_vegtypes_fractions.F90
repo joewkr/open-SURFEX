@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE SET_VEGTYPES_FRACTIONS (DTCO, DTV, KDIM, IO, S, UG, U, HPROGRAM)
@@ -13,7 +13,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -34,8 +34,8 @@
 !!
 !!    Original    10/12/97
 !!
-!!       Modified 08/12/05, P. Le Moigne: user defined fields       
-!!       Modified    07/11, R. Alkama   : 'netcdf' => 'offlin'       
+!!       Modified 08/12/05, P. Le Moigne: user defined fields
+!!       Modified    07/11, R. Alkama   : 'netcdf' => 'offlin'
 !!                                        removes very small values due to computation precision
 !!                   03/13, R. Alkama   : from 12 to 19 vegtypes
 !!
@@ -135,7 +135,7 @@ INTEGER               :: JVEGTYPE    ! loop counter on patch
 LOGICAL :: GOPEN
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
-NAMELIST/NAM_LAND_USE/CFNAM_VEGTYPE,CFTYP_VEGTYPE  
+NAMELIST/NAM_LAND_USE/CFNAM_VEGTYPE,CFTYP_VEGTYPE
 
 !-------------------------------------------------------------------------------
 !
@@ -192,7 +192,7 @@ ENDIF
 !
 IF (CFTYP_VEGTYPE=='FA    '.OR.CFTYP_VEGTYPE=='ASCII '.OR.CFTYP_VEGTYPE=='LFI   ' &
         .OR.CFTYP_VEGTYPE=='OFFLIN' .OR.CFTYP_VEGTYPE=='NC    ') THEN
-!        
+!
   DTV%LDATA_VEGTYPE=.TRUE.
 !
   CALL READ_FROM_SURFEX_FILE(DTCO, U, &
@@ -260,14 +260,14 @@ ELSEIF (CFTYP_VEGTYPE=='NC    ') THEN
 #endif
 ENDIF
 !
-IF (DTV%LDATA_VEGTYPE) THEN 
+IF (DTV%LDATA_VEGTYPE) THEN
   IF (MAXVAL(ABS(SUM(DTV%XPAR_VEGTYPE,2)-1.))>1.E-6) THEN
     JVEGTYPE=COUNT(SUM(DTV%XPAR_VEGTYPE,2) .GT. 1.E19)
     WRITE(ILUOUT,*) ' '
     WRITE(ILUOUT,*) '******************************************************************************'
     WRITE(ILUOUT,*) '* Error in ISBA data field preparation                                       *'
     WRITE(ILUOUT,*) '* Sum of XPAR_VEGTYPE on all vegtypes is not equal to 1. for all grid point  *'
-    WRITE(ILUOUT,*) '* nbr of indef VEGTYPE =',JVEGTYPE, ' /  total nbr =', SIZE(DTV%XPAR_VEGTYPE(:,1))    
+    WRITE(ILUOUT,*) '* nbr of indef VEGTYPE =',JVEGTYPE, ' /  total nbr =', SIZE(DTV%XPAR_VEGTYPE(:,1))
     WRITE(ILUOUT,*) '* MAXVAL of SUM(XPAR_VEGTYPE,2) =', MAXVAL(SUM(DTV%XPAR_VEGTYPE,2))
     WRITE(ILUOUT,*) '* MAXLOC of SUM(XPAR_VEGTYPE,2) =', MAXLOC(SUM(DTV%XPAR_VEGTYPE,2))
     WRITE(ILUOUT,*) '******************************************************************************'

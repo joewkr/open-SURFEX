@@ -1,14 +1,14 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE CARBON_LITTER (PTSTEP, PTURNOVER, PLITTER, PLIGNIN_STRUC,          &
                           PCONTROL_TEMP, PCONTROL_MOIST,                      &
-                          PRESP_HETERO_LITTER, PSOILCARBON_INPUT)  
+                          PRESP_HETERO_LITTER, PSOILCARBON_INPUT)
 
 !   ###############################################################
-!!**  CARBON_LITTER 
+!!**  CARBON_LITTER
 !!
 !!    PURPOSE
 !!    -------
@@ -23,7 +23,7 @@ SUBROUTINE CARBON_LITTER (PTSTEP, PTURNOVER, PLITTER, PLIGNIN_STRUC,          &
 !!
 !!    IMPLICIT ARGUMENTS
 !!    ------------------
-!!      
+!!
 !!    none
 !!
 !!    REFERENCE
@@ -32,7 +32,7 @@ SUBROUTINE CARBON_LITTER (PTSTEP, PTURNOVER, PLITTER, PLIGNIN_STRUC,          &
 !!      Parton et al., Biogeochemestry, 1988
 !!      Krinner et al., Global Biochemical Cycles, 2005
 !!      Gibelin et al. 2008, AFM
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -47,7 +47,7 @@ SUBROUTINE CARBON_LITTER (PTSTEP, PTURNOVER, PLITTER, PLIGNIN_STRUC,          &
 !
 !*       0.     DECLARATIONS
 !               ------------
-!    
+!
 USE MODD_CO2V_PAR,       ONLY : XLC, XTAU_LITTER, XFRAC_LITTER, XFRAC_SOILCARB
 USE MODD_CSTS,           ONLY : XDAY, XTT
 !
@@ -159,24 +159,24 @@ ZLIGNIN_STRUC_INC(:,:) = 0.0
 ZLITTER_INC(:,1,1) = ( XFRAC_LITTER(1,1) * PTURNOVER(:,1) +          &
                        XFRAC_LITTER(2,1) * PTURNOVER(:,2) +          &
                        XFRAC_LITTER(3,1) * PTURNOVER(:,3) +          &
-                       XFRAC_LITTER(5,1) * PTURNOVER(:,5) ) * PTSTEP 
+                       XFRAC_LITTER(5,1) * PTURNOVER(:,5) ) * PTSTEP
 
 ZLITTER_INC(:,1,2) = ( XFRAC_LITTER(4,1) * PTURNOVER(:,4) +          &
-                       XFRAC_LITTER(6,1) * PTURNOVER(:,6) ) * PTSTEP  
+                       XFRAC_LITTER(6,1) * PTURNOVER(:,6) ) * PTSTEP
 !
 ZLITTER_INC(:,2,1) = ( XFRAC_LITTER(1,2) * PTURNOVER(:,1) +          &
                        XFRAC_LITTER(2,2) * PTURNOVER(:,2) +          &
                        XFRAC_LITTER(3,2) * PTURNOVER(:,3) +          &
-                       XFRAC_LITTER(5,2) * PTURNOVER(:,5) ) * PTSTEP 
+                       XFRAC_LITTER(5,2) * PTURNOVER(:,5) ) * PTSTEP
 
 ZLITTER_INC(:,2,2) = ( XFRAC_LITTER(4,2) * PTURNOVER(:,4) +          &
-                       XFRAC_LITTER(6,2) * PTURNOVER(:,6) ) * PTSTEP  
+                       XFRAC_LITTER(6,2) * PTURNOVER(:,6) ) * PTSTEP
 !
 !*    2.2.2 lignin increase in structural litter
 !
 ZLIGNIN_STRUC_INC(:,1) = ZLIGNIN_STRUC_INC(:,1) + ( XLC(1)*PTURNOVER(:,1) + XLC(2)*PTURNOVER(:,2) +          &
-                                                    XLC(3)*PTURNOVER(:,3) + XLC(5)*PTURNOVER(:,5) ) * PTSTEP  
-ZLIGNIN_STRUC_INC(:,2) = ZLIGNIN_STRUC_INC(:,2) + ( XLC(4)*PTURNOVER(:,4) + XLC(6)*PTURNOVER(:,6) ) * PTSTEP  
+                                                    XLC(3)*PTURNOVER(:,3) + XLC(5)*PTURNOVER(:,5) ) * PTSTEP
+ZLIGNIN_STRUC_INC(:,2) = ZLIGNIN_STRUC_INC(:,2) + ( XLC(4)*PTURNOVER(:,4) + XLC(6)*PTURNOVER(:,6) ) * PTSTEP
 !
 !*    2.2.3 add new litter (struct/met, above/below)
 !
@@ -187,7 +187,7 @@ PLITTER(:,:,:) = PLITTER(:,:,:) + ZLITTER_INC(:,:,:)
 !
 ZLIGNIN_STRUC_INC(:,:) = MIN( ZLIGNIN_STRUC_INC(:,:), ZLITTER_INC(:,2,:) )
 !
-!*    2.2.5 new lignin content: add old lignin and lignin increase, divide by 
+!*    2.2.5 new lignin content: add old lignin and lignin increase, divide by
 !           total structural litter (above/below)
 !
 WHERE(PLITTER(:,2,:)>0.0)
@@ -203,23 +203,23 @@ DO JL=1,INLITTLEVS
 !
 !*    3.1.1 total quantity of structural litter which is decomposed
 !
-      ZFD=PTSTEP/XTAU_LITTER(2)*PCONTROL_TEMP(JI,JL)*PCONTROL_MOIST(JI,JL)*EXP(-3.0*PLIGNIN_STRUC(JI,JL))  
+      ZFD=PTSTEP/XTAU_LITTER(2)*PCONTROL_TEMP(JI,JL)*PCONTROL_MOIST(JI,JL)*EXP(-3.0*PLIGNIN_STRUC(JI,JL))
 !
       ZQD=PLITTER(JI,2,JL)*ZFD
-!      
+!
       PLITTER(JI,2,JL)=PLITTER(JI,2,JL)-ZQD
 !
 !*    3.1.2 non-lignin fraction of structural litter goes into active carbon pool + respiration
 !
-      PSOILCARBON_INPUT(JI,1)=PSOILCARBON_INPUT(JI,1)+XFRAC_SOILCARB(2,1,JL)*ZQD*(1.0-PLIGNIN_STRUC(JI,JL))/ZDT  
+      PSOILCARBON_INPUT(JI,1)=PSOILCARBON_INPUT(JI,1)+XFRAC_SOILCARB(2,1,JL)*ZQD*(1.0-PLIGNIN_STRUC(JI,JL))/ZDT
 !
-      PRESP_HETERO_LITTER(JI)=PRESP_HETERO_LITTER(JI)+(1.0-XFRAC_SOILCARB(2,1,JL))*ZQD*(1.0-PLIGNIN_STRUC(JI,JL))/ZDT  
+      PRESP_HETERO_LITTER(JI)=PRESP_HETERO_LITTER(JI)+(1.0-XFRAC_SOILCARB(2,1,JL))*ZQD*(1.0-PLIGNIN_STRUC(JI,JL))/ZDT
 !
 !*    3.1.3 lignin fraction of structural litter goes into slow carbon pool + respiration
 !
-      PSOILCARBON_INPUT(JI,2)=PSOILCARBON_INPUT(JI,2)+XFRAC_SOILCARB(2,2,JL)*ZQD*PLIGNIN_STRUC(JI,JL)/ZDT  
+      PSOILCARBON_INPUT(JI,2)=PSOILCARBON_INPUT(JI,2)+XFRAC_SOILCARB(2,2,JL)*ZQD*PLIGNIN_STRUC(JI,JL)/ZDT
 !
-      PRESP_HETERO_LITTER(JI)=PRESP_HETERO_LITTER(JI)+(1.0-XFRAC_SOILCARB(2,2,JL))*ZQD*PLIGNIN_STRUC(JI,JL)/ZDT  
+      PRESP_HETERO_LITTER(JI)=PRESP_HETERO_LITTER(JI)+(1.0-XFRAC_SOILCARB(2,2,JL))*ZQD*PLIGNIN_STRUC(JI,JL)/ZDT
 !
 !*    3.2 metabolic litter goes into active carbon pool + respiration
 !
@@ -233,7 +233,7 @@ DO JL=1,INLITTLEVS
 !
 !*    3.2.2 put decomposed litter into carbon pool + respiration
 !
-      PSOILCARBON_INPUT(JI,1)=PSOILCARBON_INPUT(JI,1)+XFRAC_SOILCARB(1,1,JL)*ZQD/ZDT  
+      PSOILCARBON_INPUT(JI,1)=PSOILCARBON_INPUT(JI,1)+XFRAC_SOILCARB(1,1,JL)*ZQD/ZDT
 !
       PRESP_HETERO_LITTER(JI) = PRESP_HETERO_LITTER(JI)+(1.0-XFRAC_SOILCARB(1,1,JL))*ZQD/ZDT
 !

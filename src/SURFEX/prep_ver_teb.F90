@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_VER_TEB (B, T, PZS, HBEM)
@@ -16,11 +16,11 @@ SUBROUTINE PREP_VER_TEB (B, T, PZS, HBEM)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -104,9 +104,9 @@ END DO
 !* shift is zero from internal wall to half of wall
 DO JL=1,SIZE(T%XT_WALL_A,2)
   T%XT_WALL_A(:,JL) = T%XT_WALL_A(:,JL) + XT_CLIM_GRAD  * (PZS - XZS_LS) &
-                                     * MAX(1.-2.*ZGRID(:,JL)/ZD(:),0.)  
+                                     * MAX(1.-2.*ZGRID(:,JL)/ZD(:),0.)
   T%XT_WALL_B(:,JL) = T%XT_WALL_B(:,JL) + XT_CLIM_GRAD  * (PZS - XZS_LS) &
-                                     * MAX(1.-2.*ZGRID(:,JL)/ZD(:),0.)  
+                                     * MAX(1.-2.*ZGRID(:,JL)/ZD(:),0.)
 END DO
 !
 DEALLOCATE(ZD)
@@ -130,7 +130,7 @@ END DO
 !* shift is zero from internal wall to half of wall
 DO JL=1,SIZE(T%XT_ROOF,2)
   T%XT_ROOF(:,JL) = T%XT_ROOF(:,JL) + XT_CLIM_GRAD  * (PZS - XZS_LS) &
-                                   * MAX(1.-2.*ZGRID(:,JL)/ZD(:),0.)  
+                                   * MAX(1.-2.*ZGRID(:,JL)/ZD(:),0.)
 END DO
 !
 DEALLOCATE(ZD)

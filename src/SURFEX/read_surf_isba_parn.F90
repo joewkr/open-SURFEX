@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################
       SUBROUTINE READ_SURF_ISBA_PAR_n (DTCO, U, GCP, KPATCH, HPROGRAM, HREC, KLUOUT, KSIZE, &
@@ -41,7 +41,7 @@ INTEGER,                 INTENT(IN) :: KVERSION
 INTEGER,                 INTENT(IN) :: KBUGFIX
 LOGICAL, DIMENSION(:),   INTENT(INOUT) :: ODATA
 !
-REAL, DIMENSION(:,:),    INTENT(OUT):: PFIELD ! array containing the data field  
+REAL, DIMENSION(:,:),    INTENT(OUT):: PFIELD ! array containing the data field
 
 INTEGER                  ,INTENT(OUT) :: KRESP      ! KRESP  : return-code if a problem appears
  CHARACTER(LEN=*),OPTIONAL,INTENT(OUT) :: HCOMMENT   ! name of the article to be read
@@ -88,7 +88,7 @@ IF (KVERSION<7) THEN
   IF (SIZE(PFIELD,2)==NVEGTYPE) THEN
     DO JP = 1, KPATCH
       ZFIELD_PATCH(:,1,JP) = PFIELD(:,JP)
-    ENDDO         
+    ENDDO
     ! patchs shared on vegtypes
     CALL PUT_ON_ALL_VEGTYPES(INI,1,KPATCH,NVEGTYPE,ZFIELD_PATCH,ZFIELD_VEGTYPE)
     PFIELD(:,:) = ZFIELD_VEGTYPE(:,1,:)
@@ -150,7 +150,7 @@ ELSE
   ELSE
     ! classical case
     PFIELD(:,:) = ZFIELD_VEGTYPE(:,1,:)
-  ENDIF        
+  ENDIF
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('READ_SURF_ISBA_PAR_n',1,ZHOOK_HANDLE)

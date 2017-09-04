@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !!   ############################################################
      SUBROUTINE CH_AER_EMISSION(PFLUX, PRHODREF, HSV, KSV_CHSBEG,  PFCO)
@@ -47,7 +47,7 @@ REAL,   DIMENSION(:,:),      INTENT(INOUT) :: PFLUX
 REAL,   DIMENSION(:),        INTENT(IN) :: PRHODREF
 INTEGER,                     INTENT(IN) :: KSV_CHSBEG
  CHARACTER(LEN=*), DIMENSION(:),  INTENT(IN)  :: HSV      ! name of chemical species
-REAL,   DIMENSION(:),OPTIONAL, INTENT(IN)  :: PFCO   ! CO flux 
+REAL,   DIMENSION(:),OPTIONAL, INTENT(IN)  :: PFCO   ! CO flux
 
 !
 !
@@ -68,7 +68,7 @@ REAL   :: ZEMISRADIUSI, ZEMISRADIUSJ
 REAL   :: ZVALBC, ZVALOC
 INTEGER :: I_CH_M0i, I_CH_M0j, I_CH_M6i, I_CH_M6j, I_CH_H2Oi, I_CH_H2Oj,&
                   I_CH_SO4i,I_CH_SO4j, I_CH_NO3i, I_CH_NO3j, I_CH_NH3i, I_CH_NH3j,&
-                  I_CH_OCi, I_CH_OCj, I_CH_BCi, I_CH_BCj  , I_CH_DSTi, I_CH_DSTj   
+                  I_CH_OCi, I_CH_OCj, I_CH_BCi, I_CH_BCj  , I_CH_DSTi, I_CH_DSTj
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
 !
@@ -76,7 +76,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !*       1.     TRANSFER FROM GAS TO AEROSOL MODULE
 !               ------------------------------------
-!        1.1    initialisation 
+!        1.1    initialisation
 !
 IF (LHOOK) CALL DR_HOOK('CH_AER_EMISSION',0,ZHOOK_HANDLE)
 
@@ -183,8 +183,8 @@ IF ((LCO2PM).AND.(PRESENT(PFCO))) THEN
   ZFCO(:) = PFCO(:)
 END IF
 
-! Initial aerosols fluxes have been transformed into molecu.m-2.s-1, 
-! conversion into are in kg.kg-1.m.s-1 
+! Initial aerosols fluxes have been transformed into molecu.m-2.s-1,
+! conversion into are in kg.kg-1.m.s-1
 !  conversion in kg.kg-1.m.s-1
 !
 ZCONVERSION(:) =  XAVOGADRO * PRHODREF(:)
@@ -201,13 +201,13 @@ PFLUX(:,I_CH_OCi)  = (PFLUX(:,I_CH_OCi) + ZFCO(:) * ZVALOC / 2.) / ZCONVERSION(:
 PFLUX(:,I_CH_OCj)  = (PFLUX(:,I_CH_OCj) + ZFCO(:) * ZVALOC ) / ZCONVERSION(:) * ZMI(JP_AER_OC)*1E-3
 PFLUX(:,I_CH_BCi)  = (PFLUX(:,I_CH_BCi) + ZFCO(:) * ZVALBC / 2.) / ZCONVERSION(:) * ZMI(JP_AER_BC)*1E-3
 PFLUX(:,I_CH_BCj)  = (PFLUX(:,I_CH_BCj) + ZFCO(:) * ZVALBC ) / ZCONVERSION(:) * ZMI(JP_AER_BC)*1E-3
-PFLUX(:,I_CH_DSTi) = PFLUX(:,I_CH_DSTi) / ZCONVERSION(:) * ZMI(JP_AER_DST)*1E-3 
-PFLUX(:,I_CH_DSTj) = PFLUX(:,I_CH_DSTj) / ZCONVERSION(:) * ZMI(JP_AER_DST)*1E-3 
+PFLUX(:,I_CH_DSTi) = PFLUX(:,I_CH_DSTi) / ZCONVERSION(:) * ZMI(JP_AER_DST)*1E-3
+PFLUX(:,I_CH_DSTj) = PFLUX(:,I_CH_DSTj) / ZCONVERSION(:) * ZMI(JP_AER_DST)*1E-3
 !
 !*       1.0    transfer aerosol mass from gas to aerosol variables
 !               (and conversion of kg.kg-1.m.s-1 --> microgram.m-2.s-1)
 !
-ZFCTOTA(:,JP_AER_SO4,1) = PFLUX(:,I_CH_SO4i) *1E+9 * PRHODREF(:) 
+ZFCTOTA(:,JP_AER_SO4,1) = PFLUX(:,I_CH_SO4i) *1E+9 * PRHODREF(:)
 ZFCTOTA(:,JP_AER_SO4,2) = PFLUX(:,I_CH_SO4j) *1E+9 * PRHODREF(:)
 
 ZFCTOTA(:,JP_AER_NH3,1) = PFLUX(:,I_CH_NH3i) *1E+9 * PRHODREF(:)
@@ -239,9 +239,9 @@ ENDDO
 !
 !*       1.2    calculate moment 0 flux from dispersion and mean radius Rg
 !
-ZFM(:,1)= ZFM(:,2) / ((ZEMISRADIUSI**3)*EXP(4.5 * (LOG(XEMISSIGI))**2)) 
+ZFM(:,1)= ZFM(:,2) / ((ZEMISRADIUSI**3)*EXP(4.5 * (LOG(XEMISSIGI))**2))
 !
-ZFM(:,4)= ZFM(:,5) / ((ZEMISRADIUSJ**3)*EXP(4.5 * (LOG(XEMISSIGJ))**2)) 
+ZFM(:,4)= ZFM(:,5) / ((ZEMISRADIUSJ**3)*EXP(4.5 * (LOG(XEMISSIGJ))**2))
 !
 !*       1.3    calculate moment 6 flux from dispersion and mean diameter
 !
@@ -251,7 +251,7 @@ ZFM(:,6) = ZFM(:,4) * (ZEMISRADIUSJ**6) *EXP(18 *(LOG(XEMISSIGJ))**2)
 !
 !*       1.4    conversion en ppp.m.s-1
 !
-! conversion in atmospheric unit only for moments 0 and 6 
+! conversion in atmospheric unit only for moments 0 and 6
 PFLUX(:,I_CH_M0i) = ZFM(:,1) * 1E-6 / (ZDEN2MOL * PRHODREF(:))
 PFLUX(:,I_CH_M0j) = ZFM(:,4) * 1E-6 / (ZDEN2MOL * PRHODREF(:))
 !
@@ -279,7 +279,7 @@ PFLUX(:,I_CH_DSTj) = PFLUX(:,I_CH_DSTj) * XMD / (ZMI(JP_AER_DST)*1E-3)
 PFLUX(:,I_CH_M0i) = PFLUX(:,I_CH_M0i) * ZCONVERSION(:)
 PFLUX(:,I_CH_M0j) = PFLUX(:,I_CH_M0j) * ZCONVERSION(:)
 !
-IF (LVARSIGI) PFLUX(:,I_CH_M6i) = PFLUX(:,I_CH_M6i) * ZCONVERSION(:) 
+IF (LVARSIGI) PFLUX(:,I_CH_M6i) = PFLUX(:,I_CH_M6i) * ZCONVERSION(:)
 IF (LVARSIGJ) PFLUX(:,I_CH_M6j) = PFLUX(:,I_CH_M6j) * ZCONVERSION(:)
 !
 PFLUX(:,I_CH_SO4i) = PFLUX(:,I_CH_SO4i) * ZCONVERSION(:) / (ZMI(JP_AER_SO4)*1E-3)

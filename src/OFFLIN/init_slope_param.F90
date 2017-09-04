@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE INIT_SLOPE_PARAM (UG, PGRID_FULL_PAR, PZS, KI, PLAT)
 !
@@ -13,7 +13,7 @@ SUBROUTINE INIT_SLOPE_PARAM (UG, PGRID_FULL_PAR, PZS, KI, PLAT)
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -23,7 +23,7 @@ SUBROUTINE INIT_SLOPE_PARAM (UG, PGRID_FULL_PAR, PZS, KI, PLAT)
 !!
 !!    REFERENCE
 !!    ---------
-!!   
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -161,13 +161,13 @@ ALLOCATE(ZDY (NIX*NIY))
 IF (NRANK==NPIO) THEN
 
   CALL GET_MESH_DIM(UG%CGRID,SIZE(PGRID_FULL_PAR),NIX*NIY,PGRID_FULL_PAR,ZDX,ZDY,UG%XMESH_SIZE)
-  
+
 ENDIF
 
 #ifdef SFX_MPI
 IF (NPROC>1) THEN
   CALL MPI_BCAST(ZDX,SIZE(ZDX)*KIND(ZDX)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
-  CALL MPI_BCAST(ZDY,SIZE(ZDY)*KIND(ZDY)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)  
+  CALL MPI_BCAST(ZDY,SIZE(ZDY)*KIND(ZDY)/4,MPI_REAL,NPIO,NCOMM,INFOMPI)
 END IF
 #endif
 !
@@ -195,13 +195,13 @@ IF (LREVERTGRID) THEN
   DO JY=1,NIY
     IINDY=NIY-JY+1
     DO JX=1,NIX
-      ZZS (JX,IINDY) = ZZS1D_FULL ( JX + (JY-1)*NIX ) 
+      ZZS (JX,IINDY) = ZZS1D_FULL ( JX + (JY-1)*NIX )
     END DO
   END DO
 ELSE
   DO JY=1,NIY
     DO JX=1,NIX
-      ZZS (JX,JY) = ZZS1D_FULL ( JX + (JY-1)*NIX ) 
+      ZZS (JX,JY) = ZZS1D_FULL ( JX + (JY-1)*NIX )
     END DO
   END DO
 ENDIF
@@ -274,27 +274,27 @@ DO JT=1,4
         CASE (1)
           ZDZSDX=(    2.* XZSL   (JI,JJ)                   &
                    - (XZS_XY(JI,JJ)+XZS_XY(JI,JJ+1)) )    &
-                 / (XXHAT(JI+1)-XXHAT(JI))  
+                 / (XXHAT(JI+1)-XXHAT(JI))
           ZDZSDY=(  XZS_XY(JI,JJ+1) - XZS_XY(JI,JJ) )     &
-                 / (XYHAT(JJ+1)-XYHAT(JJ))  
+                 / (XYHAT(JJ+1)-XYHAT(JJ))
         CASE (2)
            ZDZSDX=(  XZS_XY(JI+1,JJ+1) -XZS_XY(JI,JJ+1))  &
-                 / (XXHAT(JI+1)-XXHAT(JI))  
+                 / (XXHAT(JI+1)-XXHAT(JI))
            ZDZSDY=(  (XZS_XY(JI+1,JJ+1)+XZS_XY(JI,JJ+1))  &
                      - 2.* XZSL (JI,JJ) )                  &
-                 / (XYHAT(JJ+1)-XYHAT(JJ))  
+                 / (XYHAT(JJ+1)-XYHAT(JJ))
         CASE (3)
           ZDZSDX=(  (XZS_XY(JI+1,JJ)+XZS_XY(JI+1,JJ+1))   &
                    - 2.* XZSL(JI,JJ)                    )  &
-                 / (XXHAT(JI+1)-XXHAT(JI))  
+                 / (XXHAT(JI+1)-XXHAT(JI))
           ZDZSDY=(  XZS_XY(JI+1,JJ+1) - XZS_XY(JI+1,JJ) ) &
-                 / (XYHAT(JJ+1)-XYHAT(JJ))  
+                 / (XYHAT(JJ+1)-XYHAT(JJ))
         CASE (4)
            ZDZSDX=(  XZS_XY(JI+1,JJ) - XZS_XY(JI,JJ) )    &
-                 / (XXHAT(JI+1)-XXHAT(JI))  
+                 / (XXHAT(JI+1)-XXHAT(JI))
            ZDZSDY=(  2.* XZSL(JI,JJ)                       &
                    - (XZS_XY(JI+1,JJ)+XZS_XY(JI,JJ)) )    &
-                 / (XYHAT(JJ+1)-XYHAT(JJ)) 
+                 / (XYHAT(JJ+1)-XYHAT(JJ))
       END SELECT
 !
       ! If slope is higher than 60 degrees : numerical problems

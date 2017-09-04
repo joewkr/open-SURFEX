@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
 SUBROUTINE DEALLOC_SEAFLUX_n (SM)
@@ -16,11 +16,11 @@ SUBROUTINE DEALLOC_SEAFLUX_n (SM)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -65,20 +65,20 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('DEALLOC_SEAFLUX_N',0,ZHOOK_HANDLE)
 !
-CALL DIAG_OPTIONS_INIT(SM%SD%O) 
+CALL DIAG_OPTIONS_INIT(SM%SD%O)
 CALL DIAG_INIT(SM%SD%D)
 CALL DIAG_INIT(SM%SD%DC)
 CALL DIAG_INIT(SM%SD%DI)
 CALL DIAG_INIT(SM%SD%DIC)
-CALL DIAG_OCEAN_INIT(SM%SD%GO)  
+CALL DIAG_OCEAN_INIT(SM%SD%GO)
 CALL DIAG_MISC_SEAICE_INIT(SM%SD%DMI)
-  !  
+  !
 CALL DATA_SEAFLUX_INIT(SM%DTS)
 CALL GRID_INIT(SM%G)
-CALL CANOPY_INIT(SM%SB)  
+CALL CANOPY_INIT(SM%SB)
 CALL CH_SEAFLUX_INIT(SM%CHS)
 CALL SEAFLUX_INIT(SM%S)
-CALL SEAFLUX_INIT(SM%S)  
+CALL SEAFLUX_INIT(SM%S)
 CALL OCEAN_INIT(SM%O)
 CALL OCEAN_REL_INIT(SM%OR)
 !

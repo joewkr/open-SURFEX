@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WATER_FLUX(PZ0SEA,                                         &
@@ -8,17 +8,17 @@
                               PTT, PVMOD, PZREF, PUREF,                       &
                               PPS, OHANDLE_SIC, PQSAT,                        &
                               PSFTH, PSFTQ, PUSTAR,                           &
-                              PCD, PCDN, PCH, PRI, PRESA, PZ0HSEA             )  
+                              PCD, PCDN, PCH, PRI, PRESA, PZ0HSEA             )
 !     #######################################################################
 !
 !
-!!****  *WATER_FLUX*  
+!!****  *WATER_FLUX*
 !!
 !!    PURPOSE
 !!    -------
 !      Calculate the surface fluxes of heat, moisture, and momentum over
-!      water surfaces.  
-!     
+!      water surfaces.
+!
 !!**  METHOD
 !!    ------
 !
@@ -26,19 +26,19 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      S. Belair           * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original      01/09/95 
+!!      Original      01/09/95
 !!      (J.Stein)     16/11/95  use PUSLOPE and Theta to compute Ri
 !!      (P.Lacarrere) 19/03/96  bug in the ZTHVI and ZTHVIS computations
 !!      (J.Stein)     27/03/96  use only H and LE in the soil scheme
@@ -98,8 +98,8 @@ REAL, DIMENSION(:), INTENT(IN)       :: PRS   ! snow rate
 REAL,               INTENT(IN)       :: PTT   ! temperature of freezing point
 !
 REAL, DIMENSION(:), INTENT(INOUT)    :: PZ0SEA! roughness length over the ocean
-!                                         
-!                                         
+!
+!
 !  surface fluxes : latent heat, sensible heat, friction fluxes
 REAL, DIMENSION(:), INTENT(OUT)      :: PSFTH ! heat flux  (W/m2)
 REAL, DIMENSION(:), INTENT(OUT)      :: PSFTQ ! water flux (kg/m2/s)
@@ -165,7 +165,7 @@ ZVMOD(:)=WIND_THRESHOLD(PVMOD(:),PUREF(:))
 IF(CCHARNOCK=='OLD')THEN
   ZCHARN(:) = XVCHRNK
 ELSE
-! vary between 0.011 et 0.018 according to Chris Fairall's data as in coare3.0        
+! vary between 0.011 et 0.018 according to Chris Fairall's data as in coare3.0
   ZCHARN(:) = MAX(0.011,MIN(0.018,0.011+0.007*(ZVMOD(:)-10.)/8.))
 ENDIF
 !
@@ -189,7 +189,7 @@ ELSE
    PZ0HSEA(:)=PZ0SEA(:)
 ENDIF
 !
-IF (.NOT.OHANDLE_SIC ) THEN 
+IF (.NOT.OHANDLE_SIC ) THEN
    WHERE (PSST(:) < PTT)
       PZ0HSEA(:) = XZ0HSN
    END WHERE
@@ -199,9 +199,9 @@ ENDIF
 !              ----------------
 !
 IF (LDRAG_COEF_ARP) THEN
- 
+
   CALL SURFACE_CDCH_1DARP(PZREF, PZ0SEA, PZ0HSEA, ZVMOD, PTA, PSST, &
-                          PQA, PQSAT, PCD, PCDN, PCH                )  
+                          PQA, PQSAT, PCD, PCDN, PCH                )
 
   ZRA(:) = 1. / ( PCH(:) * ZVMOD(:) )
 !
@@ -228,7 +228,7 @@ ELSE
     PZ0HSEA(:)=PZ0SEA(:)
 ENDIF
 !
-IF (.NOT.OHANDLE_SIC ) THEN 
+IF (.NOT.OHANDLE_SIC ) THEN
    WHERE (PSST(:) < PTT)
           PZ0SEA(:) = XZ0SN
    END WHERE
@@ -246,7 +246,7 @@ ENDIF
 IF (LRRGUST_ARP) THEN
   ZFP(:)=MAX(0.0,PRR(:)+PRS(:))
   ZRRCOR(:)=SQRT(1.0+((((ZFP(:)/(ZFP(:)+XRRSCALE))**XRRGAMMA)*XUTILGUST)**2) &
-      /(PCD(:)*ZVMOD(:)**2))  
+      /(PCD(:)*ZVMOD(:)**2))
 
   PCD  = PCD*ZRRCOR
   PCH  = PCH*ZRRCOR

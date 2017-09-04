@@ -1,6 +1,6 @@
 #SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 #SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 #SFX_LIC for details. version 1.
 ##########################################################
 #                                                        #
@@ -47,9 +47,9 @@ FPPFLAGS   += $(FPPFLAGS_OFFLIN)
 #VER_SURFEX=SURFEX-7-2-0
 #ARCH_XYZ    := $(ARCH_XYZ)-$(VER_MYSRC)
 
-#OBJS_NOCB +=  spll_mode_cover_301_573.o 
+#OBJS_NOCB +=  spll_mode_cover_301_573.o
 
-$(OBJS0): OPT = $(OPT0) 
+$(OBJS0): OPT = $(OPT0)
 
 endif
 
@@ -76,9 +76,9 @@ INC         += $(INC_SURFEX)
 VER_SURFEX=SURFEX-7-2-0
 #ARCH_XYZ    := $(ARCH_XYZ)-$(VER_MYSRC)
 
-#OBJS_NOCB +=  spll_mode_cover_301_573.o 
+#OBJS_NOCB +=  spll_mode_cover_301_573.o
 
-$(OBJS0): OPT = $(OPT0) 
+$(OBJS0): OPT = $(OPT0)
 
 endif
 
@@ -98,7 +98,7 @@ FPPFLAGS   += $(FPPFLAGS_ASSIM)
 #VER_SURFEX=SURFEX-7-2-0
 #ARCH_XYZ    := $(ARCH_XYZ)-$(VER_MYSRC)
 
-#OBJS_NOCB +=  spll_mode_cover_301_573.o 
+#OBJS_NOCB +=  spll_mode_cover_301_573.o
 
 $(OBJS0): OPT = $(OPT0)
 
@@ -122,9 +122,9 @@ FPPFLAGS   += $(FPPFLAGS_TRIP)
 #VER_SURFEX=SURFEX-7-2-0
 #ARCH_XYZ    := $(ARCH_XYZ)-$(VER_MYSRC)
 
-#OBJS_NOCB +=  spll_mode_cover_301_573.o 
+#OBJS_NOCB +=  spll_mode_cover_301_573.o
 
-$(OBJS0): OPT = $(OPT0) 
+$(OBJS0): OPT = $(OPT0)
 
 endif
 ##########################################################
@@ -140,7 +140,7 @@ ifdef DIR_TOPD
 DIR_MASTER += $(DIR_TOPD)
 FPPFLAGS   += $(FPPFLAGS_TOPD)
 
-$(OBJS0): OPT = $(OPT0) 
+$(OBJS0): OPT = $(OPT0)
 
 endif
 ##########################################################
@@ -158,7 +158,7 @@ FPPFLAGS   += $(FPPFLAGS_GELATO)
 VER_GELATO=GELATO-6-0-34
 #ARCH_XYZ    := $(ARCH_XYZ)-$(VER_GELATO)
 
-$(OBJS0): OPT = $(OPT0) 
+$(OBJS0): OPT = $(OPT0)
 
 endif
 ##########################################################
@@ -216,15 +216,15 @@ INC_XRD = -I$(B)LIB/$(VER_XRD)/include -I$(B)LIB/$(VER_XRD)/fa -I$(B)LIB/$(VER_X
 FPPFLAGS_XRD = -DHIGHRES -DLINUX -DLITTLE_ENDIAN -DLITTLE -DSFX_MPL
 CPPFLAGS_XRD = -DLINUX -DLITTLE_ENDIAN -DLITTLE -DSFX_MPL
 #
-OBJS_LISTE_MASTER += addrdiff.o cargs.o crc.o drhook.o endian.o env.o fi_libc.o fnecsx.o getcurheap.o 
-OBJS_LISTE_MASTER += gethwm.o getmaxrss.o getpag.o getrss.o getstackusage.o getstatm.o getstk.o 
+OBJS_LISTE_MASTER += addrdiff.o cargs.o crc.o drhook.o endian.o env.o fi_libc.o fnecsx.o getcurheap.o
+OBJS_LISTE_MASTER += gethwm.o getmaxrss.o getpag.o getrss.o getstackusage.o getstatm.o getstk.o
 OBJS_LISTE_MASTER += iswap8.o lfi_abor.o lfi_altm.o lfi_alts.o lfi_dumm.o lfi_fmul.o lfi_fort.o lfi_grok.o
 OBJS_LISTE_MASTER += lfi_hndl.o lfi_intf.o lfi_miss.o lfi_util.o lfi_verb.o linux_bind.o linuxtrbk.o mpe_locking.o
 #
 endif
 #
 ifdef DIR_XRD
-ifeq ($(F90),$(filter $(F90),ifort mpiifort)) 
+ifeq ($(F90),$(filter $(F90),ifort mpiifort))
 FPPFLAGS_XRD += -D__INTEL_COMPILER
 endif
 DIR_MASTER += $(DIR_XRD)
@@ -349,7 +349,7 @@ ifeq "$(VER_MPI)" "LAMMPI"
 #LIB_MPI     = -L/opt/lam/lib   -lmpi -llammpi++ -llammpio -llamf77mpi -lmpi -llam -lpthread -ldl
 # default 64 bits SUSE 9 version
 INC_MPI     = -I$(B)/usr/include
-LIB_MPI     = -lmpi -llammpi++ -llammpio -llamf77mpi -lmpi -llam -lpthread -ldl -lutil 
+LIB_MPI     = -lmpi -llammpi++ -llammpio -llamf77mpi -lmpi -llam -lpthread -ldl -lutil
 INC            += $(INC_MPI)
 LIBS           += $(LIB_MPI)
 endif
@@ -379,7 +379,7 @@ endif
 #
 ifeq "$(VER_MPI)" "MPICH2"
 INC_MPI     = -I/usr/include
-LIB_MPI     = -lmpichf90 -lmpich 
+LIB_MPI     = -lmpichf90 -lmpich
 INC            += $(INC_MPI)
 LIBS           += $(LIB_MPI)
 endif
@@ -437,10 +437,10 @@ INC            += $(INC_MPI)
 LIBS           += $(LIB_MPI)
 endif
 #
-#   MPI for SGI-ICE 
+#   MPI for SGI-ICE
 #
 ifeq "$(VER_MPI)" "MPIICE"
-INC_MPI     = 
+INC_MPI     =
 LIB_MPI     = -lmpi
 INC            += $(INC_MPI)
 LIBS           += $(LIB_MPI)
@@ -538,7 +538,7 @@ endif
 ifeq "$(VER_CDF)" "CDFICE"
 CDF_PATH?=/opt/software/SGI/netcdf/4.0
 INC_NETCDF     ?= -I${CDF_PATH}/include
-LIB_NETCDF     ?= -L${CDF_PATH}/lib -lnetcdff  -lnetcdf -i_dynamic 
+LIB_NETCDF     ?= -L${CDF_PATH}/lib -lnetcdff  -lnetcdf -i_dynamic
 endif
 #
 # NetCDF in NEC SX
@@ -611,7 +611,7 @@ endif
 #
 ifeq "$(VER_CDF)" "CDFBOFX"
 CDF_PATH       ?= /opt/softs/libraries/ICC16.1.150/netcdf-4.4.0
-INC_NETCDF     ?= -I${CDF_PATH}/include 
+INC_NETCDF     ?= -I${CDF_PATH}/include
 LIB_NETCDF     ?= -L${CDF_PATH}/lib -lnetcdff -lnetcdf -Wl,-rpath,$(CDF_PATH)/lib
 XIOS_CDF_OPT   = netcdf4_seq
 endif
@@ -631,7 +631,7 @@ endif
 #
 ifeq "$(VER_CDF)" "CDFPROLX"
 CDF_PATH       ?= /opt/softs/libraries/ICC16.1.150/netcdf-4.4.0
-INC_NETCDF     ?= -I${CDF_PATH}/include 
+INC_NETCDF     ?= -I${CDF_PATH}/include
 LIB_NETCDF     ?= -L${CDF_PATH}/lib -lnetcdff -lnetcdf -Wl,-rpath,$(CDF_PATH)/lib
 XIOS_CDF_OPT   = netcdf4_seq
 endif
@@ -669,7 +669,7 @@ NSOURCE=8
 TRIP_LIST += TRIP_PREP TRIP_MASTER TRIP_CHANGE_DATE
 #
 ifeq "$(ARCH)" "BG"
-PROG_LIST += OFFLINE 
+PROG_LIST += OFFLINE
 else
 PROG_LIST += PGD PREP OFFLINE SODA
 #PROG_LIST += OI_MAIN SXPOST VARASSIM $(TRIP_LIST)
@@ -707,8 +707,8 @@ LIB_OBJS_ROOT   := $(LIB_OBJS_ROOT)-$(ARCH_XYZ)
 #                                                        #
 ##########################################################
 #
-IGNORE_OBJS += 
-IGNORE_DEP_MASTER += 
+IGNORE_OBJS +=
+IGNORE_DEP_MASTER +=
 IGNORE_DEP_MASTER +=
 #
 #

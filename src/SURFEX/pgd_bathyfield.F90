@@ -1,11 +1,11 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PGD_BATHYFIELD (UG, U, USS, &
                                  HPROGRAM,HFIELD,HAREA,HFILE,HFILETYPE,&
-                                  HNCVARNAME,PUNIF,PFIELD)  
+                                  HNCVARNAME,PUNIF,PFIELD)
 !     ##############################################################
 !
 !!**** *PGD_FIELD* monitor for averaging and interpolations of ISBA physiographic fields
@@ -15,7 +15,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------
@@ -113,7 +113,7 @@ IF (LHOOK) CALL DR_HOOK('PGD_BATHYFIELD',0,ZHOOK_HANDLE)
 !             -------
 !
 IF (LEN_TRIM(HFILE)/=0) THEN
-!        
+!
 !-------------------------------------------------------------------------------
 !
 !*    3.      Averages the field
@@ -132,7 +132,7 @@ IF (LEN_TRIM(HFILE)/=0) THEN
 
   CALL TREAT_BATHYFIELD(UG, U, USS, &
                         HPROGRAM,'SURF  ',HFILETYPE,'A_MESH',HFILE, HNCVARNAME,&
-                     YFIELD,PFIELD,HAREA                           )  
+                     YFIELD,PFIELD,HAREA                           )
 !
 !-------------------------------------------------------------------------------
 !

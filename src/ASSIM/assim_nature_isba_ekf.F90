@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE ASSIM_NATURE_ISBA_EKF (IO, S, K, NP, NPE, HPROGRAM, KI, PT2M, PHU2M, HTEST)
 
@@ -18,9 +18,9 @@ SUBROUTINE ASSIM_NATURE_ISBA_EKF (IO, S, K, NP, NPE, HPROGRAM, KI, PT2M, PHU2M, 
 !
 ! First version including patches (15 October 2008)
 ! Trygve Aspelien, Separating IO  06/2013
-! Alina Barbu: bug correction of B matrix, otherwise understimation of the gain matrix (11/2013) 
-! Alina Barbu: equivalent analysis of B matrix to ensure its symetric and positiv definiteness properties (11/2013) 
-  
+! Alina Barbu: bug correction of B matrix, otherwise understimation of the gain matrix (11/2013)
+! Alina Barbu: equivalent analysis of B matrix to ensure its symetric and positiv definiteness properties (11/2013)
+
 ! -----------------------------------------------------------------------------
 !
 !
@@ -34,12 +34,12 @@ USE MODD_ASSIM,         ONLY : LBEV, LBFIXED, NOBSTYPE, XERROBS, XQCOBS, NVAR, N
                                XF_PATCH, XF, COBS, XSCALE_QLAI,CFILE_FORMAT_OBS,   &
                                XALPH,NECHGU, NBOUTPUT, XTPRT, XLAI_PASS, XBIO_PASS,&
                                NOBS, XYO
-! 
+!
 USE MODD_SURF_PAR,      ONLY : XUNDEF
 USE MODD_ISBA_PAR,      ONLY : XWGMIN
 !
 #ifdef SFX_ARO
-USE YOMMP0,             ONLY : MYPROC 
+USE YOMMP0,             ONLY : MYPROC
 #endif
 !
 USE YOMHOOK,            ONLY : LHOOK,DR_HOOK
@@ -87,13 +87,13 @@ TYPE(ISBA_PE_t), POINTER :: PEK
 !
 ! Temporary vectors used by the EKF approach
 REAL,DIMENSION(KI) :: ZCOFSWI                     ! dynamic range (Wfc - Wwilt)
-!REAL,DIMENSION(KI) :: ZSMSAT                      ! saturation  
+!REAL,DIMENSION(KI) :: ZSMSAT                      ! saturation
 !REAL,DIMENSION(KI) :: ZWILT
 !
 REAL,DIMENSION(KI,IO%NPATCH,NVAR) :: ZCOEF
 REAL,DIMENSION(KI,IO%NPATCH,NVAR) :: ZEPS            ! The perturbation amplitude
 !
-REAL,DIMENSION(NVAR+1,NOBSTYPE) :: ZYF            ! Vector of model observations (averaged) 
+REAL,DIMENSION(NVAR+1,NOBSTYPE) :: ZYF            ! Vector of model observations (averaged)
 !
 REAL,DIMENSION(KI*IO%NPATCH*NVAR*IO%NPATCH*NVAR) :: ZBLONG
 REAL,DIMENSION(KI,IO%NPATCH*NVAR,IO%NPATCH*NVAR) :: ZB           ! background error covariance matrix
@@ -105,7 +105,7 @@ REAL,DIMENSION(IO%NPATCH*NVAR,IO%NPATCH*NVAR) :: ZQ           ! model error matr
 REAL,DIMENSION(NOBSTYPE*NBOUTPUT,IO%NPATCH*NVAR) :: ZHOWR        ! Jacobian of observation operator
 REAL,DIMENSION(NOBSTYPE*NBOUTPUT,IO%NPATCH*NVAR) :: ZHO             ! Jacobian of observation operator
 REAL,DIMENSION(IO%NPATCH*NVAR,NOBSTYPE*NBOUTPUT) :: ZHOT            ! Transpose of HO
-REAL,DIMENSION(IO%NPATCH*NVAR,NOBSTYPE*NBOUTPUT) :: ZGAIN           ! Kalman gain (used explicitly for Ba) 
+REAL,DIMENSION(IO%NPATCH*NVAR,NOBSTYPE*NBOUTPUT) :: ZGAIN           ! Kalman gain (used explicitly for Ba)
 !
 REAL,DIMENSION(NOBSTYPE*NBOUTPUT,NOBSTYPE*NBOUTPUT) :: ZR        ! covariance matrix of observation errors
 REAL,DIMENSION(NOBSTYPE*NBOUTPUT,NOBSTYPE*NBOUTPUT) :: ZK1
@@ -126,7 +126,7 @@ INTEGER :: IMONTH                     ! current month (UTC)
 INTEGER :: IDAY                       ! current day (UTC)
 INTEGER :: IHOUR
 INTEGER :: IRESP                      ! return code
-INTEGER :: ISTEP                      ! 
+INTEGER :: ISTEP                      !
 INTEGER :: IMYPROC
 INTEGER :: IOBS
 INTEGER :: ISCREENLEV
@@ -158,7 +158,7 @@ IF ( NPRINTLEV>0  .AND. NRANK==NPIO ) THEN
 ENDIF
 !
 #ifdef SFX_ARO
-IF ( MYPROC > 0 ) THEN 
+IF ( MYPROC > 0 ) THEN
   IMYPROC = MYPROC
 ELSE
   IMYPROC = 1
@@ -184,7 +184,7 @@ INPATCH = IO%NPATCH
  !
 !DO JI=1,KI
   !ZSMSAT (I) = 0.001 * (-1.08*100.*XSAND(I,1) + 494.305)
-  !ZWILT  (I) = 0.001 * 37.1342 * ((100.*XCLAY(I,1))**0.5) 
+  !ZWILT  (I) = 0.001 * 37.1342 * ((100.*XCLAY(I,1))**0.5)
 !ENDDO
 !
 ! Set control variables
@@ -240,7 +240,7 @@ DO JL = 1,NVAR
       DO JP = 1,INPATCH
         IF ( XLAI_PASS(JI,JP)/=XUNDEF .AND. XLAI_PASS(JI,JP)>=2. ) THEN
           ZCOEF(JI,JP,JL) = XLAI_PASS(JI,JP)*XLAI_PASS(JI,JP)
-        ELSE 
+        ELSE
           ZCOEF(JI,JP,JL) = 0.4*0.4/(XSIGMA(JL)*XSIGMA(JL))
         ENDIF
       ENDDO
@@ -259,7 +259,7 @@ ENDDO
 ! ----------------------
 ! VARASSIM OPTION : LBEV
 ! ----------------------
-!   Calculate the LTM, and evolve B. 
+!   Calculate the LTM, and evolve B.
 !
 ! Set the B input file depending of an existing B was found or not
 YBGFILE = "BGROUNDin."//TRIM(YMYPROC)
@@ -273,11 +273,11 @@ IF ( LBEV .AND. GBEXISTS ) THEN
   !
 ELSEIF ( LBEV .OR. LBFIXED ) THEN
   !
-  ! Initialization of B 
+  ! Initialization of B
   ZB(:,:,:) = 0.
   DO JI = 1,KI
     DO JL = 1,NVAR
-      DO JP = 1,INPATCH   
+      DO JP = 1,INPATCH
         !
         L1 = JP + INPATCH *(JL-1)
         ZB(JI,L1,L1) = XSIGMA(JL)*XSIGMA(JL) * ZCOEF(JI,JP,JL)
@@ -342,9 +342,9 @@ IF ( LBEV ) THEN
     ZLTM(:,:) = 0.0
     IUNIT = 120
     DO JL = 1,NVAR    ! control variable (x at previous time step)
-      DO JK = 1,NVAR 
+      DO JK = 1,NVAR
         IUNIT = IUNIT + 1
-        DO JP = 1,INPATCH 
+        DO JP = 1,INPATCH
           !
           L1 = JP + INPATCH*(JL-1)
           K1 = JP + INPATCH*(JK-1)
@@ -353,7 +353,7 @@ IF ( LBEV ) THEN
             !
             ! Jacobian of fwd model
             ZLTM(L1,K1) = ( XF(JI,JP,JL+1,JK) - XF(JI,JP,1,JK) ) / ZEPS(JI,JP,JL)
-            ! impose upper/lower limits 
+            ! impose upper/lower limits
             ZLTM(L1,K1) = MAX(-0.1, ZLTM(L1,K1))
             ZLTM(L1,K1) = MIN( 1.0, ZLTM(L1,K1))
             !
@@ -365,7 +365,7 @@ IF ( LBEV ) THEN
       ENDDO
     ENDDO
     !
-!//////////////////////TO WRITE LTM/////////////////////////////////////   
+!//////////////////////TO WRITE LTM/////////////////////////////////////
     IF (NPRINTLEV>0) THEN
       IUNIT = 120
       DO JL=1,NVAR
@@ -378,11 +378,11 @@ IF ( LBEV ) THEN
       WRITE(*,*) 'LTM d(wg2)/d(wg2)', ZLTM(1,1)
     ENDIF
     !
-    ! evolve B 
+    ! evolve B
     ZB(JI,:,:) = MATMUL(ZLTM(:,:),MATMUL(ZB(JI,:,:),TRANSPOSE(ZLTM(:,:))))
     !
     !
-    !   Adding model error to background error matrix 
+    !   Adding model error to background error matrix
     ZQ(:,:) = 0.0
     DO JL=1,NVAR
       DO JP=1,INPATCH
@@ -429,7 +429,7 @@ ENDIF
 !
 ! ====================================================================
 !
-!   Time reinitialization 
+!   Time reinitialization
 IYEAR  = S%TTIME%TDATE%YEAR
 IMONTH = S%TTIME%TDATE%MONTH
 IDAY   = S%TTIME%TDATE%DAY
@@ -440,21 +440,21 @@ ZTIME = FLOAT(NECHGU) * 3600.
 !############################# READS OBSERVATIONS ###############################
 !
 ! Map the variables in case we read them from CANARI inline/offline FA files
-! At the moment only T2M and HU2M can be used. If other variables should be used 
+! At the moment only T2M and HU2M can be used. If other variables should be used
 ! they must be added to the interface or be read from file.
 IF ( TRIM(CFILE_FORMAT_OBS) == "FA" ) THEN
   !
   DO IOBS = 1,NOBSTYPE
-    SELECT CASE (TRIM(COBS(IOBS)))   
-      CASE("T2M") 
+    SELECT CASE (TRIM(COBS(IOBS)))
+      CASE("T2M")
         XYO(:,IOBS) = PT2M(:)
-      CASE("HU2M")   
+      CASE("HU2M")
         XYO(:,IOBS) = PHU2M(:)
-      CASE("WG1","WG2","LAI")  
+      CASE("WG1","WG2","LAI")
         CALL ABOR1_SFX("Mapping of "//COBS(IOBS)//" is not defined in ASSIM_NATURE_ISBA_EKF!")
-    END SELECT                 
+    END SELECT
   ENDDO
-  !  
+  !
 ENDIF
 !
 ! ISCREENLEV defines the ground level used to screen observations when soil is frozen
@@ -537,10 +537,10 @@ IOBSCOUNT = 0
 DO JI=1,KI
   !
 !---------------- MEAN SIMULATED OBS AVERAGED OVER TILES-----------------------
-  ZYF(:,:) = 0. 
+  ZYF(:,:) = 0.
   DO JP=1,INPATCH
     IF (S%XPATCH(JI,JP) > 0.0) THEN
-      WHERE ( XF_PATCH(JI,JP,:,:)/=XUNDEF ) 
+      WHERE ( XF_PATCH(JI,JP,:,:)/=XUNDEF )
         ZYF(:,:) = ZYF(:,:) + S%XPATCH(JI,JP)*XF_PATCH(JI,JP,:,:)
       ENDWHERE
     ENDIF
@@ -553,14 +553,14 @@ DO JI=1,KI
   ZHO  (:,:) = XUNDEF  ! Linearized observation matrix
   ZHOWR(:,:) = XUNDEF
   ZB2  (:)   = XUNDEF  ! Innovation vector
-  
+
   DO ISTEP=1,NBOUTPUT
     !
     DO JK = 1,NOBSTYPE
       !
       K1 = (ISTEP-1)*NOBSTYPE + JK
       !
-!--------------------- SET OBSERVATION ERROR ------------------      
+!--------------------- SET OBSERVATION ERROR ------------------
       ZR(K1,K1) = XERROBS(JK)*XERROBS(JK)
       IF ( COBS(JK) .EQ. "LAI" ) THEN
         ZR(K1,K1) = ZR(K1,K1) * XYO(JI,K1)*XYO(JI,K1)
@@ -570,11 +570,11 @@ DO JI=1,KI
       ENDIF
       !
       ! Apply quality control
-      IF ( ( ABS( XYO(JI,K1)-ZYF(1,JK) ) > XQCOBS(JK) ) .OR. (ZR(K1,K1) .LT. 0 ) ) THEN 
+      IF ( ( ABS( XYO(JI,K1)-ZYF(1,JK) ) > XQCOBS(JK) ) .OR. (ZR(K1,K1) .LT. 0 ) ) THEN
         XYO(JI,K1) = 999.0
       ENDIF
-      !      
-!--------------------- CALCULATE JACOBIANS ------------------         
+      !
+!--------------------- CALCULATE JACOBIANS ------------------
       DO JL=1,NVAR
         DO JP=1,INPATCH
           !
@@ -588,7 +588,7 @@ DO JI=1,KI
             DO JJ = 1, PK%NSIZE_P
               IF (PK%NR_P(JJ)==JI) EXIT
             ENDDO
-            IF (PEK%XWGI(JJ,ISCREENLEV).EQ.0.) THEN 
+            IF (PEK%XWGI(JJ,ISCREENLEV).EQ.0.) THEN
               ZHOWR(K1,L1) = S%XPATCH(JI,JP)*(XF_PATCH(JI,JP,JL+1,JK) - XF_PATCH(JI,JP,1,JK))/ZEPS(JI,JP,JL)
             ENDIF
           ENDIF
@@ -599,7 +599,7 @@ DO JI=1,KI
             !IF (NPRINTLEV>0) WRITE(*,*) JI,S%XPATCH(JI,JP)*XF_PATCH(JI,JP,JL+1,JK), S%XPATCH(JI,JP)*XF_PATCH(JI,JP,1,JK),ZEPS(JI,JP,JL)
             !IF (NPRINTLEV>0) WRITE(*,*) 'NVAR | OBS | ZHO ', TRIM(CVAR(JL)), ' | ', COBS(JK), ' | ' , ZHO(K1,L1), JI
             !IF (NPRINTLEV>0) WRITE(*,*) 'ZCOEF | ZCOFSWI ', ZCOEF(JI,JP,JL), ' | ', ZCOFSWI(JI)
-            ! impose limits  
+            ! impose limits
             !ZHO(K1,L1) = MAX(-0.1, ZHO(K1,L1))
             !ZHO(K1,L1) = MIN( 1.0, ZHO(K1,L1))
             ! innovation vector
@@ -611,7 +611,7 @@ DO JI=1,KI
           ELSE  !if no obs available
             ! set obs operator and innovation to zero if no obs available
             ZHO(K1,L1) = 0.0
-            ZB2(K1) = 0.0 
+            ZB2(K1) = 0.0
           ENDIF
           !
         ENDDO
@@ -626,7 +626,7 @@ DO JI=1,KI
     WRITE(111,*) ZR(:,:)
     WRITE(112,*) ZB2(:)
   ENDIF
-  
+
 !---------------******  SOIL ANALYSIS *******--------------------------
   ZHOT(:,:) = 0.
   ZK1(:,:) = 0.
@@ -741,7 +741,7 @@ DO JI=1,KI
   ! Ba = (I-KH)Bf(I-KH)t+KRKt
   ! K = BfHt{K1}**-1
   ! K1 needs PATCH dim added
-  
+
   ZGAIN(:,:) = 0.
   ZIDKH(:,:) = 0.
   ZKRK(:,:) = 0.
@@ -752,7 +752,7 @@ DO JI=1,KI
   ZIDKH(:,:) = ZIDENT(:,:) - MATMUL(ZGAIN(:,:),ZHO(:,:))
   ZKRK (:,:) = MATMUL(ZGAIN(:,:),MATMUL(ZR(:,:),TRANSPOSE(ZGAIN(:,:))))
   IF (.NOT.LBFIXED)  ZB(JI,:,:) = MATMUL(ZIDKH(:,:),MATMUL(ZB(JI,:,:),TRANSPOSE(ZIDKH(:,:)))) + ZKRK(:,:)
-  
+
   IF ( NPRINTLEV > 0 ) THEN
     IUNIT = 150
     DO JL = 1,NVAR
@@ -764,7 +764,7 @@ DO JI=1,KI
       ENDDO
     ENDDO
   ENDIF
-  !  
+  !
 ENDDO
 !
 !
@@ -833,7 +833,7 @@ DO JL=1,NVAR
           PEK%XWG(JI,7) = XF(IMASK,JP,1,JL)
         CASE("WG8")
           PEK%XWG(JI,8) = XF(IMASK,JP,1,JL)
-        CASE("LAI") 
+        CASE("LAI")
           PEK%XLAI(JI) = XF(IMASK,JP,1,JL)
           SELECT CASE (TRIM(CBIO))
             CASE("BIOMA1","BIOMASS1")

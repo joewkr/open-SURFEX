@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INI_DATA_SOIL(HISBA,PDG_OUT,PSURF,PSURF2,PROOTDEPTH, &
@@ -88,7 +88,7 @@ PDG_OUT(:,:) = XUNDEF
 !*    2.     loop on cover types
 !            -------------------
 !
-LSURF(:) = .FALSE. 
+LSURF(:) = .FALSE.
 !
 IF (PRESENT(PSURF2) .AND. PRESENT(PSURF)) THEN
   LSURF(:) = (PSURF(:)==0. .AND. PSURF2(:)==0.)
@@ -104,7 +104,7 @@ ENDIF
 IF (HISBA=='2-L') THEN
 
   IF (.NOT.PRESENT(PROOTDEPTH)) CALL ABOR1_SFX("INI_DATA_SOIL: FOR HISBA==2-L, PROOTDEPTH IS NEEDED")
-   
+
   DO JLOOP = 1,SIZE(LSURF)
     IF (LSURF(JLOOP)) CYCLE
     IF(PROOTDEPTH(JLOOP) /= XUNDEF) THEN
@@ -118,7 +118,7 @@ IF (HISBA=='2-L') THEN
 !            ------------------
 !
 ELSE
-          
+
   IF (.NOT.PRESENT(PSOILDEPTH)) CALL ABOR1_SFX("INI_DATA_SOIL: FOR HISBA/=2-L, PSOILDEPTH IS NEEDED")
 
   IF (HISBA=='3-L') THEN

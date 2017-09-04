@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE PREP_HOR_TEB_GARDEN_FIELD (DTCO, UG, U, USS, GCP, IO, S, K, P, PEK, TG, TOP,  &
@@ -17,11 +17,11 @@ SUBROUTINE PREP_HOR_TEB_GARDEN_FIELD (DTCO, UG, U, USS, GCP, IO, S, K, P, PEK, T
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -126,7 +126,7 @@ INTEGER,            INTENT(IN)  :: KPATCH
  CHARACTER(LEN=6)              :: YFILETYPE_SNOW ! type of input file
  CHARACTER(LEN=28)             :: YFILE_SNOW     ! name of file
  CHARACTER(LEN=6)              :: YFILEPGDTYPE_SNOW ! type of input file
- CHARACTER(LEN=28)             :: YFILEPGD_SNOW     ! name of file 
+ CHARACTER(LEN=28)             :: YFILEPGD_SNOW     ! name of file
 REAL, POINTER,     DIMENSION(:,:,:) :: ZFIELDIN=>NULL()  ! field to interpolate horizontally
 !
 TYPE(NSURF_SNOW) :: TNPSNOW
@@ -184,11 +184,11 @@ IF (HSURF=='SN_VEG ') THEN
       YFILE_SNOW        = YFILE
       YFILETYPE_SNOW    = YFILETYPE
       YFILEPGD_SNOW     = YFILEPGD
-      YFILEPGDTYPE_SNOW = YFILEPGDTYPE       
-    ELSE          
+      YFILEPGDTYPE_SNOW = YFILEPGDTYPE
+    ELSE
       GUNIF_SNOW = .TRUE.
-      IF(ALL(XWSNOW_GD==XUNDEF)) XWSNOW_GD = 0.0 
-    ENDIF 
+      IF(ALL(XWSNOW_GD==XUNDEF)) XWSNOW_GD = 0.0
+    ENDIF
   ENDIF
   !
   ALLOCATE(ZSG1SNOW(SIZE(XWSNOW_GD)))
@@ -228,7 +228,7 @@ IF (HSURF=='SN_VEG ') THEN
   !
   DEALLOCATE(ZSG1SNOW)
   DEALLOCATE(ZSG2SNOW)
-  DEALLOCATE(ZHISTSNOW)  
+  DEALLOCATE(ZHISTSNOW)
   IF (LHOOK) CALL DR_HOOK('PREP_HOR_TEB_GARDEN_FIELD',1,ZHOOK_HANDLE)
   RETURN
 END IF
@@ -242,8 +242,8 @@ IF (GUNIF) THEN
 ELSE IF (YFILETYPE=='ASCLLV') THEN
   CALL PREP_TEB_GARDEN_ASCLLV(DTCO, UG, U, USS, HPROGRAM,HSURF,ILUOUT,ZFIELDIN)
 ELSE IF (YFILETYPE=='GRIB  ') THEN
-  CALL PREP_GRIB_GRID(YFILE,ILUOUT,CINMODEL,CINGRID_TYPE,CINTERP_TYPE,TZTIME_GRIB)            
-   IF (NRANK==NPIO) CALL PREP_TEB_GARDEN_GRIB(HPROGRAM,HSURF,YFILE,ILUOUT,ZFIELDIN)        
+  CALL PREP_GRIB_GRID(YFILE,ILUOUT,CINMODEL,CINGRID_TYPE,CINTERP_TYPE,TZTIME_GRIB)
+   IF (NRANK==NPIO) CALL PREP_TEB_GARDEN_GRIB(HPROGRAM,HSURF,YFILE,ILUOUT,ZFIELDIN)
 ELSE IF (YFILETYPE=='MESONH' .OR. YFILETYPE=='ASCII ' .OR. YFILETYPE=='LFI   '.OR.YFILETYPE=='FA    '.OR. YFILETYPE=='AROME ') THEN
    CALL PREP_TEB_GARDEN_EXTERN(DTCO, IO, U, GCP, &
                                HPROGRAM,HSURF,YFILE,YFILETYPE,YFILEPGD,YFILEPGDTYPE,ILUOUT,KPATCH,ZFIELDIN)
@@ -293,7 +293,7 @@ IF (1/=INP) THEN
   DO JLAYER=1,SIZE(ZW,2)
     ZSUM(:) = SUM(S%XVEGTYPE(:,:),2,ZFIELDOUTV(:,JLAYER,:)/=XUNDEF)
     DO JVEGTYPE=1,NVEGTYPE
-      WHERE (ZFIELDOUTV(:,JLAYER,JVEGTYPE)/=XUNDEF) 
+      WHERE (ZFIELDOUTV(:,JLAYER,JVEGTYPE)/=XUNDEF)
         ZW(:,JLAYER) = ZW(:,JLAYER) + S%XVEGTYPE(:,JVEGTYPE) * ZFIELDOUTV(:,JLAYER,JVEGTYPE) / ZSUM(:)
       END WHERE
     END DO
@@ -321,7 +321,7 @@ SELECT CASE (HSURF)
   !
   !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   !
- CASE('WG     ') 
+ CASE('WG     ')
   ALLOCATE(ZF (INI,IO%NGROUND_LAYER))
   !
   !* interpolates on output levels
@@ -355,7 +355,7 @@ SELECT CASE (HSURF)
   !
   !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   !
- CASE('TG     ') 
+ CASE('TG     ')
   IWORK=IO%NGROUND_LAYER
   ALLOCATE(PEK%XTG(INI,IWORK))
   ALLOCATE(ZDG(SIZE(P%XDG,1),IWORK))
@@ -372,13 +372,13 @@ SELECT CASE (HSURF)
   !
 !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   !
- CASE('WR     ') 
+ CASE('WR     ')
   ALLOCATE(PEK%XWR(INI))
   PEK%XWR(:) = ZW(:,1)
   !
   !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   !
- CASE('LAI    ') 
+ CASE('LAI    ')
   !* LAI is updated only if present and pertinent (evolutive LAI) in input file
 
    WHERE (ZW(:,1)/=XUNDEF) PEK%XLAI(:) = ZW(:,1)
@@ -435,17 +435,17 @@ IF (SIZE(PT1,2)==3) THEN
        ILAYER2=0
     ENDIF
     !* historical 2L or 3L ISBA version
-    PT2(:,1:ILAYER1) = PT1(:,1:ILAYER1) 
+    PT2(:,1:ILAYER1) = PT1(:,1:ILAYER1)
     !* Possible LTEMP_ARP case
     IF(ILAYER2>0)THEN
        DO JL=ILAYER1+1,ILAYER2
          PT2(:,JL) = PT2(:,ILAYER1)
        ENDDO
     ENDIF
-!    
+!
   ELSEIF(IO%CISBA=='DIF')THEN
        !surface layer (generally 0.01m imposed)
-       PT2(:,1) = PT1(:,1) 
+       PT2(:,1) = PT1(:,1)
        !deep layers
        DO JL=2,IO%NGROUND_LAYER
           PT2(:,JL) = PT1(:,3)
@@ -453,13 +453,13 @@ IF (SIZE(PT1,2)==3) THEN
        !if root layers
        DO JI=1,SIZE(PT1,1)
           DO JL=2,IO%NGROUND_LAYER
-             IF(P%XROOTFRAC(JI,JL)<=1.0)THEN 
+             IF(P%XROOTFRAC(JI,JL)<=1.0)THEN
                 PT2(JI,JL) = PT1(JI,2)
                 EXIT
              ENDIF
           END DO
-       END DO 
-  END IF    
+       END DO
+  END IF
 !
 !- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ELSE

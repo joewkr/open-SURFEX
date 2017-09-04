@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
       SUBROUTINE INIT_COUPL_TOPD (DEC, IO, S, K, NP, NPE, UG, U, HPROGRAM )
 !     #######################
 !
-!!****  *INIT_COUPL_TOPD*  
+!!****  *INIT_COUPL_TOPD*
 !!
 !!    PURPOSE
 !!    -------
-!!     This routine aims at initialising the variables 
+!!     This routine aims at initialising the variables
 !     needed for coupling with Topmodel.
-! 
+!
 !!**  METHOD
 !!    ------
 !
@@ -23,14 +23,14 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -65,12 +65,12 @@ USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
 USE MODD_COUPLING_TOPD, ONLY : XWSTOPI, XWFCTOPI, XDTOPI, XAS_NATURE, XATOP,&
                                  XCSTOPI, XWTOPT, XAVG_RUNOFFCM, XAVG_DRAINCM,&
                                  XDTOPT, XKA_PRE, XKAC_PRE, NMASKI, XDMAXFC, &
-                                 XWG_FULL, XWSTOPT, XWFCTOPT, NMASKT, & 
+                                 XWG_FULL, XWSTOPT, XWFCTOPT, NMASKT, &
                                  NNBV_IN_MESH, XBV_IN_MESH, XTOTBV_IN_MESH,&
                                  XRUNOFF_TOP, NNPIX,&
                                  XFRAC_D2, XFRAC_D3, XWGI_FULL,&
                                  XRUN_TOROUT, XDR_TOROUT,&
-                                 LSTOCK_TOPD,NNB_STP_RESTART,NMASKT_PATCH 
+                                 LSTOCK_TOPD,NNB_STP_RESTART,NMASKT_PATCH
 USE MODD_DUMMY_EXP_PROFILE,ONLY :XF_PARAM, XC_DEPTH_RATIO
 USE MODD_TOPODYN,       ONLY : NNCAT, XMPARA, XCSTOPT, NMESHT, XDXT,&
                                  NNMC, XRTOP_D2, NNB_TOPD_STEP,  XDMAXT
@@ -106,7 +106,7 @@ TYPE(ISBA_NPE_t), INTENT(INOUT) :: NPE
 TYPE(SURF_ATM_GRID_t), INTENT(INOUT) :: UG
 TYPE(SURF_ATM_t), INTENT(INOUT) :: U
 !
- CHARACTER(LEN=*), INTENT(IN) :: HPROGRAM    ! 
+ CHARACTER(LEN=*), INTENT(IN) :: HPROGRAM    !
 !
 !*      0.2    declarations of local variables
 !
@@ -117,17 +117,17 @@ REAL, DIMENSION(:), ALLOCATABLE   :: ZDMAXAV  ! dificit maximal moyen par bassin
 REAL, DIMENSION(:),ALLOCATABLE    :: ZSANDTOPI, ZCLAYTOPI!, ZWWILTTOPI !sand and clay fractions on TOPMODEL layers
 !
 !ludo
-REAL, DIMENSION(:), ALLOCATABLE   :: ZKSAT, ZKSAT_NAT       !ksat surf 
+REAL, DIMENSION(:), ALLOCATABLE   :: ZKSAT, ZKSAT_NAT       !ksat surf
 REAL, DIMENSION(:), ALLOCATABLE   :: ZDG2_FULL, ZDG3_FULL, ZWG2_FULL, ZWG3_FULL, ZRTOP_D2
 REAL,DIMENSION(:), ALLOCATABLE    :: ZWGI_FULL, Z_WFCTOPI, Z_WSTOPI
 !
 REAL                              :: ZCOEF_ANIS  !coefficient anisotropie Ksat:
                                                  ! Ksat horiz=ZCOEF*Ksat vert
-INTEGER                   :: JJ,JI           ! loop control 
-INTEGER                   :: JCAT,JMESH      ! loop control 
+INTEGER                   :: JJ,JI           ! loop control
+INTEGER                   :: JCAT,JMESH      ! loop control
 INTEGER                   :: ILUOUT          ! Logical unit for output filr
 !
-REAL, DIMENSION(U%NDIM_NATURE,3)  :: ZWG_3L, ZWGI_3L, ZDG_3L   
+REAL, DIMENSION(U%NDIM_NATURE,3)  :: ZWG_3L, ZWGI_3L, ZDG_3L
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
@@ -143,9 +143,9 @@ NMASKT(:,:) = NUNDEF
 !*       1    Initialization:
 !               ---------------
 !
-ZWG_3L (:,:) = XUNDEF 
+ZWG_3L (:,:) = XUNDEF
 ZWGI_3L(:,:) = XUNDEF
-ZDG_3L (:,:) = XUNDEF  
+ZDG_3L (:,:) = XUNDEF
 !
 ALLOCATE(NMASKT_PATCH(U%NDIM_NATURE))
 !
@@ -154,7 +154,7 @@ IF (IO%CISBA=='DIF') THEN
 ELSEIF (IO%CISBA=='3-L') THEN
  CALL AVG_PATCH_WG(IO, NP, NPE, ZWG_3L, ZWGI_3L, ZDG_3L)
 ENDIF
-! la surface saturee, à l'initialisation est nulle, donc on initialise 
+! la surface saturee, à l'initialisation est nulle, donc on initialise
 !les lambdas de telle sorte qu'aucun pixel ne soit sature
 ALLOCATE(XKA_PRE (NNCAT,NMESHT))
 ALLOCATE(XKAC_PRE(NNCAT))
@@ -239,9 +239,9 @@ DO JMESH=1,U%NDIM_FULL
     DO JCAT=1,NNCAT
      !moyenne ponderee pour cas ou plusieurs BV sur maille
        ZRTOP_D2(JMESH) = ZRTOP_D2(JMESH) + &
-               XRTOP_D2(JCAT)*MIN(XBV_IN_MESH(JMESH,JCAT)/XTOTBV_IN_MESH(JMESH),1.)    
+               XRTOP_D2(JCAT)*MIN(XBV_IN_MESH(JMESH,JCAT)/XTOTBV_IN_MESH(JMESH),1.)
     END DO
-  ENDIF   
+  ENDIF
 ENDDO
 !ZTOP_D2 * D2 < D3 : the depth concerned by lateral transfers is lower than D2
 WHERE( ZDG2_FULL/=XUNDEF .AND. ZRTOP_D2*ZDG2_FULL>ZDG3_FULL ) &
@@ -310,7 +310,7 @@ IF (IO%CISBA=='2-L' .OR. IO%CISBA=='3-L') THEN
   !  field capacity at hydraulic conductivity = 0.1mm/day
  XWFCTOPI   = WFC_FUNC_1D  (ZCLAYTOPI,ZSANDTOPI,IO%CPEDOTF)
 ELSE IF (IO%CISBA=='DIF') THEN
-  !  field capacity at water potential = 0.33bar        
+  !  field capacity at water potential = 0.33bar
  XWFCTOPI   = W33_FUNC_1D  (ZCLAYTOPI,ZSANDTOPI,IO%CPEDOTF)
 END IF
 !
@@ -326,7 +326,7 @@ IF( IO%CKSAT=='SGH' .OR. IO%CKSAT=='EXP' ) THEN
   ALLOCATE(ZKSAT(U%NDIM_FULL))
   ZKSAT   (:) = 0.0
   !
-  !valeur patch 1 (idem wsat wfc) a voir cas ou il existe plusieurs patchs 
+  !valeur patch 1 (idem wsat wfc) a voir cas ou il existe plusieurs patchs
   CALL UNPACK_SAME_RANK(NP%AL(1)%NR_P,NP%AL(1)%XCONDSAT(:,1),ZKSAT_NAT)
   CALL UNPACK_SAME_RANK(U%NR_NATURE,ZKSAT_NAT,ZKSAT)
   !
@@ -398,7 +398,7 @@ ALLOCATE(XMPARA (NNCAT))
 XMPARA  (:) = 0.0
 IF (.NOT.ALLOCATED(XF_PARAM)) ALLOCATE(XF_PARAM(SIZE(S%XF_PARAM)))
 !
-! 
+!
 !*      5.0      Initial saturated area computation
 !               -----------------------------------------------------------
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
       SUBROUTINE INIT_WATFLUX_n (DTCO, OREAD_BUDGETC, UG, U, WM, &
@@ -11,7 +11,7 @@
                                   PEMIS,PTSRAD,PTSURF,                       &
                                   KYEAR, KMONTH,KDAY, PTIME,                 &
                                   HATMFILE,HATMFILETYPE,                     &
-                                  HTEST                                      )  
+                                  HTEST                                      )
 !     #############################################################
 !
 !!****  *INIT_WATFLUX_n* - routine to initialize WATFLUX
@@ -40,8 +40,8 @@
 !!    MODIFICATIONS
 !!    -------------
 !!      Original    01/2003
-!!      B. Decharme 08/2009 : specific treatment for water/ice in the Earth System Model 
-!!      B. Decharme 07/2011 : read pgd+prep 
+!!      B. Decharme 08/2009 : specific treatment for water/ice in the Earth System Model
+!!      B. Decharme 07/2011 : read pgd+prep
 !!       B.Decharme 04/2013 new coupling variables
 !-------------------------------------------------------------------------------
 !
@@ -164,17 +164,17 @@ IF (LNAM_READ) THEN
  !               --------
  !
  !        0.1. Hard defaults
- !      
+ !
  CALL DEFAULT_WATFLUX(WM%W%XTSTEP,WM%W%XOUT_TSTEP,WM%W%CWAT_ALB,WM%W%CINTERPOL_TS)
  CALL DEFAULT_CH_DEP(WM%CHW%CCH_DRY_DEP)
  CALL DEFAULT_DIAG_WATFLUX(WM%DWO%N2M,WM%DWO%LSURF_BUDGET,WM%DWO%L2M_MIN_ZS,WM%DWO%LRAD_BUDGET,&
                            WM%DWO%LCOEF,WM%DWO%LSURF_VARS, &
-                           WM%DWO%LSURF_BUDGETC,WM%DWO%LRESET_BUDGETC,WM%DWO%XDIAG_TSTEP        )  
+                           WM%DWO%LSURF_BUDGETC,WM%DWO%LRESET_BUDGETC,WM%DWO%XDIAG_TSTEP        )
  !
 ENDIF
 !
 !        0.2. Defaults from file header
-!    
+!
  CALL READ_DEFAULT_WATFLUX_n(WM%CHW, WM%DWO, WM%W, HPROGRAM)
 !
 !*       1.1    Reading of configuration:
@@ -184,7 +184,7 @@ ENDIF
  CALL READ_WATFLUX_CONF_n(WM%CHW, WM%DWO, WM%W, HPROGRAM)
 !
 WM%W%LINTERPOL_TS=.FALSE.
-IF(LCPL_SEA)THEN       
+IF(LCPL_SEA)THEN
 ! No TS water interpolation in Earth System Model
   WM%W%CINTERPOL_TS='NONE  '
   WM%W%LINTERPOL_TS=.FALSE.
@@ -206,8 +206,8 @@ SELECT CASE (HINIT)
     WM%W%TTIME%TIME       = XUNDEF
 
   CASE ('PRE')
-    CALL PREP_CTRL(WM%DWO,ILUOUT )  
-    IF (LNAM_READ) CALL READ_NAM_PREP_WATFLUX_n(HPROGRAM)                 
+    CALL PREP_CTRL(WM%DWO,ILUOUT )
+    IF (LNAM_READ) CALL READ_NAM_PREP_WATFLUX_n(HPROGRAM)
     CALL READ_WATFLUX_DATE(HPROGRAM,HINIT,ILUOUT,HATMFILE,HATMFILETYPE,KYEAR,KMONTH,KDAY,PTIME,WM%W%TTIME)
 
   CASE DEFAULT
@@ -293,7 +293,7 @@ WM%W%XDIR_ALB = 0.0
 WM%W%XSCA_ALB = 0.0
 WM%W%XEMIS    = 0.0
 !
- CALL UPDATE_RAD_WATER(WM%W,PZENITH,XTT,PDIR_ALB,PSCA_ALB,PEMIS,PTSRAD )  
+ CALL UPDATE_RAD_WATER(WM%W,PZENITH,XTT,PDIR_ALB,PSCA_ALB,PEMIS,PTSRAD )
 !
 PTSURF(:) = WM%W%XTS(:)
 !

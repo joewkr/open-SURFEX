@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_PGD_TEB_GARDEN_n (OCH_BIO_FLUX, DTCO, DTV, GB, U, &
                                         IO, K, KDIM, TOP, HPROGRAM,KVERSION,KBUGFIX)
 !     #########################################
 !
-!!****  *READ_PGD_TEB_GARDEN_n* - routine to initialise ISBA physiographic variables 
+!!****  *READ_PGD_TEB_GARDEN_n* - routine to initialise ISBA physiographic variables
 !!
 !!    PURPOSE
 !!    -------
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      P. Le Moigne  12/2004 : add type of photosynthesis
 !!      B. Decharme      2008 : add XWDRAIN
 !-------------------------------------------------------------------------------
@@ -202,7 +202,7 @@ ELSE
   DTV%LDATA_ALBUV_VEG  = .TRUE.
   DTV%LDATA_ALBNIR_SOIL= .TRUE.
   DTV%LDATA_ALBVIS_SOIL= .TRUE.
-  DTV%LDATA_ALBUV_SOIL = .TRUE.        
+  DTV%LDATA_ALBUV_SOIL = .TRUE.
 ENDIF
 !
 IF (IO%LPAR) CALL READ_PGD_TEB_GARDEN_PAR_n(DTV, IO, KDIM, HPROGRAM)

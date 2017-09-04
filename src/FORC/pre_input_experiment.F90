@@ -6,11 +6,11 @@ PROGRAM PRE_INPUT_EXPERIMENT
 !!    -------
 !!   This program prepares the input files for offline run:
 !!   ie a file named PARAMS.nc containing information for the run
-!!   and FORCING.nc which contains meteorological forcing      
+!!   and FORCING.nc which contains meteorological forcing
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!
 !!    EXTERNAL
 !!    --------
@@ -62,7 +62,7 @@ USE NETCDF
 !
 !*    0.     Declaration of parameters
 !            -------------------------
-!      
+!
 IMPLICIT NONE
 !
 !----------------------------------------------------------------------------
@@ -71,9 +71,9 @@ INTEGER :: INI                  ! number of forcing points
 INTEGER :: INPTS                ! number of forcing time-step in input file
 INTEGER :: JNPTS1, JNPTS2       ! number of forcing time-step written in netcdf file!
 REAL    :: ZTSTEPFRC            ! time step of atmospheric forcing (s)
-REAL*4  :: ZTSTEPFRC4 
+REAL*4  :: ZTSTEPFRC4
 !
-REAL*4, DIMENSION(:,:),  ALLOCATABLE :: ZCO2      ! CO2 concentration (kg/m3) 
+REAL*4, DIMENSION(:,:),  ALLOCATABLE :: ZCO2      ! CO2 concentration (kg/m3)
 REAL*4, DIMENSION(:,:),  ALLOCATABLE :: ZDIR_SW   ! Solar direct   radiation (W/m2)
 REAL*4, DIMENSION(:,:),  ALLOCATABLE :: ZSCA_SW   ! Solar diffused radiation (W/m2)
 REAL*4, DIMENSION(:,:),  ALLOCATABLE :: ZLW       ! Longwave radiation (W/m2)
@@ -95,7 +95,7 @@ REAL*4, DIMENSION(:),    ALLOCATABLE :: ZLAT4      ! latitude  (degrees)
 REAL*4, DIMENSION(:),    ALLOCATABLE :: ZTIME
 !
 !----------------------------------------------------------------------------
-!      
+!
 !*    1.     Declaration of variables
 !            ------------------------
 !
@@ -171,7 +171,7 @@ IYEAR1    = NYEAR1
 IYEAR2    = NYEAR2
 ZTSTEPFRC = ZATM_FORC_STEP
 IF (NUMBER_OF_TIME_STEPS_FINAL/=0) THEN
-  IF (FIRST_TIME_STEP_FINAL/=0) THEN 
+  IF (FIRST_TIME_STEP_FINAL/=0) THEN
     JNPTS1 = FIRST_TIME_STEP_FINAL
     JNPTS2 = FIRST_TIME_STEP_FINAL + NUMBER_OF_TIME_STEPS_FINAL - 1
   ELSEIF (LAST_TIME_STEP_FINAL/=0) THEN
@@ -192,11 +192,11 @@ ENDIF
 !
 print*,' > ==================================================================='
 print*,' > PRE_INPUT_EXPERIMENT: YEXPER             = ',YEXPER
-print*,' > PRE_INPUT_EXPERIMENT: INI                = ',INI   
-print*,' > PRE_INPUT_EXPERIMENT: INPTS              = ',INPTS 
+print*,' > PRE_INPUT_EXPERIMENT: INI                = ',INI
+print*,' > PRE_INPUT_EXPERIMENT: INPTS              = ',INPTS
 print*,' > PRE_INPUT_EXPERIMENT: JNPTS1             = ',JNPTS1
 print*,' > PRE_INPUT_EXPERIMENT: JNPTS2             = ',JNPTS2
-print*,' > PRE_INPUT_EXPERIMENT: ZTSTEPFRC          = ',ZTSTEPFRC 
+print*,' > PRE_INPUT_EXPERIMENT: ZTSTEPFRC          = ',ZTSTEPFRC
 print*,' > PRE_INPUT_EXPERIMENT: LSPLIT_NC          = ',LSPLIT_NC
 print*,' > PRE_INPUT_EXPERIMENT: YFORCING_FILETYPE  = ',YFORCING_FILETYPE
 print*,' > ==================================================================='
@@ -220,17 +220,17 @@ ALLOCATE(ZRAIN(INPTS,INI))
 ALLOCATE(ZSNOW(INPTS,INI))
 ALLOCATE(ZCO2(INPTS,INI))
 !
-! 
+!
 !*    2.     Initialization of forcing variables
 !            -----------------------------------
 !
 CALL INI_CSTS
-! 
+!
 IF (YFORCING_FILETYPE == 'NETCDF') THEN
   !
   ALLOCATE(ZTIME(INPTS))
   !
-  IF (ZTSTEPFRC == FLOOR(ZTSTEPFRC/86400.)*86400) THEN 
+  IF (ZTSTEPFRC == FLOOR(ZTSTEPFRC/86400.)*86400) THEN
     ZDEN = 86400.
   ELSEIF (ZTSTEPFRC == FLOOR(ZTSTEPFRC/3600.)*3600) THEN
     ZDEN = 3600.
@@ -272,7 +272,7 @@ DO IYEAR=IYEAR1,IYEAR2
              ZDIR_SW, ZSCA_SW, ZLW, ZRAIN, ZSNOW, ZCO2  )
 !
 !----------------------------------------------------------------------------
-!      
+!
 !----------------------------------------------------------------------------
 !----------------------------------------------------------------------------
 !----------------------------------------------------------------------------
@@ -283,7 +283,7 @@ DO IYEAR=IYEAR1,IYEAR2
 !----------------------------------------------------------------------------
 !
 IF (YFORCING_FILETYPE == 'BINARY') THEN
-!      
+!
 !*    4.     Writing in binary files
 !            -----------------------
 !
@@ -335,7 +335,7 @@ CALL OPEN_CLOSE_BIN_ASC_FORC('CLOSE','BINARY','W')
 !----------------------------------------------------------------------------
 !
 ELSE IF (YFORCING_FILETYPE == 'ASCII ') THEN
-!      
+!
 !*    5.     Writing in ASCII files
 !            ----------------------
 !
@@ -375,39 +375,39 @@ CALL OPEN_CLOSE_BIN_ASC_FORC('CLOSE','ASCII ','W')
 !----------------------------------------------------------------------------
 !
 ELSE IF (YFORCING_FILETYPE == 'NETCDF') THEN
-!      
+!
 !*    4.     Writing of PARAMS.nc file
 !            -------------------------
 !
 !----------------------------------------------------------------------------
-!      
+!
 !        4.1    define dimensions
 !               -----------------
 !
 IDIMS(1) = INI
 !
 !----------------------------------------------------------------------------
-!      
+!
 !        4.2    define dimension names
 !               ----------------------
 !
 YNAME_DIM(1) = 'Number_of_points'
 !
 !----------------------------------------------------------------------------
-!      
+!
 !*       5.     Writing of FORCING.nc file
 !               --------------------------
 !
 !----------------------------------------------------------------------------
-!      
+!
 !        5.1    define dimensions
 !               -----------------
 !
 IDIMS(1) = INI    ! space dimension
-IDIMS(2) = JNPTS2-JNPTS1+1  ! time dimension   
+IDIMS(2) = JNPTS2-JNPTS1+1  ! time dimension
 !
 !----------------------------------------------------------------------------
-!      
+!
 !        5.2    define dimension names
 !               ----------------------
 !
@@ -415,7 +415,7 @@ YNAME_DIM(1) = 'Number_of_points'
 YNAME_DIM(2) = 'time'
 !
 !----------------------------------------------------------------------------
-!    
+!
 !        5.3    create file
 !               -----------
 !
@@ -492,7 +492,7 @@ CALL WRITE_NETCDF(IFILE_ID(1),'UREF','Reference_Height_for_Wind',ZUREF,IDDIM(1),
 !
 ! 2D VARIABLES WITH 2 COMMENTS
 !
-YATT_TITLE(1) = 'measurement_height' 
+YATT_TITLE(1) = 'measurement_height'
 YATT      (1) = '2m'
 YATT_TITLE(2) = 'units'
 !
@@ -511,7 +511,7 @@ CALL WRITE_NETCDF(IFILE_ID(4),'PSurf','Surface_Pressure',TRANSPOSE(ZPS(JNPTS1:JN
 !
 ! 2D VARIABLES WITH 1 COMMENT
 !
-YATT_TITLE(1) = 'units' 
+YATT_TITLE(1) = 'units'
 !
 YATT(1) = 'W/m2'
 CALL WRITE_NETCDF(IFILE_ID(5),'DIR_SWdown','Surface_Indicent_Direct_Shortwave_Radiation' ,&
@@ -561,7 +561,7 @@ IF (LSPLIT_NC) THEN
   IRET=NF90_CLOSE(IFILE_ID(10))
   IRET=NF90_CLOSE(IFILE_ID(11))
   IRET=NF90_CLOSE(IFILE_ID(12))
-  ENDIF  
+  ENDIF
 !
 ELSE
   PRINT*,' ABORT: CHECK YFORCING_FILETYPE '

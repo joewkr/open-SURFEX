@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################
       SUBROUTINE GET_MESH_INDEX_CONF_PROJ(KSSO,PGRID_PAR,PLAT,PLON,KINDEX,KISSOX,KISSOY)
@@ -30,7 +30,7 @@
 !
 USE MODD_GET_MESH_INDEX_CONF_PROJ, ONLY : XLAT0, XLON0, XRPK, XBETA,    &
                                             XLATOR, XLONOR, NIMAX, NJMAX, &
-                                            XXLIM, XYLIM  
+                                            XXLIM, XYLIM
 USE MODE_GRIDTYPE_CONF_PROJ
 !
 !
@@ -77,7 +77,7 @@ IF (.NOT. ALLOCATED(XXLIM)) THEN
 !            -----------------------------
 !
   CALL GET_GRIDTYPE_CONF_PROJ(PGRID_PAR,XLAT0,XLON0,XRPK,XBETA,&
-                                XLATOR,XLONOR,NIMAX,NJMAX        )  
+                                XLATOR,XLONOR,NIMAX,NJMAX        )
 !
   ALLOCATE(ZX (NIMAX*NJMAX))
   ALLOCATE(ZY (NIMAX*NJMAX))
@@ -85,7 +85,7 @@ IF (.NOT. ALLOCATED(XXLIM)) THEN
   ALLOCATE(ZDY(NIMAX*NJMAX))
 !
   CALL GET_GRIDTYPE_CONF_PROJ(PGRID_PAR,                       &
-                                PX=ZX,PY=ZY,PDX=ZDX,PDY=ZDY      )  
+                                PX=ZX,PY=ZY,PDX=ZDX,PDY=ZDY      )
 !
 !*    2.     Limits of grid meshes in x and y
 !            --------------------------------
@@ -128,7 +128,7 @@ ALLOCATE(ZX (SIZE(PLAT)))
 ALLOCATE(ZY (SIZE(PLAT)))
 !
  CALL XY_CONF_PROJ(XLAT0,XLON0,XRPK,XBETA,XLATOR,XLONOR, &
-                    ZX,ZY,PLAT,ZLON                       )  
+                    ZX,ZY,PLAT,ZLON                       )
 !
 !
 !
@@ -139,7 +139,7 @@ KINDEX(:,:) = 0
 !
 DO JL=1,SIZE(PLON)
   IF (     ZX(JL)<XXLIM(1) .OR. ZX(JL)>=XXLIM(NIMAX+1) &
-        .OR. ZY(JL)<XYLIM(1) .OR. ZY(JL)>=XYLIM(NJMAX+1) ) THEN  
+        .OR. ZY(JL)<XYLIM(1) .OR. ZY(JL)>=XYLIM(NJMAX+1) ) THEN
     KINDEX(1,JL) = 0
     IF (KSSO/=0) THEN
       KISSOX(1,JL) = 0

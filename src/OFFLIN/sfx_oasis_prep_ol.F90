@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########
 SUBROUTINE SFX_OASIS_PREP_OL (IO, S, UG, U, HPROGRAM,HALG_MPI)
@@ -92,7 +92,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('SFX_OASIS_PREP_OL',0,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
-#ifdef CPLOASIS 
+#ifdef CPLOASIS
 !-------------------------------------------------------------------------------
 !
 !*       1.     Define ORANGE parallel partitions:
@@ -108,7 +108,7 @@ DO JI=1,U%NDIM_FULL
       ISEGMENT=ISEGMENT+1
    ENDIF
 ENDDO
-!  
+!
 INPAR=2+2*ISEGMENT
 !
 ! Local offset and extent for this proc
@@ -151,7 +151,7 @@ DO JSEG=1,ISEGMENT
    IPARAL(JI) = ISEG_SIZE(JSEG)
    INPTS=INPTS+ISEG_SIZE(JSEG)
 ENDDO
-!  
+!
 DEALLOCATE(ISEG_SIZE  )
 DEALLOCATE(ISEG_OFFSET)
 !

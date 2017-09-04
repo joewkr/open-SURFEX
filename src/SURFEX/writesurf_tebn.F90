@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITESURF_TEB_n (HSELECT, OSNOWDIMNC, DTCO, U, TOP, BOP, T, B, ODATA_ROAD_DIR, TPN, &
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -72,7 +72,7 @@ IMPLICIT NONE
 !              -------------------------
 !
 !
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT 
+ CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
 LOGICAL, INTENT(IN) :: OSNOWDIMNC
 !
 TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
@@ -294,7 +294,7 @@ YCOMMENT='QI_BLD (kg/kg)'
     WRITE(YCOMMENT,'(A9,I1.1,A4)') 'X_Y_TMASS',JLAYER,' (K)'
     YRECFM=ADJUSTL(YRECFM)
     CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,B%XT_MASS(:,JLAYER),IRESP,HCOMMENT=YCOMMENT)
-  END DO        
+  END DO
   !
 ENDIF
 !
@@ -306,10 +306,10 @@ YCOMMENT='TI_ROAD (K)'
  CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,T%XTI_ROAD(:),IRESP,HCOMMENT=YCOMMENT)
 !
 !* snow mantel
-!*  
+!*
 DO JI = 1,SIZE(T%XT_ROOF,1)
  IMASK(JI) = JI
-ENDDO 
+ENDDO
 !
 YRECFM='RF'
  CALL WRITESURF_GR_SNOW(OSNOWDIMNC,HSELECT,HPROGRAM,YRECFM,YPATCH,&
@@ -416,7 +416,7 @@ ZDIR=PDIR
 IF (PDIR<0) ZDIR = PDIR +360.
 IF (ZDIR>=  0.   .AND. ZDIR< 11.25) HDIR='E      '
 IF (ZDIR>= 11.25 .AND. ZDIR< 33.75) HDIR='ESE    '
-IF (ZDIR>= 33.75 .AND. ZDIR< 56.25) HDIR='SE     ' 
+IF (ZDIR>= 33.75 .AND. ZDIR< 56.25) HDIR='SE     '
 IF (ZDIR>= 56.25 .AND. ZDIR< 78.75) HDIR='SSE    '
 IF (ZDIR>= 78.75 .AND. ZDIR<101.25) HDIR='S      '
 IF (ZDIR>=101.25 .AND. ZDIR<123.75) HDIR='SSW    '
@@ -432,7 +432,7 @@ ZDIR=PDIR
 IF (PDIR<0) ZDIR = PDIR +360.
 IF (ZDIR>=  0.   .AND. ZDIR< 11.25) HDIR='W      '
 IF (ZDIR>= 11.25 .AND. ZDIR< 33.75) HDIR='WNW    '
-IF (ZDIR>= 33.75 .AND. ZDIR< 56.25) HDIR='NW     ' 
+IF (ZDIR>= 33.75 .AND. ZDIR< 56.25) HDIR='NW     '
 IF (ZDIR>= 56.25 .AND. ZDIR< 78.75) HDIR='NNW    '
 IF (ZDIR>= 78.75 .AND. ZDIR<101.25) HDIR='N      '
 IF (ZDIR>=101.25 .AND. ZDIR<123.75) HDIR='NNE    '

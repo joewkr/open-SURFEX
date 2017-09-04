@@ -36,7 +36,7 @@ else
   mode=1
   if [ $# -eq 2 ]; then
     mode=$2
-    case $mode in 
+    case $mode in
       0|1|2|3)
       ;;
       *)
@@ -65,7 +65,7 @@ else
     *)
       echo "Filetype is not defined: $CSURF_FILETYPE"
       exit 1
-    ;; 
+    ;;
   esac
 fi
 
@@ -73,7 +73,7 @@ fi
 #
 # PGD
 #
-case $mode in 
+case $mode in
   1|2)
     work=$SRC_SURFEX/MY_RUN/SODA/RUN/RUN_PGD
     [ -d $work ] && rm -r $work
@@ -98,7 +98,7 @@ case $mode in
     # Make PGD
     [ ! -f $SRC_SURFEX/exe/PGD$XYZ ] && echo "$SRC_SURFEX/exe/PGD$XYZ not found" && exit 1
     $SRC_SURFEX/exe/PGD$XYZ
- 
+
     if [ -f PGD_SODA.$suffix ]; then
       [ -d $SRC_SURFEX/MY_RUN/SODA/OUTPUT ] || mkdir $SRC_SURFEX/MY_RUN/SODA/OUTPUT
       mv PGD_SODA.$suffix $SRC_SURFEX/MY_RUN/SODA/OUTPUT/PGD_SODA.$suffix

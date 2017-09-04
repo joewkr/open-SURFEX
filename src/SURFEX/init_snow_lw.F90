@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE INIT_SNOW_LW(PEMISSN,TPSNOW)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -89,7 +89,7 @@ IF (TPSNOW%SCHEME=='3-L' .OR. TPSNOW%SCHEME=='CRO') THEN
   WHERE(TPSNOW%WSNOW(:,1)==0. .OR. TPSNOW%WSNOW(:,1)==XUNDEF )
     TPSNOW%TS (:)= XUNDEF
   ELSEWHERE
-    TPSNOW%TS(:) = XTT + (TPSNOW%HEAT(:,1) + XLMTT * TPSNOW%RHO(:,1)) / SNOW3LSCAP(TPSNOW%RHO(:,1))  
+    TPSNOW%TS(:) = XTT + (TPSNOW%HEAT(:,1) + XLMTT * TPSNOW%RHO(:,1)) / SNOW3LSCAP(TPSNOW%RHO(:,1))
     TPSNOW%TS(:) = MIN(XTT, TPSNOW%TS(:))
   END WHERE
 END IF

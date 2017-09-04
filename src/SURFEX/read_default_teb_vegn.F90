@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_DEFAULT_TEB_VEG_n (CHT, IO, HPROGRAM)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -106,7 +106,7 @@ IF (LNAM_READ) THEN
  CALL POSNAM(ILUDES,'NAM_ISBAN',GFOUND,ILUOUT)
  IF (GFOUND) READ(UNIT=ILUDES,NML=NAM_ISBAn)
  CALL POSNAM(ILUDES,'NAM_ISBA_AGSN',GFOUND,ILUOUT)
- IF (GFOUND) READ(UNIT=ILUDES,NML=NAM_ISBA_AGSn) 
+ IF (GFOUND) READ(UNIT=ILUDES,NML=NAM_ISBA_AGSn)
  CALL POSNAM(ILUDES,'NAM_CH_CONTROLN',GFOUND,ILUOUT)
  IF (GFOUND) READ(UNIT=ILUDES,NML=NAM_CH_CONTROLn)
 ! for the time being, chemistry is not implemented on gardens

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE DIAG_INLAND_WATER_n (DLO, DL, DLC, FM, WM, HWATER, &
@@ -17,11 +17,11 @@ SUBROUTINE DIAG_INLAND_WATER_n (DLO, DL, DLC, FM, WM, HWATER, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -70,11 +70,11 @@ IF (LHOOK) CALL DR_HOOK('DIAG_INLAND_WATER_N',0,ZHOOK_HANDLE)
 IF (HWATER=='WATFLX') THEN
   CALL DIAG_EVAP(WM%DWO, WM%DW, WM%DWC, HPROGRAM, DUP, DUPC, KMASK)
 ELSE IF (HWATER=='FLAKE ') THEN
-  CALL DIAG_EVAP(FM%DFO, FM%DF, FM%DFC, HPROGRAM, DUP, DUPC, KMASK)       
+  CALL DIAG_EVAP(FM%DFO, FM%DF, FM%DFC, HPROGRAM, DUP, DUPC, KMASK)
 ELSE IF (HWATER=='FLUX  ') THEN
-  CALL DIAG_EVAP(DLO, DL, DLC, HPROGRAM, DUP, DUPC, KMASK)                     
+  CALL DIAG_EVAP(DLO, DL, DLC, HPROGRAM, DUP, DUPC, KMASK)
 ELSE IF (HWATER=='NONE  ') THEN
-  CALL INIT_BUD(WM%DWO,DUP,DUPC,XUNDEF)         
+  CALL INIT_BUD(WM%DWO,DUP,DUPC,XUNDEF)
 END IF
 IF (LHOOK) CALL DR_HOOK('DIAG_INLAND_WATER_N',1,ZHOOK_HANDLE)
 !

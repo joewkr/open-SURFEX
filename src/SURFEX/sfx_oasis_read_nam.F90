@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########
 SUBROUTINE SFX_OASIS_READ_NAM(HPROGRAM,PTSTEP_SURF,HINIT)
@@ -31,8 +31,8 @@ SUBROUTINE SFX_OASIS_READ_NAM(HPROGRAM,PTSTEP_SURF,HINIT)
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    05/2008 
-!!    10/2016 B. Decharme : bug surface/groundwater coupling 
+!!      Original    05/2008
+!!    10/2016 B. Decharme : bug surface/groundwater coupling
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -170,15 +170,15 @@ ENDIF
 !
 IF(YINIT/='PRE')THEN
   IF(MOD(XRUNTIME,PTSTEP_SURF)/=0.)THEN
-    WRITE(ILUOUT,*)'! MOD(XRUNTIME,XTSTEP_SURF)/=0 !!!'     
-    WRITE(ILUOUT,*)'! XTSTEP_SURF (model timestep) must be a multiple of $RUNTIME in oasis namcouple !!!'     
+    WRITE(ILUOUT,*)'! MOD(XRUNTIME,XTSTEP_SURF)/=0 !!!'
+    WRITE(ILUOUT,*)'! XTSTEP_SURF (model timestep) must be a multiple of $RUNTIME in oasis namcouple !!!'
     CALL ABOR1_SFX('SFX_OASIS_READ_NAM: XTSTEP_SURF must be a multiple of $RUNTIME in oasis namcouple !!!')
   ENDIF
 ENDIF
 !
 !-------------------------------------------------------------------------------
 !
-!*       3.     Check status for Land surface fields 
+!*       3.     Check status for Land surface fields
 !               ------------------------------------
 !
 IF(LCPL_LAND)THEN
@@ -188,7 +188,7 @@ IF(LCPL_LAND)THEN
       WRITE(ILUOUT,*)'! MOD(XTSTEP_SURF,XTSTEP_CPL_LAND) /= 0     !'
       WRITE(ILUOUT,*)'XTSTEP_SURF =',PTSTEP_SURF,'XTSTEP_CPL_LAND = ',XTSTEP_CPL_LAND
       IF(PTSTEP_SURF>XTSTEP_CPL_LAND) &
-      WRITE(ILUOUT,*)'! XTSTEP_SURF (model timestep) is superiror to  XTSTEP_CPL_LAND !'         
+      WRITE(ILUOUT,*)'! XTSTEP_SURF (model timestep) is superiror to  XTSTEP_CPL_LAND !'
       CALL ABOR1_SFX('SFX_OASIS_READ_NAM: XTSTEP_SURF and XTSTEP_CPL_LAND not consistent !!!')
     ENDIF
   ENDIF
@@ -216,7 +216,7 @@ IF(LCPL_LAND)THEN
   ENDIF
 !
 ! Particular case due to water table depth / surface coupling
-!    
+!
   IF(LEN_TRIM(CWTD)>0.OR.LEN_TRIM(CFWTD)>0)THEN
     LCPL_GW = .TRUE.
   ENDIF
@@ -236,7 +236,7 @@ IF(LCPL_LAND)THEN
   ENDIF
 !
 ! Particular case due to floodplains coupling
-!    
+!
   IF(LEN_TRIM(CSRCFLOOD)>0.OR.LEN_TRIM(CFFLOOD)>0.OR.LEN_TRIM(CPIFLOOD)>0)THEN
     LCPL_FLOOD = .TRUE.
   ENDIF
@@ -265,7 +265,7 @@ ENDIF
 !
 !-------------------------------------------------------------------------------
 !
-!*       4.     Check status for Land surface fields 
+!*       4.     Check status for Land surface fields
 !               ------------------------------------
 !
 IF(LCPL_LAKE)THEN
@@ -275,8 +275,8 @@ IF(LCPL_LAKE)THEN
       WRITE(ILUOUT,*)'! MOD(XTSTEP_SURF,XTSTEP_CPL_LAKE) /= 0     !'
       WRITE(ILUOUT,*)'XTSTEP_SURF =',PTSTEP_SURF,'XTSTEP_CPL_LAKE = ',XTSTEP_CPL_LAKE
       IF(PTSTEP_SURF>XTSTEP_CPL_LAKE) &
-      WRITE(ILUOUT,*)'! XTSTEP_SURF (model timestep) is superiror to  XTSTEP_CPL_LAKE !'     
-      CALL ABOR1_SFX('SFX_OASIS_READ_NAM: XTSTEP_SURF and XTSTEP_CPL_LAKE not consistent !!!')          
+      WRITE(ILUOUT,*)'! XTSTEP_SURF (model timestep) is superiror to  XTSTEP_CPL_LAKE !'
+      CALL ABOR1_SFX('SFX_OASIS_READ_NAM: XTSTEP_SURF and XTSTEP_CPL_LAKE not consistent !!!')
     ENDIF
   ENDIF
 !
@@ -302,7 +302,7 @@ ENDIF
 !
 !-------------------------------------------------------------------------------
 !
-!*       5.     Check status for Sea fields 
+!*       5.     Check status for Sea fields
 !               ---------------------------
 !
 IF(LCPL_SEA)THEN
@@ -312,8 +312,8 @@ IF(LCPL_SEA)THEN
       WRITE(ILUOUT,*)'! MOD(XTSTEP_SURF,XTSTEP_CPL_SEA) /= 0     !'
       WRITE(ILUOUT,*)'XTSTEP_SURF =',PTSTEP_SURF,'XTSTEP_CPL_SEA = ',XTSTEP_CPL_SEA
       IF(PTSTEP_SURF>XTSTEP_CPL_SEA) &
-      WRITE(ILUOUT,*)'! XTSTEP_SURF (model timestep) is superiror to  XTSTEP_CPL_SEA !'     
-      CALL ABOR1_SFX('SFX_OASIS_READ_NAM: XTSTEP_SURF and XTSTEP_CPL_SEA not consistent !!!')          
+      WRITE(ILUOUT,*)'! XTSTEP_SURF (model timestep) is superiror to  XTSTEP_CPL_SEA !'
+      CALL ABOR1_SFX('SFX_OASIS_READ_NAM: XTSTEP_SURF and XTSTEP_CPL_SEA not consistent !!!')
     ENDIF
   ENDIF
 !
@@ -412,7 +412,7 @@ IF(LCPL_SEA)THEN
     CALL CHECK_FIELD(CSEAICE_ALB,YKEY,YCOMMENT,YSEA,KIN)
 !
   ENDIF
-!  
+!
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('SFX_OASIS_READ_NAM',1,ZHOOK_HANDLE)
@@ -455,9 +455,9 @@ IF(LEN_TRIM(HFIELD)==0)THEN
      CASE(YSEA)
           YNAMELIST='NAM_SFX_SEA_CPL'
      CASE(YLAKE)
-          YNAMELIST='NAM_SFX_LAKE_CPL'          
+          YNAMELIST='NAM_SFX_LAKE_CPL'
      CASE DEFAULT
-          CALL ABOR1_SFX('SFX_OASIS_READ_NAM: TYPE NOT SUPPORTED OR IMPLEMENTD : '//TRIM(HTYP))               
+          CALL ABOR1_SFX('SFX_OASIS_READ_NAM: TYPE NOT SUPPORTED OR IMPLEMENTD : '//TRIM(HTYP))
   END SELECT
 !
   YCOMMENT1= 'SFX_OASIS_READ_NAM: '//TRIM(HCOMMENT)//' is not done for '//TRIM(YWORK)//' coupling'
@@ -478,7 +478,7 @@ IF(LEN_TRIM(HFIELD)==0)THEN
   IF(LSTOP)THEN
     CALL ABOR1_SFX(YCOMMENT1)
   ENDIF
-!  
+!
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('SFX_OASIS_READ_NAM:CHECK_FIELD',1,ZHOOK_HANDLE)

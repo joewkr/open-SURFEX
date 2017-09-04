@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_VAR_NATURE_n (S, DGO, D, DMI, &
@@ -88,29 +88,29 @@ IF (LHOOK) CALL DR_HOOK('GET_VAR_NATURE_N',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !-------------------------------------------------------------------------------
 !
-IF (DGO%LSURF_VARS) THEN 
-        PQS      = D%XQS      
-   ELSE 
-        PQS      = XUNDEF      
-ENDIF           
+IF (DGO%LSURF_VARS) THEN
+        PQS      = D%XQS
+   ELSE
+        PQS      = XUNDEF
+ENDIF
 !
-IF (DMI%LSURF_MISC_BUDGET) THEN 
-        PSNG     = DMI%XPSNG      
-        PSNV     = DMI%XPSNV      
+IF (DMI%LSURF_MISC_BUDGET) THEN
+        PSNG     = DMI%XPSNG
+        PSNV     = DMI%XPSNV
         PTWSNOW  = DMI%XTWSNOW
-   ELSE 
-        PSNG     = XUNDEF      
-        PSNV     = XUNDEF      
+   ELSE
+        PSNG     = XUNDEF
+        PSNV     = XUNDEF
         PTWSNOW  = XUNDEF
-ENDIF           
+ENDIF
 !
 IF (DGO%LCOEF) THEN
    PZ0EFF   = D%XZ0EFF
-   PZ0      = D%XZ0      
+   PZ0      = D%XZ0
    PZ0H     = D%XZ0H
 ELSE
    PZ0EFF   = XUNDEF
-   PZ0      = XUNDEF      
+   PZ0      = XUNDEF
    PZ0H     = XUNDEF
 ENDIF
 !

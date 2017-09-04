@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ####################
       MODULE MODD_SURF_ATM_n
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -71,7 +71,7 @@ TYPE SURF_ATM_t
 !
 ! change water (not lake) to nature and/or town to rock : arrange cover properly
 !
-  LOGICAL                        :: LWATER_TO_NATURE ! T: Change Wetland treated as inland water into nature 
+  LOGICAL                        :: LWATER_TO_NATURE ! T: Change Wetland treated as inland water into nature
   LOGICAL                        :: LTOWN_TO_ROCK    ! T: Change Town into Rock
 !
 !-------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ TYPE SURF_ATM_t
 !
 ! Inland Water:
 !
-  INTEGER                               :: NSIZE_WATER  ! number of grid points containing an 
+  INTEGER                               :: NSIZE_WATER  ! number of grid points containing an
 !                                                     ! inland water surface                    (-)
   INTEGER                               :: NDIM_WATER   ! total number of grid points by proc containing an
 !                                                     ! inland surface
@@ -103,7 +103,7 @@ TYPE SURF_ATM_t
 !
 ! Town:
 !
-  INTEGER                               :: NSIZE_TOWN   ! number of grid points by proc containing an 
+  INTEGER                               :: NSIZE_TOWN   ! number of grid points by proc containing an
 !                                                     ! urban surface                           (-)
   INTEGER                               :: NDIM_TOWN    ! total number of grid points containing an
 !                                                     ! urban surface
@@ -111,7 +111,7 @@ TYPE SURF_ATM_t
 !
 ! Natural surface:
 !
-  INTEGER                               :: NSIZE_NATURE ! number of grid points by proc containing a 
+  INTEGER                               :: NSIZE_NATURE ! number of grid points by proc containing a
 !                                                     ! natural surface                         (-)
   INTEGER                               :: NDIM_NATURE  ! total number of grid points containing a
 !                                                     ! natural surface                         (-)

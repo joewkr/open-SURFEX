@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 MODULE MODE_WRITE_SURF_OL
 !
@@ -109,7 +109,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_OL:WRITE_SURFX0_OL',0,ZHOOK_HANDLE)
 IF (LDEF) THEN
   !
   YATT_TITLE(1) = "units"
-  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)  
+  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)
   !
   IF (NID_NC/=0) CALL DEF_VAR_NETCDF(HSELECT,NID_NC,HREC,HCOMMENT,IDIMS,YATT_TITLE,YATT,IVAR_ID,NF90_DOUBLE)
   !
@@ -120,11 +120,11 @@ ELSE
   ! 0. find filename
   ! -----------------
   IFILE_ID = NID_NC
-  ! 
-  IF (IFILE_ID /= 0) THEN        
+  !
+  IF (IFILE_ID /= 0) THEN
     ! 1. Find id of the variable
     !----------------------------
-    IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)  
+    IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
     ! 2. Put variable
     !----------------------------
     IRET(2)=NF90_PUT_VAR (IFILE_ID,IVAR_ID,PFIELD)
@@ -183,7 +183,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_OL:WRITE_SURFN0_OL',0,ZHOOK_HANDLE)
 IF (LDEF) THEN
   !
   YATT_TITLE(1) = "units"
-  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)  
+  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)
   !
   IF (NID_NC/=0) CALL DEF_VAR_NETCDF(HSELECT,NID_NC,HREC,HCOMMENT,IDIMS,YATT_TITLE,YATT,IVAR_ID,NF90_INT)
   !
@@ -195,13 +195,13 @@ ELSE
   ! -----------------
   IFILE_ID = NID_NC
   !
-  IF (IFILE_ID /= 0) THEN    
+  IF (IFILE_ID /= 0) THEN
     ! 1. Find id of the variable
     !----------------------------
-    IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)   
+    IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
     ! 2. Get variable
     !----------------------------
-    IRET(2)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,KFIELD)  
+    IRET(2)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,KFIELD)
   ENDIF
   !
   ! 3. Check for errors
@@ -270,14 +270,14 @@ ELSE
   ! -----------------
   IFILE_ID = NID_NC
   !
-  IF (IFILE_ID /= 0) THEN 
+  IF (IFILE_ID /= 0) THEN
     ! 1. Find id of the variable
     !----------------------------
     IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
     ! 2. Get variable
     !----------------------------
     YFIELD=HFIELD(:LEN_TRIM(HFIELD))
-    IRET(2)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,YFIELD)  
+    IRET(2)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,YFIELD)
   ENDIF
   !
   ! 3. Check for errors
@@ -297,7 +297,7 @@ END SUBROUTINE WRITE_SURFC0_OL
 !     #############################################################
 !
 !!****  *WRITEL0* - routine to read a logical
-!    
+!
 USE MODD_IO_SURF_OL, ONLY : NID_NC, LDEF
 !
 USE MODI_DEF_VAR_NETCDF
@@ -334,7 +334,7 @@ IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_OL:WRITE_SURFL0_OL',0,ZHOOK_HANDLE)
 IF (LDEF) THEN
   !
   YATT_TITLE(1) = "units"
-  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)  
+  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)
   !
   IF (NID_NC/=0) CALL DEF_VAR_NETCDF(HSELECT,NID_NC,HREC,HCOMMENT,IDIMS,YATT_TITLE,YATT,IVAR_ID,NF90_CHAR)
   !
@@ -345,8 +345,8 @@ ELSE
   ! 0. find filename
   ! -----------------
   IFILE_ID = NID_NC
-  ! 
-  IF (IFILE_ID /= 0) THEN        
+  !
+  IF (IFILE_ID /= 0) THEN
     ! 1. Find id of the variable
     !----------------------------
     IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
@@ -354,7 +354,7 @@ ELSE
       YFIELD ='T'
     ELSE
       YFIELD ='F'
-    ENDIF    
+    ENDIF
     ! 2. Put variable
     !----------------------------
     IRET(2)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,YFIELD)
@@ -377,7 +377,7 @@ END SUBROUTINE WRITE_SURFL0_OL
       SUBROUTINE WRITE_SURFX0_TIME_OL(PFIELD,KRESP,HCOMMENT)
 !     #############################################################
 !
-!!****  *WRITEX1* - routine to fill a real 1D array for the externalised surface 
+!!****  *WRITEX1* - routine to fill a real 1D array for the externalised surface
 !
 USE MODD_IO_SURF_OL, ONLY: XSTARTW
 USE MODD_OL_FILEID,  ONLY: XNETCDF_FILEID_OUT, XNETCDF_FILENAME_OUT
@@ -410,7 +410,7 @@ KRESP = 0
 !
 ISTART(1) = XSTARTW
 !
-DO JFILE = 1,SIZE(XNETCDF_FILEID_OUT) 
+DO JFILE = 1,SIZE(XNETCDF_FILEID_OUT)
   !
   IFILE_ID = XNETCDF_FILEID_OUT(JFILE)
   !
@@ -434,8 +434,8 @@ END SUBROUTINE WRITE_SURFX0_TIME_OL
       SUBROUTINE WRITE_SURFX1_OL(HSELECT,HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
 !     #############################################################
 !
-!!****  *WRITEX1* - routine to fill a real 1D array for the externalised surface 
-!  
+!!****  *WRITEX1* - routine to fill a real 1D array for the externalised surface
+!
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, XTIME_NPIO_WRITE, &
                             XTIME_COMM_WRITE, WLOG_MPI
 !
@@ -470,8 +470,8 @@ INTEGER,             INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem 
                                             ! 'H' : field with
                                             !       horizontal spatial dim.
                                             ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM       
-! 
+ CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
+!
 !*      0.2   Declarations of local variables
 !
  CHARACTER(LEN=100) :: YCOMMENT
@@ -481,7 +481,7 @@ INTEGER, DIMENSION(3) :: IDIMLEN
 !
  CHARACTER(LEN=100)    :: YNAME
  CHARACTER(LEN=16)     :: YNAM_DIM
-INTEGER,DIMENSION(5)  :: IRET 
+INTEGER,DIMENSION(5)  :: IRET
 INTEGER :: IFILE_ID, IVAR_ID, JDIM, INDIMS
 !
 INTEGER :: IRET0
@@ -509,7 +509,7 @@ IF (GFOUND) RETURN
 IF (LDEF) THEN
   !
   YATT_TITLE(1) = "units"
-  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)  
+  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)
   !
   IF (PRESENT(HNAM_DIM)) THEN
     YNAM_DIM = HNAM_DIM
@@ -517,11 +517,11 @@ IF (LDEF) THEN
     YNAM_DIM = "Number_of_points"
   ENDIF
   !
-  IF (NRANK==NPIO) THEN 
+  IF (NRANK==NPIO) THEN
     !
     IF (NID_NC /= 0) THEN
       !
-      INDIMS = 1      
+      INDIMS = 1
       IRET(2) = NF90_INQ_DIMID(NID_NC,TRIM(YNAM_DIM),IDIMIDS(1))
       IF (IRET(2)/=0) THEN
         INDIMS = 2
@@ -561,7 +561,7 @@ IF (LDEF) THEN
   !
 ELSE
   !
-  IF (NRANK==NPIO) THEN 
+  IF (NRANK==NPIO) THEN
     !
 #ifdef SFX_MPI
     XTIME0 = MPI_WTIME()
@@ -592,7 +592,7 @@ ELSE
       ENDDO
       !
     ENDIF
-    ! 
+    !
 #ifdef SFX_MPI
     XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
@@ -655,14 +655,14 @@ IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_OL:WRITE_SURFX1_OL:WRITE_DATAX1_OL',0,Z
 IF(.NOT.ALLOCATED(NMASK_IGN))THEN
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB1D,NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB1D)
   ENDIF
 ELSE
-  !ign grid 
+  !ign grid
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN)),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN)))
   ENDIF
   CALL UNPACK_SAME_RANK(NMASK_IGN,ZWORK_IGN(1:SIZE(NMASK_IGN)),ZTAB1D)
@@ -675,7 +675,7 @@ IF (NRANK==NPIO) THEN
 #endif
   !
   IF  (LPARTW) THEN
-    ! write partially a time-matrix. 
+    ! write partially a time-matrix.
     ! Have to find which of the dimension is the time dimension
     DO  JDIM=1,KNDIMS
       JRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),NAME=YNAME)
@@ -700,7 +700,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_OL:WRITE_SURFX1_OL:WRITE_DATAX1_OL',1,ZHOOK_HANDLE)
@@ -713,13 +713,13 @@ END SUBROUTINE WRITE_SURFX1_OL
       SUBROUTINE WRITE_SURFX2_OL(HSELECT,HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
 !     #############################################################
 !
-!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface 
+!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface
 !
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, XTIME_NPIO_WRITE, &
                             XTIME_COMM_WRITE
 !
 USE MODD_IO_SURF_OL, ONLY: LMASK, NMASK, NMASK_IGN, XSTART, XSTRIDE, &
-                           LPARTW, XSTARTW, XCOUNTW, NID_NC, LDEF 
+                           LPARTW, XSTARTW, XCOUNTW, NID_NC, LDEF
 !
 USE MODI_DEF_VAR_NETCDF
 !
@@ -747,8 +747,8 @@ INTEGER,              INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem
                                              ! 'H' : field with
                                              !       horizontal spatial dim.
                                              ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM        
-! 
+ CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
+!
 !*      0.2   Declarations of local variables
 !
  CHARACTER(LEN=100) :: YCOMMENT
@@ -758,7 +758,7 @@ INTEGER, DIMENSION(4) :: IDIMLEN
 !
  CHARACTER(LEN=20)     :: YNAM_DIM
  CHARACTER(LEN=100)    :: YNAME
-INTEGER,DIMENSION(5)  :: IRET 
+INTEGER,DIMENSION(5)  :: IRET
 INTEGER :: IFILE_ID, IVAR_ID, JDIM, INDIMS
 !
 INTEGER :: IRET0
@@ -798,8 +798,8 @@ IF (LDEF) THEN
   !
   IF (NRANK==NPIO) THEN
     !
-    IF (NID_NC /= 0) THEN 
-      !    
+    IF (NID_NC /= 0) THEN
+      !
       ! 0. find filename
       ! -----------------
       !
@@ -825,7 +825,7 @@ IF (LDEF) THEN
         IRET(4) = NF90_INQ_DIMID(NID_NC,TRIM(YNAM_DIM),IDIMIDS(3))
         IRET0 = NF90_INQ_DIMID(NID_NC,'time',IDIMIDS(4))
         IF (IRET0==0) INDIMS = 4
-      ENDIF           
+      ENDIF
       !
       IRET(5)=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(1),NAME=YNAME)
       !
@@ -866,15 +866,15 @@ ELSE
       !----------------------------
       !
       IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
-      IRET(2)=NF90_INQUIRE_VARIABLE(IFILE_ID,IVAR_ID,NDIMS=INDIMS) 
-      IRET(3)=NF90_INQUIRE_VARIABLE(IFILE_ID,IVAR_ID,DIMIDS=IDIMIDS(1:INDIMS))  
+      IRET(2)=NF90_INQUIRE_VARIABLE(IFILE_ID,IVAR_ID,NDIMS=INDIMS)
+      IRET(3)=NF90_INQUIRE_VARIABLE(IFILE_ID,IVAR_ID,DIMIDS=IDIMIDS(1:INDIMS))
       DO JDIM=1,INDIMS
         JRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
         IF (JRET.NE.NF90_NOERR) KRESP=1
       ENDDO
       !
       IRET(4)=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(1),NAME=YNAME)
-      !  
+      !
     ENDIF
     !
     DO JRET=1,4
@@ -890,14 +890,14 @@ ELSE
     INDIMS = 0
     IDIMIDS(:) = 0
     IDIMLEN(:) = SIZE(PFIELD,2)
-    YNAME = "" 
+    YNAME = ""
   ENDIF
   !
   IF (NPROC>1) THEN
 #ifdef SFX_MPI
     XTIME0 = MPI_WTIME()
     CALL MPI_BCAST(IFILE_ID,KIND(IFILE_ID)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
-    XTIME_COMM_WRITE = XTIME_COMM_WRITE + (MPI_WTIME() - XTIME0)  
+    XTIME_COMM_WRITE = XTIME_COMM_WRITE + (MPI_WTIME() - XTIME0)
 #endif
   ENDIF
   !
@@ -947,14 +947,14 @@ ZTAB2D(:,:) = XUNDEF
 IF(.NOT.ALLOCATED(NMASK_IGN))THEN
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB2D(:,1:SIZE(PFIELD,2)),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB2D(:,1:SIZE(PFIELD,2)))
   ENDIF
 ELSE
-  !ign grid 
+  !ign grid
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN),:),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN),:))
   ENDIF
   CALL UNPACK_SAME_RANK(NMASK_IGN,ZWORK_IGN(1:SIZE(NMASK_IGN),:),ZTAB2D(:,1:SIZE(PFIELD,2)))
@@ -969,12 +969,12 @@ IF (NRANK==NPIO) THEN
   ! 2. Put variable
   !----------------------------
   IF (LPARTW) THEN
-    ! write partially a time-matrix. 
+    ! write partially a time-matrix.
     ! Have to find which of the dimension is the time dimension
     DO  JDIM=1,KNDIMS
       JRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),NAME=YNAME)
       IF ((INDEX(YNAME,'time') > 0).OR.(INDEX(YNAME,'TIME') >0) &
-         .OR.(INDEX(YNAME,'Time')>0.)) THEN  
+         .OR.(INDEX(YNAME,'Time')>0.)) THEN
         ISTART(JDIM)=XSTARTW
         ICOUNT(JDIM)=XCOUNTW
         ISTRIDE(JDIM)=XSTRIDE
@@ -988,8 +988,8 @@ IF (NRANK==NPIO) THEN
   ELSE
     IRET(5)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,ZTAB2D)
   ENDIF
-  !    
-  CALL HANDLE_ERR(IRET(5),HREC)  
+  !
+  CALL HANDLE_ERR(IRET(5),HREC)
   !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
@@ -1007,13 +1007,13 @@ END SUBROUTINE WRITE_SURFX2_OL
       SUBROUTINE WRITE_SURFX3_OL(HSELECT,HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
 !     #############################################################
 !
-!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface 
+!!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface
 !
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NCOMM, NPROC, XTIME_NPIO_WRITE, &
                             XTIME_COMM_WRITE
 !
 USE MODD_IO_SURF_OL, ONLY: LMASK, NMASK, NMASK_IGN, XSTART, XSTRIDE, &
-                           LPARTW, XSTARTW, XCOUNTW, NID_NC, LDEF 
+                           LPARTW, XSTARTW, XCOUNTW, NID_NC, LDEF
 !
 USE MODI_DEF_VAR_NETCDF
 !
@@ -1043,8 +1043,8 @@ INTEGER,              INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem
                                              ! 'H' : field with
                                              !       horizontal spatial dim.
                                              ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM        
-! 
+ CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
+!
 !*      0.2   Declarations of local variables
 !
  CHARACTER(LEN=100) :: YCOMMENT
@@ -1054,7 +1054,7 @@ INTEGER, DIMENSION(5) :: IDIMLEN
 !
  CHARACTER(LEN=16)     :: YNAM_DIM
  CHARACTER(LEN=100)    :: YNAME
-INTEGER,DIMENSION(5)  :: IRET 
+INTEGER,DIMENSION(5)  :: IRET
 INTEGER :: IFILE_ID, IVAR_ID, JDIM, INDIMS
 !
 INTEGER :: IRET0
@@ -1093,8 +1093,8 @@ IF (LDEF) THEN
   !
   IF (NRANK==NPIO) THEN
     !
-    IF (NID_NC /= 0) THEN 
-      !    
+    IF (NID_NC /= 0) THEN
+      !
       ! 0. find filename
       ! -----------------
       !
@@ -1117,7 +1117,7 @@ IF (LDEF) THEN
         IRET(5) = NF90_INQ_DIMID(NID_NC,'Number_of_Patches',IDIMIDS(4))
         IRET0 = NF90_INQ_DIMID(NID_NC,'time',IDIMIDS(5))
         IF (IRET0==0) INDIMS = 5
-      ENDIF           
+      ENDIF
       !
       IRET(5)=NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(1),NAME=YNAME)
       !
@@ -1158,15 +1158,15 @@ ELSE
       !----------------------------
       !
       IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
-      IRET(2)=NF90_INQUIRE_VARIABLE(IFILE_ID,IVAR_ID,NDIMS=INDIMS) 
-      IRET(3)=NF90_INQUIRE_VARIABLE(IFILE_ID,IVAR_ID,DIMIDS=IDIMIDS(1:INDIMS))  
+      IRET(2)=NF90_INQUIRE_VARIABLE(IFILE_ID,IVAR_ID,NDIMS=INDIMS)
+      IRET(3)=NF90_INQUIRE_VARIABLE(IFILE_ID,IVAR_ID,DIMIDS=IDIMIDS(1:INDIMS))
       DO JDIM=1,INDIMS
         JRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
         IF (JRET.NE.NF90_NOERR) KRESP=1
       ENDDO
       !
       IRET(4)=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(1),NAME=YNAME)
-      !  
+      !
     ENDIF
     !
     DO JRET=1,4
@@ -1182,14 +1182,14 @@ ELSE
     INDIMS = 0
     IDIMIDS(:) = 0
     IDIMLEN(:) = SIZE(PFIELD,2)
-    YNAME = "" 
+    YNAME = ""
   ENDIF
   !
   IF (NPROC>1) THEN
 #ifdef SFX_MPI
     XTIME0 = MPI_WTIME()
     CALL MPI_BCAST(IFILE_ID,KIND(IFILE_ID)/4,MPI_INTEGER,NPIO,NCOMM,INFOMPI)
-    XTIME_COMM_WRITE = XTIME_COMM_WRITE + (MPI_WTIME() - XTIME0)  
+    XTIME_COMM_WRITE = XTIME_COMM_WRITE + (MPI_WTIME() - XTIME0)
 #endif
   ENDIF
   !
@@ -1240,14 +1240,14 @@ ZTAB3D(:,:,:) = XUNDEF
 IF(.NOT.ALLOCATED(NMASK_IGN))THEN
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB3D(:,1:SIZE(PFIELD,2),1:SIZE(PFIELD,3)),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZTAB3D(:,1:SIZE(PFIELD,2),1:SIZE(PFIELD,3)))
   ENDIF
 ELSE
-  !ign grid 
+  !ign grid
   IF (LMASK) THEN
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN),:,:),NMASK)
-  ELSE 
+  ELSE
     CALL GATHER_AND_WRITE_MPI(PFIELD,ZWORK_IGN(1:SIZE(NMASK_IGN),:,:))
   ENDIF
   CALL UNPACK_SAME_RANK(NMASK_IGN,ZWORK_IGN(1:SIZE(NMASK_IGN),:,:),ZTAB3D(:,1:SIZE(PFIELD,2),1:SIZE(PFIELD,3)))
@@ -1262,12 +1262,12 @@ IF (NRANK==NPIO) THEN
   ! 2. Put variable
   !----------------------------
   IF (LPARTW) THEN
-    ! write partially a time-matrix. 
+    ! write partially a time-matrix.
     ! Have to find which of the dimension is the time dimension
     DO  JDIM=1,KNDIMS
       JRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),NAME=YNAME)
       IF ((INDEX(YNAME,'time') > 0).OR.(INDEX(YNAME,'TIME') >0) &
-         .OR.(INDEX(YNAME,'Time')>0.)) THEN  
+         .OR.(INDEX(YNAME,'Time')>0.)) THEN
         ISTART(JDIM)=XSTARTW
         ICOUNT(JDIM)=XCOUNTW
         ISTRIDE(JDIM)=XSTRIDE
@@ -1281,8 +1281,8 @@ IF (NRANK==NPIO) THEN
   ELSE
     IRET(5)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,ZTAB3D)
   ENDIF
-  !    
-  CALL HANDLE_ERR(IRET(5),HREC)  
+  !
+  CALL HANDLE_ERR(IRET(5),HREC)
   !
 #ifdef SFX_MPI
   XTIME_NPIO_WRITE = XTIME_NPIO_WRITE + (MPI_WTIME() - XTIME0)
@@ -1324,7 +1324,7 @@ INTEGER,                INTENT(OUT) :: KRESP    ! KRESP  : return-code if a prob
 !
 !*      0.2   Declarations of local variables
 !
-REAL, DIMENSION(SIZE(KFIELD)) :: ZFIELD 
+REAL, DIMENSION(SIZE(KFIELD)) :: ZFIELD
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_OL:WRITE_SURFN1_OL',0,ZHOOK_HANDLE)
@@ -1341,7 +1341,7 @@ END SUBROUTINE WRITE_SURFN1_OL
 !     #############################################################
 !
 !!****  *WRITEL1* - routine to read a logical array
-!    
+!
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, XTIME_NPIO_WRITE
 !
 USE MODD_IO_SURF_OL, ONLY: NID_NC, LDEF
@@ -1382,7 +1382,7 @@ INTEGER, DIMENSION(2) :: IDIMIDS
 INTEGER, DIMENSION(2) :: IDIMLEN
 !
  CHARACTER(LEN=100)    :: YNAME
-INTEGER,DIMENSION(4)  :: IRET 
+INTEGER,DIMENSION(4)  :: IRET
 INTEGER :: IFILE_ID, IVAR_ID, JDIM, INDIMS
 !
 LOGICAL :: GFOUND
@@ -1405,9 +1405,9 @@ IF (GFOUND) RETURN
 IF (LDEF) THEN
   !
   YATT_TITLE(1) = "units"
-  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)  
+  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)
   !
-  IF (NRANK==NPIO) THEN 
+  IF (NRANK==NPIO) THEN
     !
     IF (NID_NC /= 0) THEN
       !
@@ -1416,8 +1416,8 @@ IF (LDEF) THEN
       ELSE
         IRET(1) = NF90_INQ_DIMID(NID_NC,'Number_of_covers',IDIMIDS(1))
       ENDIF
-      IRET(2) = NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(1),LEN=IDIMLEN(1)) 
-      !     
+      IRET(2) = NF90_INQUIRE_DIMENSION(NID_NC,IDIMIDS(1),LEN=IDIMLEN(1))
+      !
       CALL DEF_VAR_NETCDF(HSELECT,NID_NC,HREC,YCOMMENT,IDIMIDS(1:1),&
                           YATT_TITLE,YATT,IVAR_ID,NF90_CHAR,1)
       !
@@ -1436,9 +1436,9 @@ ELSE
     ! 0. find filename
     ! -----------------
     IFILE_ID = NID_NC
-    ! 
+    !
     IF (IFILE_ID /= 0) THEN
-      !       
+      !
       ! 1. Find id of the variable
       !----------------------------
       IRET(1)=NF90_INQ_VARID   (IFILE_ID,HREC,IVAR_ID)
@@ -1446,7 +1446,7 @@ ELSE
       IRET(3)=NF90_INQUIRE_VARIABLE(IFILE_ID,IVAR_ID,DIMIDS=IDIMIDS(1:INDIMS))
       DO JDIM=1,1
         JRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
-      ENDDO  
+      ENDDO
       !
       CALL WRITE_DATAL1_OL(IDIMLEN(1))
       !
@@ -1485,7 +1485,7 @@ DO JRET=1,KDIM
   ELSE
     YTAB1D(JRET) ='F'
   ENDIF
-ENDDO  
+ENDDO
 !
 ! 2. Put variable
 !-----------------
@@ -1546,11 +1546,11 @@ IF (LHOOK) CALL DR_HOOK('MODE_WRITE_SURF_OL:WRITE_SURFT0_OL',0,ZHOOK_HANDLE)
 IF (LDEF) THEN
   !
   YATT_TITLE(1) = "units"
-  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)  
+  CALL GET_COMMENT(HCOMMENT,YATT(1),YCOMMENT)
   !
   DO JWRK=1,4
     !
-    IF (JWRK==1) THEN 
+    IF (JWRK==1) THEN
       YRECFM = TRIM(HREC)//'-YEAR'
     ELSEIF (JWRK==2) THEN
       YRECFM = TRIM(HREC)//'-MONTH'
@@ -1558,7 +1558,7 @@ IF (LDEF) THEN
       YRECFM = TRIM(HREC)//'-DAY'
     ELSEIF (JWRK==4) THEN
       YRECFM=TRIM(HREC)//'-TIME'
-    ENDIF  
+    ENDIF
     !
     IF (NID_NC/=0) THEN
       IF (JWRK<4) THEN
@@ -1566,7 +1566,7 @@ IF (LDEF) THEN
       ELSE
         CALL DEF_VAR_NETCDF(HSELECT,NID_NC,YRECFM,HCOMMENT,IDIMS,YATT_TITLE,YATT,IVAR_ID,NF90_DOUBLE)
       ENDIF
-    ENDIF      
+    ENDIF
     !
   ENDDO
   !
@@ -1582,7 +1582,7 @@ ELSE
     !
     DO JWRK = 1,4
       !
-      IF (JWRK==1) THEN 
+      IF (JWRK==1) THEN
         YRECFM = TRIM(HREC)//'-YEAR'
       ELSEIF (JWRK==2) THEN
         YRECFM = TRIM(HREC)//'-MONTH'
@@ -1590,18 +1590,18 @@ ELSE
         YRECFM = TRIM(HREC)//'-DAY'
       ELSEIF (JWRK==4) THEN
         YRECFM=TRIM(HREC)//'-TIME'
-      ENDIF     
-      !   
+      ENDIF
+      !
       ! 1. Find id of the variable
       !----------------------------
       IRET((JWRK-1)*2+1)=NF90_INQ_VARID(IFILE_ID,YRECFM,IVAR_ID)
       !
-      IF (JWRK==1) THEN 
+      IF (JWRK==1) THEN
         IRET((JWRK-1)*2+2)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,KYEAR)
-      ELSEIF (JWRK==2) THEN 
+      ELSEIF (JWRK==2) THEN
         IRET((JWRK-1)*2+2)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,KMONTH)
-      ELSEIF (JWRK==3) THEN 
-        IRET((JWRK-1)*2+2)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,KDAY)        
+      ELSEIF (JWRK==3) THEN
+        IRET((JWRK-1)*2+2)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,KDAY)
       ELSE
         IRET((JWRK-1)*2+2)=NF90_PUT_VAR(IFILE_ID,IVAR_ID,PTIME)
       ENDIF

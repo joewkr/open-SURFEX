@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE ASSIM_SEA_n (S, U, HPROGRAM,KI,PTS_IN,PSST_IN,PSIC_IN,PITM,HTEST, &
@@ -18,7 +18,7 @@ SUBROUTINE ASSIM_SEA_n (S, U, HPROGRAM,KI,PTS_IN,PSST_IN,PSIC_IN,PITM,HTEST, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -27,7 +27,7 @@ SUBROUTINE ASSIM_SEA_n (S, U, HPROGRAM,KI,PTS_IN,PSST_IN,PSIC_IN,PITM,HTEST, &
 !!    MODIFICATIONS
 !!    -------------
 !!      Original       04/2012
-!!      Trygve Aspelien, Separating IO  06/2013 
+!!      Trygve Aspelien, Separating IO  06/2013
 !!--------------------------------------------------------------------
 !
 !
@@ -75,7 +75,7 @@ REAL, DIMENSION(KI) :: ZALT
 REAL, DIMENSION(KI) :: ZSST
 REAL, DIMENSION(KI) :: ZSST0
 REAL, DIMENSION(KI) :: ZSSTINC
-REAL, DIMENSION(:), ALLOCATABLE :: ZSST01, ZSST1, ZLON1, ZLAT1, ZALT1 
+REAL, DIMENSION(:), ALLOCATABLE :: ZSST01, ZSST1, ZLON1, ZLAT1, ZALT1
 REAL :: ZFMAX, ZFMIN, ZFMEAN
 LOGICAL, DIMENSION(KI) :: GINTERP_SST
 LOGICAL, DIMENSION(:), ALLOCATABLE :: GINTERP_SST1
@@ -102,7 +102,7 @@ IF ( .NOT.LAESST ) THEN
   ZSST(:) = PSST_IN(:)
   !
 ELSE
-  ! SST analysed in CANARI 
+  ! SST analysed in CANARI
   ZSST(:) = XUNDEF
   DO I=1,KI
     IF (PITM(I)<0.5 .AND. U%XSEA(U%NR_SEA(I))/=0. ) THEN
@@ -135,7 +135,7 @@ ENDDO
 IF ( LEXTRAP_SEA ) THEN
   !
   IF (OLKEEPEXTZONE) THEN
-    !     
+    !
     ZSST(:) = ZSST0(:)
     WHERE ( OD_MASKEXT(:) ) ZSST0(:) = XUNDEF
     CALL OI_HOR_EXTRAPOL_SURF(KI,PLAT_IN,PLON_IN,ZSST0,PLAT_IN,PLON_IN,ZSST,GINTERP_SST,ZALT)
@@ -157,10 +157,10 @@ IF ( LEXTRAP_SEA ) THEN
         J = J + 1
       ENDIF
     ENDDO
-      
+
     ZSST1(:) = ZSST01(:)
     CALL OI_HOR_EXTRAPOL_SURF(IS1,ZLAT1,ZLON1,ZSST01,ZLAT1,ZLON1,ZSST1,GINTERP_SST1,ZALT1)
- 
+
     ! copy back
     J = 1
     DO J1 = 1, KI

@@ -1,28 +1,28 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE TEB_VEG_PROPERTIES (PMASK, IO, PEK, PDIR_SW, PSCA_SW, PSW_BANDS, KSW, &
                                      PTS, PEMIS, PALB, PTA, PALBNIR_TVEG, PALBVIS_TVEG,&
-                                     PALBNIR_TSOIL, PALBVIS_TSOIL      )  
+                                     PALBNIR_TSOIL, PALBVIS_TSOIL      )
 !     ##########################################################################
 !
-!!****  *GARDEN_PROPERTIES*  
+!!****  *GARDEN_PROPERTIES*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates grid-averaged albedo and emissivity (according to snow scheme)
-!         
+!
 !!    EXTERNAL
 !!    --------
 !!
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
-!!      
+!!    ------------------
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -107,7 +107,7 @@ IF (LHOOK) CALL DR_HOOK('TEB_VEG_PROPERTIES',0,ZHOOK_HANDLE)
 !
  CALL ISBA_PROPERTIES(IO, PEK, PDIR_SW, PSCA_SW, PSW_BANDS, KSW,                &
                       ZASNOW, ZANOSNOW, ZESNOW, ZENOSNOW, ZTSSNOW, ZTSNOSNOW,   &
-                      ZALBNIR_TVEG, ZALBVIS_TVEG, ZALBNIR_TSOIL, ZALBVIS_TSOIL)         
+                      ZALBNIR_TVEG, ZALBVIS_TVEG, ZALBNIR_TSOIL, ZALBVIS_TSOIL)
 !
 PEK%XSNOWFREE_ALB(:) = ZANOSNOW
 !

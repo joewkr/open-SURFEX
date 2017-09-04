@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
       SUBROUTINE ECOCLIMAP2_LAI (KYEAR)
@@ -41,7 +41,7 @@
 USE MODD_SURF_PAR,       ONLY : XUNDEF
 !
 USE MODD_DATA_COVER,     ONLY : XDATA_LAI, XDATA_LAI_ALL_YEARS, LCLIM_LAI, &
-                                  NECO2_START_YEAR, NECO2_END_YEAR  
+                                  NECO2_START_YEAR, NECO2_END_YEAR
 USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE, JPCOVER
 
 !
@@ -83,7 +83,7 @@ IF (LCLIM_LAI .OR. KYEAR<NECO2_START_YEAR .OR. KYEAR>NECO2_END_YEAR) THEN
     DO JVEGTYPE=1,NVEGTYPE
       ZLAI(:) = 0.
       DO JYEAR=1,5
-        ZLAI(:) = ZLAI(:) + XDATA_LAI_ALL_YEARS(JCOVER,(JYEAR-1)*36+1:JYEAR*36,JVEGTYPE)/5.  
+        ZLAI(:) = ZLAI(:) + XDATA_LAI_ALL_YEARS(JCOVER,(JYEAR-1)*36+1:JYEAR*36,JVEGTYPE)/5.
       END DO
       XDATA_LAI(JCOVER,:,JVEGTYPE) = ZLAI(:)
     END DO

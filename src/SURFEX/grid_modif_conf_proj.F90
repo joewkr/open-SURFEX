@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
       SUBROUTINE GRID_MODIF_CONF_PROJ(U,KLUOUT,KLUNAM,KGRID_PAR,KL,PGRID_PAR, &
-                                               KGRID_PAR2,KL2,OMODIF,PGRID_PAR2      )  
+                                               KGRID_PAR2,KL2,OMODIF,PGRID_PAR2      )
 !     ################################################################
 !
 !!****  *GRID_MODIF_CONF_PROJ* - routine to read in namelist the horizontal grid
@@ -32,7 +32,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !!         M.Moge   06/2015 Initialization of MODD_SPAWN variables
 !-------------------------------------------------------------------------------
 !
@@ -78,7 +78,7 @@ REAL, DIMENSION(KGRID_PAR2),  INTENT(OUT)   :: PGRID_PAR2 ! parameters defining 
 !* initial grid
 REAL                              :: ZLAT0    ! reference latitude
 REAL                              :: ZLON0    ! reference longitude
-REAL                              :: ZRPK     ! projection parameter 
+REAL                              :: ZRPK     ! projection parameter
 !                                             !   K=1 : stereographic north pole
 !                                             ! 0<K<1 : Lambert, north hemisphere
 !                                             !   K=0 : Mercator
@@ -153,7 +153,7 @@ ALLOCATE(ZDY1(KL))
  CALL GET_GRIDTYPE_CONF_PROJ(PGRID_PAR,ZLAT0,ZLON0,ZRPK,ZBETA,    &
                               ZLATOR,ZLONOR,                       &
                               IIMAX1,IJMAX1,                       &
-                              ZX1,ZY1,ZDX1,ZDY1                    )  
+                              ZX1,ZY1,ZDX1,ZDY1                    )
 !
 !---------------------------------------------------------------------------
 !
@@ -186,7 +186,7 @@ ALLOCATE(ZDY2(IIMAX2*IJMAX2))
                           KL, IIMAX1,IJMAX1,ZX1,ZY1,ZDX1,ZDY1,  &
                           IXOR, IYOR, IDXRATIO, IDYRATIO,       &
                           IXSIZE, IYSIZE,                       &
-                          KL2, IIMAX2,IJMAX2,ZX2,ZY2,ZDX2,ZDY2  )   
+                          KL2, IIMAX2,IJMAX2,ZX2,ZY2,ZDX2,ZDY2  )
 DEALLOCATE(ZX1)
 DEALLOCATE(ZY1)
 DEALLOCATE(ZDX1)
@@ -200,7 +200,7 @@ DEALLOCATE(ZDY1)
  CALL PUT_GRIDTYPE_CONF_PROJ(ZGRID_PAR,ZLAT0,ZLON0,ZRPK,ZBETA,    &
                               ZLATOR,ZLONOR,                       &
                               IIMAX2,IJMAX2,                       &
-                              ZX2,ZY2,ZDX2,ZDY2                    )  
+                              ZX2,ZY2,ZDX2,ZDY2                    )
 !
 !---------------------------------------------------------------------------
 DEALLOCATE(ZX2)

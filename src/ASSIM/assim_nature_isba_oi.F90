@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE ASSIM_NATURE_ISBA_OI (IO, S, K, NP, NPE, HPROGRAM, KI, &
                                 PRRCL,    PRRSL,  PRRCN,   PRRSN, &
@@ -12,16 +12,16 @@ SUBROUTINE ASSIM_NATURE_ISBA_OI (IO, S, K, NP, NPE, HPROGRAM, KI, &
 ! ------------------------------------------------------------------------------------------
 !  *****************************************************************************************
 !
-!  Routine to perform OI within SURFEX 
-!  a soil analysis for water content and temperature 
+!  Routine to perform OI within SURFEX
+!  a soil analysis for water content and temperature
 !  using the Meteo-France optimum interpolation technique of Giard and Bazile (2000)
 !
 !  Derived from CANARI subroutines externalized by Lora Taseva (Dec. 2007)
 !
 !  Author : Jean-Francois Mahfouf (01/2008)
 !
-!  Modifications : 
-!   (05/2008)  : The I/O of this version follow the newly available LFI format in SURFEX  
+!  Modifications :
+!   (05/2008)  : The I/O of this version follow the newly available LFI format in SURFEX
 !   (01/2009)  : Read directly atmospheric FA files using XRD library instead of using "edf"
 !   (06/2009)  : Modifications to allow the assimilation of ASCAT superficial soil moisture
 !   (09/2010)  : More parameters to goto_surfex
@@ -36,7 +36,7 @@ USE MODD_ISBA_OPTIONS_n, ONLY : ISBA_OPTIONS_t
 USE MODD_ISBA_n, ONLY : ISBA_S_t, ISBA_K_t, ISBA_NP_t, ISBA_NPE_t, ISBA_P_t, ISBA_PE_t
 !
 USE MODD_CSTS,            ONLY : XDAY, XPI, XRHOLW, XLVTT, NDAYSEC
-USE MODD_SURF_PAR,        ONLY : XUNDEF 
+USE MODD_SURF_PAR,        ONLY : XUNDEF
 !
 USE MODD_ASSIM,           ONLY : LOBSWG, NITRAD, NPRINTLEV, NECHGU, XRD1, XRSCALDW,   &
                                  XRTHR_QC, XSIGWGB, XSIGWGO, XSIGWGO_MAX, XAT2M_ISBA, &
@@ -91,13 +91,13 @@ REAL(KIND=JPRB), DIMENSION (:), INTENT(IN) ::  PLAT_IN
 REAL, DIMENSION (KI) :: ZSAB, ZARG, ZWS, ZWP, ZTL, ZWS0, ZWP0, ZTL0,         &
                         ZTS, ZTP, ZSNS, ZTCLS, ZHCLS, ZD2, ZUCLS, ZVCLS,     &
                         ZRSMIN, ZLAI, ZVEG, ZSNS0, ZTS0, ZTP0,               &
-                        ZIVEG,  ZSM_O, ZSIG_SMO, ZLSM_O, ZWS_O, ZLON, ZLAT,  &           
+                        ZIVEG,  ZSM_O, ZSIG_SMO, ZLSM_O, ZWS_O, ZLON, ZLAT,  &
                         ZT2INC, ZH2INC, ZWGINC, ZWPINC1, ZWPINC2, ZWPINC3,   &
                         ZT2MBIAS, ZH2MBIAS, ZALBF, ZEMISF, ZZ0F, ZZ0H,       &
                         ZWSC, ZWPC, ZTPC, ZEVAP, ZEVAPTR, ZSSTC,             &
                         ZGELAT, ZGELAM, ZGEMU,  ZWSINC, ZWPINC, ZTLINC,      &
                         ZSNINC, ZTSINC, ZTPINC
-!                 
+!
 REAL :: ZTHRES
 INTEGER  :: IDAT
 INTEGER  :: IYEAR                      ! current year (UTC)
@@ -116,7 +116,7 @@ IF (HTEST/='OK') THEN
   CALL ABOR1_SFX('ASSIM_NATURE_ISBA_OI: FATAL ERROR DURING ARGUMENT TRANSFER')
 END IF
 
-IF ( NPRINTLEV > 0 ) THEN 
+IF ( NPRINTLEV > 0 ) THEN
   WRITE(*,*) '--------------------------------------------------------------------------'
   WRITE(*,*) '|                                                                        |'
   WRITE(*,*) '|                             ENTER OI_ASSIM                             |'
@@ -132,7 +132,7 @@ XRSCALDW = REAL(NECHGU)/6.0
 !  half assimilation window in sec
 NITRAD = NECHGU*1800
 !
-!   Time initializations 
+!   Time initializations
 !
 IYEAR  = S%TTIME%TDATE%YEAR
 IMONTH = S%TTIME%TDATE%MONTH
@@ -142,8 +142,8 @@ IF ( ISSSSS>NDAYSEC ) ISSSSS = ISSSSS - NDAYSEC
 IDAT = IYEAR*10000. + IMONTH*100. + IDAY
 !
 !
-DO JI=1,KI     
-  ZGELAM(JI) = PLON_IN(JI)  
+DO JI=1,KI
+  ZGELAM(JI) = PLON_IN(JI)
   ZGELAT(JI) = PLAT_IN(JI)
 ENDDO
 !
@@ -220,7 +220,7 @@ ZWSC(:) = XUNDEF
 ZWPC(:) = XUNDEF
 ZTPC(:) = XUNDEF
 !
-! PRINT 
+! PRINT
 !
 IF ( NPRINTLEV > 1 ) THEN
   WRITE(*,*) 'value in PREP file => WG1       ',SUM(ZWS0)/KI
@@ -247,7 +247,7 @@ WHERE ( ZWS0(:)/=XUNDEF )
 ENDWHERE
 !
 ZEVAP  (:) =  (PEVAP(:)/XLVTT*XDAY)/(NECHGU*3600.) ! conversion W/m2 -> mm/day
-ZEVAPTR(:) =  PEVAPTR(:)*XDAY 
+ZEVAPTR(:) =  PEVAPTR(:)*XDAY
 !
 ! Set PIVEG (SURFIND.VEG.DOMI) since it is not available
 ZIVEG(:) = 0.0
@@ -262,7 +262,7 @@ IF ( LOBSWG ) THEN
     READ(111,*) ZSM_O(JI),ZSIG_SMO(JI),ZLSM_O(JI)
     ! data rejection if not on land
     ! data rejection of error too large
-    IF ( ZLSM_O(JI)<1.0 .OR. ZSIG_SMO(JI)>XSIGWGO_MAX ) ZSM_O(JI) = 999.0 
+    IF ( ZLSM_O(JI)<1.0 .OR. ZSIG_SMO(JI)>XSIGWGO_MAX ) ZSM_O(JI) = 999.0
     IF ( ZSM_O(JI)/=999.0 ) INOBS = INOBS + 1
   ENDDO
   CLOSE(UNIT=111)
@@ -280,15 +280,15 @@ CALL OI_BC_SOIL_MOISTURE(KI,ZSM_O,ZSAB,ZWS_O)
 !
 ! Screen-level innovations
 ZT2INC=0.
-WHERE ( PT2M_O(:) /= 999.0 ) 
+WHERE ( PT2M_O(:) /= 999.0 )
   ZT2INC(:) = PT2M_O (:) - ZTCLS(:)
 END WHERE
 ZH2INC=0.
-WHERE ( PHU2M_O(:) /= 999.0 ) 
+WHERE ( PHU2M_O(:) /= 999.0 )
   ZH2INC(:) = PHU2M_O(:) - ZHCLS(:)
 END WHERE
 !
-! Avoid division by zero in next WHERE statement; 
+! Avoid division by zero in next WHERE statement;
 ! this may occur in the extension zone
 WHERE (OD_MASKEXT(1:KI))
   ZD2   (:) = 1.0
@@ -303,7 +303,7 @@ INOBS = 0
 DO JI=1,KI
   IF ( ZWS_O(JI)/=999.0 ) THEN
     ZWGINC(JI) = ZWS_O(JI) - ZWS(JI)
-    IF ( ABS(ZWGINC(JI))>ZTHRES ) THEN 
+    IF ( ABS(ZWGINC(JI))>ZTHRES ) THEN
       ZWGINC(JI) = 0.0 ! background check
     ELSE
       INOBS = INOBS + 1
@@ -329,7 +329,7 @@ CALL OI_CACSTS(KI, ZT2INC, ZH2INC, ZWGINC, ZWS_O,                   &
                PRRCL, PRRSL, PRRCN, PRRSN, PATMNEB, ZEVAP, ZEVAPTR, &
                PITM, ZVEG, ZALBF, ZEMISF, ZZ0F,                     &
                ZIVEG, ZARG, ZD2, ZSAB, ZLAI, ZRSMIN, ZZ0H,          &
-               PTSC, ZTPC, ZWSC, ZWPC, PSNC, ZGELAT, ZGELAM, ZGEMU )  
+               PTSC, ZTPC, ZWSC, ZWPC, PSNC, ZGELAT, ZGELAM, ZGEMU )
 !
 !  Perform soil moiture analyses
 PSWE(:) = ZSNS(:)
@@ -345,7 +345,7 @@ WHERE ( ZWS(:)/=XUNDEF )
   ZSNINC(:) = ZSNS(:) - ZSNS0(:)
 END WHERE
 
-! Avoid division by zero in next WHERE statement; 
+! Avoid division by zero in next WHERE statement;
 ! this may occur in the extension zone
 WHERE (OD_MASKEXT(1:KI)) ZD2(:) = 1.0
 !

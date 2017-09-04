@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######################
       MODULE MODD_ALBEDO_RS14_PAR
@@ -10,11 +10,11 @@
 !!
 !!    PURPOSE
 !!    -------
-!       The purpose of this declarative module is to specify  the 
-!     parameters related to direct & diffuse albedo over open water 
+!       The purpose of this declarative module is to specify  the
+!     parameters related to direct & diffuse albedo over open water
 !
 !!
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
@@ -30,7 +30,7 @@
 IMPLICIT NONE
 !
 ! number of wavelength (200nm - 4000nm by 10nm apart)
-INTEGER, PARAMETER   :: NNWL = 381                
+INTEGER, PARAMETER   :: NNWL = 381
 !
 ! absorption coefficients for seawater et 440 nm
 REAL, PARAMETER      :: XAW440 =  0.00635
@@ -56,7 +56,7 @@ REAL, PARAMETER, DIMENSION(NNWL)::  XAKWL= &
     1650.0, 1660.0, 1670.0, 1680.0, 1690.0, 1700.0, 1710.0, 1720.0, 1730.0,   &
     1740.0, 1750.0, 1760.0, 1770.0, 1780.0, 1790.0, 1800.0, 1810.0, 1820.0,   &
     1830.0, 1840.0, 1850.0, 1860.0, 1870.0, 1880.0, 1890.0, 1900.0, 1910.0,   &
-1920.0, 1930.0, 1940.0, 1950.0, 1960.0, 1970.0, 1980.0, 1990.0, 2000.0, 2010.0,& 
+1920.0, 1930.0, 1940.0, 1950.0, 1960.0, 1970.0, 1980.0, 1990.0, 2000.0, 2010.0,&
 2020.0, 2030.0, 2040.0, 2050.0, 2060.0, 2070.0, 2080.0, 2090.0, 2100.0, 2110.0,&
 2120.0, 2130.0, 2140.0, 2150.0, 2160.0, 2170.0, 2180.0, 2190.0, 2200.0, 2210.0,&
 2220.0, 2230.0, 2240.0, 2250.0, 2260.0, 2270.0, 2280.0, 2290.0, 2300.0, 2310.0,&
@@ -76,7 +76,7 @@ REAL, PARAMETER, DIMENSION(NNWL)::  XAKWL= &
 3620.0, 3630.0, 3640.0, 3650.0, 3660.0, 3670.0, 3680.0, 3690.0, 3700.0, 3710.0,&
 3720.0, 3730.0, 3740.0, 3750.0, 3760.0, 3770.0, 3780.0, 3790.0, 3800.0, 3810.0,&
 3820.0, 3830.0, 3840.0, 3850.0, 3860.0, 3870.0, 3880.0, 3890.0, 3900.0, 3910.0,&
-3920.0, 3930.0, 3940.0, 3950.0, 3960.0, 3970.0, 3980.0, 3990.0, 4000.0 /) 
+3920.0, 3930.0, 3940.0, 3950.0, 3960.0, 3970.0, 3980.0, 3990.0, 4000.0 /)
 !
 ! proportion of each wavelength
 REAL, PARAMETER, DIMENSION(NNWL)::  XFRWL= &
@@ -156,7 +156,7 @@ REAL, PARAMETER, DIMENSION(NNWL)::  XFRWL= &
 0.7434105E-04, 0.7357822E-04, 0.7283750E-04, 0.7209678E-04, 0.7142239E-04,&
 0.7074801E-04, 0.7011415E-04, 0.6948030E-04, 0.6876537E-04, 0.6805045E-04,&
 0.6730973E-04, 0.6656901E-04, 0.6592411E-04, 0.6527920E-04, 0.6458639E-04,&
-0.6389357E-04 /) 
+0.6389357E-04 /)
 !
 ! Table for computing Reflectance just below ocean surface (bounded to 200-800 nm)
 ! table of refractive index as function of wavelength
@@ -525,7 +525,7 @@ REAL, PARAMETER, DIMENSION(NNWL)::  XAKBW= &
 0.4000000E-05 /)
 
 ! white-caps reflectance (Koepke and Whitlock)
-! Whitlock fit varid 400nm - 2.4nm. set whitecap's albedo 0 otherwise 
+! Whitlock fit varid 400nm - 2.4nm. set whitecap's albedo 0 otherwise
 REAL, PARAMETER, DIMENSION(NNWL)::  XRWC   = &
 (/0.0000000E+00, 0.0000000E+00, 0.0000000E+00, 0.0000000E+00, 0.0000000E+00,&
 0.0000000E+00, 0.0000000E+00, 0.0000000E+00, 0.0000000E+00, 0.0000000E+00,&

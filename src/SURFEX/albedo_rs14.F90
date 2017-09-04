@@ -1,18 +1,18 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
  SUBROUTINE ALBEDO_RS14(PZENITH,PWIND,PDIR_ALB,PSCA_ALB)
 !     ##################################################################
 !
-!!****  *ALBEDO_RS14*  
+!!****  *ALBEDO_RS14*
 !!
 !!    PURPOSE
 !!    -------
 !       computes the direct & diffuse albedo over open water
 !
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -20,13 +20,13 @@
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!	R. Séférian           * Meteo-France *
@@ -38,7 +38,7 @@
 !                   computation for diffuse and direct albedo
 !                   09/2014 R. Séférian & B. Sunghye :: Adaptation to spectral
 !                   bands compatible with 6-bands RRTM radiative code
-!       
+!
 !-------------------------------------------------------------------------------
 !
 !*           DECLARATIONS
@@ -76,9 +76,9 @@ REAL:: ZBBP, ZNU, ZHB                                                           
 REAL:: ZCOSZEN                                                                                  ! Cosine of the zenith solar angle
 REAL:: ZR11, ZRW, ZRWDF, ZRDF                                                 ! 4 components of the OSA
 
-! 
+!
 REAL            :: ZWORK                                                                        ! dummy variable
-! 
+!
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !-------------------------------------------------------------------------------
@@ -87,10 +87,10 @@ IF (LHOOK) CALL DR_HOOK('ALBEDO_RS14',0,ZHOOK_HANDLE)
 !
 ! Initiliazing :
 !
-PDIR_ALB(:) = 0. 
-PSCA_ALB(:) = 0. 
+PDIR_ALB(:) = 0.
+PSCA_ALB(:) = 0.
 !
-ZDIR_ALB(:) = 0. 
+ZDIR_ALB(:) = 0.
 ZSCA_ALB(:) = 0.
 !
 !
@@ -100,7 +100,7 @@ ZCHL(:) = 0.05 ! averaged global values for surface chlorophyll
 DO JWL=1,NNWL           ! loop over the wavelength
 !
   DO JI=1,SIZE(PZENITH)   ! loop over the grid points
-  
+
     !---------------------------------------------------------------------------------
     ! 0- Compute baseline values
     !---------------------------------------------------------------------------------
@@ -121,7 +121,7 @@ DO JWL=1,NNWL           ! loop over the wavelength
     ZRRR=0.50*(((ZXX2-1.34*ZCOSZEN)/(ZXX2+1.34*ZCOSZEN))**2 +((ZCOSZEN-1.34*ZXX2)/(ZCOSZEN+1.34*ZXX2))**2)
     ZR11=ZRR0-(0.0152-1.7873*ZCOSZEN+6.8972*ZCOSZEN**2-8.5778*ZCOSZEN**3+4.071*ZSIG-7.6446*ZCOSZEN*ZSIG) &
         & * EXP(0.1643-7.8409*ZCOSZEN-3.5639*ZCOSZEN**2-2.3588*ZSIG+10.0538*ZCOSZEN*ZSIG)*ZRR0/ZRRR
-    ! 
+    !
     !---------------------------------------------------------------------------------
     ! 2- Compute surface diffuse albedo (ZRDF)
     !---------------------------------------------------------------------------------
@@ -135,11 +135,11 @@ DO JWL=1,NNWL           ! loop over the wavelength
     ! coefficients to determine reflectance below the surface (Ro) once for all
     !
     ! *.1- Absorption by chlorophyll
-    ZCHLABS= XAKACHL(JWL) 
-    ! *.2- Absorption by seawater 
-    ZAW= XAKAW3(JWL) 
+    ZCHLABS= XAKACHL(JWL)
+    ! *.2- Absorption by seawater
+    ZAW= XAKAW3(JWL)
     ! *.3- Backscattering by seawater
-    ZBW= XAKBW(JWL) 
+    ZBW= XAKBW(JWL)
     ! *.4- Backscattering by chlorophyll
     ZYLMD = EXP(0.014*(440.0-ZWL))
     ZWORK= EXP(LOG(ZCHL(JI))*0.65)
@@ -159,7 +159,7 @@ DO JWL=1,NNWL           ! loop over the wavelength
     ENDIF
     !
     ! Morel-Gentili(1991), Eq (12)
-    ! ZHB=h/(h+2*ZBBPf*(1.-h))        
+    ! ZHB=h/(h+2*ZBBPf*(1.-h))
     ZHB=0.5*ZBW/(0.5*ZBW+ZBBP)
     !
     !---------------------------------------------------------------------------------
@@ -191,7 +191,7 @@ DO JWL=1,NNWL           ! loop over the wavelength
     !
     ! original : correction for foam Monahanand and Muircheartaigh (1980) Eq 16-17
     ! new: Salisbury 2014 eq(2) at 37GHz, value in fraction
-    ZFWC=3.97e-4*PWIND(JI)**(1.59) 
+    ZFWC=3.97e-4*PWIND(JI)**(1.59)
     ! has to be update once we have information from wave model (discussion with G. Madec)
     !
     ! --------------------------------------------------------------------

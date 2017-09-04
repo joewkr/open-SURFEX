@@ -1,7 +1,7 @@
 #!/bin/ksh
 #MNH_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 #MNH_LIC This is part of the Meso-NH software governed by the CeCILL-C licence
-#MNH_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#MNH_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 #MNH_LIC for details. version 1.
 #set -x
 set -e
@@ -14,9 +14,9 @@ export STEPDIR=${*:-"."}
 # Scan all directory an eval_dollar all '*.ihm' files
 #
 for dir in ${STEPDIR} ; do
-if [ ! -d ${dir} ]  ; then 
+if [ ! -d ${dir} ]  ; then
 echo "scandollar ERROR :: "
-echo "scandollar ERROR :: this parameter is not a directory = ${dir} " 
+echo "scandollar ERROR :: this parameter is not a directory = ${dir} "
 echo "scandollar ERROR :: "
 exit 1
 fi
@@ -28,33 +28,33 @@ echo "#  read default config file :: --->  CONF_DOLLAR=${CONF_DOLLAR} "
 
 export LOCALPWD=${PWD}
 
-for dir in ${STEPDIR} 
+for dir in ${STEPDIR}
  do
 (
   cd ${LOCALPWD}/${dir}
 #
 # Init user environnement
 #
-  if [ ! -f ${CONFIG} ]  ; then 
+  if [ ! -f ${CONFIG} ]  ; then
       echo
       echo "scandollar ERROR :: "
       echo "scandollar ERROR :: configuration file 'confdollar' not found in dir=${dir} "
-      echo "scandollar ERROR :: USAGE :: prep_dollar [dir_dest*] " 
+      echo "scandollar ERROR :: USAGE :: prep_dollar [dir_dest*] "
       echo "scandollar ERROR :: "
       echo
-      exit 1 
+      exit 1
   fi
   [ ! -x ${CONFIG} ] && chmod +x ${CONFIG}
-  echo "#" 
+  echo "#"
   echo "#  read    user config file :: --->  CONFIG=${CONFIG} "
 ## init default before user
-#  [ -x ${CONF_DOLLAR}  ] && source ${CONF_DOLLAR}       
+#  [ -x ${CONF_DOLLAR}  ] && source ${CONF_DOLLAR}
 ## init user
-  [ -x ${CONFIG}  ] && . ${CONFIG}       
+  [ -x ${CONFIG}  ] && . ${CONFIG}
 #
 # Post conf default environnement
 #
-  [ -x ${CONF_DOLLAR}  ] && . ${CONF_DOLLAR}       
+  [ -x ${CONF_DOLLAR}  ] && . ${CONF_DOLLAR}
 #
 # create experience directory
 #
@@ -63,7 +63,7 @@ for dir in ${STEPDIR}
 #
 # process *.ihm file and put them in ${CONFEXP}
 #
-  echo "#" 
+  echo "#"
   echo "#  processes file *.ihm and put them in ${dir}/${CONFEXP}/ :: "
   for file in $( ls -1 *.ihm 2>/dev/null )
     do
@@ -74,4 +74,4 @@ for dir in ${STEPDIR}
   done
 )
 
-done 
+done

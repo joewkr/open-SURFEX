@@ -1,13 +1,13 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE PACK_PGD_ISBA (DTCO, KDIM, ISS, U, &
                                 HPROGRAM,                                    &
                                  PAOSIP, PAOSIM, PAOSJP, PAOSJM,              &
                                  PHO2IP, PHO2IM, PHO2JP, PHO2JM,              &
-                                 PSSO_SLOPE                                   )  
+                                 PSSO_SLOPE                                   )
 !     ##############################################################
 !
 !!**** *PACK_PGD_ISBA* packs ISBA physiographic fields from all surface points to ISBA points
@@ -17,7 +17,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !
 !!    EXTERNAL
 !!    --------

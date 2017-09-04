@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ############################
@@ -8,11 +8,11 @@
                                     PVARC,PVARCP,PVARROUT)
 !     ############################
 !
-!!****  *DIAG_ISBA_TO_ROUT*  
+!!****  *DIAG_ISBA_TO_ROUT*
 !!
 !!    PURPOSE
 !!    -------
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -22,17 +22,17 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!    
-!!    
 !!
-!!      
+!!
+!!
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!    
-!!      
+!!
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -67,7 +67,7 @@ IMPLICIT NONE
 REAL, DIMENSION(:), INTENT(IN) :: PMESH_SIZE
 !
 REAL,DIMENSION(:),INTENT(IN)        :: PVARC       ! Current time step cumulated diagnostic from SurfEx
-REAL,DIMENSION(:),INTENT(IN)        :: PVARCP      ! Previous time step cumulated diagnostic from SurfEx 
+REAL,DIMENSION(:),INTENT(IN)        :: PVARCP      ! Previous time step cumulated diagnostic from SurfEx
 REAL,DIMENSION(:),INTENT(OUT)       :: PVARROUT    ! Not cumulated diagnostic (m3/s)
 !
 !*      0.2    declarations of local variables
@@ -88,7 +88,7 @@ IF ( SIZE(PVARC,1)==SIZE(PVARCP,1) ) THEN
     PVARROUT = PVARROUT * PMESH_SIZE / XRHOLW
   ENDWHERE
   !
-ELSE 
+ELSE
   !
   WRITE(*,*) 'Pb with diagnostic to rout'
   CALL ABOR1_SFX("DIAG_ISBA_TO_ROUT: PB WITH DIAGNOSTIC TO ROUT ")

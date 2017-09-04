@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,14 +28,14 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ====================== MODULE modi_glt_thermo_ice_r =======================
 ! =======================================================================
@@ -43,37 +43,37 @@
 ! Goal:
 ! -----
 !   Do the thermodynamics for the ice covered fraction of the grid cell
-! (considering several ice types_glt, defined according to their 
+! (considering several ice types_glt, defined according to their
 ! thicknesses).
 !
 ! Method:
 ! -------
 !   The main involved processes in this part are :
 !       - the impact of precipitations on sea ice / snow build up,
-!       - effect of ocean and atmospheric heat fluxes on sea ice 
-!       thickness changes (heat conduction in the ice / snow slab). 
-!   N.B. : Heat fluxes are considered at the top and at the bottom of 
-! the ice (W / m^2). Positive q-fluxes denote melting. 
+!       - effect of ocean and atmospheric heat fluxes on sea ice
+!       thickness changes (heat conduction in the ice / snow slab).
+!   N.B. : Heat fluxes are considered at the top and at the bottom of
+! the ice (W / m^2). Positive q-fluxes denote melting.
 !
 ! Created : 1996/04 (D. Salas y Melia)
 !           Also includes bulk fluxes (based on Simonsen, 1996), leads
-!           physics. 
+!           physics.
 !           The thermodynamics is only computed at one point
-! Modified: 1997/12 (D. Salas y Melia) 
+! Modified: 1997/12 (D. Salas y Melia)
 !           Regional model: Arctic or Antarctic. Specific for computing
 !           sea ice thermodynamics.
-! Modified: 2001/08 (D. Salas y Melia)  
+! Modified: 2001/08 (D. Salas y Melia)
 !           Increased modularity. Most processes are now described in
 !           a separate routine.
 ! Modified: 2009/06 (D. Salas y Melia)
 !           reduced grid
 ! Modified: 2010/02 (D. Salas y Melia)
-!           interactiver salinity 
+!           interactiver salinity
 ! Modified: 2011/12 (A. Voldoire)
 !           improved computation of snow and ice mass balance
 ! Modified: 2012/01 (M. Chevallier)
 !           invoke glt_updasn_r (i.e. upgrade the state of melt ponds)
-!           after the last potential water input to the ponds (after 
+!           after the last potential water input to the ponds (after
 !           surface melting processes)
 !
 ! -------------------- BEGIN MODULE modi_glt_thermo_ice_r -------------------
@@ -136,7 +136,7 @@ SUBROUTINE glt_thermo_ice_r  &
 !  USE modi_glt_swabs_r
   USE mode_glt_info_r
   USE mode_glt_stats_r
-  USE modi_glt_updasn_r 
+  USE modi_glt_updasn_r
   USE modi_glt_icetrans_r
   USE modi_glt_sublim_r
   USE modi_glt_precip_r
@@ -180,11 +180,11 @@ SUBROUTINE glt_thermo_ice_r  &
   TYPE(t_sit), DIMENSION(nt,np), INTENT(inout) ::  &
         tpsit
   TYPE(t_vtp), DIMENSION(nl,nt,np), INTENT(inout) ::  &
-        tpsil 
+        tpsil
 !
 !
 ! 1.3. Local variables declarations
-! --------------------------------- 
+! ---------------------------------
 !
   LOGICAL, DIMENSION(np) ::  &
         grain,gsnow
@@ -219,7 +219,7 @@ SUBROUTINE glt_thermo_ice_r  &
 ! 1.5. Local variables initializations
 ! ------------------------------------
 !
-! .. Two-dimensional logical arrays 
+! .. Two-dimensional logical arrays
 !
   grain(:) = ( tpatm(:)%lip>epsil1 )
   gsnow(:) = ( tpatm(:)%sop>epsil1 )
@@ -307,9 +307,9 @@ SUBROUTINE glt_thermo_ice_r  &
 ! --------------------------------------------
 !
 ! .. Split the absorbed solar flux into three parts:
-!       - One part is retained by the ice surface, 
+!       - One part is retained by the ice surface,
 !       - another is stored by the ice (thermal effect of brine
-! pockets), 
+! pockets),
 !       - the rest crosses the ice slab to reach the mixed layer.
 !
   CALL glt_icetrans_r( tpblki,tpmxl,tptfl,tpsit,tpdia,zswtra )
@@ -326,12 +326,12 @@ SUBROUTINE glt_thermo_ice_r  &
 !
   zmlf3(:,:) = SPREAD( tpmxl(:)%mlf,1,nt )
 !
-! .. Update gltools_enthalpy profile and surface temperature 
+! .. Update gltools_enthalpy profile and surface temperature
 !
 ! Surface temperature
   WHERE ( tpsit(:,:)%hsi<epsil1 )
-    tpsit(:,:)%tsf = zmlf3(:,:) 
-  ENDWHERE  
+    tpsit(:,:)%tsf = zmlf3(:,:)
+  ENDWHERE
 !
 ! Ice gltools_enthalpy
   DO jl = 1,nilay
@@ -361,24 +361,24 @@ SUBROUTINE glt_thermo_ice_r  &
 ! 3.2.1. Update sea ice stored heat and top conduction heat flux
 ! ...............................................................
 !
-! .. Initialize and then compute top of the ice/snow slab conduction 
+! .. Initialize and then compute top of the ice/snow slab conduction
 ! flux.
 !
   znsftop(:,:) = tpblki(:,:)%nsf + zqmelt(:,:)
-!      
+!
 ! .. Derivative of znsftop
 !
   zdcondt(:,:) = tpblki(:,:)%dfl
-!     
+!
 !
 ! 3.2.2. Run 1D heat diffusion scheme with flux bc at the top
 ! ............................................................
 !
 !   This scheme is run with the boundary conditions that have just been
 ! computed. It updates the vertical temperature profile in the slab,
-! and returns the bottom conductive heat flux (ice/ocean interface). 
+! and returns the bottom conductive heat flux (ice/ocean interface).
 !
-  zwork2 = dtt*SUM( tpsit(:,:)%fsi*znsftop, DIM=1 ) 
+  zwork2 = dtt*SUM( tpsit(:,:)%fsi*znsftop, DIM=1 )
 !
   zent(:,:,:) = tpsil(:,:,:)%ent
   CALL glt_aventh(tpsit,tpsil,zei1,zes1)
@@ -400,7 +400,7 @@ SUBROUTINE glt_thermo_ice_r  &
 !
 !
 !
-! 4. Update snow albedo and thickness  
+! 4. Update snow albedo and thickness
 ! ===================================
 !
 ! 4.1. Update snow cover thickness
@@ -422,7 +422,7 @@ SUBROUTINE glt_thermo_ice_r  &
 ! 4.2. Snow ice formation
 ! ------------------------
 !
-! .. See the routine itself for more details. 
+! .. See the routine itself for more details.
 !
   CALL glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
 !
@@ -438,7 +438,7 @@ SUBROUTINE glt_thermo_ice_r  &
 !
 !
 !
-! 5. Sea ice thickness and concentration changes 
+! 5. Sea ice thickness and concentration changes
 ! ==============================================
 !
 ! 5.1. Update sea ice thickness
@@ -449,7 +449,7 @@ SUBROUTINE glt_thermo_ice_r  &
 !       - conduction bottom heat flux   :       -zcondb
 !       - mixed layer heat flux         :       tpmxl%qoc
 !       - residual ocean flux           :       tpmxl%qml,
-! compute first guess for new sea ice thickness. 
+! compute first guess for new sea ice thickness.
 !
   CALL glt_updhsi_r( zcondb,zqtopmelt,zdhmelt,tpmxl,tpdia,tptfl,tpsit,tpsil )
 !

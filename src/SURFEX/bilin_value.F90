@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
      SUBROUTINE BILIN_VALUE (KLUOUT,KX,KY,PFIELD1,PCX,PCY,KCI,KCJ,PFIELD2)
@@ -142,7 +142,7 @@ IF (LHOOK) CALL DR_HOOK('BILIN_VALUE_2',0,ZHOOK_HANDLE)
 IF (NPROC>1) THEN
 #ifdef SFX_MPI
   CALL MPI_GATHER(IJEXT,4*KIND(IJEXT)/4,MPI_INTEGER,&
-                IBOR,4*KIND(IBOR)/4,MPI_INTEGER,& 
+                IBOR,4*KIND(IBOR)/4,MPI_INTEGER,&
                 NPIO,NCOMM,INFOMPI)
 #endif
 ELSE
@@ -160,7 +160,7 @@ IF (NRANK/=NPIO) THEN
   IS2 = IJEXT(2,2)-IJEXT(2,1)+1
   ISIZE = IS1*IS2
   ALLOCATE(ZFIELD1(IS1,IS2,INL))
-#ifdef SFX_MPI  
+#ifdef SFX_MPI
   IF (SUM(IJEXT)/=0) &
     CALL MPI_RECV(ZFIELD1,ISIZE*INL*KIND(ZFIELD1)/4,MPI_REAL,NPIO,IDX_I,NCOMM,ISTATUS,INFOMPI)
 #endif
@@ -185,7 +185,7 @@ ELSE
         DO JL=IBOR(2,1,J),IBOR(2,2,J)
           ZFIELDS(:,JL-IBOR(2,1,J)+1,:) = PFIELD1(KX*(JL-1)+IBOR(1,1,J):KX*(JL-1)+IBOR(1,2,J),:)
         ENDDO
-#ifdef SFX_MPI        
+#ifdef SFX_MPI
         CALL MPI_SEND(ZFIELDS,SIZE(ZFIELDS)*KIND(ZFIELDS)/4,MPI_REAL,J,IDX_I+1,NCOMM,INFOMPI)
 #endif
         DEALLOCATE(ZFIELDS)
@@ -193,14 +193,14 @@ ELSE
       IF (LHOOK) CALL DR_HOOK('BILIN_VALUE_31',1,ZHOOK_HANDLE_OMP)
       !
     ELSE
-      !    
+      !
       IF (LHOOK) CALL DR_HOOK('BILIN_VALUE_32',0,ZHOOK_HANDLE_OMP)
       !
       IS1 = IBOR(1,2,0)-IBOR(1,1,0)+1
       IS2 = IBOR(2,2,0)-IBOR(2,1,0)+1
       ISIZE = IS1*IS2
       ALLOCATE(ZFIELD1(IS1,IS2,INL))
-      IF (SUM(IBOR(:,:,0))/=0) THEN    
+      IF (SUM(IBOR(:,:,0))/=0) THEN
         DO JL=IBOR(2,1,0),IBOR(2,2,0)
           ZFIELD1(:,JL-IBOR(2,1,0)+1,:) = PFIELD1(KX*(JL-1)+IBOR(1,1,0):KX*(JL-1)+IBOR(1,2,0),:)
         ENDDO
@@ -242,13 +242,13 @@ DO JK=1,INL
     !* interpolation
     !
     IF(ZFIELD1(JI,JJ,JK) /= XUNDEF) THEN
-      
+
       PFIELD2(JL,JK) = PCY(JL,1) * &
          ( PCX(JL,1) * ZFIELD_XY(JI,JJ)   + PCX(JL,2) * ZFIELD_Y(JI,JJ)   + PCX(JL,3) * ZFIELD_XY(JI+1,JJ) ) &
                   + PCY(JL,2) * &
          ( PCX(JL,1) * ZFIELD_X (JI,JJ)   + PCX(JL,2) * ZFIELD1 (JI,JJ,JK) + PCX(JL,3) * ZFIELD_X (JI+1,JJ) ) &
                   + PCY(JL,3) * &
-         ( PCX(JL,1) * ZFIELD_XY(JI,JJ+1) + PCX(JL,2) * ZFIELD_Y(JI,JJ+1) + PCX(JL,3) * ZFIELD_XY(JI+1,JJ+1) )  
+         ( PCX(JL,1) * ZFIELD_XY(JI,JJ+1) + PCX(JL,2) * ZFIELD_Y(JI,JJ+1) + PCX(JL,3) * ZFIELD_XY(JI+1,JJ+1) )
 
     ENDIF
 

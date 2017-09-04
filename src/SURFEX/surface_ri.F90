@@ -1,20 +1,20 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
     SUBROUTINE SURFACE_RI(PTG, PQS, PEXNS, PEXNA, PTA, PQA,   &
-                               PZREF, PUREF, PDIRCOSZW, PVMOD, PRI )  
+                               PZREF, PUREF, PDIRCOSZW, PVMOD, PRI )
 !   ######################################################################
 !
-!!****  *SURFACE_RI*  
+!!****  *SURFACE_RI*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Computes the richardson number near the ground
-!         
-!     
+!
+!
 !!**  METHOD
 !!    ------
 !
@@ -31,11 +31,11 @@
 !!    MODD_CST
 !!    MODD_GROUND_PAR
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!
@@ -43,7 +43,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    22/09/98 
+!!      Original    22/09/98
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -94,23 +94,23 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !       1.     Richardson number
 !              -----------------
-!                
-!                                                 virtual potential        
-!                                                 temperature at the 
+!
+!                                                 virtual potential
+!                                                 temperature at the
 !                                                 first atmospheric level and
 !                                                 at the surface
 !
 IF (LHOOK) CALL DR_HOOK('SURFACE_RI',0,ZHOOK_HANDLE)
 !
-ZTHVA(:)=PTA(:)/PEXNA(:)*( 1.+(XRV/XRD-1.)*PQA(:) )   
+ZTHVA(:)=PTA(:)/PEXNA(:)*( 1.+(XRV/XRD-1.)*PQA(:) )
 ZTHVS(:)=PTG(:)/PEXNS(:)*( 1.+(XRV/XRD-1.)*PQS(:) )
-!                                                 
+!
 ZVMOD(:) = WIND_THRESHOLD(PVMOD(:),PUREF(:))
 !
                                                 ! Richardson's number
 PRI(:) = XG * PDIRCOSZW(:) * PUREF(:) * PUREF(:)              &
           * (ZTHVA(:)-ZTHVS(:)) / (0.5 * (ZTHVA(:)+ZTHVS(:)) )  &
-          / (ZVMOD(:)*ZVMOD(:)) /PZREF(:)  
+          / (ZVMOD(:)*ZVMOD(:)) /PZREF(:)
 !
 PRI(:) = MIN(PRI(:),XRIMAX)
 !

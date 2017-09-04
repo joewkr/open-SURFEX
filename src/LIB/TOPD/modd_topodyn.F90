@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !-------------------------------------------------------------------------------
 !     ##################
@@ -15,7 +15,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -28,7 +28,7 @@
 !!    -------------
 !!      Original       29/09/03
 !!      BV: modifications  2006: division in two part (some variables are
-!                            now in modd_coupling_topo_n    
+!                            now in modd_coupling_topo_n
 !!      BV: modifications  04/2007: addition of XTOPD_STEP and NNB_TOPD_STEP
 !
 !*       0.   DECLARATIONS
@@ -54,9 +54,9 @@ REAL, ALLOCATABLE, DIMENSION(:)     :: XDXT     ! catchment grid mesh size (m)
 REAL, ALLOCATABLE, DIMENSION(:)     :: XMPARA   ! M parameter on TOPODYN grid (m)
 
 INTEGER, ALLOCATABLE, DIMENSION(:)  :: NNMC     ! catchments pixels number
-REAL, ALLOCATABLE, DIMENSION(:,:,:) :: XCONN    ! pixels reference number and 
+REAL, ALLOCATABLE, DIMENSION(:,:,:) :: XCONN    ! pixels reference number and
                                                 ! connections between
-INTEGER, ALLOCATABLE, DIMENSION(:,:):: NLINE    ! second index of the pixel in the array 
+INTEGER, ALLOCATABLE, DIMENSION(:,:):: NLINE    ! second index of the pixel in the array
                                                 ! XCONN
 REAL, ALLOCATABLE, DIMENSION(:,:)   :: XTANB    ! pixels topographic slope (Tan(Beta))
 REAL, ALLOCATABLE, DIMENSION(:,:)   :: XSLOP    ! pixels topographic slope/length flow
@@ -66,16 +66,16 @@ REAL, ALLOCATABLE, DIMENSION(:,:)   :: XDAREA   ! drainage area (aire drainee)
 
 ! Variables defining the catchments
 
-INTEGER, ALLOCATABLE, DIMENSION(:)  :: NNXC     ! number of topographic grid points on 
+INTEGER, ALLOCATABLE, DIMENSION(:)  :: NNXC     ! number of topographic grid points on
                                                 ! abscissa axis
-INTEGER, ALLOCATABLE, DIMENSION(:)  :: NNYC     ! number of topographic grid points on ordinate 
+INTEGER, ALLOCATABLE, DIMENSION(:)  :: NNYC     ! number of topographic grid points on ordinate
                                                 ! axis
-INTEGER, ALLOCATABLE, DIMENSION(:)  :: NNPT     ! number of pixels in the topographic 
+INTEGER, ALLOCATABLE, DIMENSION(:)  :: NNPT     ! number of pixels in the topographic
                                                 ! domain
-INTEGER                             :: NPMAX    ! maximal number of pixels in the 
+INTEGER                             :: NPMAX    ! maximal number of pixels in the
                                                 ! topographic grid
 
-REAL, ALLOCATABLE, DIMENSION(:)     :: XX0,XY0  ! coordinates bottom-left pixel of each 
+REAL, ALLOCATABLE, DIMENSION(:)     :: XX0,XY0  ! coordinates bottom-left pixel of each
                                                 ! topographic domain
 
 REAL, ALLOCATABLE, DIMENSION(:)     :: XNUL     ! undefined value in topographic files
@@ -84,9 +84,9 @@ REAL, ALLOCATABLE, DIMENSION(:,:)   :: XTOPD    ! topographic values in topograp
 REAL, DIMENSION(JPCAT)              :: XRTOP_D2 ! depth used by topodyn for lateral transfers
                                                 ! (expressed in ratio of isba d2)
                                                 !
-! Variables used in routing module 
+! Variables used in routing module
 INTEGER, ALLOCATABLE, DIMENSION(:)  :: NNISO    ! number of time step for the isochrones
-REAL, ALLOCATABLE, DIMENSION(:,:)   :: XCISO    ! isochrones routing constants 
+REAL, ALLOCATABLE, DIMENSION(:,:)   :: XCISO    ! isochrones routing constants
 
 REAL, DIMENSION(JPCAT)              :: XQINIT   ! Initial discharge at the outlet of the catchments
 REAL, ALLOCATABLE, DIMENSION(:,:)   :: XQTOT    ! Total discharge at the outlet of the catchments
@@ -99,12 +99,12 @@ REAL, ALLOCATABLE, DIMENSION(:,:)   :: XTIME_TOPD      ! Time to go to the outle
                                                        ! at the soil surface
 REAL, ALLOCATABLE, DIMENSION(:,:)   :: XTIME_TOPD_DRAIN! Time to go to the outlet in the ground
 
-INTEGER, ALLOCATABLE, DIMENSION(:)  :: NX_STEP_ROUT   ! number of maximal time step to join the outlet of 
+INTEGER, ALLOCATABLE, DIMENSION(:)  :: NX_STEP_ROUT   ! number of maximal time step to join the outlet of
                                                 ! any catchment
 
-! Variables used in exfiltration module 
+! Variables used in exfiltration module
 REAL, ALLOCATABLE, DIMENSION(:,:)   :: XLAMBDA  ! pure topographic index
-REAL, ALLOCATABLE, DIMENSION(:,:)   :: XCSTOPT  ! hydraulic conductivity at saturation on 
+REAL, ALLOCATABLE, DIMENSION(:,:)   :: XCSTOPT  ! hydraulic conductivity at saturation on
                                                 ! TOP-LAT grid
                                                 !ludo
 REAL, ALLOCATABLE, DIMENSION(:,:)   :: XQB_DR

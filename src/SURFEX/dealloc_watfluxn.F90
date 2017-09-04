@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
 SUBROUTINE DEALLOC_WATFLUX_n (WM)
@@ -16,11 +16,11 @@ SUBROUTINE DEALLOC_WATFLUX_n (WM)
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -58,9 +58,9 @@ IF (LHOOK) CALL DR_HOOK('DEALLOC_WATFLUX_N',0,ZHOOK_HANDLE)
 CALL DIAG_OPTIONS_INIT(WM%DWO)
 CALL DIAG_INIT(WM%DW)
 CALL DIAG_INIT(WM%DWC)
-!  
+!
 CALL GRID_INIT(WM%G)
-CALL CANOPY_INIT(WM%SB)  
+CALL CANOPY_INIT(WM%SB)
 CALL CH_WATFLUX_INIT(WM%CHW)
 CALL WATFLUX_INIT(WM%W)
 !

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_NATURE_n (DTCO, UG, U, USS, IM, DTZ, DGO, DL, DLC, NDST, SLT, &
@@ -10,10 +10,10 @@ SUBROUTINE COUPLING_NATURE_n (DTCO, UG, U, USS, IM, DTZ, DGO, DL, DLC, NDST, SLT
                               PDIR_SW, PSCA_SW, PSW_BANDS, PPS, PPA, PSFTQ, PSFTH, PSFTS,      &
                               PSFCO2, PSFU, PSFV, PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF,    &
                               PZ0, PZ0H, PQSURF, PPEW_A_COEF, PPEW_B_COEF, PPET_A_COEF,        &
-                              PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST  )  
+                              PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST  )
 !     ###############################################################################
 !
-!!****  *COUPLING_NATURE_n * - Chooses the surface schemes for natural continental parts  
+!!****  *COUPLING_NATURE_n * - Chooses the surface schemes for natural continental parts
 !!
 !!    PURPOSE
 !!    -------
@@ -23,11 +23,11 @@ SUBROUTINE COUPLING_NATURE_n (DTCO, UG, U, USS, IM, DTZ, DGO, DL, DLC, NDST, SLT
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -156,7 +156,7 @@ IF (U%CNATURE=='ISBA  ') THEN
                             PCO2, HSV, PRAIN, PSNOW, PLW, PDIR_SW, PSCA_SW, PSW_BANDS, PPS,  &
                             PPA, PSFTQ, PSFTH, PSFTS, PSFCO2, PSFU, PSFV, PTRAD, PDIR_ALB,   &
                             PSCA_ALB, PEMIS, PTSURF, PZ0, PZ0H, PQSURF, PPEW_A_COEF,         &
-                            PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF,'OK')  
+                            PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF,'OK')
 ELSE IF (U%CNATURE=='TSZ0  ') THEN
   CALL COUPLING_TSZ0_n(DTCO, UG, U, USS, IM, DTZ,  NDST, SLT,     &
                        HPROGRAM, HCOUPLING, PTSTEP, KYEAR, KMONTH, KDAY, PTIMEC, KI,    &
@@ -165,7 +165,7 @@ ELSE IF (U%CNATURE=='TSZ0  ') THEN
                        PDIR_SW, PSCA_SW, PSW_BANDS, PPS, PPA, PSFTQ, PSFTH, PSFTS,      &
                        PSFCO2, PSFU, PSFV, PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF,    &
                        PZ0, PZ0H, PQSURF, PPEW_A_COEF, PPEW_B_COEF,  PPET_A_COEF,       &
-                       PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, 'OK'    )  
+                       PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, 'OK'    )
 ELSE IF (U%CNATURE=='FLUX  ') THEN
   CALL COUPLING_IDEAL_FLUX(DGO, DL, DLC, HPROGRAM, HCOUPLING, PTIMEC, PTSTEP, KYEAR, &
                            KMONTH, KDAY, PTIME, KI, KSV, KSW,  PTSUN, PZENITH, PAZIM,  &
@@ -174,7 +174,7 @@ ELSE IF (U%CNATURE=='FLUX  ') THEN
                            PSFTQ, PSFTH, PSFTS, PSFCO2, PSFU, PSFV, PTRAD, PDIR_ALB,   &
                            PSCA_ALB, PEMIS, PTSURF, PZ0, PZ0H, PQSURF, PPEW_A_COEF,    &
                            PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF,         &
-                           PPEQ_B_COEF, 'OK'   )  
+                           PPEQ_B_COEF, 'OK'   )
 ELSE IF (U%CNATURE=='NONE  ') THEN
   PSFTH = 0.
   PSFTQ = 0.
@@ -187,12 +187,12 @@ ELSE IF (U%CNATURE=='NONE  ') THEN
   PDIR_ALB = 0.
   PSCA_ALB = 0.
   PEMIS   = 1.
-!  
+!
   PTSURF = XTT
   PZ0    = 0.01
   PZ0H   = 0.001
   PQSURF = 0.0
-!  
+!
 END IF
 IF (LHOOK) CALL DR_HOOK('COUPLING_NATURE_N',1,ZHOOK_HANDLE)
 !

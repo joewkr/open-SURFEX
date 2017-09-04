@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######################
       MODULE MODD_XIOS
@@ -13,7 +13,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -30,9 +30,9 @@
 !             ------------
 #ifdef WXIOS
 USE XIOS ,    ONLY : XIOS_CONTEXT
-TYPE(xios_context) :: TXIOS_CONTEXT                ! Xios context handle 
+TYPE(xios_context) :: TXIOS_CONTEXT                ! Xios context handle
 #else
-INTEGER            :: TXIOS_CONTEXT                ! Fake Xios context handle 
+INTEGER            :: TXIOS_CONTEXT                ! Fake Xios context handle
 #endif
 !
 !
@@ -41,10 +41,10 @@ INTEGER            :: TXIOS_CONTEXT                ! Fake Xios context handle
 LOGICAL            :: LXIOS=.FALSE.                ! Do we use XIOS for outputing diags
 !
 !
-!  Setup variables 
+!  Setup variables
 !
 CHARACTER(LEN=6)   :: YXIOS_CONTEXT= "surfex"      ! Context name known to Xios (must match a context declared in xml file)
-CHARACTER(LEN=14)  :: COUTPUT_DEFAULT="surfex_cselect" ! XIOS id for the file receiving all Surfex variables selected 
+CHARACTER(LEN=14)  :: COUTPUT_DEFAULT="surfex_cselect" ! XIOS id for the file receiving all Surfex variables selected
                                                    ! by CSELECT (could/should exist in xml configuration file)
 LOGICAL            :: LALLOW_ADD_DIM=.FALSE.       ! allow multi-dimensional output ?
 INTEGER            :: NBASE_XIOS_FREQ=1            ! Base frequency for calling XIOS (unit=timestep)
@@ -52,12 +52,12 @@ INTEGER            :: NBASE_XIOS_FREQ=1            ! Base frequency for calling 
 !  Evolving variables
 !
 LOGICAL            :: LXIOS_DEF_CLOSED             ! Has the Surfex context definition already been closed ?
-CHARACTER(LEN=6)   :: YXIOS_DOMAIN                 ! When writing diags using write_diag_surf, name of the current tile 
+CHARACTER(LEN=6)   :: YXIOS_DOMAIN                 ! When writing diags using write_diag_surf, name of the current tile
 INTEGER            :: NTIMESTEP=-1                 ! Last value of timestep sent to XIOS (should be useless, now..)
-INTEGER            :: NBLOCK=1                     ! Number of blocks in the MPI-task (NPROMA blocks when in 
+INTEGER            :: NBLOCK=1                     ! Number of blocks in the MPI-task (NPROMA blocks when in
                                                    ! Arpege). For xios_send_block
 !
-!  Names for various dimensions (this section could be move elsewhere when more 
+!  Names for various dimensions (this section could be move elsewhere when more
 !  output schemes will handle dimension names)
 !
 CHARACTER(LEN=30) :: YPATCH_DIM_NAME         ="patch"

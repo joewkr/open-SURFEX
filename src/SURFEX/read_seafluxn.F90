@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE READ_SEAFLUX_n (DTCO, G, S, U, HPROGRAM,KLUOUT)
@@ -28,14 +28,14 @@
 !!
 !!    AUTHOR
 !!    ------
-!!	V. Masson   *Meteo France*	
+!!	V. Masson   *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2003 
+!!      Original    01/2003
 !!      Modified    02/2008 Add oceanic variables initialisation
 !!      S. Belamari 04/2014 Suppress LMERCATOR
-!!      R. Séférian 01/2015 introduce new ocean surface albedo 
+!!      R. Séférian 01/2015 introduce new ocean surface albedo
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -121,7 +121,7 @@ IF(S%LINTERPOL_SST)THEN
   CALL INTERPOL_SST_MTH(S,'T')
 !
 ELSE
-! 
+!
   ALLOCATE(S%XSST_MTH(0,0))
 !
   YRECFM='SST'
@@ -150,7 +150,7 @@ YRECFM='Z0SEA'
 S%XZ0(:) = 0.001
 CALL READ_SURF(HPROGRAM,YRECFM,S%XZ0(:),IRESP)
 !
-!* flag to use or not the SeaIce model 
+!* flag to use or not the SeaIce model
 !
 CALL READ_SURF(HPROGRAM,'VERSION',IVERSION,IRESP)
 IF (IVERSION <8) THEN
@@ -183,7 +183,7 @@ IF(S%LINTERPOL_SSS)THEN
    CALL INTERPOL_SST_MTH(S,'S')
    !
 ELSEIF (IVERSION>=8) THEN
-   ! 
+   !
    ALLOCATE(S%XSSS_MTH(0,0))
    !
    YRECFM='SSS'
@@ -247,7 +247,7 @@ DO JI=1,ILU
                      'NOT REALISTIC AT LOCATION (LAT/LON)',G%XLAT(JI),G%XLON(JI)
    ENDIF
 ENDDO
-!         
+!
 IF(IERRC>0) CALL ABOR1_SFX('READ_SEAFLUX_N: FIELD '//TRIM(HFIELD)//' NOT REALISTIC')
 !
 IF (LHOOK) CALL DR_HOOK('READ_SEAFLUX_N:CHECK_SEA',1,ZHOOK_HANDLE)

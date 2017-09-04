@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
 SUBROUTINE COUPLING_WATFLUX_n (CHW, DGO, D, DC, W, DST, SLT, &
@@ -10,7 +10,7 @@ SUBROUTINE COUPLING_WATFLUX_n (CHW, DGO, D, DC, W, DST, SLT, &
                                PDIR_SW, PSCA_SW, PSW_BANDS, PPS, PPA, PSFTQ, PSFTH, PSFTS,      &
                                PSFCO2, PSFU, PSFV, PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF,    &
                                PZ0, PZ0H, PQSURF, PPEW_A_COEF, PPEW_B_COEF, PPET_A_COEF,        &
-                               PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST      )  
+                               PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, HTEST      )
 !     ###############################################################################
 !
 !!****  *COUPLING_WATFLUX_n * - Driver for WATER_FLUX scheme for lakes
@@ -23,11 +23,11 @@ SUBROUTINE COUPLING_WATFLUX_n (CHW, DGO, D, DC, W, DST, SLT, &
 !!
 !!    REFERENCE
 !!    ---------
-!!      
+!!
 !!
 !!    AUTHOR
 !!    ------
-!!     V. Masson 
+!!     V. Masson
 !!
 !!    MODIFICATIONS
 !!    -------------
@@ -35,7 +35,7 @@ SUBROUTINE COUPLING_WATFLUX_n (CHW, DGO, D, DC, W, DST, SLT, &
 !!      B. Decharme 03/2009 TS_WATER could change during a run => ALB and EMIS
 !!      V. Masson   05/2009 Implicitation of momentum fluxes
 !!      B. Decharme 09/2009 Radiative properties at time t+1 in order to close
-!                           the energy budget between surfex and the atmosphere 
+!                           the energy budget between surfex and the atmosphere
 !!      B. Decharme 01/2010 Add XTT
 !!      B. Decharme 09/2012 New wind implicitation
 !!      P. LeMoigne 04/2013 Wind implicitation displaced
@@ -84,9 +84,9 @@ IMPLICIT NONE
 !
 TYPE(CH_WATFLUX_t), INTENT(INOUT) :: CHW
 TYPE(DIAG_OPTIONS_t), INTENT(INOUT) :: DGO
-TYPE(DIAG_t), INTENT(INOUT) :: D 
+TYPE(DIAG_t), INTENT(INOUT) :: D
 TYPE(DIAG_t), INTENT(INOUT) :: DC
-TYPE(WATFLUX_t), INTENT(INOUT) :: W 
+TYPE(WATFLUX_t), INTENT(INOUT) :: W
 !
 TYPE(DST_t), INTENT(INOUT) :: DST
 TYPE(SLT_t), INTENT(INOUT) :: SLT
@@ -189,7 +189,7 @@ REAL                       :: ZCONVERTFACM3_SLT, ZCONVERTFACM3_DST
 REAL                       :: ZCONVERTFACM6_SLT, ZCONVERTFACM6_DST
 !
 INTEGER                          :: ISWB       ! number of shortwave spectral bands
-INTEGER                          :: JSWB       ! loop counter on shortwave spectral bands      
+INTEGER                          :: JSWB       ! loop counter on shortwave spectral bands
 !
 INTEGER :: IBEG, IEND
 !
@@ -202,14 +202,14 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------------
 IF (LHOOK) CALL DR_HOOK('COUPLING_WATFLUX_N',0,ZHOOK_HANDLE)
 IF (HTEST/='OK') THEN
-  CALL ABOR1_SFX('COUPLING_WATFLUXN: FATAL ERROR DURING ARGUMENT TRANSFER')        
+  CALL ABOR1_SFX('COUPLING_WATFLUXN: FATAL ERROR DURING ARGUMENT TRANSFER')
 END IF
 !-------------------------------------------------------------------------------------
 !
 ZEXNA      (:) = XUNDEF
 ZEXNS      (:) = XUNDEF
 ZWIND      (:) = XUNDEF
-ZCD        (:) = XUNDEF    
+ZCD        (:) = XUNDEF
 ZCDN       (:) = XUNDEF
 ZCH        (:) = XUNDEF
 ZRI        (:) = XUNDEF
@@ -258,7 +258,7 @@ CALL ADD_FORECAST_TO_DATE_SURF(W%TTIME%TDATE%YEAR,W%TTIME%TDATE%MONTH,W%TTIME%TD
 CALL WATER_FLUX(W%XZ0, PTA, ZEXNA, PRHOA, W%XTS, ZEXNS, ZQA, PRAIN,  &
                 PSNOW, XTT, ZWIND, PZREF, PUREF, PPS, GHANDLE_SIC,   &
                 ZQSAT, PSFTH, PSFTQ, ZUSTAR, ZCD, ZCDN, ZCH, ZRI,    &
-                ZRESA_WATER, ZZ0H                                  )  
+                ZRESA_WATER, ZZ0H                                  )
 !
 !-------------------------------------------------------------------------------------
 !radiative properties at t
@@ -275,14 +275,14 @@ ZEMIS  = W%XEMIS
 ZTRAD  = W%XTS
 !
 !-------------------------------------------------------------------------------------
-!Specific fields for GELATO when using earth system model 
+!Specific fields for GELATO when using earth system model
 !(intermediate step before explicit sea and ice fluxes comutation)
 !-------------------------------------------------------------------------------------
 !
-IF(LCPL_SEAICE)THEN   
+IF(LCPL_SEAICE)THEN
   CALL COUPLING_ICEFLUX_n(KI, PTA, ZEXNA, PRHOA, W%XTICE, ZEXNS,  &
                           ZQA, PRAIN, PSNOW, ZWIND, PZREF, PUREF, &
-                          PPS, W%XTS, XTT, ZSFTH_ICE, ZSFTQ_ICE     )  
+                          PPS, W%XTS, XTT, ZSFTH_ICE, ZSFTQ_ICE     )
 ENDIF
 !
 !-------------------------------------------------------------------------------------
@@ -298,20 +298,20 @@ IF (CHW%SVW%NBEQ>0) THEN
     IEND = CHW%SVW%NSV_CHSEND
     !
     CALL CH_DEP_WATER  (ZRESA_WATER, ZUSTAR, PTA, ZTRAD, PSV(:,IBEG:IEND), &
-                        CHW%SVW%CSV(IBEG:IEND), CHW%XDEP(:,1:CHW%SVW%NBEQ) )  
+                        CHW%SVW%CSV(IBEG:IEND), CHW%XDEP(:,1:CHW%SVW%NBEQ) )
 
-    PSFTS(:,IBEG:IEND) = - PSV(:,IBEG:IEND) * CHW%XDEP(:,1:CHW%SVW%NBEQ)  
+    PSFTS(:,IBEG:IEND) = - PSV(:,IBEG:IEND) * CHW%XDEP(:,1:CHW%SVW%NBEQ)
     IF (CHW%SVW%NAEREQ > 0 ) THEN
       IBEG = CHW%SVW%NSV_AERBEG
-      IEND = CHW%SVW%NSV_AEREND        
+      IEND = CHW%SVW%NSV_AEREND
       !
-      CALL CH_AER_DEP(PSV(:,IBEG:IEND),PSFTS(:,IBEG:IEND),ZUSTAR,ZRESA_WATER,PTA,PRHOA)     
+      CALL CH_AER_DEP(PSV(:,IBEG:IEND),PSFTS(:,IBEG:IEND),ZUSTAR,ZRESA_WATER,PTA,PRHOA)
     END IF
     !
   ELSE
     !
     IBEG = CHW%SVW%NSV_AERBEG
-    IEND = CHW%SVW%NSV_AEREND        
+    IEND = CHW%SVW%NSV_AEREND
     !
     PSFTS(:,IBEG:IEND) =0.
     IF(IBEG.LT.IBEG) PSFTS(:,IBEG:IBEG) =0.
@@ -328,7 +328,7 @@ IF (CHW%SVW%NDSTEQ>0) THEN
   CALL DSLT_DEP(PSV(:,IBEG:IEND), PSFTS(:,IBEG:IEND), ZUSTAR, ZRESA_WATER, PTA, PRHOA, &
                 DST%XEMISSIG_DST, DST%XEMISRADIUS_DST, JPMODE_DST, XDENSITY_DST, &
                 XMOLARWEIGHT_DST, ZCONVERTFACM0_DST,  ZCONVERTFACM6_DST, ZCONVERTFACM3_DST, &
-                LVARSIG_DST, LRGFIX_DST, CVERMOD  )  
+                LVARSIG_DST, LRGFIX_DST, CVERMOD  )
   !
   CALL MASSFLUX2MOMENTFLUX(         &
     PSFTS(:,IBEG:IEND),             & !I/O ![kg/m2/sec] In: flux of only mass, out: flux of moments
@@ -339,7 +339,7 @@ IF (CHW%SVW%NDSTEQ>0) THEN
     ZCONVERTFACM0_DST,              &
     ZCONVERTFACM6_DST,              &
     ZCONVERTFACM3_DST,              &
-    LVARSIG_DST, LRGFIX_DST         )  
+    LVARSIG_DST, LRGFIX_DST         )
   !
 ENDIF
 !
@@ -347,11 +347,11 @@ IF (CHW%SVW%NSLTEQ>0) THEN
   !
   IBEG = CHW%SVW%NSV_SLTBEG
   IEND = CHW%SVW%NSV_SLTEND
-  !     
+  !
   CALL DSLT_DEP(PSV(:,IBEG:IEND), PSFTS(:,IBEG:IEND), ZUSTAR, ZRESA_WATER, PTA, PRHOA, &
                 SLT%XEMISSIG_SLT, SLT%XEMISRADIUS_SLT, JPMODE_SLT, XDENSITY_SLT, &
                 XMOLARWEIGHT_SLT, ZCONVERTFACM0_SLT, ZCONVERTFACM6_SLT, ZCONVERTFACM3_SLT, &
-                LVARSIG_SLT, LRGFIX_SLT, CVERMOD  )  
+                LVARSIG_SLT, LRGFIX_SLT, CVERMOD  )
 
   CALL MASSFLUX2MOMENTFLUX(         &
     PSFTS(:,IBEG:IEND),             & !I/O ![kg/m2/sec] In: flux of only mass, out: flux of moments
@@ -362,7 +362,7 @@ IF (CHW%SVW%NSLTEQ>0) THEN
     ZCONVERTFACM0_SLT,              &
     ZCONVERTFACM6_SLT,              &
     ZCONVERTFACM3_SLT,              &
-    LVARSIG_SLT, LRGFIX_SLT         ) 
+    LVARSIG_SLT, LRGFIX_SLT         )
   !
 ENDIF
 !
@@ -380,14 +380,14 @@ ELSE
 ! new implicitation
   ZUSTAR2(:) = (ZCD(:)*ZWIND(:)*(2.*PPEW_B_COEF(:)-ZWIND(:))) /&
                (1.0-2.0*PRHOA(:)*ZCD(:)*ZWIND(:)*PPEW_A_COEF(:))
-!                   
+!
   ZWORK(:) = PRHOA(:)*PPEW_A_COEF(:)*ZUSTAR2(:) + PPEW_B_COEF(:)
   ZWORK(:) = MAX(ZWORK(:),0.)
 !
   WHERE(PPEW_A_COEF(:)/= 0.)
         ZUSTAR2(:) = MAX( ( ZWORK(:) - PPEW_B_COEF(:) ) / (PRHOA(:)*PPEW_A_COEF(:)), 0.)
   ENDWHERE
-!              
+!
 ENDIF
 !
 PSFU = 0.
@@ -415,14 +415,14 @@ PSFCO2(:)       =  0.0    ! Assumes no CO2 emission over water bodies
 !-------------------------------------------------------------------------------
 ! IMPOSED MONTHLY TS AT TIME t+1
 !-------------------------------------------------------------------------------
-!  
+!
 IF (W%LINTERPOL_TS.AND.MOD(W%TTIME%TIME,XDAY) == 0.) THEN
    CALL INTERPOL_TS_WATER_MTH(W)
 ENDIF
 !
 !-------------------------------------------------------------------------------
-!Physical properties see by the atmosphere in order to close the energy budget 
-!between surfex and the atmosphere. All variables should be at t+1 but very 
+!Physical properties see by the atmosphere in order to close the energy budget
+!between surfex and the atmosphere. All variables should be at t+1 but very
 !difficult to do. Maybe it will be done later. However, Ts can be at time t+1
 !-------------------------------------------------------------------------------
 !
@@ -436,7 +436,7 @@ PQSURF (:) = ZQSAT(:)
 !the energy budget between surfex and the atmosphere
 !-------------------------------------------------------------------------------------
 !
- CALL UPDATE_RAD_WATER(W,PZENITH2,XTT,PDIR_ALB,PSCA_ALB,PEMIS,PTRAD    )  
+ CALL UPDATE_RAD_WATER(W,PZENITH2,XTT,PDIR_ALB,PSCA_ALB,PEMIS,PTRAD    )
 !
 !=======================================================================================
 !

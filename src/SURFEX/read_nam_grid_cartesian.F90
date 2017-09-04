@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
       SUBROUTINE READ_NAM_GRID_CARTESIAN(PGRID_FULL_PAR,KDIM_FULL,HPROGRAM,KGRID_PAR,KL,PGRID_PAR,HDIR)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004 
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -98,7 +98,7 @@ NAMELIST/NAM_CARTESIAN/XLAT0, XLON0, NIMAX, NJMAX, XDX, XDY
 !------------------------------------------------------------------------------
 !
 !*       1.    opening of namelist
-! 
+!
 IF (LHOOK) CALL DR_HOOK('READ_NAM_GRID_CARTESIAN',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !
@@ -165,9 +165,9 @@ ELSE
   CALL READ_AND_SEND_MPI(ZDX0,ZDX)
   CALL READ_AND_SEND_MPI(ZDY0,ZDY)
   !
-  DEALLOCATE(ZX0,ZY0,ZDX0,ZDY0)  
+  DEALLOCATE(ZX0,ZY0,ZDX0,ZDY0)
   !
-ENDIF  
+ENDIF
 !---------------------------------------------------------------------------
 !
 !*       8.    All this information stored into pointer PGRID_PAR
@@ -175,7 +175,7 @@ ENDIF
 !
  CALL PUT_GRIDTYPE_CARTESIAN(ZGRID_PAR,XLAT0,XLON0,               &
                               NIMAX,NJMAX,                         &
-                              ZX,ZY,ZDX,ZDY                        )  
+                              ZX,ZY,ZDX,ZDY                        )
 !
 !---------------------------------------------------------------------------
 DEALLOCATE(ZX)

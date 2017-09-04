@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################
       MODULE MODN_PREP_TEB
@@ -19,14 +19,14 @@
 !!    REFERENCE
 !!    ---------
 !!
-!!       
+!!
 !!    AUTHOR
 !!    ------
 !!      V. Masson    *Meteo France*
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    01/2004                    
+!!      Original    01/2004
 !-------------------------------------------------------------------------------
 !
 !*       0.   DECLARATIONS
@@ -35,7 +35,7 @@
 USE MODD_PREP_TEB, ONLY : CFILE_TEB, CTYPE, CFILEPGD_TEB, CTYPEPGD,          &
                             CFILE_WS, CTYPE_WS, CFILE_TS, CTYPE_TS,          &
                             XWS_ROOF, XWS_ROAD, XHUI_BLD,                    &
-                            XTS_ROOF, XTS_ROAD, XTS_WALL, XTI_BLD, XTI_ROAD  
+                            XTS_ROOF, XTS_ROAD, XTS_WALL, XTI_BLD, XTI_ROAD
 
 !
 IMPLICIT NONE
@@ -53,6 +53,6 @@ NAMELIST/NAM_PREP_TEB/CFILE_TEB, CTYPE, CFILEPGD_TEB, CTYPEPGD,  &
                       CFILE_TS, CTYPE_TS, XTS_ROOF, XTS_ROAD,    &
                       XTS_WALL, XTI_BLD, XTI_ROAD, XHUI_BLD,     &
                       NYEAR, NMONTH, NDAY, XTIME, LTEB_CANOPY,   &
-                      CROAD_DIR, CWALL_OPT  
+                      CROAD_DIR, CWALL_OPT
 !
 END MODULE MODN_PREP_TEB

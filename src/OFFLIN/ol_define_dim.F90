@@ -1,12 +1,12 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE OL_DEFINE_DIM (UG, KSIZE_FULL, HPROGRAM, KLUOUT, KNI, &
                           KDIM1, HUNIT1, HUNIT2, PX, PY, KDIMS,  &
                           KDDIM, HNAME_DIM, KNPATCH, KNSNLAYER, PLAT, PLON)
 !     #######################################################
-!!****  *OL_DEFINE_DIM* - 
+!!****  *OL_DEFINE_DIM* -
 !!
 !!    PURPOSE
 !!    -------
@@ -32,10 +32,10 @@ SUBROUTINE OL_DEFINE_DIM (UG, KSIZE_FULL, HPROGRAM, KLUOUT, KNI, &
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    06/2010 
+!!      Original    06/2010
 !!      07/2011     add specific computation for IGN grid (B. Decharme)
 !!      09/2015     M. Lafaysse : snow layer dimension
-!-------------------------------------------------------------------------------                         
+!-------------------------------------------------------------------------------
 !
 USE MODD_SURF_ATM_GRID_n, ONLY : SURF_ATM_GRID_t
 !
@@ -136,7 +136,7 @@ ELSEIF ( UG%G%CGRID=="GAUSS     " ) THEN
   INDIMS = INDIMS + 4
 ELSEIF (UG%G%CGRID/="LONLATVAL ".AND.(UG%G%CGRID/="IGN       ".OR.IIMAX*IJMAX==IL) ) THEN
   INDIMS = INDIMS + 4
-ELSE   
+ELSE
   INDIMS = INDIMS + 2
 ENDIF
 !
@@ -169,14 +169,14 @@ IF ( KDIM1.NE.0 ) THEN
 ELSE
 
   KDIMS(1) = KNI
-  HNAME_DIM(1) = 'Number_of_points' 
+  HNAME_DIM(1) = 'Number_of_points'
 
   IF (UG%G%CGRID=="GAUSS     ") THEN
-   
+
     HNAME_DIM(2) = "latitude"
     HNAME_DIM(3) = "longitude"
     HUNIT1(1)    = 'degrees_east'
-    HUNIT2(1)    = 'degrees_north'     
+    HUNIT2(1)    = 'degrees_north'
     CALL GET_GRIDTYPE_GAUSS(UG%XGRID_FULL_PAR,KNLATI=INLATI)
     ALLOCATE(INLOPA(INLATI))
     CALL GET_GRIDTYPE_GAUSS(UG%XGRID_FULL_PAR,KNLOPA=INLOPA)
@@ -185,12 +185,12 @@ ELSE
     DEALLOCATE(INLOPA)
 
   ELSEIF (UG%G%CGRID/="LONLATVAL ".AND.(UG%G%CGRID/="IGN       ".OR.IIMAX*IJMAX==IL)) THEN
-    
+
     IF (YTYPE.EQ.'LON') THEN
       HNAME_DIM(2) = 'lon'
       HNAME_DIM(3) = 'lat'
       HUNIT1(1)    = 'degrees_east'
-      HUNIT2(1)    = 'degrees_north'      
+      HUNIT2(1)    = 'degrees_north'
     ELSE
       HNAME_DIM(2) = 'xx'
       HNAME_DIM(3) = 'yy'
@@ -198,15 +198,15 @@ ELSE
       HUNIT2(1)    = 'meters'
 
     ENDIF
-          
+
     IF (UG%G%CGRID=="CONF PROJ ") THEN
       CALL GET_GRIDTYPE_CONF_PROJ(UG%XGRID_FULL_PAR,KIMAX=IIMAX,KJMAX=IJMAX)
     ELSEIF(UG%G%CGRID=="CARTESIAN ") THEN
-      CALL GET_GRIDTYPE_CARTESIAN(UG%XGRID_FULL_PAR,KIMAX=IIMAX,KJMAX=IJMAX)            
+      CALL GET_GRIDTYPE_CARTESIAN(UG%XGRID_FULL_PAR,KIMAX=IIMAX,KJMAX=IJMAX)
     ELSEIF(UG%G%CGRID=="LONLAT REG") THEN
       CALL GET_GRIDTYPE_LONLAT_REG(UG%XGRID_FULL_PAR,KLON=IIMAX,KLAT=IJMAX)
-    ELSEIF(UG%G%CGRID=="LONLATROT ") THEN  
-      CALL GET_GRIDTYPE_LONLAT_ROT(UG%XGRID_FULL_PAR,KLON=IIMAX,KLAT=IJMAX)            
+    ELSEIF(UG%G%CGRID=="LONLATROT ") THEN
+      CALL GET_GRIDTYPE_LONLAT_ROT(UG%XGRID_FULL_PAR,KLON=IIMAX,KLAT=IJMAX)
     ENDIF
 
     KDIMS(2) = IIMAX
@@ -283,7 +283,7 @@ IF (PRESENT(PLAT) .AND. PRESENT(PLON)) THEN
   ELSEIF (UG%G%CGRID=="GAUSS     ") THEN
     !
     ALLOCATE(PLAT   (IFULL),PLON   (IFULL))
-    CALL GET_GRIDTYPE_GAUSS(UG%XGRID_FULL_PAR,PLAT=PLAT,PLON=PLON) 
+    CALL GET_GRIDTYPE_GAUSS(UG%XGRID_FULL_PAR,PLAT=PLAT,PLON=PLON)
     !
   ELSE
     !

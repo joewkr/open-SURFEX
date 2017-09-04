@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE AVERAGE1_CTI(UG,KLUOUT,KNBLINES,PLAT,PLON,PVALUE,PNODATA)
@@ -14,7 +14,7 @@
 !!
 !!    METHOD
 !!    ------
-!!   
+!!
 !!    EXTERNAL
 !!    --------
 !!
@@ -81,7 +81,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !*    1.     Get position
 !            ------------
-! 
+!
 IF (LHOOK) CALL DR_HOOK('AVERAGE1_CTI',0,ZHOOK_HANDLE)
 !
 IF (PRESENT(PNODATA)) THEN
@@ -96,7 +96,7 @@ ENDIF
 !
 !*    2.     Loop on all input data points
 !            -----------------------------
-!     
+!
 bloop: &
 DO JL = 1 , SIZE(PLAT)
 !
@@ -142,7 +142,7 @@ DO JL = 1 , SIZE(PLAT)
 !
 !
   ENDDO
-!  
+!
 ENDDO bloop
 !
 IF (LHOOK) CALL DR_HOOK('AVERAGE1_CTI',1,ZHOOK_HANDLE)

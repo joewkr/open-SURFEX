@@ -1,22 +1,22 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode. 
+!GLT_LIC The GELATO model is a seaice model used in stand-alone or embedded mode.
 !GLT_LIC  It has been developed by Meteo-France. The holder of GELATO is Meteo-France.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  This software is governed by the CeCILL-C license under French law and biding
 !GLT_LIC  by the rules of distribution of free software. See the CeCILL-C_V1-en.txt
 !GLT_LIC  (English) and CeCILL-C_V1-fr.txt (French) for details. The CeCILL is a free
 !GLT_LIC  software license, explicitly compatible with the GNU GPL
 !GLT_LIC  (see http://www.gnu.org/licenses/license-list.en.html#CeCILL)
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  The CeCILL-C licence agreement grants users the right to modify and re-use the
 !GLT_LIC  software governed by this free software license. The exercising of this right
 !GLT_LIC  is conditional upon the obligation to make available to the community the
 !GLT_LIC  modifications made to the source code of the software so as to contribute to
 !GLT_LIC  its evolution.
-!GLT_LIC  
+!GLT_LIC
 !GLT_LIC  In consideration of access to the source code and the rights to copy, modify
 !GLT_LIC  and redistribute granted by the license, users are provided only with a limited
 !GLT_LIC  warranty and the software's author, the holder of the economic rights, and the
@@ -28,21 +28,21 @@
 !GLT_LIC  computer knowledge. Users are therefore encouraged to load and test the
 !GLT_LIC  suitability of the software as regards their requirements in conditions enabling
 !GLT_LIC  the security of their systems and/or data to be ensured and, more generally, to
-!GLT_LIC  use and operate it in the same conditions of security. 
-!GLT_LIC  
-!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at 
+!GLT_LIC  use and operate it in the same conditions of security.
+!GLT_LIC
+!GLT_LIC  The GELATO sofware is cureently distibuted with the SURFEX software, available at
 !GLT_LIC  http://www.cnrm.meteo.fr/surfex. The fact that you download the software deemed that
 !GLT_LIC  you had knowledge of the CeCILL-C license and that you accept its terms.
 !GLT_LIC  Attempts to use this software in a way not complying with CeCILL-C license
-!GLT_LIC  may lead to prosecution. 
-!GLT_LIC 
+!GLT_LIC  may lead to prosecution.
+!GLT_LIC
 ! =======================================================================
 ! ====================== MODULE modi_gltools_chkinp =======================
 ! =======================================================================
 !
 ! Goal:
 ! -----
-!   This module contains a subroutine that prints for every glt_gelato 
+!   This module contains a subroutine that prints for every glt_gelato
 ! input field :
 !   - global minimum
 !   - global maximum
@@ -50,7 +50,7 @@
 !   - values for every field at a specified grid point
 !   Note (for further development). Compared to modi_gltools_chkout, the
 ! name of the list of input fields (yfld) is different from that of
-! glt_output fields in chkout. 
+! glt_output fields in chkout.
 !
 ! Created : 2003/12 (D. Salas y Melia)
 ! Modified: 2008/12 (D. Salas y Melia) rewriting
@@ -127,7 +127,7 @@ SUBROUTINE gltools_chkinp( kdate,tpglt )
         zbathy
   TYPE(t_def) ::  &
         tznam
-!  
+!
 !
 ! 1. Initialisations
 ! ===================
@@ -136,9 +136,9 @@ SUBROUTINE gltools_chkinp( kdate,tpglt )
 !
 ! .. List of all fields to be analysed (in a single string variable)
 ! The user can change this list at will, provided that:
-!       - the length of this string (named yallfld) is less than 
-!       the declared value 
-!       - every word in this string is associated to an action in 
+!       - the length of this string (named yallfld) is less than
+!       the declared value
+!       - every word in this string is associated to an action in
 !       the case construct that follows.
 !
       IF ( nnflxin==0 ) THEN
@@ -162,7 +162,7 @@ SUBROUTINE gltools_chkinp( kdate,tpglt )
 !
       ylistfld = gltools_strsplit( yfld,infld )
 !
-! .. Surface grid factor 
+! .. Surface grid factor
 !
       zofac = 1. / xdomsrf_g
 !
@@ -175,7 +175,7 @@ SUBROUTINE gltools_chkinp( kdate,tpglt )
 ! --------------------
 !
       IF ( lwg ) THEN
-        WRITE(noutlu,*) 
+        WRITE(noutlu,*)
         WRITE(noutlu,*)  &
         '===================== Control Gelato input data ' //  &
         '====================='
@@ -200,7 +200,7 @@ SUBROUTINE gltools_chkinp( kdate,tpglt )
 ! .. Determine to which field the input label is associated
 !
         y3d = .FALSE.
-        y3dd = .FALSE. 
+        y3dd = .FALSE.
 !
         IF ( TRIM(ylistfld(jf))=='pbat' ) THEN
             zwork2(:,:) = tpglt%bat(:,:)
@@ -259,25 +259,25 @@ SUBROUTINE gltools_chkinp( kdate,tpglt )
             zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%asn
           ELSE IF ( TRIM(ylistfld(jf))=='fsi' ) THEN
             y3dd = .TRUE.
-            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%fsi        
+            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%fsi
           ELSE IF ( TRIM(ylistfld(jf))=='hsi' ) THEN
             y3dd = .TRUE.
-            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%hsi        
+            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%hsi
           ELSE IF ( TRIM(ylistfld(jf))=='hsn' ) THEN
             y3dd = .TRUE.
-            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%hsn        
+            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%hsn
           ELSE IF ( TRIM(ylistfld(jf))=='rsn' ) THEN
             y3dd = .TRUE.
-            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%rsn        
+            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%rsn
           ELSE IF ( TRIM(ylistfld(jf))=='tsf' ) THEN
             y3dd = .TRUE.
-            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%tsf        
+            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%tsf
           ELSE IF ( TRIM(ylistfld(jf))=='ssi' ) THEN
             y3dd = .TRUE.
-            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%ssi        
+            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%ssi
           ELSE IF ( TRIM(ylistfld(jf))=='age' ) THEN
             y3dd = .TRUE.
-            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%age 
+            zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%age
           ELSE IF ( TRIM(ylistfld(jf))=='vmp' ) THEN
             y3dd = .TRUE.
             zwork3d(:,:,:) = tpglt%sit_d(:,:,:)%vmp
@@ -319,7 +319,7 @@ SUBROUTINE gltools_chkinp( kdate,tpglt )
               ENDIF
             END DO
           ELSE
-            zmin = MINVAL( zwork2(:,:),MASK=tpglt%dom%tmk==1 ) 
+            zmin = MINVAL( zwork2(:,:),MASK=tpglt%dom%tmk==1 )
             zmax = MAXVAL( zwork2(:,:),MASK=tpglt%dom%tmk==1 )
             zsum = SUM( zwork2(:,:)*tpglt%dom%srf ) * zofac
             IF ( lwg ) WRITE(noutlu,1010) ADJUSTL(ylistfld(jf)),zmin,zmax,zsum
@@ -328,10 +328,10 @@ SUBROUTINE gltools_chkinp( kdate,tpglt )
       END DO
 !
       IF ( lwg ) THEN
-        WRITE(noutlu,*) 
+        WRITE(noutlu,*)
         WRITE(noutlu,*)  &
           '===================================================================='
-        WRITE(noutlu,*) 
+        WRITE(noutlu,*)
       ENDIF
       DEALLOCATE( ylistfld )
 !
@@ -359,67 +359,67 @@ SUBROUTINE gltools_chkinp( kdate,tpglt )
 !
 ! .. Open and write file
 !
-    OPEN( UNIT=nsavlu, FILE=yfile, FORM='UNFORMATTED' ) 
+    OPEN( UNIT=nsavlu, FILE=yfile, FORM='UNFORMATTED' )
   ENDIF
 !
   IF ( nsavinp==1 ) THEN
     tznam = t_def( "","","BATHYOCE","","T","SCALAR" )
-    CALL gltools_wrivai( tznam,tpglt%bat,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%bat,kunit=nsavlu,kdbl=1 )
     tznam = t_def( "","","OIQMLQML","","T","SCALAR" )
-    CALL gltools_wrivai( tznam,tpglt%oce_all%qml,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%oce_all%qml,kunit=nsavlu,kdbl=1 )
     tznam = t_def( "","","OIHEFHEF","","T","SCALAR" )
-    CALL gltools_wrivai( tznam,tpglt%oce_all%qoc,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%oce_all%qoc,kunit=nsavlu,kdbl=1 )
     tznam = t_def( "","","OITMLTML","","T","SCALAR" )
-    CALL gltools_wrivai( tznam,tpglt%oce_all%tml,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%oce_all%tml,kunit=nsavlu,kdbl=1 )
     tznam = t_def( "","","OISMLSML","","T","SCALAR" )
-    CALL gltools_wrivai( tznam,tpglt%oce_all%sml,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%oce_all%sml,kunit=nsavlu,kdbl=1 )
     tznam = t_def( "","","OISSHSSH","","T","SCALAR" )
-    CALL gltools_wrivai( tznam,tpglt%oce_all%ssh,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%oce_all%ssh,kunit=nsavlu,kdbl=1 )
     tznam = t_def( "","","OIUMLUML","","U","VECTOR" )
-    CALL gltools_wrivai( tznam,tpglt%oce_all%uml,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%oce_all%uml,kunit=nsavlu,kdbl=1 )
     tznam = t_def( "","","OIVMLVML","","V","VECTOR" )
-    CALL gltools_wrivai( tznam,tpglt%oce_all%vml,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%oce_all%vml,kunit=nsavlu,kdbl=1 )
     tznam = t_def( "","","AILIPLIP","","T","SCALAR" )
-    CALL gltools_wrivai( tznam,tpglt%atm_all%lip,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%atm_all%lip,kunit=nsavlu,kdbl=1 )
     tznam = t_def( "","","AISOPSOP","","T","SCALAR" )
-    CALL gltools_wrivai( tznam,tpglt%atm_all%sop,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%atm_all%sop,kunit=nsavlu,kdbl=1 )
     tznam = t_def( "","","AIZTXZTX","","U","VECTOR" )
-    CALL gltools_wrivai( tznam,tpglt%atm_all%ztx,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%atm_all%ztx,kunit=nsavlu,kdbl=1 )
     tznam = t_def( "","","AIMTYMTY","","V","VECTOR" )
-    CALL gltools_wrivai( tznam,tpglt%atm_all%mty,kunit=nsavlu,kdbl=1 ) 
+    CALL gltools_wrivai( tznam,tpglt%atm_all%mty,kunit=nsavlu,kdbl=1 )
 !
     IF ( nnflxin/=0 ) THEN
       DO jk=1,nnflxin
         WRITE(ynum,'(I2.2)') jk
         tznam = t_def( "","","AINSFI"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%atm_ice(jk,:,:)%nsf,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%atm_ice(jk,:,:)%nsf,kunit=nsavlu,kdbl=1 )
         tznam = t_def( "","","AIDFLI"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%atm_ice(jk,:,:)%dfl,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%atm_ice(jk,:,:)%dfl,kunit=nsavlu,kdbl=1 )
         tznam = t_def( "","","AISWAI"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%atm_ice(jk,:,:)%swa,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%atm_ice(jk,:,:)%swa,kunit=nsavlu,kdbl=1 )
         tznam = t_def( "","","AIEVAI"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%atm_ice(jk,:,:)%eva,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%atm_ice(jk,:,:)%eva,kunit=nsavlu,kdbl=1 )
       END DO
 !
       tznam = t_def( "","","AINSFWAT","","T","SCALAR" )
-      CALL gltools_wrivai( tznam,tpglt%atm_wat%nsf,kunit=nsavlu,kdbl=1 ) 
+      CALL gltools_wrivai( tznam,tpglt%atm_wat%nsf,kunit=nsavlu,kdbl=1 )
       tznam = t_def( "","","AIDFLWAT","","T","SCALAR" )
-      CALL gltools_wrivai( tznam,tpglt%atm_wat%dfl,kunit=nsavlu,kdbl=1 ) 
+      CALL gltools_wrivai( tznam,tpglt%atm_wat%dfl,kunit=nsavlu,kdbl=1 )
       tznam = t_def( "","","AISWAWAT","","T","SCALAR" )
-      CALL gltools_wrivai( tznam,tpglt%atm_wat%swa,kunit=nsavlu,kdbl=1 ) 
+      CALL gltools_wrivai( tznam,tpglt%atm_wat%swa,kunit=nsavlu,kdbl=1 )
       tznam = t_def( "","","AIEVAWAT","","T","SCALAR" )
-      CALL gltools_wrivai( tznam,tpglt%atm_wat%eva,kunit=nsavlu,kdbl=1 ) 
+      CALL gltools_wrivai( tznam,tpglt%atm_wat%eva,kunit=nsavlu,kdbl=1 )
 !
     ELSE
 !
       tznam = t_def( "","","AINSFMIX","","T","SCALAR" )
-      CALL gltools_wrivai( tznam,tpglt%atm_mix(1,:,:)%nsf,kunit=nsavlu,kdbl=1 ) 
+      CALL gltools_wrivai( tznam,tpglt%atm_mix(1,:,:)%nsf,kunit=nsavlu,kdbl=1 )
       tznam = t_def( "","","AIDFLMIX","","T","SCALAR" )
-      CALL gltools_wrivai( tznam,tpglt%atm_mix(1,:,:)%dfl,kunit=nsavlu,kdbl=1 ) 
+      CALL gltools_wrivai( tznam,tpglt%atm_mix(1,:,:)%dfl,kunit=nsavlu,kdbl=1 )
       tznam = t_def( "","","AISWAMIX","","T","SCALAR" )
-      CALL gltools_wrivai( tznam,tpglt%atm_mix(1,:,:)%swa,kunit=nsavlu,kdbl=1 ) 
+      CALL gltools_wrivai( tznam,tpglt%atm_mix(1,:,:)%swa,kunit=nsavlu,kdbl=1 )
       tznam = t_def( "","","AIEVAMIX","","T","SCALAR" )
-      CALL gltools_wrivai( tznam,tpglt%atm_mix(1,:,:)%eva,kunit=nsavlu,kdbl=1 ) 
+      CALL gltools_wrivai( tznam,tpglt%atm_mix(1,:,:)%eva,kunit=nsavlu,kdbl=1 )
 !
     ENDIF
 !
@@ -427,23 +427,23 @@ SUBROUTINE gltools_chkinp( kdate,tpglt )
       DO jk=1,ntd
         WRITE(ynum,'(I2.2)') jk
         tznam = t_def( "","","ASNASN"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%asn,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%asn,kunit=nsavlu,kdbl=1 )
         tznam = t_def( "","","FSIFSI"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%fsi,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%fsi,kunit=nsavlu,kdbl=1 )
         tznam = t_def( "","","HSIHSI"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%hsi,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%hsi,kunit=nsavlu,kdbl=1 )
         tznam = t_def( "","","HSNHSN"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%hsn,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%hsn,kunit=nsavlu,kdbl=1 )
         tznam = t_def( "","","RSNRSN"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%rsn,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%rsn,kunit=nsavlu,kdbl=1 )
         tznam = t_def( "","","TSFTSF"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%tsf,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%tsf,kunit=nsavlu,kdbl=1 )
         tznam = t_def( "","","SSISSI"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%ssi,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%ssi,kunit=nsavlu,kdbl=1 )
         tznam = t_def( "","","AGEAGE"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%age,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%age,kunit=nsavlu,kdbl=1 )
         tznam = t_def( "","","VMPVMP"//ynum,"","T","SCALAR" )
-        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%vmp,kunit=nsavlu,kdbl=1 ) 
+        CALL gltools_wrivai( tznam,tpglt%sit_d(jk,:,:)%vmp,kunit=nsavlu,kdbl=1 )
       END DO
     ENDIF
 !

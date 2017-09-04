@@ -1,10 +1,10 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 SUBROUTINE INIT_SLT (SLT, &
                      HPROGRAM  &! Program calling unit
-       )  
+       )
 
 !
 USE MODD_SLT_n, ONLY : SLT_t
@@ -56,7 +56,7 @@ DO JMODE=1,NSLTMDE
   SLT%XEMISRADIUS_SLT(JMODE) = XEMISRADIUS_INI_SLT(JMODE_IDX)
   !
   IF (CRGUNITS=="MASS") &
-    SLT%XEMISRADIUS_SLT(JMODE) = SLT%XEMISRADIUS_SLT(JMODE) * EXP(-3.d0 * (LOG(SLT%XEMISSIG_SLT(JMODE)))**2)    
+    SLT%XEMISRADIUS_SLT(JMODE) = SLT%XEMISRADIUS_SLT(JMODE) * EXP(-3.d0 * (LOG(SLT%XEMISSIG_SLT(JMODE)))**2)
   !
 ENDDO
 !

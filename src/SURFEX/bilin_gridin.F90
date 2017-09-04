@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
      SUBROUTINE BILIN_GRIDIN (PFIELD1,PFIELD_X,PFIELD_Y,PFIELD_XY)
@@ -147,7 +147,7 @@ IF (IIU>1) THEN
                   MAX(1.,(ZW(JI-1,JL)                  + ZW(JI,JL))              )
       ENDIF
     ENDDO
-  ENDDO  
+  ENDDO
 !$OMP END DO
   IF (LHOOK) CALL DR_HOOK('BILIN_GRIDIN_2',1,ZHOOK_HANDLE_OMP)
 !$OMP END PARALLEL
@@ -219,9 +219,9 @@ IF (IJU>1) THEN
     IF (PFIELD1(IIU,JL-1)/=0. .AND. PFIELD1(IIU,JL)/=0.) THEN
       PFIELD_XY(IIU+1,JL) = (ZW(IIU,JL-1)*PFIELD1(IIU,JL-1) + ZW(IIU,JL)*PFIELD1(IIU,JL)) / &
                              MAX(1.,ZW(IIU,JL-1) + ZW(IIU,JL))
-    ENDIF 
+    ENDIF
   ENDDO
-ENDIF 
+ENDIF
 !
 IF (IIU>1) THEN
   DO JI = 2,IIU
@@ -234,7 +234,7 @@ IF (IIU>1) THEN
                              MAX(1.,ZW(JI-1,IJU) + ZW(JI,IJU))
     ENDIF
   ENDDO
-ENDIF 
+ENDIF
 !
 PFIELD_XY(1    ,1    ) = PFIELD1(1  ,1  )
 PFIELD_XY(IIU+1,1    ) = PFIELD1(IIU,1  )

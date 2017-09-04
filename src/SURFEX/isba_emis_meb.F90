@@ -1,19 +1,19 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################################################################
       SUBROUTINE ISBA_EMIS_MEB(PPSN, PPSNA, PSIGMA_F, PSIGMA_FN,  &
                                PEMIS_N, PEMIS                     )
 !     ##########################################################################
 !
-!!****  *ISBA_EMIS_MEB*  
+!!****  *ISBA_EMIS_MEB*
 !!
 !!    PURPOSE
 !!    -------
 !
 !     Calculates the total emissivity for a MEB patch
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -23,10 +23,10 @@
 !!    none
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
@@ -38,7 +38,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    07/2014 
+!!      Original    07/2014
 !!
 !-------------------------------------------------------------------------------
 !

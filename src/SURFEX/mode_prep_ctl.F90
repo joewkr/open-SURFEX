@@ -2,9 +2,9 @@ MODULE MODE_PREP_CTL
 
 !**** *MODE_PREP_CTL*  - Control PREP structure
 
-!     Author. 
-!     ------- 
-!      Philippe Marguinaud *METEO FRANCE* 
+!     Author.
+!     -------
+!      Philippe Marguinaud *METEO FRANCE*
 !      Original : 01-10-2014
 
 !     Description.
@@ -62,8 +62,8 @@ PREP_CTL_CAN = (YDCTL%LSTEP0 .EQV. YLCTL%LSTEP0) .AND. (YDCTL%LSTEP1 .EQV. YLCTL
              & (YDCTL%LSTEP2 .EQV. YLCTL%LSTEP2) .AND. (YDCTL%LPART1 .EQV. YLCTL%LPART1) .AND. &
              & (YDCTL%LPART1 .EQV. YLCTL%LPART1) .AND. (YDCTL%LPART2 .EQV. YLCTL%LPART2) .AND. &
              & (YDCTL%LPART3 .EQV. YLCTL%LPART3) .AND. (YDCTL%LPART4 .EQV. YLCTL%LPART4) .AND. &
-             & (YDCTL%LPART5 .EQV. YLCTL%LPART5) .AND. (YDCTL%LPART6 .EQV. YLCTL%LPART6) 
-  
+             & (YDCTL%LPART5 .EQV. YLCTL%LPART5) .AND. (YDCTL%LPART6 .EQV. YLCTL%LPART6)
+
 
 END FUNCTION PREP_CTL_CAN
 

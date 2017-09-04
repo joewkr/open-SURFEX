@@ -1,9 +1,9 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
-SUBROUTINE READ_SURF_ATM     (HPROGRAM, PFIELD, KFORC_STEP, KNB, KINIT)  
+SUBROUTINE READ_SURF_ATM     (HPROGRAM, PFIELD, KFORC_STEP, KNB, KINIT)
 !**************************************************************************
 !
 !!    PURPOSE
@@ -36,7 +36,7 @@ SUBROUTINE READ_SURF_ATM     (HPROGRAM, PFIELD, KFORC_STEP, KNB, KINIT)
 !!    MODIFICATIONS
 !!    -------------
 !!      Original     03/2008
-!         
+!
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, NINDEX, XTIME_COMM_READ, XTIME_NPIO_READ
 !
 USE MODD_SURF_PAR,   ONLY : XUNDEF
@@ -63,7 +63,7 @@ INCLUDE 'mpif.h'
 ! global variables
 REAL, DIMENSION(:,:),INTENT(INOUT) :: PFIELD
 INTEGER,INTENT(IN)               :: KFORC_STEP
-INTEGER,INTENT(IN)               :: KNB 
+INTEGER,INTENT(IN)               :: KNB
 INTEGER,INTENT(IN)               :: KINIT
  CHARACTER(LEN=6)    ,INTENT(IN)  :: HPROGRAM
 
@@ -87,7 +87,7 @@ IF (NRANK==NPIO) THEN
     ALLOCATE(YF(INI))
   ENDIF
 ELSE
-  ALLOCATE(ZFIELD(0,0)) 
+  ALLOCATE(ZFIELD(0,0))
   ALLOCATE(YF(0))
 ENDIF
 !
@@ -119,7 +119,7 @@ IF (NRANK==NPIO) THEN
     !
   ELSE IF (HPROGRAM == 'BINARY') THEN
     !
-    IF (KFORC_STEP .EQ. 1) THEN    
+    IF (KFORC_STEP .EQ. 1) THEN
       I1 = 1
       GSWAP = .FALSE.
     ELSE
@@ -135,10 +135,10 @@ IF (NRANK==NPIO) THEN
       END IF
       ZFIELD(:,I) = YF(:)
       IF (     ANY(ABS(ZFIELD(:,I))>0. .AND. ABS(ZFIELD(:,I))<1.E-30) &
-          .OR. ANY(ABS(ZFIELD(:,I))>1.E6)                       ) THEN  
+          .OR. ANY(ABS(ZFIELD(:,I))>1.E6)                       ) THEN
         CALL ABOR1_SFX('READ_SURF_ATM: SWAP SET IN YOUR PARAMS_CONFIG FILE SEEMS '//&
-          'INAPPROPRIATE - VERIFY  ')  
-      END IF  
+          'INAPPROPRIATE - VERIFY  ')
+      END IF
     ENDDO
     !
   ENDIF
@@ -146,7 +146,7 @@ IF (NRANK==NPIO) THEN
 #ifdef SFX_MPI
   XTIME_NPIO_READ = XTIME_NPIO_READ + (MPI_WTIME() - XTIME0)
 #endif
-  !  
+  !
 ENDIF
 !
  CALL READ_AND_SEND_MPI(ZFIELD,PFIELD)

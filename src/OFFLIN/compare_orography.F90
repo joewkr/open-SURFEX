@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
 SUBROUTINE COMPARE_OROGRAPHY (DTCO, U, HPROGRAM, OSURFZS, PDELT_ZSMAX  )
@@ -38,7 +38,7 @@ USE MODI_GET_LUOUT
 USE MODD_SURF_PAR,   ONLY : XUNDEF
 USE MODD_FORC_ATM,   ONLY : XZS
 USE MODD_SURF_CONF,  ONLY : CPROGNAME
-!         
+!
 USE MODI_SET_SURFEX_FILEIN
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -67,10 +67,10 @@ IF (LHOOK) CALL DR_HOOK('COMPARE_OROGRAPHY',0,ZHOOK_HANDLE)
 CPROGNAME = HPROGRAM
 !
 ! read orography
-! 
+!
 !  orography from initial file
  CALL SET_SURFEX_FILEIN(HPROGRAM,'PGD ') ! change input file name to pgd name
-CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'FULL  ','SURF  ','READ ') 
+CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'FULL  ','SURF  ','READ ')
  CALL READ_SURF(HPROGRAM,'ZS', ZS1, IRET)
  CALL END_IO_SURF_n(HPROGRAM)
  CALL SET_SURFEX_FILEIN(HPROGRAM,'PREP') ! restore input file name

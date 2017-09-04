@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
       SUBROUTINE ABOR1_SFX(YTEXT)
@@ -31,7 +31,7 @@
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    06/2008 
+!!      Original    06/2008
 !-------------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -43,7 +43,7 @@ USE MODD_SURF_CONF,  ONLY : CPROGNAME, CSOFTWARE
 !
 USE MODI_GET_LUOUT
 USE MODI_CLOSE_FILE
-!      
+!
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
 !
@@ -57,9 +57,9 @@ IMPLICIT NONE
 !*       0.2   Declarations of local variables
 !              -------------------------------
 !
- CHARACTER(LEN=6)  :: YPROGRAM   
+ CHARACTER(LEN=6)  :: YPROGRAM
  CHARACTER(LEN=20) :: YSTRING
-INTEGER           :: ILUOUT         ! logical unit of output file      
+INTEGER           :: ILUOUT         ! logical unit of output file
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 #ifdef SFX_ARO
@@ -71,7 +71,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('ABOR1_SFX',0,ZHOOK_HANDLE)
 YPROGRAM = CPROGNAME
-!      
+!
  CALL GET_LUOUT(YPROGRAM,ILUOUT)
 !
 IF (YPROGRAM=='ASCII ' .OR. YPROGRAM=='TEXTE ' .OR. YPROGRAM=='BINARY' .OR. YPROGRAM=='NC    ') THEN
@@ -81,7 +81,7 @@ IF (YPROGRAM=='ASCII ' .OR. YPROGRAM=='TEXTE ' .OR. YPROGRAM=='BINARY' .OR. YPRO
    YSTRING='LISTING_'//TRIM(CSOFTWARE)//'.txt'
    WRITE(*,*)'-------------------------------------------------------------------------------'
    WRITE(*,*) 'MORE DETAILS ABOUT THE CRASH IN THE OUTPUT LISTING FILE: ', TRIM(YSTRING)
-   WRITE(*,*)'-------------------------------------------------------------------------------'   
+   WRITE(*,*)'-------------------------------------------------------------------------------'
 ENDIF
 !
 WRITE(ILUOUT,*) '---------------------------------------------------------------------------'

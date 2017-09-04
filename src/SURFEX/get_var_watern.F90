@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_VAR_WATER_n (DFO, DF, DWO, DW, &
@@ -96,18 +96,18 @@ IF (LHOOK) CALL DR_HOOK('GET_VAR_WATFLX_N',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !-------------------------------------------------------------------------------
 !
-IF (DWO%LSURF_VARS) THEN 
-        PQS      = DW%XQS      
-ELSE 
-        PQS      = XUNDEF      
-ENDIF           
-IF (DWO%LCOEF) THEN 
+IF (DWO%LSURF_VARS) THEN
+        PQS      = DW%XQS
+ELSE
+        PQS      = XUNDEF
+ENDIF
+IF (DWO%LCOEF) THEN
         PZ0      = DW%XZ0
         PZ0H     = DW%XZ0H
-ELSE 
+ELSE
         PZ0      = XUNDEF
         PZ0H     = XUNDEF
-ENDIF           
+ENDIF
 IF (LHOOK) CALL DR_HOOK('GET_VAR_WATFLX_N',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE GET_VAR_WATFLX_n
@@ -125,18 +125,18 @@ IF (LHOOK) CALL DR_HOOK('GET_VAR_FLAKE_N',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !-------------------------------------------------------------------------------
 !
-IF (DFO%LSURF_VARS) THEN 
-        PQS      = DF%XQS      
-ELSE 
-        PQS      = XUNDEF      
-ENDIF           
-IF (DFO%LCOEF) THEN 
+IF (DFO%LSURF_VARS) THEN
+        PQS      = DF%XQS
+ELSE
+        PQS      = XUNDEF
+ENDIF
+IF (DFO%LCOEF) THEN
         PZ0      = DF%XZ0
         PZ0H     = DF%XZ0H
-ELSE 
+ELSE
         PZ0      = XUNDEF
         PZ0H     = XUNDEF
-ENDIF           
+ENDIF
 IF (LHOOK) CALL DR_HOOK('GET_VAR_FLAKE_N',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE GET_VAR_FLAKE_n

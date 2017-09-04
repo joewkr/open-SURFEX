@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE WRITE_DIAG_MISC_FLAKE_n ( DTCO, HSELECT, U, DMF, HPROGRAM)
@@ -77,7 +77,7 @@ CALL INIT_IO_SURF_n(DTCO, U, HPROGRAM,'WATER ','FLAKE ','WRITE','FLAKE_DIAGNOSTI
 !
 !* Flake temperature profile
 !
-IF (DMF%LWATER_PROFILE) THEN      
+IF (DMF%LWATER_PROFILE) THEN
    DO IZ=1,SIZE(DMF%XZW_PROFILE)
       WRITE(YRECFM,'(F5.1)') DMF%XZW_PROFILE(IZ)
       YRECFM='TW_'//TRIM(ADJUSTL(YRECFM))

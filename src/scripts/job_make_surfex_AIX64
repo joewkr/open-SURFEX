@@ -1,6 +1,6 @@
 # Classe : ns np
 # @ class       = np
-# @ core_limit  = 0   
+# @ core_limit  = 0
 # @ total_tasks = 1
 # @ job_type         = parallel
 # Temps CPU max. en seconde (d'un processus)
@@ -13,12 +13,12 @@
 ## Memoire max. utilisee (ici 11 Go)
 ##  data_limit = 3gb
 # Nom du travail LoadLeveler
-# @ job_name   = Sortie   
-# Fichier de sortie standard du travail       
+# @ job_name   = Sortie
+# Fichier de sortie standard du travail
 # @ output     = $(job_name).$(jobid)
 # Fichier de sortie d'erreur du travail
 # @ error      =  $(job_name).$(jobid)
-# @ queue                   
+# @ queue
 
 # Pour avoir l'echo des commandes
 set -x

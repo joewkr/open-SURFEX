@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
       SUBROUTINE GET_Z0_n (DGO, D, HPROGRAM,KI,PZ0,PZ0H)
@@ -73,13 +73,13 @@ IF (LHOOK) CALL DR_HOOK('GET_Z0_N',0,ZHOOK_HANDLE)
  CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !-------------------------------------------------------------------------------
 !
-IF (DGO%LCOEF)      THEN 
-        PZ0      = D%XZ0      
+IF (DGO%LCOEF)      THEN
+        PZ0      = D%XZ0
         PZ0H     = D%XZ0H
-   ELSE 
-        PZ0      = XUNDEF      
+   ELSE
+        PZ0      = XUNDEF
         PZ0H     = XUNDEF
-ENDIF           
+ENDIF
 IF (LHOOK) CALL DR_HOOK('GET_Z0_N',1,ZHOOK_HANDLE)
 !
 !==============================================================================

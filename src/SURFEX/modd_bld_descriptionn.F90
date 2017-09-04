@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################
       MODULE MODD_BLD_DESCRIPTION_n
@@ -16,7 +16,7 @@
 !!
 !!**  IMPLICIT ARGUMENTS
 !!    ------------------
-!!      None 
+!!      None
 !!
 !!    REFERENCE
 !!    ---------
@@ -65,7 +65,7 @@ TYPE BLD_DESC_t
   REAL, POINTER, DIMENSION(:)   :: XDESC_EMIS_ROAD    ! Road emissivity
   REAL, POINTER, DIMENSION(:)   :: XDESC_EMIS_WALL    ! Wall emissivity
   REAL, POINTER, DIMENSION(:)   :: XDESC_TCOOL_TARGET ! cooling setpoint of indoor air
-  REAL, POINTER, DIMENSION(:)   :: XDESC_THEAT_TARGET ! heating setpoint of indoor air  
+  REAL, POINTER, DIMENSION(:)   :: XDESC_THEAT_TARGET ! heating setpoint of indoor air
   REAL, POINTER, DIMENSION(:)   :: XDESC_F_WASTE_CAN  ! fraction of waste heat into the canyon
   REAL, POINTER, DIMENSION(:)   :: XDESC_EFF_HEAT     ! efficiency of the heating system
   REAL, POINTER, DIMENSION(:,:) :: XDESC_HC_FLOOR     ! heat capacity of floor layers [J m-3 K-1]
@@ -93,7 +93,7 @@ TYPE BLD_DESC_t
   REAL, POINTER, DIMENSION(:)   :: XDESC_SHADE        ! Flag to activate shading devices 0->inactivated , 1->activated
   REAL, POINTER, DIMENSION(:)   :: XDESC_NATVENT      ! Flag to describe bld surventilation solution 0-> NONE ; 1 -> MANU ; 2-> AUTO
   REAL, POINTER, DIMENSION(:)   :: XDESC_QIN_FLAT     ! Latent franction of internal heat gains
-  REAL, POINTER, DIMENSION(:)   :: XDESC_HR_TARGET    ! Relative humidity setpoint  
+  REAL, POINTER, DIMENSION(:)   :: XDESC_HR_TARGET    ! Relative humidity setpoint
   REAL, POINTER, DIMENSION(:)   :: XDESC_V_VENT       ! Ventilation flow rate [AC/H]
   REAL, POINTER, DIMENSION(:)   :: XDESC_COP_RAT      ! Rated COP of the cooling system
   REAL, POINTER, DIMENSION(:)   :: XDESC_GREENROOF    ! Greenroof fraction
@@ -131,8 +131,8 @@ IF (LHOOK) CALL DR_HOOK("MODD_BLD_DESCRIPTION_n:BLD_DESC_INIT",0,ZHOOK_HANDLE)
   NULLIFY(YBLD_DESC%XDESC_EMIS_ROAD)
   NULLIFY(YBLD_DESC%XDESC_EMIS_WALL)
   NULLIFY(YBLD_DESC%XDESC_TCOOL_TARGET)
-  NULLIFY(YBLD_DESC%XDESC_THEAT_TARGET)  
-  NULLIFY(YBLD_DESC%XDESC_F_WASTE_CAN)  
+  NULLIFY(YBLD_DESC%XDESC_THEAT_TARGET)
+  NULLIFY(YBLD_DESC%XDESC_F_WASTE_CAN)
   NULLIFY(YBLD_DESC%XDESC_EFF_HEAT)
   NULLIFY(YBLD_DESC%XDESC_HC_FLOOR)
   NULLIFY(YBLD_DESC%XDESC_TC_FLOOR)
@@ -148,14 +148,14 @@ IF (LHOOK) CALL DR_HOOK("MODD_BLD_DESCRIPTION_n:BLD_DESC_INIT",0,ZHOOK_HANDLE)
   NULLIFY(YBLD_DESC%XDESC_D_WALL)
   NULLIFY(YBLD_DESC%XDESC_QIN)
   NULLIFY(YBLD_DESC%XDESC_QIN_FRAD)
-  NULLIFY(YBLD_DESC%XDESC_SHGC) 
+  NULLIFY(YBLD_DESC%XDESC_SHGC)
   NULLIFY(YBLD_DESC%XDESC_U_WIN)
   NULLIFY(YBLD_DESC%XDESC_GR)
   NULLIFY(YBLD_DESC%XDESC_FLOOR_HEIGHT)
   NULLIFY(YBLD_DESC%XDESC_INF)
   NULLIFY(YBLD_DESC%XDESC_F_WATER_COND)
   NULLIFY(YBLD_DESC%XDESC_QIN_FLAT)
-  NULLIFY(YBLD_DESC%XDESC_HR_TARGET)  
+  NULLIFY(YBLD_DESC%XDESC_HR_TARGET)
   NULLIFY(YBLD_DESC%XDESC_V_VENT)
   NULLIFY(YBLD_DESC%XDESC_COP_RAT)
   NULLIFY(YBLD_DESC%XDESC_GREENROOF)

@@ -1,6 +1,6 @@
 !SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
-!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+!SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########
 SUBROUTINE ISBA_CEB(IO, KK, PK, PEK, DK, DEK, DMK,      &
@@ -15,13 +15,13 @@ SUBROUTINE ISBA_CEB(IO, KK, PK, PEK, DK, DEK, DMK,      &
 !     ##########################################################################
 !
 !
-!!****  *ISBA_CEB*  
+!!****  *ISBA_CEB*
 !!
 !!    PURPOSE
 !!    -------
 !       Monitor for the calculation of the surface composit energy budget
 !!      call of drag, e_budget, and isba_fluxes
-!     
+!
 !!**  METHOD
 !!    ------
 !
@@ -29,21 +29,21 @@ SUBROUTINE ISBA_CEB(IO, KK, PK, PEK, DK, DEK, DMK,      &
 !!    --------
 !!
 !!    IMPLICIT ARGUMENTS
-!!    ------------------ 
+!!    ------------------
 !!
-!!      
+!!
 !!    REFERENCE
 !!    ---------
 !!
 !!    Noilhan and Planton (1989)
-!!      
+!!
 !!    AUTHOR
 !!    ------
 !!      B. Decharme           * Meteo-France *
 !!
 !!    MODIFICATIONS
 !!    -------------
-!!      Original    10/03/95 
+!!      Original    10/03/95
 !!      (B. Decharme)   03/16 Bug : limitation of Er for Interception reservoir
 !!                                  PTSTEP insted of ZTSTEP in drag.F90
 !-------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ TYPE(DIAG_MISC_ISBA_t), INTENT(INOUT) :: DMK
 REAL,                 INTENT(IN) :: PTSTEP    ! timestep of the integration
 REAL, DIMENSION(:),  INTENT(IN)  :: PPEW_A_COEF, PPEW_B_COEF,                   &
                                     PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF,      &
-                                    PPEQ_B_COEF  
+                                    PPEQ_B_COEF
 !                                  PPEW_A_COEF = A-wind coefficient (m2s/kg)
 !                                  PPEW_B_COEF = B-wind coefficient (m/s)
 !                                  PPET_A_COEF = A-air temperature coefficient
@@ -109,12 +109,12 @@ REAL, DIMENSION(:), INTENT(IN)   :: PEXNA, PEXNS, PTA, PVMOD, PQA, PRR, PSR, PPS
 !                                             NOTE it should be input as >= 1. (m)
 !                                     PQA = specific humidity
 !                                     PPS = surface pressure
-!                                     PRR = rain rate    
-!                                     PSR = snow rate             
+!                                     PRR = rain rate
+!                                     PSR = snow rate
 !
 REAL, DIMENSION(:), INTENT(IN)   :: PZREF, PUREF
 !                                     PZREF = reference height of the first
-!                                             atmospheric level 
+!                                             atmospheric level
 !                                     PUREF = reference height of the wind
 !                                             NOTE this is different from ZZREF
 !                                             ONLY in stand-alone/forced mode,
@@ -122,7 +122,7 @@ REAL, DIMENSION(:), INTENT(IN)   :: PZREF, PUREF
 !
 REAL, DIMENSION(:), INTENT(IN)    :: PF5
 !                                     PF5 = water stress function for Hv
-REAL, DIMENSION(:), INTENT(IN)    :: PDIRCOSZW 
+REAL, DIMENSION(:), INTENT(IN)    :: PDIRCOSZW
 !                                     PDIRCOSZW = Cosinus of the angle between the normal to the surface and the vertical
 !
 REAL, DIMENSION(:), INTENT(IN)   :: PFFG_NOSNOW, PFFV_NOSNOW
@@ -133,7 +133,7 @@ REAL, DIMENSION(:), INTENT(IN)   :: PRHOA
 REAL, DIMENSION(:), INTENT(IN)   :: PCS
 !                                     PEMIS = emissivity
 !                                     PCS    = heat capacity of the snow (K m2 J-1)
-REAL, DIMENSION(:), INTENT(IN)   :: PGRNDFLUX, PFLSN_COR, PSNOW_THRUFAL 
+REAL, DIMENSION(:), INTENT(IN)   :: PGRNDFLUX, PFLSN_COR, PSNOW_THRUFAL
 !                                     PGRNDFLUX = soil/snow interface flux (W/m2) using
 !                                                 ISBA-SNOW3L option
 !                                     PFLSN_COR = soil/snow interface correction flux to conserve energy (W/m2)
@@ -180,13 +180,13 @@ REAL, DIMENSION(:),  INTENT(OUT) :: PHU_AGG  ! aggregated relative humidity
 REAL, PARAMETER            :: ZDEKTH_COR = 0.6
 !                             ZDEKTH_COR = depth over which the correction flux is applied
 !
-REAL, PARAMETER            :: ZDTG1_COR = 10.0 
+REAL, PARAMETER            :: ZDTG1_COR = 10.0
 !                             ZDTG1_COR = Delta temperature limit to comput the correction flux (K)
 !
 !
 !*      0.3    declarations of local variables
 !
-REAL, DIMENSION(SIZE(PTA)) :: ZQSAT     ! expression for the saturation specific humidity 
+REAL, DIMENSION(SIZE(PTA)) :: ZQSAT     ! expression for the saturation specific humidity
 !
 REAL, DIMENSION(SIZE(PTA)) :: ZDQSAT    ! expression for the saturation specific humidity derivative
 !
@@ -320,7 +320,7 @@ ELSEIF(LEXPLICIT_SNOW.AND.IO%CISBA=='DIF')THEN
   ZTOTALHCAP    (:) = 0.0
 !
 ! To conserv energy, the correction flux is distributed at least
-! over the first layers of the soil, ZDEKTH_COR. This method prevent 
+! over the first layers of the soil, ZDEKTH_COR. This method prevent
 ! numerical oscillations especially when explicit snow vanishes
 !
   ZWORK(:) = MIN(PK%XDG(:,INL),ZDEKTH_COR)
@@ -380,7 +380,7 @@ ZTSTEP  = PTSTEP/ZNSPLIT             ! split time step
 !
 DO JSPLIT=1,ITSPLIT
 !
-!  Save surface and sub-surface temperature values at beginning of time step for 
+!  Save surface and sub-surface temperature values at beginning of time step for
 !  budget and flux calculations:
 !
    ZTSM(:) = PEK%XTG(:,1)
@@ -389,7 +389,7 @@ DO JSPLIT=1,ITSPLIT
 !
 !*      3.0    Aerodynamic drag and heat transfer coefficients
 !              -----------------------------------------------
-! 
+!
 !  In DRAG, we use the timestep of ISBA (PTSTEP) and not the split time step (ZTSTEP)
 !  because diagnostic canopy evaporation (Er) must be consistent with PWR water
 !  mass to limit negative dripping in hydro_veg
@@ -400,7 +400,7 @@ DO JSPLIT=1,ITSPLIT
              PEK%XPSNG, PEK%XPSNV, PZREF, PUREF, PDIRCOSZW, PDELTA, PF5, PEK%XRESA,&
              DK%XCH, DK%XCD, DK%XCDN, DK%XRI, DK%XHUG, PHUGI, DMK%XHV, DK%XHU,     &
              PK%XCPS, DK%XQS, KK%XFFG, KK%XFFV, KK%XFF, PFFG_NOSNOW, PFFV_NOSNOW, &
-             ZLEG_DELTA, ZLEGI_DELTA, PEK%XWR, PRHOA, PK%XLVTT, PQSAT=ZQSAT ) 
+             ZLEG_DELTA, ZLEGI_DELTA, PEK%XWR, PRHOA, PK%XLVTT, PQSAT=ZQSAT )
 !
 !*      4.0    Resolution of the surface and soil energy budget
 !              ------------------------------------------------
@@ -443,14 +443,14 @@ DO JSPLIT=1,ITSPLIT
              * ( PK%XLVTT(:) *    PEK%XVEG(:) * (1.-PEK%XPSNV(:)) * DMK%XHV(:)   &
                + PK%XLVTT(:) *(1.-PEK%XVEG(:))* (1.-PEK%XPSNG(:)) * (1.-PFROZEN1(:))  &
                + PK%XLSTT(:) *(1.-PEK%XVEG(:))* (1.-PEK%XPSNG(:)) * PFROZEN1(:)  &
-               + PK%XLSTT(:) *                      PEK%XPSN (:)   )  
+               + PK%XLSTT(:) *                      PEK%XPSN (:)   )
 !
    WHERE(ZAC_AGG(:)>0.0)
      ZHU_AGG(:) =   1. / (PEK%XRESA(:) * ZAC_AGG(:)) / PK%XLVTT(:)         &
                   * ( PK%XLVTT(:)*    PEK%XVEG(:) *(1.-PEK%XPSNV(:))                 *DMK%XHV(:)   &
                     + PK%XLVTT(:)*(1.-PEK%XVEG(:))*(1.-PEK%XPSNG(:))*(1.-PFROZEN1(:))*DK%XHUG(:)  &
                     + PK%XLSTT(:)*(1.-PEK%XVEG(:))*(1.-PEK%XPSNG(:))*    PFROZEN1(:) *PHUGI(:) &
-                    + PK%XLSTT(:)*                     PEK%XPSN  (:)                )  
+                    + PK%XLSTT(:)*                     PEK%XPSN  (:)                )
    ENDWHERE
 !
    ZUSTAR2_SUM   (:) = ZUSTAR2_SUM   (:) + ZUSTAR2_IC(:)
@@ -463,13 +463,13 @@ DO JSPLIT=1,ITSPLIT
    ZLE_SUM       (:) = ZLE_SUM       (:) + ZLE       (:)
 !
    ZLEG_SUM      (:) = ZLEG_SUM      (:) + ZLEG      (:)
-   ZLEGI_SUM     (:) = ZLEGI_SUM     (:) + ZLEGI     (:)   
+   ZLEGI_SUM     (:) = ZLEGI_SUM     (:) + ZLEGI     (:)
    ZLEV_SUM      (:) = ZLEV_SUM      (:) + ZLEV      (:)
    ZLES_SUM      (:) = ZLES_SUM      (:) + ZLES      (:)
    ZLER_SUM      (:) = ZLER_SUM      (:) + ZLER      (:)
    ZLETR_SUM     (:) = ZLETR_SUM     (:) + ZLETR     (:)
    ZLE_FLOOD_SUM (:) = ZLE_FLOOD_SUM (:) + ZLE_FLOOD (:)
-   ZLEI_FLOOD_SUM(:) = ZLEI_FLOOD_SUM(:) + ZLEI_FLOOD(:)   
+   ZLEI_FLOOD_SUM(:) = ZLEI_FLOOD_SUM(:) + ZLEI_FLOOD(:)
 !
    ZDEEP_FLUX_SUM(:) = ZDEEP_FLUX_SUM(:) + ZDEEP_FLUX(:)
    ZMELTADV_SUM  (:) = ZMELTADV_SUM  (:) + ZMELTADV  (:)
