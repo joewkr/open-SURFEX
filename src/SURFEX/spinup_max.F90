@@ -114,4 +114,4 @@ IF (LHOOK) CALL DR_HOOK('SPINUP_MAX',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 !
-END SUBROUTINE
+END SUBROUTINE SPINUP_MAX

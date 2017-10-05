@@ -89,4 +89,4 @@ IF (LHOOK) CALL DR_HOOK('CARBON_SPINUP',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 !
-END SUBROUTINE
+END SUBROUTINE CARBON_SPINUP
