@@ -2,27 +2,6 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-MODULE MODI_TRAD_BODY
-INTERFACE
-FUNCTION TRAD_BODY(PSCA_SW, PREF_SW_FAC, PREF_SW_GRND,   &
-                   PEMIT_LW_FAC, PEMIT_LW_GRND, PLW_RAD, &
-                   PBLD, PBLD_HEIGHT, PWALL_O_HOR,       &
-                   PDIR_SW, PZENITH) RESULT(PTRAD_BODY)
-REAL, DIMENSION(:), INTENT(IN)  :: PSCA_SW       ! Diffuse solar radiation (W/m2)
-REAL, DIMENSION(:), INTENT(IN)  :: PREF_SW_FAC   ! Solar radiation reflected by facade [wall + glazing] (W/m2)
-REAL, DIMENSION(:), INTENT(IN)  :: PREF_SW_GRND  ! Solar radiation reflected by ground [road + garden] (W/m2)
-REAL, DIMENSION(:), INTENT(IN)  :: PEMIT_LW_FAC  ! Longwave radiation emitted by the facade [wall + glazing] (W/m2)
-REAL, DIMENSION(:), INTENT(IN)  :: PEMIT_LW_GRND ! Longwave radiation emitted by the ground [road + garden] (W/m2)
-REAL, DIMENSION(:), INTENT(IN)  :: PLW_RAD       ! Atmospheric longwave radiation (W/m2)
-REAL, DIMENSION(:), INTENT(IN)  :: PBLD          ! plan area density of building (m2(bld)/m2(urban))
-REAL, DIMENSION(:), INTENT(IN)  :: PBLD_HEIGHT   ! building height (m)
-REAL, DIMENSION(:), INTENT(IN)  :: PWALL_O_HOR   ! ratio between facade and urban horizontal surface (m2(facade)/m2(urban))
-REAL, DIMENSION(:), INTENT(IN), OPTIONAL :: PDIR_SW !Direct solar radiation (W/m2)
-REAL, DIMENSION(:), INTENT(IN), OPTIONAL :: PZENITH !solar zenithal angle (rad from vert.)
-REAL, DIMENSION(SIZE(PSCA_SW)) :: PTRAD_BODY
-END FUNCTION TRAD_BODY
-END INTERFACE
-END MODULE MODI_TRAD_BODY
 !   ##########################################################################
 FUNCTION TRAD_BODY(PSCA_SW, PREF_SW_FAC, PREF_SW_GRND, PEMIT_LW_FAC, PEMIT_LW_GRND, PLW_RAD,&
                    PBLD, PBLD_HEIGHT, PWALL_O_HOR, PDIR_SW, PZENITH) RESULT(PTRAD_BODY)

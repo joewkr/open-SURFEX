@@ -55,20 +55,7 @@
 ! ----------------- BEGIN MODULE modi_gltools_temper_r --------------------
 !
 MODULE modi_gltools_temper_r
-INTERFACE
-!
-FUNCTION gltools_temper_r(pent,pvsp)
-  USE modd_glt_param
-  REAL, DIMENSION(nl,nt,np), INTENT(in) ::  &
-    pent
-  REAL, DIMENSION(nl,nt,np), OPTIONAL, INTENT(in) ::  &
-    pvsp
-  REAL, DIMENSION(nl,nt,np) ::  &
-    gltools_temper_r
-END FUNCTION gltools_temper_r
-!
-END INTERFACE
-END MODULE modi_gltools_temper_r
+CONTAINS
 !
 ! ------------------ END MODULE modi_gltools_temper_r ---------------------
 !
@@ -162,3 +149,4 @@ END FUNCTION gltools_temper_r
 !
 ! ------------------------ END FUNCTION gltools_temper_r ------------------------
 ! -----------------------------------------------------------------------
+END MODULE modi_gltools_temper_r
