@@ -7,87 +7,12 @@
 !     ##################
 INTERFACE AV_PGD_1P
 !
-      SUBROUTINE AV_PGD_1D_1P (DTCO, &
-                            PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,KMASK,KPATCH,KNPATCH,PDZ,KDECADE)
-!
-USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
-!
-TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
-!
-REAL, DIMENSION(:),     INTENT(OUT) :: PFIELD  ! secondary field to construct
-REAL, DIMENSION(:,:),   INTENT(IN)  :: PCOVER  ! fraction of each cover class
-REAL, DIMENSION(:),     INTENT(IN)  :: PDATA   ! secondary field value for each class
- CHARACTER(LEN=3),       INTENT(IN)  :: HSFTYPE ! Type of surface where the field
-                                               ! is defined
- CHARACTER(LEN=3),       INTENT(IN)  :: HATYPE  ! Type of averaging
-LOGICAL, DIMENSION(:),  INTENT(IN) :: OCOVER
-INTEGER, DIMENSION(:), INTENT(IN) :: KMASK
-INTEGER, INTENT(IN) :: KNPATCH
-INTEGER, INTENT(IN) :: KPATCH
-REAL, DIMENSION(:),     INTENT(IN), OPTIONAL :: PDZ    ! first model half level
-INTEGER,                INTENT(IN), OPTIONAL :: KDECADE ! current month
-!
-END SUBROUTINE AV_PGD_1D_1P
-!     ################################################################
-      SUBROUTINE AV_PATCH_PGD_1D_1P (DTCO, &
-                                  PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,KMASK,KNPATCH,KPATCH,PDZ,KDECADE)
-!     ################################################################
-!
-!
-USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
-!
-!*    0.1    Declaration of arguments
-!            ------------------------
-!
-!
-TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
-!
-REAL, DIMENSION(:), INTENT(OUT) :: PFIELD  ! secondary field to construct
-REAL, DIMENSION(:,:), INTENT(IN)  :: PCOVER  ! fraction of each cover class
-REAL, DIMENSION(:,:), INTENT(IN)  :: PDATA   ! secondary field value for each class
- CHARACTER(LEN=3),     INTENT(IN)  :: HSFTYPE ! Type of surface where the field
-                                               ! is defined
- CHARACTER(LEN=3),     INTENT(IN)  :: HATYPE  ! Type of averaging
-LOGICAL, DIMENSION(:), INTENT(IN)  :: OCOVER
-INTEGER, DIMENSION(:), INTENT(IN) :: KMASK
-INTEGER, INTENT(IN) :: KNPATCH
-INTEGER, INTENT(IN) :: KPATCH
-REAL, DIMENSION(:),   INTENT(IN), OPTIONAL :: PDZ    ! first model half level
-INTEGER,              INTENT(IN), OPTIONAL :: KDECADE ! current month
-!
-END SUBROUTINE AV_PATCH_PGD_1D_1P
-!
-!     ################################################################
-      SUBROUTINE MAJOR_PATCH_PGD_1D_1P(TFIELD,PCOVER,TDATA,HSFTYPE,HATYPE,&
-                      OCOVER,KMASK,KNPATCH,KPATCH,KDECADE)
-!     ################################################################
-!
-!*    0.     DECLARATION
-!            -----------
-!
-USE MODD_TYPE_DATE_SURF
-!
-IMPLICIT NONE
-!
-!*    0.1    Declaration of arguments
-!            ------------------------
-!
-TYPE (DATE_TIME), DIMENSION(:), INTENT(OUT) :: TFIELD  ! secondary field to construct
-REAL, DIMENSION(:,:), INTENT(IN)  :: PCOVER  ! fraction of each cover class
-TYPE (DATE_TIME), DIMENSION(:,:), INTENT(IN)  :: TDATA   ! secondary field value for each class
- CHARACTER(LEN=3),     INTENT(IN)  :: HSFTYPE ! Type of surface where the field
-                                               ! is defined
- CHARACTER(LEN=3),     INTENT(IN)  :: HATYPE  ! Type of averaging
-LOGICAL, DIMENSION(:), INTENT(IN) :: OCOVER
-INTEGER, DIMENSION(:), INTENT(IN) :: KMASK
-INTEGER, INTENT(IN) :: KNPATCH
-INTEGER, INTENT(IN) :: KPATCH
-INTEGER,     INTENT(IN), OPTIONAL :: KDECADE ! current month
-!
-END SUBROUTINE MAJOR_PATCH_PGD_1D_1P
+      MODULE PROCEDURE AV_PGD_1D_1P
+      MODULE PROCEDURE AV_PATCH_PGD_1D_1P
+      MODULE PROCEDURE MAJOR_PATCH_PGD_1D_1P
 !
 END INTERFACE
-END MODULE MODI_AV_PGD_1P
+CONTAINS
 !
 !     ################################################################
       SUBROUTINE AV_PGD_1D_1P (DTCO, PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,&
@@ -757,3 +682,4 @@ END SUBROUTINE MAJOR_PATCH_PGD_1D_1P
 !
 !-------------------------------------------------------------------------------
 !
+END MODULE MODI_AV_PGD_1P

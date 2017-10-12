@@ -8,28 +8,12 @@ MODULE MODI_INTERP_GRID_NAT
 
 INTERFACE INTERP_GRID_NAT
 
-SUBROUTINE INTERP_GRID_NAT_1D(PDG1,PT1,PDG2,PT2)
-!
-REAL, DIMENSION(:,:), INTENT(IN)  :: PDG1  ! input vertical grid
-REAL, DIMENSION(:,:), INTENT(IN)  :: PT1   ! input temperatures
-REAL, DIMENSION(:),   INTENT(IN)  :: PDG2  ! output vertical grid
-REAL, DIMENSION(:,:), INTENT(OUT)  :: PT2  ! output temperatures
-!
-END SUBROUTINE INTERP_GRID_NAT_1D
-!
-SUBROUTINE INTERP_GRID_NAT_2D(PDG1,PT1,PDG2,PT2)
-!
-REAL, DIMENSION(:,:), INTENT(IN) :: PDG1  ! input vertical grid
-REAL, DIMENSION(:,:), INTENT(IN) :: PT1   ! input temperatures
-REAL, DIMENSION(:,:), INTENT(IN) :: PDG2  ! output vertical grid
-REAL, DIMENSION(:,:), INTENT(OUT) :: PT2  ! output temperatures
-!
-END SUBROUTINE INTERP_GRID_NAT_2D
+MODULE PROCEDURE INTERP_GRID_NAT_1D
+MODULE PROCEDURE INTERP_GRID_NAT_2D
 !
 END INTERFACE
 
-END MODULE MODI_INTERP_GRID_NAT
-
+CONTAINS
 !     ##########################################
       SUBROUTINE INTERP_GRID_NAT_1D(PDG1,PT1,PDG2,PT2)
 !     ##########################################
@@ -98,3 +82,4 @@ CALL VERTICAL_GRID_NAT(PDG1,PT1,PDG2,PT2)
 IF (LHOOK) CALL DR_HOOK('MODI_INTERP_GRID_NAT:INTERP_GRID_NAT_2D',1,ZHOOK_HANDLE)
 !-----------------------------------------------------------------------------
 END SUBROUTINE INTERP_GRID_NAT_2D
+END MODULE MODI_INTERP_GRID_NAT

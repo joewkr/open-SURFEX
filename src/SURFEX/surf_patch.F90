@@ -7,29 +7,12 @@ MODULE MODI_SURF_PATCH
 !#####################
 !
 INTERFACE SURF_PATCH
-      SUBROUTINE SURF_PATCH_2D(KNPATCH,PVEGTYPE,PPATCH,PVEGTYPE_PATCH)
-
-INTEGER               , INTENT(IN)  :: KNPATCH   ! number of patches
-REAL, DIMENSION(:,:),   INTENT(IN)  :: PVEGTYPE ! vegtype fractions
-REAL, DIMENSION(:,:),   INTENT(OUT) :: PPATCH   ! patch weight in nature fraction
-REAL, DIMENSION(:,:,:), OPTIONAL, INTENT(OUT) :: PVEGTYPE_PATCH  ! vegtype fractions
-!                                                                ! for each patch
-
-END SUBROUTINE SURF_PATCH_2D
-      SUBROUTINE SURF_PATCH_1D(KPATCH,KNPATCH,PVEGTYPE,PPATCH,PVEGTYPE_PATCH)
-
-INTEGER               , INTENT(IN)  :: KPATCH   !
-INTEGER               , INTENT(IN)  :: KNPATCH   ! number of patches
-REAL, DIMENSION(:,:),   INTENT(IN)  :: PVEGTYPE ! vegtype fractions
-REAL, DIMENSION(:),   INTENT(OUT) :: PPATCH   ! patch weight in nature fraction
-REAL, DIMENSION(:,:), OPTIONAL, INTENT(OUT) :: PVEGTYPE_PATCH  ! vegtype fractions
-!                                                                ! for each patch
-
-END SUBROUTINE SURF_PATCH_1D
+      MODULE PROCEDURE SURF_PATCH_2D
+      MODULE PROCEDURE SURF_PATCH_1D
 !
 END INTERFACE SURF_PATCH
 !
-END MODULE MODI_SURF_PATCH
+CONTAINS
 !
 !     #############################################
       SUBROUTINE SURF_PATCH_2D(KNPATCH,PVEGTYPE,PPATCH,PVEGTYPE_PATCH)
@@ -235,3 +218,4 @@ IF (LHOOK) CALL DR_HOOK('MODI_SURF_PATCH:SURF_PATCH_1D',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE SURF_PATCH_1D
 !
+END MODULE MODI_SURF_PATCH

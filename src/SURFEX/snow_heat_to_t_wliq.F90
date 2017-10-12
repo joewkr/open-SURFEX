@@ -8,30 +8,13 @@ MODULE MODI_SNOW_HEAT_TO_T_WLIQ
 !
 INTERFACE SNOW_HEAT_TO_T_WLIQ
 !
-SUBROUTINE SNOW_HEAT_TO_T_WLIQ_1D(PHEAT,PRHO,PT,PWLIQ)
-REAL, DIMENSION(:), INTENT(IN)           :: PHEAT  ! snow heat density        (J/m3)
-REAL, DIMENSION(:), INTENT(IN)           :: PRHO   ! snow density             (kg/m3)
-REAL, DIMENSION(:), INTENT(OUT)          :: PT     ! snow temperature profile (K)
-REAL, DIMENSION(:), INTENT(OUT), OPTIONAL:: PWLIQ  ! liquid water profile     (kg/m3)
-END SUBROUTINE SNOW_HEAT_TO_T_WLIQ_1D
-!
-SUBROUTINE SNOW_HEAT_TO_T_WLIQ_2D(PHEAT,PRHO,PT,PWLIQ)
-REAL, DIMENSION(:,:), INTENT(IN)           :: PHEAT  ! snow heat density        (J/m3)
-REAL, DIMENSION(:,:), INTENT(IN)           :: PRHO   ! snow density             (kg/m3)
-REAL, DIMENSION(:,:), INTENT(OUT)          :: PT     ! snow temperature profile (K)
-REAL, DIMENSION(:,:), INTENT(OUT), OPTIONAL:: PWLIQ  ! liquid water profile     (kg/m3)
-END SUBROUTINE SNOW_HEAT_TO_T_WLIQ_2D
-!
-SUBROUTINE SNOW_HEAT_TO_T_WLIQ_3D(PHEAT,PRHO,PT,PWLIQ)
-REAL, DIMENSION(:,:,:), INTENT(IN)           :: PHEAT  ! snow heat density        (J/m3)
-REAL, DIMENSION(:,:,:), INTENT(IN)           :: PRHO   ! snow density             (kg/m3)
-REAL, DIMENSION(:,:,:), INTENT(OUT)          :: PT     ! snow temperature profile (K)
-REAL, DIMENSION(:,:,:), INTENT(OUT), OPTIONAL:: PWLIQ  ! liquid water profile     (kg/m3)
-END SUBROUTINE SNOW_HEAT_TO_T_WLIQ_3D
+MODULE PROCEDURE SNOW_HEAT_TO_T_WLIQ_1D
+MODULE PROCEDURE SNOW_HEAT_TO_T_WLIQ_2D
+MODULE PROCEDURE SNOW_HEAT_TO_T_WLIQ_3D
 !
 END INTERFACE
 !
-END MODULE MODI_SNOW_HEAT_TO_T_WLIQ
+CONTAINS
 !
 !          ###########################################
 SUBROUTINE SNOW_HEAT_TO_T_WLIQ_1D(PHEAT,PRHO,PT,PWLIQ)
@@ -200,3 +183,4 @@ IF (LHOOK) CALL DR_HOOK('MODI_SNOW_HEAT_TO_T_WLIQ:SNOW_HEAT_TO_T_WLIQ_3D',1,ZHOO
 !---------------------------------------------------------------------------
 !
 END SUBROUTINE SNOW_HEAT_TO_T_WLIQ_3D
+END MODULE MODI_SNOW_HEAT_TO_T_WLIQ

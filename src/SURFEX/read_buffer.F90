@@ -7,43 +7,14 @@
 !     #######################
 INTERFACE READ_BUFFER
 !
-      SUBROUTINE READ_BUFX1(HNAME,PFIELD,KRET)
- CHARACTER(LEN=*),             INTENT(IN)   :: HNAME        ! name of field
-REAL, DIMENSION(:),           INTENT(OUT)  :: PFIELD ! array containing the data field
-INTEGER,                      INTENT(OUT)  :: KRET      !  error code
-!
-END SUBROUTINE READ_BUFX1
-!
-      SUBROUTINE READ_BUFX0(HNAME,PFIELD,KRET)
- CHARACTER(LEN=*),             INTENT(IN)   :: HNAME        ! name of field
-REAL,                         INTENT(OUT)  :: PFIELD ! array containing the data field
-INTEGER,                      INTENT(OUT)  :: KRET      !  error code
-!
-END SUBROUTINE READ_BUFX0
-!
-      SUBROUTINE READ_BUFN0(HNAME,KFIELD,KRET)
- CHARACTER(LEN=*),             INTENT(IN)   :: HNAME        ! name of field
-INTEGER,                      INTENT(OUT)  :: KFIELD ! array containing the data field
-INTEGER,                      INTENT(OUT)  :: KRET      !  error code
-!
-END SUBROUTINE READ_BUFN0
-!
-      SUBROUTINE READ_BUFN1(HNAME,KFIELD,KRET)
- CHARACTER(LEN=*),             INTENT(IN)   :: HNAME        ! name of field
-INTEGER, DIMENSION(:),        INTENT(OUT)  :: KFIELD ! array containing the data field
-INTEGER,                      INTENT(OUT)  :: KRET      !  error code
-!
-END SUBROUTINE READ_BUFN1
-!
-      SUBROUTINE READ_BUFC0(HNAME,HFIELD,KRET)
- CHARACTER(LEN=*),             INTENT(IN)   :: HNAME     ! name of field
- CHARACTER(LEN=*),             INTENT(OUT)  :: HFIELD    ! array containing the data field
-INTEGER,                      INTENT(OUT)  :: KRET      !  error code
-!
-END SUBROUTINE READ_BUFC0
+      MODULE PROCEDURE READ_BUFX1
+      MODULE PROCEDURE READ_BUFX0
+      MODULE PROCEDURE READ_BUFN0
+      MODULE PROCEDURE READ_BUFN1
+      MODULE PROCEDURE READ_BUFC0
 !
 END INTERFACE
-END MODULE MODI_READ_BUFFER
+CONTAINS
 !     #######################################################
  SUBROUTINE READ_BUFC0(HNAME,HFIELD,KRET)
 !     #######################################################
@@ -454,3 +425,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('MODI_READ_BUFFER:READ_BUFX1',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE READ_BUFX1
+END MODULE MODI_READ_BUFFER

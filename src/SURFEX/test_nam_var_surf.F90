@@ -8,88 +8,13 @@ MODULE MODI_TEST_NAM_VAR_SURF
 !
 INTERFACE TEST_NAM_VAR_SURF
 !
-      SUBROUTINE TEST_NAM_VARC0_SURF(KLUOUT,HNAME,HVAR,       &
-                                       HVALUE1,HVALUE2,HVALUE3, &
-                                       HVALUE4,HVALUE5,HVALUE6, &
-                                       HVALUE7,HVALUE8,HVALUE9, &
-                                       HVALUE10  )
-!
-INTEGER,          INTENT(IN)           ::KLUOUT   ! output listing logical unit
- CHARACTER(LEN=*) ,INTENT(IN)           ::HNAME    ! name of the variable to test
- CHARACTER(LEN=*) ,INTENT(IN)           ::HVAR     ! variable to test
-
- CHARACTER(LEN=*) ,INTENT(IN), OPTIONAL ::HVALUE1  ! first possible value
- CHARACTER(LEN=*) ,INTENT(IN), OPTIONAL ::HVALUE2  ! second possible value
- CHARACTER(LEN=*) ,INTENT(IN), OPTIONAL ::HVALUE3  ! third possible value
- CHARACTER(LEN=*) ,INTENT(IN), OPTIONAL ::HVALUE4  ! fourth possible value
- CHARACTER(LEN=*) ,INTENT(IN), OPTIONAL ::HVALUE5  ! fiveth possible value
- CHARACTER(LEN=*) ,INTENT(IN), OPTIONAL ::HVALUE6  ! sixth possible value
- CHARACTER(LEN=*) ,INTENT(IN), OPTIONAL ::HVALUE7  ! seventh possible value
- CHARACTER(LEN=*) ,INTENT(IN), OPTIONAL ::HVALUE8  ! eightth possible value
- CHARACTER(LEN=*) ,INTENT(IN), OPTIONAL ::HVALUE9  ! nineth possible value
- CHARACTER(LEN=*) ,INTENT(IN), OPTIONAL ::HVALUE10 ! tenth possible value
-!
-END SUBROUTINE TEST_NAM_VARC0_SURF
-!
-      SUBROUTINE TEST_NAM_VARL0_SURF(KLUOUT,HNAME,OVAR,OVALUE)
-!
-INTEGER,          INTENT(IN)           ::KLUOUT   ! output listing logical unit
- CHARACTER(LEN=*) ,INTENT(IN)           ::HNAME    ! name of the variable to test
-LOGICAL          ,INTENT(IN)           ::OVAR     ! variable to test
-
-LOGICAL          ,INTENT(IN), OPTIONAL ::OVALUE   ! possible value
-!
-END SUBROUTINE TEST_NAM_VARL0_SURF
-!
-      SUBROUTINE TEST_NAM_VARN0_SURF(KLUOUT,HNAME,KVAR,       &
-                                       KVALUE1,KVALUE2,KVALUE3, &
-                                       KVALUE4,KVALUE5,KVALUE6, &
-                                       KVALUE7,KVALUE8,KVALUE9, &
-                                       KVALUE10  )
-!
-INTEGER,          INTENT(IN)           ::KLUOUT   ! output listing logical unit
- CHARACTER(LEN=*) ,INTENT(IN)           ::HNAME    ! name of the variable to test
-INTEGER          ,INTENT(IN)           ::KVAR     ! variable to test
-
-INTEGER          ,INTENT(IN), OPTIONAL ::KVALUE1  ! first possible value
-INTEGER          ,INTENT(IN), OPTIONAL ::KVALUE2  ! second possible value
-INTEGER          ,INTENT(IN), OPTIONAL ::KVALUE3  ! third possible value
-INTEGER          ,INTENT(IN), OPTIONAL ::KVALUE4  ! fourth possible value
-INTEGER          ,INTENT(IN), OPTIONAL ::KVALUE5  ! fiveth possible value
-INTEGER          ,INTENT(IN), OPTIONAL ::KVALUE6  ! sixth possible value
-INTEGER          ,INTENT(IN), OPTIONAL ::KVALUE7  ! seventh possible value
-INTEGER          ,INTENT(IN), OPTIONAL ::KVALUE8  ! eightth possible value
-INTEGER          ,INTENT(IN), OPTIONAL ::KVALUE9  ! nineth possible value
-INTEGER          ,INTENT(IN), OPTIONAL ::KVALUE10 ! 10th possible value
-!
-END SUBROUTINE TEST_NAM_VARN0_SURF
-!
-      SUBROUTINE TEST_NAM_VARX0_SURF(KLUOUT,HNAME,PVAR,       &
-                                     PVALUE1,PVALUE2,PVALUE3, &
-                                     PVALUE4,PVALUE5,PVALUE6, &
-                                     PVALUE7,PVALUE8,PVALUE9, &
-                                     PVALUE10  )
-!
-INTEGER,          INTENT(IN)          ::KLUOUT   ! output listing logical unit
- CHARACTER(LEN=*) ,INTENT(IN)          ::HNAME    ! name of the variable to test
-REAL             ,INTENT(IN)          ::PVAR     ! variable to test
-
-REAL             ,INTENT(IN), OPTIONAL ::PVALUE1  ! first possible value
-REAL             ,INTENT(IN), OPTIONAL ::PVALUE2  ! second possible value
-REAL             ,INTENT(IN), OPTIONAL ::PVALUE3  ! third possible value
-REAL             ,INTENT(IN), OPTIONAL ::PVALUE4  ! fourth possible value
-REAL             ,INTENT(IN), OPTIONAL ::PVALUE5  ! fiveth possible value
-REAL             ,INTENT(IN), OPTIONAL ::PVALUE6  ! sixth possible value
-REAL             ,INTENT(IN), OPTIONAL ::PVALUE7  ! seventh possible value
-REAL             ,INTENT(IN), OPTIONAL ::PVALUE8  ! eightth possible value
-REAL             ,INTENT(IN), OPTIONAL ::PVALUE9  ! nineth possible value
-REAL             ,INTENT(IN), OPTIONAL ::PVALUE10 ! 10th possible value
-!
-END SUBROUTINE TEST_NAM_VARX0_SURF
+      MODULE PROCEDURE TEST_NAM_VARC0_SURF
+      MODULE PROCEDURE TEST_NAM_VARL0_SURF
+      MODULE PROCEDURE TEST_NAM_VARX0_SURF
 !
 END INTERFACE
 !
-END MODULE MODI_TEST_NAM_VAR_SURF
+CONTAINS
 !
 !
 !     #########################################################
@@ -658,3 +583,4 @@ IF ( PRESENT (PVALUE10)) WRITE (KLUOUT,*) '"',PVALUE10,'"'
 IF (LHOOK) CALL DR_HOOK('MODI_TEST_NAM_VAR_SURF:TEST_NAM_VARN0_SURF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE TEST_NAM_VARX0_SURF
+END MODULE MODI_TEST_NAM_VAR_SURF

@@ -7,102 +7,15 @@
 !     ##################
 INTERFACE AV_PGD
 !
-      SUBROUTINE AV_PGD_2D (DTCO, &
-                            PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,PDZ,KDECADE)
-
-!
-USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
-TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
-!
-REAL, DIMENSION(:,:),   INTENT(OUT) :: PFIELD  ! secondary field to construct
-REAL, DIMENSION(:,:,:), INTENT(IN)  :: PCOVER  ! fraction of each cover class
-REAL, DIMENSION(:),     INTENT(IN)  :: PDATA   ! secondary field value for each class
- CHARACTER(LEN=3),       INTENT(IN)  :: HSFTYPE ! Type of surface where the field
-                                               ! is defined
- CHARACTER(LEN=3),       INTENT(IN)  :: HATYPE  ! Type of averaging
-LOGICAL, DIMENSION(:), INTENT(IN) :: OCOVER
-REAL, DIMENSION(:,:),   INTENT(IN), OPTIONAL :: PDZ    ! first model half level
-INTEGER,                INTENT(IN), OPTIONAL :: KDECADE ! current month
-!
-END SUBROUTINE AV_PGD_2D
-!
-      SUBROUTINE AV_PATCH_PGD (DTCO, &
-                               PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,PDZ,KDECADE)
-
-!
-USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
-TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
-!
-REAL, DIMENSION(:,:,:), INTENT(OUT) :: PFIELD  ! secondary field to construct for each patch
-REAL, DIMENSION(:,:,:), INTENT(IN)  :: PCOVER  ! fraction of each cover class
-REAL, DIMENSION(:,:),   INTENT(IN)  :: PDATA   ! secondary field value for each class in each vegtype
- CHARACTER(LEN=3),       INTENT(IN)  :: HSFTYPE ! Type of surface where the field
-                                               ! is defined
- CHARACTER(LEN=3),       INTENT(IN)  :: HATYPE  ! Type of averaging
-LOGICAL, DIMENSION(:), INTENT(IN) :: OCOVER
-REAL, DIMENSION(:,:),   INTENT(IN), OPTIONAL :: PDZ    ! first model half level
-INTEGER,                INTENT(IN), OPTIONAL :: KDECADE ! current month
-!
-END SUBROUTINE AV_PATCH_PGD
-!
-      SUBROUTINE AV_PGD_1D (DTCO, &
-                            PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,PDZ,KDECADE)
-
-!
-USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
-TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
-!
-REAL, DIMENSION(:),     INTENT(OUT) :: PFIELD  ! secondary field to construct
-REAL, DIMENSION(:,:),   INTENT(IN)  :: PCOVER  ! fraction of each cover class
-REAL, DIMENSION(:),     INTENT(IN)  :: PDATA   ! secondary field value for each class
- CHARACTER(LEN=3),       INTENT(IN)  :: HSFTYPE ! Type of surface where the field
-                                               ! is defined
- CHARACTER(LEN=3),       INTENT(IN)  :: HATYPE  ! Type of averaging
-  LOGICAL, DIMENSION(:), INTENT(IN) :: OCOVER
-REAL, DIMENSION(:),     INTENT(IN), OPTIONAL :: PDZ    ! first model half level
-INTEGER,                INTENT(IN), OPTIONAL :: KDECADE ! current month
-!
-END SUBROUTINE AV_PGD_1D
-!
-      SUBROUTINE AV_PATCH_PGD_1D (DTCO, &
-                                  PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,PDZ,KDECADE)
-
-!
-USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
-TYPE(DATA_COVER_t), INTENT(INOUT) :: DTCO
-!
-REAL, DIMENSION(:,:),   INTENT(OUT) :: PFIELD  ! secondary field to construct for each patch
-REAL, DIMENSION(:,:),   INTENT(IN)  :: PCOVER  ! fraction of each cover class
-REAL, DIMENSION(:,:),   INTENT(IN)  :: PDATA   ! secondary field value for each class in each vegtype
- CHARACTER(LEN=3),       INTENT(IN)  :: HSFTYPE ! Type of surface where the field
-                                               ! is defined
- CHARACTER(LEN=3),       INTENT(IN)  :: HATYPE  ! Type of averaging
-LOGICAL, DIMENSION(:), INTENT(IN) :: OCOVER
-REAL, DIMENSION(:),     INTENT(IN), OPTIONAL :: PDZ    ! first model half level
-INTEGER,                INTENT(IN), OPTIONAL :: KDECADE ! current month
-!
-END SUBROUTINE AV_PATCH_PGD_1D
-!
-      SUBROUTINE MAJOR_PATCH_PGD_1D(TFIELD,PCOVER,TDATA,HSFTYPE,HATYPE,OCOVER,KDECADE)
-
-!
-USE MODD_TYPE_DATE_SURF
-TYPE (DATE_TIME), DIMENSION(:,:), INTENT(OUT) :: TFIELD  ! secondary field to construct for each patch
-REAL, DIMENSION(:,:),   INTENT(IN)  :: PCOVER  ! fraction of each cover class
-TYPE (DATE_TIME), DIMENSION(:,:), INTENT(IN) :: TDATA  ! secondary field to construct for each patch
- CHARACTER(LEN=3),       INTENT(IN)  :: HSFTYPE ! Type of surface where the field
-                                               ! is defined
- CHARACTER(LEN=3),       INTENT(IN)  :: HATYPE  ! Type of averaging
-LOGICAL, DIMENSION(:), INTENT(IN) :: OCOVER
-INTEGER,                INTENT(IN), OPTIONAL :: KDECADE ! current month
-!
-END SUBROUTINE MAJOR_PATCH_PGD_1D
-!
-
+      MODULE PROCEDURE AV_PGD_2D
+      MODULE PROCEDURE AV_PATCH_PGD
+      MODULE PROCEDURE AV_PGD_1D
+      MODULE PROCEDURE AV_PATCH_PGD_1D
+      MODULE PROCEDURE MAJOR_PATCH_PGD_1D
 !
 END INTERFACE
-END MODULE MODI_AV_PGD
 !
+CONTAINS
 !     ################################################################
       SUBROUTINE AV_PGD_1D (DTCO, &
                             PFIELD,PCOVER,PDATA,HSFTYPE,HATYPE,OCOVER,PDZ,KDECADE)
@@ -1549,3 +1462,4 @@ IF (LHOOK) CALL DR_HOOK('MODI_AV_PGD:MAJOR_PATCH_PGD_1D',1,ZHOOK_HANDLE)
 END SUBROUTINE MAJOR_PATCH_PGD_1D
 !-------------------------------------------------------------------------------
 !
+END MODULE MODI_AV_PGD

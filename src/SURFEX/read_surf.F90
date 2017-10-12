@@ -43,183 +43,22 @@ MODULE MODI_READ_SURF
 !
   INTERFACE READ_SURF
 !
-     SUBROUTINE READ_SURFX0 (&
-                             HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
- CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
-REAL, INTENT(OUT) :: PFIELD            ! real scalar to be read
-INTEGER,INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT  ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
-!
-END SUBROUTINE READ_SURFX0
-!
-     SUBROUTINE READ_SURFX1 (&
-                             HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
- CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
-REAL, DIMENSION(:), INTENT(OUT) ::PFIELD ! array containing the data field
-INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR       ! type of field :
-!                                                   ! 'H' : field with
-!                                                   !       horizontal spatial dim.
-!                                                   ! '-' : no horizontal dim.
-END SUBROUTINE READ_SURFX1
-!
-     SUBROUTINE READ_SURFX2 (&
-                             HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM    ! calling program
- CHARACTER(LEN=*), INTENT(IN) :: HREC        ! name of the article to be read
-REAL, DIMENSION(:,:), INTENT(OUT) :: PFIELD ! array containing the data field
-INTEGER, INTENT(OUT) :: KRESP               ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
-!                                                   ! 'H' : field with
-!                                                   !       horizontal spatial dim.
-!                                                   ! '-' : no horizontal dim.
-END SUBROUTINE READ_SURFX2
-!
-!RJ: interface to READ_SURFX2COV moved out
-!
-     SUBROUTINE READ_SURFX3 (&
-                             HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM      ! calling program
- CHARACTER(LEN=*), INTENT(IN) :: HREC          ! name of the article to be read
-REAL, DIMENSION(:,:,:), INTENT(OUT) :: PFIELD ! array containing the data field
-INTEGER, INTENT(OUT) :: KRESP                 ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
-!                                                   ! 'H' : field with
-!                                                   !       horizontal spatial dim.
-!                                                   ! '-' : no horizontal dim.
-END SUBROUTINE READ_SURFX3
-!
-     SUBROUTINE READ_SURFN0 (&
-                             HPROGRAM,HREC,KFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
- CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
-INTEGER, INTENT(OUT) :: KFIELD           ! integer to be read
-INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
-!
-END SUBROUTINE READ_SURFN0
-!
-     SUBROUTINE READ_SURFN1 (&
-                             HPROGRAM,HREC,KFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     ! calling program
- CHARACTER(LEN=*), INTENT(IN) :: HREC         ! name of the article to be read
-INTEGER, DIMENSION(:), INTENT(OUT) :: KFIELD ! integer to be read
-INTEGER, INTENT(OUT) :: KRESP                ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
-!                                                   ! 'H' : field with
-!                                                   !       horizontal spatial dim.
-!                                                   ! '-' : no horizontal dim.
-END SUBROUTINE READ_SURFN1
-!
-     SUBROUTINE READ_SURFC0 (&
-                             HPROGRAM,HREC,HFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM   ! calling program
- CHARACTER(LEN=*), INTENT(IN) :: HREC       ! name of the article to be read
- CHARACTER(LEN=*), INTENT(OUT) :: HFIELD    ! caracter to be read
-INTEGER, INTENT(OUT) :: KRESP              ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
-!
-END SUBROUTINE READ_SURFC0
-!
-      SUBROUTINE READ_SURFL0 (&
-                              HPROGRAM,HREC,OFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
- CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
-LOGICAL, INTENT(OUT)         :: OFIELD   ! array containing the data field
-INTEGER, INTENT(OUT) :: KRESP            ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
-!
-END SUBROUTINE READ_SURFL0
-!
-      SUBROUTINE READ_SURFL1 (&
-                              HPROGRAM,HREC,OFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM     ! calling program
- CHARACTER(LEN=*), INTENT(IN) :: HREC         ! name of the article to be read
-LOGICAL, DIMENSION(:), INTENT(OUT) :: OFIELD ! array containing the data field
-INTEGER, INTENT(OUT) :: KRESP                ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR     ! type of field :
-!                                                   ! 'H' : field with
-!                                                   !       horizontal spatial dim.
-!                                                   ! '-' : no horizontal dim.
-END SUBROUTINE READ_SURFL1
-!
-      SUBROUTINE READ_SURFT0 (&
-                              HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
-USE MODD_TYPE_DATE_SURF
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM  ! calling program
- CHARACTER(LEN=*), INTENT(IN) :: HREC      ! name of the article to be read
-TYPE(DATE_TIME), INTENT(INOUT) ::TFIELD   ! array containing the data field
-INTEGER, INTENT(OUT) :: KRESP             ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
-!
-END SUBROUTINE READ_SURFT0
-!
-      SUBROUTINE READ_SURFT1 (&
-                              HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
-USE MODD_TYPE_DATE_SURF
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
- CHARACTER(LEN=*), INTENT(IN) :: HREC     ! name of the article to be read
-TYPE (DATE_TIME), DIMENSION(:), INTENT(INOUT) :: TFIELD ! array containing the data field
-INTEGER, INTENT(OUT) :: KRESP ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
-!
-END SUBROUTINE READ_SURFT1
-!
-      SUBROUTINE READ_SURFT2 (&
-                              HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT,HDIR)
-!
-!
-USE MODD_TYPE_DATE_SURF
-!
- CHARACTER(LEN=6), INTENT(IN) :: HPROGRAM ! calling program
- CHARACTER(LEN=*), INTENT(IN) ::HREC      ! name of the article to be read
-TYPE (DATE_TIME), DIMENSION(:,:), INTENT(INOUT)::TFIELD ! array containing the data field
-INTEGER, INTENT(OUT) :: KRESP ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=*), OPTIONAL, INTENT(OUT) :: HCOMMENT   ! name of the article to be read
- CHARACTER(LEN=1), OPTIONAL, INTENT(IN)  :: HDIR
-!
-END SUBROUTINE READ_SURFT2
+     MODULE PROCEDURE READ_SURFX0
+     MODULE PROCEDURE READ_SURFX1
+     MODULE PROCEDURE READ_SURFX2
+     MODULE PROCEDURE READ_SURFX3
+     MODULE PROCEDURE READ_SURFN0
+     MODULE PROCEDURE READ_SURFN1
+     MODULE PROCEDURE READ_SURFC0
+     MODULE PROCEDURE READ_SURFL0
+     MODULE PROCEDURE READ_SURFL1
+     MODULE PROCEDURE READ_SURFT0
+     MODULE PROCEDURE READ_SURFT1
+     MODULE PROCEDURE READ_SURFT2
 !
 END INTERFACE
 !
-END MODULE MODI_READ_SURF
+CONTAINS
 !
 !     #############################################################
       SUBROUTINE READ_SURFX0 (&
@@ -1838,3 +1677,4 @@ DEALLOCATE(ZWORK3)
 IF (LHOOK) CALL DR_HOOK('MODI_READ_SURF:READ_SURFT2',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE READ_SURFT2
+END MODULE MODI_READ_SURF

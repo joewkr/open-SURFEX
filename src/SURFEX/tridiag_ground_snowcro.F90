@@ -6,35 +6,12 @@ MODULE MODI_TRIDIAG_GROUND_SNOWCRO
 !
 INTERFACE TRIDIAG_GROUND_SNOWCRO
 !
-SUBROUTINE TRIDIAG_GROUND_SNOWCRO_1D(PA,PB,PC,PY,PX,KNLVLS_USE,KDIFLOOP)
-REAL,    DIMENSION(:,:), INTENT(IN)  :: PA  ! lower diag. elements of A matrix
-REAL,    DIMENSION(:,:), INTENT(IN)  :: PB  ! main  diag. elements of A matrix
-REAL,    DIMENSION(:,:), INTENT(IN)  :: PC  ! upper diag. elements of A matrix
-REAL,    DIMENSION(:,:), INTENT(IN)  :: PY  ! r.h.s. term
-!
-REAL,    DIMENSION(:,:), INTENT(OUT) :: PX  ! solution of A.X = Y
-!
-INTEGER,    DIMENSION(:), INTENT(IN) :: KNLVLS_USE ! number of effective layers
-!
-INTEGER, INTENT(IN) :: KDIFLOOP       ! shift in control loops: 0 or 1
-END SUBROUTINE TRIDIAG_GROUND_SNOWCRO_1D
-!
-SUBROUTINE TRIDIAG_GROUND_SNOWCRO_2D(PA,PB,PC,PY,PX,KNLVLS_USE,KDIFLOOP)
-REAL,    DIMENSION(:,:,:), INTENT(IN)  :: PA  ! lower diag. elements of A matrix
-REAL,    DIMENSION(:,:,:), INTENT(IN)  :: PB  ! main  diag. elements of A matrix
-REAL,    DIMENSION(:,:,:), INTENT(IN)  :: PC  ! upper diag. elements of A matrix
-REAL,    DIMENSION(:,:,:), INTENT(IN)  :: PY  ! r.h.s. term
-!
-REAL,    DIMENSION(:,:,:), INTENT(OUT) :: PX  ! solution of A.X = Y
-!
-INTEGER,    DIMENSION(:,:), INTENT(IN) :: KNLVLS_USE ! number of effective layers
-!
-INTEGER, INTENT(IN) :: KDIFLOOP       ! shift in control loops: 0 or 1
-END SUBROUTINE TRIDIAG_GROUND_SNOWCRO_2D
-!
+MODULE PROCEDURE TRIDIAG_GROUND_SNOWCRO_1D
+MODULE PROCEDURE TRIDIAG_GROUND_SNOWCRO_2D
+
 END INTERFACE TRIDIAG_GROUND_SNOWCRO
 !
-END MODULE MODI_TRIDIAG_GROUND_SNOWCRO
+CONTAINS
 !
 !###################################################################
        SUBROUTINE TRIDIAG_GROUND_SNOWCRO_1D(PA,PB,PC,PY,PX,KNLVLS_USE,KDIFLOOP)
@@ -342,3 +319,4 @@ IF (LHOOK) CALL DR_HOOK('TRIDIAG_GROUND_SNOWCRO_2D',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE TRIDIAG_GROUND_SNOWCRO_2D
+END MODULE MODI_TRIDIAG_GROUND_SNOWCRO

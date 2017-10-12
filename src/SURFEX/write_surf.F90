@@ -15,186 +15,22 @@ MODULE MODI_WRITE_SURF
 !
   INTERFACE WRITE_SURF
 !
-     SUBROUTINE WRITE_SURFX0 (HSELECT, HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT)
-!
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),  INTENT(IN) :: HPROGRAM ! calling program
- CHARACTER(LEN=*),  INTENT(IN) :: HREC     ! name of the article to be written
-REAL,              INTENT(IN) :: PFIELD   ! real scalar to be written
-INTEGER,           INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),INTENT(IN) :: HCOMMENT ! Comment string
-!
-END SUBROUTINE WRITE_SURFX0
-!
-     SUBROUTINE WRITE_SURFX1 (HSELECT, HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),   INTENT(IN)  :: HPROGRAM ! calling program
- CHARACTER(LEN=*),   INTENT(IN)  :: HREC     ! name of the article to be written
-REAL, DIMENSION(:), INTENT(IN)  :: PFIELD   ! array containing the data field
-INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100), INTENT(IN)  :: HCOMMENT ! Comment string
- CHARACTER(LEN=1),OPTIONAL,INTENT(IN)  :: HDIR ! type of field :
-!                                             ! 'H' : field with
-!                                             !       horizontal spatial dim.
-!                                             ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
-END SUBROUTINE WRITE_SURFX1
-!
-     SUBROUTINE WRITE_SURFX2 ( HSELECT,HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
-!
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),     INTENT(IN)  :: HPROGRAM ! calling program
- CHARACTER(LEN=*),     INTENT(IN)  :: HREC     ! name of the article to be written
-REAL, DIMENSION(:,:), INTENT(IN)  :: PFIELD   ! array containing the data field
-INTEGER,              INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),   INTENT(IN)  :: HCOMMENT ! Comment string
- CHARACTER(LEN=1),OPTIONAL,INTENT(IN)  :: HDIR ! type of field :
-!                                             ! 'H' : field with
-!                                             !       horizontal spatial dim.
-!                                             ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
-END SUBROUTINE WRITE_SURFX2
-!
-     SUBROUTINE WRITE_SURFX3 ( HSELECT,HPROGRAM,HREC,PFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
-!
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),     INTENT(IN)  :: HPROGRAM ! calling program
- CHARACTER(LEN=*),     INTENT(IN)  :: HREC     ! name of the article to be written
-REAL, DIMENSION(:,:,:), INTENT(IN)  :: PFIELD   ! array containing the data field
-INTEGER,              INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),   INTENT(IN)  :: HCOMMENT ! Comment string
- CHARACTER(LEN=1),OPTIONAL,INTENT(IN)  :: HDIR ! type of field :
-!                                             ! 'H' : field with
-!                                             !       horizontal spatial dim.
-!                                             ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
-END SUBROUTINE WRITE_SURFX3
-!
-!RJ: interface to WRITE_SURFX2COV moved out
-!
-     SUBROUTINE WRITE_SURFN0 ( HSELECT, HPROGRAM,HREC,KFIELD,KRESP,HCOMMENT)
-!
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),   INTENT(IN)  :: HPROGRAM ! calling program
- CHARACTER(LEN=*),   INTENT(IN)  :: HREC     ! name of the article to be written
-INTEGER,            INTENT(IN)  :: KFIELD   ! integer to be written
-INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100), INTENT(IN)  :: HCOMMENT ! Comment string
-!
-END SUBROUTINE WRITE_SURFN0
-!
-     SUBROUTINE WRITE_SURFN1 ( HSELECT, HPROGRAM,HREC,KFIELD,KRESP,HCOMMENT,HDIR,HNAM_DIM)
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),      INTENT(IN)  :: HPROGRAM ! calling program
- CHARACTER(LEN=*),      INTENT(IN)  :: HREC     ! name of the article to be written
-INTEGER, DIMENSION(:), INTENT(IN)  :: KFIELD   ! integer to be written
-INTEGER,               INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),    INTENT(IN)  :: HCOMMENT ! Comment string
- CHARACTER(LEN=1),OPTIONAL,INTENT(IN)  :: HDIR ! type of field :
-!                                             ! 'H' : field with
-!                                             !       horizontal spatial dim.
-!                                             ! '-' : no horizontal dim.
- CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
-END SUBROUTINE WRITE_SURFN1
-!
-     SUBROUTINE WRITE_SURFC0 ( HSELECT, HPROGRAM,HREC,HFIELD,KRESP,HCOMMENT)
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),   INTENT(IN)  :: HPROGRAM ! calling program
- CHARACTER(LEN=*),   INTENT(IN)  :: HREC     ! name of the article to be written
- CHARACTER(LEN=*),    INTENT(IN)  :: HFIELD   ! caracter to be written
-INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100), INTENT(IN)  :: HCOMMENT ! Comment string
-!
-END SUBROUTINE WRITE_SURFC0
-!
-      SUBROUTINE WRITE_SURFL0 ( HSELECT, HPROGRAM,HREC,OFIELD,KRESP,HCOMMENT)
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),   INTENT(IN)  :: HPROGRAM ! calling program
- CHARACTER(LEN=*),   INTENT(IN)  :: HREC     ! name of the article to be written
-LOGICAL,            INTENT(IN)  :: OFIELD   ! array containing the data field
-INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100), INTENT(IN)  :: HCOMMENT ! Comment string
-!
-END SUBROUTINE WRITE_SURFL0
-!
-      SUBROUTINE WRITE_SURFL1 ( HSELECT, HPROGRAM,HREC,OFIELD,KRESP,HCOMMENT,HDIR)
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),      INTENT(IN)  :: HPROGRAM ! calling program
- CHARACTER(LEN=*),      INTENT(IN)  :: HREC     ! name of the article to be written
-LOGICAL, DIMENSION(:), INTENT(IN)  :: OFIELD   ! array containing the data field
-INTEGER,               INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),    INTENT(IN)  :: HCOMMENT ! Comment string
- CHARACTER(LEN=1),OPTIONAL,INTENT(IN)  :: HDIR ! type of field :
-!                                             ! 'H' : field with
-!                                             !       horizontal spatial dim.
-!                                             ! '-' : no horizontal dim.
-END SUBROUTINE WRITE_SURFL1
-!
-      SUBROUTINE WRITE_SURFT0 ( HSELECT, HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT)
-!
-USE MODD_TYPE_DATE_SURF
-!
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),   INTENT(IN)  :: HPROGRAM ! calling program
- CHARACTER(LEN=*),   INTENT(IN)  :: HREC     ! name of the article to be written
-TYPE (DATE_TIME),   INTENT(IN)  :: TFIELD   ! array containing the data field
-INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100), INTENT(IN)  :: HCOMMENT ! Comment string
-!
-END SUBROUTINE WRITE_SURFT0
-!
-      SUBROUTINE WRITE_SURFT1 ( HSELECT, HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT)
-!
-USE MODD_TYPE_DATE_SURF
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),   INTENT(IN)  :: HPROGRAM ! calling program
- CHARACTER(LEN=*),   INTENT(IN)  :: HREC     ! name of the article to be written
-TYPE (DATE_TIME), DIMENSION(:), INTENT(IN)  :: TFIELD   ! array containing the data field
-INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100), INTENT(IN)  :: HCOMMENT ! Comment string
-!
-END SUBROUTINE WRITE_SURFT1
-!
-      SUBROUTINE WRITE_SURFT2 ( HSELECT, HPROGRAM,HREC,TFIELD,KRESP,HCOMMENT)
-!
-USE MODD_TYPE_DATE_SURF
-!
-!
- CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
-!
- CHARACTER(LEN=6),   INTENT(IN)  :: HPROGRAM ! calling program
- CHARACTER(LEN=*),   INTENT(IN)  :: HREC     ! name of the article to be written
-TYPE (DATE_TIME), DIMENSION(:,:), INTENT(IN)  :: TFIELD   ! array containing the data field
-INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100), INTENT(IN)  :: HCOMMENT ! Comment string
-!
-END SUBROUTINE WRITE_SURFT2
+      MODULE PROCEDURE WRITE_SURFX0
+      MODULE PROCEDURE WRITE_SURFX1
+      MODULE PROCEDURE WRITE_SURFX2
+      MODULE PROCEDURE WRITE_SURFX3
+      MODULE PROCEDURE WRITE_SURFN0
+      MODULE PROCEDURE WRITE_SURFN1
+      MODULE PROCEDURE WRITE_SURFC0
+      MODULE PROCEDURE WRITE_SURFL0
+      MODULE PROCEDURE WRITE_SURFL1
+      MODULE PROCEDURE WRITE_SURFT0
+      MODULE PROCEDURE WRITE_SURFT1
+      MODULE PROCEDURE WRITE_SURFT2
 !
 END INTERFACE
 !
-END MODULE MODI_WRITE_SURF
+CONTAINS
 !
 !     #############################################################
       SUBROUTINE WRITE_SURFX0 ( HSELECT,   &
@@ -2040,3 +1876,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('MODI_WRITE_SURF:WRITE_SURFT2',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE WRITE_SURFT2
+END MODULE MODI_WRITE_SURF

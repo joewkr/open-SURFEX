@@ -6,57 +6,12 @@
       MODULE MODI_VER_INTERP_LIN_SURF
 !     ######################
 INTERFACE VER_INTERP_LIN_SURF
-!     ##############################################
-      FUNCTION VER_INTERP_LIN3D_SURF(PVAR1,KKLIN,PCOEFLIN) RESULT(PVAR2)
-!     ##############################################
-!
-! third dimension of the arrays is vertical
-!
-REAL,   DIMENSION(:,:,:), INTENT(IN) :: PVAR1 ! variable values on the initial
-!                                             ! grid
-INTEGER,DIMENSION(:,:,:), INTENT(IN) :: KKLIN ! lower interpolating level of
-!                                             ! grid 1 for each level of grid 2
-REAL,   DIMENSION(:,:,:), INTENT(IN) :: PCOEFLIN ! coefficient for level KKLIN
-!
-REAL,   DIMENSION(SIZE(KKLIN,1),SIZE(KKLIN,2),SIZE(KKLIN,3)) &
-                                       :: PVAR2 ! variable values on target
-!                                             ! grid
-END FUNCTION VER_INTERP_LIN3D_SURF
-!     ##############################################
-      FUNCTION VER_INTERP_LIN2D_SURF(PVAR1,KKLIN,PCOEFLIN) RESULT(PVAR2)
-!     ##############################################
-!
-! second dimension of the arrays is vertical
-!
-REAL,   DIMENSION(:,:),   INTENT(IN) :: PVAR1 ! variable values on the initial
-!                                             ! grid
-INTEGER,DIMENSION(:,:), INTENT(IN) :: KKLIN ! lower interpolating level of
-!                                             ! grid 1 for each level of grid 2
-REAL,   DIMENSION(:,:), INTENT(IN) :: PCOEFLIN ! coefficient for level KKLIN
-!
-REAL,   DIMENSION(SIZE(KKLIN,1),SIZE(KKLIN,2))                               &
-                                       :: PVAR2 ! variable values on target
-!                                             ! grid
-END FUNCTION VER_INTERP_LIN2D_SURF
-!     ##############################################
-      FUNCTION VER_INTERP_LIN1D_SURF(PVAR1,KKLIN,PCOEFLIN) RESULT(PVAR2)
-!     ##############################################
-!
-! first dimension of the arrays is vertical
-!
-REAL,   DIMENSION(:), INTENT(IN) :: PVAR1 ! variable values on the initial
-!                                         ! grid
-INTEGER,DIMENSION(:), INTENT(IN) :: KKLIN ! lower interpolating level of
-!                                             ! grid 1 for each level of grid 2
-REAL,   DIMENSION(:), INTENT(IN) :: PCOEFLIN ! coefficient for level KKLIN
-!
-REAL,   DIMENSION(SIZE(KKLIN)) :: PVAR2 ! variable values on target
-!                                         ! grid
-END FUNCTION VER_INTERP_LIN1D_SURF
-!
+      MODULE PROCEDURE VER_INTERP_LIN3D_SURF
+      MODULE PROCEDURE VER_INTERP_LIN2D_SURF
+      MODULE PROCEDURE VER_INTERP_LIN1D_SURF
 !
 END INTERFACE
-END MODULE MODI_VER_INTERP_LIN_SURF
+CONTAINS
 !     ##############################################
       FUNCTION VER_INTERP_LIN3D_SURF(PVAR1,KKLIN,PCOEFLIN) RESULT(PVAR2)
 !     ##############################################
@@ -228,3 +183,4 @@ IF (LHOOK) CALL DR_HOOK('MODI_VER_INTERP_LIN_SURF:VER_INTERP_LIN1D_SURF',1,ZHOOK
 !-------------------------------------------------------------------------------
 !
 END FUNCTION VER_INTERP_LIN1D_SURF
+END MODULE MODI_VER_INTERP_LIN_SURF

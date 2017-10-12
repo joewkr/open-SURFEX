@@ -8,28 +8,12 @@ MODULE MODI_INTERP_GRID
 
 INTERFACE INTERP_GRID
 
-SUBROUTINE INTERP_GRID_1D(PZ1,PT1,PZ2,PT2)
-!
-REAL, DIMENSION(:,:), INTENT(IN)  :: PZ1  ! input vertical grid
-REAL, DIMENSION(:,:), INTENT(IN)  :: PT1  ! input temperatures
-REAL, DIMENSION(:),   INTENT(IN)  :: PZ2  ! output vertical grid
-REAL, DIMENSION(:,:), INTENT(OUT)  :: PT2  ! output temperatures
-!
-END SUBROUTINE INTERP_GRID_1D
-!
-SUBROUTINE INTERP_GRID_2D(PZ1,PT1,PZ2,PT2)
-!
-REAL, DIMENSION(:,:), INTENT(IN) :: PZ1  ! input vertical grid
-REAL, DIMENSION(:,:), INTENT(IN) :: PT1  ! input temperatures
-REAL, DIMENSION(:,:), INTENT(IN) :: PZ2  ! output vertical grid
-REAL, DIMENSION(:,:), INTENT(OUT) :: PT2  ! output temperatures
-!
-END SUBROUTINE INTERP_GRID_2D
+MODULE PROCEDURE INTERP_GRID_1D
+MODULE PROCEDURE INTERP_GRID_2D
 !
 END INTERFACE
 
-END MODULE MODI_INTERP_GRID
-
+CONTAINS
 !     ##########################################
       SUBROUTINE INTERP_GRID_1D(PZ1,PT1,PZ2,PT2)
 !     ##########################################
@@ -242,3 +226,4 @@ IF (LHOOK) CALL DR_HOOK('MODI_INTERP_GRID:INTERP_GRID_2D_2',1,ZHOOK_HANDLE_OMP)
 !-----------------------------------------------------------------------------
 END SUBROUTINE INTERP_GRID_2D
 !
+END MODULE MODI_INTERP_GRID

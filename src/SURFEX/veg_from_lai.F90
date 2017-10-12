@@ -8,51 +8,14 @@ MODULE MODI_VEG_FROM_LAI
 !
 INTERFACE VEG_FROM_LAI
 !
-    FUNCTION VEG_FROM_LAI_0D(PLAI,PVEGTYPE,OAGRI_TO_GRASS) RESULT(PVEG)
-!
-REAL,                 INTENT(IN) :: PLAI         ! Leaf area Index
-REAL,   DIMENSION(:), INTENT(IN) :: PVEGTYPE     ! type of vegetation
-LOGICAL,              INTENT(IN) :: OAGRI_TO_GRASS
-!
-REAL                             :: PVEG         ! vegetation fraction
-!
-END FUNCTION VEG_FROM_LAI_0D
-!
-!
-    FUNCTION VEG_FROM_LAI_1D(PLAI,PVEGTYPE,OAGRI_TO_GRASS) RESULT(PVEG)
-!
-REAL,   DIMENSION(:),   INTENT(IN) :: PLAI         ! Leaf area Index
-REAL,   DIMENSION(:,:), INTENT(IN) :: PVEGTYPE     ! type of vegetation
-LOGICAL,                INTENT(IN) :: OAGRI_TO_GRASS
-!
-REAL,   DIMENSION(SIZE(PLAI))      :: PVEG         ! vegetation fraction
-!
-END FUNCTION VEG_FROM_LAI_1D
-!
-!
-    FUNCTION VEG_FROM_LAI_2D(PLAI,PVEGTYPE,OAGRI_TO_GRASS) RESULT(PVEG)
-!
-REAL,   DIMENSION(:,:),   INTENT(IN) :: PLAI         ! Leaf area Index
-REAL,   DIMENSION(:,:,:), INTENT(IN) :: PVEGTYPE     ! type of vegetation
-LOGICAL,                  INTENT(IN) :: OAGRI_TO_GRASS
-!
-REAL,   DIMENSION(SIZE(PLAI,1),SIZE(PLAI,2)) :: PVEG ! vegetation fraction
-!
-END FUNCTION VEG_FROM_LAI_2D
-!
-
-    FUNCTION VEG_FROM_LAI_VEGTYPE_1D(PLAI,OAGRI_TO_GRASS) RESULT(PVEG)
-!
-REAL,   DIMENSION(:), INTENT(IN) :: PLAI         ! Leaf area Index for each vegtype
-LOGICAL,              INTENT(IN) :: OAGRI_TO_GRASS
-!
-REAL,   DIMENSION(SIZE(PLAI)) :: PVEG ! vegetation fraction
-!
-END FUNCTION VEG_FROM_LAI_VEGTYPE_1D
+    MODULE PROCEDURE VEG_FROM_LAI_0D
+    MODULE PROCEDURE VEG_FROM_LAI_1D
+    MODULE PROCEDURE VEG_FROM_LAI_2D
+    MODULE PROCEDURE VEG_FROM_LAI_VEGTYPE_1D
 !
 END INTERFACE
 !
-END MODULE MODI_VEG_FROM_LAI
+CONTAINS
 !
 !   ####################################################
     FUNCTION VEG_FROM_LAI_0D(PLAI,PVEGTYPE,OAGRI_TO_GRASS) RESULT(PVEG)
@@ -532,3 +495,4 @@ END FUNCTION VEG_FROM_LAI_VEGTYPE_1D
 !
 !--------------------------------------------
 !
+END MODULE MODI_VEG_FROM_LAI

@@ -8,54 +8,14 @@ MODULE MODI_Z0V_FROM_LAI
 !
 INTERFACE Z0V_FROM_LAI
 !
-    FUNCTION Z0V_FROM_LAI_0D(PLAI,PH_TREE,PVEGTYPE,OAGRI_TO_GRASS) RESULT(PZ0)
-!
-REAL,                 INTENT(IN) :: PLAI         ! Leaf area Index
-REAL,                 INTENT(IN) :: PH_TREE      ! height of trees
-REAL,   DIMENSION(:), INTENT(IN) :: PVEGTYPE     ! type of vegetation
-LOGICAL,              INTENT(IN) :: OAGRI_TO_GRASS
-!
-REAL                             :: PZ0          ! vegetation roughness
-!
-END FUNCTION Z0V_FROM_LAI_0D
-!
-!
-    FUNCTION Z0V_FROM_LAI_1D(PLAI,PH_TREE,PVEGTYPE,OAGRI_TO_GRASS) RESULT(PZ0)
-!
-REAL,   DIMENSION(:),   INTENT(IN) :: PLAI         ! Leaf area Index
-REAL,   DIMENSION(:),   INTENT(IN) :: PH_TREE      ! height of trees
-REAL,   DIMENSION(:,:), INTENT(IN) :: PVEGTYPE     ! type of vegetation
-LOGICAL,                INTENT(IN) :: OAGRI_TO_GRASS
-!
-REAL,   DIMENSION(SIZE(PLAI))      :: PZ0          ! vegetation roughness
-!
-END FUNCTION Z0V_FROM_LAI_1D
-!
-!
-    FUNCTION Z0V_FROM_LAI_2D(PLAI,PH_TREE,PVEGTYPE,OAGRI_TO_GRASS) RESULT(PZ0)
-!
-REAL,   DIMENSION(:,:),   INTENT(IN) :: PLAI         ! Leaf area Index
-REAL,   DIMENSION(:,:),   INTENT(IN) :: PH_TREE      ! height of trees
-REAL,   DIMENSION(:,:,:), INTENT(IN) :: PVEGTYPE     ! type of vegetation
-LOGICAL,                  INTENT(IN) :: OAGRI_TO_GRASS
-!
-REAL,   DIMENSION(SIZE(PLAI,1),SIZE(PLAI,2)) :: PZ0  ! vegetation roughness
-!
-END FUNCTION Z0V_FROM_LAI_2D
-!
-    FUNCTION Z0V_FROM_LAI_VEGTYPE(PLAI,PH_TREE,OAGRI_TO_GRASS) RESULT(PZ0)
-!
-REAL,   DIMENSION(:),   INTENT(IN) :: PLAI         ! Leaf area Index
-REAL,   DIMENSION(:),   INTENT(IN) :: PH_TREE      ! height of trees
-LOGICAL,                INTENT(IN) :: OAGRI_TO_GRASS
-!
-REAL,   DIMENSION(SIZE(PLAI)) :: PZ0  ! vegetation roughness
-!
-END FUNCTION Z0V_FROM_LAI_VEGTYPE
+    MODULE PROCEDURE Z0V_FROM_LAI_0D
+    MODULE PROCEDURE Z0V_FROM_LAI_1D
+    MODULE PROCEDURE Z0V_FROM_LAI_2D
+    MODULE PROCEDURE Z0V_FROM_LAI_VEGTYPE
 !
 END INTERFACE
 !
-END MODULE MODI_Z0V_FROM_LAI
+CONTAINS
 !
 
 !   ###########################################################
@@ -417,3 +377,4 @@ IF (LHOOK) CALL DR_HOOK('MODI_Z0V_FROM_LAI:Z0V_FROM_LAI_VEGTYPE',1,ZHOOK_HANDLE)
 !
 END FUNCTION Z0V_FROM_LAI_VEGTYPE
 !
+END MODULE MODI_Z0V_FROM_LAI
