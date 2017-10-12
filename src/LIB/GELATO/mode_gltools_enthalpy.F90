@@ -132,6 +132,7 @@ SUBROUTINE glt_aventh(tpsit,tpsil,pentsi,pentsn)
   USE modd_glt_const_thm
   USE modd_glt_param
   USE modd_types_glt
+IMPLICIT NONE
   TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::  &
     tpsit
   TYPE(t_vtp), DIMENSION(nl,nt,np), INTENT(in) ::  &
