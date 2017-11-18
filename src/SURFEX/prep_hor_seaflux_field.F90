@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_HOR_SEAFLUX_FIELD
+CONTAINS
 SUBROUTINE PREP_HOR_SEAFLUX_FIELD (DTCO, UG, U, GCP, DTS, O, OR, KLAT, S, &
                                    HPROGRAM,HSURF,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,YDCTL)
 !     #################################################################################
@@ -221,3 +223,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_HOR_SEAFLUX_FIELD',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_HOR_SEAFLUX_FIELD
+END MODULE MODI_PREP_HOR_SEAFLUX_FIELD

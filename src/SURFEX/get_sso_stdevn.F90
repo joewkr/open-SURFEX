@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ########################################
+MODULE MODI_GET_SSO_STDEV_n
+CONTAINS
       SUBROUTINE GET_SSO_STDEV_n (USS, &
                                   HPROGRAM,KI,PSSO_STDEV)
 !     ########################################
@@ -85,3 +87,4 @@ IF (LHOOK) CALL DR_HOOK('GET_SSO_STDEV_N',1,ZHOOK_HANDLE)
 !==============================================================================
 !
 END SUBROUTINE GET_SSO_STDEV_n
+END MODULE MODI_GET_SSO_STDEV_n

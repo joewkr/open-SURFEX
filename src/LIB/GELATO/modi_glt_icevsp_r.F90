@@ -79,6 +79,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE glt_icevsp_r -------------------------
 !
+MODULE MODI_glt_icevsp_r
+CONTAINS
 SUBROUTINE glt_icevsp_r( tpsit,pvsp )
 !
   USE modd_glt_const_thm
@@ -176,6 +178,7 @@ END DO
 pvsp(nilay+1,:,:) = 0.
 !
 END SUBROUTINE glt_icevsp_r
+END MODULE MODI_glt_icevsp_r
 !
 ! ---------------------- END SUBROUTINE glt_icevsp_r ------------------------
 ! -----------------------------------------------------------------------

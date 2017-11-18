@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_OI_FCTVEG
+CONTAINS
 SUBROUTINE OI_FCTVEG(KH,PVEG,&
    PVGAT1,PVGAT2,PVGAT3,PVGBT1,PVGBT2,PVGBT3,PVGCT1,PVGCT2, &
    PVGAH1,PVGAH2,PVGAH3,PVGBH1,PVGBH2,PVGBH3,PVGCH1,PVGCH2, &
@@ -84,4 +86,5 @@ IF (LHOOK) CALL DR_HOOK('OI_FCTVEG',1,ZHOOK_HANDLE)
 !
 !**---------------------------------------------------------------------
 END SUBROUTINE OI_FCTVEG
+END MODULE MODI_OI_FCTVEG
 

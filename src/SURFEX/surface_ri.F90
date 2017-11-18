@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SURFACE_RI
+CONTAINS
     SUBROUTINE SURFACE_RI(PTG, PQS, PEXNS, PEXNA, PTA, PQA,   &
                                PZREF, PUREF, PDIRCOSZW, PVMOD, PRI )
 !   ######################################################################
@@ -118,3 +120,4 @@ IF (LHOOK) CALL DR_HOOK('SURFACE_RI',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SURFACE_RI
+END MODULE MODI_SURFACE_RI

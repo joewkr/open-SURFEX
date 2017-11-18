@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ###########################
+MODULE MODI_TOPODYN_LAT
+CONTAINS
 SUBROUTINE TOPODYN_LAT(PRW,PDEF,PKAPPA,PKAPPAC,GTOPD)
 !,PERROR)
 !     ###########################
@@ -399,4 +401,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('TOPODYN_LAT',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE TOPODYN_LAT
-
+END MODULE MODI_TOPODYN_LAT

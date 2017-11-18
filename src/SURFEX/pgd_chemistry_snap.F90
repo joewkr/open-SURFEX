@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PGD_CHEMISTRY_SNAP
+CONTAINS
       SUBROUTINE PGD_CHEMISTRY_SNAP (CHN, DTCO, UG, U, USS, &
                                      HPROGRAM,OCH_EMIS)
 !     ##############################################################
@@ -240,3 +242,4 @@ END IF
 IF (LHOOK) CALL DR_HOOK('PGD_CHEMISTRY_SNAP',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE PGD_CHEMISTRY_SNAP
+END MODULE MODI_PGD_CHEMISTRY_SNAP

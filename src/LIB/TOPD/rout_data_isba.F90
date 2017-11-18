@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #####################
+MODULE MODI_ROUT_DATA_ISBA
+CONTAINS
       SUBROUTINE ROUT_DATA_ISBA (DEC, DC, DMI, PMESH_SIZE, IO, NP, NPE, UG, U, HPROGRAM,KI,KSTEP)
 !     #####################
 !
@@ -170,3 +172,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('ROUT_DATA_ISBA',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE ROUT_DATA_ISBA
+END MODULE MODI_ROUT_DATA_ISBA

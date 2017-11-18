@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_DX_AIR_COOLING_COIL_CV
+CONTAINS
 SUBROUTINE DX_AIR_COOLING_COIL_CV(PT_CANYON, PQ_CANYON, PPS, PRHOA,    &
                              PT_IN, PQ_IN, PCOP_RAT, PCAP_SYS_RAT,     &
                              PT_ADP, PF_WATER_COND,                    &
@@ -237,3 +239,4 @@ PH_WASTE  = (PT_BLD_COOL + PDX_POWER) * (1. - PF_WATER_COND)
 IF (LHOOK) CALL DR_HOOK('DX_AIR_COOLING_COIL_CV',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DX_AIR_COOLING_COIL_CV
+END MODULE MODI_DX_AIR_COOLING_COIL_CV

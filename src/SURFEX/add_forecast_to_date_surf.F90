@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ADD_FORECAST_TO_DATE_SURF
+CONTAINS
       SUBROUTINE ADD_FORECAST_TO_DATE_SURF(KYEAR,KMONTH,KDAY,PSEC)
 !     #######################################################
 !
@@ -127,3 +129,4 @@ IF (LHOOK) CALL DR_HOOK('ADD_FORECAST_TO_DATE_SURF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE ADD_FORECAST_TO_DATE_SURF
+END MODULE MODI_ADD_FORECAST_TO_DATE_SURF

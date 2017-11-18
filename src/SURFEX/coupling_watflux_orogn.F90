@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_COUPLING_WATFLUX_OROG_n
+CONTAINS
 SUBROUTINE COUPLING_WATFLUX_OROG_n (WM, DST, SLT, HPROGRAM, HCOUPLING, PTIMEC,               &
                                     PTSTEP, KYEAR, KMONTH, KDAY, PTIME, KI, KSV, KSW, PTSUN, &
                                     PZENITH, PZENITH2, PAZIM, PZREF, PUREF, PZS, PU, PV,     &
@@ -209,3 +211,4 @@ IF (LHOOK) CALL DR_HOOK('COUPLING_WATFLUX_OROG_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE COUPLING_WATFLUX_OROG_n
+END MODULE MODI_COUPLING_WATFLUX_OROG_n

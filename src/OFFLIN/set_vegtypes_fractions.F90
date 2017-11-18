@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SET_VEGTYPES_FRACTIONS
+CONTAINS
       SUBROUTINE SET_VEGTYPES_FRACTIONS (DTCO, DTV, KDIM, IO, S, UG, U, HPROGRAM)
 !     ##############################################################
 !
@@ -283,3 +285,4 @@ IF (LHOOK) CALL DR_HOOK('SET_VEGTYPES_FRACTIONS',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SET_VEGTYPES_FRACTIONS
+END MODULE MODI_SET_VEGTYPES_FRACTIONS

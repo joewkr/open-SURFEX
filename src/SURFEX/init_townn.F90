@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
+MODULE MODI_INIT_TOWN_n
+CONTAINS
       SUBROUTINE INIT_TOWN_n (DTCO, OREAD_BUDGETC, UG, U, GCP, TM, GDM, GRM, DGO, DL, DLC,  &
                               HPROGRAM,HINIT,KI,KSV,KSW, HSV,PCO2,PRHOA,       &
                               PZENITH,PAZIM,PSW_BANDS,PDIR_ALB,PSCA_ALB,       &
@@ -143,3 +145,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_TOWN_N',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 END SUBROUTINE INIT_TOWN_n
+END MODULE MODI_INIT_TOWN_n

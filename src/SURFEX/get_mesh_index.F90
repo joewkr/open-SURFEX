@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GET_MESH_INDEX
+CONTAINS
       SUBROUTINE GET_MESH_INDEX(UG,KLUOUT,KNBLINES,PLAT,PLON,KINDEX,PVALUE,PNODATA,KSSO,KISSOX,KISSOY)
 !     ##############################################################
 !
@@ -144,3 +146,4 @@ IF (LHOOK) CALL DR_HOOK('GET_MESH_INDEX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE GET_MESH_INDEX
+END MODULE MODI_GET_MESH_INDEX

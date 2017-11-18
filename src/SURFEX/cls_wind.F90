@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CLS_WIND
+CONTAINS
        SUBROUTINE CLS_WIND( PZONA, PMERA, PHW, PCD, PCDN, PRI, PHV, PZON10M, PMER10M  )
 !     ###############################################################
 !
@@ -136,3 +138,4 @@ IF (LHOOK) CALL DR_HOOK('CLS_WIND',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE CLS_WIND
+END MODULE MODI_CLS_WIND

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DEALLOC_NATURE_n
+CONTAINS
 SUBROUTINE DEALLOC_NATURE_n (IM, U)
 !     ###############################################################################
 !
@@ -63,3 +65,4 @@ IF (LHOOK) CALL DR_HOOK('DEALLOC_NATURE_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE DEALLOC_NATURE_n
+END MODULE MODI_DEALLOC_NATURE_n

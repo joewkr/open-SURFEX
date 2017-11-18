@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
+MODULE MODI_INIT_ISBA_LANDUSE
+CONTAINS
 SUBROUTINE INIT_ISBA_LANDUSE (DTCO, UG, U, IO, NK, NP, NPE, PMESH_SIZE, HPROGRAM)
 !#############################################################
 !
@@ -276,3 +278,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('INIT_ISBA_LANDUSE',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_ISBA_LANDUSE
+END MODULE MODI_INIT_ISBA_LANDUSE

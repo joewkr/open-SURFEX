@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_COUPLING_FLAKE_SBL_n
+CONTAINS
 SUBROUTINE COUPLING_FLAKE_SBL_n (SB, CHF, DGO, D, DC, DMF, F, DST, SLT, &
                                  HPROGRAM, HCOUPLING, PTSTEP, KYEAR, KMONTH, KDAY, PTIME,             &
                                  KI, KSV, KSW, PTSUN, PZENITH, PZENITH2, PAZIM, PZREF, PUREF, PU, PV, &
@@ -350,3 +352,4 @@ IF (LHOOK) CALL DR_HOOK('COUPLING_FLAKE_SBL_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE COUPLING_FLAKE_SBL_n
+END MODULE MODI_COUPLING_FLAKE_SBL_n

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_CIRCUMSOLAR_RAD
+CONTAINS
 SUBROUTINE CIRCUMSOLAR_RAD(PDIR_SW, PSCA_SW, PZENITH, PF1_o_B)
 !     ###############################################################################
 !
@@ -123,3 +125,4 @@ ENDWHERE
 END SUBROUTINE FIJ
 
 END SUBROUTINE CIRCUMSOLAR_RAD
+END MODULE MODI_CIRCUMSOLAR_RAD

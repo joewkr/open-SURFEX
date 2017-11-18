@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
+MODULE MODI_INIT_SURF_ATM_n
+CONTAINS
 SUBROUTINE INIT_SURF_ATM_n (YSC, HPROGRAM,HINIT, OLAND_USE,             &
                             KI,KSV,KSW, HSV,PCO2,PRHOA,                 &
                              PZENITH,PAZIM,PSW_BANDS,PDIR_ALB,PSCA_ALB, &
@@ -758,5 +760,4 @@ END SUBROUTINE UNPACK_SURF_INIT_ARG
 !==============================================================================
 !
 END SUBROUTINE INIT_SURF_ATM_n
-
-
+END MODULE MODI_INIT_SURF_ATM_n

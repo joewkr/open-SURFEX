@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_DUMMY_n
+CONTAINS
       SUBROUTINE READ_DUMMY_n (DUU, KSIZE_FULL, HPROGRAM)
 !     #################################
 !
@@ -99,3 +101,4 @@ IF (LHOOK) CALL DR_HOOK('READ_DUMMY_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_DUMMY_n
+END MODULE MODI_READ_DUMMY_n

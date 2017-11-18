@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INIT_WRITE_TXT
+CONTAINS
       SUBROUTINE INIT_WRITE_TXT (HSELECT, HREC,OWFL)
 !     ######################
 !
@@ -187,3 +189,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_WRITE_TXT',1,ZHOOK_HANDLE)
 !------------------------------------------------------------------------------
 !
 END SUBROUTINE INIT_WRITE_TXT
+END MODULE MODI_INIT_WRITE_TXT

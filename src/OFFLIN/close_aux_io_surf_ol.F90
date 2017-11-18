@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_close_aux_io_surf_ol
+CONTAINS
 subroutine close_aux_io_surf_ol
 !
 USE MODI_ABOR1_SFX
@@ -17,3 +19,4 @@ IF (LHOOK) CALL DR_HOOK('CLOSE_AUX_IO_SURF_OL',0,ZHOOK_HANDLE)
  CALL ABOR1_SFX('CLOSE_AUX_IO_SURF_OL: NOT YET CODED!')
 IF (LHOOK) CALL DR_HOOK('CLOSE_AUX_IO_SURF_OL',1,ZHOOK_HANDLE)
 end subroutine close_aux_io_surf_ol
+END MODULE MODI_close_aux_io_surf_ol

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !####################################################################
+MODULE MODI_PREPS_FOR_MEB_DRAG
+CONTAINS
     SUBROUTINE PREPS_FOR_MEB_DRAG(LCVEL, LFORC_MEASURE,                   &
                              PZ0, PZ0H, PZ0EFF, PH_VEG, PZREF,           &
                              PTC, PTA, PQC, PQA, PUREF, PVMOD,            &
@@ -216,5 +218,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('PREPS_FOR_MEB_DRAG',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE PREPS_FOR_MEB_DRAG
-
-
+END MODULE MODI_PREPS_FOR_MEB_DRAG

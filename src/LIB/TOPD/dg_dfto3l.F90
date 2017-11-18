@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !
 !     ##########################
+MODULE MODI_DG_DFTO3L
+CONTAINS
       SUBROUTINE DG_DFTO3L (IO, NP, PDG)
 !     ##########################
 !
@@ -109,5 +111,4 @@ ENDWHERE
 IF (LHOOK) CALL DR_HOOK('DG_DFTO3L',1,ZHOOK_HANDLE)
 
 END SUBROUTINE DG_DFTO3L
-
-
+END MODULE MODI_DG_DFTO3L

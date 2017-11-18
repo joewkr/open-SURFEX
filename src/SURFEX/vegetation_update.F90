@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_VEGETATION_UPDATE
+CONTAINS
     SUBROUTINE VEGETATION_UPDATE (DTCO, DTV, KDIM, IO, KK, PK, PEK, KPATCH,  &
                                   PTSTEP, TTIME ,PCOVER, OCOVER,             &
                                   OAGRIP, HSFTYPE, OALB, ISSK, ODUPDATED, OABSENT  )
@@ -216,3 +218,4 @@ IF (LHOOK) CALL DR_HOOK('VEGETATION_UPDATE',1,ZHOOK_HANDLE)
 !-----------------------------------------------------------------
 !
 END SUBROUTINE VEGETATION_UPDATE
+END MODULE MODI_VEGETATION_UPDATE

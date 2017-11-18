@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !
 !     ##########################
+MODULE MODI_DISPATCH_WG
+CONTAINS
       SUBROUTINE DISPATCH_WG (S, NP, NPE, PWG, PWGI, PDG)
 !     ##########################
 !
@@ -118,5 +120,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('DISPATCH_WG',1,ZHOOK_HANDLE)
 
 END SUBROUTINE DISPATCH_WG
-
-
+END MODULE MODI_DISPATCH_WG

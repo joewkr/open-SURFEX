@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_AVERAGE_DIAG
+CONTAINS
       SUBROUTINE AVERAGE_DIAG(PFRAC_TILE, DGO, D, ND, DC, NDC      )
 !     ######################################################################
 !
@@ -465,3 +467,4 @@ END SUBROUTINE MAKE_AVERAGE_MW
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE AVERAGE_DIAG
+END MODULE MODI_AVERAGE_DIAG

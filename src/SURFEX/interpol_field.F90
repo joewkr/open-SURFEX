@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################
+MODULE MODI_INTERPOL_FIELD
+CONTAINS
       SUBROUTINE INTERPOL_FIELD (UG, U, &
                                  HPROGRAM,KLUOUT,KCODE,PFIELD,HFIELD,PDEF,KNPTS)
 !     ################################################
@@ -73,4 +75,5 @@ PFIELD(:)   = ZFIELD(:,1)
 IF (LHOOK) CALL DR_HOOK('INTERPOL_FIELD',1,ZHOOK_HANDLE)
 !----------------------------------------------------------------------------
 END SUBROUTINE INTERPOL_FIELD
+END MODULE MODI_INTERPOL_FIELD
 

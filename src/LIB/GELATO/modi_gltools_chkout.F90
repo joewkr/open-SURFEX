@@ -82,6 +82,8 @@
 ! * Subroutine that prints mini, maxi and average of every Gelato glt_output
 ! field, plus field values at one specified grid point.
 !
+MODULE MODI_gltools_chkout
+CONTAINS
 SUBROUTINE gltools_chkout( kdate,tpglt )
 !
   USE modd_types_glt
@@ -361,6 +363,7 @@ SUBROUTINE gltools_chkout( kdate,tpglt )
 1020 FORMAT( "Category",I2.2,":" )
 !
 END SUBROUTINE gltools_chkout
+END MODULE MODI_gltools_chkout
 !
 ! -------------------- END SUBROUTINE gltools_chkout --------------------
 ! -----------------------------------------------------------------------

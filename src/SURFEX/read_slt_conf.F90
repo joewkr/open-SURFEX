@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_SLT_CONF
+CONTAINS
       SUBROUTINE READ_SLT_CONF(HPROGRAM)
 !     #######################################################
 !
@@ -91,3 +93,4 @@ IF (LHOOK) CALL DR_HOOK('READ_SLT_CONF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_SLT_CONF
+END MODULE MODI_READ_SLT_CONF

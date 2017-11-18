@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_URBAN_HYDRO
+CONTAINS
     SUBROUTINE URBAN_HYDRO(PWS_ROOF_MAX,PWS_ROAD_MAX, PWS_ROOF, PWS_ROAD,  &
                              PRR, PIRRIG_ROAD, PTSTEP, PBLD, PLE_ROOF,     &
                              PLE_ROAD, PRUNOFF_STRLROOF, PRUNOFF_ROAD      )
@@ -141,3 +143,4 @@ IF (LHOOK) CALL DR_HOOK('URBAN_HYDRO',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE URBAN_HYDRO
+END MODULE MODI_URBAN_HYDRO

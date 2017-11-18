@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !
 !#############################################
+MODULE MODI_WRITE_HEADER_FA
+CONTAINS
 SUBROUTINE WRITE_HEADER_FA (GCP, HGRID, PGRID_PAR, CFILETYPE, HWRITE)
 !#############################################
 !
@@ -318,3 +320,4 @@ DEALLOCATE(ZBHYBR)
 IF (LHOOK) CALL DR_HOOK('WRITE_HEADER_FA',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE WRITE_HEADER_FA
+END MODULE MODI_WRITE_HEADER_FA

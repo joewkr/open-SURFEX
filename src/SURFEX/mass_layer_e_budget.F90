@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
+MODULE MODI_MASS_LAYER_E_BUDGET
+CONTAINS
     SUBROUTINE MASS_LAYER_E_BUDGET(B, PTSTEP, PFLX_BLD_MA, PDQS_MA, PIMB_MA, PRADHT_IN, &
                                    PRAD_WL_MA, PRAD_RF_MA, PRAD_WIN_MA, PLOAD_MA,       &
                                    PRAD_FL_MA, PCONV_MA_BLD                  )
@@ -167,3 +169,4 @@ PIMB_MA(:) = PFLX_BLD_MA(:) - PDQS_MA(:)
 IF (LHOOK) CALL DR_HOOK('MASS_LAYER_E_BUDGET',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE MASS_LAYER_E_BUDGET
+END MODULE MODI_MASS_LAYER_E_BUDGET

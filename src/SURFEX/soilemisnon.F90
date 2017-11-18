@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #####################################################
+MODULE MODI_SOILEMISNO_n
+CONTAINS
 !      SUBROUTINE SOILEMISNO_n(PSW_FORBIO, PUA, PVA, KSV, HSV, PFLUX)
       SUBROUTINE SOILEMISNO_n (GB, S, K, NP, NPE, PUA, PVA)
 !     #####################################################
@@ -213,3 +215,4 @@ GB%XNOFLUX(:) = GB%XNOFLUX(:)*ZCRF(:)
 IF (LHOOK) CALL DR_HOOK('SOILEMISNO_n',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE SOILEMISNO_n
+END MODULE MODI_SOILEMISNO_n

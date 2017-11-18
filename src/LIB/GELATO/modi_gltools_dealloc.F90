@@ -75,6 +75,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE gltools_dealloc --------------------------
 !
+MODULE MODI_gltools_dealloc
+CONTAINS
 SUBROUTINE gltools_dealloc(tpglt)
 !
 USE modd_types_glt
@@ -252,6 +254,7 @@ IF (lwg) THEN
 ENDIF
 !
 END SUBROUTINE gltools_dealloc
+END MODULE MODI_gltools_dealloc
 !
 ! ----------------------- END SUBROUTINE gltools_dealloc ------------------------
 ! -----------------------------------------------------------------------

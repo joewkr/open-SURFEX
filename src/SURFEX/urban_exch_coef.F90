@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_URBAN_EXCH_COEF
+CONTAINS
 SUBROUTINE URBAN_EXCH_COEF(HZ0H, PZ0_O_Z0H, PTG, PQS, PEXNS, PEXNA, PTA, PQA,   &
                              PZREF, PUREF, PVMOD, PZ0,                            &
                              PRI, PCD, PCDN, PAC, PRA, PCH                        )
@@ -163,3 +165,4 @@ END IF
 IF (LHOOK) CALL DR_HOOK('URBAN_EXCH_COEF',1,ZHOOK_HANDLE)
 
 END SUBROUTINE URBAN_EXCH_COEF
+END MODULE MODI_URBAN_EXCH_COEF

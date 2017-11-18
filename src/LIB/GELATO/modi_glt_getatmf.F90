@@ -75,6 +75,8 @@
 ! -----------------------------------------------------------------------
 ! ----------------------- SUBROUTINE glt_getatmf ----------------------------
 
+MODULE MODI_glt_getatmf
+CONTAINS
 SUBROUTINE glt_getatmf( tpglt )
   USE modd_types_glt
   USE modd_glt_const_thm
@@ -414,6 +416,7 @@ SUBROUTINE glt_getatmf( tpglt )
   tpglt%dia(:,:)%sww = ( 1.-zfsit(:,:) )*tpglt%blkw(:,:)%swa
 !
 END SUBROUTINE glt_getatmf
+END MODULE MODI_glt_getatmf
 !
 ! --------------------- END SUBROUTINE glt_getatmf --------------------------
 ! -----------------------------------------------------------------------

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################################
+MODULE MODI_SSO_Z0_FRICTION_n
+CONTAINS
 SUBROUTINE SSO_Z0_FRICTION_n (USS, PSEA,PUREF,PRHOA,PU,PV,PPEW_A_COEF,PPEW_B_COEF,PSFU,PSFV)
 !     ################################################################################
 !
@@ -214,3 +216,4 @@ IF (LHOOK) CALL DR_HOOK('SSO_Z0_FRICTION_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE SSO_Z0_FRICTION_n
+END MODULE MODI_SSO_Z0_FRICTION_n

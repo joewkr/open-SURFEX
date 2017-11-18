@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
+MODULE MODI_READ_TOPD_HEADER_CONNEX
+CONTAINS
       SUBROUTINE READ_TOPD_HEADER_CONNEX(HPROGRAM,HFILE,HFORM,KNMC)
 !     #######################
 !
@@ -95,10 +97,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('READ_TOPD_HEADER_CONNEX',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE READ_TOPD_HEADER_CONNEX
-
-
-
-
-
-
-
+END MODULE MODI_READ_TOPD_HEADER_CONNEX

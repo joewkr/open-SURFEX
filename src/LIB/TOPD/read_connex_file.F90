@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
+MODULE MODI_READ_CONNEX_FILE
+CONTAINS
       SUBROUTINE READ_CONNEX_FILE(HPROGRAM,HFILE,HFORM,KNMC,PCONN,KLINE)
 !     #######################
 !
@@ -104,10 +106,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('READ_CONNEX_FILE',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE READ_CONNEX_FILE
-
-
-
-
-
-
-
+END MODULE MODI_READ_CONNEX_FILE

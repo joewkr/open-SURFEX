@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_ASSIM_SEA_n
+CONTAINS
 SUBROUTINE ASSIM_SEA_n (S, U, HPROGRAM,KI,PTS_IN,PSST_IN,PSIC_IN,PITM,HTEST, &
                         OLKEEPEXTZONE,OD_MASKEXT,PLON_IN,PLAT_IN)
 
@@ -197,3 +199,4 @@ IF (LHOOK) CALL DR_HOOK('ASSIM_SEA_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE ASSIM_SEA_n
+END MODULE MODI_ASSIM_SEA_n

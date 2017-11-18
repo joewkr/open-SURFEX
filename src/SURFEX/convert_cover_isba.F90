@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CONVERT_COVER_ISBA
+CONTAINS
       SUBROUTINE CONVERT_COVER_ISBA (DTCO, HALBEDO, &
                                         HISBA,OTR_ML,KDECADE,PCOVER,OCOVER,HPHOTO,   &
                                          HSFTYPE,PVEG,                       &
@@ -947,3 +949,4 @@ END SUBROUTINE SET_COVER_DG
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE CONVERT_COVER_ISBA
+END MODULE MODI_CONVERT_COVER_ISBA

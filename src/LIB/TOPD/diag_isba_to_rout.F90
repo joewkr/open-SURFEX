@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ############################
+MODULE MODI_DIAG_ISBA_TO_ROUT
+CONTAINS
       SUBROUTINE DIAG_ISBA_TO_ROUT (PMESH_SIZE, &
                                     PVARC,PVARCP,PVARROUT)
 !     ############################
@@ -100,3 +102,4 @@ WHERE (PVARROUT<0.) PVARROUT = 0.
 IF (LHOOK) CALL DR_HOOK('DIAG_ISBA_TO_ROUT',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DIAG_ISBA_TO_ROUT
+END MODULE MODI_DIAG_ISBA_TO_ROUT

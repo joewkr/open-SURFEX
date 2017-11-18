@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-------------------------------------------------------------------------------
 !     #############################################################
+MODULE MODI_PGD_TOPD
+CONTAINS
       SUBROUTINE PGD_TOPD (HISBA, HGRID, PGRID_PAR, KDIM_FULL, PSSO_SLOPE, HPROGRAM)
 !     #############################################################
 !
@@ -389,3 +391,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('PGD_TOPD',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE PGD_TOPD
+END MODULE MODI_PGD_TOPD

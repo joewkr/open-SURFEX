@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INI_VAR_FROM_DATA_0D_IN
+CONTAINS
       SUBROUTINE INI_VAR_FROM_DATA_0D_IN (DTCO, UG, U, USS, &
                                        HPROGRAM, HATYPE,  HNAME, HTYPE, HFNAM, &
                                         HFTYP, PUNIF, PFIELD, OPRESENT,  &
@@ -127,4 +129,5 @@ IF (LHOOK) CALL DR_HOOK('INI_VAR_FROM_DATA_0D_IN',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INI_VAR_FROM_DATA_0D_IN
+END MODULE MODI_INI_VAR_FROM_DATA_0D_IN
 

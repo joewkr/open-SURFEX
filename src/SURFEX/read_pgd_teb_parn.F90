@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_PGD_TEB_PAR_n
+CONTAINS
       SUBROUTINE READ_PGD_TEB_PAR_n (DTCO, U, GCP, BDD, DTB, DTT, KDIM, TOP, &
                                      HPROGRAM,KNI,HDIRIN)
 !     ################################################
@@ -799,3 +801,4 @@ END SUBROUTINE READ_FIELD
 !_______________________________
 !
 END SUBROUTINE READ_PGD_TEB_PAR_n
+END MODULE MODI_READ_PGD_TEB_PAR_n

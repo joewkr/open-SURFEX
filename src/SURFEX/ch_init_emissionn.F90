@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CH_INIT_EMISSION_n
+CONTAINS
       SUBROUTINE CH_INIT_EMISSION_n (CHE, PCONVERSION, HSV, HPROGRAM,KLU,HINIT,PRHOA,HCHEM_SURF_FILE)
 !     #######################################
 !
@@ -245,3 +247,4 @@ IF (LHOOK) CALL DR_HOOK('CH_INIT_EMISSION_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE CH_INIT_EMISSION_n
+END MODULE MODI_CH_INIT_EMISSION_n

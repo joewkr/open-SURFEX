@@ -105,6 +105,8 @@
 !
 ! .. Subroutine used to check global heat budget.
 !
+MODULE MODI_glt_updbud_r
+CONTAINS
 SUBROUTINE glt_updbud_r  &
   ( kinit,omsg,tpdom,tpmxl,tptfl,tpatm,tpblkw,tpblki,tpsit,tpsil,tpbud )
 !
@@ -507,6 +509,7 @@ SUBROUTINE glt_updbud_r  &
   ENDIF
 !
 END SUBROUTINE glt_updbud_r
+END MODULE MODI_glt_updbud_r
 
 ! ---------------------- END SUBROUTINE glt_updbud_r ------------------------
 ! -----------------------------------------------------------------------

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_SURF_ATM_DATE
+CONTAINS
       SUBROUTINE READ_SURF_ATM_DATE (&
                                      HPROGRAM,HINIT,KLUOUT,            &
                                       HATMFILE,HATMFILETYPE,            &
@@ -167,3 +169,4 @@ IF (LHOOK) CALL DR_HOOK('READ_SURF_ATM_DATE',1,ZHOOK_HANDLE)
 !------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_SURF_ATM_DATE
+END MODULE MODI_READ_SURF_ATM_DATE

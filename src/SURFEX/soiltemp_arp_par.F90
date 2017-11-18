@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SOILTEMP_ARP_PAR
+CONTAINS
       SUBROUTINE SOILTEMP_ARP_PAR (IO, HPROGRAM)
 !     ##############################################################
 !
@@ -177,3 +179,4 @@ IF (LHOOK) CALL DR_HOOK('SOILTEMP_ARP_PAR',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SOILTEMP_ARP_PAR
+END MODULE MODI_SOILTEMP_ARP_PAR

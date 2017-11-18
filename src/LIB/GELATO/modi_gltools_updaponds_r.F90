@@ -88,6 +88,8 @@
 ! * Subroutine used to update melt ponds volume and albedo (takes into account rain, snow, or thermodynamic surface melting).
 ! * (APONDS = Albedo of PONDS)
 !
+MODULE MODI_gltools_updaponds_r
+CONTAINS
 SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
 !
   USE modd_glt_const_thm
@@ -357,6 +359,7 @@ SUBROUTINE gltools_updaponds_r ( omelt,tpatm,tpblki,tpdia,tpsit,pasi )
 !
 !
 END SUBROUTINE gltools_updaponds_r
+END MODULE MODI_gltools_updaponds_r
 !
 ! ---------------------- END SUBROUTINE gltools_updaponds_r ------------------------
 ! -----------------------------------------------------------------------

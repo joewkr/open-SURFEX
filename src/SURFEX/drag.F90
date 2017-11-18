@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DRAG
+CONTAINS
     SUBROUTINE DRAG(HISBA, HSNOW_ISBA, HCPSURF, PTSTEP, PTG, PWG, PWGI,  &
                     PEXNS, PEXNA, PTA, PVMOD, PQA, PRR, PSR, PPS, PRS,   &
                     PVEG, PZ0, PZ0EFF, PZ0H, PWFC, PWSAT, PPSNG, PPSNV,  &
@@ -500,3 +502,4 @@ END SUBROUTINE LIMIT_LER
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DRAG
+END MODULE MODI_DRAG

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
+MODULE MODI_ROAD_LAYER_E_BUDGET
+CONTAINS
     SUBROUTINE ROAD_LAYER_E_BUDGET(T, B, PTSTEP, PDN_ROAD, PRHOA, PAC_ROAD, PAC_ROAD_WAT, &
                                    PLW_RAD, PPS, PQSAT_ROAD, PDELT_ROAD, PEXNS,           &
                                    PABS_SW_ROAD, PGSNOW_ROAD, PQ_LOWCAN, PT_LOWCAN,       &
@@ -303,4 +305,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('ROAD_LAYER_E_BUDGET',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE ROAD_LAYER_E_BUDGET
-
+END MODULE MODI_ROAD_LAYER_E_BUDGET

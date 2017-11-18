@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GET_NEAR_MESHES_IGN
+CONTAINS
       SUBROUTINE GET_NEAR_MESHES_IGN(KGRID_PAR,KL,PGRID_PAR,KNEAR_NBR,KNEAR)
 !     ##############################################################
 !
@@ -235,3 +237,4 @@ END SUBROUTINE INTERCHANGE_SORT
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE GET_NEAR_MESHES_IGN
+END MODULE MODI_GET_NEAR_MESHES_IGN

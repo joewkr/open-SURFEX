@@ -118,6 +118,8 @@
 ! -----------------------------------------------------------------------
 ! --------------------- SUBROUTINE glt_thermo_ice_r -------------------------
 !
+MODULE MODI_glt_thermo_ice_r
+CONTAINS
 SUBROUTINE glt_thermo_ice_r  &
   ( tpdom,tpmxl,tpatm,tpblki,tpbud,tpdia,tptfl,tpsit,tpsil )
 !
@@ -549,6 +551,7 @@ SUBROUTINE glt_thermo_ice_r  &
   ENDIF
 !
 END SUBROUTINE glt_thermo_ice_r
+END MODULE MODI_glt_thermo_ice_r
 !
 ! --------------------- END SUBROUTINE glt_thermo_ice_r ---------------------
 ! -----------------------------------------------------------------------

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GRID_FROM_FILE
+CONTAINS
       SUBROUTINE GRID_FROM_FILE (U,GCP,PGRID_FULL_PAR,HPROGRAM,HFILE,HFILETYPE,&
                                  OGRID,HGRID,KGRID_PAR,PGRID_PAR,KL,HDIR)
 !     ##########################################################
@@ -194,3 +196,4 @@ IF (LHOOK) CALL DR_HOOK('GRID_FROM_FILE',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE GRID_FROM_FILE
+END MODULE MODI_GRID_FROM_FILE

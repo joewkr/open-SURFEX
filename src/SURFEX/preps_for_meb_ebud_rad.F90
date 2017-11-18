@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ############################################################################
+MODULE MODI_PREPS_FOR_MEB_EBUD_RAD
+CONTAINS
 SUBROUTINE PREPS_FOR_MEB_EBUD_RAD(PPS,                                         &
      PLAICV,PSNOWRHO,PSNOWSWE,PSNOWHEAT,PSNOWLIQ,                              &
      PSNOWTEMP,PSNOWDZ,PSCOND,PHEATCAPS,PEMISNOW,PSIGMA_F,PCHIP,               &
@@ -993,3 +995,4 @@ END SUBROUTINE SNOW3LCOMPACTN
 
 
 END SUBROUTINE PREPS_FOR_MEB_EBUD_RAD
+END MODULE MODI_PREPS_FOR_MEB_EBUD_RAD

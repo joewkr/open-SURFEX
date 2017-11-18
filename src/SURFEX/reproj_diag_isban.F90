@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_REPROJ_DIAG_ISBA_n
+CONTAINS
 SUBROUTINE REPROJ_DIAG_ISBA_n (DK, DEK, DMK, PEK, OSURF_BUDGET, OSURF_EVAP_BUDGET, &
                                OWATER_BUDGET, OSURF_MISC_BUDGET, OPROSNOW, &
                                OMEB_PATCH, PSLOPECOS    )
@@ -217,3 +219,4 @@ IF (LHOOK) CALL DR_HOOK('REPROJ_DIAG_ISBA_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE REPROJ_DIAG_ISBA_n
+END MODULE MODI_REPROJ_DIAG_ISBA_n

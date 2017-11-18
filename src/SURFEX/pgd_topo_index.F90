@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PGD_TOPO_INDEX
+CONTAINS
       SUBROUTINE PGD_TOPO_INDEX (DTCO, UG, U, USS, S, OCTI, &
                                  HPROGRAM,KLU,HCTI,HCTIFILETYPE,OIMP_CTI)
 !     ##################################################################
@@ -637,3 +639,4 @@ END SUBROUTINE CTIREG
 !
 !-------------------------------------------------------------------------------
 END SUBROUTINE PGD_TOPO_INDEX
+END MODULE MODI_PGD_TOPO_INDEX

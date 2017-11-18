@@ -89,6 +89,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE glt_updhsi_r -------------------------
 !
+MODULE MODI_glt_updhsi_r
+CONTAINS
 SUBROUTINE glt_updhsi_r  &
         ( pcondb,pqtopmelt,pdhmelt,tpmxl,tpdia,tptfl,tpsit,tpsil )
 !
@@ -472,6 +474,7 @@ SUBROUTINE glt_updhsi_r  &
   ENDIF
 !
 END SUBROUTINE glt_updhsi_r
+END MODULE MODI_glt_updhsi_r
 !
 ! ----------------------- END SUBROUTINE glt_updhsi_r -----------------------
 ! -----------------------------------------------------------------------

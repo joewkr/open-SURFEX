@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_NAM_PGD_ISBA
+CONTAINS
       SUBROUTINE READ_NAM_PGD_ISBA(HPROGRAM, KPATCH, KGROUND_LAYER,                         &
                                    HISBA, HPEDOTF, HPHOTO, OTR_ML, HALBEDO, PRM_PATCH,      &
                                    HCLAY, HCLAYFILETYPE, PUNIF_CLAY, OIMP_CLAY,             &
@@ -309,3 +311,4 @@ IF (LHOOK) CALL DR_HOOK('READ_NAM_PGD_ISBA',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_NAM_PGD_ISBA
+END MODULE MODI_READ_NAM_PGD_ISBA

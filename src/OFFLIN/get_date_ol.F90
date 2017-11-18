@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GET_DATE_OL
+CONTAINS
       SUBROUTINE GET_DATE_OL(TPTIME,PTSTEP,HDATE)
 !     #######################################################
 !!****  *GET_DATE_OL* - gets the initial date of the simulation to write in
@@ -119,3 +121,4 @@ END SUBROUTINE WRITE_TIME
 
 
 END SUBROUTINE GET_DATE_OL
+END MODULE MODI_GET_DATE_OL

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_PREP_TEB_GREENROOF_CONF
+CONTAINS
       SUBROUTINE READ_PREP_TEB_GREENROOF_CONF(HPROGRAM,HVAR,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,   &
                                               HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,KLUOUT,OUNIF)
 !     #######################################################
@@ -241,3 +243,4 @@ IF (LHOOK) CALL DR_HOOK('READ_PREP_TEB_GREENROOF_CONF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_PREP_TEB_GREENROOF_CONF
+END MODULE MODI_READ_PREP_TEB_GREENROOF_CONF

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GET_SFX_LAKE
+CONTAINS
       SUBROUTINE GET_SFX_LAKE (F, U, &
                                PLAKE_EVAP,PLAKE_RAIN,PLAKE_SNOW,PLAKE_WATF)
 !     ############################################################################
@@ -103,3 +105,4 @@ IF (LHOOK) CALL DR_HOOK('GET_SFX_LAKE',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE GET_SFX_LAKE
+END MODULE MODI_GET_SFX_LAKE

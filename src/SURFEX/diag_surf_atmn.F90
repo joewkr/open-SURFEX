@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ########
+MODULE MODI_DIAG_SURF_ATM_n
+CONTAINS
 SUBROUTINE DIAG_SURF_ATM_n (YSC, HPROGRAM)
 !     #################################################################################
 !
@@ -182,3 +184,4 @@ END SUBROUTINE GET_2M
 !
 !=======================================================================================
 END SUBROUTINE DIAG_SURF_ATM_n
+END MODULE MODI_DIAG_SURF_ATM_n

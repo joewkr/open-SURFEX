@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SOILDIF
+CONTAINS
       SUBROUTINE SOILDIF(IO, KK, PK, PEK, DMI, PVEG, PFROZEN1, PFFG, PFFV, PSOILCONDZ, PSOILHCAPZ   )
 !     ##########################################################################
 !
@@ -345,3 +347,4 @@ IF (LHOOK) CALL DR_HOOK('SOILDIF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SOILDIF
+END MODULE MODI_SOILDIF

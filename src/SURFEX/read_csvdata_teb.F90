@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
+MODULE MODI_READ_CSVDATA_TEB
+CONTAINS
       SUBROUTINE READ_CSVDATA_TEB (BDD, &
                                    HPROGRAM,HFILE)
 !     #########################
@@ -709,3 +711,4 @@ END SUBROUTINE FRENCH_TO_ENGLISH
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_CSVDATA_TEB
+END MODULE MODI_READ_CSVDATA_TEB

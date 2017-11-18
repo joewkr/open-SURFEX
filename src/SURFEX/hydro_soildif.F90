@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_HYDRO_SOILDIF
+CONTAINS
       SUBROUTINE HYDRO_SOILDIF(IO, KK, PK, PEK, PTSTEP, PPG, PLETR, PLEG, PEVAPCOR, &
                                PF2WGHT, PPS, PQSAT, PQSATI, PDRAIN, PHORTON, KMAX_LAYER, PQSB)
 !     ##########################################################################
@@ -535,9 +537,5 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('HYDRO_SOILDIF',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE HYDRO_SOILDIF
-
-
-
-
-
+END MODULE MODI_HYDRO_SOILDIF
 

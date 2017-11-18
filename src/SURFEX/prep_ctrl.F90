@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_CTRL
+CONTAINS
       SUBROUTINE PREP_CTRL(DGO,KLUOUT)
 !     #################################################################################################################
 !
@@ -74,3 +76,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_CTRL',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_CTRL
+END MODULE MODI_PREP_CTRL

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ALLOCATE_PHYSIO
+CONTAINS
     SUBROUTINE ALLOCATE_PHYSIO (IO, KK, PK, PEK, KVEGTYPE )
 !   ##########################################################################
 !
@@ -172,3 +174,4 @@ ALLOCATE(PEK%XH_VEG     (ISIZE))
 IF (LHOOK) CALL DR_HOOK('ALLOCATE_PHYSIO',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE ALLOCATE_PHYSIO
+END MODULE MODI_ALLOCATE_PHYSIO

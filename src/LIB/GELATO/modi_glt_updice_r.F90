@@ -79,6 +79,8 @@
 !
 ! .. Subroutine used to check global water budget.
 !
+MODULE MODI_glt_updice_r
+CONTAINS
 SUBROUTINE glt_updice_r  &
   ( kinit,omsg,tpdom,tpsit,psalt_a,pice_a,tptfl,pemps_a,psalf_a)
 !
@@ -162,10 +164,4 @@ SUBROUTINE glt_updice_r  &
    ENDIF
 
 END SUBROUTINE glt_updice_r
-
-
-
-
-
-
-
+END MODULE MODI_glt_updice_r

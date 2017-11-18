@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_COUPLING_FLAKE_OROGRAPHY_n
+CONTAINS
 SUBROUTINE COUPLING_FLAKE_OROGRAPHY_n (FM, DST, SLT, HPROGRAM, HCOUPLING,                &
                                        PTSTEP, KYEAR, KMONTH, KDAY, PTIME, KI, KSV, KSW, &
                                        PTSUN, PZENITH, PZENITH2, PAZIM, PZREF, PUREF,    &
@@ -212,3 +214,4 @@ IF (LHOOK) CALL DR_HOOK('COUPLING_FLAKE_OROGRAPHY_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE COUPLING_FLAKE_OROGRAPHY_n
+END MODULE MODI_COUPLING_FLAKE_OROGRAPHY_n

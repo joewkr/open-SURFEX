@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_WRITE_DIAG_PGD_GRDN_n
+CONTAINS
       SUBROUTINE WRITE_DIAG_PGD_GRDN_n (DTCO, HSELECT, U, OSURF_DIAG_ALBEDO, &
                                         S, P, PEK, IO, HPROGRAM)
 !     #########################################
@@ -241,3 +243,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_DIAG_PGD_GRDN_N',1,ZHOOK_HANDLE)
 !
 !
 END SUBROUTINE WRITE_DIAG_PGD_GRDN_n
+END MODULE MODI_WRITE_DIAG_PGD_GRDN_n

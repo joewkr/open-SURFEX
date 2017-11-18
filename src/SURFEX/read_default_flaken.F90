@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_DEFAULT_FLAKE_n
+CONTAINS
       SUBROUTINE READ_DEFAULT_FLAKE_n (CHF, DGO, DMF, F, HPROGRAM)
 !     #############################################################
 !
@@ -137,3 +139,4 @@ IF (LHOOK) CALL DR_HOOK('READ_DEFAULT_FLAKE_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_DEFAULT_FLAKE_n
+END MODULE MODI_READ_DEFAULT_FLAKE_n

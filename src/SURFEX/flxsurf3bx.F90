@@ -20,6 +20,8 @@
 !copyright (C) 2001  MSC-RPN COMM  %%%RPNPHY%%%
 !!!S/P  FLXSURF3
 !
+      MODULE MODI_FLXSURF3BX
+      CONTAINS
       SUBROUTINE FLXSURF3BX(CMU, CTU, RIB, FTEMP, FVAP, ILMO,           &
      &                   UE, FCOR, TA , QA , ZU, ZT, VA,                &
      &                   TG , QG , H , Z0 , Z0T,                        &
@@ -363,3 +365,4 @@
       END FUNCTION PSI
 !
       END SUBROUTINE FLXSURF3BX
+      END MODULE MODI_FLXSURF3BX

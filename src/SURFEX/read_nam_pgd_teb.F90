@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_NAM_PGD_TEB
+CONTAINS
       SUBROUTINE READ_NAM_PGD_TEB(HPROGRAM,KTEB_PATCH, HBEM,        &
                                   HCOOL_COIL, HHEAT_COIL, OAUTOSIZE,&
                                   KROAD_LAYER, KROOF_LAYER,         &
@@ -164,3 +166,4 @@ IF (LHOOK) CALL DR_HOOK('READ_NAM_PGD_TEB',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_NAM_PGD_TEB
+END MODULE MODI_READ_NAM_PGD_TEB

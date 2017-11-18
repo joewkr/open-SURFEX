@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_BILIN_COEF
+CONTAINS
      SUBROUTINE BILIN_COEF (KLUOUT,PX1,PY1,PX2,PY2,PCX,PCY,KCI,KCJ)
 !     #########################################################################
 !
@@ -228,3 +230,4 @@ IF (LHOOK) CALL DR_HOOK('BILIN_COEF_3',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE BILIN_COEF
+END MODULE MODI_BILIN_COEF

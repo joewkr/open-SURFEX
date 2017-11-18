@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ISBA_FLOOD_PROPERTIES
+CONTAINS
       SUBROUTINE ISBA_FLOOD_PROPERTIES(PLAI,PFFLOOD,PFFROZEN,PZ0FLOOD, &
                                        PFFG_NOSNOW,PFFV_NOSNOW         )
 !     ############################################################################
@@ -101,3 +103,4 @@ IF (LHOOK) CALL DR_HOOK('ISBA_FLOOD_PROPERTIES',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE ISBA_FLOOD_PROPERTIES
+END MODULE MODI_ISBA_FLOOD_PROPERTIES

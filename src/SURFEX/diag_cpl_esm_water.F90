@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DIAG_CPL_ESM_WATER
+CONTAINS
        SUBROUTINE DIAG_CPL_ESM_WATER (W, D, OCPL_SEAICE, PTSTEP, PSFTQ, PRAIN, PSNOW, PLW,   &
                                       PSFTH_ICE, PSFTQ_ICE, PDIR_SW, PSCA_SW    )
 !     #####################################################################
@@ -142,3 +144,4 @@ IF (LHOOK) CALL DR_HOOK('DIAG_CPL_ESM_WATER',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE DIAG_CPL_ESM_WATER
+END MODULE MODI_DIAG_CPL_ESM_WATER

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_HEATCAPZ
+CONTAINS
     SUBROUTINE HEATCAPZ(PSANDZ,PHCAPSOIL)
 !   ###############################################################
 !!****  *HEATCAPZ*
@@ -90,3 +92,4 @@ END WHERE
 IF (LHOOK) CALL DR_HOOK('HEATCAPZ',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE HEATCAPZ
+END MODULE MODI_HEATCAPZ

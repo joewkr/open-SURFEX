@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_WATER_FLUX
+CONTAINS
       SUBROUTINE WATER_FLUX(PZ0SEA,                                         &
                               PTA, PEXNA, PRHOA, PSST, PEXNS, PQA, PRR, PRS,  &
                               PTT, PVMOD, PZREF, PUREF,                       &
@@ -269,3 +271,4 @@ IF (LHOOK) CALL DR_HOOK('WATER_FLUX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE WATER_FLUX
+END MODULE MODI_WATER_FLUX

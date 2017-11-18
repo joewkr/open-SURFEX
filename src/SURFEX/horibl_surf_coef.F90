@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_HORIBL_SURF_COEF
+CONTAINS
     SUBROUTINE HORIBL_SURF_COEF(KOLEN,OINTERP,OGLOBLON,PILO1,PILO2,POLO,&
                                 KO,KINLO,KP,PLOP  )
 !   ###########################################################################
@@ -236,3 +238,4 @@ IF (LHOOK) CALL DR_HOOK('HORIBL_SURF_COEF',1,ZHOOK_HANDLE)
 !
 !
 END SUBROUTINE HORIBL_SURF_COEF
+END MODULE MODI_HORIBL_SURF_COEF

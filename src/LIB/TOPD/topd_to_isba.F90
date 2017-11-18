@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ####################
+MODULE MODI_TOPD_TO_ISBA
+CONTAINS
       SUBROUTINE TOPD_TO_ISBA (K, UG, U, KI,KSTEP,GTOPD)
 !     ####################
 !
@@ -221,3 +223,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('TOPD_TO_ISBA',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE TOPD_TO_ISBA
+END MODULE MODI_TOPD_TO_ISBA

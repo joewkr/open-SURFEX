@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_SBL
+CONTAINS
 SUBROUTINE PREP_SBL (KDIM, SB)
 !     #################################################################################
 !
@@ -85,3 +87,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_SBL',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_SBL
+END MODULE MODI_PREP_SBL

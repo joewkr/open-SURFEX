@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ##########################
+MODULE MODI_WRITE_FILE_MASKTOPD
+CONTAINS
       SUBROUTINE WRITE_FILE_MASKTOPD(KI)
 !     ##########################
 !
@@ -90,3 +92,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('WRITE_FILE_MASKTOPD',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE WRITE_FILE_MASKTOPD
+END MODULE MODI_WRITE_FILE_MASKTOPD

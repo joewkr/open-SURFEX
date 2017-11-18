@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_COARE30_FLUX
+CONTAINS
     SUBROUTINE COARE30_FLUX (S,PZ0SEA,PTA,PEXNA,PRHOA,PSST,PEXNS,PQA,  &
             PVMOD,PZREF,PUREF,PPS,PQSAT,PSFTH,PSFTQ,PUSTAR,PCD,PCDN,PCH,PCE,PRI,&
             PRESA,PRAIN,PZ0HSEA)
@@ -513,3 +515,4 @@ IF (LHOOK) CALL DR_HOOK('COARE30_FLUX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE COARE30_FLUX
+END MODULE MODI_COARE30_FLUX

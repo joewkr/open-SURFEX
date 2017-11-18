@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########################################################################
+MODULE MODI_SURF_SOLAR_SHADOWS
+CONTAINS
 SUBROUTINE SURF_SOLAR_SHADOWS (PMAP,PXHAT,PYHAT,PCOSZEN,PSINZEN,PAZIMSOL,  &
                                PZS,PZS_XY,ZXHAT_ll,ZYHAT_ll,IIOR_ll,       &
                                IJOR_ll,ZZS_ll,ZZS_XY_ll,PDIRSWDT,PDIRSRFSWD)
@@ -476,3 +478,4 @@ OF=.TRUE.
 END SUBROUTINE SOLAR_INTERC
 !
 END SUBROUTINE SURF_SOLAR_SHADOWS
+END MODULE MODI_SURF_SOLAR_SHADOWS

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_RMC01_SURF
+CONTAINS
       SUBROUTINE RMC01_SURF(PZ, PLMO, PLK, PLEPS, ONEUTRAL)
 !     ##############################################################
 !
@@ -148,3 +150,4 @@ IF (LHOOK) CALL DR_HOOK('RMC01_SURF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE RMC01_SURF
+END MODULE MODI_RMC01_SURF

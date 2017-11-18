@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
+MODULE MODI_FLOOR_LAYER_E_BUDGET
+CONTAINS
     SUBROUTINE FLOOR_LAYER_E_BUDGET(B, PTSTEP, PFLX_BLD_FL, PDQS_FL, PIMB_FL, PRADHT_IN,  &
                                     PRAD_WL_FL, PRAD_RF_FL, PRAD_WIN_FL, PLOAD_FL,        &
                                     PRAD_FL_MA, PCONV_FL_BLD                  )
@@ -175,3 +177,4 @@ PIMB_FL(:) = PFLX_BLD_FL(:) - PDQS_FL(:)
 IF (LHOOK) CALL DR_HOOK('FLOOR_LAYER_E_BUDGET',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE FLOOR_LAYER_E_BUDGET
+END MODULE MODI_FLOOR_LAYER_E_BUDGET

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DIAG_INLINE_SURF_ATM_n
+CONTAINS
        SUBROUTINE DIAG_INLINE_SURF_ATM_n (DGO, D, PHW, PHT, PPS, PRHOA, PTRAD, PEMIS, PSFU, PSFV, PSFCO2)
 !     ###############################################################################!
 !!****  *DIAG_INLINE_SURF_ATM_n * - Computes diagnostics during SURF_ATM time-step
@@ -79,3 +81,4 @@ IF (LHOOK) CALL DR_HOOK('DIAG_INLINE_SURF_ATM_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE DIAG_INLINE_SURF_ATM_n
+END MODULE MODI_DIAG_INLINE_SURF_ATM_n

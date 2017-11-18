@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_AVERAGE_PHY
+CONTAINS
       SUBROUTINE AVERAGE_PHY(PFRAC_TILE,             &
                    PTSURF_TILE, PZ0_TILE,               &
                    PZ0H_TILE, PQSURF_TILE,              &
@@ -139,3 +141,4 @@ IF (LHOOK) CALL DR_HOOK('AVERAGE_PHY',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE AVERAGE_PHY
+END MODULE MODI_AVERAGE_PHY

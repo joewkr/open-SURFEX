@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ISBA_MEB
+CONTAINS
       SUBROUTINE ISBA_MEB(IO, KK, PK, PEK, DK, DEK, DMK, G, AG,                     &
                           TPTIME, OMEB, OSHADE, HIMPLICIT_WIND, PTSTEP,             &
                           PSOILHCAPZ, PSOILCONDZ, PFROZEN1, PPS, PZENITH,           &
@@ -1882,3 +1884,4 @@ END SUBROUTINE ICE_LITTER
 !===============================================================================
 
 END SUBROUTINE ISBA_MEB
+END MODULE MODI_ISBA_MEB

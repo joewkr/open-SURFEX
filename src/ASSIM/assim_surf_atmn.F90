@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
+MODULE MODI_ASSIM_SURF_ATM_n
+CONTAINS
 SUBROUTINE ASSIM_SURF_ATM_n (U, IM, SM, TM, WM, HPROGRAM, KI,                          &
                              PCON_RAIN, PSTRAT_RAIN, PCON_SNOW, PSTRAT_SNOW, PCLOUDS,  &
                              PLSM, PEVAPTR, PEVAP, PSWEC, PTSC, PTS, PT2M, PHU2M, PSWE,&
@@ -295,4 +297,4 @@ END SUBROUTINE ASSIM_TREAT_SURF
 !=======================================================================================
 END SUBROUTINE ASSIM_SURF_ATM_n
 !=======================================================================================
-
+END MODULE MODI_ASSIM_SURF_ATM_n

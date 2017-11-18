@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DIAG_TOWN_n
+CONTAINS
 SUBROUTINE DIAG_TOWN_n (DLO, DL, DLC, TD, HTOWN, HPROGRAM, DUP, DUPC, KMASK )
 !     ######################################################################
 !
@@ -110,3 +112,4 @@ IF (LHOOK) CALL DR_HOOK('DIAG_TOWN_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE DIAG_TOWN_n
+END MODULE MODI_DIAG_TOWN_n

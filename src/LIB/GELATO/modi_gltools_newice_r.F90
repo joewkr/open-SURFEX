@@ -81,6 +81,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE gltools_newice_r -------------------------
 !
+MODULE MODI_gltools_newice_r
+CONTAINS
 SUBROUTINE gltools_newice_r  &
   ( pfsi,phsi,tpmxl,tpsit,tpsil,  &
     ptsf,pssi,phsn,prsn,pasn,pent )
@@ -213,6 +215,7 @@ SUBROUTINE gltools_newice_r  &
   END DO
 !
 END SUBROUTINE gltools_newice_r
+END MODULE MODI_gltools_newice_r
 !
 ! ---------------------- END SUBROUTINE gltools_newice_r ------------------------
 ! -----------------------------------------------------------------------

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_HYDRO_DT92
+CONTAINS
       SUBROUTINE HYDRO_DT92(PTSTEP,                                 &
                               PRUNOFFB, PWWILT,                       &
                               PRUNOFFD, PWSAT,                        &
@@ -164,3 +166,4 @@ IF (LHOOK) CALL DR_HOOK('HYDRO_DT92',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE HYDRO_DT92
+END MODULE MODI_HYDRO_DT92

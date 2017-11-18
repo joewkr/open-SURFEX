@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SPINUP_MAX
+CONTAINS
       SUBROUTINE SPINUP_MAX(PSPINMAX,KNBYEARSPIN,KNBYEARSOLD,KSPIN)
 
 !     #######################################################################
@@ -115,3 +117,4 @@ IF (LHOOK) CALL DR_HOOK('SPINUP_MAX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SPINUP_MAX
+END MODULE MODI_SPINUP_MAX

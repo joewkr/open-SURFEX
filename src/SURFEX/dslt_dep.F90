@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DSLT_DEP
+CONTAINS
 SUBROUTINE DSLT_DEP (PSVT, PFSVT, PUSTAR, PRESA, PTA, PRHODREF,             &
                      PEMISSIG, PEMISRADIUS, KPMODE, PDENSITY, PMOLARWEIGHT, &
                      PCONVERTFACM0, PCONVERTFACM6, PCONVERTFACM3,           &
@@ -192,3 +194,4 @@ IF (LHOOK) CALL DR_HOOK('DSLT_DEP',1,ZHOOK_HANDLE)
 !---------------------------------------------------------------------
 !
 END SUBROUTINE DSLT_DEP
+END MODULE MODI_DSLT_DEP

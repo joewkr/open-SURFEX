@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
+MODULE MODI_WINDOW_SHADING
+CONTAINS
 SUBROUTINE WINDOW_SHADING(PSHGC, PSHGC_SH, O_SHADE, PALB_WALL,      &
                           PABS_WIN, PABS_WINSH, PALB_WIN, PTRAN_WIN )
 !     #############################################################
@@ -86,3 +88,4 @@ END WHERE
 IF (LHOOK) CALL DR_HOOK('WINDOW_SHADING',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE WINDOW_SHADING
+END MODULE MODI_WINDOW_SHADING

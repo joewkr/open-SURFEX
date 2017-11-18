@@ -65,6 +65,8 @@
 ! ---------------------- END MODULE TOOLS_NWORDS ------------------------
 !
 !
+MODULE MODI_gltools_nwords
+CONTAINS
 FUNCTION gltools_nwords( hval ) RESULT(nwords)
 !
 IMPLICIT NONE
@@ -104,3 +106,4 @@ DO WHILE ( inum /= -1 )
 END DO
 !
 END FUNCTION gltools_nwords
+END MODULE MODI_gltools_nwords

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
+MODULE MODI_BEM
+CONTAINS
         SUBROUTINE BEM(BOP, T, B, DMT, PTSTEP, PSUNTIME, KDAY, PPS, PRHOA, PT_CAN,  &
                        PQ_CAN, PU_CAN, PHU_BLD, PT_RAD_IND, PFLX_BLD_FL, PFLX_BLD_MA,&
                        PRADHT_IN, PRAD_RF_MA, PRAD_RF_FL, PRAD_WL_MA, PRAD_WL_FL,&
@@ -716,3 +718,4 @@ IF (LHOOK) CALL DR_HOOK('BEM:GET_NAT_VENT',1,ZHOOK_HANDLE)
 END SUBROUTINE GET_NAT_VENT
 !
 END SUBROUTINE BEM
+END MODULE MODI_BEM

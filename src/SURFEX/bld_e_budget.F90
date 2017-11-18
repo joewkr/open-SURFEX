@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_BLD_E_BUDGET
+CONTAINS
     SUBROUTINE BLD_E_BUDGET( OTI_EVOL, PTSTEP, PBLD, PWALL_O_HOR,      &
                              PRHOA, PT_ROOF, PT_WALL, PTI_BLD, PTS_FLOOR )
 !   ##########################################################################
@@ -140,3 +142,4 @@ PTI_BLD(:) = MAX( PTI_BLD(:) , PTS_FLOOR (:) )
 IF (LHOOK) CALL DR_HOOK('BLD_E_BUDGET',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE BLD_E_BUDGET
+END MODULE MODI_BLD_E_BUDGET

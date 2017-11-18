@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
+MODULE MODI_READ_GRIDTYPE_LONLATVAL
+CONTAINS
       SUBROUTINE READ_GRIDTYPE_LONLATVAL (&
                                           HPROGRAM,KGRID_PAR,KLU,OREAD,KSIZE,PGRID_PAR,KRESP,HDIR)
 !     ################################################################
@@ -125,3 +127,4 @@ IF (LHOOK) CALL DR_HOOK('READ_GRIDTYPE_LONLATVAL',1,ZHOOK_HANDLE)
 !---------------------------------------------------------------------------
 !
 END SUBROUTINE READ_GRIDTYPE_LONLATVAL
+END MODULE MODI_READ_GRIDTYPE_LONLATVAL

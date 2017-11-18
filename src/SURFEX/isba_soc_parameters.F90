@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
+MODULE MODI_ISBA_SOC_PARAMETERS
+CONTAINS
 SUBROUTINE ISBA_SOC_PARAMETERS (HRUNOFF,PSOC,K,NP,PFRACSOC,PWSAT,PWFC,PWWILT,KPATCH)
 !     ########################################################################
 !
@@ -383,8 +385,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('ISBA_SOC_PARAMETERS',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE ISBA_SOC_PARAMETERS
-
-
-
-
-
+END MODULE MODI_ISBA_SOC_PARAMETERS

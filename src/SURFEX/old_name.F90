@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_OLD_NAME
+CONTAINS
       SUBROUTINE OLD_NAME (HPROGRAM,HRECIN,HRECOUT,HDIR)
 !     #######################################################
 !
@@ -86,3 +88,4 @@ END IF
 IF (LHOOK) CALL DR_HOOK('OLD_NAME',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE OLD_NAME
+END MODULE MODI_OLD_NAME

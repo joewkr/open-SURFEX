@@ -67,6 +67,8 @@
 ! --------------------- END MODULE TOOLS_NEXTLINE -----------------------
 !
 !
+MODULE MODI_gltools_nextline
+CONTAINS
 SUBROUTINE gltools_nextline( klun,kend,hpar,hval,hcomment )
 !
 USE modd_glt_param
@@ -132,3 +134,4 @@ IF ( kend==0 ) THEN
 ENDIF
 !
 END SUBROUTINE gltools_nextline
+END MODULE MODI_gltools_nextline

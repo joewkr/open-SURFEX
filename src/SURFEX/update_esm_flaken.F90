@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ############################################################
+MODULE MODI_UPDATE_ESM_FLAKE_n
+CONTAINS
       SUBROUTINE UPDATE_ESM_FLAKE_n (F,KI,KSW,PZENITH,PDIR_ALB,     &
                                     PSCA_ALB,PEMIS,PTSRAD,PTSURF )
 !     ############################################################
@@ -93,3 +95,4 @@ IF (LHOOK) CALL DR_HOOK('UPDATE_ESM_FLAKE_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE UPDATE_ESM_FLAKE_n
+END MODULE MODI_UPDATE_ESM_FLAKE_n

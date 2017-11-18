@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INIT_ISBA_SBL
+CONTAINS
     SUBROUTINE INIT_ISBA_SBL(IO, K, NP, NPE, SB, PTSTEP, PPA, PPS, PTA, PQA, PRHOA, PU, PV, &
                              PDIR_SW, PSCA_SW, PSW_BANDS, PRAIN, PSNOW, PZREF, PUREF, PSSO_SLOPE )
 !     #################################################################################
@@ -392,3 +394,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('INIT_ISBA_SBL',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_ISBA_SBL
+END MODULE MODI_INIT_ISBA_SBL

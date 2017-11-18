@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################################
+MODULE MODI_CANOPY_EVOL
+CONTAINS
       SUBROUTINE CANOPY_EVOL(SB, KI, PTSTEP, KIMPL, PZZ, PWIND, PTA, PQA, PPA, PRHOA, &
                              PSFLUX_U, PSFLUX_T, PSFLUX_Q, PFORC_U, PDFORC_UDU,  &
                              PFORC_E, PDFORC_EDE, PFORC_T, PDFORC_TDT, &
@@ -313,4 +315,5 @@ IF (LHOOK) CALL DR_HOOK('CANOPY_EVOL',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 END SUBROUTINE CANOPY_EVOL
+END MODULE MODI_CANOPY_EVOL
 

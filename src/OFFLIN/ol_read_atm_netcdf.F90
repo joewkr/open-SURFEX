@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_OL_READ_ATM_NETCDF
+CONTAINS
 SUBROUTINE OL_READ_ATM_NETCDF (&
                                 HSURF_FILETYPE,                            &
                                  PTA,PQA,PWIND,PDIR_SW,PSCA_SW,PLW,PSNOW,   &
@@ -106,3 +108,4 @@ IF (LHOOK) CALL DR_HOOK('OL_READ_ATM_NETCDF',0,ZHOOK_HANDLE)
 IF (LHOOK) CALL DR_HOOK('OL_READ_ATM_NETCDF',1,ZHOOK_HANDLE)
 
 END SUBROUTINE OL_READ_ATM_NETCDF
+END MODULE MODI_OL_READ_ATM_NETCDF

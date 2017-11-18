@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 
 !     ###################################################################
+MODULE MODI_OI_HOR_EXTRAPOL_SURF
+CONTAINS
       SUBROUTINE OI_HOR_EXTRAPOL_SURF(NDIM,PLAT_IN,PLON_IN,PFIELD_IN, &
                                          PLAT,PLON,PFIELD,OINTERP,PZS,NDIM2)
 !     ###################################################################
@@ -178,3 +180,4 @@ IF (LHOOK) CALL DR_HOOK('OI_HOR_EXTRAPOL_SURF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE OI_HOR_EXTRAPOL_SURF
+END MODULE MODI_OI_HOR_EXTRAPOL_SURF

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_COUPLING_INLAND_WATER_n
+CONTAINS
 SUBROUTINE COUPLING_INLAND_WATER_n (FM, WM, DGO, DL, DLC, U, DST, SLT, &
                                     HPROGRAM, HCOUPLING, PTIMEC, PTSTEP, KYEAR, KMONTH, KDAY, &
                                     PTIME, KI, KSV, KSW, PTSUN, PZENITH, PZENITH2, PAZIM,     &
@@ -201,3 +203,4 @@ IF (LHOOK) CALL DR_HOOK('COUPLING_INLAND_WATER_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE COUPLING_INLAND_WATER_n
+END MODULE MODI_COUPLING_INLAND_WATER_n

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_GR_SNOW
+CONTAINS
       SUBROUTINE READ_GR_SNOW(HPROGRAM, HSURFTYPE, HPREFIX,     &
                               KLU, KSIZE_P, KMASK_P, KPATCH, TPSNOW, HDIR, KVERSION, KBUGFIX, KNPATCH)
 !     ##########################################################
@@ -415,3 +417,4 @@ DEALLOCATE(ZWORK3D)
 END SUBROUTINE READ_LAYERS
 !
 END SUBROUTINE READ_GR_SNOW
+END MODULE MODI_READ_GR_SNOW

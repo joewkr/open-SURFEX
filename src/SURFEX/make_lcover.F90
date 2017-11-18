@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 
 !     #########
+MODULE MODI_MAKE_LCOVER
+CONTAINS
       SUBROUTINE MAKE_LCOVER(OCOVER)
 !     ##############################################################
 !
@@ -110,3 +112,4 @@ NPROC = IPROC
 IF (LHOOK) CALL DR_HOOK('MAKE_LCOVER',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE MAKE_LCOVER
+END MODULE MODI_MAKE_LCOVER

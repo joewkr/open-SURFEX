@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #####################
+MODULE MODI_COUPL_TOPD
+CONTAINS
       SUBROUTINE COUPL_TOPD (DEC, DC, DMI, PMESH_SIZE, IO, S, K, NK, NP, NPE, &
                              UG, U, HPROGRAM, HSTEP, KI, KSTEP)
 !     #####################
@@ -519,3 +521,4 @@ IF (LHOOK) CALL DR_HOOK('COUPL_TOPD',1,ZHOOK_HANDLE)
 !
 !
 END SUBROUTINE COUPL_TOPD
+END MODULE MODI_COUPL_TOPD

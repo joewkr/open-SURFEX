@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_TEB_GARDEN
+CONTAINS
     SUBROUTINE TEB_GARDEN (DTCO, G, TOP, T, BOP, B, TPN, TIR, DMT, GDM, GRM, KTEB_P,              &
                            HIMPLICIT_WIND, PTSUN, PT_CAN, PQ_CAN, PU_CAN, PT_LOWCAN, PQ_LOWCAN,   &
                            PU_LOWCAN, PZ_LOWCAN, PPEW_A_COEF, PPEW_B_COEF, PPEW_A_COEF_LOWCAN,    &
@@ -836,3 +838,4 @@ END SUBROUTINE TEB_GARDEN3
 !
 !
 END SUBROUTINE TEB_GARDEN
+END MODULE MODI_TEB_GARDEN

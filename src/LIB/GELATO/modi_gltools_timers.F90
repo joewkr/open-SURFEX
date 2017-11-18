@@ -77,6 +77,8 @@
 ! -----------------------------------------------------------------------
 ! -------------------------- SUBROUTINE gltools_timers --------------------------
 !
+MODULE MODI_gltools_timers
+CONTAINS
 SUBROUTINE gltools_timers( hlabel )
 !
   USE modd_glt_param
@@ -129,6 +131,7 @@ SUBROUTINE gltools_timers( hlabel )
   ENDIF
 !
 END SUBROUTINE gltools_timers
+END MODULE MODI_gltools_timers
 !
 ! ----------------------- END SUBROUTINE gltools_timers -------------------------
 ! -----------------------------------------------------------------------

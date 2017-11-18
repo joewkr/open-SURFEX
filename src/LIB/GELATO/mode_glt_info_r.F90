@@ -50,22 +50,7 @@
 ! ----------------------- BEGIN MODULE mode_glt_info_r ---------------------
 
 MODULE mode_glt_info_r
-INTERFACE
-
-SUBROUTINE glt_info_si_r(omess,tpsit,tpsil)
-  USE modd_types_glt
-  USE modd_glt_param
-  CHARACTER(*) ::  &
-        omess
-  TYPE(t_sit), DIMENSION(nt,np), OPTIONAL, INTENT(in) ::  &
-        tpsit
-  TYPE(t_vtp), DIMENSION(nl,nt,np), OPTIONAL, INTENT(in) ::  &
-        tpsil
-END SUBROUTINE glt_info_si_r
-
-END INTERFACE
-END MODULE mode_glt_info_r
-
+CONTAINS
 ! ----------------------- END MODULE mode_glt_info_r ------------------------
 
 
@@ -297,3 +282,4 @@ END SUBROUTINE glt_info_si_r
 !
 ! ----------------------- END SUBROUTINE glt_info_si_r ----------------------
 ! -----------------------------------------------------------------------
+END MODULE mode_glt_info_r

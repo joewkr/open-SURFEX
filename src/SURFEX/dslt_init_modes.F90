@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DSLT_INIT_MODES
+CONTAINS
 SUBROUTINE DSLT_INIT_MODES (KEQ, KSV_BEG, KSV_END, OVARSIG, ORGFIX, &
                             KMDEBEG, KMDE)
 !!    ###########################################
@@ -82,3 +84,4 @@ END IF
 IF (LHOOK) CALL DR_HOOK('DSLT_INIT_MODES',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DSLT_INIT_MODES
+END MODULE MODI_DSLT_INIT_MODES

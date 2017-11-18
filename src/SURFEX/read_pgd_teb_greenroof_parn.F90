@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_PGD_TEB_GREENROOF_PAR_n
+CONTAINS
       SUBROUTINE READ_PGD_TEB_GREENROOF_PAR_n (DTV, IO, S, K, KDIM, HPROGRAM)
 !     ################################################
 !
@@ -369,3 +371,4 @@ IF (LHOOK) CALL DR_HOOK('READ_PGD_TEB_GREENROOF_PAR_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_PGD_TEB_GREENROOF_PAR_n
+END MODULE MODI_READ_PGD_TEB_GREENROOF_PAR_n

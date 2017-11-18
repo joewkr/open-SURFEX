@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##############################################################
+MODULE MODI_PACK_GRID_LONLATVAL
+CONTAINS
       SUBROUTINE PACK_GRID_LONLATVAL(KMASK_SIZE,KMASK,KGRID_PAR1,PGRID_PAR1,KGRID_PAR2,OPACK,PGRID_PAR2)
 !     ##############################################################
 !
@@ -114,3 +116,4 @@ IF (LHOOK) CALL DR_HOOK('PACK_GRID_LONLATVAL',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE PACK_GRID_LONLATVAL
+END MODULE MODI_PACK_GRID_LONLATVAL

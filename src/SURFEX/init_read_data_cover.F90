@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INIT_READ_DATA_COVER
+CONTAINS
       SUBROUTINE INIT_READ_DATA_COVER(HPROGRAM)
 !     ##########################################################################
 !!
@@ -111,3 +113,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_READ_DATA_COVER',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INIT_READ_DATA_COVER
+END MODULE MODI_INIT_READ_DATA_COVER

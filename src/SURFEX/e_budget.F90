@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_E_BUDGET
+CONTAINS
       SUBROUTINE E_BUDGET(IO, KK, PK, PEK, DK, DMK, HIMPLICIT_WIND,  &
                           PTSTEP, PUREF, PPEW_A_COEF, PPEW_B_COEF, PPET_A_COEF, &
                           PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF, PVMOD, PTSM, PT2M, &
@@ -612,3 +614,4 @@ IF (LHOOK) CALL DR_HOOK('E_BUDGET',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE E_BUDGET
+END MODULE MODI_E_BUDGET

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SUM_ON_ALL_PROCS
+CONTAINS
       FUNCTION SUM_ON_ALL_PROCS(HPROGRAM,HGRID,OIN,HNAME) RESULT(KOUT)
 !     #######################################################
 !
@@ -109,3 +111,4 @@ IF (LHOOK) CALL DR_HOOK('SUM_ON_ALL_PROCS',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END FUNCTION SUM_ON_ALL_PROCS
+END MODULE MODI_SUM_ON_ALL_PROCS

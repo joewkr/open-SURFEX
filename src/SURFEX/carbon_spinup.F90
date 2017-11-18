@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CARBON_SPINUP
+CONTAINS
       SUBROUTINE CARBON_SPINUP(TPTIME, IO )
 !
 !     #######################################################################
@@ -90,3 +92,4 @@ IF (LHOOK) CALL DR_HOOK('CARBON_SPINUP',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE CARBON_SPINUP
+END MODULE MODI_CARBON_SPINUP

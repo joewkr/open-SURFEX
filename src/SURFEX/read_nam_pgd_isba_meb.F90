@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_NAM_PGD_ISBA_MEB
+CONTAINS
       SUBROUTINE READ_NAM_PGD_ISBA_MEB(HPROGRAM, KLUOUT, OMEB_PATCH, OFORC_MEASURE, &
                       OMEB_LITTER, OMEB_GNDRES)
 !     #############################################################################
@@ -129,3 +131,4 @@ IF (LHOOK) CALL DR_HOOK('READ_NAM_PGD_ISBA_MEB',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_NAM_PGD_ISBA_MEB
+END MODULE MODI_READ_NAM_PGD_ISBA_MEB

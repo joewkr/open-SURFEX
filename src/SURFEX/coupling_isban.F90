@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_COUPLING_ISBA_n
+CONTAINS
 SUBROUTINE COUPLING_ISBA_n (DTCO, UG, U, USS, NAG, CHI, NCHI, DTI, ID, NGB, GB,         &
                             ISS, NISS, IG, NIG, IO, S, K, NK, NP, NPE, NDST, SLT,       &
                             HPROGRAM, HCOUPLING, PTSTEP,  KYEAR, KMONTH, KDAY, PTIME,   &
@@ -1295,3 +1297,4 @@ IF (LHOOK) CALL DR_HOOK('COUPLING_ISBA_n:TREAT_PATCH',1,ZHOOK_HANDLE)
 END SUBROUTINE TREAT_PATCH
 !==========================================================================================
 END SUBROUTINE COUPLING_ISBA_n
+END MODULE MODI_COUPLING_ISBA_n

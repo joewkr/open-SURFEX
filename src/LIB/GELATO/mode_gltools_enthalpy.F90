@@ -62,62 +62,7 @@
 ! ----------------- BEGIN MODULE mode_gltools_enthalpy --------------------
 !
 MODULE mode_gltools_enthalpy
-INTERFACE
-!
-SUBROUTINE glt_aventh(tpsit,tpsil,pentsi,pentsn)
-  USE modd_glt_param
-  USE modd_types_glt
-  TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::  &
-    tpsit
-  TYPE(t_vtp), DIMENSION(nl,nt,np), INTENT(in) ::  &
-    tpsil
-  REAL, DIMENSION(np), INTENT(out) ::  &
-    pentsi,pentsn
-END SUBROUTINE glt_aventh
-!
-FUNCTION glt_enthalpy0d(pt,ps)
-  REAL, INTENT(in) ::  &
-    pt
-  REAL, INTENT(in) ::  &
-    ps
-  REAL ::  &
-    glt_enthalpy0d
-END FUNCTION glt_enthalpy0d
-!
-FUNCTION glt_enthalpy1d(gmsk,pt,ps)
-  USE modd_glt_param, only: np
-  LOGICAL, DIMENSION(np), INTENT(in) ::  &
-    gmsk
-  REAL, DIMENSION(np), INTENT(in) ::  &
-    pt
-  REAL, DIMENSION(np), INTENT(in) ::  &
-    ps
-  REAL, DIMENSION(np) ::  &
-    glt_enthalpy1d
-END FUNCTION glt_enthalpy1d
-!
-FUNCTION glt_enthalpy2d(pt,ps)
-  USE modd_glt_param, only: np,nt
-  REAL, DIMENSION(nt,np), INTENT(in) ::  &
-    pt
-  REAL, DIMENSION(nt,np), INTENT(in) ::  &
-    ps
-  REAL, DIMENSION(nt,np) ::  &
-    glt_enthalpy2d
-END FUNCTION glt_enthalpy2d
-!
-FUNCTION glt_enthalpy3d(pvtp,pvsp)
-  USE modd_glt_param, only: nl,np,nt, nilay
-  REAL, DIMENSION(nl,nt,np), INTENT(in) ::  &
-    pvtp
-  REAL, DIMENSION(nl,nt,np), OPTIONAL, INTENT(in) ::  &
-    pvsp
-  REAL, DIMENSION(nl,nt,np) ::  &
-    glt_enthalpy3d
-END FUNCTION glt_enthalpy3d
-!
-END INTERFACE
-END MODULE mode_gltools_enthalpy
+CONTAINS
 !
 ! ------------------ END MODULE mode_gltools_enthalpy ---------------------
 !
@@ -451,3 +396,4 @@ END FUNCTION glt_enthalpy3d
 !
 ! ----------------------- END FUNCTION glt_enthalpy3d -----------------------
 ! -----------------------------------------------------------------------
+END MODULE mode_gltools_enthalpy

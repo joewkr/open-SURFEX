@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
+MODULE MODI_INIT_TOPD_PGD
+CONTAINS
       SUBROUTINE INIT_TOPD_PGD(HPROGRAM)
 !     #######################
 !
@@ -100,3 +102,4 @@ CALL INIT_TOPD('ASCII ')
 IF (LHOOK) CALL DR_HOOK('INIT_TOPD_PGD',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_TOPD_PGD
+END MODULE MODI_INIT_TOPD_PGD

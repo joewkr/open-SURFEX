@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_AVERAGE1_MESH
+CONTAINS
       SUBROUTINE AVERAGE1_MESH(UG,KLUOUT,KNBLINES,PLAT,PLON,PVALUE,OMULTITYPE,KFACT,PNODATA)
 !     #######################################################
 !
@@ -181,3 +183,4 @@ IF (LHOOK) CALL DR_HOOK('AVERAGE1_MESH',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE AVERAGE1_MESH
+END MODULE MODI_AVERAGE1_MESH

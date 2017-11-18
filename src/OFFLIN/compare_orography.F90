@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_COMPARE_OROGRAPHY
+CONTAINS
 SUBROUTINE COMPARE_OROGRAPHY (DTCO, U, HPROGRAM, OSURFZS, PDELT_ZSMAX  )
 !**************************************************************************
 !
@@ -90,3 +92,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('COMPARE_OROGRAPHY',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE COMPARE_OROGRAPHY
+END MODULE MODI_COMPARE_OROGRAPHY

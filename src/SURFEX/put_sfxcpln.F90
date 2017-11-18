@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PUT_SFXCPL_n
+CONTAINS
 SUBROUTINE PUT_SFXCPL_n (F, IM, S, U, W, &
                          HPROGRAM,KI,KSW,PSW_BANDS,PZENITH, &
                         PLAND_WTD,PLAND_FWTD,PLAND_FFLOOD, &
@@ -163,3 +165,4 @@ IF (LHOOK) CALL DR_HOOK('PUT_SFXCL_N',1,ZHOOK_HANDLE)
 !
 !
 END SUBROUTINE PUT_SFXCPL_n
+END MODULE MODI_PUT_SFXCPL_n

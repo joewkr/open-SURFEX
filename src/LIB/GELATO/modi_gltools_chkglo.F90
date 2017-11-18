@@ -81,6 +81,8 @@
 ! * Subroutine used to check global sea ice extent, area and volume in
 ! both hemispheres.
 
+MODULE MODI_gltools_chkglo
+CONTAINS
 SUBROUTINE gltools_chkglo(omsg,tpdom,tpsit)
 !
   USE modd_glt_const_thm
@@ -214,6 +216,7 @@ SUBROUTINE gltools_chkglo(omsg,tpdom,tpsit)
 1200 FORMAT( 5X,"Ice volume  (SIVH.SIG)",2(4X,F9.5) )
 !
 END SUBROUTINE gltools_chkglo
+END MODULE MODI_gltools_chkglo
 
 ! ----------------------- END SUBROUTINE gltools_chkglo -------------------------
 ! -----------------------------------------------------------------------

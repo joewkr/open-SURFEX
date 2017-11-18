@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GARDEN
+CONTAINS
     SUBROUTINE GARDEN (DTCO, G, T, TOP, TIR, DTV, GB, DK, DEK, DMK, GDO, S, K, P, PEK,    &
                        HIMPLICIT_WIND, TPTIME, PTSUN, PPEW_A_COEF, PPEW_B_COEF, &
                        PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF, PPEQ_B_COEF,      &
@@ -355,3 +357,4 @@ IF (LHOOK) CALL DR_HOOK('GARDEN',1,ZHOOK_HANDLE)
 !
 !
 END SUBROUTINE GARDEN
+END MODULE MODI_GARDEN

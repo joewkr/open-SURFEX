@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_NAM_PGD_OROGRAPHY
+CONTAINS
       SUBROUTINE READ_NAM_PGD_OROGRAPHY(HPROGRAM, HZS, HFILETYPE, PUNIF_ZS, &
                                           HOROGTYPE, PENV, OIMP_ZS,&
                                   HSLOPE, HSLOPEFILETYPE, OEXPLICIT_SLOPE )
@@ -149,3 +151,4 @@ IF (LHOOK) CALL DR_HOOK('READ_NAM_PGD_OROGRAPHY',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_NAM_PGD_OROGRAPHY
+END MODULE MODI_READ_NAM_PGD_OROGRAPHY

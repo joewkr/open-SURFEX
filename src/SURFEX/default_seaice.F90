@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DEFAULT_SEAICE
+CONTAINS
 SUBROUTINE DEFAULT_SEAICE(HPROGRAM,                                   &
                           HINTERPOL_SIC, HINTERPOL_SIT, PFREEZING_SST,&
                           PSEAICE_TSTEP, PSIC_EFOLDING_TIME,          &
@@ -488,3 +490,4 @@ IF (LHOOK) CALL DR_HOOK('DEFAULT_SEAICE',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DEFAULT_SEAICE
+END MODULE MODI_DEFAULT_SEAICE

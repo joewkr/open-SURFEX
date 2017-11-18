@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
+MODULE MODI_AVERAGE2_OROGRAPHY
+CONTAINS
       SUBROUTINE AVERAGE2_OROGRAPHY (USS)
 !     #########################
 !
@@ -130,3 +132,4 @@ IF (LHOOK) CALL DR_HOOK('AVERAGE2_OROGRAPHY',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE AVERAGE2_OROGRAPHY
+END MODULE MODI_AVERAGE2_OROGRAPHY

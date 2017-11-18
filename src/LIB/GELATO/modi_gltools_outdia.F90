@@ -81,6 +81,8 @@
 ! -----------------------------------------------------------------------
 ! -------------------------- SUBROUTINE gltools_outdia --------------------------
 !
+MODULE MODI_gltools_outdia
+CONTAINS
 SUBROUTINE gltools_outdia  &
         ( tpind,tpnam,tpdom,pfield,pcumdia,pwgt )
 !
@@ -198,6 +200,7 @@ SUBROUTINE gltools_outdia  &
 1000 FORMAT(3X,A20," ; ",A," ; ",A1," ; ",A," ; ",A)
 !
 END SUBROUTINE gltools_outdia
+END MODULE MODI_gltools_outdia
 !
 ! ------------------------ END SUBROUTINE gltools_outdia ------------------------
 ! -----------------------------------------------------------------------

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_SURF_FIELD2D
+CONTAINS
       SUBROUTINE READ_SURF_FIELD2D( HPROGRAM,PFIELD2D,HFIELDNAME,HCOMMENT,HDIR,KRESP)
 !     #####################################
 !
@@ -134,3 +136,4 @@ IF (PRESENT(KRESP)) KRESP = IRESP
 !-------------------------------------------------------------------------------
 !
       END SUBROUTINE READ_SURF_FIELD2D
+END MODULE MODI_READ_SURF_FIELD2D

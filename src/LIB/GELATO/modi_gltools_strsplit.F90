@@ -71,6 +71,8 @@
 ! --------------------- END MODULE TOOLS_STRSPLIT ------------------------
 !
 !
+MODULE MODI_gltools_strsplit
+CONTAINS
 FUNCTION gltools_strsplit( hval,knword ) RESULT(hresult)
 !
 IMPLICIT NONE
@@ -117,3 +119,4 @@ DO WHILE ( inum /= -1 )
 END DO
 !
 END FUNCTION gltools_strsplit
+END MODULE MODI_gltools_strsplit

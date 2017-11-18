@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !######
+MODULE MODI_PREP_RESTART_COUPL_TOPD
+CONTAINS
 SUBROUTINE PREP_RESTART_COUPL_TOPD (UG, U, &
                                     HPROGRAM,KI)
 !###################################################################
@@ -110,3 +112,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_RESTART_COUPL_TOPD',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_RESTART_COUPL_TOPD
+END MODULE MODI_PREP_RESTART_COUPL_TOPD

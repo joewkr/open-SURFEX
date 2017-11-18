@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
+MODULE MODI_ARRANGE_COVER
+CONTAINS
       SUBROUTINE ARRANGE_COVER (DTCO, OWATER_TO_NATURE, OTOWN_TO_ROCK, &
                                 PDATA_NATURE,PDATA_TOWN,PDATA_SEA,PDATA_WATER,PDATA_VEGTYPE, &
                                PDATA_GARDEN, OGARDEN, PDATA_BLD, PDATA_WALL_O_HOR           )
@@ -204,3 +206,4 @@ IF (LHOOK) CALL DR_HOOK('ARRANGE_COVER',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE ARRANGE_COVER
+END MODULE MODI_ARRANGE_COVER

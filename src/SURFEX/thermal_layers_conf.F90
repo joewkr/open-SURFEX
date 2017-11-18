@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######################################################################
+MODULE MODI_THERMAL_LAYERS_CONF
+CONTAINS
       SUBROUTINE THERMAL_LAYERS_CONF(HTYPE,PD,PD_OUT,PHC,PHC_OUT,PTC,PTC_OUT)
 !     ######################################################################
 !
@@ -422,3 +424,4 @@ ENDIF
 END SUBROUTINE TEBGRID
 !
 END SUBROUTINE THERMAL_LAYERS_CONF
+END MODULE MODI_THERMAL_LAYERS_CONF

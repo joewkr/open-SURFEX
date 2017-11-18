@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_COUPLING_ISBA_OROGRAPHY_n
+CONTAINS
 SUBROUTINE COUPLING_ISBA_OROGRAPHY_n (DTCO, UG, U, USS, SB, NAG, CHI, NCHI, DTV, ID, NGB, GB, &
                                       ISS, NISS, IG, NIG, IO, S, K, NK, NP, NPE, NDST, SLT,   &
                                       HPROGRAM, HCOUPLING, PTSTEP,                            &
@@ -350,3 +352,4 @@ IF (LHOOK) CALL DR_HOOK('COUPLING_ISBA_OROGRAPHY_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE COUPLING_ISBA_OROGRAPHY_n
+END MODULE MODI_COUPLING_ISBA_OROGRAPHY_n

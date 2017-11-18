@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
+MODULE MODI_ECOCLIMAP2_LAI
+CONTAINS
       SUBROUTINE ECOCLIMAP2_LAI (KYEAR)
 !     #########################
 !
@@ -108,3 +110,4 @@ IF (LHOOK) CALL DR_HOOK('ECOCLIMAP2_LAI',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE ECOCLIMAP2_LAI
+END MODULE MODI_ECOCLIMAP2_LAI

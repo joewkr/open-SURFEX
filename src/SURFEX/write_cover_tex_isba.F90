@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_WRITE_COVER_TEX_ISBA
+CONTAINS
       SUBROUTINE WRITE_COVER_TEX_ISBA(KPATCH,KLAYER,HISBA)
 !     ##########################
 !
@@ -568,4 +570,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_COVER_TEX_ISBA',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE WRITE_COVER_TEX_ISBA
-
+END MODULE MODI_WRITE_COVER_TEX_ISBA

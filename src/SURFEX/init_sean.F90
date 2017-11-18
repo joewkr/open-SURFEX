@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
+MODULE MODI_INIT_SEA_n
+CONTAINS
       SUBROUTINE INIT_SEA_n (DTCO, OREAD_BUDGETC, UG, U, GCP, SM, &
                              DGO, DL, DLC, HPROGRAM,HINIT,KI,KSV,KSW,  &
                              HSV,PCO2,PRHOA,                            &
@@ -141,3 +143,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_SEA_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INIT_SEA_n
+END MODULE MODI_INIT_SEA_n

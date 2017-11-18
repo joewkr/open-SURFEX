@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########
+MODULE MODI_EXP_DECAY_SOIL_FR
+CONTAINS
       SUBROUTINE EXP_DECAY_SOIL_FR (HISBA, PF, PK, PC_DEPTH_RATIO)
 !     ##########################################################################
 !
@@ -153,3 +155,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('EXP_DECAY_SOIL_FR',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE EXP_DECAY_SOIL_FR
+END MODULE MODI_EXP_DECAY_SOIL_FR

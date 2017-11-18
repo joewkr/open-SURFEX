@@ -51,34 +51,7 @@
 ! ------------------- BEGIN MODULE mode_gltools_prtrarr -------------------
 
 MODULE mode_gltools_prtrarr
-INTERFACE
-
-SUBROUTINE glt_prtrarr2(omess,pfield,kin,kix,kjn,kjx,ktab)
-  CHARACTER(*), INTENT(in) ::                                           &
-        omess
-  REAL, DIMENSION(:,:), INTENT(in) ::                                   &
-        pfield
-  INTEGER, INTENT(in) ::                                                &
-        kin,kix,kjn,kjx
-  INTEGER, INTENT(in) ::                                                &
-        ktab
-END SUBROUTINE glt_prtrarr2
-
-SUBROUTINE glt_prtrarr3(omess,pfield,klay,kin,kix,kjn,kjx,ktab)
-  CHARACTER(*), INTENT(in) ::                                           &
-        omess
-  REAL, DIMENSION(:,:,:), INTENT(in) ::                                 &
-        pfield
-  INTEGER, INTENT(in) ::                                                &
-        klay
-  INTEGER, INTENT(in) ::                                                &
-        kin,kix,kjn,kjx
-  INTEGER, INTENT(in) ::                                                &
-        ktab
-END SUBROUTINE glt_prtrarr3
-
-END INTERFACE
-END MODULE mode_gltools_prtrarr
+CONTAINS
 
 ! ------------------- END MODULE mode_gltools_prtrarr ---------------------
 
@@ -231,3 +204,4 @@ END SUBROUTINE glt_prtrarr3
 
 ! ----------------------- END SUBROUTINE glt_prtrarr3 -----------------------
 ! -----------------------------------------------------------------------
+END MODULE mode_gltools_prtrarr

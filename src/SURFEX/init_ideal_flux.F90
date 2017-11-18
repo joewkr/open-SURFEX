@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ############################################################
+MODULE MODI_INIT_IDEAL_FLUX
+CONTAINS
       SUBROUTINE INIT_IDEAL_FLUX (DGO, D, DC, OREAD_BUDGETC, &
                                   HPROGRAM,HINIT,KI,KSV,KSW,     &
                                   HSV,PDIR_ALB,PSCA_ALB,        &
@@ -207,3 +209,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_IDEAL_FLUX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INIT_IDEAL_FLUX
+END MODULE MODI_INIT_IDEAL_FLUX

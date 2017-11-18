@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
+MODULE MODI_ISBA_TO_TOPD
+CONTAINS
       SUBROUTINE ISBA_TO_TOPD(PVARI,PVART)
 !     #######################
 !
@@ -78,3 +80,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('ISBA_TO_TOPD',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE ISBA_TO_TOPD
+END MODULE MODI_ISBA_TO_TOPD

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CH_INIT_NAMES
+CONTAINS
 SUBROUTINE CH_INIT_NAMES (KLUOUT,HSV, SV, OVARSIGI, OVARSIGJ)
 !!    ###########################################
 !!
@@ -127,3 +129,4 @@ IF (LHOOK) CALL DR_HOOK('CH_INIT_NAMES',1,ZHOOK_HANDLE)
 
 !
 END SUBROUTINE CH_INIT_NAMES
+END MODULE MODI_CH_INIT_NAMES

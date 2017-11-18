@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !
+MODULE MODI_TRANS_CHAINE
+CONTAINS
 SUBROUTINE TRANS_CHAINE(HCHAINE,KENTIER,KOPTION)
 !----------------------------------------------------------
 !
@@ -71,3 +73,4 @@ END DO
 IF (LHOOK) CALL DR_HOOK('TRANS_CHAINE',1,ZHOOK_HANDLE)
 !---------------
 END SUBROUTINE TRANS_CHAINE
+END MODULE MODI_TRANS_CHAINE

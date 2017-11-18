@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_SEAFLUX
+CONTAINS
 SUBROUTINE PREP_SEAFLUX (DTCO, UG, U, GCP, SG, SB, S, DTS, O, OR, &
                         HPROGRAM,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,YDCTL)
 !     #################################################################################
@@ -237,3 +239,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_SEAFLUX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_SEAFLUX
+END MODULE MODI_PREP_SEAFLUX

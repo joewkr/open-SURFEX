@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SSO
+CONTAINS
       SUBROUTINE SSO (U, UG, USS, OSSO, OSSO_ANIS)
 !     #########################
 !
@@ -568,3 +570,4 @@ IF (LHOOK) CALL DR_HOOK('SSO',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SSO
+END MODULE MODI_SSO

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################################################################
+MODULE MODI_EXPLICIT_SLOPE
+CONTAINS
 SUBROUTINE EXPLICIT_SLOPE (UG,KDIM_FULL, &
                            PZS,PSSO_SLOPE)
 !     #########################################################################
@@ -252,3 +254,4 @@ CALL READ_AND_SEND_MPI(ZSSO_SLOPE0,PSSO_SLOPE)
 DEALLOCATE(ZSSO_SLOPE0)
 !
 END SUBROUTINE EXPLICIT_SLOPE
+END MODULE MODI_EXPLICIT_SLOPE

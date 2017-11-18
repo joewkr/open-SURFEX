@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PACK_PGD
+CONTAINS
       SUBROUTINE PACK_PGD (DTCO, U, HPROGRAM, HSURF, G, OCOVER, PCOVER, PZS, PDIR     )
 !     ##############################################################
 !
@@ -171,3 +173,4 @@ IF (LHOOK) CALL DR_HOOK('PACK_PGD',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE PACK_PGD
+END MODULE MODI_PACK_PGD

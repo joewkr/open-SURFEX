@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################
+MODULE MODI_ZOOM_PGD_NATURE
+CONTAINS
       SUBROUTINE ZOOM_PGD_NATURE (DTCO, IM, UG, U, USS, GCP, &
                                   HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE, &
                                    OECOCLIMAP                                      )
@@ -95,3 +97,4 @@ IF (LHOOK) CALL DR_HOOK('ZOOM_PGD_NATURE',1,ZHOOK_HANDLE)
 !_______________________________________________________________________________
 !
 END SUBROUTINE ZOOM_PGD_NATURE
+END MODULE MODI_ZOOM_PGD_NATURE

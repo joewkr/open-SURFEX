@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_NAM_PGD_TEB_GREENROOF
+CONTAINS
       SUBROUTINE READ_NAM_PGD_TEB_GREENROOF(HPROGRAM, KTIME_GR,KLAYER_GR,HTYP_GR,                   &
                                             PUNIF_OM_GR, PUNIF_CLAY_GR, PUNIF_SAND_GR, PUNIF_LAI_GR,&
                                             HFNAM_OM_GR, HFNAM_CLAY_GR, HFNAM_SAND_GR, HFNAM_LAI_GR,&
@@ -186,3 +188,4 @@ IF (LHOOK) CALL DR_HOOK('READ_NAM_PGD_TEB_GREENROOF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_NAM_PGD_TEB_GREENROOF
+END MODULE MODI_READ_NAM_PGD_TEB_GREENROOF

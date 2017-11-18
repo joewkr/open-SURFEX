@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !###################################################################
+MODULE MODI_COUPLING_SURF_TOPD
+CONTAINS
 SUBROUTINE COUPLING_SURF_TOPD (DE, DEC, DC, DMI, G, IO, S, K, NK, NP, NPE, UG, U, HPROGRAM, KI)
 !###################################################################
 !
@@ -129,3 +131,4 @@ ENDIF! (LCOUPL_TOPD.AND......
 IF (LHOOK) CALL DR_HOOK('COUPLING_SURF_TOPD',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE COUPLING_SURF_TOPD
+END MODULE MODI_COUPLING_SURF_TOPD

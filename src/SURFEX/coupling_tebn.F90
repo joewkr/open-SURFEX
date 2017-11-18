@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_COUPLING_TEB_n
+CONTAINS
 SUBROUTINE COUPLING_TEB_n (DTCO, DST, SLT, TOP, SB, G, CHT, NT, TPN, TIR, BOP, NB, TD, GDM, GRM, &
                            HPROGRAM, HCOUPLING, PTSTEP, KYEAR, KMONTH, KDAY, PTIME, KI, KSV,&
                            KSW, PTSUN, PZENITH, PAZIM, PZREF, PUREF, PZS, PU, PV, PQA, PTA, &
@@ -1063,5 +1065,6 @@ END SUBROUTINE ADD_PATCH_CONTRIB
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE COUPLING_TEB_n
+END MODULE MODI_COUPLING_TEB_n
 
 

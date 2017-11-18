@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_WRITE_NATURE_n
+CONTAINS
       SUBROUTINE WRITE_NATURE_n (DTCO, HSELECT, OSNOWDIMNC, U, IM, NDST,HPROGRAM,HWRITE,OLAND_USE)
 !     ####################################
 !
@@ -84,3 +86,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_NATURE_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE WRITE_NATURE_n
+END MODULE MODI_WRITE_NATURE_n

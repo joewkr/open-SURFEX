@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ##########################
+MODULE MODI_READ_FILE_MASKTOPD
+CONTAINS
       SUBROUTINE READ_FILE_MASKTOPD(KI)
 !     ##########################
 !
@@ -127,3 +129,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('READ_FILE_MASKTOPD',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE READ_FILE_MASKTOPD
+END MODULE MODI_READ_FILE_MASKTOPD

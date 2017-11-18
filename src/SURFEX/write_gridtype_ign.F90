@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################
+MODULE MODI_WRITE_GRIDTYPE_IGN
+CONTAINS
       SUBROUTINE WRITE_GRIDTYPE_IGN (HSELECT,HPROGRAM,KLU,KGRID_PAR,PGRID_PAR,KRESP)
 !     #################################################################
 !
@@ -126,3 +128,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_GRIDTYPE_IGN',1,ZHOOK_HANDLE)
 !---------------------------------------------------------------------------
 !
 END SUBROUTINE WRITE_GRIDTYPE_IGN
+END MODULE MODI_WRITE_GRIDTYPE_IGN

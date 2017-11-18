@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CH_AER_DEP
+CONTAINS
      SUBROUTINE CH_AER_DEP (PSVT, PFSVT,  PUSTAR, &
                       PRESA, PTA, PRHODREF)
 !###########################################################
@@ -210,3 +212,4 @@ IF (LHOOK) CALL DR_HOOK('CH_AER_DEP',1,ZHOOK_HANDLE)
 !---------------------------------------------------------------------
 !
 END SUBROUTINE CH_AER_DEP
+END MODULE MODI_CH_AER_DEP

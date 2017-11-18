@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DEFAULT_SURF_ATM
+CONTAINS
       SUBROUTINE DEFAULT_SURF_ATM(POUT_TSTEP, PCISMIN, PVMODMIN, OALDTHRES,             &
                                     ODRAG_COEF_ARP, OALDZ0H, ONOSOF, OCPL_GCM,          &
                                     PEDB, PEDC, PEDD, PEDK, PUSURIC, PUSURID, PUSURICL, &
@@ -148,3 +150,4 @@ IF (LHOOK) CALL DR_HOOK('DEFAULT_SURF_ATM',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DEFAULT_SURF_ATM
+END MODULE MODI_DEFAULT_SURF_ATM

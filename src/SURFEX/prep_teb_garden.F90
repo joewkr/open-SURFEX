@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_TEB_GARDEN
+CONTAINS
 SUBROUTINE PREP_TEB_GARDEN (DTCO, UG, U, USS, GCP, TG, TOP, IO, S, K, P, PEK, &
                             HPROGRAM,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,KPATCH,YDCTL)
 !     #################################################################################
@@ -241,3 +243,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_TEB_GARDEN',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_TEB_GARDEN
+END MODULE MODI_PREP_TEB_GARDEN

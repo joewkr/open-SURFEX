@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ##########################
+MODULE MODI_WRITE_FILE_ISBAMAP
+CONTAINS
       SUBROUTINE WRITE_FILE_ISBAMAP (UG, KUNIT,PVAR,KI)
 !     ##########################
 !
@@ -148,3 +150,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('WRITE_FILE_ISBAMAP',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE WRITE_FILE_ISBAMAP
+END MODULE MODI_WRITE_FILE_ISBAMAP

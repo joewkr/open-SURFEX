@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################################################################
+MODULE MODI_ISBA_LWNET_MEB
+CONTAINS
       SUBROUTINE ISBA_LWNET_MEB(PLAI,PPSN,PPSNA,PEMIS_N,PEMIS_F,PFF,                          &
            PTV,PTG,PTN,PLW_RAD,PLWNET_N,PLWNET_V,PLWNET_G,                                    &
            PLWNET_V_DTV,PLWNET_V_DTG,PLWNET_V_DTN,                                            &
@@ -275,3 +277,4 @@ END SUBROUTINE LW_FLUX_COMP
 !=========================================================
 
 END SUBROUTINE ISBA_LWNET_MEB
+END MODULE MODI_ISBA_LWNET_MEB

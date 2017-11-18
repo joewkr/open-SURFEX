@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
+MODULE MODI_INIT_TEB_GREENROOF_PGD_n
+CONTAINS
 SUBROUTINE INIT_TEB_GREENROOF_PGD_n (DTCO, U, OCH_BIO_FLUX, G, PGREENROOF, TOP, IO, S, K, P, PEK, DTV, GB, &
                                      HPROGRAM, HINIT, OPATCH1, KI, KVERSION, PCO2, PRHOA)
 !#############################################################
@@ -376,3 +378,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_TEB_GREENROOF_PGD_n',1,ZHOOK_HANDLE)
 !
 !
 END SUBROUTINE INIT_TEB_GREENROOF_PGD_n
+END MODULE MODI_INIT_TEB_GREENROOF_PGD_n

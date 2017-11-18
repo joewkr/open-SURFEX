@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################################
+MODULE MODI_LATLONMASK_IGN
+CONTAINS
       SUBROUTINE LATLONMASK_IGN(KGRID_PAR,PGRID_PAR,OLATLONMASK)
 !     ##################################
 !
@@ -149,3 +151,4 @@ IF (LHOOK) CALL DR_HOOK('LATLONMASK_IGN',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 END SUBROUTINE LATLONMASK_IGN
+END MODULE MODI_LATLONMASK_IGN

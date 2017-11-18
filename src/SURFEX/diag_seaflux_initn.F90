@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DIAG_SEAFLUX_INIT_n
+CONTAINS
       SUBROUTINE DIAG_SEAFLUX_INIT_n (DOC, DGO, D, DC, OREAD_BUDGETC, S, &
                                       HPROGRAM,KLU,KSW)
 !     #####################
@@ -230,3 +232,4 @@ IF (LHOOK) CALL DR_HOOK('DIAG_SEAFLUX_INIT_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DIAG_SEAFLUX_INIT_n
+END MODULE MODI_DIAG_SEAFLUX_INIT_n

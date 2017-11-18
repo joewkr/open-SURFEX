@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_ISBA
+CONTAINS
 SUBROUTINE PREP_ISBA (DTCO, UG, U, USS, GCP, SB, IG, IO, S, NK, NP, NPE,  &
                       HPROGRAM,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,YDCTL)
 !     #################################################################################
@@ -505,3 +507,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_ISBA',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_ISBA
+END MODULE MODI_PREP_ISBA

@@ -6,6 +6,8 @@
 @PROCESS NOOPTIMIZE
 #endif
 !     #########################
+MODULE MODI_INI_DATA_COVER
+CONTAINS
       SUBROUTINE INI_DATA_COVER (DTCO, U)
 !     #########################
 !
@@ -2550,3 +2552,4 @@ IF (LHOOK) CALL DR_HOOK('INI_DATA_COVER',1,ZHOOK_HANDLE)
 !------------------------------------------------------------------------------
 !
 END SUBROUTINE INI_DATA_COVER
+END MODULE MODI_INI_DATA_COVER

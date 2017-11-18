@@ -101,6 +101,8 @@
 ! -----------------------------------------------------------------------
 ! --------------------- SUBROUTINE glt_thermo_lead_r ------------------------
 !
+MODULE MODI_glt_thermo_lead_r
+CONTAINS
 SUBROUTINE glt_thermo_lead_r  &
   (tpdom,pustar,tpmxl,tpatm,tpblkw,  &
   tpdia,tptfl,tpsit,tpsil,  &
@@ -498,6 +500,7 @@ SUBROUTINE glt_thermo_lead_r  &
   ENDIF
 !
 END SUBROUTINE glt_thermo_lead_r
+END MODULE MODI_glt_thermo_lead_r
 !
 ! ------------------- END SUBROUTINE glt_thermo_lead_r ----------------------
 ! -----------------------------------------------------------------------

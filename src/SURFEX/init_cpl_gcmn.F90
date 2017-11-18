@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INIT_CPL_GCM_n
+CONTAINS
       SUBROUTINE INIT_CPL_GCM_n (U, HPROGRAM,HINIT)
 !     ########################################
 !
@@ -149,3 +151,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_CPL_GCM_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INIT_CPL_GCM_n
+END MODULE MODI_INIT_CPL_GCM_n

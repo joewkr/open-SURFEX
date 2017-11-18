@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INTERPOL_SPLINES
+CONTAINS
       SUBROUTINE INTERPOL_SPLINES(KLUOUT,KCODE,PX,PY,PFIELD,KREP)
 !     #########################################################
 !
@@ -348,3 +350,4 @@ IF (LHOOK) CALL DR_HOOK('INTERPOL_SPLINES',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INTERPOL_SPLINES
+END MODULE MODI_INTERPOL_SPLINES

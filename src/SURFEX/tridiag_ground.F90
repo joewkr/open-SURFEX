@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_TRIDIAG_GROUND
+CONTAINS
        SUBROUTINE TRIDIAG_GROUND(PA,PB,PC,PY,PX)
 !      #########################################
 !
@@ -132,3 +134,4 @@ IF (LHOOK) CALL DR_HOOK('TRIDIAG_GROUND',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE TRIDIAG_GROUND
+END MODULE MODI_TRIDIAG_GROUND

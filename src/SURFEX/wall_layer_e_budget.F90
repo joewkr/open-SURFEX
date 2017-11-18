@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
+MODULE MODI_WALL_LAYER_E_BUDGET
+CONTAINS
     SUBROUTINE WALL_LAYER_E_BUDGET(TOP, T, B, PT_WL, PTS_WL_B, PTI_WL_B, PTSTEP, PDN_RD,     &
                                    PRHOA, PAC_WL, PAC_BLD, PLW_RAD, PPS, PEXNS, PABS_SW_WL,  &
                                    PT_CANYON, PTS_RD, PTSNOW_RD, PTS_GD, PTS_FL,             &
@@ -397,3 +399,4 @@ END IF
 IF (LHOOK) CALL DR_HOOK('WALL_LAYER_E_BUDGET',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE WALL_LAYER_E_BUDGET
+END MODULE MODI_WALL_LAYER_E_BUDGET

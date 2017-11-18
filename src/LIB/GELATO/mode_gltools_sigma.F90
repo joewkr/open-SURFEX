@@ -51,39 +51,7 @@
 ! ------------------- BEGIN MODULE mode_gltools_sigma ---------------------
 
 MODULE mode_gltools_sigma
-INTERFACE
-
-FUNCTION glt_sigma(pt,ps)
-  USE modd_glt_param, only:nx,ny
-  REAL, DIMENSION(nx,ny) ::                                             &
-    glt_sigma
-  REAL, DIMENSION(nx,ny), INTENT(in) ::                                 &
-    pt,ps
-END FUNCTION glt_sigma
-
-FUNCTION glt_dsigmadt(pt,ps)
-  REAL ::                                                               &
-    glt_dsigmadt
-  REAL, INTENT(in) ::                                                   &
-    pt,ps
-END FUNCTION glt_dsigmadt
-
-FUNCTION glt_dsigmads(pt,ps)
-  REAL ::                                                               &
-    glt_dsigmads
-  REAL, INTENT(in) ::                                                   &
-    pt,ps
-END FUNCTION glt_dsigmads
-
-FUNCTION glt_salfrac( pv )
-  REAL ::  &
-    glt_salfrac
-  REAL, INTENT(in) ::          &! in m.s-1
-    pv
-END FUNCTION glt_salfrac
-
-END INTERFACE
-END MODULE mode_gltools_sigma
+CONTAINS
 
 ! -------------------- END MODULE mode_gltools_sigma ----------------------
 
@@ -209,3 +177,4 @@ END FUNCTION glt_salfrac
 !
 ! ------------------------- END FUNCTION glt_salfrac ------------------------
 ! -----------------------------------------------------------------------
+END MODULE mode_gltools_sigma

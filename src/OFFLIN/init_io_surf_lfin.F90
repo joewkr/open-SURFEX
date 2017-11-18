@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INIT_IO_SURF_LFI_n
+CONTAINS
       SUBROUTINE INIT_IO_SURF_LFI_n (DTCO, U, &
                                      HMASK,HACTION)
 !     ######################
@@ -154,3 +156,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_IO_SURF_LFI_N',1,ZHOOK_HANDLE)
 !------------------------------------------------------------------------------
 !
 END SUBROUTINE INIT_IO_SURF_LFI_n
+END MODULE MODI_INIT_IO_SURF_LFI_n

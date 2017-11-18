@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ROOF_LAYER_E_BUDGET
+CONTAINS
     SUBROUTINE ROOF_LAYER_E_BUDGET(TOP, T, B, PQSAT_ROOF, PAC_BLD, PTSTEP, PDN_ROOF,   &
                                    PRHOA, PAC_ROOF, PAC_ROOF_WAT, PLW_RAD, PPS,        &
                                    PDELT_ROOF, PTA, PQA, PEXNA, PEXNS, PABS_SW_ROOF,   &
@@ -351,3 +353,4 @@ IF (LHOOK) CALL DR_HOOK('ROOF_LAYER_E_BUDGET',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------
 !
 END SUBROUTINE ROOF_LAYER_E_BUDGET
+END MODULE MODI_ROOF_LAYER_E_BUDGET

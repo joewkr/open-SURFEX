@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_HYDRO_SGH
+CONTAINS
       SUBROUTINE HYDRO_SGH(IO, KK, PK, PEK, DEK, DMK, PTSTEP, PPG, PPG_MELT, PDUNNE )
 !
 !     #####################################################################
@@ -445,3 +447,4 @@ PPG  (:) = PPG(:) + DEK%XIFLOOD(:)
 IF (LHOOK) CALL DR_HOOK('HYDRO_SGH',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE HYDRO_SGH
+END MODULE MODI_HYDRO_SGH

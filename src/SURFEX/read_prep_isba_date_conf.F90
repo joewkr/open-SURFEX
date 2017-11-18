@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_PREP_ISBA_DATE_CONF
+CONTAINS
       SUBROUTINE READ_PREP_ISBA_DATE_CONF(HPROGRAM,KLUOUT,TPTIME)
 !     #######################################################
 !
@@ -74,3 +76,4 @@ IF (LHOOK) CALL DR_HOOK('READ_PREP_ISBA_DATE_CONF',1,ZHOOK_HANDLE)
 !------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_PREP_ISBA_DATE_CONF
+END MODULE MODI_READ_PREP_ISBA_DATE_CONF

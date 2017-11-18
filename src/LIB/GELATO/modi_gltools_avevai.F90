@@ -78,6 +78,8 @@
 ! -----------------------------------------------------------------------
 ! -------------------------- SUBROUTINE gltools_avevai --------------------------
 !
+MODULE MODI_gltools_avevai
+CONTAINS
 SUBROUTINE gltools_avevai  &
         ( tpind,tpnam,pfield,pcumdia,pwgt )
 !
@@ -267,6 +269,7 @@ SUBROUTINE gltools_avevai  &
   ENDIF
 !
     END SUBROUTINE gltools_avevai
+END MODULE MODI_gltools_avevai
 !
 ! ------------------------ END SUBROUTINE gltools_avevai ------------------------
 ! -----------------------------------------------------------------------

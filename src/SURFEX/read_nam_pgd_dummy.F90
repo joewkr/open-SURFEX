@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_NAM_PGD_DUMMY
+CONTAINS
       SUBROUTINE READ_NAM_PGD_DUMMY(HPROGRAM, KDUMMY_NBR, HDUMMY_NAME, HDUMMY_AREA, &
                                       HDUMMY_ATYPE, HDUMMY_FILE, HDUMMY_FILETYPE      )
 !     ##############################################################
@@ -152,3 +154,4 @@ IF (LHOOK) CALL DR_HOOK('READ_NAM_PGD_DUMMY',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_NAM_PGD_DUMMY
+END MODULE MODI_READ_NAM_PGD_DUMMY

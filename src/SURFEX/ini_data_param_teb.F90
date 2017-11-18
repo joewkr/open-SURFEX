@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
+MODULE MODI_INI_DATA_PARAM_TEB
+CONTAINS
       SUBROUTINE INI_DATA_PARAM_TEB (BDD, &
                                      KTYPE,                                          &
                                 PZ0_TOWN, PALB_ROOF, PALB_ROAD, PALB_WALL,          &
@@ -460,3 +462,4 @@ IF (LHOOK) CALL DR_HOOK('INI_DATA_PARAM_TEB',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INI_DATA_PARAM_TEB
+END MODULE MODI_INI_DATA_PARAM_TEB

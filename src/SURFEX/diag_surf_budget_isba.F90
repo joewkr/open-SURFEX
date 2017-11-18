@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DIAG_SURF_BUDGET_ISBA
+CONTAINS
        SUBROUTINE DIAG_SURF_BUDGET_ISBA (PDIR_SW, PSCA_SW, PLW, K, DK )
 !     ###############################################################################
 !
@@ -88,3 +90,4 @@ IF (LHOOK) CALL DR_HOOK('DIAG_SURF_BUDGET_ISBA',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE DIAG_SURF_BUDGET_ISBA
+END MODULE MODI_DIAG_SURF_BUDGET_ISBA

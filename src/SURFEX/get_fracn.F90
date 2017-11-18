@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GET_FRAC_n
+CONTAINS
       SUBROUTINE GET_FRAC_n (U, &
                              HPROGRAM,KI,PSEA,PWATER,PNATURE,PTOWN)
 !     ########################################
@@ -93,3 +95,4 @@ IF (LHOOK) CALL DR_HOOK('GET_FRAC_N',1,ZHOOK_HANDLE)
 !==============================================================================
 !
 END SUBROUTINE GET_FRAC_n
+END MODULE MODI_GET_FRAC_n

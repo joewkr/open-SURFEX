@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-------------------------------------------------------------------------------
 !     ####################
+MODULE MODI_ROUTING
+CONTAINS
       SUBROUTINE ROUTING(PRO,PDR,KSTEP)
 !     ####################
 !
@@ -151,3 +153,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('ROUTING',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE ROUTING
+END MODULE MODI_ROUTING

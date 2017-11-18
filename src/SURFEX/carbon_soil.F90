@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CARBON_SOIL
+CONTAINS
 SUBROUTINE CARBON_SOIL (PTSTEP, PSAND,                                      &
                           PSOILCARBON_INPUT, PCONTROL_TEMP, PCONTROL_MOIST, &
                           PSOILCARB, PRESP_HETERO_SOIL)
@@ -203,3 +205,4 @@ PSOILCARB(:,3) = PSOILCARB(:,3) + ZFLUX(:,1,3) + ZFLUX(:,2,3) + ZFLUX(:,3,3)
 IF (LHOOK) CALL DR_HOOK('CARBON_SOIL',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE CARBON_SOIL
+END MODULE MODI_CARBON_SOIL

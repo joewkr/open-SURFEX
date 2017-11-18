@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_FLAKE_ALBEDO
+CONTAINS
       SUBROUTINE FLAKE_ALBEDO( PDIR_SW   , PSCA_SW , KSW,      &
                                PDIR_ALB  , PSCA_ALB,           &
                                PGLOBAL_SW, PALB                )
@@ -99,3 +101,4 @@ IF (LHOOK) CALL DR_HOOK('FLAKE_ALBEDO',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE FLAKE_ALBEDO
+END MODULE MODI_FLAKE_ALBEDO

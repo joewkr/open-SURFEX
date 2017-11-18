@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_MINZS_VERT_SHIFT
+CONTAINS
        SUBROUTINE MINZS_VERT_SHIFT(D, PZS_MOY, PZS_MIN, PPS_MIN, PRHOA_2M_MIN  )
 !      #########################################
 !
@@ -122,3 +124,4 @@ IF (LHOOK) CALL DR_HOOK('MINZS_VERT_SHIFT',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE MINZS_VERT_SHIFT
+END MODULE MODI_MINZS_VERT_SHIFT

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PGD_SEA
+CONTAINS
       SUBROUTINE PGD_SEA (DTCO, DTS, SG, S, UG, U, USS, HPROGRAM)
 !     #############################################################
 !
@@ -95,3 +97,4 @@ IF (LHOOK) CALL DR_HOOK('PGD_SEA',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE PGD_SEA
+END MODULE MODI_PGD_SEA

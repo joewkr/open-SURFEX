@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DEFAULT_CH_SURF_ATM
+CONTAINS
       SUBROUTINE DEFAULT_CH_SURF_ATM(HCHEM_SURF_FILE,OSURF_EMIS)
 !     ########################################################################
 !
@@ -63,3 +65,4 @@ IF (LHOOK) CALL DR_HOOK('DEFAULT_CH_SURF_ATM',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DEFAULT_CH_SURF_ATM
+END MODULE MODI_DEFAULT_CH_SURF_ATM

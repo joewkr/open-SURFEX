@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_TOWN
+CONTAINS
 SUBROUTINE PREP_TOWN (DTCO, UG, U, USS, GCP, TM, GDM, GRM, &
                       HPROGRAM,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,YDCTL)
 !     #################################################################################
@@ -84,3 +86,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_TOWN',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_TOWN
+END MODULE MODI_PREP_TOWN

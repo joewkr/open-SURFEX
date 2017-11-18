@@ -94,6 +94,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------ SUBROUTINE glt_sublim_r --------------------------
 !
+MODULE MODI_glt_sublim_r
+CONTAINS
 SUBROUTINE glt_sublim_r(tpmxl,tpblki,tpsit,tpsil,tptfl,tpdia)
   USE modd_types_glt
   USE modd_glt_param
@@ -235,6 +237,7 @@ SUBROUTINE glt_sublim_r(tpmxl,tpblki,tpsit,tpsil,tptfl,tpdia)
   tptfl(:)%tio = tptfl(:)%tio - (zei2+zes2-zei1-zes1)/dtt
 !
 END SUBROUTINE glt_sublim_r
+END MODULE MODI_glt_sublim_r
 
 ! ---------------------- END SUBROUTINE glt_sublim_r ------------------------
 ! -----------------------------------------------------------------------

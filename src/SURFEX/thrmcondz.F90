@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_THRMCONDZ
+CONTAINS
     SUBROUTINE THRMCONDZ(PSANDZ,PWSATZ,PCONDDRY,PCONDSLD)
 !   ###############################################################
 !!****  *THRMCONDZ*
@@ -121,3 +123,4 @@ IF (LHOOK) CALL DR_HOOK('THRMCONDZ',1,ZHOOK_HANDLE)
 !
 !
 END SUBROUTINE THRMCONDZ
+END MODULE MODI_THRMCONDZ

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################
+MODULE MODI_ZOOM_PGD_TEB
+CONTAINS
       SUBROUTINE ZOOM_PGD_TEB (BOP, BDD, DTB, DTCO, DTT, UG, U, GCP, IO, K, TG, TOP, &
                                HPROGRAM,HINIFILE,HINIFILETYPE,OECOCLIMAP,OGARDEN)
 !     ###########################################################
@@ -336,3 +338,4 @@ END SUBROUTINE ZOOM_PGD_TEB_GARDEN
 !_______________________________________________________________________________
 !
 END SUBROUTINE ZOOM_PGD_TEB
+END MODULE MODI_ZOOM_PGD_TEB

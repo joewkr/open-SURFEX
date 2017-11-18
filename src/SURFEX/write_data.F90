@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
+MODULE MODI_WRITE_DATA
+CONTAINS
       SUBROUTINE WRITE_DATA(HPROGRAM)
 !     #########################
 !
@@ -218,3 +220,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_DATA',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE WRITE_DATA
+END MODULE MODI_WRITE_DATA

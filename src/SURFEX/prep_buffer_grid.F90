@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_BUFFER_GRID
+CONTAINS
       SUBROUTINE PREP_BUFFER_GRID(KLUOUT,HINMODEL,TPTIME_BUF)
 !     ##########################################################################
 !
@@ -103,3 +105,4 @@ WRITE (KLUOUT,'(A)') ' | Reading date'
 IF (LHOOK) CALL DR_HOOK('PREP_BUFFER_GRID',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE PREP_BUFFER_GRID
+END MODULE MODI_PREP_BUFFER_GRID

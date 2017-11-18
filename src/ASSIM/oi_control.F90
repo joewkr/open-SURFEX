@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_OI_CONTROL
+CONTAINS
 SUBROUTINE OI_CONTROL (YSC, &
  & LDINLINE,                 &
  & P__SURFTEMPERATURE,       &
@@ -1170,3 +1172,4 @@ IF (LHOOK) CALL DR_HOOK ('OI_CONTROL:DD', 1, ZHOOK_HANDLE)
 END SUBROUTINE DD
 
 END SUBROUTINE OI_CONTROL
+END MODULE MODI_OI_CONTROL

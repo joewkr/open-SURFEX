@@ -7,6 +7,8 @@
 !Soil albedo (the same for all 19 vegtypes)
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_SOIL_ECO1
+CONTAINS
 SUBROUTINE DEFAULT_ALB_SOIL_ECO1
 !
 USE MODD_SURF_PAR
@@ -2117,11 +2119,14 @@ XDATA_ALB_SOIL_VIS(  1:255, 36, 1) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_SOIL_ECO1',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_SOIL_ECO1
+END MODULE MODI_DEFAULT_ALB_SOIL_ECO1
 !
 !------------------------------------------------------------------------------
 !Vegetation albedo for all 19 vegtypes
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_01
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_01
 !
 USE MODD_SURF_PAR
@@ -2288,10 +2293,13 @@ WHERE(XDATA_VEGTYPE(1:255, 1)>0.) XDATA_ALB_VEG_VIS(  1:255, 36, 1) = 0.1000
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_01',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_01
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_01
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_02
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_02
 !
 USE MODD_SURF_PAR
@@ -2458,10 +2466,13 @@ WHERE(XDATA_VEGTYPE(1:255, 2)>0.) XDATA_ALB_VEG_VIS(  1:255, 36, 2) = 0.1000
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_02',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_02
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_02
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_03
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_03
 !
 USE MODD_SURF_PAR
@@ -2628,10 +2639,13 @@ WHERE(XDATA_VEGTYPE(1:255, 3)>0.) XDATA_ALB_VEG_VIS(  1:255, 36, 3) = 0.1000
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_03',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_03
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_03
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_04
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_04
 !
 USE MODD_SURF_PAR
@@ -4742,10 +4756,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36, 4) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_04',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_04
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_04
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_05
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_05
 !
 USE MODD_SURF_PAR
@@ -6856,10 +6873,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36, 5) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_05',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_05
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_05
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_06
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_06
 !
 USE MODD_SURF_PAR
@@ -8970,10 +8990,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36, 6) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_06',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_06
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_06
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_07
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_07
 !
 USE MODD_SURF_PAR
@@ -11084,10 +11107,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36, 7) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_07',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_07
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_07
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_08
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_08
 !
 USE MODD_SURF_PAR
@@ -13198,10 +13224,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36, 8) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_08',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_08
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_08
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_09
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_09
 !
 USE MODD_SURF_PAR
@@ -15312,10 +15341,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36, 9) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_09',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_09
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_09
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_10
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_10
 !
 USE MODD_SURF_PAR
@@ -17426,10 +17458,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36,10) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_10',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_10
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_10
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_11
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_11
 !
 USE MODD_SURF_PAR
@@ -19540,10 +19575,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36,11) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_11',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_11
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_11
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_12
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_12
 !
 USE MODD_SURF_PAR
@@ -21654,10 +21692,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36,12) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_12',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_12
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_12
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_13
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_13
 !
 USE MODD_SURF_PAR
@@ -23768,10 +23809,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36,13) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_13',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_13
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_13
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_14
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_14
 !
 USE MODD_SURF_PAR
@@ -25882,10 +25926,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36,14) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_14',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_14
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_14
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_15
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_15
 !
 USE MODD_SURF_PAR
@@ -27996,10 +28043,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36,15) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_15',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_15
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_15
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_16
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_16
 !
 USE MODD_SURF_PAR
@@ -30110,10 +30160,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36,16) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_16',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_16
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_16
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_17
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_17
 !
 USE MODD_SURF_PAR
@@ -30280,10 +30333,13 @@ WHERE(XDATA_VEGTYPE(1:255,17)>0.) XDATA_ALB_VEG_VIS(  1:255, 36,17) = 0.0457
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_17',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_17
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_17
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_18
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_18
 !
 USE MODD_SURF_PAR
@@ -32394,10 +32450,13 @@ XDATA_ALB_VEG_VIS(  1:255, 36,18) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_18',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_18
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_18
 !
 !------------------------------------------------------------------------------
 !------------------------------------------------------------------------------
 !
+MODULE MODI_DEFAULT_ALB_VEG_ECO1_19
+CONTAINS
 SUBROUTINE DEFAULT_ALB_VEG_ECO1_19
 !
 USE MODD_SURF_PAR
@@ -34508,3 +34567,4 @@ XDATA_ALB_VEG_VIS(  1:255, 36,19) = (/          &
 IF (LHOOK) CALL DR_HOOK('DEFAULT_ALB_VEG_ECO1_19',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_ALB_VEG_ECO1_19
+END MODULE MODI_DEFAULT_ALB_VEG_ECO1_19

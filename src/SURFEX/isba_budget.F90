@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ISBA_BUDGET
+CONTAINS
 SUBROUTINE ISBA_BUDGET (IO, PK, PEK, DEK, OWATER_BUDGET, PTSTEP,&
                        PWG_INI, PWGI_INI, PWR_INI, PSWE_INI, PRAIN, PSNOW, PEVAP  )
 !     ###############################################################################
@@ -173,3 +175,4 @@ IF (LHOOK) CALL DR_HOOK('ISBA_BUDGET',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE ISBA_BUDGET
+END MODULE MODI_ISBA_BUDGET

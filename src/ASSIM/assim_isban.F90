@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_ASSIM_ISBA_n
+CONTAINS
 SUBROUTINE ASSIM_ISBA_n (IM, U, HPROGRAM, KI, &
                         PCON_RAIN, PSTRAT_RAIN, PCON_SNOW, PSTRAT_SNOW,&
                         PCLOUDS,   PLSM,        PEVAPTR,   PEVAP,      &
@@ -305,3 +307,4 @@ IF (LHOOK) CALL DR_HOOK('ASSIM_ISBA_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE ASSIM_ISBA_n
+END MODULE MODI_ASSIM_ISBA_n

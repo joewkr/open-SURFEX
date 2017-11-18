@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_COTWO
+CONTAINS
     SUBROUTINE COTWO(PCSP, PF2, PIA, PDS, PGAMMT,               &
                      PFZERO, PEPSO, PANMAX, PGMEST, PGC, PDMAX, &
                      PAN, PGS, PRD, PLAITOP, PLAI   )
@@ -278,3 +280,4 @@ PGS(:) = PGS(:) * MIN(1.0,PF2(:)/XDENOM_MIN)
 IF (LHOOK) CALL DR_HOOK('COTWO',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE COTWO
+END MODULE MODI_COTWO

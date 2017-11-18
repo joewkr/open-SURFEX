@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_WRITE_SURF_FIELD2D
+CONTAINS
       SUBROUTINE WRITE_SURF_FIELD2D(HSELECT,HPROGRAM,PFIELD2D,HFIELDNAME,HCOMMENT,HCOMMENTUNIT,HDIR,HNAM_DIM)
 !     #####################################
 !
@@ -142,3 +144,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_SURF_FIELD2D',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
       END SUBROUTINE WRITE_SURF_FIELD2D
+END MODULE MODI_WRITE_SURF_FIELD2D

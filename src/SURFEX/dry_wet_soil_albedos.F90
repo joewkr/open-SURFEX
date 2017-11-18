@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##################################################################
+MODULE MODI_DRY_WET_SOIL_ALBEDOS
+CONTAINS
       SUBROUTINE DRY_WET_SOIL_ALBEDOS( KK  )
 !     ##################################################################
 !
@@ -108,3 +110,4 @@ IF (LHOOK) CALL DR_HOOK('DRY_WET_SOIL_ALBEDOS',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DRY_WET_SOIL_ALBEDOS
+END MODULE MODI_DRY_WET_SOIL_ALBEDOS

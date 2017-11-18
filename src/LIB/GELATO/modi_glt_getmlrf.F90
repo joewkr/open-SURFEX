@@ -72,6 +72,8 @@
 ! -----------------------------------------------------------------------
 ! ----------------------- SUBROUTINE glt_getmlrf ----------------------------
 
+MODULE MODI_glt_getmlrf
+CONTAINS
 SUBROUTINE glt_getmlrf( tpoce_all,tpml )
   USE modd_types_glt
   USE modd_glt_const_thm
@@ -110,6 +112,7 @@ SUBROUTINE glt_getmlrf( tpoce_all,tpml )
 #endif
 !
 END SUBROUTINE glt_getmlrf
+END MODULE MODI_glt_getmlrf
 
 ! --------------------- END SUBROUTINE glt_getmlrf --------------------------
 ! -----------------------------------------------------------------------

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_HYDRO_GLACIER
+CONTAINS
       SUBROUTINE HYDRO_GLACIER (PTSTEP, PSR, PEK, PICEFLUX)
 !     ########################################################################
 !
@@ -164,3 +166,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('HYDRO_GLACIER',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE HYDRO_GLACIER
+END MODULE MODI_HYDRO_GLACIER

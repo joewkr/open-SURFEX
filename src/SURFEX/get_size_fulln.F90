@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GET_SIZE_FULL_n
+CONTAINS
       SUBROUTINE GET_SIZE_FULL_n (HPROGRAM,KDIM_FULL,KSIZE_FULL_IN,KSIZE_FULL_OUT)
 !     #######################################################
 !
@@ -100,3 +102,4 @@ IF (LHOOK) CALL DR_HOOK('GET_SIZE_FULL_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE GET_SIZE_FULL_n
+END MODULE MODI_GET_SIZE_FULL_n

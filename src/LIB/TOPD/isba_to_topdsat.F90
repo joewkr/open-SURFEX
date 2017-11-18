@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-------------------------------------------------------------------------------
 !     ####################
+MODULE MODI_ISBA_TO_TOPDSAT
+CONTAINS
       SUBROUTINE ISBA_TO_TOPDSAT(PKAPPA,PKAPPAC,KI,PRO_I,PRO_T)
 !     ####################
 !
@@ -165,3 +167,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('ISBA_TO_TOPDSAT',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE ISBA_TO_TOPDSAT
+END MODULE MODI_ISBA_TO_TOPDSAT

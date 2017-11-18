@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################################################################
+MODULE MODI_WINDOW_SHADING_AVAILABILITY
+CONTAINS
       SUBROUTINE WINDOW_SHADING_AVAILABILITY(OSHADE, PTI_BLD, PTCOOL_TARGET,OSHADE_POSSIBLE)
 !     ###########################################################################################################
 !
@@ -64,3 +66,4 @@ OSHADE_POSSIBLE(:) = OSHADE(:)                                   .AND. &
              .OR. PTI_BLD(:) .EQ. PTCOOL_TARGET(:)              )
 !
 END SUBROUTINE WINDOW_SHADING_AVAILABILITY
+END MODULE MODI_WINDOW_SHADING_AVAILABILITY

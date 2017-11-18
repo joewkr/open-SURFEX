@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !----------------------------------------------------------------------------!
 !     ##############################################################
+MODULE MODI_READ_NAM_TOPD
+CONTAINS
        SUBROUTINE READ_NAM_TOPD(HPROGRAM,&
                                 OBUDGET_TOPD,KNB_TOPD,&
                                 OSTOCK_TOPD,&
@@ -181,3 +183,4 @@ IF (LHOOK) CALL DR_HOOK('READ_NAM_TOPD',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_NAM_TOPD
+END MODULE MODI_READ_NAM_TOPD

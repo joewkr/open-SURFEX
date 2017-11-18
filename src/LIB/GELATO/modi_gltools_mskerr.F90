@@ -75,6 +75,8 @@
 ! -----------------------------------------------------------------------
 ! -------------------------- SUBROUTINE gltools_mskerr --------------------------
 !
+MODULE MODI_gltools_mskerr
+CONTAINS
 SUBROUTINE gltools_mskerr  &
         ( href,hfile,hword )
 !
@@ -110,6 +112,7 @@ SUBROUTINE gltools_mskerr  &
   ENDIF
 !
 END SUBROUTINE gltools_mskerr
+END MODULE MODI_gltools_mskerr
 !
 ! ----------------------- END SUBROUTINE gltools_mskerr -------------------------
 ! -----------------------------------------------------------------------

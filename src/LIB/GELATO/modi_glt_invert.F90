@@ -80,6 +80,8 @@
 ! -----------------------------------------------------------------------
 ! ----------------------- SUBROUTINE glt_invert -----------------------------
 !
+MODULE MODI_glt_invert
+CONTAINS
 SUBROUTINE glt_invert(kdiag,pmat)
   USE modd_glt_param
   USE modi_gltools_glterr
@@ -176,6 +178,7 @@ SUBROUTINE glt_invert(kdiag,pmat)
 
   DEALLOCATE( zmat)
 END SUBROUTINE glt_invert
+END MODULE MODI_glt_invert
 
 ! --------------------- END SUBROUTINE glt_invert ---------------------------
 ! -----------------------------------------------------------------------

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_VER_TEB_VEG
+CONTAINS
 SUBROUTINE PREP_VER_TEB_VEG (P, PEK, IO, PZS)
 !     #################################################################################
 !
@@ -214,3 +216,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_VER_TEB_VEG',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_VER_TEB_VEG
+END MODULE MODI_PREP_VER_TEB_VEG

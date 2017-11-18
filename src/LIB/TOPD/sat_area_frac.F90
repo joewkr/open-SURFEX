@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ########################
+MODULE MODI_SAT_AREA_FRAC
+CONTAINS
       SUBROUTINE SAT_AREA_FRAC(PDEF,PAS,GTOPD)
 !     ########################
 !
@@ -94,3 +96,4 @@ ENDWHERE
 IF (LHOOK) CALL DR_HOOK('SAT_AREA_FRAC',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE SAT_AREA_FRAC
+END MODULE MODI_SAT_AREA_FRAC

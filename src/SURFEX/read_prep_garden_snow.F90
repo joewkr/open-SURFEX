@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_PREP_GARDEN_SNOW
+CONTAINS
       SUBROUTINE READ_PREP_GARDEN_SNOW(HPROGRAM,HSNOW,KSNOW_LAYER,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,OUNIF)
 !     #######################################################
 !
@@ -300,3 +302,4 @@ IF (LHOOK) CALL DR_HOOK('READ_PREP_GARDEN_SNOW',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_PREP_GARDEN_SNOW
+END MODULE MODI_READ_PREP_GARDEN_SNOW

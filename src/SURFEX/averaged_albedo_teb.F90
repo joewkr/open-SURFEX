@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_AVERAGED_ALBEDO_TEB
+CONTAINS
       SUBROUTINE AVERAGED_ALBEDO_TEB(TOP, T, TPN, B,  PZENITH, PAZIM, &
                                      PALB_GARDEN, PALB_GREENROOF, PDIR_ALB_TOWN, PSCA_ALB_TOWN)
 !     ###################################################
@@ -141,3 +143,4 @@ IF (LHOOK) CALL DR_HOOK('AVERAGED_ALBEDO_TEB',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE AVERAGED_ALBEDO_TEB
+END MODULE MODI_AVERAGED_ALBEDO_TEB

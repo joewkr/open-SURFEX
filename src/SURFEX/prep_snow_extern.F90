@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_SNOW_EXTERN
+CONTAINS
 SUBROUTINE PREP_SNOW_EXTERN (GCP,HPROGRAM,HSURF,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,&
                              KLUOUT,PFIELD,OSNOW_IDEAL,KLAYER,KTEB_PATCH)
 !     #################################################################################
@@ -382,3 +384,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_SNOW_EXTERN',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------------
 END SUBROUTINE PREP_SNOW_EXTERN
+END MODULE MODI_PREP_SNOW_EXTERN

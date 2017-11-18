@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INI_DATA_ROOTFRAC
+CONTAINS
       SUBROUTINE INI_DATA_ROOTFRAC( PDG, PROOTDEPTH, PROOT_EXT, PROOT_LIN,  &
                                     PROOTFRAC, OGV                          )
 
@@ -127,3 +129,4 @@ PROOTFRAC(:,:) = XUNDEF
 IF (LHOOK) CALL DR_HOOK('INI_DATA_ROOTFRAC',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE INI_DATA_ROOTFRAC
+END MODULE MODI_INI_DATA_ROOTFRAC

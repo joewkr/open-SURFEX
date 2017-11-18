@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !~ *************************************************************
+MODULE MODI_UTCI_APPROX
+CONTAINS
 FUNCTION UTCI_APPROX(PTA,PEHPA,PTMRT,PVA) RESULT(PUTCI_APPROX)
 !~ *************************************************************
 !~ ****!
@@ -234,4 +236,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('UTCI_APPROX',1,ZHOOK_HANDLE)
 !
 END FUNCTION UTCI_APPROX
-
+END MODULE MODI_UTCI_APPROX

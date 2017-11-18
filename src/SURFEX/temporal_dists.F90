@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_TEMPORAL_DISTS
+CONTAINS
       SUBROUTINE TEMPORAL_DISTS(KYEARF, KMONTHF, KDAYF, PSECF,     &
                                  KYEARI, KMONTHI, KDAYI, PSECI,     &
                                  PDIST                              )
@@ -219,3 +221,4 @@ IF (LHOOK) CALL DR_HOOK('TEMPORAL_DISTS',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE TEMPORAL_DISTS
+END MODULE MODI_TEMPORAL_DISTS

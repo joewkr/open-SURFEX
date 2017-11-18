@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_HYDRO_VEG
+CONTAINS
       SUBROUTINE HYDRO_VEG(HRAIN, PTSTEP, PMUF, PRR, PLEV, PLETR,    &
                               PVEG, PPSNV, PWR, PWRMAX, PPG, PDRIP,    &
                               PRRVEG, PLVTT  )
@@ -243,3 +245,4 @@ IF (LHOOK) CALL DR_HOOK('HYDRO_VEG',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE HYDRO_VEG
+END MODULE MODI_HYDRO_VEG

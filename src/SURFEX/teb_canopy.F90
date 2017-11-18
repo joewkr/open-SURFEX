@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_TEB_CANOPY
+CONTAINS
 SUBROUTINE TEB_CANOPY(KI, SB, PBLD, PBLD_HEIGHT, PWALL_O_HOR, PPA, PRHOA, PDUWDU_ROAD, PUW_ROOF, &
                       PDUWDU_ROOF, PH_WALL, PH_ROOF, PE_ROOF, PAC_ROAD, PAC_ROAD_WAT, PFORC_U,    &
                       PDFORC_UDU, PFORC_E, PDFORC_EDE, PFORC_T, PDFORC_TDT, PFORC_Q, PDFORC_QDQ)
@@ -265,3 +267,4 @@ IF (LHOOK) CALL DR_HOOK('TEB_CANOPY',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE TEB_CANOPY
+END MODULE MODI_TEB_CANOPY

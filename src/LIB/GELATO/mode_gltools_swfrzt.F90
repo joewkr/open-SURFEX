@@ -48,33 +48,7 @@
 ! ------------------- BEGIN MODULE mode_gltools_swfrzt --------------------
 
 MODULE mode_gltools_swfrzt
-INTERFACE
-
-FUNCTION glt_swfrzt0d(ps)
-  REAL ::                                                               &
-    glt_swfrzt0d
-  REAL, INTENT(in) ::                                                   &
-    ps
-END FUNCTION glt_swfrzt0d
-
-FUNCTION glt_swfrzt2d(ps)
-  USE modd_glt_param, only:nx,ny
-  REAL, DIMENSION(nx,ny) ::                                       &
-    glt_swfrzt2d
-  REAL, DIMENSION(nx,ny), INTENT(in) ::                           &
-    ps
-END FUNCTION glt_swfrzt2d
-
-FUNCTION glt_swfrzt3d(ps)
-  USE modd_glt_param, only:nt,nx,ny
-  REAL, DIMENSION(nt,nx,ny) ::                                    &
-    glt_swfrzt3d
-  REAL, DIMENSION(nt,nx,ny), INTENT(in) ::                        &
-    ps
-END FUNCTION glt_swfrzt3d
-
-END INTERFACE
-END MODULE mode_gltools_swfrzt
+CONTAINS
 
 ! -------------------- END MODULE mode_gltools_swfrzt ---------------------
 
@@ -178,3 +152,4 @@ END FUNCTION glt_swfrzt3d
 
 ! ------------------------ END FUNCTION glt_swfrzt3d ------------------------
 ! -----------------------------------------------------------------------
+END MODULE mode_gltools_swfrzt

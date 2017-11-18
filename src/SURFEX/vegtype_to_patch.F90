@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_VEGTYPE_TO_PATCH
+CONTAINS
     FUNCTION VEGTYPE_TO_PATCH(IVEGTYPE,INPATCH ) RESULT(IPATCH_NB)
 !   ####################################################
 !!
@@ -244,3 +246,4 @@ IF (LHOOK) CALL DR_HOOK('VEGTYPE_TO_PATCH',1,ZHOOK_HANDLE)
 
 !
 END FUNCTION VEGTYPE_TO_PATCH
+END MODULE MODI_VEGTYPE_TO_PATCH

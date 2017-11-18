@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GAMMAS
+CONTAINS
       FUNCTION GAMMAS(PX)  RESULT(PGAMMA)
 !     ##################################
 !
@@ -93,3 +95,4 @@ END IF
 IF (LHOOK) CALL DR_HOOK('GAMMAS',1,ZHOOK_HANDLE)
 !
 END FUNCTION GAMMAS
+END MODULE MODI_GAMMAS

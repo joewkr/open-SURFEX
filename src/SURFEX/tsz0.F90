@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_TSZ0
+CONTAINS
       SUBROUTINE TSZ0 (DTZ, PTIME, PTSTEP, KK, PEK )
 !     ################################################################
 !
@@ -136,3 +138,4 @@ IF (LHOOK) CALL DR_HOOK('TSZ0',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE TSZ0
+END MODULE MODI_TSZ0

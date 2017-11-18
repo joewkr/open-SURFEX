@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#####################################################################################
+MODULE MODI_BLD_OCC_CALENDAR
+CONTAINS
 SUBROUTINE BLD_OCC_CALENDAR(TPTIME, PTSUN, T, B, PQIN_FRAC, PTCOOL_TARGET, PTHEAT_TARGET, PQIN)
 !#####################################################################################
 !! **** BLD_OCC_CALENDAR *
@@ -143,3 +145,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('BLD_OCC_CALENDAR',1,ZTODOOK_HANDLE)
 !
 END SUBROUTINE BLD_OCC_CALENDAR
+END MODULE MODI_BLD_OCC_CALENDAR

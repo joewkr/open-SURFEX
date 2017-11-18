@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SUNPOS
+CONTAINS
       SUBROUTINE SUNPOS (KYEAR, KMONTH, KDAY, PTIME, &
                          PLON, PLAT, PTSUN, PZENITH, PAZIMSOL)
 !     ####################################################################################
@@ -211,3 +213,4 @@ IF (LHOOK) CALL DR_HOOK('SUNPOS_2',1,ZHOOK_HANDLE_OMP)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SUNPOS
+END MODULE MODI_SUNPOS

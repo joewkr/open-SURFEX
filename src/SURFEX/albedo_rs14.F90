@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ALBEDO_RS14
+CONTAINS
  SUBROUTINE ALBEDO_RS14(PZENITH,PWIND,PDIR_ALB,PSCA_ALB)
 !     ##################################################################
 !
@@ -218,3 +220,4 @@ IF (LHOOK) CALL DR_HOOK('ALBEDO_RS14',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE ALBEDO_RS14
+END MODULE MODI_ALBEDO_RS14

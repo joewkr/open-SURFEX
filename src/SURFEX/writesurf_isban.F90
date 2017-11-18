@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_WRITESURF_ISBA_n
+CONTAINS
       SUBROUTINE WRITESURF_ISBA_n (HSELECT, OSNOWDIMNC, CHI, NDST, &
                                    IO, S, NP, NPE, KI, HPROGRAM, OLAND_USE)
 !     #####################################
@@ -541,3 +543,4 @@ IF (LHOOK) CALL DR_HOOK('WRITESURF_ISBA_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE WRITESURF_ISBA_n
+END MODULE MODI_WRITESURF_ISBA_n

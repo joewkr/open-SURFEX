@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PT_BY_PT_TREATMENT
+CONTAINS
       SUBROUTINE PT_BY_PT_TREATMENT (UG, U, USS, &
                                      KLUOUT,PLAT,PLON,PVALUE,HSUBROUTINE,&
                                      KNBLINES,PNODATA,OMULTITYPE,KFACT)
@@ -147,3 +149,4 @@ IF (LHOOK) CALL DR_HOOK('PT_BY_PT_TREATMENT',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE PT_BY_PT_TREATMENT
+END MODULE MODI_PT_BY_PT_TREATMENT

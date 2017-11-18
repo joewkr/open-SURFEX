@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DSLT_INIT_NAMES
+CONTAINS
 SUBROUTINE DSLT_INIT_NAMES (KLUOUT, HRC1, HSV, KPMODE, &
                             KEQ, KSV_BEG, KSV_END, OVARSIG, ORGFIX)
 !!    ###########################################
@@ -102,3 +104,4 @@ END IF
 IF (LHOOK) CALL DR_HOOK('DSLT_INIT_NAMES',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DSLT_INIT_NAMES
+END MODULE MODI_DSLT_INIT_NAMES

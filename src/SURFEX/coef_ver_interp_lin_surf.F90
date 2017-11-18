@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_COEF_VER_INTERP_LIN_SURF
+CONTAINS
       SUBROUTINE COEF_VER_INTERP_LIN_SURF(PZ1,PZ2,KKLIN,PCOEFLIN)
 !     ###############################################################
 !
@@ -161,3 +163,4 @@ IF (LHOOK) CALL DR_HOOK('COEF_VER_INTERP_LIN_SURF_3',1,ZHOOK_HANDLE_OMP)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE COEF_VER_INTERP_LIN_SURF
+END MODULE MODI_COEF_VER_INTERP_LIN_SURF

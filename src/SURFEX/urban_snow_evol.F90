@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_URBAN_SNOW_EVOL
+CONTAINS
     SUBROUTINE URBAN_SNOW_EVOL(T, B, PT_LWCN, PQ_LWCN, PU_LWCN, PTS_RF, PTS_RD, PTS_WL_A,   &
                                PTS_WL_B, PPS, PTA, PQA, PRHOA, PLW_RAD, PSR, PZREF, PUREF,  &
                                PVMOD, PTSTEP, PZ_LWCN, PDN_RF, PABS_SW_SN_RF, PABS_LW_SN_RF,&
@@ -281,3 +283,4 @@ IF (LHOOK) CALL DR_HOOK('URBAN_SNOW_EVOL',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE URBAN_SNOW_EVOL
+END MODULE MODI_URBAN_SNOW_EVOL

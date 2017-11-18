@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################################################################
+MODULE MODI_ARPEGE_STRETCH_A
+CONTAINS
 SUBROUTINE ARPEGE_STRETCH_A(KN,PLAP,PLOP,PCOEF,PLAR,PLOR,PLAC,PLOC)
 !     ##########################################################################
 !!****  *ARPEGE_STRETCH_A* - Projection to Arpege stretched grid
@@ -147,4 +149,5 @@ USE PARKIND1  ,ONLY : JPRB
   PLAC(:) = PLAC(:) * 180. / XPI
 IF (LHOOK) CALL DR_HOOK('ARPEGE_STRETCH_A',1,ZHOOK_HANDLE)
 END SUBROUTINE ARPEGE_STRETCH_A
+END MODULE MODI_ARPEGE_STRETCH_A
 !-------------------------------------------------------------------------------

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################################################################
+MODULE MODI_E_BUDGET_MEB
+CONTAINS
       SUBROUTINE E_BUDGET_MEB(IO, KK, PK, PEK, DK, DEK, DMK,     &
                               PTSTEP, PLTT, PPS, PCT, PTDEEP_A, PD_G, PSOILCONDZ,   &
                               PSOILHCAPZ, PSNOWRHO, PSNOWCONDZ, PSNOWHCAPZ, PTAU_N, &
@@ -985,5 +987,6 @@ PK%XLSTT(:)   = PLTT(:)
 IF (LHOOK) CALL DR_HOOK('E_BUDGET_MEB',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE E_BUDGET_MEB
+END MODULE MODI_E_BUDGET_MEB
 
 

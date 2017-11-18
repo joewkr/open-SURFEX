@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DEFAULT_WATFLUX
+CONTAINS
       SUBROUTINE DEFAULT_WATFLUX(PTSTEP,POUT_TSTEP,HWAT_ALB,HINTERPOL_TS)
 !     ########################################################################
 !
@@ -70,3 +72,4 @@ IF (LHOOK) CALL DR_HOOK('DEFAULT_WATFLUX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DEFAULT_WATFLUX
+END MODULE MODI_DEFAULT_WATFLUX

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########
+MODULE MODI_SFX_OASIS_RECV_OL
+CONTAINS
 SUBROUTINE SFX_OASIS_RECV_OL (F, IM, S, U, W, &
                               HPROGRAM,KI,KSW,PTIMEC,PTSTEP_SURF,   &
                               PZENITH,PSW_BANDS,          &
@@ -213,3 +215,4 @@ IF (LHOOK) CALL DR_HOOK('SFX_OASIS_RECV_OL',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SFX_OASIS_RECV_OL
+END MODULE MODI_SFX_OASIS_RECV_OL

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_URBAN_SOLAR_ABS
+CONTAINS
     SUBROUTINE URBAN_SOLAR_ABS(TOP, T, B, DMT, PDIR_SW, PSCA_SW, PZENITH, PAZIM,   &
                                PFRAC_PANEL, PALB_PANEL, PALB_GD, PSVF_GD, PALB_GRF, &
                                PDN_RF, PDF_RF, PDN_RD, PDF_RD, PREC_SW_RD,          &
@@ -840,3 +842,4 @@ END SUBROUTINE TOWN_ALBEDO
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE URBAN_SOLAR_ABS
+END MODULE MODI_URBAN_SOLAR_ABS

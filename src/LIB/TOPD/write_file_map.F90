@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ##########################
+MODULE MODI_WRITE_FILE_MAP
+CONTAINS
       SUBROUTINE WRITE_FILE_MAP(PVAR,HVAR)
 !     ##########################
 !
@@ -146,3 +148,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('WRITE_FILE_MAP',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE WRITE_FILE_MAP
+END MODULE MODI_WRITE_FILE_MAP

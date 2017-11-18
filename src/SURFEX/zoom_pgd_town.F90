@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################
+MODULE MODI_ZOOM_PGD_TOWN
+CONTAINS
       SUBROUTINE ZOOM_PGD_TOWN (BOP, BDD, DTB, DTCO, DTT, UG, U, GCP, IO, K, TG, TOP, &
                                 HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE,OECOCLIMAP,OGARDEN)
 !     ###########################################################
@@ -109,3 +111,4 @@ IF (LHOOK) CALL DR_HOOK('ZOOM_PGD_TOWN',1,ZHOOK_HANDLE)
 !_______________________________________________________________________________
 !
 END SUBROUTINE ZOOM_PGD_TOWN
+END MODULE MODI_ZOOM_PGD_TOWN

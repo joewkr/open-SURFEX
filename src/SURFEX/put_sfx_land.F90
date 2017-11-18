@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PUT_SFX_LAND
+CONTAINS
       SUBROUTINE PUT_SFX_LAND (IO, S, K, NK, NP, U, &
                                KLUOUT,OCPL_WTD,OCPL_FLOOD, &
                               PWTD,PFWTD,PFFLOOD,PPIFLOOD )
@@ -186,3 +188,4 @@ END SUBROUTINE CHECK_LAND
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE PUT_SFX_LAND
+END MODULE MODI_PUT_SFX_LAND

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_OCEAN_NETCDF
+CONTAINS
 SUBROUTINE PREP_OCEAN_NETCDF(HPROGRAM,HSURF,HFILE,HFILETYPE,&
                               KLUOUT,HNCVARNAME,PFIELD)
 !     #################################################################################
@@ -94,3 +96,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_OCEAN_NETCDF',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------------
 END SUBROUTINE PREP_OCEAN_NETCDF
+END MODULE MODI_PREP_OCEAN_NETCDF

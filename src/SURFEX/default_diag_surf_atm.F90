@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DEFAULT_DIAG_SURF_ATM
+CONTAINS
       SUBROUTINE DEFAULT_DIAG_SURF_ATM(K2M, OT2MMW, OSURF_BUDGET, O2M_MIN_ZS, ORAD_BUDGET, &
                                        OCOEF, OSURF_VARS, OSURF_BUDGETC, ORESET_BUDGETC, &
                                        OSELECT, OPROVAR_TO_DIAG, ODIAG_GRID, OFRAC, &
@@ -114,3 +116,4 @@ IF (LHOOK) CALL DR_HOOK('DEFAULT_DIAG_SURF_ATM',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DEFAULT_DIAG_SURF_ATM
+END MODULE MODI_DEFAULT_DIAG_SURF_ATM

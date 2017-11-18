@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INIT_FROM_DATA_TEB_VEG_n
+CONTAINS
       SUBROUTINE INIT_FROM_DATA_TEB_VEG_n (DTV, K, P, PEK, KDECADE, OUPDATE, OFIX, OTIME, OALB)
 !     ##############################################################
 !
@@ -205,3 +207,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_FROM_DATA_TEB_VEG_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INIT_FROM_DATA_TEB_VEG_n
+END MODULE MODI_INIT_FROM_DATA_TEB_VEG_n

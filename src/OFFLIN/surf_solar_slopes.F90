@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########################################################################
+MODULE MODI_SURF_SOLAR_SLOPES
+CONTAINS
 SUBROUTINE SURF_SOLAR_SLOPES (PCOSZEN,PSINZEN,PAZIMSOL,PSLOPANG, PSLOPAZI, &
                               PSURF_TRIANGLE,PDIRSRFSWD,PDIRSWDT           )
 !#########################################################################
@@ -138,3 +140,4 @@ END DO
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SURF_SOLAR_SLOPES
+END MODULE MODI_SURF_SOLAR_SLOPES

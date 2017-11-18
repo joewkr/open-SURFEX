@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-------------------------------------------------------------------------------
 !     #############################################################
+MODULE MODI_INIT_SURF_TOPD
+CONTAINS
       SUBROUTINE INIT_SURF_TOPD (DEC, IO, S, K, NP, NPE, UG, U, HPROGRAM,KI)
 !     #############################################################
 !
@@ -132,3 +134,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('INIT_SURF_TOPD',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_SURF_TOPD
+END MODULE MODI_INIT_SURF_TOPD

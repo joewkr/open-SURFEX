@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PGD_CHEMISTRY
+CONTAINS
       SUBROUTINE PGD_CHEMISTRY (CHE, DTCO, UG, U, USS, &
                                 HPROGRAM,OCH_EMIS)
 !     ##############################################################
@@ -239,3 +241,4 @@ IF (LHOOK) CALL DR_HOOK('PGD_CHEMISTRY',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE PGD_CHEMISTRY
+END MODULE MODI_PGD_CHEMISTRY

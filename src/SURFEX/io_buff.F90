@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################
+MODULE MODI_IO_BUFF
+CONTAINS
       SUBROUTINE IO_BUFF (&
                             HREC,HACTION,OKNOWN)
 !     #######################################################
@@ -81,3 +83,4 @@ IF (LHOOK) CALL DR_HOOK('IO_BUFF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE IO_BUFF
+END MODULE MODI_IO_BUFF

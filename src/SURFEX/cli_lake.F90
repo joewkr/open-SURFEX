@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######
+MODULE MODI_CLI_LAKE
+CONTAINS
 SUBROUTINE CLI_LAKE (G, F)
 !     ###############
 !
@@ -67,3 +69,4 @@ END DO
 IF (LHOOK) CALL DR_HOOK('CLI_LAKE',1,ZHOOK_HANDLE)
 
 END SUBROUTINE CLI_LAKE
+END MODULE MODI_CLI_LAKE

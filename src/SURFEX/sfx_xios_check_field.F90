@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_SFX_XIOS_CHECK_FIELD
+CONTAINS
 SUBROUTINE SFX_XIOS_CHECK_FIELD(U, HREC, HCOMMENT, OWRITE, PFIELD1, PFIELD2, PFIELD3, HAXIS)
 !!
 !!
@@ -254,3 +256,4 @@ IF (LHOOK) CALL DR_HOOK('SFX_XIOS_CHECK_FIELD',1,ZHOOK_HANDLE)
 ! ----------------------------------------------------------------------
 !
 END SUBROUTINE SFX_XIOS_CHECK_FIELD
+END MODULE MODI_SFX_XIOS_CHECK_FIELD

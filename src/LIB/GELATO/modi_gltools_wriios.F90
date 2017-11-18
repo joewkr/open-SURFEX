@@ -88,6 +88,8 @@
 ! -------------------------------------------------------------------------
 ! ----------------------- SUBROUTINE gltools_wriios -----------------------
 !
+MODULE MODI_gltools_wriios
+CONTAINS
 SUBROUTINE gltools_wriios  &
         ( hnam,pfield,pwgt )
 !
@@ -159,6 +161,7 @@ SUBROUTINE gltools_wriios  &
   ENDIF
 !
 END SUBROUTINE gltools_wriios
+END MODULE MODI_gltools_wriios
 !
 ! ------------------------ END SUBROUTINE gltools_wriios ------------------------
 ! -------------------------------------------------------------------------------

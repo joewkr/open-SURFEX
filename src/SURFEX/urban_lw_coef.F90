@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
+MODULE MODI_URBAN_LW_COEF
+CONTAINS
     SUBROUTINE URBAN_LW_COEF(B, T, PLW_RAD, PEMIS_G, PTS_SR, PTS_G,              &
                              PLW_WA_TO_WB, PLW_WA_TO_R, PLW_WB_TO_R,             &
                              PLW_WA_TO_NR,PLW_WB_TO_NR,                          &
@@ -244,4 +246,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('URBAN_LW_COEF',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE URBAN_LW_COEF
-
+END MODULE MODI_URBAN_LW_COEF

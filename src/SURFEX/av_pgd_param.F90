@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
+MODULE MODI_AV_PGD_PARAM
+CONTAINS
       SUBROUTINE AV_PGD_PARAM (PLAI_IN, PVEG_IN, &
                                PFIELD,PVEGTYPE,PDATA,HSFTYPE,HATYPE,KMASK,KNPATCH,KPATCH,PDZ,KDECADE)
 !     ################################################################
@@ -326,3 +328,4 @@ IF (LHOOK) CALL DR_HOOK('AV_PGD_PARAM',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE AV_PGD_PARAM
+END MODULE MODI_AV_PGD_PARAM

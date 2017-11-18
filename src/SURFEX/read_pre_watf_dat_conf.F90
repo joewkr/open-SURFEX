@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_PRE_WATF_DAT_CONF
+CONTAINS
       SUBROUTINE READ_PRE_WATF_DAT_CONF(HPROGRAM,KLUOUT,TPTIME)
 !     #######################################################
 !
@@ -75,3 +77,4 @@ IF (LHOOK) CALL DR_HOOK('READ_PRE_WATF_DAT_CONF',1,ZHOOK_HANDLE)
 !------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_PRE_WATF_DAT_CONF
+END MODULE MODI_READ_PRE_WATF_DAT_CONF

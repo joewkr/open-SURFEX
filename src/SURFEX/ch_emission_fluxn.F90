@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CH_EMISSION_FLUX_n
+CONTAINS
       SUBROUTINE CH_EMISSION_FLUX_n (DTCO, U, CHE, SV, CHU, HPROGRAM,PSIMTIME,PSFSV, PRHOA, PTSTEP, KNBTS_MAX)
 !     ######################################################################
 !!
@@ -448,3 +450,4 @@ IF (IVERB >= 6) WRITE(ILUOUT,*) '******** END CH_EMISSION_FLUX  ********'
 IF (LHOOK) CALL DR_HOOK('CH_EMISSION_FLUX_N',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE CH_EMISSION_FLUX_n
+END MODULE MODI_CH_EMISSION_FLUX_n

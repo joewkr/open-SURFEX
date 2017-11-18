@@ -112,6 +112,8 @@
 ! with:
 !                hsi0 = 0.1 m
 !
+MODULE MODI_glt_icetrans_r
+CONTAINS
 SUBROUTINE glt_icetrans_r( tpblki,tpmxl,tptfl,tpsit,tpdia,pswtra )
 !
   USE modd_glt_const_thm
@@ -235,6 +237,7 @@ SUBROUTINE glt_icetrans_r( tpblki,tpmxl,tptfl,tpsit,tpdia,pswtra )
   END DO
 !
 END SUBROUTINE glt_icetrans_r
+END MODULE MODI_glt_icetrans_r
 !
 ! ---------------------- END SUBROUTINE glt_icetrans_r ----------------------
 ! -----------------------------------------------------------------------

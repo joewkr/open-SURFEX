@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
+MODULE MODI_ISBA_FLUXES
+CONTAINS
       SUBROUTINE ISBA_FLUXES(IO, KK, PK, PEK, DMK, PTSTEP, &
                              PSW_RAD, PLW_RAD, PTA, PQA, PRHOA, PEXNS, PEXNA, &
                              PHUG, PHUI, PLEG_DELTA, PLEGI_DELTA, PDELTA, PF5, PCS, PTSM, PT2M, &
@@ -400,14 +402,5 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('ISBA_FLUXES',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE ISBA_FLUXES
-
-
-
-
-
-
-
-
-
-
+END MODULE MODI_ISBA_FLUXES
 

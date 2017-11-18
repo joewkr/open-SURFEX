@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !      ###################################################
+MODULE MODI_OI_LATLON_CONF_PROJ
+CONTAINS
        SUBROUTINE OI_LATLON_CONF_PROJ(NDIM,PLAT0,PLON0,PRPK,PBETA,PLATOR,PLONOR, &
                                        PX,PY,PLAT,PLON                       )
 !      ###################################################
@@ -223,3 +225,4 @@ PLON(:)=PLON(:)+NINT((PLON0-PLON(:))/360.)*360.
 IF (LHOOK) CALL DR_HOOK('OI_LATLON_CONF_PROJ',1,ZHOOK_HANDLE)
 !---------------------------------------------------------------------------------
 END SUBROUTINE OI_LATLON_CONF_PROJ
+END MODULE MODI_OI_LATLON_CONF_PROJ

@@ -128,6 +128,8 @@
 !----------------------------------------------------
 !################################################################
 !
+MODULE MODI_DGAM
+CONTAINS
 SUBROUTINE DGAM(PA, PX, PACC, PG, PGSTAR, KFLG, KFLGST)
 !
 !################################################################
@@ -806,3 +808,4 @@ IF (LHOOK) CALL DR_HOOK('DGAMM:DLGA',1,ZHOOK_HANDLE)
 END FUNCTION DLGA
 
 END SUBROUTINE DGAM
+END MODULE MODI_DGAM

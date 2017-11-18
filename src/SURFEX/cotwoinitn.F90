@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_COTWOINIT_n
+CONTAINS
       SUBROUTINE COTWOINIT_n (IO, S, PK, PEK, PCO2  )
 !     #######################################################################
 !
@@ -284,3 +286,4 @@ CALL COTWO(PCO2, ZCO2INIT5, ZCO2INIT4, ZCO2INIT3, ZGAMMT, &
 IF (LHOOK) CALL DR_HOOK('COTWOINIT_N',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE COTWOINIT_n
+END MODULE MODI_COTWOINIT_n

@@ -7,6 +7,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ECUMEV6_FLUX
+CONTAINS
     SUBROUTINE ECUMEV6_FLUX(PZ0SEA,PTA,PEXNA,PRHOA,PSST,PSSS,PEXNS,PQA,PVMOD, &
                             PZREF,PUREF,PPS,PPA,PICHCE,OPRECIP,OPWEBB,        &
                             PQSAT,PSFTH,PSFTQ,PUSTAR,PCD,PCDN,PCH,PCE,        &
@@ -635,3 +637,4 @@ IF (LHOOK) CALL DR_HOOK('ECUMEV6_FLUX',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
    END SUBROUTINE ECUMEV6_FLUX
+END MODULE MODI_ECUMEV6_FLUX

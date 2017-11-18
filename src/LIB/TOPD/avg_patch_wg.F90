@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !
 !     ##########################
+MODULE MODI_AVG_PATCH_WG
+CONTAINS
       SUBROUTINE AVG_PATCH_WG (IO, NP, NPE, PWG, PWGI, PDG)
 !     ##########################
 !
@@ -139,5 +141,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('AVG_PATCH_WG',1,ZHOOK_HANDLE)
 
 END SUBROUTINE AVG_PATCH_WG
-
-
+END MODULE MODI_AVG_PATCH_WG

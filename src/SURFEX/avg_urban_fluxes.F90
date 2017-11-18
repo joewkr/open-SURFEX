@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_AVG_URBAN_FLUXES
+CONTAINS
     SUBROUTINE AVG_URBAN_FLUXES(TOP, T, B, TPN, DMT,                               &
                                 PTS_TWN, PEMIS_TWN,  PT_CAN,                       &
                                 PQ_CAN, PT_LOWCAN, PQ_LOWCAN, PTA, PQA, PRHOA, PPS,&
@@ -392,3 +394,4 @@ IF (LHOOK) CALL DR_HOOK('AVG_URBAN_FLUXES',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE AVG_URBAN_FLUXES
+END MODULE MODI_AVG_URBAN_FLUXES

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_COUPLING_TSZ0_n
+CONTAINS
 SUBROUTINE COUPLING_TSZ0_n (DTCO, UG, U, USS, IM, DTZ, NDST, SLT, HPROGRAM, HCOUPLING,   &
                             PTSTEP, KYEAR, KMONTH, KDAY, PTIME, KI, KSV, KSW, PTSUN,&
                             PZENITH, PZENITH2, PAZIM, PZREF, PUREF, PZS, PU, PV,    &
@@ -244,3 +246,4 @@ IF (LHOOK) CALL DR_HOOK('COUPLING_TSZ0_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE COUPLING_TSZ0_n
+END MODULE MODI_COUPLING_TSZ0_n

@@ -69,6 +69,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE gltools_readnam --------------------------
 !
+MODULE MODI_gltools_readnam
+CONTAINS
 SUBROUTINE gltools_readnam(hmandatory,kluout)
 !
 USE modd_glt_param
@@ -572,6 +574,7 @@ STOP
 110 FORMAT("* GELATO/readnam : parameter '",A,"' ignored.")
 !
 END SUBROUTINE gltools_readnam
+END MODULE MODI_gltools_readnam
 !
 ! ---------------------- END SUBROUTINE gltools_readnam -------------------------
 ! -----------------------------------------------------------------------

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_WRITE_DIAG_PGD_ISBA_n
+CONTAINS
       SUBROUTINE WRITE_DIAG_PGD_ISBA_n (DTCO, HSELECT, U, CHI, NCHI, OSURF_DIAG_ALBEDO, &
                                         IO, S, K, NP, NPE, ISS, HPROGRAM)
 !     #########################################
@@ -626,3 +628,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_DIAG_PGD_ISBA_N',1,ZHOOK_HANDLE)
 !
 !
 END SUBROUTINE WRITE_DIAG_PGD_ISBA_n
+END MODULE MODI_WRITE_DIAG_PGD_ISBA_n

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !####################################################################
+MODULE MODI_DISPH_FOR_MEB
+CONTAINS
     SUBROUTINE DISPH_FOR_MEB(PCHIL,PLAIV,PLW,PH_VEG,PZREF,PZ0_MEBV,PDISPH)
 !
 ! typical values for nordic forest:
@@ -111,3 +113,4 @@ PDISPH(:)=MIN(PDISPH(:),PH_VEG(:)-PZ0_MEBV(:)-0.01)
 IF (LHOOK) CALL DR_HOOK('DISPH_FOR_MEB',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DISPH_FOR_MEB
+END MODULE MODI_DISPH_FOR_MEB

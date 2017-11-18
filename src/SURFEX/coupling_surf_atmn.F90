@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
+MODULE MODI_COUPLING_SURF_ATM_n
+CONTAINS
 SUBROUTINE COUPLING_SURF_ATM_n (YSC, HPROGRAM, HCOUPLING, PTIMEC, PTSTEP, KYEAR, KMONTH,  &
                                 KDAY, PTIME, KI, KSV, KSW, PTSUN, PZENITH, PZENITH2,      &
                                 PAZIM, PZREF, PUREF, PZS, PU, PV, PQA, PTA, PRHOA, PSV,   &
@@ -669,3 +671,4 @@ IF (LHOOK) CALL DR_HOOK('COUPLING_SURF_ATM_n:TREAT_SURF',1,ZHOOK_HANDLE)
 END SUBROUTINE TREAT_SURF
 !=======================================================================================
 END SUBROUTINE COUPLING_SURF_ATM_n
+END MODULE MODI_COUPLING_SURF_ATM_n

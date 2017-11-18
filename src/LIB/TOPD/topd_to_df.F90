@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !
 !     ##########################
+MODULE MODI_TOPD_TO_DF
+CONTAINS
       SUBROUTINE TOPD_TO_DF (IO, NK, NP, NPE, PWG)
 !     ##########################
 !
@@ -123,5 +125,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('TOPD_TO_DF',1,ZHOOK_HANDLE)
 
 END SUBROUTINE TOPD_TO_DF
-
-
+END MODULE MODI_TOPD_TO_DF

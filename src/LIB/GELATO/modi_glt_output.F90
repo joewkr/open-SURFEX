@@ -72,6 +72,8 @@
 ! a kind introductory welcome message.
 ! - Also opens specific files for gltools_timers glt_output
 !
+MODULE MODI_opnout
+CONTAINS
 SUBROUTINE opnout
 !
   USE modd_glt_param
@@ -134,6 +136,7 @@ SUBROUTINE opnout
   ENDIF
 !
 END SUBROUTINE opnout
+END MODULE MODI_opnout
 !
 ! ----------------------- END SUBROUTINE OPNOUT -------------------------
 ! -----------------------------------------------------------------------
@@ -144,6 +147,8 @@ END SUBROUTINE opnout
 !
 ! * Closes GELATO glt_output file, and gltools_timers file
 
+MODULE MODI_clsout
+CONTAINS
 SUBROUTINE clsout
 !
   USE modd_glt_param
@@ -163,6 +168,7 @@ SUBROUTINE clsout
   ENDIF
 !
 END SUBROUTINE clsout
+END MODULE MODI_clsout
 !
 ! ------------------------ END SUBROUTINE CLSOUT ------------------------
 ! -----------------------------------------------------------------------

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_UPDATE_RAD_WATER
+CONTAINS
 SUBROUTINE UPDATE_RAD_WATER(W,PZENITH,PTT,PDIR_ALB_ATMOS,PSCA_ALB_ATMOS,PEMIS_ATMOS,PTRAD)
 !     #######################################################################
 !
@@ -148,4 +150,4 @@ IF (LHOOK) CALL DR_HOOK('UPDATE_RAD_WATER',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE UPDATE_RAD_WATER
-
+END MODULE MODI_UPDATE_RAD_WATER

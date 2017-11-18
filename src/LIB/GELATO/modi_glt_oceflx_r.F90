@@ -103,6 +103,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE glt_oceflx_r -------------------------
 !
+MODULE MODI_glt_oceflx_r
+CONTAINS
 SUBROUTINE glt_oceflx_r( tpdom,pustar,tpmxl )
 !
   USE modd_glt_const_thm
@@ -173,6 +175,7 @@ tpmxl(:)%qoc = rhosw * cpsw * zg_T(:) *  &
   MAX( tpmxl(:)%tml-tpmxl(:)%mlf, 0. )
 !
 END SUBROUTINE glt_oceflx_r
+END MODULE MODI_glt_oceflx_r
 !
 ! ----------------------- END SUBROUTINE glt_oceflx_r -----------------------
 ! -----------------------------------------------------------------------

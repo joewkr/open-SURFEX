@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CH_DEP_WATER
+CONTAINS
      SUBROUTINE CH_DEP_WATER  (PRESA,PUSTAR,PTA,PTRAD,PSV, HSV, PDEP)
   !###########################################################
   !
@@ -143,3 +145,4 @@
 IF (LHOOK) CALL DR_HOOK('CH_DEP_WATER',1,ZHOOK_HANDLE)
   !
 END SUBROUTINE CH_DEP_WATER
+END MODULE MODI_CH_DEP_WATER

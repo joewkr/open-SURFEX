@@ -83,6 +83,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE glt_updsal_r -------------------------
 !
+MODULE MODI_glt_updsal_r
+CONTAINS
 SUBROUTINE glt_updsal_r( gsmelt,tpmxl,tpsit,tptfl )
 !
   USE modd_glt_const_thm
@@ -172,6 +174,7 @@ SUBROUTINE glt_updsal_r( gsmelt,tpmxl,tpsit,tptfl )
   tptfl(:)%sio = tptfl(:)%sio + 1.e-3 * zqsalt(:)
 !
 END SUBROUTINE glt_updsal_r
+END MODULE MODI_glt_updsal_r
 !
 ! ---------------------- END SUBROUTINE glt_updsal_r ------------------------
 ! -----------------------------------------------------------------------

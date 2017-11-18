@@ -82,6 +82,8 @@
 ! * Subroutine used to update sea ice vertical temperature profile, due
 ! to sea ice melting.
 !
+MODULE MODI_glt_mltvtp_r
+CONTAINS
 SUBROUTINE glt_mltvtp_r( pdhi,phsi,tpsil )
 !
   USE modd_glt_const_thm
@@ -151,6 +153,7 @@ SUBROUTINE glt_mltvtp_r( pdhi,phsi,tpsil )
   phsi(:,:) = zhsi(:,:)
 !
 END SUBROUTINE glt_mltvtp_r
+END MODULE MODI_glt_mltvtp_r
 !
 ! ---------------------- END SUBROUTINE glt_mltvtp_r ------------------------
 ! -----------------------------------------------------------------------

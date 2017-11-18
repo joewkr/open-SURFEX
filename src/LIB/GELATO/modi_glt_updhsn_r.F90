@@ -86,6 +86,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE glt_updhsn_r -------------------------
 !
+MODULE MODI_glt_updhsn_r
+CONTAINS
 SUBROUTINE glt_updhsn_r( gsmelt,pdhmelt,tpmxl,tptfl,tpsit,tpsil,tpdia )
 !
   USE modd_glt_const_thm
@@ -221,6 +223,7 @@ SUBROUTINE glt_updhsn_r( gsmelt,pdhmelt,tpmxl,tptfl,tpsit,tpsil,tpdia )
 !print*,'qtio=',SUM( zqmelt(:,:)*tpsit(:,:)%fsi, DIM=1 )
 !
 END SUBROUTINE glt_updhsn_r
+END MODULE MODI_glt_updhsn_r
 !
 ! ----------------------- END SUBROUTINE glt_updhsn_r -----------------------
 ! -----------------------------------------------------------------------

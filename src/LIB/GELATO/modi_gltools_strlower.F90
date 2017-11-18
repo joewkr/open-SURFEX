@@ -74,6 +74,8 @@
 ! ---------------------------------------------------------------------
 ! ------------------------- FUNCTION gltools_strlower -------------------------
 !
+MODULE MODI_gltools_strlower
+CONTAINS
 FUNCTION gltools_strlower( hstring ) RESULT(hresult)
 !
   IMPLICIT NONE
@@ -102,6 +104,7 @@ FUNCTION gltools_strlower( hstring ) RESULT(hresult)
   END DO
 !
 END FUNCTION gltools_strlower
+END MODULE MODI_gltools_strlower
 !
 ! ----------------------- END FUNCTION gltools_strlower -----------------------
 ! ---------------------------------------------------------------------

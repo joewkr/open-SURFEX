@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
+MODULE MODI_INIT_COUPL_TOPD
+CONTAINS
       SUBROUTINE INIT_COUPL_TOPD (DEC, IO, S, K, NP, NPE, UG, U, HPROGRAM )
 !     #######################
 !
@@ -433,10 +435,4 @@ DEALLOCATE(ZWG3_FULL)
 IF (LHOOK) CALL DR_HOOK('INIT_COUPL_TOPD',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_COUPL_TOPD
-
-
-
-
-
-
-
+END MODULE MODI_INIT_COUPL_TOPD

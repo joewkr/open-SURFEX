@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GET_DEFAULT_NAM_n
+CONTAINS
       SUBROUTINE GET_DEFAULT_NAM_n(HPROGRAM,HACTION,KLUDES,ONAM_WRITTEN)
 !     #######################################################
 !
@@ -96,3 +98,4 @@ IF (LHOOK) CALL DR_HOOK('GET_DEFAULT_NAM_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE GET_DEFAULT_NAM_n
+END MODULE MODI_GET_DEFAULT_NAM_n

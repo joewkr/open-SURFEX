@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_TEB_GARDEN_BUFFER
+CONTAINS
 SUBROUTINE PREP_TEB_GARDEN_BUFFER(HPROGRAM,HSURF,KLUOUT,PFIELD)
 !     #################################################################################
 !
@@ -178,3 +180,4 @@ END SUBROUTINE SOIL_PROFILE_BUFFER
 !
 !-------------------------------------------------------------------------------------
 END SUBROUTINE PREP_TEB_GARDEN_BUFFER
+END MODULE MODI_PREP_TEB_GARDEN_BUFFER

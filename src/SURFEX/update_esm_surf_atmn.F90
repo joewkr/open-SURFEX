@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
+MODULE MODI_UPDATE_ESM_SURF_ATM_n
+CONTAINS
 SUBROUTINE UPDATE_ESM_SURF_ATM_n (F, IM, S, U, W, HPROGRAM, KI, KSW, PZENITH, PSW_BANDS,     &
                                    PTRAD, PDIR_ALB, PSCA_ALB, PEMIS, PTSURF )
 !     #################################################################################
@@ -289,5 +291,4 @@ END SUBROUTINE TREAT_SURF
 !=======================================================================================
 !
 END SUBROUTINE UPDATE_ESM_SURF_ATM_n
-
-
+END MODULE MODI_UPDATE_ESM_SURF_ATM_n

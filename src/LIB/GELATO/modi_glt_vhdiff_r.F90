@@ -96,6 +96,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------ SUBROUTINE glt_vhdiff_r --------------------------
 !
+MODULE MODI_glt_vhdiff_r
+CONTAINS
 SUBROUTINE glt_vhdiff_r  &
         ( tpdom,pmlf,pderiv,tpsit,tpdia,  &
         pnsftop,pswtra,pent,pvsp,pcondb,pqtopmelt,pdhmelt,gsmelt )
@@ -1026,3 +1028,4 @@ zdhmelt4 = sum(pdhmelt,dim=1)/dtt
   DEALLOCATE( zetai )
 !
   END SUBROUTINE glt_vhdiff_r
+END MODULE MODI_glt_vhdiff_r

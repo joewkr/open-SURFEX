@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GET_TEB_DEPTHS
+CONTAINS
       SUBROUTINE GET_TEB_DEPTHS (DTCO,  &
                                  HFILE, HFILETYPE, HFILEPGD, HFILEPGDTYPE, &
                                  PD_ROOF, PD_ROAD, PD_WALL, PD_FLOOR,HDIR)
@@ -293,3 +295,4 @@ IF (LHOOK) CALL DR_HOOK('GET_TEB_DEPTHS',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE GET_TEB_DEPTHS
+END MODULE MODI_GET_TEB_DEPTHS

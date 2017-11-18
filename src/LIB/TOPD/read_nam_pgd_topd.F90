@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !----------------------------------------------------------------------------!
 !     ##############################################################
+MODULE MODI_READ_NAM_PGD_TOPD
+CONTAINS
       SUBROUTINE READ_NAM_PGD_TOPD(HPROGRAM,OCOUPL_TOPD,HCAT,PF_PARAM_BV,PC_DEPTH_RATIO_BV)
 !     ##############################################################
 !
@@ -128,3 +130,4 @@ IF (LHOOK) CALL DR_HOOK('READ_NAM_PGD_TOPD',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_NAM_PGD_TOPD
+END MODULE MODI_READ_NAM_PGD_TOPD

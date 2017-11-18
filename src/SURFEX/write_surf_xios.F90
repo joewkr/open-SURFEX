@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_WRITE_SURF_XIOS
+CONTAINS
 SUBROUTINE WRITE_SURF_XIOS(HREC, HCOMMENT, KFIELD, PFIELD, OFIELD, HFIELD, PFIELD1, PFIELD2, PFIELD3, HAXIS, HAXIS2)
 !!
 !!
@@ -244,3 +246,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_SURF_XIOS',1,ZHOOK_HANDLE)
 ! ----------------------------------------------------------------------
 !
 END SUBROUTINE WRITE_SURF_XIOS
+END MODULE MODI_WRITE_SURF_XIOS

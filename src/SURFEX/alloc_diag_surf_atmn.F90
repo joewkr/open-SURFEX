@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
+MODULE MODI_ALLOC_DIAG_SURF_ATM_n
+CONTAINS
       SUBROUTINE ALLOC_DIAG_SURF_ATM_n (DGO, D, DC, ND, NDC, &
                        KSIZE_FULL, TPTIME, HPROGRAM,KSW)
 !     #############################################################
@@ -314,3 +316,4 @@ END SUBROUTINE INIT_DIAG
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE ALLOC_DIAG_SURF_ATM_n
+END MODULE MODI_ALLOC_DIAG_SURF_ATM_n

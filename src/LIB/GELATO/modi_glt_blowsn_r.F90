@@ -92,6 +92,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------ SUBROUTINE glt_blowsn_r --------------------------
 !
+MODULE MODI_glt_blowsn_r
+CONTAINS
 SUBROUTINE glt_blowsn_r( tpmxl,tpsil,tptfl,tpsit )
 !
   USE modd_glt_const_thm
@@ -167,6 +169,7 @@ SUBROUTINE glt_blowsn_r( tpmxl,tpsil,tptfl,tpsit )
   CALL glt_updtfl_r( 'FW2O',tpmxl,tptfl,zdmsn,pent=zent )
 !
 END SUBROUTINE glt_blowsn_r
+END MODULE MODI_glt_blowsn_r
 !
 ! ---------------------- END SUBROUTINE glt_blowsn_r ------------------------
 ! -----------------------------------------------------------------------

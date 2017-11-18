@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
+MODULE MODI_READ_SLOPE_FILE
+CONTAINS
       SUBROUTINE READ_SLOPE_FILE(HPROGRAM,HFILE,HFORM,KNMC,PTANB,PSLOP,PDAREA,PLAMBDA)
 !     #######################
 !
@@ -114,10 +116,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('READ_SLOPE_FILE',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE READ_SLOPE_FILE
-
-
-
-
-
-
-
+END MODULE MODI_READ_SLOPE_FILE

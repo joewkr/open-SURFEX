@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_UPDATE_DATA_FRAC_n
+CONTAINS
       SUBROUTINE UPDATE_DATA_FRAC_n(PDATA_NATURE,PDATA_TOWN,PDATA_GARDEN,OGARDEN, &
                                     PDATA_BLD, PDATA_WALL_O_HOR                   )
 !     #########################
@@ -71,3 +73,4 @@ IF (LHOOK) CALL DR_HOOK('UPDATE_DATA_FRAC_n',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 
 END SUBROUTINE UPDATE_DATA_FRAC_n
+END MODULE MODI_UPDATE_DATA_FRAC_n

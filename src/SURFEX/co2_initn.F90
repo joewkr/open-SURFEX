@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CO2_INIT_n
+CONTAINS
       SUBROUTINE CO2_INIT_n (IO, S, PK, PEK, KSIZE, PCO2   )
 !     #####################
 !
@@ -129,3 +131,4 @@ IF (LHOOK) CALL DR_HOOK('PACK_CO2_INIT',1,ZHOOK_HANDLE)
 END SUBROUTINE PACK_CO2_INIT
 !
 END SUBROUTINE CO2_INIT_n
+END MODULE MODI_CO2_INIT_n

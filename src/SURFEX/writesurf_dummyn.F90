@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_WRITESURF_DUMMY_n
+CONTAINS
       SUBROUTINE WRITESURF_DUMMY_n (HSELECT, DUU, HPROGRAM)
 !     ##########################################
 !
@@ -89,3 +91,4 @@ IF (LHOOK) CALL DR_HOOK('WRITESURF_DUMMY_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE WRITESURF_DUMMY_n
+END MODULE MODI_WRITESURF_DUMMY_n

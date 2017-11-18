@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_INIT_INDEX_MPI
+CONTAINS
 SUBROUTINE INIT_INDEX_MPI (DTCO, U, UG, GCP, HPROGRAM,HINIT,HALG,PIO_FRAC,OSHADOWS)
 !
 ! 04-2014 : Modifs Matthieu Lafaysse for shadows :
@@ -704,3 +706,4 @@ END SUBROUTINE SET_NB_POINTS_TIL
 !
 !
 END SUBROUTINE INIT_INDEX_MPI
+END MODULE MODI_INIT_INDEX_MPI

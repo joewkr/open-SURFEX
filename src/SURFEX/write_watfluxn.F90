@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_WRITE_WATFLUX_n
+CONTAINS
       SUBROUTINE WRITE_WATFLUX_n (DTCO, HSELECT, U, WM, HPROGRAM,HWRITE)
 !     ####################################
 !
@@ -101,3 +103,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('WRITE_WATFLUX_N',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE WRITE_WATFLUX_n
+END MODULE MODI_WRITE_WATFLUX_n

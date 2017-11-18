@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
+MODULE MODI_TRAD_BODY
+CONTAINS
 FUNCTION TRAD_BODY(PSCA_SW, PREF_SW_FAC, PREF_SW_GRND, PEMIT_LW_FAC, PEMIT_LW_GRND, PLW_RAD,&
                    PBLD, PBLD_HEIGHT, PWALL_O_HOR, PDIR_SW, PZENITH) RESULT(PTRAD_BODY)
 !   ##########################################################################
@@ -128,3 +130,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('TRAD_BODY',1,ZHOOK_HANDLE)
 !
 END FUNCTION TRAD_BODY
+END MODULE MODI_TRAD_BODY

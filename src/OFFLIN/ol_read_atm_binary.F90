@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_OL_READ_ATM_BINARY
+CONTAINS
 SUBROUTINE OL_READ_ATM_BINARY(KFORC_STEP,                                 &
                               PTA,PQA,PWIND,PDIR_SW,PSCA_SW,PLW,PSNOW,    &
                               PRAIN,PPS,PCO2,PDIR                         )
@@ -80,3 +82,4 @@ IF (LHOOK) CALL DR_HOOK('OL_READ_ATM_BINARY',0,ZHOOK_HANDLE)
 IF (LHOOK) CALL DR_HOOK('OL_READ_ATM_BINARY',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE OL_READ_ATM_BINARY
+END MODULE MODI_OL_READ_ATM_BINARY

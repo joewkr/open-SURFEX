@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################
+MODULE MODI_PGD_GRID_SURF_ATM
+CONTAINS
       SUBROUTINE PGD_GRID_SURF_ATM (UG, U, GCP, HPROGRAM,HFILE,HFILETYPE,OGRID,HDIR)
 !     ###########################################################
 !!
@@ -106,3 +108,4 @@ IF (LHOOK) CALL DR_HOOK('PGD_GRID_SURF_ATM',1,ZHOOK_HANDLE)
 !_______________________________________________________________________________
 !
 END SUBROUTINE PGD_GRID_SURF_ATM
+END MODULE MODI_PGD_GRID_SURF_ATM

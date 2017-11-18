@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ####################################################################
+MODULE MODI_ALBEDO
+CONTAINS
       SUBROUTINE ALBEDO(HALBEDO, PEK, PSNOW, OMASK    )
 !     ####################################################################
 !
@@ -113,3 +115,4 @@ IF (LHOOK) CALL DR_HOOK('ALBEDO',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE ALBEDO
+END MODULE MODI_ALBEDO

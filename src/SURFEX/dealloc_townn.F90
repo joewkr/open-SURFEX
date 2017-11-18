@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DEALLOC_TOWN_n
+CONTAINS
 SUBROUTINE DEALLOC_TOWN_n (TM, GDM, GRM, U)
 !     ###############################################################################
 !
@@ -65,3 +67,4 @@ IF (LHOOK) CALL DR_HOOK('DEALLOC_TOWN_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE DEALLOC_TOWN_n
+END MODULE MODI_DEALLOC_TOWN_n

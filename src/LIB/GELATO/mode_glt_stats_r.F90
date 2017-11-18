@@ -51,110 +51,7 @@
 ! -------------------- BEGIN MODULE mode_glt_stats_r ------------------------
 
 MODULE mode_glt_stats_r
-INTERFACE
-
-FUNCTION glt_iceconcm_r(tpsit)
-  USE modd_types_glt
-  USE modd_glt_param
-  TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::               &
-        tpsit
-  REAL, DIMENSION(np) ::                                             &
-        glt_iceconcm_r
-END FUNCTION glt_iceconcm_r
-
-FUNCTION glt_thinice_concm_r(tpsit)
-  USE modd_types_glt
-  USE modd_glt_param
-  TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::               &
-        tpsit
-  REAL, DIMENSION(np) ::                                             &
-        glt_thinice_concm_r
-END FUNCTION glt_thinice_concm_r
-
-FUNCTION glt_thickice_concm_r(tpsit)
-  USE modd_types_glt
-  USE modd_glt_param
-  TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::               &
-        tpsit
-  REAL, DIMENSION(np) ::                                             &
-        glt_thickice_concm_r
-END FUNCTION glt_thickice_concm_r
-
-FUNCTION glt_icesurfg_r(tpdom,tpsit)
-  USE modd_types_glt
-  USE modd_glt_param
-  TYPE(t_dom), DIMENSION(np), INTENT(in) ::                          &
-        tpdom
-  TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::                       &
-        tpsit
-  REAL ::                                                               &
-        glt_icesurfg_r
-END FUNCTION glt_icesurfg_r
-
-FUNCTION glt_avg_r(tpdom,pfield,ktot)
-  USE modd_types_glt
-  USE modd_glt_param
-  TYPE(t_dom), DIMENSION(np), INTENT(in) ::  &
-    tpdom
-  REAL, DIMENSION(np), INTENT(in) ::  &
-    pfield
-  INTEGER, INTENT(in) ::  &
-    ktot
-  REAL ::  &
-    glt_avg_r
-END FUNCTION glt_avg_r
-
-FUNCTION glt_avhicem_r(tpsit)
-  USE modd_types_glt
-  USE modd_glt_param
-  TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::                       &
-    tpsit
-  REAL, DIMENSION(np) ::                                             &
-    glt_avhicem_r
-END FUNCTION glt_avhicem_r
-
-FUNCTION glt_avhsnwm_r(tpsit)
-  USE modd_types_glt
-  USE modd_glt_param
-  TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::                       &
-    tpsit
-  REAL, DIMENSION(np) ::                                             &
-    glt_avhsnwm_r
-END FUNCTION glt_avhsnwm_r
-
-FUNCTION glt_avmsnwm_r(tpsit)
-  USE modd_types_glt
-  USE modd_glt_param
-  TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::                       &
-    tpsit
-  REAL, DIMENSION(np) ::                                             &
-    glt_avmsnwm_r
-END FUNCTION glt_avmsnwm_r
-
-FUNCTION glt_avhiceg_r(tpdom,tpsit)
-  USE modd_types_glt
-  USE modd_glt_param
-  TYPE(t_dom), DIMENSION(np), INTENT(in) ::                          &
-    tpdom
-  TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::                       &
-    tpsit
-  REAL ::                                                               &
-    glt_avhiceg_r
-END FUNCTION glt_avhiceg_r
-
-FUNCTION glt_voliceg_r(tpdom,tpsit)
-  USE modd_types_glt
-  USE modd_glt_param
-  TYPE(t_dom), DIMENSION(np), INTENT(in) ::  &
-        tpdom
-  TYPE(t_sit), DIMENSION(nt,np), INTENT(in) ::  &
-        tpsit
-  REAL ::  &
-        glt_voliceg_r
-END FUNCTION glt_voliceg_r
-
-END INTERFACE
-END MODULE mode_glt_stats_r
+CONTAINS
 
 ! --------------------- END MODULE mode_glt_stats_r -------------------------
 
@@ -446,3 +343,4 @@ END FUNCTION glt_voliceg_r
 
 ! ----------------------- END FUNCTION glt_voliceg_r ------------------------
 ! -----------------------------------------------------------------------
+END MODULE mode_glt_stats_r

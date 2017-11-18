@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_WRITE_LCOVER
+CONTAINS
       SUBROUTINE WRITE_LCOVER(HSELECT,HPROGRAM,OCOVER)
 !     ################################
 !
@@ -94,3 +96,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_LCOVER',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE WRITE_LCOVER
+END MODULE MODI_WRITE_LCOVER

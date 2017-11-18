@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !!     ###########################################################
+MODULE MODI_EXTEND_GRID_ON_HALO
+CONTAINS
       SUBROUTINE EXTEND_GRID_ON_HALO(HPROGRAM,UG,U,KGRID_PAR,PGRID_PAR)
 !     ###########################################################
 !!
@@ -88,3 +90,4 @@ IF (LHOOK) CALL DR_HOOK('SPLIT_GRID',1,ZHOOK_HANDLE)
 !_______________________________________________________________________________
 !
 END SUBROUTINE EXTEND_GRID_ON_HALO
+END MODULE MODI_EXTEND_GRID_ON_HALO

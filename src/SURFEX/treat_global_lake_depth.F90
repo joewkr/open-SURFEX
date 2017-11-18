@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_TREAT_GLOBAL_LAKE_DEPTH
+CONTAINS
       SUBROUTINE TREAT_GLOBAL_LAKE_DEPTH (DTCO, UG, U, USS, &
                                           HPROGRAM,PDEPTH,KSTATUS)
 !     ##############################################################
@@ -178,3 +180,4 @@ IF (LHOOK) CALL DR_HOOK('TREAT_GLOBAL_LAKE_DEPTH',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE TREAT_GLOBAL_LAKE_DEPTH
+END MODULE MODI_TREAT_GLOBAL_LAKE_DEPTH

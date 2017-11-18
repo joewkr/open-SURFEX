@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_OPEN_FILE_NC
+CONTAINS
       SUBROUTINE OPEN_FILE_NC(KUNIT,HFILE,HFORM,HACTION,HACCESS,KRECL)
 !     #######################################################
 !
@@ -104,3 +106,4 @@ IF (LHOOK) CALL DR_HOOK('OPEN_FILE_NC',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE OPEN_FILE_NC
+END MODULE MODI_OPEN_FILE_NC

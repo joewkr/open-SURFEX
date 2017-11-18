@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_BILIN_EXTRAP
+CONTAINS
      SUBROUTINE BILIN_EXTRAP (KLUOUT,KX,KY,KCIJ,PX1,PY1,PFIELD1,PX2,PY2,PFIELD2,OINTERP)
 !     #########################################################################
 !
@@ -162,3 +164,4 @@ IF (LHOOK) CALL DR_HOOK('BILIN_EXTRAP',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE BILIN_EXTRAP
+END MODULE MODI_BILIN_EXTRAP

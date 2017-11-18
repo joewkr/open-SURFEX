@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !------------------------------------------------------------
 !     ##########################
+MODULE MODI_WRITE_FILE_VECMAP
+CONTAINS
       SUBROUTINE WRITE_FILE_VECMAP(PVAR,HVAR,KCAT)
 !     ##########################
 !
@@ -110,4 +112,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('WRITE_FILE_VECMAP',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE WRITE_FILE_VECMAP
-
+END MODULE MODI_WRITE_FILE_VECMAP

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DIAG_CPL_ESM_ISBA
+CONTAINS
       SUBROUTINE DIAG_CPL_ESM_ISBA (IO, S, NK, NP, PTSTEP, PCPL_DRAIN, PCPL_RUNOFF, &
                                     PCPL_EFLOOD,PCPL_PFLOOD,PCPL_IFLOOD,PCPL_ICEFLUX  )
 !     #####################################################################
@@ -166,3 +168,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('DIAG_CPL_ESM_ISBA',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DIAG_CPL_ESM_ISBA
+END MODULE MODI_DIAG_CPL_ESM_ISBA

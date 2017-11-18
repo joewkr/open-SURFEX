@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
+MODULE MODI_SUBSCALE_Z0EFF
+CONTAINS
       SUBROUTINE SUBSCALE_Z0EFF(ISSK,PZ0VEG,OZ0REL,OMASK  )
 !     ######################################################################
 !
@@ -158,3 +160,4 @@ IF (LHOOK) CALL DR_HOOK('SUBSCALE_Z0EFF:GET_ZOEFF',1,ZHOOK_HANDLE)
 END SUBROUTINE GET_Z0EFF
 
 END SUBROUTINE SUBSCALE_Z0EFF
+END MODULE MODI_SUBSCALE_Z0EFF

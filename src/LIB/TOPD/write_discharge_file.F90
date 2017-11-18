@@ -5,6 +5,8 @@
 !-----------------------------------------------------------------
 !     #######################
 !
+MODULE MODI_WRITE_DISCHARGE_FILE
+CONTAINS
       SUBROUTINE WRITE_DISCHARGE_FILE(HPROGRAM,HFILE,HFORM,&
                                       KYEAR,KMONTH,KDAY,KH,KM,PQTOT)
 !     #######################
@@ -109,4 +111,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('WRITE_DISCHARGE_FILE',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE WRITE_DISCHARGE_FILE
-
+END MODULE MODI_WRITE_DISCHARGE_FILE

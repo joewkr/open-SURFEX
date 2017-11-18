@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
+MODULE MODI_INIT_BEM_n
+CONTAINS
       SUBROUTINE INIT_BEM_n ( DTCO, TOP, BOP, DTT, DTB, BDD, G, &
                               T, B, KLUOUT)
 !     #############################################################
@@ -238,3 +240,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_BEM_N',1,ZHOOK_HANDLE)
 !
 !
 END SUBROUTINE INIT_BEM_n
+END MODULE MODI_INIT_BEM_n

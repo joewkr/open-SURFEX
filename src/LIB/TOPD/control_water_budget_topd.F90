@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #####################
+MODULE MODI_CONTROL_WATER_BUDGET_TOPD
+CONTAINS
       SUBROUTINE CONTROL_WATER_BUDGET_TOPD (IO, S, U, PWGM, PWG, PDG, PMESH_SIZE, PAVG_MESH_SIZE, PWSAT)
 !     #####################
 !
@@ -200,4 +202,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('CONTROL_WATER_BUDGET_TOPD',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE CONTROL_WATER_BUDGET_TOPD
-
+END MODULE MODI_CONTROL_WATER_BUDGET_TOPD

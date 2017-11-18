@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#########
+MODULE MODI_SFX_OASIS_PREP
+CONTAINS
 SUBROUTINE SFX_OASIS_PREP (IO, S, UG, U, HPROGRAM, KNPTS, KPARAL)
 !###################################################
 !
@@ -293,3 +295,4 @@ IF (LHOOK) CALL DR_HOOK('SFX_OASIS_PREP',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SFX_OASIS_PREP
+END MODULE MODI_SFX_OASIS_PREP

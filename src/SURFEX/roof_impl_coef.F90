@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ###############################################
+MODULE MODI_ROOF_IMPL_COEF
+CONTAINS
 SUBROUTINE ROOF_IMPL_COEF(T, PTSTEP, PTDEEP_A, PTDEEP_B)
 !   ###############################################
 !
@@ -140,3 +142,4 @@ IF (LHOOK) CALL DR_HOOK('ROOF_IMPL_COEF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE ROOF_IMPL_COEF
+END MODULE MODI_ROOF_IMPL_COEF

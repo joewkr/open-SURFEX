@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
+MODULE MODI_INIT_VEG_PGD_n
+CONTAINS
 SUBROUTINE INIT_VEG_PGD_n (ISSK, DTI, IO, S, K, KK, PK, PEK, AGK, KI, &
                            HPROGRAM, HSURF, KLUOUT, KSIZE, KMONTH,    &
                            ODEEPSOIL, OPHYSDOMC, PTDEEP_CLI, PGAMMAT_CLI,     &
@@ -563,3 +565,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('INIT_VEG_PGD_n',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_VEG_PGD_n
+END MODULE MODI_INIT_VEG_PGD_n

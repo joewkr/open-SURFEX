@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
+MODULE MODI_MAKE_MASK_ISBA_TO_TOPD
+CONTAINS
       SUBROUTINE MAKE_MASK_ISBA_TO_TOPD(KI)
 !     #######################
 !
@@ -99,10 +101,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('MAKE_MASK_ISBA_TO_TOPD',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE MAKE_MASK_ISBA_TO_TOPD
-
-
-
-
-
-
-
+END MODULE MODI_MAKE_MASK_ISBA_TO_TOPD

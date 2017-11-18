@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_HORIBL_SURF_EXTRAP
+CONTAINS
     SUBROUTINE HORIBL_SURF_EXTRAP(PILA1,PILO1,PILA2,PILO2,KINLA,KINLO,KILEN,PARIN, &
                                   KOLEN,KP,PXOUT,PYOUT,PAROUT,KLUOUT,OINTERP,PILATARRAY  )
 !   ###########################################################################
@@ -192,3 +194,4 @@ IF (LHOOK) CALL DR_HOOK('HORIBL_SURF_EXTRAP_4',1,ZHOOK_HANDLE)
 !
 !
 END SUBROUTINE HORIBL_SURF_EXTRAP
+END MODULE MODI_HORIBL_SURF_EXTRAP

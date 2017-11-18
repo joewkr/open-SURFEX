@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DEFAULT_GREENROOF
+CONTAINS
       SUBROUTINE DEFAULT_GREENROOF( HRUNOFF_GR,HSCOND_GR,                   &
                                     HKSAT_GR,HHORT_GR                       )
 !     ########################################################################
@@ -76,3 +78,4 @@ IF (LHOOK) CALL DR_HOOK('DEFAULT_GREENROOF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DEFAULT_GREENROOF
+END MODULE MODI_DEFAULT_GREENROOF

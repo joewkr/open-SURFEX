@@ -119,6 +119,8 @@
 ! -----------------------------------------------------------------------
 ! ---------------------- SUBROUTINE glt_thermo_r ----------------------------
 !
+MODULE MODI_glt_thermo_r
+CONTAINS
 SUBROUTINE glt_thermo_r  &
   ( tpdom,pustar,tpmxl,tpatm,  &
     tpblkw,tpblki,tpbud,tpdia,tptfl,tpsit,tpsil )
@@ -385,6 +387,7 @@ SUBROUTINE glt_thermo_r  &
   ENDIF
 !
 END SUBROUTINE glt_thermo_r
+END MODULE MODI_glt_thermo_r
 
 ! --------------------- END SUBROUTINE glt_thermo_r ---------------------
 ! -----------------------------------------------------------------------

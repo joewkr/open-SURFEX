@@ -97,6 +97,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE glt_salflx_r -------------------------
 !
+MODULE MODI_glt_salflx_r
+CONTAINS
 SUBROUTINE glt_salflx_r( pqsalt,tpmxl,tptfl,pdmass,psalt )
 !
   USE modd_glt_const_thm
@@ -199,6 +201,7 @@ SUBROUTINE glt_salflx_r( pqsalt,tpmxl,tptfl,pdmass,psalt )
   ENDIF
 !
 END SUBROUTINE glt_salflx_r
+END MODULE MODI_glt_salflx_r
 !
 ! ---------------------- END SUBROUTINE glt_salflx_r ------------------------
 ! -----------------------------------------------------------------------

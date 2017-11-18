@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GET_SURF_SIZE_n
+CONTAINS
       SUBROUTINE GET_SURF_SIZE_n (DTCO, U, &
                                   HTYPE,KL)
 !     #####################################################
@@ -119,3 +121,4 @@ IF (LHOOK) CALL DR_HOOK('GET_SURF_SIZE_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE GET_SURF_SIZE_n
+END MODULE MODI_GET_SURF_SIZE_n

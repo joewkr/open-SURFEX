@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################################################################
+MODULE MODI_LATLON_GRIDTYPE_LONLAT_ROT
+CONTAINS
       SUBROUTINE LATLON_GRIDTYPE_LONLAT_ROT(G,KL,PDIR)
 !     #########################################################################
 !
@@ -109,4 +111,4 @@ IF (LHOOK) CALL DR_HOOK('LATLON_GRIDTYPE_LONLAT_ROT',1,ZHOOK_HANDLE)
 !---------------------------------------------------------------------------
 !
 END SUBROUTINE LATLON_GRIDTYPE_LONLAT_ROT
-
+END MODULE MODI_LATLON_GRIDTYPE_LONLAT_ROT

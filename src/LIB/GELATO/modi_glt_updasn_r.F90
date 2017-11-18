@@ -113,6 +113,8 @@
 ! thermodynamic surface melting).
 ! * (ASN = Albedo SNow)
 !
+MODULE MODI_glt_updasn_r
+CONTAINS
 SUBROUTINE glt_updasn_r( gsmelt,tpatm,tpblki,pvsp,tpsit,tpdia )
 !
   USE modd_glt_const_thm
@@ -323,6 +325,7 @@ SUBROUTINE glt_updasn_r( gsmelt,tpatm,tpblki,pvsp,tpsit,tpdia )
   tpdia(:)%asn = SUM( tpsit(:,:)%fsi*zasn(:,:),DIM=1 )
 !
 END SUBROUTINE glt_updasn_r
+END MODULE MODI_glt_updasn_r
 !
 ! ---------------------- END SUBROUTINE glt_updasn_r ------------------------
 ! -----------------------------------------------------------------------

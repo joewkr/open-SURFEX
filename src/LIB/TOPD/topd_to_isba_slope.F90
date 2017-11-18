@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ####################
+MODULE MODI_TOPD_TO_ISBA_SLOPE
+CONTAINS
       SUBROUTINE TOPD_TO_ISBA_SLOPE (PSSO_SLOPE, KI)
 !     ####################
 !
@@ -111,3 +113,4 @@ PSSO_SLOPE = ZSSO_SLOPE
 IF (LHOOK) CALL DR_HOOK('TOPD_TO_ISBA_SLOPE',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE TOPD_TO_ISBA_SLOPE
+END MODULE MODI_TOPD_TO_ISBA_SLOPE

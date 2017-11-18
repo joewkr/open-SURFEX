@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###########################################################################################################
+MODULE MODI_TEB_MORPHO
+CONTAINS
       SUBROUTINE TEB_MORPHO(HPROGRAM, T   )
 !     ###########################################################################################################
 !
@@ -191,3 +193,4 @@ T%XSVF_GARDEN(:) = T%XSVF_ROAD(:)
 T%XSVF_WALL  (:) =  0.5*(T%XCAN_HW_RATIO(:)+1.-SQRT(T%XCAN_HW_RATIO(:)**2+1.))/T%XCAN_HW_RATIO(:)
 !
 END SUBROUTINE TEB_MORPHO
+END MODULE MODI_TEB_MORPHO

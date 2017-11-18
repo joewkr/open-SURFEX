@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_UNPACK_DIAG_PATCH_n
+CONTAINS
 SUBROUTINE UNPACK_DIAG_PATCH_n(IO, DEK, PK, KMASK, KSIZE, KNPATCH, KPATCH, &
                                PCPL_DRAIN, PCPL_RUNOFF, PCPL_EFLOOD,       &
                                PCPL_PFLOOD, PCPL_IFLOOD, PCPL_ICEFLUX )
@@ -121,3 +123,4 @@ IF (LHOOK) CALL DR_HOOK('UNPACK_DIAG_PATCH_N',1,ZHOOK_HANDLE)
 !------------------------------------------------------------------------
 !
 END SUBROUTINE UNPACK_DIAG_PATCH_n
+END MODULE MODI_UNPACK_DIAG_PATCH_n

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################
+MODULE MODI_PUT_ON_ALL_VEGTYPES
+CONTAINS
       SUBROUTINE PUT_ON_ALL_VEGTYPES(KNI,KLAYER,KPATCH,KVEGTYPE,PFIELD_PATCH,PFIELD_VEGTYPE)
 !     #######################
 !
@@ -48,3 +50,4 @@ IF (LHOOK) CALL DR_HOOK('PUT_ON_ALL_VEGTYPES',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------
 !
 END SUBROUTINE PUT_ON_ALL_VEGTYPES
+END MODULE MODI_PUT_ON_ALL_VEGTYPES

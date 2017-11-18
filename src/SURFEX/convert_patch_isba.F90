@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CONVERT_PATCH_ISBA
+CONTAINS
       SUBROUTINE CONVERT_PATCH_ISBA (DTCO, DTV, IO, KDEC, KDEC2, PCOVER, OCOVER,&
                                      OAGRIP, HSFTYPE, KPATCH, KK, PK, PEK, OFIX, OTIME, &
                                      OMEB, OIRR, OALB, OUPDATE_ALB, PSOILGRID, PWG1, PWSAT, PPERM )
@@ -997,3 +999,4 @@ IF (LHOOK) CALL DR_HOOK('CONVERT_PATCH_ISBA:SET_GRID_PARAM',1,ZHOOK_HANDLE)
 END SUBROUTINE SET_GRID_PARAM
 !-------------------------------------------------------------------------------
 END SUBROUTINE CONVERT_PATCH_ISBA
+END MODULE MODI_CONVERT_PATCH_ISBA

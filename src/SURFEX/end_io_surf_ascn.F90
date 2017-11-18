@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_END_IO_SURF_ASC_n
+CONTAINS
       SUBROUTINE END_IO_SURF_ASC_n(HPROGRAM)
 !     #######################################################
 !
@@ -80,3 +82,4 @@ IF (LHOOK) CALL DR_HOOK('END_IO_SURF_ASC_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE END_IO_SURF_ASC_n
+END MODULE MODI_END_IO_SURF_ASC_n

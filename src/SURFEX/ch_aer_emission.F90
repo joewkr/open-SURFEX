@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !!   ############################################################
+MODULE MODI_CH_AER_EMISSION
+CONTAINS
      SUBROUTINE CH_AER_EMISSION(PFLUX, PRHODREF, HSV, KSV_CHSBEG,  PFCO)
 !!   ############################################################
 !!
@@ -300,3 +302,4 @@ PFLUX(:,I_CH_DSTj) = PFLUX(:,I_CH_DSTj) * ZCONVERSION(:) / (ZMI(JP_AER_DST)*1E-3
 IF (LHOOK) CALL DR_HOOK('CH_AER_EMISSION',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE CH_AER_EMISSION
+END MODULE MODI_CH_AER_EMISSION

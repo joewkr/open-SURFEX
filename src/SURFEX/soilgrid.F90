@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SOILGRID
+CONTAINS
       SUBROUTINE SOILGRID(PSOILGRID, PSOILDEPTH, PDG, KWG_LAYER  )
 
 !     ##########################################################################
@@ -295,3 +297,4 @@ END SUBROUTINE OPTIMSOILGRID
 !
 !-------------------------------------------------------------------------------
 END SUBROUTINE SOILGRID
+END MODULE MODI_SOILGRID

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DSLT_VELGRAV1D
+CONTAINS
 SUBROUTINE DSLT_VELGRAV1D(PSIG, PRG, PTA, PRHODREF, PRHOP, &
                           PMU, PVGK, PDPK, PVGG, PDPG      )
 !!   #######################################
@@ -102,3 +104,4 @@ IF (LHOOK) CALL DR_HOOK('DSLT_VELGRAV1D',1,ZHOOK_HANDLE)
 
 
 END SUBROUTINE DSLT_VELGRAV1D
+END MODULE MODI_DSLT_VELGRAV1D

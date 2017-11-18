@@ -90,6 +90,8 @@
 !
 ! * Subroutine which takes into account the formation of snow ice.
 !
+MODULE MODI_glt_snowice_r
+CONTAINS
 SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
 !
   USE modd_glt_const_thm
@@ -351,6 +353,7 @@ SUBROUTINE glt_snowice_r( tpmxl,tpsil,tptfl,tpsit,tpdia )
 !write(noutlu,*)'with snow', zenti
 !
 END SUBROUTINE glt_snowice_r
+END MODULE MODI_glt_snowice_r
 !
 ! ---------------------- END SUBROUTINE glt_snowice_r -----------------------
 ! -----------------------------------------------------------------------

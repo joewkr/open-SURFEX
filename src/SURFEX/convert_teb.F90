@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
+MODULE MODI_CONVERT_TEB
+CONTAINS
       SUBROUTINE CONVERT_TEB (KTEB_PATCH,PCOVER,PTEB_PATCH)
 !     ##############################################################
 !
@@ -96,3 +98,4 @@ IF (LHOOK) CALL DR_HOOK('CONVERT_TEB',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE CONVERT_TEB
+END MODULE MODI_CONVERT_TEB

@@ -93,6 +93,8 @@
 ! given their areal fractions, overlying snow layers thickness and
 ! density, and vertical temperature profiles.
 !
+MODULE MODI_gltools_mixice_r
+CONTAINS
 SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
 !
   USE modd_types_glt
@@ -278,6 +280,7 @@ SUBROUTINE gltools_mixice_r( tpmxl,tplsit,tplsil,tpsit,tpsil )
   END DO
 !
 END SUBROUTINE gltools_mixice_r
+END MODULE MODI_gltools_mixice_r
 !
 ! ----------------------- END SUBROUTINE gltools_mixice_r -----------------------
 ! -----------------------------------------------------------------------

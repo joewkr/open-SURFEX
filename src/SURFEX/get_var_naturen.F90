@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GET_VAR_NATURE_n
+CONTAINS
       SUBROUTINE GET_VAR_NATURE_n (S, DGO, D, DMI, &
                                    HPROGRAM,KI,PQS,PSNG,PSNV,PZ0EFF,PZ0,PZ0H,PTWSNOW,PBARE)
 !     ######################################################################
@@ -121,3 +123,4 @@ IF (LHOOK) CALL DR_HOOK('GET_VAR_NATURE_N',1,ZHOOK_HANDLE)
 !==============================================================================
 !
 END SUBROUTINE GET_VAR_NATURE_n
+END MODULE MODI_GET_VAR_NATURE_n

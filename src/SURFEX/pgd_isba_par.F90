@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PGD_ISBA_PAR
+CONTAINS
       SUBROUTINE PGD_ISBA_PAR (DTCO, UG, U, USS, DTV, IO, S, KDIM, HPROGRAM)
 !     ##############################################################
 !
@@ -1239,3 +1241,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('PGD_ISBA_PAR',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE PGD_ISBA_PAR
+END MODULE MODI_PGD_ISBA_PAR

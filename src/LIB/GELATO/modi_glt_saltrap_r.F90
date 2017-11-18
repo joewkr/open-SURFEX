@@ -99,6 +99,8 @@
 ! -----------------------------------------------------------------------
 ! ----------------------- SUBROUTINE glt_saltrap_r --------------------------
 !
+MODULE MODI_glt_saltrap_r
+CONTAINS
 SUBROUTINE glt_saltrap_r  &
   ( gfreeze,phef,ptem,tpmxl,psalt,pent,phsi )
 !
@@ -208,6 +210,7 @@ end do
   ENDWHERE
 !
 END SUBROUTINE glt_saltrap_r
+END MODULE MODI_glt_saltrap_r
 
 ! ---------------------- END SUBROUTINE glt_saltrap_r -----------------------
 ! -----------------------------------------------------------------------

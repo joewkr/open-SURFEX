@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################
+MODULE MODI_GOTO_MODEL_MNH
+CONTAINS
       SUBROUTINE GOTO_MODEL_MNH(U,HPROGRAM, KMI, KINFO_ll)
 !     ###############################
 !!
@@ -78,3 +80,4 @@ ENDIF
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE GOTO_MODEL_MNH
+END MODULE MODI_GOTO_MODEL_MNH

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_PGD_ARRANGE_COVER
+CONTAINS
       SUBROUTINE READ_PGD_ARRANGE_COVER(HPROGRAM,OWATER_TO_NATURE,OTOWN_TO_ROCK)
 !     ##########################################################################
 !!
@@ -116,3 +118,4 @@ IF (LHOOK) CALL DR_HOOK('READ_PGD_ARRANGE_COVER',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_PGD_ARRANGE_COVER
+END MODULE MODI_READ_PGD_ARRANGE_COVER

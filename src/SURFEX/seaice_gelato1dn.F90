@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SEAICE_GELATO1D_n
+CONTAINS
     SUBROUTINE SEAICE_GELATO1D_n (S, HPROGRAM, PTIMEC, PTSTEP)
 !     #######################################################################
 !
@@ -261,3 +263,4 @@ IF (LHOOK) CALL DR_HOOK('SEAICE_GELATO1D',1,ZHOOK_HANDLE)
 !!-------------------------------------------------------------------------------
 !!-----------------------------------------------------------------------------
 END SUBROUTINE SEAICE_GELATO1D_n
+END MODULE MODI_SEAICE_GELATO1D_n

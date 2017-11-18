@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DEFAULT_WRITE_SURF_ATM
+CONTAINS
       SUBROUTINE DEFAULT_WRITE_SURF_ATM(ONOWRITE_CANOPY, ONOWRITE_TEXFILE, OSPLIT_PATCH)
 !     ########################################################################
 !
@@ -64,3 +66,4 @@ IF (LHOOK) CALL DR_HOOK('DEFAULT_WRITE_SURF_ATM',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DEFAULT_WRITE_SURF_ATM
+END MODULE MODI_DEFAULT_WRITE_SURF_ATM

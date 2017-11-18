@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_HOR_ISBA_FIELD
+CONTAINS
 SUBROUTINE PREP_HOR_ISBA_FIELD (DTCO, UG, U, USS, GCP, IG, IO, S, NK, NP, NPE, TPTIME,  &
                                 HPROGRAM,HSURF,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,YDCTL,OKEY)
 !     #################################################################################
@@ -733,3 +735,4 @@ END SUBROUTINE INIT_FROM_REF_GRID
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_HOR_ISBA_FIELD
+END MODULE MODI_PREP_HOR_ISBA_FIELD

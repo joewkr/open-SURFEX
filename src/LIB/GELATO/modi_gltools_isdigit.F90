@@ -73,6 +73,8 @@
 ! ---------------------------------------------------------------------
 ! ------------------------- FUNCTION gltools_isdigit --------------------------
 !
+MODULE MODI_gltools_isdigit
+CONTAINS
 FUNCTION gltools_isdigit( hchar )
 !
   IMPLICIT NONE
@@ -90,6 +92,7 @@ FUNCTION gltools_isdigit( hchar )
   ENDIF
 !
 END FUNCTION gltools_isdigit
+END MODULE MODI_gltools_isdigit
 !
 ! ----------------------- END FUNCTION gltools_isdigit ------------------------
 ! ---------------------------------------------------------------------

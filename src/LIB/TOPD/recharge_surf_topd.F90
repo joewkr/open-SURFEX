@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------
 !     #######################
+MODULE MODI_RECHARGE_SURF_TOPD
+CONTAINS
       SUBROUTINE RECHARGE_SURF_TOPD(PHI,PHT,KI)
 !     #######################
 !
@@ -233,3 +235,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('RECHARGE_SURF_TOPD',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE RECHARGE_SURF_TOPD
+END MODULE MODI_RECHARGE_SURF_TOPD

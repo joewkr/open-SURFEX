@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ZOOM_PGD_OROGRAPHY
+CONTAINS
       SUBROUTINE ZOOM_PGD_OROGRAPHY (DTCO, UG, U, USS, GCP, &
                                      HPROGRAM,PSEA,PWATER,HINIFILE,HINIFILETYPE)
 !     ###########################################################
@@ -338,3 +340,4 @@ IF (LHOOK) CALL DR_HOOK('ZOOM',1,ZHOOK_HANDLE)
 END SUBROUTINE ZOOM
 !
 END SUBROUTINE ZOOM_PGD_OROGRAPHY
+END MODULE MODI_ZOOM_PGD_OROGRAPHY

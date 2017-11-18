@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_DUSTFLUX_GET_MB
+CONTAINS
 SUBROUTINE DUSTFLUX_GET_MB(     &
         PUSTAR                  &  !I [m/s] Wind friction speed
        ,PRHOA                   &  !I [kg/m3] air density at 2m height
@@ -259,3 +261,4 @@ DO IS = 1,NBIN
 ENDDO
 !
 END SUBROUTINE DUSTFLUX_GET_MB
+END MODULE MODI_DUSTFLUX_GET_MB

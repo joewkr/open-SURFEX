@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
+MODULE MODI_INIT_VEG_n
+CONTAINS
 SUBROUTINE INIT_VEG_n(IO, KK, PK, PEK, DTV, &
                       OSURF_DIAG_ALBEDO, PDIR_ALB, PSCA_ALB, PEMIS_OUT, PTSRAD )
 !#############################################################
@@ -172,3 +174,4 @@ PTSRAD   = XUNDEF
 IF (LHOOK) CALL DR_HOOK('INIT_VEG_n',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_VEG_n
+END MODULE MODI_INIT_VEG_n

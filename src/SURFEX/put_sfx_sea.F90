@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PUT_SFX_SEA
+CONTAINS
       SUBROUTINE PUT_SFX_SEA (S, U, W, KLUOUT,OCPL_SEAICE,OWATER,PSEA_SST,PSEA_UCU, &
                              PSEA_VCU,PSEAICE_SIT,PSEAICE_CVR,PSEAICE_ALB )
 !     ####################################################
@@ -281,3 +283,4 @@ END SUBROUTINE CHECK_SEA
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE PUT_SFX_SEA
+END MODULE MODI_PUT_SFX_SEA

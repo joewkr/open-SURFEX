@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_LATLONTOXY1D
+CONTAINS
        SUBROUTINE LATLONTOXY1D(PLAT0,PLON0,PRPK,PBETA,PLATOR,PLONOR, &
                                  PXHATM,PYHATM,PLAT,PLON,KN,PRADIUS)
 !      ################################################
@@ -226,3 +228,4 @@ END IF
 IF (LHOOK) CALL DR_HOOK('LATLONTOXY1D',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE LATLONTOXY1D
+END MODULE MODI_LATLONTOXY1D

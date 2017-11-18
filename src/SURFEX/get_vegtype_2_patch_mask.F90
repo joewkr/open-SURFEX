@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_GET_VEGTYPE_2_PATCH_MASK
+CONTAINS
 SUBROUTINE GET_VEGTYPE_2_PATCH_MASK(  &
         KLUOUT,                            &! output listing logical unit
        KSIZE_VEG,                         &!I Size of a vegetation vector within a patch vector
@@ -81,3 +83,4 @@ END IF
 IF (LHOOK) CALL DR_HOOK('GET_VEGTYPE_2_PATCH_MASK',1,ZHOOK_HANDLE)
 
 END SUBROUTINE GET_VEGTYPE_2_PATCH_MASK
+END MODULE MODI_GET_VEGTYPE_2_PATCH_MASK

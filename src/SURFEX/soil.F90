@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SOIL
+CONTAINS
       SUBROUTINE SOIL( IO, KK, PK, PEK, DMI, PVEG, PCS, PFROZEN1, PFFG_NOSNOW, PFFV_NOSNOW               )
 !     ##########################################################################
 !
@@ -487,3 +489,4 @@ IF (LHOOK) CALL DR_HOOK('SOIL',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SOIL
+END MODULE MODI_SOIL

@@ -97,6 +97,8 @@
 ! -----------------------------------------------------------------------
 ! ----------------------- SUBROUTINE glt_sndmlrf ----------------------------
 !
+MODULE MODI_glt_sndmlrf
+CONTAINS
 SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
   pustar,tpall_oce )
   USE modd_types_glt
@@ -397,6 +399,7 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
 
 !
 END SUBROUTINE glt_sndmlrf
+END MODULE MODI_glt_sndmlrf
 !
 ! --------------------- END SUBROUTINE glt_sndmlrf --------------------------
 ! -----------------------------------------------------------------------

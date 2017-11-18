@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_GET_LONLAT_n
+CONTAINS
       SUBROUTINE GET_LONLAT_n (DTCO, U, UG, HSELECT, HPROGRAM)
 !     ####################################
 !
@@ -109,3 +111,4 @@ IF (LHOOK) CALL DR_HOOK('GET_LONLAT_N',1,ZHOOK_HANDLE)
 !==============================================================================
 !
 END SUBROUTINE GET_LONLAT_n
+END MODULE MODI_GET_LONLAT_n

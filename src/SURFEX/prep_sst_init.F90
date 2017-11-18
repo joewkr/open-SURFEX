@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_SST_INIT
+CONTAINS
     SUBROUTINE PREP_SST_INIT (DTS, TPTIME, KSX, PSST)
 !   ###############################################################
 !!****  *SST_UPDATE*
@@ -115,3 +117,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_SST_INIT',1,ZHOOK_HANDLE)
 !-----------------------------------------------------------------
 !
 END SUBROUTINE PREP_SST_INIT
+END MODULE MODI_PREP_SST_INIT

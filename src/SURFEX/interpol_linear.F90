@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INTERPOL_LINEAR
+CONTAINS
       SUBROUTINE INTERPOL_LINEAR(PDAT,PNDAT,PVAL0,PVAL1,PVAL2,POUT)
 !     #############################################################
 !
@@ -95,3 +97,4 @@ IF (LHOOK) CALL DR_HOOK('INTERPOL_LINEAR',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INTERPOL_LINEAR
+END MODULE MODI_INTERPOL_LINEAR

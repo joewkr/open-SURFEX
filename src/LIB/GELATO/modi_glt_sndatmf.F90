@@ -70,6 +70,8 @@
 ! -----------------------------------------------------------------------
 ! ----------------------- SUBROUTINE glt_sndatmf ----------------------------
 
+MODULE MODI_glt_sndatmf
+CONTAINS
 SUBROUTINE glt_sndatmf(tpglt, xtmlf)
   USE modd_types_glt
   USE modd_glt_param
@@ -247,6 +249,7 @@ SUBROUTINE glt_sndatmf(tpglt, xtmlf)
   ENDIF
 !
 END SUBROUTINE glt_sndatmf
+END MODULE MODI_glt_sndatmf
 !
 ! --------------------- END SUBROUTINE glt_sndatmf --------------------------
 ! -----------------------------------------------------------------------

@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
+MODULE MODI_MAKE_MASK_TOPD_TO_ISBA
+CONTAINS
     SUBROUTINE MAKE_MASK_TOPD_TO_ISBA (HGRID, PGRID_PAR, KI)
 !     #######################
 !
@@ -258,3 +260,4 @@ IF (LHOOK) CALL DR_HOOK('MAKE_MASK_TOPD_TO_ISBA:GET_LINE_PARAM',1,ZHOOK_HANDLE)
 END SUBROUTINE GET_LINE_PARAM
 !
 END SUBROUTINE MAKE_MASK_TOPD_TO_ISBA
+END MODULE MODI_MAKE_MASK_TOPD_TO_ISBA

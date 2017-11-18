@@ -75,6 +75,8 @@
 ! -----------------------------------------------------------------------
 ! -------------------------- SUBROUTINE gltools_alloc ---------------------------
 !
+MODULE MODI_gltools_alloc
+CONTAINS
 SUBROUTINE gltools_alloc(tpglt)
 !
 USE modd_types_glt
@@ -258,6 +260,7 @@ IF (lp1) THEN
 ENDIF
 !
 END SUBROUTINE gltools_alloc
+END MODULE MODI_gltools_alloc
 !
 ! ------------------------ END SUBROUTINE gltools_alloc -------------------------
 ! -----------------------------------------------------------------------

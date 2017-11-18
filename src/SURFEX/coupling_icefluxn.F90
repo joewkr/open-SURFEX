@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################################
+MODULE MODI_COUPLING_ICEFLUX_n
+CONTAINS
 SUBROUTINE COUPLING_ICEFLUX_n(KI, PTA, PEXNA, PRHOA, PTICE, PEXNS,       &
                                 PQA, PRAIN, PSNOW, PWIND, PZREF, PUREF,  &
                                 PPS, PTWAT, PTTS, PSFTH, PSFTQ,          &
@@ -232,3 +234,4 @@ END SUBROUTINE TREAT_ICE
 !==========================================================================================
 !
 END SUBROUTINE COUPLING_ICEFLUX_n
+END MODULE MODI_COUPLING_ICEFLUX_n

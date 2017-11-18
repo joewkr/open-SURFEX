@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
+MODULE MODI_WRITE_HEADER_MNH
+CONTAINS
       SUBROUTINE WRITE_HEADER_MNH
 !     #############################################################
 !
@@ -89,3 +91,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_HEADER_MNH',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------
 END SUBROUTINE WRITE_HEADER_MNH
+END MODULE MODI_WRITE_HEADER_MNH

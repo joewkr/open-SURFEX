@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ##########################################################################
+MODULE MODI_LAYER_E_BUDGET
+CONTAINS
     SUBROUTINE LAYER_E_BUDGET( PT, PTSTEP, PIMPL, PHC, PTC, PD, PA, PB, PC, PY, PDQS )
 !   ##########################################################################
 !
@@ -159,3 +161,4 @@ PDQS(:)=(ZPEI(:)-ZEI(:))/PTSTEP
 IF (LHOOK) CALL DR_HOOK('LAYER_E_BUDGET',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE LAYER_E_BUDGET
+END MODULE MODI_LAYER_E_BUDGET

@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_GET_IGN_MASKALL
+CONTAINS
 SUBROUTINE GET_IGN_MASKALL (UG, KNI, PX, PY, OTOT)
 !     #######################################################
 !!****  *GET_IGN_MASKALL* -
@@ -93,3 +95,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('GET_IGN_MASKALL',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE GET_IGN_MASKALL
+END MODULE MODI_GET_IGN_MASKALL

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_CTRL_SEAFLUX
+CONTAINS
       SUBROUTINE PREP_CTRL_SEAFLUX(DGO,ODIAG_OCEAN,ODIAG_MISC_SEAICE,KLUOUT)
 !     #################################################################################################################
 !
@@ -76,3 +78,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_CTRL_SEAFLUX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_CTRL_SEAFLUX
+END MODULE MODI_PREP_CTRL_SEAFLUX

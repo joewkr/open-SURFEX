@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################
+MODULE MODI_READ_LECOCLIMAP
+CONTAINS
       SUBROUTINE READ_LECOCLIMAP (HPROGRAM,OECOCLIMAP,OECOSG,HDIR)
 !     #######################
 !
@@ -68,3 +70,4 @@ IF (LHOOK) CALL DR_HOOK('READ_LECOCLIMAP',1,ZHOOK_HANDLE)
 !------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_LECOCLIMAP
+END MODULE MODI_READ_LECOCLIMAP

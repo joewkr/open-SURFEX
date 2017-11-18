@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
+MODULE MODI_AVERAGE2_LDB
+CONTAINS
       SUBROUTINE AVERAGE2_LDB(PPGDARRAY,HTYPE,KSTAT)
 !     #########################
 !
@@ -160,3 +162,4 @@ IF (LHOOK) CALL DR_HOOK('AVERAGE2_LDB',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE AVERAGE2_LDB
+END MODULE MODI_AVERAGE2_LDB

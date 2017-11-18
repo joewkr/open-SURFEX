@@ -21,6 +21,8 @@
 !        F. Bouyssel    27-Mar-2011  Use of REPS2 instead of REPS3 for ZNEI
 !****---------------------------------------------------------------------------
 !
+MODULE MODI_OI_CACSTS
+CONTAINS
 SUBROUTINE OI_CACSTS(KNBPT,PT2INC,PH2INC,PWGINC,PWS_O,                      &
                      KDAT,KSSSSS,                                           &
                      PTP,PWP,PTL,PSNS,PTS,PWS,                              &
@@ -521,3 +523,4 @@ END SUBROUTINE
 !
 !**---------------------------------------------------------------------
 END SUBROUTINE OI_CACSTS
+END MODULE MODI_OI_CACSTS

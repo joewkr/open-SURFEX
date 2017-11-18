@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################
+MODULE MODI_READ_ECO2_IRRIG
+CONTAINS
       SUBROUTINE READ_ECO2_IRRIG (&
                                    DTCO, &
                                   HPROGRAM)
@@ -94,3 +96,4 @@ IF (LHOOK) CALL DR_HOOK('READ_ECO2_IRRIG',1,ZHOOK_HANDLE)
 !------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_ECO2_IRRIG
+END MODULE MODI_READ_ECO2_IRRIG

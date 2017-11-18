@@ -51,19 +51,7 @@
 ! ------------------ BEGIN MODULE mode_gltools_strlast --------------------
 !
 MODULE mode_gltools_strlast
-INTERFACE
-!
-FUNCTION glt_strlast( hval,kn )
-  CHARACTER(*), INTENT(in) ::  &
-    hval
-  INTEGER, INTENT(in) ::  &
-    kn
-  CHARACTER(LEN=kn) ::  &
-    glt_strlast
-END FUNCTION glt_strlast
-!
-END INTERFACE
-END MODULE mode_gltools_strlast
+CONTAINS
 !
 ! --------------------- END MODULE TOOLS_STRLAST -------------------------
 !
@@ -89,3 +77,4 @@ ystr = TRIM(hval)
 glt_strlast = ystr(ilen-kn+1:ilen)
 !
 END FUNCTION glt_strlast
+END MODULE mode_gltools_strlast

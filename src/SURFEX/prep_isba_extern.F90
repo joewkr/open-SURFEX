@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_ISBA_EXTERN
+CONTAINS
 SUBROUTINE PREP_ISBA_EXTERN (DTCO, IO, U, GCP, &
                              HPROGRAM,HSURF,HFILE,HFILETYPE,HFILEPGD,HFILEPGDTYPE,KLUOUT,PFIELD,OKEY)
 !     #################################################################################
@@ -259,3 +261,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_ISBA_EXTERN',1,ZHOOK_HANDLE)
 !---------------------------------------------------------------------------
 !---------------------------------------------------------------------------
 END SUBROUTINE PREP_ISBA_EXTERN
+END MODULE MODI_PREP_ISBA_EXTERN

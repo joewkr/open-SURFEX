@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ALLOCATE_TEB_VEG_PGD
+CONTAINS
     SUBROUTINE ALLOCATE_TEB_VEG_PGD (PEK, S, K, P, OALLOC, KLU, KVEGTYPE, KGROUND_LAYER)
 !   ##########################################################################
 !
@@ -136,3 +138,4 @@ ALLOCATE(K%XGAMMAT            (KLU ))
 IF (LHOOK) CALL DR_HOOK('ALLOCATE_TEB_VEG_PGD',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE ALLOCATE_TEB_VEG_PGD
+END MODULE MODI_ALLOCATE_TEB_VEG_PGD

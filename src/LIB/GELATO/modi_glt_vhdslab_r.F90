@@ -82,6 +82,8 @@
 ! -----------------------------------------------------------------------
 ! ----------------------- SUBROUTINE glt_vhdslab_r --------------------------
 !
+MODULE MODI_glt_vhdslab_r
+CONTAINS
 SUBROUTINE glt_vhdslab_r  &
         ( kit,pnsftop,pswtra,pderiv,  &
           pcondb,ptsfa,pqtopmelt,pdh,ptsia,osmelt,osnow )
@@ -490,3 +492,4 @@ SUBROUTINE glt_vhdslab_r  &
   ENDIF
 !
   END SUBROUTINE glt_vhdslab_r
+END MODULE MODI_glt_vhdslab_r

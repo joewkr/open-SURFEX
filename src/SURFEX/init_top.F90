@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
+MODULE MODI_INIT_TOP
+CONTAINS
       SUBROUTINE INIT_TOP (IO, S, K, NK, NP, KLUOUT, PM    )
 !
 !     #####################################################################
@@ -515,3 +517,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_TOP',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INIT_TOP
+END MODULE MODI_INIT_TOP

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################################################################
+MODULE MODI_ISBA_EMIS_MEB
+CONTAINS
       SUBROUTINE ISBA_EMIS_MEB(PPSN, PPSNA, PSIGMA_F, PSIGMA_FN,  &
                                PEMIS_N, PEMIS                     )
 !     ##########################################################################
@@ -98,4 +100,5 @@ PEMIS(:)      = (1.0-PPSN(:))*ZEMISG(:) + PPSN(:)*ZEMISN(:)
 IF (LHOOK) CALL DR_HOOK('ISBA_EMIS_MEB',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE ISBA_EMIS_MEB
+END MODULE MODI_ISBA_EMIS_MEB
 

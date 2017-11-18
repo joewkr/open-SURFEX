@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_LFIGET_LUOUT
+CONTAINS
       SUBROUTINE LFIGET_LUOUT(HPROGRAM,KLUOUT)
 !     #######################################################
 !
@@ -64,3 +66,4 @@ IF (LHOOK) CALL DR_HOOK('LFIGET_LUOUT',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE LFIGET_LUOUT
+END MODULE MODI_LFIGET_LUOUT

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_GRIB_GRID
+CONTAINS
       SUBROUTINE PREP_GRIB_GRID(HGRIB,KLUOUT,HINMODEL,HGRIDTYPE,HINTERP_TYPE,TPTIME_GRIB)
 !     ##########################################################################
 !
@@ -643,3 +645,4 @@ HINTERP_TYPE = "HORIBL"
 IF (LHOOK) CALL DR_HOOK('PREP_GRIB_GRID_2',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE PREP_GRIB_GRID
+END MODULE MODI_PREP_GRIB_GRID

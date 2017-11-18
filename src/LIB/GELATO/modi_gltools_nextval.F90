@@ -70,6 +70,8 @@
 ! --------------------- END MODULE TOOLS_NEXTVAL ------------------------
 !
 !
+MODULE MODI_gltools_nextval
+CONTAINS
 SUBROUTINE gltools_nextval( klun,hlistfld,klistfound,kok,hpar,hval,hcomment )
 !
 USE modi_gltools_nextline
@@ -143,3 +145,4 @@ IF ( ALL(klistfound==1) ) THEN
 ENDIF
 !
 END SUBROUTINE gltools_nextval
+END MODULE MODI_gltools_nextval

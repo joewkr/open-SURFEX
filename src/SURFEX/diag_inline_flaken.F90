@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DIAG_INLINE_FLAKE_n
+CONTAINS
        SUBROUTINE DIAG_INLINE_FLAKE_n (DGO, D, DC, F, &
                                        PTSTEP, PTA, PQA, PPA, PPS, PRHOA, PZONA,  &
                                        PMERA, PHT, PHW, PRAIN, PSNOW,             &
@@ -207,3 +209,4 @@ IF (LHOOK) CALL DR_HOOK('DIAG_INLINE_FLAKE_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE DIAG_INLINE_FLAKE_n
+END MODULE MODI_DIAG_INLINE_FLAKE_n

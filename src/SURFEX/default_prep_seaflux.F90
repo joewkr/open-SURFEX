@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DEFAULT_PREP_SEAFLUX
+CONTAINS
       SUBROUTINE DEFAULT_PREP_SEAFLUX
 !     ###########################
 !
@@ -99,3 +101,4 @@ IF (LHOOK) CALL DR_HOOK('DEFAULT_PREP_SEAFLUX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE DEFAULT_PREP_SEAFLUX
+END MODULE MODI_DEFAULT_PREP_SEAFLUX

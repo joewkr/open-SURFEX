@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_HYDRO_SOIL
+CONTAINS
       SUBROUTINE HYDRO_SOIL(IO, KK, PK, PEK, DMK, PTSTEP,  &
                             PLETR, PLEG, PPG, PEVAPCOR, PD_G3, &
                             PWSAT, PWFC, PDWGI1, PDWGI2, PLEGI,&
@@ -535,3 +537,4 @@ IF (LHOOK) CALL DR_HOOK('HYDRO_SOIL',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE HYDRO_SOIL
+END MODULE MODI_HYDRO_SOIL

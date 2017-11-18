@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INTERPOL_QUADRA
+CONTAINS
       SUBROUTINE INTERPOL_QUADRA(PDAT,PNDAT,PVAL0,PVAL1,PVAL2,POUT)
 !     #############################################################
 !
@@ -123,3 +125,4 @@ IF (LHOOK) CALL DR_HOOK('INTERPOL_QUADRA',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INTERPOL_QUADRA
+END MODULE MODI_INTERPOL_QUADRA

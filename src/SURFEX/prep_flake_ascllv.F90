@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_FLAKE_ASCLLV
+CONTAINS
 SUBROUTINE PREP_FLAKE_ASCLLV (DTCO, UG, U, USS, &
                               HPROGRAM,HSURF,KLUOUT,PFIELD)
 !     #################################################################################
@@ -160,3 +162,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_FLAKE_ASCLLV',1,ZHOOK_HANDLE)
 !
 !-------------------------------------------------------------------------------------
 END SUBROUTINE PREP_FLAKE_ASCLLV
+END MODULE MODI_PREP_FLAKE_ASCLLV

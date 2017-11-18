@@ -116,6 +116,8 @@
 ! or snow into account, except the case of rain over non snow covered
 ! sea ice.
 !
+MODULE MODI_glt_precip_r
+CONTAINS
 SUBROUTINE glt_precip_r( orain,osnow,tpmxl,tpatm,tpsit,tpsil,tptfl,tpdia,  &
   pqmelt )
 !
@@ -479,6 +481,7 @@ end do
 !end do
 !
 END SUBROUTINE glt_precip_r
+END MODULE MODI_glt_precip_r
 !
 ! ---------------------- END SUBROUTINE glt_precip_r ------------------------
 ! -----------------------------------------------------------------------

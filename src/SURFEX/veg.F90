@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_VEG
+CONTAINS
 SUBROUTINE VEG( PSW_RAD, PTA, PQA, PPS, PRGL, PLAI, PRSMIN,              &
                   PGAMMA, PF2, PRS                                         )
 !     ####################################################################
@@ -176,3 +178,4 @@ IF (LHOOK) CALL DR_HOOK('VEG',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE VEG
+END MODULE MODI_VEG

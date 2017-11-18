@@ -75,6 +75,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE glt_swabs_r --------------------------
 !
+MODULE MODI_glt_swabs_r
+CONTAINS
 SUBROUTINE glt_swabs_r  &
         ( tpsit,pswtra,pent,pvsp,pdhmelt )
 !
@@ -304,3 +306,4 @@ SUBROUTINE glt_swabs_r  &
   ENDIF
 !
   END SUBROUTINE glt_swabs_r
+END MODULE MODI_glt_swabs_r

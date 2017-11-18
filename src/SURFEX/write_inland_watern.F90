@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_WRITE_INLAND_WATER_n
+CONTAINS
       SUBROUTINE WRITE_INLAND_WATER_n (DTCO, HSELECT, U, WM, FM, HPROGRAM,HWRITE)
 !     ####################################
 !
@@ -86,3 +88,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_INLAND_WATER_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE WRITE_INLAND_WATER_n
+END MODULE MODI_WRITE_INLAND_WATER_n

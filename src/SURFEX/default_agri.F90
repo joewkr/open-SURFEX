@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DEFAULT_AGRI
+CONTAINS
       SUBROUTINE DEFAULT_AGRI(OAGRIP)
 !     ########################################################################
 !
@@ -57,3 +59,4 @@ OAGRIP = .FALSE.
 IF (LHOOK) CALL DR_HOOK('DEFAULT_AGRI',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DEFAULT_AGRI
+END MODULE MODI_DEFAULT_AGRI

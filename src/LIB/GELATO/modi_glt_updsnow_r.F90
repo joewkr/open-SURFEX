@@ -79,6 +79,8 @@
 !
 ! .. Subroutine used to check global water budget.
 !
+MODULE MODI_glt_updsnow_r
+CONTAINS
 SUBROUTINE glt_updsnow_r  &
   ( kinit,omsg,tpdom,tptfl,tpsit,psnow_a,pemp_a,paddterm,paddterm2)
 !
@@ -143,10 +145,4 @@ SUBROUTINE glt_updsnow_r  &
    psnow_a = zsnow_a
 
 END SUBROUTINE glt_updsnow_r
-
-
-
-
-
-
-
+END MODULE MODI_glt_updsnow_r

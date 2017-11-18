@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ######spl
+MODULE MODI_ZOOM_PGD_SEAFLUX
+CONTAINS
       SUBROUTINE ZOOM_PGD_SEAFLUX (DTCO, DTS, SG, S, UG, U, GCP, &
                                    HPROGRAM,HINIFILE,HINIFILETYPE,HFILE,HFILETYPE)
 !     ##############################################################
@@ -180,3 +182,4 @@ IF (LHOOK) CALL DR_HOOK('ZOOM_PGD_SEAFLUX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE ZOOM_PGD_SEAFLUX
+END MODULE MODI_ZOOM_PGD_SEAFLUX

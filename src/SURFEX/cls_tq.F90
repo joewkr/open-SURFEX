@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CLS_TQ
+CONTAINS
        SUBROUTINE CLS_TQ( PTA, PQA, PPA, PPS, PHT, PCD, PCH, PRI, &
                           PTS, PHU, PZ0H, PH, PTNM, PQNM, PHUNM  )
 !     #####################################################################
@@ -167,3 +169,4 @@ IF (LHOOK) CALL DR_HOOK('CLS_TQ',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE CLS_TQ
+END MODULE MODI_CLS_TQ

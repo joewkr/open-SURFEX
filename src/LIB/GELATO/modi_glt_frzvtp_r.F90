@@ -94,6 +94,8 @@
 ! * Note that in the list of arguments, phsi is sea ice new thickness,
 ! not the thickness variation.
 !
+MODULE MODI_glt_frzvtp_r
+CONTAINS
 SUBROUTINE glt_frzvtp_r( tpmxl,tpsit,pqfac,phsi,pssi,tpsil )
 !
   USE modd_glt_const_thm
@@ -209,6 +211,7 @@ SUBROUTINE glt_frzvtp_r( tpmxl,tpsit,pqfac,phsi,pssi,tpsil )
   END DO
 !
 END SUBROUTINE glt_frzvtp_r
+END MODULE MODI_glt_frzvtp_r
 
 ! ---------------------- END SUBROUTINE glt_frzvtp_r ------------------------
 ! -----------------------------------------------------------------------

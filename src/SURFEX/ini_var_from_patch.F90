@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_INI_VAR_FROM_PATCH
+CONTAINS
       SUBROUTINE INI_VAR_FROM_PATCH (DTCO, UG, U, NP, NPE, KPATCH,&
                            HPROGRAM,KLUOUT,HNAME,KPTS,KLAYER,KLAYER2,PDEF)
 !!
@@ -434,3 +436,4 @@ IF (LHOOK) CALL DR_HOOK('INI_VAR_FROM_PATCH',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INI_VAR_FROM_PATCH
+END MODULE MODI_INI_VAR_FROM_PATCH

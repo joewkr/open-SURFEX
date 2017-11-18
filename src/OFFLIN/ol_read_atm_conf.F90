@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_OL_READ_ATM_CONF
+CONTAINS
 SUBROUTINE OL_READ_ATM_CONF (DTCO, U, HGRID, HSURF_FILETYPE, HFORCING_FILETYPE, ODELAYEDSTART_NC, &
                              KDATESTOP, PDURATION, PTSTEP_FORC, KNI, KYEAR, KMONTH, KDAY,  &
                              PTIME, PLAT, PLON, PZS, PZREF, PUREF, KTIMESTARTINDEX    )
@@ -99,3 +101,4 @@ IF (LHOOK) CALL DR_HOOK('OL_READ_ATM_CONF',1,ZHOOK_HANDLE)
 !==================================================================
 !
 END SUBROUTINE OL_READ_ATM_CONF
+END MODULE MODI_OL_READ_ATM_CONF

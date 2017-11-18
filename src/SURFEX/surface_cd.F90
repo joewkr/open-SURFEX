@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   #################################################################
+MODULE MODI_SURFACE_CD
+CONTAINS
     SUBROUTINE SURFACE_CD(PRI, PZREF, PUREF, PZ0EFF, PZ0H,   &
                               PCD, PCDN)
 !   #################################################################
@@ -133,3 +135,4 @@ IF (LHOOK) CALL DR_HOOK('SURFACE_CD',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SURFACE_CD
+END MODULE MODI_SURFACE_CD

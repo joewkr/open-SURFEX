@@ -95,6 +95,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE glt_lmltsi_r -------------------------
 !
+MODULE MODI_glt_lmltsi_r
+CONTAINS
 SUBROUTINE glt_lmltsi_r  &
         ( tpmxl,tpsil,tpsit,tpdia,tptfl )
   USE modd_glt_const_thm
@@ -283,6 +285,7 @@ SUBROUTINE glt_lmltsi_r  &
   ENDIF
 !
 END SUBROUTINE glt_lmltsi_r
+END MODULE MODI_glt_lmltsi_r
 
 ! ----------------------- END SUBROUTINE glt_lmltsi_r -----------------------
 ! -----------------------------------------------------------------------

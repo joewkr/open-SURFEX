@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ICE_SEA_FLUX
+CONTAINS
       SUBROUTINE ICE_SEA_FLUX(PZ0ICE,                                       &
                               PTA, PEXNA, PRHOA, PTICE, PEXNS, PQA, PRR, PRS, &
                               PVMOD, PZREF, PUREF,                            &
@@ -237,3 +239,4 @@ IF (LHOOK) CALL DR_HOOK('ICE_SEA_FLUX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE ICE_SEA_FLUX
+END MODULE MODI_ICE_SEA_FLUX

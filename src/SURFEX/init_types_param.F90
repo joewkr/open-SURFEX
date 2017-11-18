@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ############################
+MODULE MODI_INIT_TYPES_PARAM
+CONTAINS
       SUBROUTINE INIT_TYPES_PARAM
 !     ############################
 !
@@ -170,3 +172,4 @@ XDATA_VEGTYPE(NUT_SPAR,NVT_TEBD) = 0.5
 IF (LHOOK) CALL DR_HOOK('INIT_TYPES_PARAM',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_TYPES_PARAM
+END MODULE MODI_INIT_TYPES_PARAM

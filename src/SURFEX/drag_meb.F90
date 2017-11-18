@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !   ############################################################################
 !
+MODULE MODI_DRAG_MEB
+CONTAINS
 SUBROUTINE DRAG_MEB(IO, PEK, DMK, DK, PTG, PTA, PQA, PVMOD, &
                     PWG, PWGI, PWSAT, PWFC, PEXNS, PEXNA, PPS,  PRR, PSR,   &
                     PRHOA, PZ0G_WITHOUT_SNOW, PZ0_MEBV, PZ0H_MEBV,          &
@@ -580,3 +582,4 @@ WHERE ( PHUGI*PQSATG < PEK%XQC(:) .AND. PQSATG <= PEK%XQC(:) )PHUGI(:) = 1.0
 IF (LHOOK) CALL DR_HOOK('DRAG_MEB',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DRAG_MEB
+END MODULE MODI_DRAG_MEB

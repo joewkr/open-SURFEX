@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_Z0EFF
+CONTAINS
     SUBROUTINE Z0EFF (HSNOW_SCHEME, &
                       OMEB, PALFA, PZREF, PUREF, PZ0, PZ0REL, PPSN,             &
                       PPALPHAN,PZ0LITTER, PWSNOW, ISS, PFF, PZ0_FLOOD,          &
@@ -267,3 +269,4 @@ IF (LHOOK) CALL DR_HOOK('Z0EFF',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE Z0EFF
+END MODULE MODI_Z0EFF

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_PGD_COVER_GARDEN
+CONTAINS
       SUBROUTINE READ_PGD_COVER_GARDEN(HPROGRAM,OGARDEN)
 !     ##########################################################################
 !!
@@ -113,3 +115,4 @@ IF (LHOOK) CALL DR_HOOK('READ_PGD_COVER_GARDEN',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_PGD_COVER_GARDEN
+END MODULE MODI_READ_PGD_COVER_GARDEN

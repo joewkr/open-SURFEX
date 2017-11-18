@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_DIAG_INLINE_WATFLUX_n
+CONTAINS
        SUBROUTINE DIAG_INLINE_WATFLUX_n (DGO, D, DC, W, &
                                          PTSTEP, PTA, PQA, PPA, PPS, PRHOA, PZONA,  &
                                          PMERA, PHT, PHW, PCD, PCDN, PCH, PRI, PHU, &
@@ -198,3 +200,4 @@ IF (LHOOK) CALL DR_HOOK('DIAG_INLINE_WATFLUX_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE DIAG_INLINE_WATFLUX_n
+END MODULE MODI_DIAG_INLINE_WATFLUX_n

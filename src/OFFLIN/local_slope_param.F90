@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_LOCAL_SLOPE_PARAM
+CONTAINS
 SUBROUTINE LOCAL_SLOPE_PARAM(JPINDX1,JPINDX2)
 
 !!                03/14  : M Lafaysse, modifs for optimization and parallelization
@@ -74,3 +76,4 @@ XSURF_TRIANGLE_THREAD=XSURF_TRIANGLE(NINDX1_X:NINDX2_X,NINDX1_Y:NINDX2_Y,:)
 
 
 END SUBROUTINE LOCAL_SLOPE_PARAM
+END MODULE MODI_LOCAL_SLOPE_PARAM

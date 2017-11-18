@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#############################################################
+MODULE MODI_DIF_LAYER
+CONTAINS
 SUBROUTINE DIF_LAYER(KLU, IO, PK  )
 !#############################################################
 !
@@ -165,3 +167,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('DIF_LAYER',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE DIF_LAYER
+END MODULE MODI_DIF_LAYER

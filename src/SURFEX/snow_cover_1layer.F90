@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SNOW_COVER_1LAYER
+CONTAINS
     SUBROUTINE SNOW_COVER_1LAYER(PTSTEP, PANSMIN, PANSMAX, PTODRY, PRHOSMIN, PRHOSMAX,   &
                                  PRHOFOLD, OALL_MELT, PDRAIN_TIME, PWCRN, PZ0SN, PZ0HSN, &
                                  TPSNOW, PTG, PTG_COEFA, PTG_COEFB, PABS_SW, PLW1, PLW2, &
@@ -703,4 +705,4 @@ IF (LHOOK) CALL DR_HOOK('SNOW_COVER_1LAYER',1,ZHOOK_HANDLE)
 
 !------------------------------------------------------------------------------- !
 END SUBROUTINE SNOW_COVER_1LAYER
-
+END MODULE MODI_SNOW_COVER_1LAYER

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_MOD1D_n
+CONTAINS
     SUBROUTINE MOD1D_n (DGO, O, OR, PLAT, S, &
                         HPROGRAM, PTIME, PEMIS, PDIR_ALB, PSCA_ALB, &
                         PLW, PSCA_SW, PDIR_SW, PSFTH, PSFTQ, PSFU, PSFV, PRAIN )
@@ -179,3 +181,4 @@ IF (LHOOK) CALL DR_HOOK('MOD1D_N',1,ZHOOK_HANDLE)
 !!-------------------------------------------------------------------------------
 !!-----------------------------------------------------------------------------
 END SUBROUTINE MOD1D_n
+END MODULE MODI_MOD1D_n

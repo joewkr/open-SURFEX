@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################################
+MODULE MODI_PREP_SURF_ATM
+CONTAINS
 SUBROUTINE PREP_SURF_ATM (YSC, HPROGRAM,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,YDCTL)
 !     #################################################################################
 !
@@ -132,3 +134,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_SURF_ATM',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_SURF_ATM
+END MODULE MODI_PREP_SURF_ATM

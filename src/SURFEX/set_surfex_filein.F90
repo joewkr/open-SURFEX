@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_SET_SURFEX_FILEIN
+CONTAINS
       SUBROUTINE SET_SURFEX_FILEIN(HPROGRAM,HMASK)
 !     ############################################
 !
@@ -158,3 +160,4 @@ IF (LHOOK) CALL DR_HOOK('SET_SURFEX_FILEIN',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SET_SURFEX_FILEIN
+END MODULE MODI_SET_SURFEX_FILEIN

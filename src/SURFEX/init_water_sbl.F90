@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_INIT_WATER_SBL
+CONTAINS
     SUBROUTINE INIT_WATER_SBL(SB, PPA, PPS, PTA, PQA, PRHOA, PU, PV, PRAIN, PSNOW,     &
                               PSFTH, PSFTQ, PZREF, PUREF, PTS, PZ0 )
 !     #################################################################################
@@ -136,3 +138,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('INIT_WATER_SBL',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE INIT_WATER_SBL
+END MODULE MODI_INIT_WATER_SBL

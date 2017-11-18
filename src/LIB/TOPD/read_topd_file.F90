@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
+MODULE MODI_READ_TOPD_FILE
+CONTAINS
       SUBROUTINE READ_TOPD_FILE(HPROGRAM,HFILE,HFORM,KNPT,PTOPD_READ)
 !     #######################
 !
@@ -100,10 +102,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('READ_TOPD_FILE',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE READ_TOPD_FILE
-
-
-
-
-
-
-
+END MODULE MODI_READ_TOPD_FILE

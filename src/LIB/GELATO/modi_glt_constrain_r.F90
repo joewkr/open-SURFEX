@@ -92,6 +92,8 @@
 ! ---------------------- SUBROUTINE glt_constrain_r ---------------------
 !
 !
+MODULE MODI_glt_constrain_r
+CONTAINS
 SUBROUTINE glt_constrain_r( tpdom,tpmxl,tpsit,tpsil,tpdia,tpsit_d )
   USE modd_types_glt
   USE modd_glt_param
@@ -419,6 +421,7 @@ SUBROUTINE glt_constrain_r( tpdom,tpmxl,tpsit,tpsil,tpdia,tpsit_d )
   tpdia(:)%dmp = ( zenti_f+zents_f-zenti_i-zents_i ) / dtt
 !
 END SUBROUTINE glt_constrain_r
+END MODULE MODI_glt_constrain_r
 !
 ! ------------------- END SUBROUTINE glt_constrain_r --------------------
 ! -----------------------------------------------------------------------

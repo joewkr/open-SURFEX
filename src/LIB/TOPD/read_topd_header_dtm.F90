@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     #######################
+MODULE MODI_READ_TOPD_HEADER_DTM
+CONTAINS
       SUBROUTINE READ_TOPD_HEADER_DTM(HPROGRAM,HFILE,HFORM,PX0,PY0,KNXC,KNYC,PNUL,PDXT)
 !     #######################
 !
@@ -106,10 +108,4 @@ READ(NUNIT,*)
 IF (LHOOK) CALL DR_HOOK('READ_TOPD_HEADER_DTM',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE READ_TOPD_HEADER_DTM
-
-
-
-
-
-
-
+END MODULE MODI_READ_TOPD_HEADER_DTM

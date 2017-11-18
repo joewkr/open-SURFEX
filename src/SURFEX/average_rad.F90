@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_AVERAGE_RAD
+CONTAINS
       SUBROUTINE AVERAGE_RAD(PFRAC_TILE,                              &
                    PDIR_ALB_TILE, PSCA_ALB_TILE, PEMIS_TILE, PTRAD_TILE,  &
                    PDIR_ALB, PSCA_ALB, PEMIS, PTRAD                       )
@@ -129,3 +131,4 @@ IF (LHOOK) CALL DR_HOOK('AVERAGE_RAD',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE AVERAGE_RAD
+END MODULE MODI_AVERAGE_RAD

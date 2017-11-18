@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_AVERAGED_ALBEDO_EMIS_ISBA
+CONTAINS
       SUBROUTINE AVERAGED_ALBEDO_EMIS_ISBA (IO, S, NK, NP, NPE, &
                                  PZENITH, PTG1, PSW_BANDS, PDIR_ALB, PSCA_ALB, &
                                  PEMIS, PTSRAD, PTSURF, PDIR_SW, PSCA_SW        )
@@ -296,3 +298,4 @@ IF (LHOOK) CALL DR_HOOK('AVERAGED_ALBEDO_EMIS_ISBA',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE AVERAGED_ALBEDO_EMIS_ISBA
+END MODULE MODI_AVERAGED_ALBEDO_EMIS_ISBA

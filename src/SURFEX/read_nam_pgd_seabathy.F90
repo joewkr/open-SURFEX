@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_NAM_PGD_SEABATHY
+CONTAINS
       SUBROUTINE READ_NAM_PGD_SEABATHY(HPROGRAM, HSEABATHY,             &
                                          HSEABATHYFILETYPE, HNCVARNAME,   &
                                          PUNIF_SEABATHY)
@@ -120,3 +122,4 @@ IF (LHOOK) CALL DR_HOOK('READ_NAM_PGD_SEABATHY',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_NAM_PGD_SEABATHY
+END MODULE MODI_READ_NAM_PGD_SEABATHY

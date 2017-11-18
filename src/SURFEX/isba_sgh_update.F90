@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################################################################
+MODULE MODI_ISBA_SGH_UPDATE
+CONTAINS
       SUBROUTINE ISBA_SGH_UPDATE (PMESH_SIZE, IO, S, K, NK, NP, NPE, PRAIN )
 !     #######################################################################
 !
@@ -325,3 +327,4 @@ IF (LHOOK) CALL DR_HOOK('ISBA_SGH_UPDATE',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------
 !
 END SUBROUTINE ISBA_SGH_UPDATE
+END MODULE MODI_ISBA_SGH_UPDATE

@@ -96,6 +96,8 @@
 ! -----------------------------------------------------------------------
 ! ----------------------- SUBROUTINE glt_thermo_end_r -----------------------
 
+MODULE MODI_glt_thermo_end_r
+CONTAINS
 SUBROUTINE glt_thermo_end_r( tpdom,tpml,tpldsit,tpldsil,tpsit,tpsil )
 !
 !
@@ -322,6 +324,7 @@ SUBROUTINE glt_thermo_end_r( tpdom,tpml,tpldsit,tpldsil,tpsit,tpsil )
   ENDIF
 !
 END SUBROUTINE glt_thermo_end_r
+END MODULE MODI_glt_thermo_end_r
 !
 ! -------------------- END SUBROUTINE glt_thermo_end_r ----------------------
 ! -----------------------------------------------------------------------

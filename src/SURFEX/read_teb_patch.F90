@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #######################
+MODULE MODI_READ_TEB_PATCH
+CONTAINS
       SUBROUTINE READ_TEB_PATCH (HFILEPGD,HFILEPGDTYPE,KVERSION,KBUGFIX,KTEB_PATCH,HDIR)
 !     #######################
 !
@@ -59,3 +61,4 @@ IF (LHOOK) CALL DR_HOOK('READ_TEB_PATCH',1,ZHOOK_HANDLE)
 !------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_TEB_PATCH
+END MODULE MODI_READ_TEB_PATCH

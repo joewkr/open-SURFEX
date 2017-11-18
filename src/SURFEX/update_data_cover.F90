@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_UPDATE_DATA_COVER
+CONTAINS
       SUBROUTINE UPDATE_DATA_COVER (DTCO, DTV, KDIM, KPATCH, OMEB_PATCH, &
                                     KYEAR)
 !     #########################
@@ -108,3 +110,4 @@ IF (LHOOK) CALL DR_HOOK('UPDATE_DATA_COVER',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 
 END SUBROUTINE UPDATE_DATA_COVER
+END MODULE MODI_UPDATE_DATA_COVER

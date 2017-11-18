@@ -86,6 +86,8 @@
 ! -----------------------------------------------------------------------
 ! ----------------------- SUBROUTINE glt_gelato -------------------------
 !
+MODULE MODI_glt_gelato
+CONTAINS
 SUBROUTINE glt_gelato( tpglt )
 !
 !
@@ -245,3 +247,4 @@ END SUBROUTINE glt_gelato
 !
 ! ====================== END SUBROUTINE glt_gelato ======================
 ! =======================================================================
+END MODULE MODI_glt_gelato

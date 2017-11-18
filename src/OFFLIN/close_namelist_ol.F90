@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_CLOSE_NAMELIST_OL
+CONTAINS
       SUBROUTINE CLOSE_NAMELIST_OL(HPROGRAM,KLUNAM)
 !     #######################################################
 !
@@ -65,3 +67,4 @@ IF (LHOOK) CALL DR_HOOK('CLOSE_NAMELIST_OL',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE CLOSE_NAMELIST_OL
+END MODULE MODI_CLOSE_NAMELIST_OL

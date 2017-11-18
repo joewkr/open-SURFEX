@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PGD_OROG_FILTER
+CONTAINS
       SUBROUTINE PGD_OROG_FILTER (U, UG, HPROGRAM)
 !     ##############################################################
 !
@@ -116,3 +118,4 @@ IF (LHOOK) CALL DR_HOOK('PGD_OROG_FILTER',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE PGD_OROG_FILTER
+END MODULE MODI_PGD_OROG_FILTER

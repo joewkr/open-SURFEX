@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ################################################################
+MODULE MODI_REGULAR_GRID_SPAWN
+CONTAINS
       SUBROUTINE REGULAR_GRID_SPAWN(U,KLUOUT,                               &
                                       KL1, KIMAX1,KJMAX1,PX1,PY1,PDX1,PDY1, &
                                       KXOR, KYOR, KDXRATIO, KDYRATIO,       &
@@ -656,3 +658,4 @@ IF (LHOOK) CALL DR_HOOK('REGULAR_GRID_SPAWN',1,ZHOOK_HANDLE)
 !---------------------------------------------------------------------------
 !
 END SUBROUTINE REGULAR_GRID_SPAWN
+END MODULE MODI_REGULAR_GRID_SPAWN

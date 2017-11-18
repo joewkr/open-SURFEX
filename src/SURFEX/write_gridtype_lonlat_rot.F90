@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #################################################################
+MODULE MODI_WRITE_GRIDTYPE_LONLAT_ROT
+CONTAINS
       SUBROUTINE WRITE_GRIDTYPE_LONLAT_ROT (HSELECT,HPROGRAM,KLU,KGRID_PAR,PGRID_PAR,KRESP)
 !     #################################################################
 !
@@ -112,3 +114,4 @@ IF (LHOOK) CALL DR_HOOK('WRITE_GRIDTYPE_LONLAT_ROT',1,ZHOOK_HANDLE)
 !---------------------------------------------------------------------------
 !
 END SUBROUTINE WRITE_GRIDTYPE_LONLAT_ROT
+END MODULE MODI_WRITE_GRIDTYPE_LONLAT_ROT

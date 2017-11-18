@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_URBAN_DRAG
+CONTAINS
     SUBROUTINE URBAN_DRAG(TOP, T, B, HIMPLICIT_WIND, PTSTEP, PT_CANYON, PQ_CANYON, &
                           PU_CANYON, PT_LOWCAN, PQ_LOWCAN, PU_LOWCAN, PZ_LOWCAN,   &
                           PTS_ROOF, PTS_ROAD, PTS_WALL, PTS_GARDEN,                &
@@ -528,3 +530,4 @@ IF (LHOOK) CALL DR_HOOK('URBAN_DRAG',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE URBAN_DRAG
+END MODULE MODI_URBAN_DRAG

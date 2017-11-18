@@ -1,3 +1,5 @@
+MODULE MODI_SFX_XIOS_READNAM_OL
+CONTAINS
 SUBROUTINE SFX_XIOS_READNAM_OL(HNAMELIST)
 !!
 !!
@@ -91,3 +93,4 @@ ENDIF
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SFX_XIOS_READNAM_OL
+END MODULE MODI_SFX_XIOS_READNAM_OL

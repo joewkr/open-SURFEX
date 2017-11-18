@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_NITRO_DECLINE
+CONTAINS
 SUBROUTINE NITRO_DECLINE(IO, PK, PEK, OWOOD, PBSLAI_NITRO, PLAT, PBIOMASS_LEAF )
 !
 !   ###############################################################
@@ -481,3 +483,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('NITRO_DECLINE',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE NITRO_DECLINE
+END MODULE MODI_NITRO_DECLINE

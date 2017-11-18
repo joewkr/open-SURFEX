@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !#####################################################################
+MODULE MODI_BEM_MORPHO
+CONTAINS
 SUBROUTINE BEM_MORPHO(PBLD, PWALL_O_HOR, PBLD_HEIGHT, PWALL_O_BLD, B)
 !#####################################################################
 !
@@ -164,4 +166,5 @@ ELSE WHERE
 END WHERE
 !
 END SUBROUTINE BEM_MORPHO
+END MODULE MODI_BEM_MORPHO
 !-------------------------------------------------------------------------------

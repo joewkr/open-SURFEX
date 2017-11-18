@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READHEAD
+CONTAINS
       SUBROUTINE READHEAD(KGLB,PGLBLATMIN,PGLBLATMAX,PGLBLONMIN,PGLBLONMAX,&
                            KNBLAT,KNBLON,PCUTVAL,PDLAT,PDLON,PLAT,PLON,KERR,KFACT,&
                            OCOMPRESS)
@@ -225,3 +227,4 @@ PLON(:)=(/ (PGLBLONMIN+(JLON-0.5)*PDLON, JLON=1,KNBLON) /)
 IF (LHOOK) CALL DR_HOOK('READHEAD',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 END SUBROUTINE READHEAD
+END MODULE MODI_READHEAD

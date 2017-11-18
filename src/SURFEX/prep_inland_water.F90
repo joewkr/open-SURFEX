@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_INLAND_WATER
+CONTAINS
 SUBROUTINE PREP_INLAND_WATER (DTCO, USS, UG, U, GCP, FM, WM, &
                               HPROGRAM,HATMFILE,HATMFILETYPE,HPGDFILE,HPGDFILETYPE,YDCTL)
 !     #################################################################################
@@ -88,3 +90,4 @@ IF (LHOOK) CALL DR_HOOK('PREP_INLAND_WATER',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------------
 !
 END SUBROUTINE PREP_INLAND_WATER
+END MODULE MODI_PREP_INLAND_WATER

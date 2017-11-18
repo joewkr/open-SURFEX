@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_PREP_HOR_OCEAN_FIELDS
+CONTAINS
 SUBROUTINE PREP_HOR_OCEAN_FIELDS (DTCO, UG, U, GCP, O, OR, KLAT, PSEABATHY, &
                                   HPROGRAM,HSURF,HFILE,HFILETYPE,KLUOUT,OUNIF)
 !     #######################################################
@@ -164,3 +166,4 @@ ENDIF
 IF (LHOOK) CALL DR_HOOK('PREP_HOR_OCEAN_FIELDS',1,ZHOOK_HANDLE)
 !----------------------------------------------------------------------------
 END SUBROUTINE PREP_HOR_OCEAN_FIELDS
+END MODULE MODI_PREP_HOR_OCEAN_FIELDS

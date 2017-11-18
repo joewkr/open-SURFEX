@@ -113,6 +113,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE glt_updtfl_r -------------------------
 !
+MODULE MODI_glt_updtfl_r
+CONTAINS
 SUBROUTINE glt_updtfl_r( hflag,tpmxl,tptfl,pdmass,pent,psalt )
 !
   USE modd_glt_const_thm
@@ -230,6 +232,7 @@ SUBROUTINE glt_updtfl_r( hflag,tpmxl,tptfl,pdmass,pent,psalt )
 !
 !
 END SUBROUTINE glt_updtfl_r
+END MODULE MODI_glt_updtfl_r
 !
 ! ----------------------- END SUBROUTINE glt_updtfl_r -----------------------
 ! -----------------------------------------------------------------------

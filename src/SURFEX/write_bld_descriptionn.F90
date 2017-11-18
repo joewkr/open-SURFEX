@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########################
+MODULE MODI_WRITE_BLD_DESCRIPTION_n
+CONTAINS
       SUBROUTINE WRITE_BLD_DESCRIPTION_n (HSELECT, BDD, HPROGRAM)
 !     #########################
 !
@@ -196,3 +198,4 @@ END SUBROUTINE UP_DESC_IND_W
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE WRITE_BLD_DESCRIPTION_n
+END MODULE MODI_WRITE_BLD_DESCRIPTION_n

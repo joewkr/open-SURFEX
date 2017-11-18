@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_OI_KALMAN_GAIN
+CONTAINS
 SUBROUTINE OI_KALMAN_GAIN(PDWG_DWG,PDWG_DW2,PD2,PK1,PK2)
 !
 !****-------------------------------------------------------------------
@@ -48,4 +50,5 @@ IF (LHOOK) CALL DR_HOOK('OI_KALMAN_GAIN',1,ZHOOK_HANDLE)
 !
 !**---------------------------------------------------------------------
 END SUBROUTINE OI_KALMAN_GAIN
+END MODULE MODI_OI_KALMAN_GAIN
 

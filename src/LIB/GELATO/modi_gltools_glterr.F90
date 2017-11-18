@@ -82,6 +82,8 @@
 ! -----------------------------------------------------------------------
 ! -------------------------- SUBROUTINE gltools_glterr --------------------------
 !
+MODULE MODI_gltools_glterr
+CONTAINS
 SUBROUTINE gltools_glterr  &
         ( hroutine,hmess,hflag )
 !
@@ -136,6 +138,7 @@ SUBROUTINE gltools_glterr  &
   ENDIF
 !
 END SUBROUTINE gltools_glterr
+END MODULE MODI_gltools_glterr
 !
 ! ----------------------- END SUBROUTINE gltools_glterr -------------------------
 ! -----------------------------------------------------------------------

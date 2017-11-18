@@ -78,6 +78,8 @@
 ! -----------------------------------------------------------------------
 ! ------------------------- SUBROUTINE glt_inibud ---------------------------
 !
+MODULE MODI_glt_inibud
+CONTAINS
 SUBROUTINE glt_inibud(tpbud)
 !
   USE modd_types_glt
@@ -109,6 +111,7 @@ SUBROUTINE glt_inibud(tpbud)
   tpbud(:,:)%isn = 0.
 !
 END SUBROUTINE glt_inibud
+END MODULE MODI_glt_inibud
 !
 ! ----------------------- END SUBROUTINE glt_inibud -------------------------
 ! -----------------------------------------------------------------------

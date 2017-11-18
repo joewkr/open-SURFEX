@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_ALLOCATE_TEB_VEG
+CONTAINS
     SUBROUTINE ALLOCATE_TEB_VEG (PEK, KLU,KGROUND_LAYER,KNBIOMASS)
 !   ##########################################################################
 !
@@ -64,3 +66,4 @@ ALLOCATE(PEK%XRESP_BIOMASS           (KLU,KNBIOMASS          ))
 IF (LHOOK) CALL DR_HOOK('ALLOCATE_TEB_VEG',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE ALLOCATE_TEB_VEG
+END MODULE MODI_ALLOCATE_TEB_VEG

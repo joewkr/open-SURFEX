@@ -80,6 +80,8 @@
 ! * Subroutine used to check global sea ice extent, area and volume in
 ! both hemispheres.
 !
+MODULE MODI_gltools_adjflx
+CONTAINS
 FUNCTION gltools_adjflx(tpdom,ocrit,pfield)
 !
   USE modd_glt_const_thm
@@ -116,6 +118,7 @@ FUNCTION gltools_adjflx(tpdom,ocrit,pfield)
   ENDIF
 !
 END FUNCTION gltools_adjflx
+END MODULE MODI_gltools_adjflx
 !
 ! ------------------------ END FUNCTION gltools_adjflx --------------------------
 ! -----------------------------------------------------------------------

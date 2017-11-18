@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !   ######################################################################
+MODULE MODI_SURFACE_AERO_COND
+CONTAINS
     SUBROUTINE SURFACE_AERO_COND(PRI, PZREF, PUREF, PVMOD, PZ0,&
                                      PZ0H, PAC, PRA, PCH           )
 !   ######################################################################
@@ -156,3 +158,4 @@ IF (LHOOK) CALL DR_HOOK('SURFACE_AERO_COND',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE SURFACE_AERO_COND
+END MODULE MODI_SURFACE_AERO_COND

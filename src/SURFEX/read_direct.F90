@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_READ_DIRECT
+CONTAINS
       SUBROUTINE READ_DIRECT (UG, U, USS, &
                               HPROGRAM,HSCHEME,HSUBROUTINE,HFILENAME,HFIELD,OMULTITYPE)
 !     #########################################################
@@ -683,3 +685,4 @@ IF (LHOOK) CALL DR_HOOK('READ_DIRECT',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE READ_DIRECT
+END MODULE MODI_READ_DIRECT

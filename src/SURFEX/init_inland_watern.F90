@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #############################################################
+MODULE MODI_INIT_INLAND_WATER_n
+CONTAINS
       SUBROUTINE INIT_INLAND_WATER_n (DTCO, OREAD_BUDGETC, UG, U, WM, FM,     &
                                       DGO, DL, DLC, HPROGRAM,HINIT, KI, KSV,&
                                       KSW, HSV, PCO2, PRHOA, PZENITH, PAZIM,  &
@@ -146,3 +148,4 @@ IF (LHOOK) CALL DR_HOOK('INIT_INLAND_WATER_N',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE INIT_INLAND_WATER_n
+END MODULE MODI_INIT_INLAND_WATER_n

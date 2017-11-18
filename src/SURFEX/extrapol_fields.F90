@@ -2,6 +2,8 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
+MODULE MODI_EXTRAPOL_FIELDS
+CONTAINS
 SUBROUTINE EXTRAPOL_FIELDS (DTCO, DTV, KDIM, IO, S, UG, U, HPROGRAM,KLUOUT)
 !!
 !!    PURPOSE
@@ -423,3 +425,4 @@ END SUBROUTINE GOTO_NTIME
 !
 !-------------------------------------------------------------------------------
 END SUBROUTINE EXTRAPOL_FIELDS
+END MODULE MODI_EXTRAPOL_FIELDS

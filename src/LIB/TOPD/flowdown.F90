@@ -4,6 +4,8 @@
 !SFX_LIC for details. version 1.
 !-----------------------------------------------------------------
 !     ###################
+MODULE MODI_FLOWDOWN
+CONTAINS
       SUBROUTINE FLOWDOWN(KNMC,PVAR,PCONN,KLINE)
 !     ###################
 !
@@ -86,3 +88,4 @@ ENDDO
 IF (LHOOK) CALL DR_HOOK('FLOWDOWN',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE FLOWDOWN
+END MODULE MODI_FLOWDOWN

@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ##########################################################################
+MODULE MODI_ISBA_FLUXES_MEB
+CONTAINS
       SUBROUTINE ISBA_FLUXES_MEB(KK, PK, PEK, DK, DEK, DMK, PRHOA, PLTT, PSIGMA_F,PSIGMA_FN, &
                                  PRN_V, PRN_G, PLWNET_V_DTV, PLWNET_V_DTG, PLWNET_V_DTN, &
                                  PLWNET_G_DTV, PLWNET_G_DTG, PLWNET_G_DTN, PLWNET_N_DTV, &
@@ -445,5 +447,4 @@ DK%XSUBL(:)     = DK%XLEI(:)/ PLTT(:)
 IF (LHOOK) CALL DR_HOOK('ISBA_FLUXES_MEB',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE ISBA_FLUXES_MEB
-
-
+END MODULE MODI_ISBA_FLUXES_MEB

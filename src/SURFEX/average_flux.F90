@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     #########
+MODULE MODI_AVERAGE_FLUX
+CONTAINS
       SUBROUTINE AVERAGE_FLUX(PFRAC_TILE,             &
                    PSFTH_TILE, PSFTQ_TILE,              &
                    PSFTS_TILE, PSFCO2_TILE,             &
@@ -142,3 +144,4 @@ IF (LHOOK) CALL DR_HOOK('AVERAGE_FLUX',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE AVERAGE_FLUX
+END MODULE MODI_AVERAGE_FLUX

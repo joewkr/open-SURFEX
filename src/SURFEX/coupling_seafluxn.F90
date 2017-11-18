@@ -3,6 +3,8 @@
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
 !     ###############################################################################
+MODULE MODI_COUPLING_SEAFLUX_n
+CONTAINS
 SUBROUTINE COUPLING_SEAFLUX_n (CHS, DTS, DGS, O, OR, G, S, DST, SLT, &
                                HPROGRAM, HCOUPLING, PTIMEC, PTSTEP, KYEAR, KMONTH, KDAY, PTIME, &
                                KI, KSV, KSW, PTSUN, PZENITH, PZENITH2, PAZIM, PZREF, PUREF,     &
@@ -774,3 +776,4 @@ END SUBROUTINE COMPLEMENT_EACH_OTHER_FLUX
 !=======================================================================================
 !
 END SUBROUTINE COUPLING_SEAFLUX_n
+END MODULE MODI_COUPLING_SEAFLUX_n
