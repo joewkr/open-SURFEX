@@ -2,8 +2,6 @@
 !SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
 !SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt
 !SFX_LIC for details. version 1.
-MODULE MODI_READ_SURFT2_NC
-CONTAINS
 MODULE MODE_READ_SURF_NC
 !
 !!    PURPOSE
@@ -38,101 +36,29 @@ MODULE MODE_READ_SURF_NC
 !!      original                                                     01/08/03
 !----------------------------------------------------------------------------
 !
+PRIVATE
+PUBLIC :: READ_SURF0_NC, READ_SURFN_NC, READ_SURFT_NC
+
 INTERFACE READ_SURF0_NC
-      SUBROUTINE READ_SURFX0_NC(HREC,PFIELD,KRESP,HCOMMENT)
- CHARACTER(LEN=*),  INTENT(IN)  :: HREC     ! name of the article to be read
-REAL,               INTENT(OUT) :: PFIELD   ! the real scalar to be read
-INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100), INTENT(OUT) :: HCOMMENT ! comment
-END SUBROUTINE READ_SURFX0_NC
-      SUBROUTINE READ_SURFN0_NC(HREC,KFIELD,KRESP,HCOMMENT)
- CHARACTER(LEN=*),  INTENT(IN)  :: HREC     ! name of the article to be read
-INTEGER,            INTENT(OUT) :: KFIELD   ! the integer scalar to be read
-INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100), INTENT(OUT) :: HCOMMENT ! comment
-END SUBROUTINE READ_SURFN0_NC
-      SUBROUTINE READ_SURFC0_NC(HREC,HFIELD,KRESP,HCOMMENT)
- CHARACTER(LEN=*),   INTENT(IN)  :: HREC     ! name of the article to be read
- CHARACTER(LEN=40),   INTENT(OUT) :: HFIELD   ! the integer scalar to be read
-INTEGER,             INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),  INTENT(OUT) :: HCOMMENT ! comment
-END SUBROUTINE READ_SURFC0_NC
-      SUBROUTINE READ_SURFL0_NC(HREC,OFIELD,KRESP,HCOMMENT)
- CHARACTER(LEN=*),        INTENT(IN)  :: HREC     ! name of the article to be read
-LOGICAL,                  INTENT(OUT) :: OFIELD   ! array containing the data field
-INTEGER,                  INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),       INTENT(OUT) :: HCOMMENT ! comment
-END SUBROUTINE READ_SURFL0_NC
+   MODULE PROCEDURE READ_SURFX0_NC
+   MODULE PROCEDURE READ_SURFN0_NC
+   MODULE PROCEDURE READ_SURFC0_NC
+   MODULE PROCEDURE READ_SURFL0_NC
 END INTERFACE
 INTERFACE READ_SURFN_NC
-      SUBROUTINE READ_SURFX1_NC(HREC,PFIELD,KRESP,HCOMMENT,HDIR)
- CHARACTER(LEN=*),  INTENT(IN)  :: HREC     ! name of the article to be read
-REAL, DIMENSION(:), INTENT(OUT) :: PFIELD   ! array containing the data field
-INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100), INTENT(OUT) :: HCOMMENT ! comment
- CHARACTER(LEN=1),   INTENT(IN)  :: HDIR     ! type of field :
-END SUBROUTINE READ_SURFX1_NC
-      SUBROUTINE READ_SURFX2_NC(HREC,PFIELD,KRESP,HCOMMENT,HDIR)
- CHARACTER(LEN=*),        INTENT(IN)  :: HREC     ! name of the article to be read
-REAL, DIMENSION(:,:),     INTENT(OUT) :: PFIELD   ! array containing the data field
-INTEGER,                  INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),       INTENT(OUT) :: HCOMMENT ! comment
- CHARACTER(LEN=1),         INTENT(IN)  :: HDIR     ! type of field :
-END SUBROUTINE READ_SURFX2_NC
-      SUBROUTINE READ_SURFN1_NC(HREC,KFIELD,KRESP,HCOMMENT,HDIR)
- CHARACTER(LEN=*),      INTENT(IN)  :: HREC     ! name of the article to be read
-INTEGER, DIMENSION(:), INTENT(OUT) :: KFIELD   ! the integer scalar to be read
-INTEGER,                INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),     INTENT(OUT) :: HCOMMENT ! comment
- CHARACTER(LEN=1),       INTENT(IN)  :: HDIR     ! type of field :
-END SUBROUTINE READ_SURFN1_NC
-      SUBROUTINE READ_SURFN2_NC(HREC,KFIELD,KRESP,HCOMMENT,HDIR)
- CHARACTER(LEN=*),      INTENT(IN)  :: HREC     ! name of the article to be read
-INTEGER, DIMENSION(:,:), INTENT(OUT) :: KFIELD   ! the integer scalar to be read
-INTEGER,                INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),     INTENT(OUT) :: HCOMMENT ! comment
- CHARACTER(LEN=1),       INTENT(IN)  :: HDIR     ! type of field :
-END SUBROUTINE READ_SURFN2_NC
-      SUBROUTINE READ_SURFL1_NC(HREC,OFIELD,KRESP,HCOMMENT,HDIR)
- CHARACTER(LEN=*),        INTENT(IN)  :: HREC     ! name of the article to be read
-LOGICAL, DIMENSION(:),   INTENT(OUT) :: OFIELD   ! array containing the data field
-INTEGER,                  INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),       INTENT(OUT) :: HCOMMENT ! comment
- CHARACTER(LEN=1),         INTENT(IN)  :: HDIR     ! type of field :
-END SUBROUTINE READ_SURFL1_NC
+   MODULE PROCEDURE READ_SURFX1_NC
+   MODULE PROCEDURE READ_SURFX2_NC
+   MODULE PROCEDURE READ_SURFN1_NC
+   MODULE PROCEDURE READ_SURFN2_NC
+   MODULE PROCEDURE READ_SURFL1_NC
 END INTERFACE
 INTERFACE READ_SURFT_NC
-      SUBROUTINE READ_SURFT0_NC(HREC,KYEAR,KMONTH,KDAY,PTIME,KRESP,HCOMMENT)
- CHARACTER(LEN=*),        INTENT(IN)  :: HREC     ! name of the article to be read
-INTEGER,                  INTENT(OUT) :: KYEAR    ! year
-INTEGER,                  INTENT(OUT) :: KMONTH   ! month
-INTEGER,                  INTENT(OUT) :: KDAY     ! day
-REAL,                     INTENT(OUT) :: PTIME    ! time
-INTEGER,                  INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),       INTENT(OUT) :: HCOMMENT ! comment
-END SUBROUTINE READ_SURFT0_NC
-      SUBROUTINE READ_SURFT1_NC(HREC,KYEAR,KMONTH,KDAY,PTIME,KRESP,HCOMMENT)
- CHARACTER(LEN=*),        INTENT(IN)  :: HREC     ! name of the article to be read
-INTEGER, DIMENSION(:),    INTENT(OUT) :: KYEAR    ! year
-INTEGER, DIMENSION(:),    INTENT(OUT) :: KMONTH   ! month
-INTEGER, DIMENSION(:),    INTENT(OUT) :: KDAY     ! day
-REAL, DIMENSION(:),       INTENT(OUT) :: PTIME    ! time
-INTEGER,                  INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),       INTENT(OUT) :: HCOMMENT ! comment
-END SUBROUTINE READ_SURFT1_NC
-      SUBROUTINE READ_SURFT2_NC(HREC,KYEAR,KMONTH,KDAY,PTIME,KRESP,HCOMMENT)
- CHARACTER(LEN=*),        INTENT(IN)  :: HREC     ! name of the article to be read
-INTEGER, DIMENSION(:,:),  INTENT(OUT) :: KYEAR    ! year
-INTEGER, DIMENSION(:,:),  INTENT(OUT) :: KMONTH   ! month
-INTEGER, DIMENSION(:,:),  INTENT(OUT) :: KDAY     ! day
-REAL, DIMENSION(:,:),     INTENT(OUT) :: PTIME    ! time
-INTEGER,                  INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem appears
- CHARACTER(LEN=100),       INTENT(OUT) :: HCOMMENT ! comment
-END SUBROUTINE READ_SURFT2_NC
+   MODULE PROCEDURE READ_SURFT0_NC
+   MODULE PROCEDURE READ_SURFT1_NC
+   MODULE PROCEDURE READ_SURFT2_NC
+END INTERFACE READ_SURFT_NC
 
-END INTERFACE
-!
-END MODULE MODE_READ_SURF_NC
+CONTAINS
 !
 !     #############################################################
       SUBROUTINE READ_SURFX0_NC(HREC,PFIELD,KRESP,HCOMMENT)
@@ -1512,4 +1438,4 @@ IF (KRESP /=0) CALL ERROR_READ_SURF_NC(YRECFM,KRESP)
 IF (LHOOK) CALL DR_HOOK('MODE_READ_SURF_NC:READ_SURFT2_NC',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE READ_SURFT2_NC
-END MODULE MODI_READ_SURFT2_NC
+END MODULE MODE_READ_SURF_NC
