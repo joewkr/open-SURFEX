@@ -129,6 +129,7 @@ USE mode_glt_info
 !
 USE modi_glt_updbud
 USE modi_gltools_timers
+USE mode_glt_init
 !
 !
 ! * No variables are implicitely declared.

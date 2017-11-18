@@ -110,6 +110,7 @@ SUBROUTINE glt_sndmlrf( pbathy,tpdom,tpatc,tpml,tpdia,tpsit,tptfl,  &
 #endif
   USE modi_gltools_adjflx
   USE modi_glt_updtfl
+  USE mode_glt_init
 !
   IMPLICIT NONE
 
