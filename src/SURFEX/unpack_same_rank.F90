@@ -537,9 +537,9 @@ IMPLICIT NONE
 !              -------------------------
 !
 INTEGER, DIMENSION(:),   INTENT(IN) :: KM
-REAL, DIMENSION(:,:,:),  INTENT(IN) :: K3D_IN
-REAL, DIMENSION(:,:,:),  INTENT(OUT):: K3D_OUT
-REAL, OPTIONAL,          INTENT(IN) :: KMISS
+INTEGER, DIMENSION(:,:,:),  INTENT(IN) :: K3D_IN
+INTEGER, DIMENSION(:,:,:),  INTENT(OUT):: K3D_OUT
+INTEGER, OPTIONAL,          INTENT(IN) :: KMISS
 !
 !*       0.2   Declarations of local variables
 !              -------------------------------
