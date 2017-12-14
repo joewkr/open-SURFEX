@@ -141,6 +141,7 @@ endif()
 if(ENABLE_MPI)
   target_compile_definitions(surfex-static PUBLIC "-DSFX_MPI")
   target_compile_options(surfex-static PUBLIC "${MPI_Fortran_COMPILE_FLAGS}")
+  target_include_directories(surfex-static PUBLIC ${MPI_Fortran_INCLUDE_DIRS})
   target_link_libraries(surfex-static INTERFACE MPI::MPI_Fortran)
 endif()
 
