@@ -38,10 +38,20 @@ if(${USE_LOCAL_NETCDF})
     ExternalProject_get_property(NetCDF_Fortran install_dir)
 
     set(LOCAL_NETCDF NetCDF_Fortran)
-    set(NETCDF_F90_INCLUDE_DIRS ${install_dir}/include)
-    set(NETCDF_F90_LIBRARIES
-        ${install_dir}/lib/libnetcdf.so
-        ${install_dir}/lib/libnetcdff.so)
+
+    # Hack to suppress error in INTERFACE_INCLUDE_DIRECTORIES
+    file(MAKE_DIRECTORY "${install_dir}/include")
+
+    add_library(NetCDF::NetCDF SHARED IMPORTED)
+    set_property(TARGET NetCDF::NetCDF PROPERTY
+        IMPORTED_LOCATION "${install_dir}/lib/libnetcdf.so")
+
+    add_library(NetCDF::NetCDF_Fortran SHARED IMPORTED)
+    set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
+        IMPORTED_LOCATION "${install_dir}/lib/libnetcdff.so")
+    set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
+        INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
+    target_link_libraries(NetCDF::NetCDF_Fortran INTERFACE NetCDF::NetCDF)
 
 else(${USE_LOCAL_NETCDF})
     find_package(NetCDF REQUIRED COMPONENTS F90)
@@ -63,11 +73,20 @@ if(${USE_LOCAL_GRIB_API})
     ExternalProject_get_property(grib_api install_dir)
 
     set(LOCAL_GRIB_API grib_api)
-    set(GRIB_API_INCLUDE_DIRS ${install_dir}/include)
-    set(GRIB_API_LIBRARIES
-        ${install_dir}/lib/libgrib_api.so
-        ${install_dir}/lib/libgrib_api_f90.so)
 
+    # Hack to suppress error in INTERFACE_INCLUDE_DIRECTORIES
+    file(MAKE_DIRECTORY "${install_dir}/include")
+
+    add_library(grib_api::grib_api SHARED IMPORTED)
+    set_property(TARGET grib_api::grib_api PROPERTY
+        IMPORTED_LOCATION "${install_dir}/lib/libgrib_api.so")
+
+    add_library(grib_api::grib_api_Fortran SHARED IMPORTED)
+    set_property(TARGET grib_api::grib_api_Fortran PROPERTY
+        IMPORTED_LOCATION "${install_dir}/lib/libgrib_api_f90.so")
+    set_property(TARGET grib_api::grib_api_Fortran PROPERTY
+        INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
+    target_link_libraries(grib_api::grib_api_Fortran INTERFACE grib_api::grib_api)
 else(${USE_LOCAL_GRIB_API})
     find_package(grib_api REQUIRED)
 endif(${USE_LOCAL_GRIB_API})

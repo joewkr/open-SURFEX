@@ -26,6 +26,12 @@
 #  NETCDF_HAS_INTERFACES - Whether requested interfaces were found or not.
 #  NETCDF_${LANG}_INCLUDE_DIRS/NETCDF_${LANG}_LIBRARIES - C/C++/F70/F90 only interface
 #
+# Additionally, the following IMPORTED targets are defined:
+#  NetCDF::NetCDF - target for using NetCDF C library
+#  NetCDF::NetCDF_CXX - target for using NetCDF C++ library
+#  NetCDF::NetCDF_Fortran - target for using NetCDF F90 library
+#  NetCDF::NetCDF_F77 - target for using NetCDF F77 library
+#
 # Normal usage would be:
 #  set (NETCDF_F90 "YES")
 #  find_package (NetCDF REQUIRED)
@@ -58,11 +64,18 @@ set (NETCDF_C_LIBRARIES ${NETCDF_LIBRARY})
 set (NetCDF_libs "")
 set (NetCDF_includes "${NETCDF_INCLUDE_DIR}")
 
+if(NETCDF_C_LIBRARIES AND NOT TARGET NetCDF::NetCDF)
+  add_library(NetCDF::NetCDF INTERFACE IMPORTED)
+  set_property(TARGET NetCDF::NetCDF PROPERTY
+    INTERFACE_INCLUDE_DIRECTORIES "${NETCDF_C_INCLUDE_DIR}")
+  set_property(TARGET NetCDF::NetCDF PROPERTY
+    INTERFACE_LINK_LIBRARIES "${NETCDF_C_LIBRARIES}")
+endif()
+
 get_filename_component (NetCDF_lib_dirs "${NETCDF_LIBRARY}" PATH)
 set (NETCDF_HAS_INTERFACES "YES") # will be set to NO if we're missing any interfaces
 
 macro (NetCDF_check_interface lang header libs)
-  if (NETCDF_${lang})
     #search starting from user modifiable cache var
     find_path (NETCDF_${lang}_INCLUDE_DIR NAMES ${header}
       HINTS "${NETCDF_INCLUDE_DIR}"
@@ -83,28 +96,37 @@ macro (NetCDF_check_interface lang header libs)
     if (NETCDF_${lang}_INCLUDE_DIR AND NETCDF_${lang}_LIBRARY)
       list (APPEND NetCDF_libs ${NETCDF_${lang}_LIBRARY})
       list (APPEND NetCDF_includes ${NETCDF_${lang}_INCLUDE_DIR})
+
+      if(NOT TARGET NetCDF::NetCDF_${lang})
+        add_library(NetCDF::NetCDF_${lang} INTERFACE IMPORTED)
+        set_property(TARGET NetCDF::NetCDF_${lang} PROPERTY
+          INTERFACE_INCLUDE_DIRECTORIES "${NETCDF_${lang}_INCLUDE_DIR}")
+        set_property(TARGET NetCDF::NetCDF_${lang} PROPERTY
+          INTERFACE_LINK_LIBRARIES "${NETCDF_${lang}_LIBRARY}")
+        target_link_libraries(NetCDF::NetCDF_${lang} INTERFACE NetCDF::NetCDF)
+      endif()
     else ()
       set (NETCDF_HAS_INTERFACES "NO")
       message (STATUS "Failed to find NetCDF interface for ${lang}")
     endif ()
-  endif ()
 endmacro ()
 
 list (FIND NetCDF_FIND_COMPONENTS "CXX" _nextcomp)
 if (_nextcomp GREATER -1)
-  set (NETCDF_CXX 1)
+  NetCDF_check_interface (CXX netcdfcpp.h netcdf_c++)
 endif ()
 list (FIND NetCDF_FIND_COMPONENTS "F77" _nextcomp)
 if (_nextcomp GREATER -1)
-  set (NETCDF_F77 1)
+  NetCDF_check_interface (F77 netcdf.inc  netcdff)
 endif ()
 list (FIND NetCDF_FIND_COMPONENTS "F90" _nextcomp)
 if (_nextcomp GREATER -1)
-  set (NETCDF_F90 1)
+  NetCDF_check_interface (F90 netcdf.mod  netcdff)
+  if(TARGET NetCDF::NetCDF_F90)
+    add_library(NetCDF::NetCDF_Fortran INTERFACE IMPORTED)
+    target_link_libraries(NetCDF::NetCDF_Fortran INTERFACE NetCDF::NetCDF_F90)
+  endif()
 endif ()
-NetCDF_check_interface (CXX netcdfcpp.h netcdf_c++)
-NetCDF_check_interface (F77 netcdf.inc  netcdff)
-NetCDF_check_interface (F90 netcdf.mod  netcdff)
 
 #export accumulated results to internal varS that rest of project can depend on
 list (APPEND NetCDF_libs "${NETCDF_C_LIBRARIES}")

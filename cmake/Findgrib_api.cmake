@@ -12,6 +12,10 @@
 #  GRIB_API_INCLUDE_DIRS - The GRIB_API include directories
 #  GRIB_API_LIBRARIES - The libraries needed to use GRIB_API
 #  GRIB_API_DEFINITIONS - Compiler switches required for using GRIB_API
+# Additionally, the following IMPORTED targets are defined:
+#
+#  grib_api::grib_api - target for using GRIB_API C library
+#  grib_api::grib_api_Fortran - target for using GRIB_API F90 library
 
 option( NO_GRIB_API_BINARIES "skip trying to find grib_api installed binaries" OFF )
 option( GRIB_API_PNG "use png with grib_api" ON )
@@ -129,5 +133,20 @@ if( NOT grib_api_FOUND AND NOT NO_GRIB_API_BINARIES )
 	list( APPEND GRIB_API_LIBRARIES    ${_grib_api_jpg_libs} ${_grib_api_png_libs} )
 
     set( grib_api_FOUND ${GRIB_API_FOUND} )
+
+    if(NOT TARGET grib_api::grib_api)
+        add_library(grib_api::grib_api INTERFACE IMPORTED)
+        set_property(TARGET grib_api::grib_api PROPERTY
+            INTERFACE_INCLUDE_DIRECTORIES "${GRIB_API_INCLUDE_DIR}")
+        set_property(TARGET grib_api::grib_api PROPERTY
+            INTERFACE_LINK_LIBRARIES "${GRIB_API_LIBRARY}")
+    endif()
+
+    if(NOT TARGET grib_api::grib_api_Fortran)
+        add_library(grib_api::grib_api_Fortran INTERFACE IMPORTED)
+        set_property(TARGET grib_api::grib_api_Fortran PROPERTY
+            INTERFACE_LINK_LIBRARIES "${GRIB_API_LIB_F90}")
+        target_link_libraries(grib_api::grib_api_Fortran INTERFACE grib_api::grib_api)
+    endif()
 
 endif()
