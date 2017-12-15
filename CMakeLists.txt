@@ -6,6 +6,7 @@ enable_language(Fortran)
 
 option(ENABLE_MPI "enable MPI" OFF)
 option(ENABLE_OMP "enable OpenMP" OFF)
+option(SKIP_INSPECTIONS "do not check source files for top-level routines" OFF)
 
 option(USE_LOCAL_GRIB_API "use grib_api library provided with SURFEX" ON)
 option(USE_LOCAL_NETCDF "use netcdf library provided with SURFEX" ON)
@@ -63,50 +64,16 @@ function(build_sources_master sources programs)
 endfunction(build_sources_master)
 
 build_sources_master(FORTRAN_SOURCES FORTRAN_PROGRAMS)
-set(GENERATED_ROOT ${CMAKE_BINARY_DIR}/generated)
 
 message('${FORTRAN_PROGRAMS}')
 
 set (fort_flags "-convert big_endian -r8 -g -assume nosource_include -assume byterecl -fpic -traceback -fp-model source")
 set (CMAKE_Fortran_FLAGS "-O2 -fpe0 -ftz ${fort_flags}")
 
-# Initially create generated files, if they don't yet exist
-IF( NOT EXISTS ${GENERATED_ROOT}/gen_ifaces )
-  file(MAKE_DIRECTORY ${GENERATED_ROOT})
-  MESSAGE( "*** Create list of MODI files to be generated ***" )
-
-  FIND_TOP_LEVEL_ROUTINES(${GENERATED_ROOT}/interfaces.cmake "${FORTRAN_SOURCES}")
-  file(WRITE ${GENERATED_ROOT}/gen_ifaces "#generated")
-ENDIF()
-
-#[=[
-INCLUDE( ${GENERATED_ROOT}/interfaces.cmake )
-
-set (GENERATED_MODULES "")
-foreach(source_string ${GENERATED_SRC})
-  string(REPLACE " " ";" source_list ${source_string})
-
-  list(GET source_list 0 input)
-  list(REMOVE_AT source_list 0)
-
-  set(generated ${source_list})
-
-  add_custom_command(
-    OUTPUT  ${generated}
-    COMMAND ${CMAKE_COMMAND}
-      -DSTANDALONE=TRUE
-      -DCMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
-      -DFILE_NAME=${input}
-      -DGENERATED_ROOT=${GENERATED_ROOT}
-      -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/GenInterface.cmake
-    DEPENDS ${input}
-    WORKING_DIRECTORY ${GENERATED_ROOT}
-    VERBATIM
-  )
-
-  list(APPEND GENERATED_MODULES ${generated})
-endforeach(source_string)
-#]=]
+# Check source files for top-level routines
+if(NOT SKIP_INSPECTIONS)
+  find_top_level_routines(${GENERATED_ROOT}/interfaces.cmake "${FORTRAN_SOURCES}")
+endif()
 
 # Define a target shared object library
 ADD_LIBRARY( surfex-static STATIC ${FORTRAN_SOURCES})
