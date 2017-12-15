@@ -76,7 +76,7 @@ if(NOT SKIP_INSPECTIONS)
 endif()
 
 # Define a target shared object library
-ADD_LIBRARY( surfex-static STATIC ${FORTRAN_SOURCES})
+add_library( surfex-static STATIC ${FORTRAN_SOURCES})
 set_target_properties(surfex-static PROPERTIES OUTPUT_NAME "surfex")
 
 if(${USE_LOCAL_NETCDF})
@@ -95,9 +95,9 @@ add_definitions(-DSFX_NC)
 add_definitions(-DSFX_ASC)
 add_definitions(-DUSE_SODA)
 
-set_target_properties( surfex-static PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_BINARY_DIR}/mod )
+set_target_properties(surfex-static PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_BINARY_DIR}/mod)
 
-target_include_directories(surfex-static PUBLIC ${CMAKE_BINARY_DIR}/mod )
+target_include_directories(surfex-static PUBLIC ${CMAKE_BINARY_DIR}/mod)
 
 if(ENABLE_OMP)
   target_link_libraries(surfex-static PUBLIC OpenMP::OpenMP_Fortran)
