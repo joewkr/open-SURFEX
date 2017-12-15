@@ -154,7 +154,3 @@ function(find_top_level_routines output sources)
         message(FATAL_ERROR "Unable to proceed")
     endif()
 endfunction(find_top_level_routines)
-
-#if(STANDALONE)
-#    generate_interfaces(${FILE_NAME} ${GENERATED_ROOT})
-#endif()
