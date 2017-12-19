@@ -118,7 +118,6 @@ if(USER_SOURCES_DIR)
   endif()
 endif()
 
-# Define a target shared object library
 add_library( surfex-static STATIC ${FORTRAN_SOURCES})
 set_target_properties(surfex-static PROPERTIES OUTPUT_NAME "surfex")
 
