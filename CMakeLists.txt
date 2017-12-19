@@ -17,6 +17,8 @@ option(USE_LOCAL_GRIB_API "use grib_api library provided with SURFEX" ON)
 option(USE_LOCAL_NETCDF "use netcdf library provided with SURFEX" ON)
 option(USE_LOCAL_XIOS "use XIOS io server library provided with SURFEX" ON)
 
+set(USER_SOURCES_DIR "" CACHE PATH "Path to directory with user-provided source files")
+
 set(CONFIG_FILE "${CMAKE_CURRENT_SOURCE_DIR}/conf/config.${CMAKE_Fortran_COMPILER_ID}.cmake")
 if(EXISTS ${CONFIG_FILE} AND NOT IS_DIRECTORY ${CONFIG_FILE})
   message(STATUS "Using ${CONFIG_FILE}")
@@ -76,11 +78,44 @@ function(build_sources_master sources programs)
   set(${programs} ${FORTRAN_PROGRAMS} PARENT_SCOPE)
 endfunction(build_sources_master)
 
+function(merge_user_sources master user)
+  set(master_sources ${${master}})
+  set(user_sources ${${user}})
+  set(result "")
+  foreach(item ${master_sources})
+    get_filename_component(current_master "${item}" NAME)
+    list(FIND user_sources "${USER_SOURCES_DIR}/${current_master}" found)
+
+    if(found EQUAL -1)
+      list(APPEND result "${item}")
+    else()
+      list(APPEND result "${USER_SOURCES_DIR}/${current_master}")
+      list(REMOVE_ITEM user_sources "${USER_SOURCES_DIR}/${current_master}")
+    endif()
+  endforeach()
+  list(APPEND result "${user_sources}")
+  set(${master} "${result}" PARENT_SCOPE)
+endfunction()
+
 build_sources_master(FORTRAN_SOURCES FORTRAN_PROGRAMS)
 
 # Check source files for top-level routines in the master tree
 if(INSPECT_MASTER_SOURCES)
   find_top_level_routines("${FORTRAN_SOURCES}")
+endif()
+
+if(USER_SOURCES_DIR)
+  get_filename_component(
+    USER_SOURCES_DIR "${USER_SOURCES_DIR}" ABSOLUTE
+    BASE_DIR ${CMAKE_CURRENT_BINARY_DIR})
+  if(IS_DIRECTORY "${USER_SOURCES_DIR}")
+    list_sources(${USER_SOURCES_DIR} USER_SOURCES)
+    find_top_level_routines("${USER_SOURCES}" USER_PROGRAMS)
+    list(REMOVE_ITEM USER_SOURCES ${USER_PROGRAMS})
+
+    merge_user_sources(FORTRAN_SOURCES USER_SOURCES)
+    merge_user_sources(FORTRAN_PROGRAMS USER_PROGRAMS)
+  endif()
 endif()
 
 # Define a target shared object library
