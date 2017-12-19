@@ -1,3 +1,5 @@
+MODULE MODI_OPEN_CLOSE_BIN_ASC_FORC
+CONTAINS
 !     ################################################################
       SUBROUTINE OPEN_CLOSE_BIN_ASC_FORC(HACTION,HFORCING,HACTION2,HYEAR)
 !     ################################################################
@@ -164,3 +166,4 @@ IF (LHOOK) CALL DR_HOOK('OPEN_CLOSE_BIN_ASC_FORC',1,ZHOOK_HANDLE)
 !-------------------------------------------------------------------------------
 !
 END SUBROUTINE OPEN_CLOSE_BIN_ASC_FORC
+END MODULE MODI_OPEN_CLOSE_BIN_ASC_FORC

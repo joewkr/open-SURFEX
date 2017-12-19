@@ -1,5 +1,6 @@
 !===================================================================================
-
+MODULE MODI_MY_FORC_SAFRAN
+CONTAINS
 SUBROUTINE MY_FORC_SAFRAN(HEXPER,HYEAR,HYEAR2,KNI,KNPTS,           &
                    KMONTH,KDAY,PTIME,                              &
                    PLON, PLAT, PZS, PZREF, PUREF,                  &
@@ -201,3 +202,4 @@ IF (LHOOK) CALL DR_HOOK('MY_FORC_SAFRAN',1,ZHOOK_HANDLE)
 !----------------------------------------------------------------------------
 END SUBROUTINE MY_FORC_SAFRAN
 !==============================================================================
+END MODULE MODI_MY_FORC_SAFRAN

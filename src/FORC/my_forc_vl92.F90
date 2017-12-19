@@ -1,4 +1,5 @@
-
+MODULE MODI_MY_FORC_VL92
+CONTAINS
 
 SUBROUTINE MY_FORC_VL92(HEXPER,KNI,KNPTS,                          &
                    KYEAR,KMONTH,KDAY,PTIME,                        &
@@ -225,3 +226,4 @@ IF (LHOOK) CALL DR_HOOK('MODI_MY_FORC_VL92:MY_FORC_VL92',1,ZHOOK_HANDLE)
 !----------------------------------------------------------------------------
 END SUBROUTINE MY_FORC_VL92
 !==============================================================================
+END MODULE MODI_MY_FORC_VL92

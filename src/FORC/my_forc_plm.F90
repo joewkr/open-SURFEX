@@ -1,3 +1,5 @@
+MODULE MODI_MY_FORC_PLM
+CONTAINS
 SUBROUTINE MY_FORC_PLM(HEXPER,KNI,KNPTS,              &
                    KYEAR,KMONTH,KDAY,PTIME,                        &
                    PLON, PLAT, PZS, PZREF, PUREF,                  &
@@ -344,3 +346,4 @@ IF (LHOOK) CALL DR_HOOK('MODI_MY_FORC_PLM:MY_FORC_PLM',1,ZHOOK_HANDLE)
 !----------------------------------------------------------------------------
 END SUBROUTINE MY_FORC_PLM
 !==============================================================================
+END MODULE MODI_MY_FORC_PLM

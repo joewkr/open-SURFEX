@@ -1,4 +1,5 @@
-
+MODULE MODI_MY_FORC_ALQUEVA0206
+CONTAINS
 SUBROUTINE MY_FORC_ALQUEVA0206(HEXPER,KNI,KNPTS,                   &
                    KYEAR,KMONTH,KDAY,PTIME,                        &
                    PLON, PLAT, PZS, PZREF, PUREF,                  &
@@ -155,3 +156,4 @@ IF (LHOOK) CALL DR_HOOK('MODI_MY_FORC_ALQUEVA0206:MY_FORC_ALQUEVA0206',1,ZHOOK_H
 !----------------------------------------------------------------------------
 END SUBROUTINE MY_FORC_ALQUEVA0206
 !==============================================================================
+END MODULE MODI_MY_FORC_ALQUEVA0206

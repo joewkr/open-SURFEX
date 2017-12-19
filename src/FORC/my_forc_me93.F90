@@ -1,3 +1,5 @@
+MODULE MODI_MY_FORC_ME93
+CONTAINS
 SUBROUTINE MY_FORC_ME93(HEXPER,KNI,KNPTS,                          &
                    KYEAR,KMONTH,KDAY,PTIME,                        &
                    PLON, PLAT, PZS, PZREF, PUREF,                  &
@@ -251,3 +253,4 @@ IF (LHOOK) CALL DR_HOOK('MODI_MY_FORC_ME93:MY_FORC_ME93',1,ZHOOK_HANDLE)
 !----------------------------------------------------------------------------
 END SUBROUTINE MY_FORC_ME93
 !==============================================================================
+END MODULE MODI_MY_FORC_ME93

@@ -1,3 +1,5 @@
+MODULE MODI_MY_FORC_MA01
+CONTAINS
 SUBROUTINE MY_FORC_MA01(HEXPER,KNI,KNPTS,                          &
                    KYEAR,KMONTH,KDAY,PTIME,                        &
                    PLON, PLAT, PZS, PZREF, PUREF,                  &
@@ -246,3 +248,4 @@ END SUBROUTINE FILL_DATA
 !----------------------------------------------------------------------------
 END SUBROUTINE MY_FORC_MA01
 !==============================================================================
+END MODULE MODI_MY_FORC_MA01

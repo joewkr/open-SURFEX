@@ -1,3 +1,5 @@
+MODULE MODI_MY_FORC_HAPEX
+CONTAINS
 SUBROUTINE MY_FORC_HAPEX(HEXPER,KNI,KNPTS,              &
                    KYEAR,KMONTH,KDAY,PTIME,                        &
                    PLON, PLAT, PZS, PZREF, PUREF,                  &
@@ -158,3 +160,4 @@ IF (LHOOK) CALL DR_HOOK('MODI_MY_FORC_HAPEX:MY_FORC_HAPEX',1,ZHOOK_HANDLE)
 !----------------------------------------------------------------------------
 END SUBROUTINE MY_FORC_HAPEX
 !==============================================================================
+END MODULE MODI_MY_FORC_HAPEX
