@@ -4,9 +4,10 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 project(surfex)
 enable_language(Fortran)
 
+option(INSPECT_MASTER_SOURCES "check main source files tree for top-level routines" OFF)
+
 option(ENABLE_MPI "enable MPI" OFF)
 option(ENABLE_OMP "enable OpenMP" OFF)
-option(SKIP_INSPECTIONS "do not check source files for top-level routines" OFF)
 option(ENABLE_XIOS "use XIOS library for parallel IO" OFF)
 if(ENABLE_XIOS)
   message(FATAL_ERROR "Not implemented yet")
@@ -77,9 +78,9 @@ endfunction(build_sources_master)
 
 build_sources_master(FORTRAN_SOURCES FORTRAN_PROGRAMS)
 
-# Check source files for top-level routines
-if(NOT SKIP_INSPECTIONS)
-  find_top_level_routines(${GENERATED_ROOT}/interfaces.cmake "${FORTRAN_SOURCES}")
+# Check source files for top-level routines in the master tree
+if(INSPECT_MASTER_SOURCES)
+  find_top_level_routines("${FORTRAN_SOURCES}")
 endif()
 
 # Define a target shared object library
