@@ -16,6 +16,14 @@ option(USE_LOCAL_GRIB_API "use grib_api library provided with SURFEX" ON)
 option(USE_LOCAL_NETCDF "use netcdf library provided with SURFEX" ON)
 option(USE_LOCAL_XIOS "use XIOS io server library provided with SURFEX" ON)
 
+set(CONFIG_FILE "${CMAKE_CURRENT_SOURCE_DIR}/conf/config.${CMAKE_Fortran_COMPILER_ID}.cmake")
+if(EXISTS ${CONFIG_FILE} AND NOT IS_DIRECTORY ${CONFIG_FILE})
+  message(STATUS "Using ${CONFIG_FILE}")
+  include(${CONFIG_FILE})
+else()
+  message(FATAL_ERROR "Unable to load config ${CONFIG_FILE}")
+endif()
+
 include(Dependencies)
 include(GenInterface)
 
@@ -68,11 +76,6 @@ function(build_sources_master sources programs)
 endfunction(build_sources_master)
 
 build_sources_master(FORTRAN_SOURCES FORTRAN_PROGRAMS)
-
-message('${FORTRAN_PROGRAMS}')
-
-set (fort_flags "-convert big_endian -r8 -g -assume nosource_include -assume byterecl -fpic -traceback -fp-model source")
-set (CMAKE_Fortran_FLAGS "-O2 -fpe0 -ftz ${fort_flags}")
 
 # Check source files for top-level routines
 if(NOT SKIP_INSPECTIONS)
