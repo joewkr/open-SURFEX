@@ -1,5 +1,7 @@
 # - Find NetCDF
 # Find the native NetCDF includes and library
+# Original version of this module was written by Kitware, Inc. for the VTK
+# project and available under the OSI-approved BSD 3-clause License.
 #
 #  NETCDF_INCLUDE_DIR  - user modifiable choice of where netcdf headers are
 #  NETCDF_LIBRARY      - user modifiable choice of where netcdf libraries are
