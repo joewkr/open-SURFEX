@@ -103,8 +103,6 @@ if( NOT grib_api_FOUND AND NOT NO_GRIB_API_BINARIES )
 
         execute_process( COMMAND ${GRIB_API_INFO} -v  OUTPUT_VARIABLE _grib_info_out ERROR_VARIABLE _grib_info_err OUTPUT_STRIP_TRAILING_WHITESPACE )
 
-        # ecbuild_debug_var( _grib_info_out )
-
         string( REPLACE "." " " _version_list ${_grib_info_out} ) # dots to spaces
         separate_arguments( _version_list )
 
