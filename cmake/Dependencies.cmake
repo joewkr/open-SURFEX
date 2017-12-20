@@ -51,7 +51,8 @@ if(${USE_LOCAL_NETCDF})
         IMPORTED_LOCATION "${install_dir}/lib/libnetcdff.so")
     set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
         INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
-    target_link_libraries(NetCDF::NetCDF_Fortran INTERFACE NetCDF::NetCDF)
+    set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
+        INTERFACE_LINK_LIBRARIES NetCDF::NetCDF)
 
 else(${USE_LOCAL_NETCDF})
     find_package(NetCDF REQUIRED COMPONENTS F90)
@@ -86,7 +87,8 @@ if(${USE_LOCAL_GRIB_API})
         IMPORTED_LOCATION "${install_dir}/lib/libgrib_api_f90.so")
     set_property(TARGET grib_api::grib_api_Fortran PROPERTY
         INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
-    target_link_libraries(grib_api::grib_api_Fortran INTERFACE grib_api::grib_api)
+    set_property(TARGET grib_api::grib_api_Fortran PROPERTY
+        INTERFACE_LINK_LIBRARIES grib_api::grib_api)
 else(${USE_LOCAL_GRIB_API})
     find_package(grib_api REQUIRED)
 endif(${USE_LOCAL_GRIB_API})

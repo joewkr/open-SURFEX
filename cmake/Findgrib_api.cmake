@@ -143,8 +143,9 @@ if( NOT grib_api_FOUND AND NOT NO_GRIB_API_BINARIES )
     if(NOT TARGET grib_api::grib_api_Fortran)
         add_library(grib_api::grib_api_Fortran INTERFACE IMPORTED)
         set_property(TARGET grib_api::grib_api_Fortran PROPERTY
-            INTERFACE_LINK_LIBRARIES "${GRIB_API_LIB_F90}")
-        target_link_libraries(grib_api::grib_api_Fortran INTERFACE grib_api::grib_api)
+            INTERFACE_LINK_LIBRARIES
+                ${GRIB_API_LIB_F90}
+                grib_api::grib_api)
     endif()
 
 endif()

@@ -104,8 +104,9 @@ macro (NetCDF_check_interface lang header libs)
         set_property(TARGET NetCDF::NetCDF_${lang} PROPERTY
           INTERFACE_INCLUDE_DIRECTORIES "${NETCDF_${lang}_INCLUDE_DIR}")
         set_property(TARGET NetCDF::NetCDF_${lang} PROPERTY
-          INTERFACE_LINK_LIBRARIES "${NETCDF_${lang}_LIBRARY}")
-        target_link_libraries(NetCDF::NetCDF_${lang} INTERFACE NetCDF::NetCDF)
+          INTERFACE_LINK_LIBRARIES
+            ${NETCDF_${lang}_LIBRARY}
+            NetCDF::NetCDF)
       endif()
     else ()
       set (NETCDF_HAS_INTERFACES "NO")
@@ -126,7 +127,8 @@ if (_nextcomp GREATER -1)
   NetCDF_check_interface (F90 netcdf.mod  netcdff)
   if(TARGET NetCDF::NetCDF_F90)
     add_library(NetCDF::NetCDF_Fortran INTERFACE IMPORTED)
-    target_link_libraries(NetCDF::NetCDF_Fortran INTERFACE NetCDF::NetCDF_F90)
+    set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
+      INTERFACE_LINK_LIBRARIES NetCDF::NetCDF_F90)
   endif()
 endif ()
 
