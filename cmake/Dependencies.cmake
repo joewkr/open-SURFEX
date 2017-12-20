@@ -26,6 +26,8 @@ if(${USE_LOCAL_NETCDF})
             -DBUILD_UTILITIES=OFF
             -DENABLE_EXAMPLES=OFF
             -DENABLE_TESTS=OFF
+        BUILD_BYPRODUCTS
+            "auxiliary/lib/libnetcdf.so"
         )
 
     ExternalProject_add(NetCDF_Fortran
@@ -36,6 +38,8 @@ if(${USE_LOCAL_NETCDF})
             -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
             -DCMAKE_INSTALL_LIBDIR:PATH=lib
             -DENABLE_TESTS=OFF
+        BUILD_BYPRODUCTS
+            "auxiliary/lib/libnetcdff.so"
         )
 
     ExternalProject_get_property(NetCDF_Fortran install_dir)
@@ -73,6 +77,9 @@ if(${USE_LOCAL_GRIB_API})
             -DENABLE_PYTHON=OFF
             -DENABLE_EXAMPLES=OFF
             -DENABLE_TESTS=OFF
+        BUILD_BYPRODUCTS
+            "auxiliary/lib/libgrib_api.so"
+            "auxiliary/lib/libgrib_api_f90.so"
         )
 
     ExternalProject_get_property(grib_api install_dir)
