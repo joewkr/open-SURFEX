@@ -3,8 +3,8 @@ include(ExternalProject)
 
 if(${BUILD_NETCDF})
     ExternalProject_add(HDF5
-        URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/hdf5-1.8.19.tar.bz2
-        INSTALL_DIR ${CMAKE_BINARY_DIR}/libs
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/hdf5-1.8.19.tar.bz2
+        INSTALL_DIR ${CMAKE_BINARY_DIR}/auxiliary
         CMAKE_ARGS
             -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
             -DHDF5_INSTALL_LIB_DIR:PATH=lib
@@ -17,8 +17,8 @@ if(${BUILD_NETCDF})
 
     ExternalProject_add(NetCDF_C
         DEPENDS HDF5
-        URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/netcdf-4.4.1.1.tar.gz
-        INSTALL_DIR ${CMAKE_BINARY_DIR}/libs
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/netcdf-4.4.1.1.tar.gz
+        INSTALL_DIR ${CMAKE_BINARY_DIR}/auxiliary
         CMAKE_ARGS
             -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
             -DCMAKE_INSTALL_LIBDIR:PATH=lib
@@ -32,8 +32,8 @@ if(${BUILD_NETCDF})
 
     ExternalProject_add(NetCDF_Fortran
         DEPENDS NetCDF_C
-        URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/netcdf-fortran-4.4.4.tar.gz
-        INSTALL_DIR ${CMAKE_BINARY_DIR}/libs
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/netcdf-fortran-4.4.4.tar.gz
+        INSTALL_DIR ${CMAKE_BINARY_DIR}/auxiliary
         CMAKE_ARGS
             -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
             -DCMAKE_INSTALL_LIBDIR:PATH=lib
@@ -67,8 +67,8 @@ endif(${BUILD_NETCDF})
 
 if(${BUILD_GRIB_API})
     ExternalProject_add(grib_api
-        URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/grib_api-1.23.0-Source.tar.gz
-        INSTALL_DIR ${CMAKE_BINARY_DIR}/libs
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/grib_api-1.23.0-Source.tar.gz
+        INSTALL_DIR ${CMAKE_BINARY_DIR}/auxiliary
         CMAKE_ARGS
             -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
             -DCMAKE_INSTALL_LIBDIR:PATH=lib
