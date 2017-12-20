@@ -13,9 +13,9 @@ if(ENABLE_XIOS)
   message(FATAL_ERROR "Not implemented yet")
 endif()
 
-option(USE_LOCAL_GRIB_API "use grib_api library provided with SURFEX" ON)
-option(USE_LOCAL_NETCDF "use netcdf library provided with SURFEX" ON)
-option(USE_LOCAL_XIOS "use XIOS io server library provided with SURFEX" ON)
+option(BUILD_GRIB_API "build a copy of grib_api library provided with SURFEX" ON)
+option(BUILD_NETCDF "build a copy of netcdf library provided with SURFEX" ON)
+option(BUILD_XIOS "build a copy of XIOS io server library provided with SURFEX" ON)
 
 set(USER_SOURCES_DIR "" CACHE PATH "Path to directory with user-provided source files")
 
@@ -121,13 +121,13 @@ endif()
 add_library( surfex-static STATIC ${FORTRAN_SOURCES})
 set_target_properties(surfex-static PROPERTIES OUTPUT_NAME "surfex")
 
-if(${USE_LOCAL_NETCDF})
+if(${BUILD_NETCDF})
   add_dependencies(surfex-static ${LOCAL_NETCDF})
-endif(${USE_LOCAL_NETCDF})
+endif(${BUILD_NETCDF})
 
-if(${USE_LOCAL_GRIB_API})
+if(${BUILD_GRIB_API})
   add_dependencies(surfex-static ${LOCAL_GRIB_API})
-endif(${USE_LOCAL_GRIB_API})
+endif(${BUILD_GRIB_API})
 
 add_definitions(-Din_surfex)
 add_definitions(-DSFX_BIN)

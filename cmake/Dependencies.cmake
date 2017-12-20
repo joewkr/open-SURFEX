@@ -1,7 +1,7 @@
 
 include(ExternalProject)
 
-if(${USE_LOCAL_NETCDF})
+if(${BUILD_NETCDF})
     ExternalProject_add(HDF5
         URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/hdf5-1.8.19.tar.bz2
         INSTALL_DIR ${CMAKE_BINARY_DIR}/libs
@@ -61,11 +61,11 @@ if(${USE_LOCAL_NETCDF})
     set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
         INTERFACE_LINK_LIBRARIES NetCDF::NetCDF)
 
-else(${USE_LOCAL_NETCDF})
+else(${BUILD_NETCDF})
     find_package(NetCDF REQUIRED COMPONENTS F90)
-endif(${USE_LOCAL_NETCDF})
+endif(${BUILD_NETCDF})
 
-if(${USE_LOCAL_GRIB_API})
+if(${BUILD_GRIB_API})
     ExternalProject_add(grib_api
         URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/grib_api-1.23.0-Source.tar.gz
         INSTALL_DIR ${CMAKE_BINARY_DIR}/libs
@@ -100,9 +100,9 @@ if(${USE_LOCAL_GRIB_API})
         INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
     set_property(TARGET grib_api::grib_api_Fortran PROPERTY
         INTERFACE_LINK_LIBRARIES grib_api::grib_api)
-else(${USE_LOCAL_GRIB_API})
+else(${BUILD_GRIB_API})
     find_package(grib_api REQUIRED)
-endif(${USE_LOCAL_GRIB_API})
+endif(${BUILD_GRIB_API})
 
 if(${ENABLE_MPI})
     find_package(MPI REQUIRED COMPONENTS Fortran)
