@@ -18,6 +18,12 @@ option(BUILD_NETCDF "build a copy of netcdf library provided with SURFEX" ON)
 option(BUILD_XIOS "build a copy of XIOS io server library provided with SURFEX" ON)
 
 set(USER_SOURCES_DIR "" CACHE PATH "Path to directory with user-provided source files")
+if(NOT CMAKE_BUILD_TYPE)
+  message(STATUS "CMAKE_BUILD_TYPE is not set, switching to RELEASE")
+  set(CMAKE_BUILD_TYPE "RELEASE" CACHE STRING
+      "Choose the type of build, options are: NONE DEBUG RELEASE."
+      FORCE)
+endif()
 
 set(CONFIG_FILE "${CMAKE_CURRENT_SOURCE_DIR}/conf/config.${CMAKE_Fortran_COMPILER_ID}.cmake")
 if(EXISTS ${CONFIG_FILE} AND NOT IS_DIRECTORY ${CONFIG_FILE})
