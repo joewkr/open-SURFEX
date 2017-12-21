@@ -99,14 +99,23 @@ macro (NetCDF_check_interface lang header libs)
       list (APPEND NetCDF_libs ${NETCDF_${lang}_LIBRARY})
       list (APPEND NetCDF_includes ${NETCDF_${lang}_INCLUDE_DIR})
 
+      get_filename_component(lib_suffix "${NETCDF_${lang}_LIBRARY}" EXT)
+
       if(NOT TARGET NetCDF::NetCDF_${lang})
         add_library(NetCDF::NetCDF_${lang} INTERFACE IMPORTED)
         set_property(TARGET NetCDF::NetCDF_${lang} PROPERTY
           INTERFACE_INCLUDE_DIRECTORIES "${NETCDF_${lang}_INCLUDE_DIR}")
-        set_property(TARGET NetCDF::NetCDF_${lang} PROPERTY
-          INTERFACE_LINK_LIBRARIES
-            ${NETCDF_${lang}_LIBRARY}
-            NetCDF::NetCDF)
+
+        if(TARGET NetCDF::NetCDF AND "${lib_suffix}" MATCHES "${CMAKE_STATIC_LIBRARY_SUFFIX}")
+          set_property(TARGET NetCDF::NetCDF_${lang} PROPERTY
+            INTERFACE_LINK_LIBRARIES
+              ${NETCDF_${lang}_LIBRARY}
+              NetCDF::NetCDF)
+        else()
+          set_property(TARGET NetCDF::NetCDF_${lang} PROPERTY
+            INTERFACE_LINK_LIBRARIES
+              ${NETCDF_${lang}_LIBRARY})
+        endif()
       endif()
     else ()
       set (NETCDF_HAS_INTERFACES "NO")

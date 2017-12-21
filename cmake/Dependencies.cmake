@@ -26,8 +26,6 @@ if(${BUILD_NETCDF})
             -DBUILD_UTILITIES=OFF
             -DENABLE_EXAMPLES=OFF
             -DENABLE_TESTS=OFF
-        BUILD_BYPRODUCTS
-            "auxiliary/lib/libnetcdf.so"
         )
 
     ExternalProject_add(NetCDF_Fortran
@@ -49,17 +47,11 @@ if(${BUILD_NETCDF})
     # Hack to suppress error in INTERFACE_INCLUDE_DIRECTORIES
     file(MAKE_DIRECTORY "${install_dir}/include")
 
-    add_library(NetCDF::NetCDF SHARED IMPORTED)
-    set_property(TARGET NetCDF::NetCDF PROPERTY
-        IMPORTED_LOCATION "${install_dir}/lib/libnetcdf.so")
-
     add_library(NetCDF::NetCDF_Fortran SHARED IMPORTED)
     set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
         IMPORTED_LOCATION "${install_dir}/lib/libnetcdff.so")
     set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
         INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
-    set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
-        INTERFACE_LINK_LIBRARIES NetCDF::NetCDF)
 
 else(${BUILD_NETCDF})
     find_package(NetCDF REQUIRED COMPONENTS F90)
@@ -78,7 +70,6 @@ if(${BUILD_GRIB_API})
             -DENABLE_EXAMPLES=OFF
             -DENABLE_TESTS=OFF
         BUILD_BYPRODUCTS
-            "auxiliary/lib/libgrib_api.so"
             "auxiliary/lib/libgrib_api_f90.so"
         )
 
@@ -89,17 +80,11 @@ if(${BUILD_GRIB_API})
     # Hack to suppress error in INTERFACE_INCLUDE_DIRECTORIES
     file(MAKE_DIRECTORY "${install_dir}/include")
 
-    add_library(grib_api::grib_api SHARED IMPORTED)
-    set_property(TARGET grib_api::grib_api PROPERTY
-        IMPORTED_LOCATION "${install_dir}/lib/libgrib_api.so")
-
     add_library(grib_api::grib_api_Fortran SHARED IMPORTED)
     set_property(TARGET grib_api::grib_api_Fortran PROPERTY
         IMPORTED_LOCATION "${install_dir}/lib/libgrib_api_f90.so")
     set_property(TARGET grib_api::grib_api_Fortran PROPERTY
         INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
-    set_property(TARGET grib_api::grib_api_Fortran PROPERTY
-        INTERFACE_LINK_LIBRARIES grib_api::grib_api)
 else(${BUILD_GRIB_API})
     find_package(grib_api REQUIRED)
 endif(${BUILD_GRIB_API})

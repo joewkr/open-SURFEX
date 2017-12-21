@@ -140,12 +140,21 @@ if( NOT grib_api_FOUND AND NOT NO_GRIB_API_BINARIES )
             INTERFACE_LINK_LIBRARIES "${GRIB_API_LIBRARY}")
     endif()
 
-    if(NOT TARGET grib_api::grib_api_Fortran)
+    if(NOT TARGET grib_api::grib_api_Fortran AND GRIB_API_LIB_F90)
+
+        get_filename_component(lib_suffix "${GRIB_API_LIB_F90}" EXT)
+
         add_library(grib_api::grib_api_Fortran INTERFACE IMPORTED)
-        set_property(TARGET grib_api::grib_api_Fortran PROPERTY
-            INTERFACE_LINK_LIBRARIES
-                ${GRIB_API_LIB_F90}
-                grib_api::grib_api)
+        if(TARGET grib_api::grib_api AND "${lib_suffix}" MATCHES "${CMAKE_STATIC_LIBRARY_SUFFIX}")
+            set_property(TARGET grib_api::grib_api_Fortran PROPERTY
+                INTERFACE_LINK_LIBRARIES
+                    ${GRIB_API_LIB_F90}
+                    grib_api::grib_api)
+        else()
+            set_property(TARGET grib_api::grib_api_Fortran PROPERTY
+                INTERFACE_LINK_LIBRARIES
+                    ${GRIB_API_LIB_F90})
+        endif()
     endif()
 
 endif()
