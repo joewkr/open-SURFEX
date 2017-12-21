@@ -15,6 +15,7 @@ Clone Open-SURFEX repository to your machine and navigate into the cloned source
 To build Open-SURFEX with bundled NetCDF and GRIB API libraries use the following commands:
 ```shell
 > mkdir build
+> cd build
 > cmake ..
 > cmake --build .
 ```
@@ -22,6 +23,7 @@ To build Open-SURFEX with bundled NetCDF and GRIB API libraries use the followin
 To build Open-SURFEX using system-provided NetCDF and GRIB API libraries:
 ```shell
 > mkdir build
+> cd build
 > cmake .. -DBUILD_NETCDF=OFF -DBUILD_GRIB_API=OFF
 > cmake --build .
 ```
