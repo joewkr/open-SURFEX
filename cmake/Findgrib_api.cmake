@@ -152,6 +152,8 @@ if( NOT grib_api_FOUND AND NOT NO_GRIB_API_BINARIES )
         grib_api::grib_api)
     else()
       set_property(TARGET grib_api::grib_api_Fortran PROPERTY
+        INTERFACE_INCLUDE_DIRECTORIES "${GRIB_API_INCLUDE_DIR}")
+      set_property(TARGET grib_api::grib_api_Fortran PROPERTY
         INTERFACE_LINK_LIBRARIES
         ${GRIB_API_LIB_F90})
     endif()
