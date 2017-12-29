@@ -1,4 +1,5 @@
 # Open-SURFEX
+[![Build Status](https://travis-ci.org/joewkr/open-SURFEX.svg?branch=master)](https://travis-ci.org/joewkr/open-SURFEX)
 
 [SURFEX](http://www.cnrm-game-meteo.fr/surfex) (SURFace EXternalisée) is a modelling platform that parametrizes land and water surfaces. SURFEX is being developed by Météo-France and Open-SURFEX is
 a freely available SURFEX version released under terms of CECILL-C Licence.
