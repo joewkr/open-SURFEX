@@ -1,0 +1,44 @@
+sudo: required
+language: c
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      env:
+        - BUILD_TYPE=RELEASE
+        - AUXILIARY_LIBRARIES=SYSTEM
+    - os: linux
+      dist: trusty
+      env: BUILD_TYPE=DEBUG
+
+install:
+  - sudo apt-get update -qq
+  - sudo apt-get install gfortran
+  - |
+    if [[ "${AUXILIARY_LIBRARIES}" == "SYSTEM" ]]; then
+     sudo apt-get install netcdf-bin libnetcdf-dev
+     sudo apt-get install libgrib-api-tools libgrib-api-dev
+    fi
+  - cd ${TRAVIS_BUILD_DIR}
+  - CMAKE_NAME="cmake-3.10.0-Linux-x86_64"
+  - wget https://cmake.org/files/v3.10/${CMAKE_NAME}.tar.gz
+  - tar -xf ${CMAKE_NAME}.tar.gz
+  - CMAKE_EXE=${TRAVIS_BUILD_DIR}/${CMAKE_NAME}/bin/cmake
+
+before_script:
+  - SURFEX_BUILD_DIR="${TRAVIS_BUILD_DIR}/build"
+  - mkdir -p "${SURFEX_BUILD_DIR}"
+  - cd "${SURFEX_BUILD_DIR}"
+  - CMAKE_OPTIONS="${CMAKE_OPTIONS} -DCMAKE_BUILD_TYPE=${BUILD_TYPE}"
+  - CMAKE_OPTIONS="${CMAKE_OPTIONS} -DINSPECT_MASTER_SOURCES=ON"
+  - |
+    if [[ "${AUXILIARY_LIBRARIES}" == "SYSTEM" ]]; then
+      CMAKE_OPTIONS="${CMAKE_OPTIONS} -DBUILD_NETCDF=OFF"
+      CMAKE_OPTIONS="${CMAKE_OPTIONS} -DBUILD_GRIB_API=OFF"
+    fi
+  - ${CMAKE_EXE} ${CMAKE_OPTIONS} ..
+
+script:
+  - cd "${SURFEX_BUILD_DIR}"
+  - ${CMAKE_EXE} --build . -- -j2
