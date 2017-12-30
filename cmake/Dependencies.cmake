@@ -8,6 +8,7 @@ if(${BUILD_NETCDF})
         CMAKE_ARGS
             -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
             -DHDF5_INSTALL_LIB_DIR:PATH=lib
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
             -DHDF5_BUILD_FORTRAN=OFF
             -DBUILD_TESTING=OFF
             -DHDF5_BUILD_TOOLS=OFF
@@ -22,6 +23,7 @@ if(${BUILD_NETCDF})
         CMAKE_ARGS
             -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
             -DCMAKE_INSTALL_LIBDIR:PATH=lib
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
             -DENABLE_DAP=OFF
             -DBUILD_UTILITIES=OFF
             -DENABLE_EXAMPLES=OFF
@@ -35,6 +37,7 @@ if(${BUILD_NETCDF})
         CMAKE_ARGS
             -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
             -DCMAKE_INSTALL_LIBDIR:PATH=lib
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
             -DENABLE_TESTS=OFF
         BUILD_BYPRODUCTS
             "auxiliary/lib/libnetcdff.so"
@@ -64,6 +67,7 @@ if(${BUILD_GRIB_API})
         CMAKE_ARGS
             -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
             -DCMAKE_INSTALL_LIBDIR:PATH=lib
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
             -DENABLE_FORTRAN=ON
             -DENABLE_NETCDF=OFF
             -DENABLE_PYTHON=OFF
