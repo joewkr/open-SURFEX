@@ -1,8 +1,6 @@
 function(tidy_source source_list_name)
     set(source ${${source_list_name}})
 
-    #string(TIMESTAMP time)
-    #message(STATUS "TIDY_SOURCE ${time}")
     # Remove comments and unwanted spaces
     set(result "")
     foreach(line ${source})
@@ -22,8 +20,6 @@ endfunction(tidy_source)
 function(join_lines source_list_name)
     set(source ${${source_list_name}})
 
-    #string(TIMESTAMP time)
-    #message(STATUS "JOIN_LINES ${time}")
     # Join split lines
     set(result "")
     set(restored_line "")
@@ -60,22 +56,14 @@ function(prepare_input file_name_arg_name output)
     #string(REGEX REPLACE ";" "@@@COMMA@@@" source "${source}")
     #string(REGEX REPLACE "\r?\n" ";" source "${source}")
 
-    if(source MATCHES "^!CMAKE: SKIP NO GEN INTERFACES")
-        message(STATUS "Skipping ${file_name} due to user-defined SKIP flag;")
-        message(STATUS "assuming that there aren't any top-level routines that")
-        message(STATUS "require auto-generated interfaces.")
-        message(STATUS "To inspect this file for required interfaces, please")
-        message(STATUS "remove its first line: '!CMAKE: SKIP NO GEN INTERFACES'")
-    else()
-        # Replace square brackets since they have a special meaning in cmake
-        string(REGEX REPLACE "\\[" "@@@LBRA@@@" source "${source}")
-        string(REGEX REPLACE "\\]" "@@@RBRA@@@" source "${source}")
+    # Replace square brackets since they have a special meaning in cmake
+    string(REGEX REPLACE "\\[" "@@@LBRA@@@" source "${source}")
+    string(REGEX REPLACE "\\]" "@@@RBRA@@@" source "${source}")
 
-        tidy_source(source)
-        #join_lines(source)
+    tidy_source(source)
+    #join_lines(source)
 
-        set(${output} ${source} PARENT_SCOPE)
-    endif()
+    set(${output} ${source} PARENT_SCOPE)
 endfunction(prepare_input)
 
 function(list_top_level_routines file_name output has_main_program)
@@ -83,9 +71,6 @@ function(list_top_level_routines file_name output has_main_program)
 
     message(STATUS "Inspecting ${file_name}")
     prepare_input(file_name source)
-
-    string(TIMESTAMP time)
-    #message(STATUS "select  ${time}")
 
     set(current_unit "")
     set(current_unit_name "")
