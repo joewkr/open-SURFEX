@@ -14,6 +14,8 @@ if(${BUILD_NETCDF})
             -DHDF5_BUILD_TOOLS=OFF
             -DHDF5_BUILD_EXAMPLES=OFF
             -DHDF5_BUILD_CPP_LIB=OFF
+        CMAKE_CACHE_ARGS
+            "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
         )
 
     ExternalProject_add(NetCDF_C
@@ -28,6 +30,8 @@ if(${BUILD_NETCDF})
             -DBUILD_UTILITIES=OFF
             -DENABLE_EXAMPLES=OFF
             -DENABLE_TESTS=OFF
+        CMAKE_CACHE_ARGS
+            "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
         )
 
     ExternalProject_add(NetCDF_Fortran
@@ -39,6 +43,8 @@ if(${BUILD_NETCDF})
             -DCMAKE_INSTALL_LIBDIR:PATH=lib
             -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
             -DENABLE_TESTS=OFF
+        CMAKE_CACHE_ARGS
+            "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
         BUILD_BYPRODUCTS
             "auxiliary/lib/libnetcdff.so"
         )
@@ -73,6 +79,8 @@ if(${BUILD_GRIB_API})
             -DENABLE_PYTHON=OFF
             -DENABLE_EXAMPLES=OFF
             -DENABLE_TESTS=OFF
+        CMAKE_CACHE_ARGS
+            "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
         BUILD_BYPRODUCTS
             "auxiliary/lib/libgrib_api_f90.so"
         )
