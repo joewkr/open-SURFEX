@@ -34,7 +34,7 @@ else()
 endif()
 
 include(Dependencies)
-include(GenInterface)
+include(InspectSources)
 
 function(list_sources dir sources)
   set(endings "*.F90" "*.f90" "*.F" "*.f")
