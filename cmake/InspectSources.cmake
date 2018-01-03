@@ -43,7 +43,6 @@ function(prepare_input file_name_arg_name output)
     # Read file and prepare it for processing
     set(file_name ${${file_name_arg_name}})
 
-    # Read file contents ignoring empty lines
     set(program    "[pP][rR][oO][gG][rR][aA][mM]")
     set(module     "[mM][oO][dD][uU][lL][eE]")
     set(subroutine "[sS][uU][bB][rR][oO][uU][tT][iI][nN][eE]")
