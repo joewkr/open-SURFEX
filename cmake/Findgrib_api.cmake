@@ -1,21 +1,16 @@
-# (C) Copyright 1996-2017 ECMWF.
-#
-# This software is licensed under the terms of the Apache Licence Version 2.0
-# which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
-# In applying this licence, ECMWF does not waive the privileges and immunities
-# granted to it by virtue of its status as an intergovernmental organisation nor
-# does it submit to any jurisdiction.
-
-# - Try to find GRIB_API
+# - Find grib-api
+# Find the native grib-api includes and library
+# Original version of this module was written by ECMWF
+# and available under the Apache Licence Version 2.0
 # Once done this will define
-#  GRIB_API_FOUND - System has GRIB_API
-#  GRIB_API_INCLUDE_DIRS - The GRIB_API include directories
-#  GRIB_API_LIBRARIES - The libraries needed to use GRIB_API
-#  GRIB_API_DEFINITIONS - Compiler switches required for using GRIB_API
-# Additionally, the following IMPORTED targets are defined:
+#  GRIB_API_FOUND - System has grib-api
+#  GRIB_API_INCLUDE_DIRS - The grib-api include directories
+#  GRIB_API_LIBRARIES - The libraries needed to use grib-api
+#  GRIB_API_DEFINITIONS - Compiler switches required for using grib-api
 #
-#  grib_api::grib_api - target for using GRIB_API C library
-#  grib_api::grib_api_Fortran - target for using GRIB_API F90 library
+# Additionally, the following IMPORTED targets are defined:
+#  grib_api::grib_api - target for using grib-api C library
+#  grib_api::grib_api_Fortran - target for using grib-api F90 library
 
 option( NO_GRIB_API_BINARIES "skip trying to find grib_api installed binaries" OFF )
 option( GRIB_API_PNG "use png with grib_api" ON )
