@@ -143,9 +143,23 @@ if( NOT grib_api_FOUND AND NOT NO_GRIB_API_BINARIES )
   if(NOT TARGET grib_api::grib_api_Fortran AND GRIB_API_LIB_F90)
     add_library(grib_api::grib_api_Fortran INTERFACE IMPORTED)
     set_property(TARGET grib_api::grib_api_Fortran PROPERTY
+      INTERFACE_INCLUDE_DIRECTORIES "${GRIB_API_INCLUDE_DIR}")
+    set_property(TARGET grib_api::grib_api_Fortran PROPERTY
       INTERFACE_LINK_LIBRARIES
-      ${GRIB_API_LIB_F90}
-      grib_api::grib_api)
+      ${GRIB_API_LIB_F90})
+
+       try_compile(_test_grib_api_compiled
+         ${CMAKE_BINARY_DIR}
+         ${CMAKE_CURRENT_SOURCE_DIR}/cmake/test_grib_api.F90
+         LINK_LIBRARIES grib_api::grib_api_Fortran
+         OUTPUT_VARIABLE out)
+
+        if(NOT _test_grib_api_compiled)
+          message(STATUS "Fortran grib_api requires C grib_api library for linking")
+          set_property(TARGET grib_api::grib_api_Fortran APPEND PROPERTY
+            INTERFACE_LINK_LIBRARIES
+              grib_api::grib_api)
+        endif()
   endif()
 
 endif()

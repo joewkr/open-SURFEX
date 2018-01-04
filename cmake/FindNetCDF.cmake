@@ -106,8 +106,19 @@ macro (NetCDF_check_interface lang header libs)
 
         set_property(TARGET NetCDF::NetCDF_${lang} PROPERTY
           INTERFACE_LINK_LIBRARIES
-            ${NETCDF_${lang}_LIBRARY}
-            NetCDF::NetCDF)
+            ${NETCDF_${lang}_LIBRARY})
+       try_compile(_netcdf_test_compiled
+         ${CMAKE_BINARY_DIR}
+         ${CMAKE_CURRENT_SOURCE_DIR}/cmake/test_netcdf.${lang}
+         LINK_LIBRARIES NetCDF::NetCDF_${lang}
+         OUTPUT_VARIABLE out)
+
+        if(NOT _netcdf_test_compiled)
+          message(STATUS "NetCDF ${lang} requires C NetCDF library for linking")
+          set_property(TARGET NetCDF::NetCDF_${lang} APPEND PROPERTY
+            INTERFACE_LINK_LIBRARIES
+              NetCDF::NetCDF)
+        endif()
       endif()
     else ()
       set (NETCDF_HAS_INTERFACES "NO")
