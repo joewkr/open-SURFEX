@@ -15,7 +15,7 @@ endif()
 
 option(BUILD_GRIB_API "build a copy of grib_api library provided with SURFEX" ON)
 option(BUILD_NETCDF "build a copy of netcdf library provided with SURFEX" ON)
-option(BUILD_XIOS "build a copy of XIOS io server library provided with SURFEX" ON)
+option(BUILD_XIOS "build a copy of XIOS io server library provided with SURFEX" OFF)
 
 set(USER_SOURCES_DIR "" CACHE PATH "Path to directory with user-provided source files")
 if(NOT CMAKE_BUILD_TYPE)
