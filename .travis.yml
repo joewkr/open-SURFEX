@@ -8,9 +8,12 @@ matrix:
       env:
         - BUILD_TYPE=RELEASE
         - AUXILIARY_LIBRARIES=SYSTEM
+        - CMAKE_VERSION=3.10.0
     - os: linux
       dist: trusty
-      env: BUILD_TYPE=DEBUG
+      env:
+        - BUILD_TYPE=DEBUG
+        - CMAKE_VERSION=3.10.0
 
 install:
   - sudo apt-get update -qq
@@ -21,8 +24,9 @@ install:
      sudo apt-get install libgrib-api-tools libgrib-api-dev
     fi
   - cd ${TRAVIS_BUILD_DIR}
-  - CMAKE_NAME="cmake-3.10.0-Linux-x86_64"
-  - wget https://cmake.org/files/v3.10/${CMAKE_NAME}.tar.gz
+  - CMAKE_NAME="cmake-${CMAKE_VERSION}-Linux-x86_64"
+  - CMAKE_VERSION_DIR=v`echo ${CMAKE_VERSION} | grep -Po '\d+\.\d+'`
+  - wget https://cmake.org/files/${CMAKE_VERSION_DIR}/${CMAKE_NAME}.tar.gz
   - tar -xf ${CMAKE_NAME}.tar.gz
   - CMAKE_EXE=${TRAVIS_BUILD_DIR}/${CMAKE_NAME}/bin/cmake
 
