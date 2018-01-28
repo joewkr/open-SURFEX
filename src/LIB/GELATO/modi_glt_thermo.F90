@@ -733,7 +733,7 @@ SUBROUTINE glt_thermo  &
 ! ==============================
 !
 1000 FORMAT( " Processor ", I5," ==> Running on ", I5,  &
-  " points instead of ", I6, "(" I5, " times " , I5, ")" )
+  " points instead of ", I6, "(", I5, " times ", I5, ")" )
 !
   IF (lp1) THEN
     WRITE(noutlu,*) ' '
