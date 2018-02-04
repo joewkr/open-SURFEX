@@ -35,7 +35,7 @@ CONTAINS
 !
 !
 USE MODD_IO_SURF_TXT,ONLY:NMASK, NFULL, CMASK
-USE MODD_WRITE_TXT,  ONLY:NUNIT0, NVAR, CVAR, CVARN, JPVAR, NIND
+USE MODD_WRITE_TXT,  ONLY:NVAR, CVAR, CVARN, JPVAR, NIND, NNUM_RECORDS
 !
 USE MODI_ABOR1_SFX
 !USE MODI_TEST_RECORD_LEN
@@ -50,37 +50,37 @@ IMPLICIT NONE
 !
  CHARACTER(LEN=12),   INTENT(IN)     :: HREC
 LOGICAL,             INTENT(INOUT)  :: OWFL
-INTEGER                             :: IP, IVAR, IFIELD, JFIELD
-!LOGICAL                             :: LMATCH
+INTEGER                             :: IP, IVAR, IVAR_UNIT, IFIELD, JFIELD
+LOGICAL                             :: LFOUND
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !------------------------------------------------------------------------------
 !
 IF (LHOOK) CALL DR_HOOK('INIT_WRITE_TXT',0,ZHOOK_HANDLE)
 !
-IVAR=NUNIT0
+LFOUND = .FALSE.
 DO IP=1, JPVAR
   IF (HREC==CVAR(IP)) THEN
-    IVAR=NVAR(IP)
+    IVAR_UNIT=NVAR(IP)
+    LFOUND = .TRUE.
+    OWFL = .TRUE.
     EXIT
   ELSEIF(HREC==CVARN(IP)) THEN
-    IVAR=-1
+    IVAR_UNIT=-1
+    LFOUND = .TRUE.
+    OWFL = .FALSE.
     EXIT
   ENDIF
 ENDDO
 !
 !
-IF (IVAR.LT.0) THEN
+IF (.NOT. LFOUND) THEN
 !
-  OWFL=.FALSE.
-!
-ELSEIF (IVAR.NE.NUNIT0) THEN
-!
-  OWFL=.TRUE.
-!
-ELSE
-!
-  IF (CVAR(1).NE.'                ') IVAR=MAXVAL(NVAR(:))
+  IF (CVAR(1) == '                ') THEN
+    IVAR = 1
+  ELSE
+    IVAR = NNUM_RECORDS + 1
+  ENDIF
 !
 !
   IF (SIZE(HSELECT)==0) THEN
@@ -137,13 +137,14 @@ ELSE
           (HREC(1:8)/='BLD_DESC'                     ) .AND.  &
           (HREC(1:2)/='Z0'                           )        ) THEN
 
-      IVAR = IVAR+1
-      IF (IVAR-NUNIT0>JPVAR) THEN
+      IF (IVAR > JPVAR) THEN
         CALL ABOR1_SFX('TOO MANY FIELDS TO BE WRITTEN IN THE "TEXTE" TYPE TIMESERIES')
       END IF
-      CVAR(IVAR-NUNIT0) = HREC
-      NVAR(IVAR-NUNIT0) = IVAR
-      OPEN(UNIT=IVAR,FILE=TRIM(HREC)//'.TXT',FORM='FORMATTED')
+
+      OPEN(NEWUNIT=IVAR_UNIT,FILE=TRIM(HREC)//'.TXT',FORM='FORMATTED')
+      CVAR(IVAR) = HREC
+      NVAR(IVAR) = IVAR_UNIT
+      NNUM_RECORDS = IVAR
       OWFL=.TRUE.
 
     ELSE
@@ -167,13 +168,15 @@ ELSE
 
     !IF (.NOT. LMATCH ) THEN
 
-      IVAR = IVAR+1
-      IF (IVAR-NUNIT0>JPVAR) THEN
+
+      IF (IVAR > JPVAR) THEN
         CALL ABOR1_SFX('TOO MANY FIELDS TO BE WRITTEN IN THE "TEXTE" TYPE TIMESERIES')
       END IF
-      CVAR(IVAR-NUNIT0) = HREC
-      NVAR(IVAR-NUNIT0) = IVAR
-      OPEN(UNIT=IVAR,FILE=TRIM(HREC)//'.TXT',FORM='FORMATTED')
+
+      OPEN(NEWUNIT=IVAR_UNIT,FILE=TRIM(HREC)//'.TXT',FORM='FORMATTED')
+      CVAR(IVAR) = HREC
+      NVAR(IVAR) = IVAR_UNIT
+      NNUM_RECORDS = IVAR
       OWFL=.TRUE.
 
     !ELSE
@@ -183,7 +186,7 @@ ELSE
   ENDIF
 ENDIF
 
-NIND=IVAR
+NIND=IVAR_UNIT
 IF (LHOOK) CALL DR_HOOK('INIT_WRITE_TXT',1,ZHOOK_HANDLE)
 !
 !------------------------------------------------------------------------------
