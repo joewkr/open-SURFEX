@@ -36,7 +36,6 @@ INTEGER, PARAMETER                  :: JPVAR = 700             ! maximum number 
  CHARACTER(LEN=12), DIMENSION(JPVAR) :: CVARN='                ' ! names of fields to write
 INTEGER, DIMENSION(JPVAR)           :: NVAR                    ! unit number associated to CVAR elements
 INTEGER                             :: NIND                    ! current unit number
-INTEGER                             :: NUNIT0=33
 INTEGER                             :: NNUM_RECORDS            ! number of registered fields
 !
 END MODULE MODD_WRITE_TXT
