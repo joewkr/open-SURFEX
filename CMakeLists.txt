@@ -135,17 +135,17 @@ if(${BUILD_GRIB_API})
   add_dependencies(surfex-static ${LOCAL_GRIB_API})
 endif(${BUILD_GRIB_API})
 
-add_definitions(-Din_surfex)
-add_definitions(-DSFX_BIN)
-add_definitions(-DSFX_TXT)
-add_definitions(-DSFX_OL)
-add_definitions(-DSFX_NC)
-add_definitions(-DSFX_ASC)
-add_definitions(-DUSE_SODA)
-
 set_target_properties(surfex-static PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_BINARY_DIR}/mod)
 
 target_include_directories(surfex-static PUBLIC ${CMAKE_BINARY_DIR}/mod)
+
+target_compile_definitions(surfex-static PUBLIC -Din_surfex)
+target_compile_definitions(surfex-static PUBLIC -DSFX_BIN)
+target_compile_definitions(surfex-static PUBLIC -DSFX_TXT)
+target_compile_definitions(surfex-static PUBLIC -DSFX_OL)
+target_compile_definitions(surfex-static PUBLIC -DSFX_NC)
+target_compile_definitions(surfex-static PUBLIC -DSFX_ASC)
+target_compile_definitions(surfex-static PUBLIC -DUSE_SODA)
 
 if(ENABLE_OMP)
   target_link_libraries(surfex-static PUBLIC OpenMP::OpenMP_Fortran)
