@@ -137,7 +137,7 @@ endif ()
 list (FIND NetCDF_FIND_COMPONENTS "F90" _nextcomp)
 if (_nextcomp GREATER -1)
   NetCDF_check_interface (F90 netcdf.mod  netcdff)
-  if(TARGET NetCDF::NetCDF_F90)
+  if(TARGET NetCDF::NetCDF_F90 AND NOT TARGET NetCDF::NetCDF_Fortran)
     add_library(NetCDF::NetCDF_Fortran INTERFACE IMPORTED)
     set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
       INTERFACE_LINK_LIBRARIES NetCDF::NetCDF_F90)
