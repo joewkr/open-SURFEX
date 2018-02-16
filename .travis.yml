@@ -14,6 +14,17 @@ matrix:
       env:
         - BUILD_TYPE=DEBUG
         - CMAKE_VERSION=3.10.0
+    - os: linux
+      dist: trusty
+      env:
+        - BUILD_TYPE=RELEASE
+        - AUXILIARY_LIBRARIES=SYSTEM
+        - CMAKE_VERSION=3.11.0-rc1
+    - os: linux
+      dist: trusty
+      env:
+        - BUILD_TYPE=DEBUG
+        - CMAKE_VERSION=3.11.0-rc1
 
 install:
   - sudo apt-get update -qq
