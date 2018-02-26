@@ -11,6 +11,13 @@ original `makefile`-based build. It also contains a number of minor bug fixes.
 
 ## How to build Open-SURFEX with cmake-based build
 
+### Required tools
+
+* cmake version 3.10 or newer
+* Fortran compiler (configuration files available for GNU, Intel and Cray Fortran compilers)
+
+### Build instructions
+
 Clone Open-SURFEX repository to your machine and navigate into the cloned source directory.
 
 To build Open-SURFEX with bundled NetCDF and GRIB API libraries use the following commands:
