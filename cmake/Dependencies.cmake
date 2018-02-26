@@ -1,6 +1,14 @@
 
 include(ExternalProject)
 
+if(${ENABLE_MPI})
+    find_package(MPI REQUIRED COMPONENTS Fortran)
+endif(${ENABLE_MPI})
+
+if(${ENABLE_OMP})
+    find_package(OpenMP REQUIRED)
+endif(${ENABLE_OMP})
+
 if(${BUILD_NETCDF})
     ExternalProject_add(HDF5
         URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/hdf5-1.8.19.tar.bz2
@@ -101,10 +109,49 @@ else(${BUILD_GRIB_API})
     find_package(grib_api REQUIRED)
 endif(${BUILD_GRIB_API})
 
-if(${ENABLE_MPI})
-    find_package(MPI REQUIRED COMPONENTS Fortran)
-endif(${ENABLE_MPI})
+if(${ENABLE_OASIS})
+    if(NOT BUILD_NETCDF)
+        set(oasis_netcdf_dir "-DNETCDF_DIR=${NETCDF_DIR}")
+    endif()
+    ExternalProject_add(oasis
+        DEPENDS ${LOCAL_NETCDF}
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/oasis3-mct
+        INSTALL_DIR ${CMAKE_BINARY_DIR}/auxiliary
+        CMAKE_ARGS
+            -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+            -DCMAKE_INSTALL_LIBDIR:PATH=lib
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+            ${oasis_netcdf_dir}
+        CMAKE_CACHE_ARGS
+            "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
+            "-DCMAKE_Fortran_FLAGS:STRING=${CMAKE_Fortran_FLAGS}"
+            "-DCMAKE_Fortran_FLAGS:STRING_DEBUG=${CMAKE_Fortran_FLAGS_DEBUG}"
+            "-DCMAKE_Fortran_FLAGS:STRING_RELEASE=${CMAKE_Fortran_FLAGS_RELEASE}"
+        BUILD_BYPRODUCTS
+            "auxiliary/lib/libmct.a"
+            "auxiliary/lib/libpsmile.a"
+            "auxiliary/lib/libscrip.a"
+        )
 
-if(${ENABLE_OMP})
-    find_package(OpenMP REQUIRED)
-endif(${ENABLE_OMP})
+    ExternalProject_get_property(oasis install_dir)
+
+    # Hack to suppress error in INTERFACE_INCLUDE_DIRECTORIES
+    file(MAKE_DIRECTORY "${install_dir}/include")
+
+    add_library(oasis::mct STATIC IMPORTED)
+    set_property(TARGET oasis::mct PROPERTY IMPORTED_LOCATION "${install_dir}/lib/libmct.a")
+    add_library(oasis::scrip STATIC IMPORTED)
+    set_property(TARGET oasis::scrip PROPERTY IMPORTED_LOCATION "${install_dir}/lib/libscrip.a")
+
+    add_library(oasis::psmile STATIC IMPORTED)
+    set_property(TARGET oasis::psmile PROPERTY IMPORTED_LOCATION "${install_dir}/lib/libpsmile.a")
+    set_property(TARGET oasis::psmile APPEND PROPERTY INTERFACE_LINK_LIBRARIES oasis::scrip)
+    set_property(TARGET oasis::psmile APPEND PROPERTY INTERFACE_LINK_LIBRARIES oasis::mct)
+
+    add_library(oasis::oasis INTERFACE IMPORTED)
+    set_property(TARGET oasis::oasis PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
+
+    set_property(TARGET oasis::oasis APPEND PROPERTY INTERFACE_LINK_LIBRARIES oasis::psmile)
+    set_property(TARGET oasis::oasis APPEND PROPERTY INTERFACE_LINK_LIBRARIES MPI::MPI_Fortran)
+    set_property(TARGET oasis::oasis APPEND PROPERTY INTERFACE_LINK_LIBRARIES NetCDF::NetCDF_Fortran)
+endif()
