@@ -66,6 +66,7 @@ USE MODI_INTERP_GRID_NAT
 USE MODI_READ_GR_SNOW
 USE MODI_READ_SURF
 USE MODI_SNOW_T_WLIQ_TO_HEAT
+USE MODI_SNOW_HEAT_TO_T_WLIQ
 USE MODI_READ_TEB_PATCH
 !
 IMPLICIT NONE
@@ -91,8 +92,7 @@ INTEGER,            INTENT(IN) :: KTEB_PATCH
 TYPE(SURF_SNOW)                    :: TZSNOW ! snow characteristics
 
 REAL, DIMENSION(:,:), ALLOCATABLE :: ZFIELD       ! work field on input snow grid
-REAL, DIMENSION(:,:), ALLOCATABLE :: ZTEMP        ! snow temperature
-REAL, DIMENSION(:,:), ALLOCATABLE :: ZWLIQ        ! liquid water snow pack content
+REAL, DIMENSION(:,:), ALLOCATABLE :: ZHEAT
 REAL, DIMENSION(:),   ALLOCATABLE :: ZD           ! total snow depth
 REAL, DIMENSION(:,:), ALLOCATABLE :: ZDEPTH       ! thickness of each layer (m)
 REAL, DIMENSION(:,:), ALLOCATABLE :: ZGRID        ! normalized input grid
@@ -259,7 +259,7 @@ DO JP = 1,IPATCH
   !              ------------------------
   !
     CASE ('DEP')
-      IF (OSNOW_IDEAL.OR.TZSNOW%NLAYER==KLAYER) THEN
+      IF (OSNOW_IDEAL) THEN
         IF (JP<=1) ALLOCATE(PFIELD(INI,KLAYER,IPATCH))
         PFIELD(:,:,JP) = TZSNOW%WSNOW(:,1:KLAYER)/TZSNOW%RHO(:,1:KLAYER)
         WHERE(TZSNOW%WSNOW(:,1:KLAYER)==XUNDEF) PFIELD(:,:,JP)=XUNDEF
@@ -289,14 +289,8 @@ DO JP = 1,IPATCH
           !* computes output physical variable
           IF (HSURF(1:3)=='RHO') PFIELD(:,1,JP) = TZSNOW%RHO(:,1)
           IF (HSURF(1:3)=='HEA') THEN
-            ALLOCATE(ZTEMP(INI,TZSNOW%NLAYER))
-            ALLOCATE(ZWLIQ(INI,TZSNOW%NLAYER))
-            IF (TZSNOW%SCHEME=='D95'.OR.TZSNOW%SCHEME=='EBA') ZTEMP(:,1) = XTT-2.
-            IF (TZSNOW%SCHEME=='1-L') ZTEMP(:,1) = TZSNOW%T(:,1)
-            ZWLIQ(:,:) = 0.0
-            CALL SNOW_T_WLIQ_TO_HEAT(PFIELD(:,:,JP),TZSNOW%RHO,ZTEMP,ZWLIQ)
-            DEALLOCATE(ZTEMP)
-            DEALLOCATE(ZWLIQ)
+            IF (TZSNOW%SCHEME=='D95'.OR.TZSNOW%SCHEME=='EBA') PFIELD(:,1,JP) = XTT-2.
+            IF (TZSNOW%SCHEME=='1-L') PFIELD(:,1,JP) = TZSNOW%T(:,1)
           END IF
           IF (HSURF(1:3)=='SG1') PFIELD(:,1,JP) = -20.0
           IF (HSURF(1:3)=='SG2') PFIELD(:,1,JP) = 80.0
@@ -307,7 +301,6 @@ DO JP = 1,IPATCH
           ALLOCATE(ZFIELD(INI,TZSNOW%NLAYER))
           !* input physical variable
           IF (HSURF(1:3)=='RHO') ZFIELD(:,:) = TZSNOW%RHO (:,1:TZSNOW%NLAYER)
-          IF (HSURF(1:3)=='HEA') ZFIELD(:,:) = TZSNOW%HEAT(:,1:TZSNOW%NLAYER)
           IF (HSURF(1:3)=='AGE') ZFIELD(:,:) = TZSNOW%AGE(:,1:TZSNOW%NLAYER)
           IF (TZSNOW%SCHEME=='CRO')THEN
             IF (HSURF(1:3)=='SG1') ZFIELD(:,:) = TZSNOW%GRAN1(:,1:TZSNOW%NLAYER)
@@ -317,6 +310,14 @@ DO JP = 1,IPATCH
            IF (HSURF(1:3)=='SG1') ZFIELD(:,:) = -20.0
            IF (HSURF(1:3)=='SG2') ZFIELD(:,:) = 80.0
            IF (HSURF(1:3)=='HIS') ZFIELD(:,:) = 0.0
+          ENDIF
+          !
+          IF ( HSURF(1:3)=='HEA') THEN
+            ALLOCATE(ZHEAT(INI,TZSNOW%NLAYER))
+            ZHEAT(:,:) = TZSNOW%HEAT(:,1:TZSNOW%NLAYER)
+            CALL SNOW_HEAT_TO_T_WLIQ(ZHEAT,TZSNOW%RHO,ZFIELD)
+            WHERE (ZFIELD>XTT.AND.ZFIELD/=XUNDEF) ZFIELD = XTT
+            DEALLOCATE(ZHEAT)
           ENDIF
           !
           IF (OSNOW_IDEAL) THEN

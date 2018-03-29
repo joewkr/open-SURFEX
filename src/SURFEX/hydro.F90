@@ -224,6 +224,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('HYDRO',0,ZHOOK_HANDLE)
 !
+
 JDT    = 0
 INDT   = 0
 ZTSTEP = 0.0
@@ -402,7 +403,7 @@ ENDIF
 !
  CALL HYDRO_SGH(IO, KK, PK, PEK, DEK, DMK, PTSTEP, ZPG, ZPG_MELT, ZDUNNE )
 !
-!-------------------------------------------------------------------------------
+!----------------------------------------------------------------------------
 !
 !*       6.     EVOLUTION OF THE SOIL WATER CONTENT
 !               -----------------------------------
@@ -480,7 +481,7 @@ IF (IO%CISBA=='DIF') THEN
 ! ------------------------------------------------------------------
 !
   ZPG     (:) =  ZPG    (:)        / XRHOLW
-  ZEVAPCOR(:) = PEVAPCOR(:)        / XRHOLW
+  ZEVAPCOR(:) = ZEVAPCOR(:)        / XRHOLW
   ZLEG    (:) =  ZLEG   (:)        /(XRHOLW*PK%XLVTT(:))
   ZLETR   (:) = (ZLETR  (:)/ZF2(:))/(XRHOLW*PK%XLVTT(:))
   ZLEGI   (:) = ZLEGI   (:)        /(XRHOLW*PK%XLSTT(:))
@@ -490,6 +491,7 @@ IF (IO%CISBA=='DIF') THEN
     CALL HYDRO_SOILDIF(IO, KK, PK, PEK, ZTSTEP, ZPG, ZLETR, ZLEG, ZEVAPCOR,  &
                        PF2WGHT, PPS, ZQSAT, ZQSATI, ZDRAIN, ZHORTON, INL, ZQSB )
 !
+
     CALL ICE_SOILDIF(KK, PK, PEK, ZTSTEP, ZKSFC_IVEG, ZLEGI, PSOILHCAPZ, ZWGI_EXCESS )
 !
     DEK%XDRAIN(:) = DEK%XDRAIN(:) + (ZDRAIN(:)+ZQSB(:)+ZWGI_EXCESS(:))/REAL(INDT)

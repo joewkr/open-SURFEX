@@ -261,8 +261,10 @@ DO JL = 1, KOLEN
   ZWP(3:6) = ZWP(3:6) * ZWV(2)
   ZWP(7:10) = ZWP(7:10) * ZWV(3)
   ZWP(11:12) = ZWP(11:12) * ZWV(4)
+  WHERE (ZWP(:)<1.E-4) ZWP(:) = 0.
+  ZWP(:) = ZWP(:) / SUM(ZWP)
 !
-  PAROUT(JL) = 0
+  PAROUT(JL) = 0.
   DO JI = 1,12
     PAROUT(JL) = PAROUT(JL) + ZWP(JI) * PARIN(JL,JI)
   ENDDO

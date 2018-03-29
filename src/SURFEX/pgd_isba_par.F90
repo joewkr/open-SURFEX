@@ -354,6 +354,8 @@ ELSE
   XSTRESS = (/1.,1.,1.,0.,1.,0.,1.,0.,1.,0.,0.,0.,0.,0.,1.,0.,1.,0.,0.,0./)
 ENDIF
 !
+DTV%NVEGTYPE = NVEGTYPE
+!
 NTIME                 = 36
 XUNIF_VEG             = XUNDEF ! vegetation fraction
 XUNIF_LAI             = XUNDEF ! LAI
@@ -938,7 +940,19 @@ IF (IO%CPHOTO/='NON' .OR. &
   CALL INI_VAR_FROM_DATA(DTCO, UG, U, USS, DTV%XPAR_VEGTYPE, &
                         HPROGRAM,'ARI','H_TREE: height of trees','NAT',CFNAM_H_TREE,   &
                         CFTYP_H_TREE,XUNIF_H_TREE,DTV%XPAR_H_TREE,DTV%LDATA_H_TREE)
-  IF (ALL(.NOT.DTV%LDATA_H_TREE)) DEALLOCATE(DTV%XPAR_H_TREE)
+  IF (ALL(.NOT.DTV%LDATA_H_TREE)) THEN
+    DEALLOCATE(DTV%XPAR_H_TREE)
+  ELSE
+    IF (U%LECOSG) THEN
+      DTV%LDATA_H_TREE(1:3)   = .FALSE.
+      DTV%LDATA_H_TREE(13:18) = .FALSE.
+      DTV%LDATA_H_TREE(20)    = .FALSE.
+    ELSE
+      DTV%LDATA_H_TREE (1:3)  = .FALSE.
+      DTV%LDATA_H_TREE (7:12) = .FALSE.
+      DTV%LDATA_H_TREE(18:19) = .FALSE.
+    ENDIF
+  ENDIF
   !
 ENDIF
 

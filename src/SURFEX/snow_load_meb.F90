@@ -103,10 +103,11 @@ ZUNLOAD(:)     = 0.0
 ! only during the timestep when vegetation has just been buried:
 !
 !
+!
 WHERE(PWRVNMAX(:) == 0.0)
 !
-   DEK%XSR_GN(:) = PEK%XWR(:)/PTSTEP    ! kg m-2 s-1
-   PEK%XWR(:)    = 0.0
+   DEK%XSR_GN(:) = PEK%XWRVN(:)/PTSTEP    ! kg m-2 s-1
+   PEK%XWRVN(:)    = 0.0
 
 ! for a totally buried canopy, the following are zero:
 
@@ -125,11 +126,16 @@ ELSEWHERE
 !
 ! Interception: gain
 
-   ZSRINT(:)      = MAX(0.0,PWRVNMAX(:)-PEK%XWR(:))*(1.0-EXP(-PKVN(:)*PSR(:)*PTSTEP)) ! kg m-2
+
+   ZSRINT(:)      = MAX(0.0,PWRVNMAX(:)-PEK%XWRVN(:))*(1.0-EXP(-PKVN(:)*PSR(:)*PTSTEP)) ! kg m-2
    ZSRINT(:)      = MIN(PSR(:)*PTSTEP, ZSRINT(:))  ! kg m-2
-   ZWRVN(:)       = PEK%XWR(:) + ZSRINT(:)           ! kg m-2
+   ZWRVN(:)       = PEK%XWRVN(:) + ZSRINT(:)           ! kg m-2
 
    DEK%XSR_GN(:)  = MAX(0.0, PSR(:) - ZSRINT(:)/PTSTEP) ! kg m-2 s-1
+
+END WHERE
+
+      WHERE(PWRVNMAX(:) /= 0.0)
 
 ! Sublimation: gain or loss
 ! NOTE for the rare case that sublimation exceeds snow mass (possible as traces of snow disappear)
@@ -161,7 +167,7 @@ ELSEWHERE
 ! Unloading (falling off branches, etc...): loss
 ! Note, the temperature effect is assumed to vanish for cold temperatures.
 
-   ZUNLOAD(:)    = MIN(ZWRVN(:), PEK%XWR(:)*( PVELC(:)*(PTSTEP/ZUNLOAD_V)          &
+   ZUNLOAD(:)    = MIN(ZWRVN(:), PEK%XWRVN(:)*( PVELC(:)*(PTSTEP/ZUNLOAD_V)          &
                      + MAX(0.0, PEK%XTV(:)-ZUNLOAD_TT)*(PTSTEP/ZUNLOAD_T) ))            ! kg m-2
    ZWRVN(:)      = ZWRVN(:) - ZUNLOAD(:)                                           ! kg m-2
    DEK%XSR_GN(:) = DEK%XSR_GN(:) + ZUNLOAD(:)/PTSTEP
@@ -174,7 +180,7 @@ ELSEWHERE
 
 ! Prognostic Updates:
 
-   PEK%XWR(:)       = ZWRVN(:)
+   PEK%XWRVN(:)       = ZWRVN(:)
 
    PEK%XTV(:)         = PEK%XTV(:) + (DEK%XFRZ_CV(:) - DEK%XMELT_CV(:))*(XLMTT*PTSTEP)/PCHEATV(:) ! K
 

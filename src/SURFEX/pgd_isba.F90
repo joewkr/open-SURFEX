@@ -57,7 +57,6 @@ USE MODN_IO_OFFLINE,     ONLY : LWR_VEGTYPE
 #endif
 !
 USE MODD_DATA_COVER_n, ONLY : DATA_COVER_t
-USE MODD_DATA_COVER,     ONLY : XDATA_VEGTYPE
 USE MODD_DATA_ISBA_n, ONLY : DATA_ISBA_t
 USE MODD_SFX_GRID_n, ONLY : GRID_t
 USE MODD_ISBA_OPTIONS_n, ONLY : ISBA_OPTIONS_t
@@ -69,7 +68,9 @@ USE MODD_SURF_ATM_n, ONLY : SURF_ATM_t
 USE MODD_SURF_PAR,       ONLY : XUNDEF, NUNDEF
 USE MODD_PGD_GRID,       ONLY : NL
 USE MODD_PGDWORK,        ONLY : CATYPE
-USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE, JPCOVER
+USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE, JPCOVER, NVT_TEBD, NVT_BONE, NVT_TRBE, &
+                                NVT_TRBD, NVT_TEBE, NVT_TENE, NVT_BOBD, NVT_BOND
+USE MODD_DATA_COVER,     ONLY : XDATA_VEGTYPE
 !
 USE MODD_ISBA_PAR,       ONLY : NOPTIMLAYER, XOPTIMGRID
 !
@@ -203,8 +204,8 @@ CHARACTER(LEN=6)         :: YPHFILETYPE   ! pH data file type
 CHARACTER(LEN=6)         :: YFERTFILETYPE ! fertilisation data file type
 REAL                     :: XUNIF_PH      ! uniform value of pH
 REAL                     :: XUNIF_FERT    ! uniform value of fertilisation rate
-LOGICAL, DIMENSION(19)   :: GMEB_PATCH
-LOGICAL, DIMENSION(19)   :: GMEB_PATCH_REC ! Recommended MEB patch settings
+LOGICAL, DIMENSION(NVEGTYPE)   :: GMEB_PATCH
+LOGICAL, DIMENSION(NVEGTYPE)   :: GMEB_PATCH_REC ! Recommended MEB patch settings
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -277,6 +278,10 @@ IF(GMEB)THEN
 
   GMEB_PATCH_REC(:)=.FALSE.
 
+  GMEB_PATCH_REC(:)=.TRUE.
+  GMEB_PATCH_REC(1:3)=.FALSE.
+
+
   IF(IO%NPATCH==1 .AND. GMEB_PATCH(1))THEN
     WRITE(ILUOUT,*) '*****************************************'
     WRITE(ILUOUT,*) '* WARNING!'
@@ -293,9 +298,17 @@ IF(GMEB)THEN
     GMEB_PATCH_REC(3:5)=(/.TRUE.,.TRUE.,.TRUE./)  ! Only the tree patches (numbers 3-5) are allowed to be TRUE
   ELSEIF(IO%NPATCH>=11 .AND. IO%NPATCH<=12)THEN
     GMEB_PATCH_REC(4:6)=(/.TRUE.,.TRUE.,.TRUE./)  ! Only the tree patches (numbers 4-6) are allowed to be TRUE
-  ELSEIF(IO%NPATCH==19)THEN
-    GMEB_PATCH_REC(4:6)=(/.TRUE.,.TRUE.,.TRUE./)  ! The "old" tree patches (numbers 4-6) are allowed to be TRUE
-    GMEB_PATCH_REC(13:17)=(/.TRUE.,.TRUE.,.TRUE.,.TRUE.,.TRUE./)  ! The "new" tree patches (numbers 13-17) are allowed to be TRUE
+  ELSEIF(IO%NPATCH==NVEGTYPE)THEN
+    ! The "old" tree patches (numbers 4-6) are allowed to be TRUE
+    GMEB_PATCH_REC(NVT_TEBD) = .TRUE.
+    GMEB_PATCH_REC(NVT_BONE) = .TRUE.
+    GMEB_PATCH_REC(NVT_TRBE) = .TRUE.
+    ! The "new" tree patches (numbers 13-17) are allowed to be TRUE
+    GMEB_PATCH_REC(NVT_TRBD) = .TRUE.
+    GMEB_PATCH_REC(NVT_TEBE) = .TRUE.
+    GMEB_PATCH_REC(NVT_TENE) = .TRUE.
+    GMEB_PATCH_REC(NVT_BOBD) = .TRUE.
+    GMEB_PATCH_REC(NVT_BOND) = .TRUE.
   ENDIF
 
   IF(COUNT(.NOT.GMEB_PATCH_REC(:) .AND. GMEB_PATCH(:))>0)THEN
@@ -400,13 +413,13 @@ WRITE(ILUOUT,*) '* With option CPHOTO = ',IO%CPHOTO,'               *'
 WRITE(ILUOUT,*) '* the number of biomass pools is set to ', IO%NNBIOMASS
 WRITE(ILUOUT,*) '*****************************************'
 !
-IF ( IO%CPHOTO/='NON' .AND. IO%NPATCH/=12 .AND. IO%NPATCH/=19 ) THEN
+IF ( IO%CPHOTO/='NON' .AND. IO%NPATCH/=12 .AND. IO%NPATCH/=NVEGTYPE ) THEN
   WRITE(ILUOUT,*) '*****************************************'
   WRITE(ILUOUT,*) '* With option CPHOTO = ', IO%CPHOTO
-  WRITE(ILUOUT,*) '* Number of patch must be equal to 12 or 19'
+  WRITE(ILUOUT,*) '* Number of patch must be equal to 12 or NVEGTYPE'
   WRITE(ILUOUT,*) '* But you have chosen NPATCH = ', IO%NPATCH
   WRITE(ILUOUT,*) '*****************************************'
-  CALL ABOR1_SFX('PGD_ISBA: CPHOTO='//IO%CPHOTO//' REQUIRES NPATCH=12 or 19')
+  CALL ABOR1_SFX('PGD_ISBA: CPHOTO='//IO%CPHOTO//' REQUIRES NPATCH=12 or NVEGTYPE')
 END IF
 !
 IF ( IO%CPHOTO=='NON' .AND. IO%LTR_ML .AND. .NOT. GMEB) THEN

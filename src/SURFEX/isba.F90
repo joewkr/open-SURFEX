@@ -519,7 +519,7 @@ ELSE
                     ZSOILCONDZ(:,1), PPS, PTA, PSW_RAD, PQA, PVMOD, PLW_RAD, PRR,         &
                     PSR, PRHOA, PUREF, PEXNS, PEXNA, PDIRCOSZW, PZREF, PEK%XSNOWFREE_ALB, &
                     PK%XDG, PK%XDZG, PPEW_A_COEF, PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF,  &
-                    PPET_B_COEF, PPEQ_B_COEF, ZSNOW_THRUFAL, ZGRNDFLUX, ZFLSN_COR,        &
+                    PPET_B_COEF, PPEQ_B_COEF, ZSNOW_THRUFAL_SOIL, ZGRNDFLUX, ZFLSN_COR,    &
                     ZGSFCSNOW, ZEVAPCOR, ZLES3L, ZLEL3L, ZEVAP3L, ZSNOWSFCH, ZDELHEATN,   &
                     ZDELHEATN_SFC, ZRI3L, PZENITH, ZDELHEATG, ZDELHEATG_SFC, ZQS3L      )
 !  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -552,7 +552,7 @@ ELSE
                 PVMOD, PQA, PRR, PSR, PPS, PZREF, PUREF, PDIRCOSZW, &
                 ZF5, PFFG_NOSNOW, PFFV_NOSNOW,  PRHOA, ZCS,         &
                 ZSOILCONDZ, ZSOILHCAPZ, ZFROZEN1, PTDEEP_A,         &
-                ZGRNDFLUX, ZFLSN_COR, ZSNOW_THRUFAL, ZDELTA, ZHUGI, &
+                ZGRNDFLUX, ZFLSN_COR, ZSNOW_THRUFAL_SOIL, ZDELTA, ZHUGI, &
                 ZALBT, ZEMIST, PDEEP_FLUX, PUSTAR, PAC_AGG, PHU_AGG )
 !
 ENDIF
@@ -571,7 +571,7 @@ ENDIF
 !              --------------------------------------------
 !
 CALL HYDRO(IO, KK, PK, PEK, AG, DEK, DMK,                      &
-           OMEB, PTSTEP, ZVEG, ZWRMAX, ZSNOW_THRUFAL,          &
+           OMEB, PTSTEP, ZVEG, ZWRMAX, ZSNOW_THRUFAL_SOIL,     &
            ZEVAPCOR, ZSUBVCOR, ZSOILHCAPZ, ZF2WGHT, ZF2, PPS,  &
            PIRRIG_GR, ZDELHEATG, ZDELHEATG_SFC,  ZDELPHASEG,   &
            ZDELPHASEG_SFC                                )

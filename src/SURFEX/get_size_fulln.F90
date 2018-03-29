@@ -47,15 +47,15 @@ USE MODD_SURF_PAR,   ONLY : NUNDEF
 #ifdef SFX_MNH
 USE MODI_MNHGET_SIZE_FULL_n
 #endif
+#ifdef SFX_ARO
+USE MODI_AROGET_SIZE_FULL_n
+#endif
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
 !
 IMPLICIT NONE
 !
-#ifdef SFX_ARO
-#include "aroget_size_full_n.h"
-#endif
 !
 !*       0.1   Declarations of arguments
 !              -------------------------

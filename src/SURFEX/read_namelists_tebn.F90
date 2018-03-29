@@ -15,7 +15,7 @@ USE MODD_SURFEX_n, ONLY : TEB_MODEL_t
 USE MODD_ISBA_OPTIONS_n, ONLY : ISBA_OPTIONS_t
 !
 USE MODN_TEB_n
-USE MODN_TEB_VEG_n,            ONLY: CRUNOFF,CALBEDO,CSCOND,                       &
+USE MODN_TEB_VEG_n,            ONLY: CRUNOFF,CSCOND,                       &
                                      CC1DRY, CSOILFRZ, CDIFSFCOND, CSNOWRES,       &
                                      CCPSURF, XCGMAX, CKSAT,                       &
                                      CRAIN, CHORT, LGLACIER,                       &
@@ -56,7 +56,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('READ_NAMELISTS_TEB_N',0,ZHOOK_HANDLE)
  CALL DEFAULT_TEB(CZ0H,XTSTEP,XOUT_TSTEP, CCH_BEM, XDT_RES, XDT_OFF)
 !
- CALL DEFAULT_TEB_VEG(CRUNOFF, CALBEDO, CSCOND,                 &
+ CALL DEFAULT_TEB_VEG(CRUNOFF, CSCOND,                 &
                       CC1DRY, CSOILFRZ, CDIFSFCOND, CSNOWRES,   &
                       CCPSURF, XCGMAX, CKSAT,                   &
                       CRAIN, CHORT, LGLACIER,                   &

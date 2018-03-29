@@ -652,7 +652,7 @@ DO
       !-------------------------------------------------------------------------------
     END DO !JLON
     !-------------------------------------------------------------------------------
-    IF (MOD((JLINE-ILINE1+1),INB_LINE_READ)==0) THEN
+    IF (MOD((JLINE-ILINE1+1),INB_LINE_READ)==0.OR.JLINE==ILINE2) THEN
       !
       IF (.NOT.GMULTITYPE.AND.IFACT/=1) THEN
         WHERE(ZVALUE_WORK(1:IWORK)/=ZNODATA)

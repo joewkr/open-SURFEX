@@ -66,7 +66,7 @@ USE MODD_XIOS, ONLY : LALLOW_ADD_DIM
 !
 USE MODD_SURF_PAR,        ONLY :   NUNDEF, XUNDEF
 !
-USE MODD_ASSIM, ONLY : LASSIM, CASSIM_ISBA, NVAR, NOBSTYPE, NBOUTPUT
+USE MODD_ASSIM, ONLY : LASSIM, CASSIM_ISBA, NVAR, CVAR, NOBSTYPE, NBOUTPUT, COBS
 !
 USE MODD_AGRI,            ONLY :   LAGRIP
 !
@@ -420,9 +420,9 @@ IF (DM%LSURF_MISC_BUDGET) THEN
     !
     DO JL=1,IO%NGROUND_LAYER
       !
-      WRITE(YLVL,'(I2)') JL
+      WRITE(YLVL,'(I2.0)') JL
       !
-      YRECFM='SWI'//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))//'_'
+      YRECFM='SWI'//TRIM(ADJUSTL(YLVL(:)))//'_'
       YFORM='(A39,I1.1,A4)'
       IF (JL >= 10)  YFORM='(A39,I2.2,A4)'
       WRITE(YCOMMENT,FMT=YFORM) 'soil wetness index per patch for layer ',JL,' (-)'
@@ -431,7 +431,7 @@ IF (DM%LSURF_MISC_BUDGET) THEN
             NP%AL(JP)%NR_P,NDM%AL(JP)%XSWI(:,JL),ISIZE,S%XWORK_WR)
       ENDDO
       !
-      YRECFM='TSWI'//ADJUSTL(YLVL(:LEN_TRIM(YLVL)))//'_'
+      YRECFM='TSWI'//TRIM(ADJUSTL(YLVL(:)))//'_'
       YFORM='(A39,I1.1,A4)'
       IF (JL >= 10)  YFORM='(A39,I2.2,A4)'
       WRITE(YCOMMENT,FMT=YFORM) 'total swi (liquid+solid) per patch for layer ',JL,' (-)'
@@ -836,18 +836,21 @@ IF (DM%LSURF_MISC_BUDGET) THEN
     DO JVAR = 1,NVAR
       WRITE(YVAR,FMT='(I1.1)') JVAR
       YRECFM="ANA_INCR"//YVAR
-      YCOMMENT="by patch"
+      !YCOMMENT="by patch"
+      YCOMMENT="Analysis increment for control variable "//TRIM(CVAR(JVAR))
       DO JP = 1,IO%NPATCH
         CALL WRITE_FIELD_1D_PATCH(HSELECT, HPROGRAM, YRECFM, YCOMMENT, JP,&
                                 NP%AL(JP)%NR_P,NP%AL(JP)%XINCR(1:NP%AL(JP)%NSIZE_P,JVAR),ISIZE,S%XWORK_WR)
       ENDDO
+      !
       WRITE(YVAR,FMT='(I1.1)') JVAR
       DO JT = 1,NBOUTPUT
         WRITE(YTIM,FMT='(I1.1)') JT
         DO JOBS = 1,NOBSTYPE
           WRITE(YOBS,FMT='(I1.1)') JOBS
-          YRECFM="HO"//YVAR//"_"//YOBS//"_"//YTIM
-          YCOMMENT="by patch"
+          YRECFM="HO"//YOBS//"_"//YVAR//"_"//YTIM
+          !YCOMMENT="by patch"
+          YCOMMENT="Jacobian matrix for observation "//TRIM(COBS(JOBS))//" and control variable "//TRIM(CVAR(JVAR))
           JK = (JT-1)*NOBSTYPE + JOBS
           DO JP = 1,IO%NPATCH
             CALL WRITE_FIELD_1D_PATCH(HSELECT, HPROGRAM, YRECFM, YCOMMENT, JP,&
@@ -862,7 +865,8 @@ IF (DM%LSURF_MISC_BUDGET) THEN
       DO JOBS = 1,NOBSTYPE
         WRITE(YOBS,FMT='(I1.1)') JOBS
         YRECFM="INNOV"//YOBS//"_"//YTIM
-        YCOMMENT="not by patch"
+        !YCOMMENT="not by patch"
+        YCOMMENT="Innovation for observation "//TRIM(COBS(JOBS))
         JK = (JT-1)*NOBSTYPE + JOBS
         CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,S%XINNOV(:,JK),IRESP,HCOMMENT=YCOMMENT)
       ENDDO
@@ -873,7 +877,8 @@ IF (DM%LSURF_MISC_BUDGET) THEN
       DO JOBS = 1,NOBSTYPE
         WRITE(YOBS,FMT='(I1.1)') JOBS
         YRECFM="RESID"//YOBS//"_"//YTIM
-        YCOMMENT="not by patch"
+        !YCOMMENT="not by patch"
+        YCOMMENT="Residuals for observation "//TRIM(COBS(JOBS))
         JK = (JT-1)*NOBSTYPE + JOBS
         CALL WRITE_SURF(HSELECT,HPROGRAM,YRECFM,S%XRESID(:,JK),IRESP,HCOMMENT=YCOMMENT)
       ENDDO

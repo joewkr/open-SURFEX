@@ -54,6 +54,10 @@ CONTAINS
 !!     (A. Boone)   25/06/2014  Use stability fn from ISBA for stable conditions
 !!                              (since none existed before). Added to handle extremely
 !!                              stable conditions, such as encountered over a snowpack
+!!     (S. Garrigues & A. Boone)
+!!                  14/06/2017  Put in numerical limits for ground to canopy air
+!!                              resistances. Needed in the limit as the vegetation
+!!                              cover becomes vanishingly thin.
 !!
 !-------------------------------------------------------------------------------
 !
@@ -118,6 +122,7 @@ REAL, PARAMETER             :: ZA           = 0.01
 REAL, PARAMETER             :: ZRAFA        = 9.       !resistance factor for stability correction
                                                        !for unstable conditions
 
+REAL, PARAMETER             :: ZRAGNC_MIN   = 1.       ! (s/m) Minimum ground to canopy air resistance
 !-------------------------------------------------------------------------------
 !-------------------------------------------------------------------------------
 !
@@ -143,6 +148,11 @@ PUSTAR2(:) = ZUSTAR(:)**2
 !
 PRAGNC(:)=PH_VEG(:)*EXP(ZALPHA)/(ZALPHA*ZK(:))*(EXP(-ZALPHA*PZ0G(:)/PH_VEG(:)) &
           -EXP(-ZALPHA*(PDISPH(:)+PZ0(:))/PH_VEG(:)))
+!
+! For the case of vanishingly thin vegetation, limit is imposed
+! This results because the above Eq assumes z0v > z0g
+!
+PRAGNC(:) = MAX(ZRAGNC_MIN,PRAGNC(:))
 !
 ! Modify the aerodynamic resistance, with an unstable transfer correction
 ! Eq. A15, Sellers et.al. 1986 (RI < 0)

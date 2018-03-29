@@ -399,10 +399,9 @@ DEK%XLER(:)      = DEK%XLER_CV(:)
 ! - Vapor flux from the ground-based snowpack (part burying the canopy vegetation) to the atmosphere (kg m-2 s-1):
 
 ZWORK(:)     = PFLXC_N_A(:) *( ZQSATIN_N(:) - PQA_IC(:))*       PEK%XPSN(:)*     PPSNA(:)
-PEVAP_N_A(:) = ZWORK(:) *(XLSTT/XLVTT)
+PEVAP_N_A(:) = ZWORK(:) *(XLSTT/PLTT)
 
 ! - Net Snow (groud-based) sublimation latent heat flux (W m-2) to the canopy air space and the overlying atmosphere:
-
 PLES(:)      = ( PFLXC_GN(:) *( ZQSATIN_N(:) - PEK%XQC(:))*       PEK%XPSN(:)*(1.0-PPSNA(:)) + ZWORK(:) ) * XLSTT
 
 ! - Net Snow evaporation (liquid water) latent heat flux (W m-2)
@@ -418,7 +417,7 @@ PEVAPN(:)    = (PLEL(:) + PLES(:))/PLTT(:)
 
 DEK%XLE_GV(:)   = DEK%XLE_FLOOD(:) + DEK%XLEI_FLOOD(:) + PLEGI(:) + PLEG(:)
 
-DEK%XEVAP_G(:)  = DEK%XLE_GV(:)/XLVTT
+DEK%XEVAP_G(:)  = DEK%XLE_GV(:)/PLTT(:)
 
 ! - Net vapor flux from canopy air to the atmosphere (kg m-2 s-1)
 
@@ -438,7 +437,7 @@ PEK%XLE(:)       = DK%XEVAP(:)*PLTT(:)
 !
 ! Total sublimation from the surface/snow/vegetation: W m-2
 !
-DK%XLEI(:)      = DEK%XLES_CV(:) + PLEGI(:) + DEK%XLEI_FLOOD(:)
+DK%XLEI(:)      = PLES(:) + PLEGI(:) + DEK%XLEI_FLOOD(:)
 !
 ! Total sublimation from the surface/snow/vegetation: kg m-2 s-1
 !

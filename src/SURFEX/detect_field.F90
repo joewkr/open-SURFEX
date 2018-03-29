@@ -46,6 +46,9 @@ CONTAINS
 #ifdef SFX_MNH
 USE MODI_DETECT_FIELD_MNH
 #endif
+#ifdef SFX_ARO
+USE MODI_DETECT_FIELD_ARO
+#endif
 !
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
@@ -53,9 +56,6 @@ USE PARKIND1  ,ONLY : JPRB
 !
 IMPLICIT NONE
 !
-#ifdef SFX_ARO
-#include "detect_field_aro.h"
-#endif
 !
 !*       0.1   declarations of arguments
 !

@@ -906,7 +906,7 @@ IF (PEK%TSNOW%SCHEME=='CRO') THEN
   ZP_FLSN_COR(:) = 0.0
   ZP_SOILCOR (:) = 0.0
 !
-#ifdef SFX_OL
+#ifndef SFX_OL
   ! En couplé il faudra voir si on veut virer les diagnostics, les calculer tout le temps, ou trouver une autre solution
   GCOMPUTECRODIAG = (SIZE(DMK%XSNOWDEND)>0)
 #else

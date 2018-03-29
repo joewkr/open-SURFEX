@@ -156,9 +156,10 @@ INTEGER :: IOF2  ! Offset in map
  ! Loop counters
 INTEGER :: JOP     ! Output position
 INTEGER :: JIP     ! Input position
-INTEGER :: JL, JI, JL2, JT, INL   ! Dummy counter
+INTEGER :: JL, JI, JI2, JL2, JT, INL, JC   ! Dummy counter
 INTEGER :: ID1, ID2, ISIZE
 INTEGER :: INFOMPI, I, J
+INTEGER :: IKINLO
 LOGICAL :: LDLSM     ! Specify if land/sea mask is present or not
 !
 !------------------------------------------------------------------------------
@@ -192,6 +193,7 @@ IF (NRANK==NPIO) THEN
   ALLOCATE (ZARIN (IBIGSIZE,INL))
   ALLOCATE (ILSMIN(IBIGSIZE,INL))
   ALLOCATE (KMASK (IBIGSIZE))
+  KMASK(:) = -1
 !
 ! 2.6.1 Compute the longitude extension
 !
@@ -240,8 +242,10 @@ IF (NRANK==NPIO) THEN
           ILSMIN(ID2  ,JT) = KLSMIN(JIP  ,JT)
           ILSMIN(ID2+1,JT) = KLSMIN(JIP+1,JT)
         END IF
+
         JIP = JIP + KINLO(JL)
         JOP = JOP + KINLO(JL) + 4
+
       END DO
 
     ELSE
@@ -267,52 +271,49 @@ IF (NRANK==NPIO) THEN
 !           ||||
 !  [.] [.] [....] [....] [.] [.]
 !
-    IF (OGLOBS) THEN ! South pole (south meaning begining of the grib)
-      IOF1 = 4 + KINLO(2)
-      IOF2 = IOF1 + 4 + KINLO(1)
-      IMID = (KINLO(1)+4) / 2
-      ZARIN(IOF1+1:IOF1+IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
-      ZARIN(IOF1+IMID+1:IOF1+KINLO(1)+4,JT) = ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(1)+4-IMID+2,JT)
-      IF (LDLSM) THEN
-        ILSMIN(IOF1+1:IOF1+IMID,JT) = ILSMIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
-        ILSMIN(IOF1+IMID+1:IOF1+KINLO(1)+4,JT) = ILSMIN(IOF2+1+2:IOF2+KINLO(1)+4-IMID+2,JT)
+    DO JC = 1,4
+      !
+      IF (JC<3.AND.OGLOBS.OR.JC>2.AND.OGLOBN) THEN
+        !
+        IF (JC==1) THEN
+          IOF1 = 4 + KINLO(2)
+          IOF2 = IOF1 + 4 + KINLO(1)
+          IMID = (KINLO(1)+4) / 2
+          IKINLO = KINLO(1)
+        ELSEIF (JC==2) THEN
+          IOF1 = 0
+          IOF2 = IOF2 + 4 + KINLO(2)
+          IMID = (KINLO(2)+4) / 2
+          IKINLO = KINLO(2)
+        ELSEIF (JC==3) THEN
+          IOF1 = IBIGSIZE - (4+KINLO(KINLA-1)) - (4+KINLO(KINLA))
+          IOF2 = IOF1 - (4+KINLO(KINLA))
+          IMID = (KINLO(KINLA)+4) / 2
+          IKINLO =  KINLO(KINLA)
+        ELSEIF (JC==4) THEN
+          IOF1 = IOF1 + (4+KINLO(KINLA))
+          IOF2 = IOF2 - (4+KINLO(KINLA-1))
+          IMID = (KINLO(KINLA-1)+4) / 2
+          IKINLO = KINLO(KINLA-1)
+        ENDIF
+        !
+        DO JI = 1,IMID
+          KMASK(IOF1+JI) = IOF2 + IMID + JI - 2
+        ENDDO
+        DO JI = IMID+1,IKINLO+4
+          KMASK(IOF1+JI) = IOF2 + 1 + 2 + JI - (IMID + 1)
+        ENDDO
+        !
+        ZARIN(IOF1+1:IOF1+IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
+        ZARIN(IOF1+IMID+1:IOF1+IKINLO+4,JT) = ZVECT*ZARIN(IOF2+1+2:IOF2+IKINLO+4-IMID+2,JT)
+        IF (LDLSM) THEN
+          ILSMIN(IOF1+1:IOF1+IMID,JT) = ILSMIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
+          ILSMIN(IOF1+IMID+1:IOF1+IKINLO+4,JT) = ILSMIN(IOF2+1+2:IOF2+IKINLO+4-IMID+2,JT)
+        END IF
+        !
       END IF
-      IOF2 = IOF2 + 4 + KINLO(1)
-      IMID = (KINLO(2)+4) / 2
-      ZARIN(1:IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
-      ZARIN(IMID+1:KINLO(2)+4,JT) = ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(2)+4-IMID+2,JT)
-      IF (LDLSM) THEN
-        ILSMIN(1:IMID,JT) = ILSMIN(IOF2+1+IMID:IOF2+2*IMID,JT)
-        ILSMIN(IMID+1:KINLO(2)+4,JT) = ILSMIN(IOF2+1+2:IOF2+KINLO(2)+4-IMID+2,JT)
-      END IF
-    END IF
-!
-! 2.6.3 Compute the north pole extension
-!
-    IF (OGLOBN) THEN ! North pole (north meaning end of the grib)
-      IOF1 = IBIGSIZE - (4+KINLO(KINLA-1)) - (4+KINLO(KINLA))
-      IOF2 = IOF1 - (4+KINLO(KINLA))
-      IMID = (KINLO(KINLA)+4) / 2
-      ZARIN(IOF1+1:IOF1+IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
-      ZARIN(IOF1+IMID+1:IOF1+KINLO(KINLA)+4,JT) = &
-          ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(KINLA)+4-IMID+2,JT)
-      IF (LDLSM) THEN
-        ILSMIN(IOF1+1:IOF1+IMID,JT) = ILSMIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
-        ILSMIN(IOF1+IMID+1:IOF1+KINLO(KINLA)+4,JT) = &
-            ILSMIN(IOF2+1+2:IOF2+KINLO(KINLA)+4-IMID+2,JT)
-      END IF
-      IOF1 = IOF1 + (4+KINLO(KINLA))
-      IOF2 = IOF2 - (4+KINLO(KINLA-1))
-      IMID = (KINLO(KINLA-1)+4) / 2
-      ZARIN(IOF1+1:IOF1+IMID,JT) = ZVECT*ZARIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
-      ZARIN(IOF1+IMID+1:IOF1+KINLO(KINLA-1)+4,JT) = &
-          ZVECT*ZARIN(IOF2+1+2:IOF2+KINLO(KINLA-1)+4-IMID+2,JT)
-      IF (LDLSM) THEN
-        ILSMIN(IOF1+1:IOF1+IMID,JT) = ILSMIN(IOF2+1+IMID-2:IOF2+2*IMID-2,JT)
-        ILSMIN(IOF1+IMID+1:IOF1+KINLO(KINLA-1)+4,JT) = &
-            ILSMIN(IOF2+1+2:IOF2+KINLO(KINLA-1)+4-IMID+2,JT)
-      END IF
-    END IF
+      !
+    ENDDO
     !
   ENDDO
   !

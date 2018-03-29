@@ -70,11 +70,12 @@ USE MODI_CLOSE_AUX_IO_SURF_NC
 USE MODI_MNHCLOSE_AUX_IO_SURF
 #endif
 !
+#ifdef SFX_ARO
+USE MODI_AROCLOSE_AUX_IO_SURF
+#endif
+
 IMPLICIT NONE
 !
-#ifdef SFX_ARO
-#include "aroclose_aux_io_surf.h"
-#endif
 !
 !*       0.1   Declarations of arguments
 !              -------------------------

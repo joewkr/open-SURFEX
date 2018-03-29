@@ -111,7 +111,7 @@ INTEGER                        :: ILU    ! expected physical size of full surfac
 INTEGER                        :: ILUOUT ! output listing logical unit
 INTEGER, DIMENSION(:), POINTER :: IMASK  ! mask for packing from complete field to nature field
 INTEGER                        :: IDIM   !
-INTEGER :: JI
+INTEGER :: JI, ICASE
 !
 REAL, DIMENSION(:), ALLOCATABLE :: ZVEGTYPE
 INTEGER :: JJ, JT, JTN
@@ -264,6 +264,7 @@ IF (LEN_TRIM(HFILE)/=0) THEN
           ! only for the natural part
           IF (U%LECOSG) THEN
             JTN = JT - SUM(NTYPE(1:2))
+            NSIZE(:,1:SUM(NTYPE(1:2))) = -1
           ELSE
             JTN = JT
           ENDIF
@@ -311,7 +312,7 @@ IF (LEN_TRIM(HFILE)/=0) THEN
         ! height of trees only defined for tree vegtypes
         IF (YFIELD(1:6)=='H_TREE') THEN
           IF ((.NOT.U%LECOSG.AND.((JT>=7 .AND. JT<=12) .OR. (JT>=18 .AND. JT<=19))).OR. &
-              (     U%LECOSG.AND.(JT<=(SUM(NTYPE(1:2))+3).OR.JT>=(SUM(NTYPE(1:2))+13)) ) ) THEN
+              (     U%LECOSG.AND.((JT<=(SUM(NTYPE(1:2))+3).OR.JT>=(SUM(NTYPE(1:2))+13)).AND.JT/=22) ) ) THEN
             ZFIELD(:,JT) = 0.
             NSIZE (:,JT) = 1.
           ENDIF
@@ -320,10 +321,14 @@ IF (LEN_TRIM(HFILE)/=0) THEN
       ENDIF
 
       ! if the cover / vegtype is not present on the area
-      IF( (U%LECOSG.AND..NOT.U%LCOVER(JT)) .OR. (.NOT.U%LECOSG.AND..NOT.LVEG_PRES(JT)) ) THEN
-        ZFIELD(:,JT) = 0.
-        NSIZE (:,JT) = 1.
-      ENDIF
+      !ICASE = 0
+      !IF (.NOT.U%LECOSG) THEN
+      !  IF (.NOT.LVEG_PRES(JT)) ICASE=1
+      !ENDIF
+      !IF( (U%LECOSG.AND..NOT.U%LCOVER(JT)) .OR. ICASE==1 ) THEN
+      !  ZFIELD(:,JT) = 0.
+      !  NSIZE (:,JT) = 1.
+      !ENDIF
 
     ENDIF
 

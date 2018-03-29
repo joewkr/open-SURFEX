@@ -5,7 +5,7 @@
 !#############################################################
 MODULE MODI_DIF_LAYER
 CONTAINS
-SUBROUTINE DIF_LAYER(KLU, IO, PK  )
+SUBROUTINE DIF_LAYER(KLU, IO, PK, OMEB_3L )
 !#############################################################
 !
 !!****  *DIF_LAYER_n* - routine to initialize dif numbers of layers
@@ -59,6 +59,7 @@ INTEGER, INTENT(IN) :: KLU
 !
 TYPE(ISBA_OPTIONS_t), INTENT(INOUT) :: IO
 TYPE(ISBA_P_t), INTENT(INOUT) :: PK
+LOGICAL, INTENT(IN), OPTIONAL :: OMEB_3L
 !
 !*       0.2   Declarations of local variables
 !              -------------------------------
@@ -66,6 +67,7 @@ TYPE(ISBA_P_t), INTENT(INOUT) :: PK
 REAL, DIMENSION(KLU) :: ZWORK
 INTEGER, DIMENSION(KLU) :: IWORK
 INTEGER :: JL, JI, IDEPTH
+LOGICAL :: GMEB_3L
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -75,14 +77,10 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 IF (LHOOK) CALL DR_HOOK('DIF_LAYER',0,ZHOOK_HANDLE)
 !
-DO JL = 1, IO%NGROUND_LAYER
-  IF (ANY((PK%XROOTFRAC(:,JL)<0. .OR. PK%XROOTFRAC(:,JL)>1.) .AND. PK%XPATCH(:).NE.0.)) &
-    CALL ABOR1_SFX('DIF_LAYER: WITH CISBA=DIF ROOTFRAC MUST BE DEFINED')
-ENDDO
+GMEB_3L = .FALSE.
+IF (PRESENT(OMEB_3L)) GMEB_3L = OMEB_3L
 !
 PK%XDZG     (:,:) = XUNDEF
-PK%XDZDIF   (:,:) = XUNDEF
-PK%XSOILWGHT(:,:) = 0.0
 !
 !*   soil layers thicknesses
 PK%XDZG(:,1) = PK%XDG(:,1)
@@ -91,6 +89,19 @@ DO JL=2,IO%NGROUND_LAYER
     PK%XDZG(JI,JL) = PK%XDG(JI,JL) - PK%XDG(JI,JL-1)
   ENDDO
 ENDDO
+!
+IF (GMEB_3L) THEN
+  IF (LHOOK) CALL DR_HOOK('DIF_LAYER',1,ZHOOK_HANDLE)
+  RETURN
+ENDIF
+!
+DO JL = 1, IO%NGROUND_LAYER
+  IF (ANY((PK%XROOTFRAC(:,JL)<0. .OR. PK%XROOTFRAC(:,JL)>1.) .AND. PK%XPATCH(:).NE.0.)) &
+    CALL ABOR1_SFX('DIF_LAYER: WITH CISBA=DIF ROOTFRAC MUST BE DEFINED')
+ENDDO
+!
+PK%XDZDIF   (:,:) = XUNDEF
+PK%XSOILWGHT(:,:) = 0.0
 !
 !*   distance between consecuative layer mid-points
 DO JL=1,IO%NGROUND_LAYER

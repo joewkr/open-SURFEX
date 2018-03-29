@@ -90,8 +90,10 @@ IF (HPROGRAM=='MESONH') THEN
     ENDIF
 #endif
   ELSE
+#ifndef MNH_PARALLEL
 #ifdef SFX_MNH
-    CALL PGD_GRID_IO_INIT_MNH
+    CALL PGD_GRID_IO_INIT_MNH(UG)
+#endif
 #endif
   ENDIF
 END IF

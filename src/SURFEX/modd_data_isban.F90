@@ -44,10 +44,12 @@ TYPE DATA_ISBA_t
 !
 ! Mask and number of grid elements containing patches/tiles:
 !
-  REAL, POINTER, DIMENSION(:,:)  :: XPAR_VEGTYPE       ! fraction of each vegetation type for
+  REAL, POINTER, DIMENSION(:,:)  :: XPAR_VEGTYPE   ! fraction of each vegetation type for
 !                                                  ! each grid mesh                          (-)
 !
 !-------------------------------------------------------------------------------
+!
+  INTEGER                       :: NVEGTYPE
 !
   INTEGER                       :: NTIME               ! number of time data
 !                                                      ! for VEG, LAI, EMIS, Z0

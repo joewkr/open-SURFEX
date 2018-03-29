@@ -779,7 +779,7 @@ REAL, DIMENSION(:,:,:), INTENT(INOUT), OPTIONAL :: PVAR
  CHARACTER(LEN=12) :: YRECFM         ! Name of the article to be read
  CHARACTER(LEN=4) :: YLVL
  CHARACTER(LEN=3) :: YVAR
-REAL, DIMENSION(KLU,IO%NGROUND_LAYER) :: ZVAR
+REAL, DIMENSION(KLU) :: ZVAR
 REAL :: ZWHITE_NOISE, ZVAR0
 INTEGER :: JL, JI, JP, IVAR
 LOGICAL :: GPASS
@@ -814,7 +814,7 @@ DO JL=1,KWORK
       IF (LASSIM .OR. (.NOT.LENS_GEN .AND. XADDTIMECORR(IVAR)>0.)) THEN
         !
         WRITE(YVAR,'(I3)') IVAR
-        YRECFM='RED_NOISE'//ADJUSTL(YVAR(:LEN_TRIM(YVAR)))
+        YRECFM='RD_NS'//ADJUSTL(YVAR(:LEN_TRIM(YVAR)))
         CALL MAKE_CHOICE_ARRAY(HPROGRAM, IO%NPATCH, GDIM, YRECFM, ZWORK)
         DO JP = 1,IO%NPATCH
           CALL PACK_SAME_RANK(NP%AL(JP)%NR_P,ZWORK(:,JP),NP%AL(JP)%XRED_NOISE(:,IVAR))
@@ -853,40 +853,40 @@ DO JL=1,KWORK
         !
         DO JP = 1,IO%NPATCH
           !
-          ZVAR(:,:) = 0.
+          ZVAR(:) = 0.
           IF (TRIM(HREC)=='TG') THEN
-            ZVAR(1:NP%AL(JP)%NSIZE_P,:) = NPE%AL(JP)%XTG(:,:)
+            ZVAR(1:NP%AL(JP)%NSIZE_P) = NPE%AL(JP)%XTG(:,JL)
           ELSEIF (TRIM(HREC)=='WG') THEN
-            ZVAR(1:NP%AL(JP)%NSIZE_P,:) = NPE%AL(JP)%XWG(:,:)
+            ZVAR(1:NP%AL(JP)%NSIZE_P) = NPE%AL(JP)%XWG(:,JL)
           ELSEIF (TRIM(HREC)=='LAI' .AND. PRESENT(PVAR)) THEN
-            ZVAR(1:NP%AL(JP)%NSIZE_P,:) = PVAR(1:NP%AL(JP)%NSIZE_P,:,JP)
+            ZVAR(1:NP%AL(JP)%NSIZE_P) = PVAR(1:NP%AL(JP)%NSIZE_P,JL,JP)
           ELSE
             CALL ABOR1_SFX("READ_ISBAn: HREC "//HREC//" not permitted")
           ENDIF
           !
           DO JI = 1,NP%AL(JP)%NSIZE_P
-            IF ( ZVAR(JI,JL)/=XUNDEF ) THEN
+            IF ( ZVAR(JI)/=XUNDEF ) THEN
               !
-              ZVAR0 = ZVAR(JI,JL)
+              ZVAR0 = ZVAR(JI)
               !
-              ZVAR(JI,JL) = ZVAR(JI,JL) + ZCOEF * NP%AL(JP)%XRED_NOISE(JI,IVAR)
+              ZVAR(JI) = ZVAR(JI) + ZCOEF * NP%AL(JP)%XRED_NOISE(JI,IVAR)
               !
-              IF (ZVAR(JI,JL) < 0.) THEN
+              IF (ZVAR(JI) < 0.) THEN
                 IF (LENS_GEN) THEN
-                  ZVAR(JI,JL) = ABS(ZVAR(JI,JL))
+                  ZVAR(JI) = ABS(ZVAR(JI))
                 ELSE
-                  ZVAR(JI,JL) = ZVAR0
+                  ZVAR(JI) = ZVAR0
                 ENDIF
               ENDIF
             ENDIF
           ENDDO
           !
           IF (TRIM(HREC)=='TG') THEN
-            NPE%AL(JP)%XTG(:,:) = ZVAR(1:NP%AL(JP)%NSIZE_P,:)
+            NPE%AL(JP)%XTG(:,JL) = ZVAR(1:NP%AL(JP)%NSIZE_P)
           ELSEIF (TRIM(HREC)=='WG') THEN
-            NPE%AL(JP)%XWG(:,:) = ZVAR(1:NP%AL(JP)%NSIZE_P,:)
+            NPE%AL(JP)%XWG(:,JL) = ZVAR(1:NP%AL(JP)%NSIZE_P)
           ELSEIF (TRIM(HREC)=='LAI') THEN
-            PVAR(1:NP%AL(JP)%NSIZE_P,:,JP) = ZVAR(1:NP%AL(JP)%NSIZE_P,:)
+            PVAR(1:NP%AL(JP)%NSIZE_P,JL,JP) = ZVAR(1:NP%AL(JP)%NSIZE_P)
           ENDIF
           !
         ENDDO

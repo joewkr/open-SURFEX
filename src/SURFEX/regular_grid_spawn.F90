@@ -88,21 +88,12 @@ INTEGER,                      INTENT(IN)    :: KYSIZE     ! covered by the modif
 INTEGER,                      INTENT(IN)    :: KDXRATIO   ! resolution ratio between modified grid
 INTEGER,                      INTENT(IN)    :: KDYRATIO   ! and initial grid
 INTEGER,                      INTENT(IN)    :: KL2        ! total number of points KIMAX_C_ll * KJMAX_C_ll
-#ifdef MNH_PARALLEL
 INTEGER,                      INTENT(INOUT)    :: KIMAX_C_ll     ! number of points in x direction (glb on entry, lcl on exit)
 INTEGER,                      INTENT(INOUT)    :: KJMAX_C_ll     ! number of points in y direction (glb on entry, lcl on exit)
 REAL, DIMENSION(:),ALLOCATABLE,         INTENT(OUT)   :: PX2        ! X coordinate of all points
 REAL, DIMENSION(:),ALLOCATABLE,         INTENT(OUT)   :: PY2        ! Y coordinate of all points
 REAL, DIMENSION(:),ALLOCATABLE,         INTENT(OUT)   :: PDX2       ! X mesh size of all points
 REAL, DIMENSION(:),ALLOCATABLE,         INTENT(OUT)   :: PDY2       ! Y mesh size of all points
-#else
-INTEGER,                      INTENT(IN)    :: KIMAX_C_ll     ! number of points in x direction
-INTEGER,                      INTENT(IN)    :: KJMAX_C_ll     ! number of points in y direction
-REAL, DIMENSION(KL2),         INTENT(OUT)   :: PX2        ! X coordinate of all points
-REAL, DIMENSION(KL2),         INTENT(OUT)   :: PY2        ! Y coordinate of all points
-REAL, DIMENSION(KL2),         INTENT(OUT)   :: PDX2       ! X mesh size of all points
-REAL, DIMENSION(KL2),         INTENT(OUT)   :: PDY2       ! Y mesh size of all points
-#endif
 !
 !*       0.2   Declarations of local variables
 !              -------------------------------
@@ -448,7 +439,13 @@ ALLOCATE(PX2(IIMAX_C*IJMAX_C))
 ALLOCATE(PY2(IIMAX_C*IJMAX_C))
 ALLOCATE(PDX2(IIMAX_C*IJMAX_C))
 ALLOCATE(PDY2(IIMAX_C*IJMAX_C))
+#else
+ALLOCATE(PX2(KL2))
+ALLOCATE(PY2(KL2))
+ALLOCATE(PDX2(KL2))
+ALLOCATE(PDY2(KL2))
 #endif
+!
 ALLOCATE(ZXHAT2(IIMAX_C+1))
 ALLOCATE(ZYHAT2(IJMAX_C+1))
 !

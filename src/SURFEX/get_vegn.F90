@@ -77,7 +77,6 @@ TYPE(ISBA_P_t), POINTER :: PK
 TYPE(ISBA_PE_t), POINTER :: PEK
 INTEGER                               :: JI,JJ           ! loop index over tiles
 INTEGER                               :: ILUOUT       ! unit numberi
-REAL, DIMENSION(U%NSIZE_FULL)      :: ZH_TREE_FULL, ZLAI_FULL
 REAL, DIMENSION(U%NSIZE_NATURE)    :: ZH_TREE, ZLAI,ZWORK
 INTEGER:: IPATCH_TRBE, IPATCH_TRBD, IPATCH_TEBE, IPATCH_TEBD, IPATCH_TENE, &
           IPATCH_BOBD, IPATCH_BONE, IPATCH_BOND, IMASK, JP
@@ -92,10 +91,6 @@ CALL GET_LUOUT(HPROGRAM,ILUOUT)
 !
 !*       1. Passage dur le masque global
 !              -------------------------------
-
-
-ZH_TREE_FULL(:) = 0.
-ZLAI_FULL   (:) = XUNDEF
 
 IPATCH_TRBE = VEGTYPE_TO_PATCH(NVT_TRBE, IO%NPATCH)
 IPATCH_TRBD = VEGTYPE_TO_PATCH(NVT_TRBD, IO%NPATCH)
@@ -145,36 +140,31 @@ WHERE(ZWORK(:)/=0.)
   ZLAI(:) = ZLAI(:)/ZWORK(:)
 END WHERE
 !
-DO JJ = 1,U%NSIZE_NATURE
-  ZH_TREE_FULL(U%NR_NATURE(JJ)) = ZH_TREE(JJ)
-  ZLAI_FULL   (U%NR_NATURE(JJ)) = ZLAI(JJ)
-END DO
-!
-ZLAI_FULL(:) = U%XNATURE(:) * ZLAI_FULL(:)
+ZLAI(:) = U%XNATURE(:) * ZLAI(:)
 !
 !*       2. Envoi les variables vers mesonH
 !             ------------------------------
 
-IF ( SIZE(PVH) /= SIZE(ZH_TREE_FULL) ) THEN
+IF ( SIZE(PVH) /= SIZE(ZH_TREE) ) THEN
   WRITE(ILUOUT,*) 'try to get VH field from atmospheric model, but size is not correct'
   WRITE(ILUOUT,*) 'size of field expected by the atmospheric model (PVH) :', SIZE(PVH)
-  WRITE(ILUOUT,*) 'size of field inthe surface                     (XVH) :', SIZE(ZH_TREE_FULL)
+  WRITE(ILUOUT,*) 'size of field inthe surface                     (XVH) :', SIZE(ZH_TREE)
   CALL ABOR1_SFX('GET_VHN: VH SIZE NOT CORRECT')
 ELSE
-  PVH = ZH_TREE_FULL
+  PVH = ZH_TREE
 END IF
 !
 !==============================================================================
 !
 !-------------------------------------------------------------------------------
 !
-IF ( SIZE(PLAI) /= SIZE(ZLAI_FULL) ) THEN
+IF ( SIZE(PLAI) /= SIZE(ZLAI) ) THEN
   WRITE(ILUOUT,*) 'try to get LAI field from atmospheric model, but size is not correct'
   WRITE(ILUOUT,*) 'size of field expected by the atmospheric model (PLAI) :', SIZE(PLAI)
-  WRITE(ILUOUT,*) 'size of field inthe surface                     (XLAI) :', SIZE(ZLAI_FULL)
+  WRITE(ILUOUT,*) 'size of field inthe surface                     (XLAI) :', SIZE(ZLAI)
   CALL ABOR1_SFX('GET_LAIN: LAI SIZE NOT CORRECT')
 ELSE
-  PLAI = ZLAI_FULL
+  PLAI = ZLAI
 END IF
 !
 !==============================================================================

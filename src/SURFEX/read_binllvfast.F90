@@ -77,6 +77,7 @@ INTEGER                                :: ICPT       ! number of data points to 
 REAL,DIMENSION(:,:),ALLOCATABLE,TARGET :: ZLLV       ! ZLLV(1,:) :: latitude of data points
                                                      ! ZLLV(2,:) :: longitude of data points
                                                      ! ZLLV(3,:) :: value of data points
+REAL, DIMENSION(:), ALLOCATABLE :: ZLLV2
 REAL,DIMENSION(:,:),POINTER            :: ZLLVWORK   ! point on ZLLV array
 INTEGER                                :: JI         ! loop counter
 !
@@ -99,7 +100,8 @@ IF (LHOOK) CALL DR_HOOK('READ_BINLLVFAST',0,ZHOOK_HANDLE)
 !            -----------------------
 !
 READ(IGLB) INELT ! number of data points
-ALLOCATE(ZLLV(3,INELT))
+ALLOCATE(ZLLV (3,INELT))
+ALLOCATE(ZLLV2(INELT))
 READ(IGLB) ZLLV
 !
 !----------------------------------------------------------------------------
@@ -107,13 +109,13 @@ READ(IGLB) ZLLV
 !*    4.     Test if point is in the domain
 !            ------------------------------
 !
-ZLLV(2,:) = ZLLV(2,:)+NINT((180.-ZLLV(2,:))/360.)*360.
+ZLLV2(:) = ZLLV(2,:)+NINT((180.-ZLLV(2,:))/360.)*360.
 !
 ICPT = 0
 DO JI=1,INELT
   JLAT = 1 + INT( ( ZLLV(1,JI)+ 90. ) * 2. )
   JLAT = MIN(JLAT,360)
-  JLON = 1 + INT( ( ZLLV(2,JI)      ) * 2. )
+  JLON = 1 + INT( ( ZLLV2(JI)       ) * 2. )
   JLON = MIN(JLON,720)
   IF (LLATLONMASK(JLON,JLAT)) THEN
     ICPT = ICPT+1

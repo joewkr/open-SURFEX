@@ -72,6 +72,9 @@ USE MODI_WRITE_SURFX0_MNH
 #ifdef WXIOS
 USE MODI_WRITE_SURF_XIOS
 #endif
+#ifdef SFX_ARO
+USE MODI_WRITE_SURFX0_ARO
+#endif
 !
 USE MODI_TEST_RECORD_LEN
 !
@@ -81,9 +84,6 @@ IMPLICIT NONE
 INCLUDE "mpif.h"
 #endif
 !
-#ifdef SFX_ARO
-#include "write_surfx0_aro.h"
-#endif
 !
  CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
 !
@@ -98,6 +98,7 @@ INTEGER,           INTENT(OUT):: KRESP    ! KRESP  : return-code if a problem ap
 !
 !*      0.2   Declarations of local variables
 !
+ CHARACTER(LEN=16)  :: YREC2
  CHARACTER(LEN=12)  :: YREC
 LOGICAL :: GNOWRITE
 REAL   :: XTIME0
@@ -114,7 +115,8 @@ IF(GNOWRITE)RETURN
 !
 IF (HPROGRAM=='MESONH') THEN
 #ifdef SFX_MNH
-  CALL WRITE_SURFX0_MNH(YREC,PFIELD,KRESP,HCOMMENT)
+  YREC2 = YREC
+  CALL WRITE_SURFX0_MNH(YREC2,PFIELD,KRESP,HCOMMENT)
 #endif
 ENDIF
 !
@@ -198,11 +200,6 @@ END SUBROUTINE WRITE_SURFX0
 !
 !!****  *WRITEX1* - routine to fill a real 1D array for the externalised surface
 !
-!
-!
-!
-!
-!
 USE MODD_SURFEX_MPI, ONLY : WLOG_MPI, NRANK
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -234,14 +231,14 @@ USE MODI_WRITE_SURFX1_MNH
 #ifdef WXIOS
 USE MODI_WRITE_SURF_XIOS
 #endif
+#ifdef SFX_ARO
+USE MODI_WRITE_SURFX1_ARO
+#endif
 !
 USE MODI_TEST_RECORD_LEN
 !
 IMPLICIT NONE
 !
-#ifdef SFX_ARO
-#include "write_surfx1_aro.h"
-#endif
 !
 !*      0.1   Declarations of arguments
 !
@@ -260,6 +257,7 @@ INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem 
  CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
 !*      0.2   Declarations of local variables
 !
+ CHARACTER(LEN=16)  :: YREC2
  CHARACTER(LEN=12)  :: YREC
 INTEGER            :: IL
  CHARACTER(LEN=1)   :: YDIR
@@ -287,7 +285,8 @@ ELSE
 
   IF (HPROGRAM=='MESONH') THEN
 #ifdef SFX_MNH
-    CALL WRITE_SURFX1_MNH(YREC,IL,PFIELD,KRESP,HCOMMENT,YDIR)
+    YREC2 = YREC
+    CALL WRITE_SURFX1_MNH(YREC2,IL,PFIELD,KRESP,HCOMMENT,YDIR)
 #endif
   ENDIF
   !
@@ -355,11 +354,6 @@ END SUBROUTINE WRITE_SURFX1
 !
 !!****  *WRITEX2* - routine to fill a real 2D array for the externalised surface
 !
-!
-!
-!
-!
-!
 USE MODD_SURFEX_MPI, ONLY : WLOG_MPI
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -394,11 +388,11 @@ USE MODI_WRITE_SURF_XIOS
 !
 USE MODI_TEST_RECORD_LEN
 !
-IMPLICIT NONE
-!
 #ifdef SFX_ARO
-#include "write_surfx2_aro.h"
+USE MODI_WRITE_SURFX2_ARO
 #endif
+!
+IMPLICIT NONE
 !
 !*      0.1   Declarations of arguments
 !
@@ -417,6 +411,7 @@ INTEGER,              INTENT(OUT) :: KRESP    ! KRESP  : return-code if a proble
  CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
 !*      0.2   Declarations of local variables
 !
+ CHARACTER(LEN=16)  :: YREC2
  CHARACTER(LEN=12)  :: YREC
 INTEGER            :: IL1
 INTEGER            :: IL2
@@ -446,7 +441,8 @@ ELSE
   !
   IF (HPROGRAM=='MESONH') THEN
 #ifdef SFX_MNH
-    CALL WRITE_SURFX2_MNH(YREC,IL1,IL2,PFIELD,KRESP,HCOMMENT,YDIR)
+    YREC2 = YREC
+    CALL WRITE_SURFX2_MNH(YREC2,IL1,IL2,PFIELD,KRESP,HCOMMENT,YDIR)
 #endif
   ENDIF
   !
@@ -554,14 +550,15 @@ USE MODE_WRITE_SURF_FA, ONLY: WRITE_SURFN_FA
 #ifdef WXIOS
 USE MODI_WRITE_SURF_XIOS
 #endif
+#ifdef SFX_ARO
+USE MODI_WRITE_SURFX2_ARO
+#endif
+
 !
 USE MODI_TEST_RECORD_LEN
 !
 IMPLICIT NONE
 !
-#ifdef SFX_ARO
-!#include "write_surfx2_aro.h"
-#endif
 !
 !*      0.1   Declarations of arguments
 !
@@ -719,6 +716,10 @@ USE MODI_WRITE_SURFN0_MNH
 #ifdef WXIOS
 USE MODI_WRITE_SURF_XIOS
 #endif
+#ifdef SFX_ARO
+USE MODI_WRITE_SURFN0_ARO
+#endif
+
 !
 USE MODI_TEST_RECORD_LEN
 !
@@ -728,9 +729,6 @@ IMPLICIT NONE
 INCLUDE "mpif.h"
 #endif
 !
-#ifdef SFX_ARO
-#include "write_surfn0_aro.h"
-#endif
 !
  CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
 !
@@ -745,6 +743,7 @@ INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem 
 !
 !*      0.2   Declarations of local variables
 !
+ CHARACTER(LEN=16)  :: YREC2
  CHARACTER(LEN=12)  :: YREC
 LOGICAL :: GNOWRITE
 REAL   :: XTIME0
@@ -762,7 +761,8 @@ IF(GNOWRITE)RETURN
 !
 IF (HPROGRAM=='MESONH') THEN
 #ifdef SFX_MNH
-  CALL WRITE_SURFN0_MNH(YREC,KFIELD,KRESP,HCOMMENT)
+  YREC2 = YREC
+  CALL WRITE_SURFN0_MNH(YREC2,KFIELD,KRESP,HCOMMENT)
 #endif
 ENDIF
 !
@@ -842,11 +842,6 @@ END SUBROUTINE WRITE_SURFN0
 !
 !!****  *WRITEN0* - routine to write an integer
 !
-!
-!
-!
-!
-!
 USE MODD_SURFEX_MPI, ONLY : WLOG_MPI
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -878,14 +873,14 @@ USE MODI_WRITE_SURFN1_MNH
 #ifdef WXIOS
 USE MODI_WRITE_SURF_XIOS
 #endif
+#ifdef SFX_ARO
+USE MODI_WRITE_SURFN1_ARO
+#endif
 !
 USE MODI_TEST_RECORD_LEN
 !
 IMPLICIT NONE
 !
-#ifdef SFX_ARO
-#include "write_surfn1_aro.h"
-#endif
 !
 !*      0.1   Declarations of arguments
 !
@@ -904,6 +899,7 @@ INTEGER,               INTENT(OUT) :: KRESP    ! KRESP  : return-code if a probl
  CHARACTER(LEN=*), OPTIONAL,  INTENT(IN) :: HNAM_DIM
 !*      0.2   Declarations of local variables
 !
+ CHARACTER(LEN=16)  :: YREC2
  CHARACTER(LEN=12)  :: YREC
 INTEGER            :: IL
  CHARACTER(LEN=1)   :: YDIR
@@ -924,7 +920,8 @@ IF(GNOWRITE)RETURN
 !
 IF (HPROGRAM=='MESONH') THEN
 #ifdef SFX_MNH
-  CALL WRITE_SURFN1_MNH(YREC,IL,KFIELD,KRESP,HCOMMENT,YDIR)
+  YREC2 = YREC
+  CALL WRITE_SURFN1_MNH(YREC2,IL,KFIELD,KRESP,HCOMMENT,YDIR)
 #endif
 ENDIF
 !
@@ -1029,6 +1026,10 @@ USE MODI_WRITE_SURFC0_MNH
 #ifdef WXIOS
 USE MODI_WRITE_SURF_XIOS
 #endif
+#ifdef SFX_ARO
+USE MODI_WRITE_SURFC0_ARO
+#endif
+
 !
 USE MODI_TEST_RECORD_LEN
 !
@@ -1038,9 +1039,6 @@ IMPLICIT NONE
 INCLUDE "mpif.h"
 #endif
 !
-#ifdef SFX_ARO
-#include "write_surfc0_aro.h"
-#endif
 !
  CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
 !
@@ -1055,8 +1053,9 @@ INTEGER,             INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem
 !
 !*      0.2   Declarations of local variables
 !
- CHARACTER(LEN=12)  :: YREC
- CHARACTER(LEN=40)  :: YFIELD
+ CHARACTER(LEN=12) :: YREC
+ CHARACTER(LEN=16) :: YREC2
+ CHARACTER(LEN=40) :: YFIELD
 LOGICAL :: GNOWRITE
 REAL   :: XTIME0
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -1074,7 +1073,8 @@ IF(GNOWRITE)RETURN
 !
 IF (HPROGRAM=='MESONH') THEN
 #ifdef SFX_MNH
-  CALL WRITE_SURFC0_MNH(YREC,YFIELD,KRESP,HCOMMENT)
+  YREC2 = YREC
+  CALL WRITE_SURFC0_MNH(YREC2,YFIELD,KRESP,HCOMMENT)
 #endif
 ENDIF
 !
@@ -1186,6 +1186,10 @@ USE MODI_WRITE_SURFL0_MNH
 #ifdef WXIOS
 USE MODI_WRITE_SURF_XIOS
 #endif
+#ifdef SFX_ARO
+USE MODI_WRITE_SURFL0_ARO
+#endif
+
 !
 USE MODI_TEST_RECORD_LEN
 !
@@ -1195,9 +1199,6 @@ IMPLICIT NONE
 INCLUDE "mpif.h"
 #endif
 !
-#ifdef SFX_ARO
-#include "write_surfl0_aro.h"
-#endif
 !
  CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
 !
@@ -1213,6 +1214,7 @@ INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem 
 !*      0.2   Declarations of local variables
 !
  CHARACTER(LEN=12)  :: YREC
+ CHARACTER(LEN=16)  :: YREC2
 LOGICAL :: GNOWRITE
 REAL   :: XTIME0
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -1228,10 +1230,11 @@ IF(GNOWRITE)RETURN
 !
 IF (HPROGRAM=='MESONH') THEN
 #ifdef SFX_MNH
-  CALL WRITE_SURFL0_MNH(YREC,OFIELD,KRESP,HCOMMENT)
+  YREC2 = YREC
+  CALL WRITE_SURFL0_MNH(YREC2,OFIELD,KRESP,HCOMMENT)
 #endif
 ENDIF
-!
+!²
 IF (HPROGRAM=='AROME ') THEN
 #ifdef SFX_ARO
   CALL WRITE_SURFL0_ARO(YREC,OFIELD,KRESP,HCOMMENT)
@@ -1341,14 +1344,15 @@ USE MODE_WRITE_SURF_NC, ONLY: WRITE_SURFN_NC
 #ifdef SFX_MNH
 USE MODI_WRITE_SURFL1_MNH
 #endif
+#ifdef SFX_ARO
+USE MODI_WRITE_SURFL1_ARO
+#endif
+
 !
 USE MODI_TEST_RECORD_LEN
 !
 IMPLICIT NONE
 !
-#ifdef SFX_ARO
-#include "write_surfl1_aro.h"
-#endif
 !&
 !*      0.1   Declarations of arguments
 !
@@ -1366,6 +1370,7 @@ INTEGER,               INTENT(OUT) :: KRESP    ! KRESP  : return-code if a probl
 !                                             ! '-' : no horizontal dim.
 !*      0.2   Declarations of local variables
 !
+ CHARACTER(LEN=16)  :: YREC2
  CHARACTER(LEN=12)  :: YREC
 INTEGER            :: IL
  CHARACTER(LEN=1)   :: YDIR
@@ -1386,7 +1391,8 @@ IF(GNOWRITE)RETURN
 !
 IF (HPROGRAM=='MESONH') THEN
 #ifdef SFX_MNH
-  CALL WRITE_SURFL1_MNH(YREC,IL,OFIELD,KRESP,HCOMMENT,YDIR)
+  YREC2 = YREC
+  CALL WRITE_SURFL1_MNH(YREC2,IL,OFIELD,KRESP,HCOMMENT,YDIR)
 #endif
 ENDIF
 !
@@ -1452,11 +1458,6 @@ END SUBROUTINE WRITE_SURFL1
 !
 !!****  *WRITET0* - routine to write a MESO-NH date_time scalar
 !
-!
-!
-!
-!
-!
 USE MODD_TYPE_DATE_SURF
 !
 USE MODD_SURFEX_MPI, ONLY : NRANK, NPIO, XTIME_NPIO_WRITE, WLOG_MPI
@@ -1488,6 +1489,10 @@ USE MODE_WRITE_SURF_NC, ONLY: WRITE_SURFT_NC
 #ifdef SFX_MNH
 USE MODI_WRITE_SURFT0_MNH
 #endif
+#ifdef SFX_ARO
+USE MODI_WRITE_SURFT0_ARO
+#endif
+
 !
 USE MODI_TEST_RECORD_LEN
 !
@@ -1497,9 +1502,6 @@ IMPLICIT NONE
 INCLUDE "mpif.h"
 #endif
 !
-#ifdef SFX_ARO
-#include "write_surft0_aro.h"
-#endif
 !
  CHARACTER(LEN=*), DIMENSION(:), INTENT(IN) :: HSELECT
 !
@@ -1514,6 +1516,7 @@ INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem 
 !
 !*      0.2   Declarations of local variables
 !
+ CHARACTER(LEN=16)  :: YREC2
  CHARACTER(LEN=12)  :: YREC
 REAL    :: ZTIME
 REAL   :: XTIME0
@@ -1539,7 +1542,8 @@ IF(GNOWRITE)RETURN
 !
 IF (HPROGRAM=='MESONH') THEN
 #ifdef SFX_MNH
-  CALL WRITE_SURFT0_MNH(YREC,IYEAR,IMONTH,IDAY,ZTIME,KRESP,HCOMMENT)
+  YREC2 = YREC
+  CALL WRITE_SURFT0_MNH(YREC2,IYEAR,IMONTH,IDAY,ZTIME,KRESP,HCOMMENT)
 #endif
 ENDIF
 !
@@ -1617,11 +1621,6 @@ END SUBROUTINE WRITE_SURFT0
 !
 !!****  *READT2* - routine to read a MESO-NH date_time array
 !
-!
-!
-!
-!
-!
 USE MODD_SURFEX_MPI, ONLY : WLOG_MPI
 USE MODD_TYPE_DATE_SURF
 !
@@ -1640,6 +1639,10 @@ USE MODE_WRITE_SURF_NC, ONLY: WRITE_SURFT_NC
 #ifdef SFX_MNH
 USE MODI_WRITE_SURFT1_MNH
 #endif
+#ifdef SFX_ARO
+USE MODI_WRITE_SURFT1_ARO
+#endif
+
 !
 USE MODI_ABOR1_SFX
 !
@@ -1647,9 +1650,6 @@ USE MODI_TEST_RECORD_LEN
 !
 IMPLICIT NONE
 !
-#ifdef SFX_ARO
-#include "write_surft1_aro.h"
-#endif
 !
 !*      0.1   Declarations of arguments
 !
@@ -1664,6 +1664,7 @@ INTEGER,            INTENT(OUT) :: KRESP    ! KRESP  : return-code if a problem 
 !
 !*      0.2   Declarations of local variables
 !
+ CHARACTER(LEN=16)  :: YREC2
  CHARACTER(LEN=12)  :: YREC
 INTEGER :: IL1
 REAL ,   DIMENSION(SIZE(TFIELD,1)) :: ZTIME
@@ -1692,7 +1693,8 @@ IF (HPROGRAM=='MESONH') THEN
    !G .TANGUY 03/2009
    !CALL ABOR1_SFX('WRITE_SURFT1: NOT AVAILABLE FOR MESONH')
 #ifdef SFX_MNH
-   CALL WRITE_SURFT1_MNH(YREC,IL1,IYEAR,IMONTH,IDAY,ZTIME,KRESP,HCOMMENT)
+   YREC2 = YREC
+   CALL WRITE_SURFT1_MNH(YREC2,IL1,IYEAR,IMONTH,IDAY,ZTIME,KRESP,HCOMMENT)
 #endif
 ENDIF
 !

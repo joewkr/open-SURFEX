@@ -422,7 +422,6 @@ IF (DGO%LCOEF) THEN
     DAUP%XCD      (KMASK(JJ))  = DA%XCD       (JJ)
     DAUP%XCH      (KMASK(JJ))  = DA%XCH       (JJ)
     DAUP%XCE      (KMASK(JJ))  = DA%XCE       (JJ)
-    DAUP%XQS      (KMASK(JJ))  = DA%XQS       (JJ)
     DAUP%XZ0      (KMASK(JJ))  = DA%XZ0       (JJ)
     DAUP%XZ0H     (KMASK(JJ))  = DA%XZ0H      (JJ)
   ENDDO

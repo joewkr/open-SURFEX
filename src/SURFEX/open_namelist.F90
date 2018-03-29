@@ -57,15 +57,14 @@ USE MODI_OPEN_NAMELIST_NC
 #ifdef SFX_MNH
 USE MODI_MNHOPEN_NAMELIST
 #endif
+#ifdef SFX_ARO
+USE MODI_AROOPEN_NAMELIST
+#endif
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
 !
 IMPLICIT NONE
-!
-#ifdef SFX_ARO
-#include "aroopen_namelist.h"
-#endif
 !
 !*       0.1   Declarations of arguments
 !              -------------------------

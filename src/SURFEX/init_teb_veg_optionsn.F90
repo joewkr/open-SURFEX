@@ -63,6 +63,7 @@ USE MODD_ISBA_PAR,        ONLY : XOPTIMGRID
 !
 USE MODN_TEB_n,           ONLY : XTSTEP
 !
+USE MODI_READ_NAM_PGD_ISBA
 USE MODI_DEFAULT_ISBA
 USE MODI_DEFAULT_CH_DEP
 USE MODI_DEFAULT_CH_BIO_FLUX
@@ -117,6 +118,52 @@ REAL                              :: ZCO2_START
 REAL                              :: ZCO2_END
 INTEGER                           :: INBYEARSPINS
 INTEGER                           :: INBYEARSPINW
+!
+INTEGER                  :: IPATCH           ! number of patches
+INTEGER                  :: IGROUND_LAYER    ! number of soil layers
+INTEGER                  :: JVEGTYPE
+CHARACTER(LEN=3)         :: YISBA            ! ISBA option
+CHARACTER(LEN=4)         :: YPEDOTF          ! Pedo transfert function for DIF
+CHARACTER(LEN=3)         :: YPHOTO           ! photosynthesis option
+LOGICAL                  :: GTR_ML           ! new radiative transfert
+CHARACTER(LEN=4)         :: YALBEDO
+REAL                     :: ZRM_PATCH        ! threshold to remove little fractions of patches
+CHARACTER(LEN=28)        :: YSAND            ! file name for sand fraction
+CHARACTER(LEN=28)        :: YCLAY            ! file name for clay fraction
+CHARACTER(LEN=28)        :: YSOC_TOP         ! file name for organic carbon top soil
+CHARACTER(LEN=28)        :: YSOC_SUB         ! file name for organic carbon sub soil
+CHARACTER(LEN=28)        :: YCTI             ! file name for topographic index
+CHARACTER(LEN=28)        :: YRUNOFFB         ! file name for runoffb parameter
+CHARACTER(LEN=28)        :: YWDRAIN          ! file name for wdrain parameter
+CHARACTER(LEN=28)        :: YPERM            ! file name for permafrost distribution
+CHARACTER(LEN=6)         :: YSANDFILETYPE    ! sand data file type
+CHARACTER(LEN=6)         :: YCLAYFILETYPE    ! clay data file type
+CHARACTER(LEN=6)         :: YSOCFILETYPE     ! organic carbon data file type
+CHARACTER(LEN=6)         :: YCTIFILETYPE     ! topographic index data file type
+CHARACTER(LEN=6)         :: YRUNOFFBFILETYPE ! subgrid runoff data file type
+CHARACTER(LEN=6)         :: YWDRAINFILETYPE  ! subgrid drainage data file type
+CHARACTER(LEN=6)         :: YPERMFILETYPE    ! permafrost distribution data file type
+REAL                     :: XUNIF_SAND       ! uniform value of sand fraction  (-)
+REAL                     :: XUNIF_CLAY       ! uniform value of clay fraction  (-)
+REAL                     :: XUNIF_SOC_TOP    ! uniform value of organic carbon top soil (kg/m2)
+REAL                     :: XUNIF_SOC_SUB    ! uniform value of organic carbon sub soil (kg/m2)
+REAL                     :: XUNIF_RUNOFFB    ! uniform value of subgrid runoff coefficient
+REAL                     :: XUNIF_WDRAIN     ! uniform subgrid drainage parameter
+REAL                     :: XUNIF_PERM       ! uniform permafrost distribution
+LOGICAL                  :: LIMP_SAND        ! Imposed maps of Sand
+LOGICAL                  :: LIMP_CLAY        ! Imposed maps of Clay
+LOGICAL                  :: LIMP_SOC         ! Imposed maps of organic carbon
+LOGICAL                  :: LIMP_CTI         ! Imposed maps of topographic index statistics
+LOGICAL                  :: LIMP_PERM        ! Imposed maps of permafrost distribution
+REAL, DIMENSION(150)     :: ZSOILGRID        ! Soil grid reference for DIF
+CHARACTER(LEN=28)        :: YPH           ! file name for pH
+CHARACTER(LEN=28)        :: YFERT         ! file name for fertilisation rate
+CHARACTER(LEN=6)         :: YPHFILETYPE   ! pH data file type
+CHARACTER(LEN=6)         :: YFERTFILETYPE ! fertilisation data file type
+REAL                     :: XUNIF_PH      ! uniform value of pH
+REAL                     :: XUNIF_FERT    ! uniform value of fertilisation rate
+LOGICAL                  :: GMEB      ! Multi-energy balance (MEB)
+!
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !-------------------------------------------------------------------------------
@@ -205,6 +252,9 @@ YRECFM='TWN_LAYER'
 IF (IVERSION>7 .OR. IVERSION==7 .AND. IBUGFIX>=3) YRECFM='GD_LAYER'
  CALL READ_SURF(HPROGRAM,YRECFM,GDO%NGROUND_LAYER,IRESP)
 !
+ALLOCATE(GDO%LMEB_PATCH(1))
+GDO%LMEB_PATCH(:) = .FALSE.
+!
 !* new radiative transfert
 !
 IF (IVERSION>7 .OR. IVERSION==7 .AND. IBUGFIX>=2) THEN
@@ -215,6 +265,28 @@ IF (IVERSION>7 .OR. IVERSION==7 .AND. IBUGFIX>=2) THEN
   !
 ELSE
   GDO%LTR_ML = .FALSE.
+ENDIF
+!
+IF (IVERSION>8 .OR. IVERSION==8 .AND. IBUGFIX>=1) THEN
+  !
+  YRECFM='GD_ALBEDO'
+  CALL READ_SURF(HPROGRAM,YRECFM,GDO%CALBEDO,IRESP)
+  !
+ELSE
+  !
+  CALL READ_NAM_PGD_ISBA(HPROGRAM, IPATCH, IGROUND_LAYER,                        &
+                       YISBA,  YPEDOTF, YPHOTO, GTR_ML, YALBEDO, ZRM_PATCH,      &
+                       YCLAY, YCLAYFILETYPE, XUNIF_CLAY, LIMP_CLAY,              &
+                       YSAND, YSANDFILETYPE, XUNIF_SAND, LIMP_SAND,              &
+                       YSOC_TOP, YSOC_SUB, YSOCFILETYPE, XUNIF_SOC_TOP,          &
+                       XUNIF_SOC_SUB, LIMP_SOC, YCTI, YCTIFILETYPE, LIMP_CTI,    &
+                       YPERM, YPERMFILETYPE, XUNIF_PERM, LIMP_PERM, GMEB,        &
+                       YRUNOFFB, YRUNOFFBFILETYPE, XUNIF_RUNOFFB,                &
+                       YWDRAIN,  YWDRAINFILETYPE , XUNIF_WDRAIN, ZSOILGRID,      &
+                       YPH, YPHFILETYPE, XUNIF_PH, YFERT, YFERTFILETYPE,         &
+                       XUNIF_FERT                          )
+  GDO%CALBEDO = YALBEDO
+  !
 ENDIF
 !
 !* Reference grid for DIF
@@ -249,6 +321,8 @@ IF (GDO%CPHOTO=='NIT') GDO%NNBIOMASS=3
 IF (OGREENROOF) THEN
   !
   GRO%NPATCH = 1
+  ALLOCATE(GRO%LMEB_PATCH(1))
+  GRO%LMEB_PATCH(:) = .FALSE.
   GRO%CRESPSL   = GDO%CRESPSL
   !
   YRECFM='GR_ISBA'

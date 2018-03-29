@@ -69,13 +69,13 @@ INTEGER      :: IGLB                       ! logical unit
 !
 INTEGER      :: JLAT, JLON                 ! indexes of OLATLONMASK array
 !
-INTEGER, PARAMETER :: ILONG=1000
+INTEGER*4, PARAMETER :: ILONG=200000
 !
 REAL         :: ZVALUER
 REAL, DIMENSION(ILONG) :: ZVALUE          ! values of a data point
 REAL         :: ZLATR
 REAL, DIMENSION(ILONG) :: ZLAT              ! latitude of data point
-REAL         :: ZLONR
+REAL         :: ZLONR, ZLONR2
 REAL, DIMENSION(ILONG) :: ZLON              ! longitude of data point
 !
 INTEGER :: ICPT, ISTAT
@@ -113,11 +113,11 @@ DO
 !
   IF (ISTAT==0) THEN
     !
-    ZLONR=ZLONR+NINT((180.-ZLONR)/360.)*360.
+    ZLONR2=ZLONR+NINT((180.-ZLONR)/360.)*360.
     !
     JLAT = 1 + INT( ( ZLATR + 90. ) * 2. )
     JLAT = MIN(JLAT,360)
-    JLON = 1 + INT( ( ZLONR       ) * 2. )
+    JLON = 1 + INT( ( ZLONR2      ) * 2. )
     JLON = MIN(JLON,720)
     !
     IF (.NOT. LLATLONMASK(JLON,JLAT)) CYCLE

@@ -84,8 +84,10 @@ USE MODI_INIT_INDEX_MPI
 !
 !------------------------------------------------------------------------------
 !
+#ifdef SFX_MPI
 #ifdef SFX_MPL
 USE MPL_DATA_MODULE, ONLY : LMPLUSERCOMM, MPLUSERCOMM
+#endif
 #endif
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -141,11 +143,13 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !Must be call before DRHOOK !
 CALL SFX_OASIS_INIT(CNAMELIST,NCOMM,'PRE')
+#ifdef SFX_MPI
 #ifdef SFX_MPL
 IF(LOASIS)THEN
   LMPLUSERCOMM = .TRUE.
   MPLUSERCOMM = NCOMM
 ENDIF
+#endif
 #endif
 !
 #ifdef SFX_MPI

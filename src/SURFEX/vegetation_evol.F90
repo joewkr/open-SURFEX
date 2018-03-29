@@ -63,7 +63,7 @@ USE MODD_SSO_n, ONLY : SSO_t
 !
 USE MODD_CO2V_PAR,       ONLY : XMC, XMCO2, XPCCO2, XRESPFACTOR_NIT,       &
                                 XCOEFF_MAINT_RESP_ZERO, XSLOPE_MAINT_RESP, &
-                                XPARAM, XPARCF, XDILUDEC
+                                XPARCF, XDILUDEC, ITRANSFERT_ESG
 USE MODD_CSTS,           ONLY : XDAY, XTT, XMD
 !
 USE MODI_ALBEDO
@@ -75,7 +75,8 @@ USE MODI_VEG_FROM_LAI
 USE MODI_Z0V_FROM_LAI
 USE MODI_SUBSCALE_Z0EFF
 USE MODD_TYPE_DATE_SURF
-USE MODD_DATA_COVER_PAR, ONLY : NVT_TEBD, NVT_TRBE, NVT_BONE,   &
+USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE_ECOSG, NVEGTYPE, &
+                                NVT_TEBD, NVT_TRBE, NVT_BONE,   &
                                 NVT_TRBD, NVT_TEBE, NVT_TENE,   &
                                 NVT_BOBD, NVT_BOND, NVT_SHRB,   &
                                 NVT_TRBE
@@ -159,6 +160,8 @@ REAL,    DIMENSION(SIZE(PK%XVEGTYPE_PATCH,1),SIZE(PK%XVEGTYPE_PATCH,2)) :: ZPARA
 ! * Azote
 REAL,    DIMENSION(SIZE(PEK%XLAI,1)) :: ZFERT
 !
+REAL :: ZDILUDEC
+!
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !-----------------------------------------------------------------
@@ -231,10 +234,15 @@ IF (GMASK) THEN
     ZPARAM(:) = 0.0
     ZFERT (:) = 0.0
     DO JTYPE=1,SIZE(PK%XVEGTYPE_PATCH,2)
+      IF (NVEGTYPE==NVEGTYPE_ECOSG) THEN
+        ZDILUDEC = XDILUDEC(ITRANSFERT_ESG(JTYPE))
+      ELSE
+        ZDILUDEC = XDILUDEC(JTYPE)
+      ENDIF
       DO JI = 1,INI
-        ZPARAM_TYPE(JI,JTYPE) = XDILUDEC(JTYPE) * (ZDECIDUS + 1.1 * ZPHOTON * XPARCF * PSWDIR(JI)       &
+        ZPARAM_TYPE(JI,JTYPE) = ZDILUDEC * (ZDECIDUS + 1.1 * ZPHOTON * XPARCF * PSWDIR(JI)       &
                               + (ZTG_VEG(JI)-XTT)/ZTEMP_VEG - 0.33 * ZFERT(JI))                         &
-                              + (1 - XDILUDEC(JTYPE)) * (1.1 * ZPHOTON * XPARCF * PSWDIR(JI) &
+                              + (1 - ZDILUDEC) * (1.1 * ZPHOTON * XPARCF * PSWDIR(JI) &
                               + (ZTG_VEG(JI)-XTT)/ZTEMP_VEG - 0.33 * ZFERT(JI))
         ZPARAM(JI) = ZPARAM(JI) + ZPARAM_TYPE(JI,JTYPE) * PK%XVEGTYPE_PATCH(JI,JTYPE)
       ENDDO

@@ -208,8 +208,8 @@ DO JP  =  1,IO%NPATCH
     !
     !   ZPALPHAN is needed as input to ISBA_LWNET_MEB
     !
-    ZSNOWDEPTH(:) = SUM(PEK%TSNOW%WSNOW(:,:)/PEK%TSNOW%RHO(:,:),2)
-    ZPALPHAN  (:) = MEBPALPHAN(ZSNOWDEPTH,PEK%XH_VEG(:))
+    ZSNOWDEPTH(1:ISIZE) = SUM(PEK%TSNOW%WSNOW(:,:)/PEK%TSNOW%RHO(:,:),2)
+    ZPALPHAN  (1:ISIZE) = MEBPALPHAN(ZSNOWDEPTH(1:ISIZE),PEK%XH_VEG(:))
     !
     !   ZLWNET_N,ZLWNET_V,ZLWNET_G are needed for ZLW_UP and ZTSRAD_PATCH
     !
@@ -221,14 +221,15 @@ DO JP  =  1,IO%NPATCH
       ZFF   (1:ISIZE) = 0.0
     ENDIF
     !
-    CALL ISBA_LWNET_MEB(PEK%XLAI, PEK%XPSN, ZPALPHAN, PEK%TSNOW%EMIS, &
+    CALL ISBA_LWNET_MEB(PEK%XLAI, PEK%XPSN, ZPALPHAN(1:ISIZE), PEK%TSNOW%EMIS, &
                         ZEMISF(1:ISIZE), ZFF(1:ISIZE),           &
-                        PEK%XTV, PTG1(:,JP), PEK%TSNOW%TS,       &
-                        ZLW_RAD, ZLWNET_N, ZLWNET_V, ZLWNET_G,   &
-                        ZDUMMY, ZDUMMY, ZDUMMY, ZDUMMY, ZDUMMY,ZDUMMY,  &
-                        ZDUMMY, ZDUMMY, ZDUMMY, ZDUMMY, ZDUMMY,ZDUMMY   )
+                        PEK%XTV, PTG1(1:ISIZE,JP), PEK%TSNOW%TS,       &
+                        ZLW_RAD(1:ISIZE), ZLWNET_N(1:ISIZE), ZLWNET_V(1:ISIZE), ZLWNET_G(1:ISIZE),   &
+                        ZDUMMY(1:ISIZE), ZDUMMY(1:ISIZE), ZDUMMY(1:ISIZE), ZDUMMY(1:ISIZE), &
+                        ZDUMMY(1:ISIZE), ZDUMMY(1:ISIZE), ZDUMMY(1:ISIZE), ZDUMMY(1:ISIZE), &
+                        ZDUMMY(1:ISIZE), ZDUMMY(1:ISIZE), ZDUMMY(1:ISIZE), ZDUMMY(1:ISIZE)   )
     !
-    ZLW_UP(:)   = ZLW_RAD(:) - (ZLWNET_V(:) + ZLWNET_G(:) + ZLWNET_N(:))
+    ZLW_UP(1:ISIZE)  = ZLW_RAD(1:ISIZE) - (ZLWNET_V(1:ISIZE) + ZLWNET_G(1:ISIZE) + ZLWNET_N(1:ISIZE))
     !
     !   MEB patch radiative temperature
     !

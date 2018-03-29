@@ -80,7 +80,7 @@ USE MODD_DIAG_MISC_ISBA_n, ONLY : DIAG_MISC_ISBA_t
 USE MODD_SURF_PAR,       ONLY : XUNDEF
 USE MODD_CSTS,           ONLY : XCPD, XDAY, XRHOLW, XLVTT, XLSTT
 USE MODD_MEB_PAR,        ONLY : XSW_WGHT_VIS, XSW_WGHT_NIR
-USE MODD_ISBA_PAR,       ONLY : XRS_MAX
+USE MODD_ISBA_PAR,       ONLY : XRS_MAX, XLIMH
 USE MODD_DATA_COVER_PAR, ONLY : NVT_SNOW
 !
 USE MODD_TYPE_DATE_SURF, ONLY : DATE_TIME
@@ -400,6 +400,8 @@ REAL, DIMENSION(SIZE(PPS))                         :: ZSWNET_S             ! Net
 REAL, DIMENSION(SIZE(PPS))                         :: ZLTT                 ! Average latent heat (normalization factor) (J/kg)
 REAL, DIMENSION(SIZE(PPS))                         :: ZLSTTC               ! Working coefficient to compute ZLTT: frozen part (-)
 REAL, DIMENSION(SIZE(PPS))                         :: ZLVTTC               ! Working coefficient to compute ZLTT: non-frozen part (-)
+REAL, DIMENSION(SIZE(PPS))                         :: ZZREF
+REAL, DIMENSION(SIZE(PPS))                         :: ZUREF
 !
 !
 ! - CPHOTO/=NON (Ags Option(s)):
@@ -726,6 +728,24 @@ ZTHRMB_TG(:)   =  0.0
 ZTHRMA_TV(:)   =  ZWORK(:)
 ZTHRMB_TV(:)   =  0.0
 !
+!
+! For turbulence computations:
+! Adjust (shift upward) local reference heights "seen by the turbulence scheme"
+! if they are below the canopy:
+! NOTE, this approach is an alternative to LFORC_MEASURE=F, which shifts
+! vegetation downward by the displacement height. Both approaches essentially
+! conceptually assume that the vegetation is part of the terrain.
+! Also, here, conserve any UREF and ZREF differences.
+!
+ZZREF(:)       = PZREF(:)
+ZUREF(:)       = PUREF(:)
+IF(IO%LFORC_MEASURE)THEN
+   WHERE(PZREF(:) - PEK%XH_VEG(:) < XLIMH)
+      ZZREF(:) = PEK%XH_VEG(:) + XLIMH
+      ZUREF(:) = PEK%XH_VEG(:) + XLIMH + MAX(0.,PUREF(:)-PZREF(:))
+   END WHERE
+ENDIF
+!
 ! Compute the average latent heat (normalization factor) (J kg-1):
 ! NOTE that we could use a function which depends on the different resistances,
 ! but this can make the average latent heat relatively noisy(leading to a slightly less
@@ -779,7 +799,7 @@ LOOP_TIME_SPLIT_EB: DO JDT=1,JTSPLIT_EB
                  PRHOA, PZ0G_WITHOUT_SNOW, PZ0_MEBV, PZ0H_MEBV,      &
                  PZ0EFF_MEBV, PZ0_MEBN, PZ0H_MEBN, PZ0EFF_MEBN,      &
                  ZSNOWSWE(:,1), ZCHIP, ZTSTEP, ZRS, ZRSN, PPALPHAN,  &
-                 PZREF, PUREF, PDIRCOSZW, ZPSNCV, ZDELTA, ZVELC,     &
+                 ZZREF, ZUREF, PDIRCOSZW, ZPSNCV, ZDELTA, ZVELC,     &
                  PRISNOW, ZUSTAR2SNOW, ZHUGI, ZHVG,                  &
                  ZHVN, ZLEG_DELTA, ZLEGI_DELTA, ZHSGL, ZHSGF,        &
                  ZFLXC_CA, ZFLXC_N_A, ZFLXC_GV, ZFLXC_GN,            &
@@ -854,6 +874,7 @@ CALL AVG_FLUXES_MEB_TSPLIT     ! average fluxes over time split
 CALL SNOW_LOAD_MEB(PK, PEK, DEK, PTSTEP, PSR, ZWRVNMAX, ZKVN, ZCHEATV, ZMELTVN, &
                    ZVELC, PSUBVCOR)
 !
+
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !
 !*     9.0    Snow explicit canopy loading/interception
@@ -897,8 +918,8 @@ ZVEGFACT(:) = ZSIGMA_F(:)*(1.0-PPALPHAN(:)*PEK%XPSN(:))
  CALL SNOW3L_ISBA(IO, G, PK, PEK, DK, DEK, DMK, OMEB, HIMPLICIT_WIND,       &
                   TPTIME, PTSTEP, PK%XVEGTYPE_PATCH,  ZTGL, ZCTSFC,         &
                   ZSOILHCAPZ, ZSOILCONDZ(:,1), PPS, PTA, PSW_RAD, PQA,      &
-                  PVMOD, PLW_RAD, ZRRSFC, DEK%XSR_GN, PRHOA, PUREF, PEXNS,  &
-                  PEXNA, PDIRCOSZW, PZREF, ZALBG, ZD_G, ZDZG, PPEW_A_COEF,  &
+                  PVMOD, PLW_RAD, ZRRSFC, DEK%XSR_GN, PRHOA, ZUREF, PEXNS,  &
+                  PEXNA, PDIRCOSZW, ZZREF, ZALBG, ZD_G, ZDZG, PPEW_A_COEF,  &
                   PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF,       &
                   PPEQ_B_COEF, PSNOW_THRUFAL, PGRNDFLUX, PFLSN_COR,         &
                   PRESTOREN, PEVAPCOR, DEK%XLES, DEK%XLESL, ZEVAP3L, PSNOWSFCH, &
@@ -1362,8 +1383,8 @@ ZDSGRAIN(:) = SNOW3LDOPT(PSNOWRHO(:,1),ZAGE)
 ! ----------------------------------------
 ! For now, consider just 2 bands with MEB, so renormalize:
 
-ZSPECTRALALBEDO(:,1) = ZSPECTRALALBEDO(:,1)
 ZSPECTRALALBEDO(:,2) = (PEK%TSNOW%ALB(:) - XSW_WGHT_VIS*ZSPECTRALALBEDO(:,1))/XSW_WGHT_NIR
+ZSPECTRALALBEDO(:,3) = XUNDEF
 !
 ! Adjust thickness to be as in snow computations:
 !
@@ -1396,11 +1417,9 @@ END SUBROUTINE SNOWALB_SPECTRAL_BANDS_MEB
 !     decay of radiation with increasing snow depth).
 !
 USE MODD_SURF_PAR, ONLY : XUNDEF
-USE MODD_SNOW_PAR, ONLY : XVSPEC1,XVSPEC2,XVSPEC3,XVBETA1,XVBETA2, &
-                          XVBETA4,XVBETA3,XVBETA5, XMINCOSZEN
 USE MODD_MEB_PAR,  ONLY : XSW_WGHT_VIS, XSW_WGHT_NIR
 !
-USE MODE_SNOW3L,   ONLY : SNOW3LDOPT
+USE MODE_SNOW3L,   ONLY : SNOW3LDOPT, SNOW3LRADABS_SFC
 !
 IMPLICIT NONE
 !
@@ -1423,11 +1442,7 @@ INTEGER                              :: JJ, JI
 INTEGER                              :: INJ
 INTEGER                              :: INLVLS
 !
-REAL, DIMENSION(SIZE(PSNOWRHO,1))    :: ZRADTOT, ZPROJLAT, ZCOSZEN
-REAL, DIMENSION(SIZE(PSNOWRHO,1))    :: ZOPTICALPATH1, ZOPTICALPATH2, ZOPTICALPATH3
-!
 REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZDSGRAIN, ZCOEF, ZSNOWDZ, ZAGE
-REAL, DIMENSION(SIZE(PSNOWRHO,1),SIZE(PSNOWRHO,2)) :: ZBETA1, ZBETA2, ZBETA3, ZWORK
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !-------------------------------------------------------------------------------
@@ -1458,17 +1473,6 @@ ZSNOWDZ(:,:) = MAX(PSNOWDZMIN, PSNOWDZ(:,:))
 ! SNOWCVEXT => from Bohren and Barkstrom 1974
 ! SNOWAGRAIN and SNOWBGRAIN=> from Jordan 1976)
 !
-! Coefficient for taking into account the increase of path length of rays
-! in snow due to zenithal angle
-!
-ZCOSZEN(:)=MAX(XMINCOSZEN,COS(PZENITH(:)))
-!
-! This formulation is incorrect but it compensate partly the fact that
-! the albedo formulation does not account for zenithal angle.
-! Only for polar or glacier regions
-!
-ZPROJLAT(:)=(1.0-PPERMSNOWFRAC(:))+PPERMSNOWFRAC(:)/ZCOSZEN(:)
-!
 ! Snow optical grain diameter (no age dependency over polar regions):
 !
 ZAGE(:,:) = 0.
@@ -1482,29 +1486,8 @@ ENDDO
 !
 ZDSGRAIN(:,:) = SNOW3LDOPT(PSNOWRHO,ZAGE)
 !
-! Extinction coefficient from Brun et al. (1989):
-!
-ZWORK(:,:)=SQRT(ZDSGRAIN(:,:))
-!
-ZBETA1(:,:)=MAX(XVBETA1*PSNOWRHO(:,:)/ZWORK(:,:),XVBETA2)
-ZBETA2(:,:)=MAX(XVBETA3*PSNOWRHO(:,:)/ZWORK(:,:),XVBETA4)
-ZBETA3(:,:)=XVBETA5
-!
-ZOPTICALPATH1(:) = 0.0
-ZOPTICALPATH2(:) = 0.0
-ZOPTICALPATH3(:) = 0.0
-!
-DO JJ=1,INLVLS
-   DO JI=1,INJ
-      !
-         ZOPTICALPATH1(JI) = ZOPTICALPATH1(JI) + ZBETA1(JI,JJ)*ZSNOWDZ(JI,JJ)
-         ZOPTICALPATH2(JI) = ZOPTICALPATH2(JI) + ZBETA2(JI,JJ)*ZSNOWDZ(JI,JJ)
-
-         ZCOEF (JI,JJ) = XSW_WGHT_VIS*(1.0-PSPECTRALALBEDO(JI,1))*EXP(-ZOPTICALPATH1(JI)*ZPROJLAT(JI)) &
-                       + XSW_WGHT_NIR*(1.0-PSPECTRALALBEDO(JI,2))*EXP(-ZOPTICALPATH2(JI)*ZPROJLAT(JI))
-
-   ENDDO
-ENDDO
+ZCOEF(:,:)    = SNOW3LRADABS_SFC(PSNOWRHO,ZSNOWDZ,PSPECTRALALBEDO,   &
+                                 PZENITH,PPERMSNOWFRAC,ZDSGRAIN)
 !
 ! 3. Radiation trans at base of each layer
 ! ----------------------------------
@@ -1674,14 +1657,14 @@ REAL, PARAMETER                       :: Z3 = 0.03       !coeff for litter condu
 REAL, PARAMETER                       :: Z4 = 0.95       !litter porosity       (m3/m3)
 REAL, PARAMETER                       :: Z5 = 0.12       !litter field capacity (m3/m3)
 !
-REAL, DIMENSION(SIZE(PEK%XWG))        :: ZWORK
+REAL, DIMENSION(SIZE(PEK%XWG,1))      :: ZWORK
 !
 !-------------------------------------------------------------------------------
 !
 IF (LHOOK) CALL DR_HOOK('ISBA_MEB:PREP_MEB_SOIL',0,ZHOOK_HANDLE)
 !
-INJ  = SIZE(PEK%XTG,1)
-INL  = SIZE(PEK%XTG,2)
+INJ  = SIZE(PK%XDG,1)
+INL  = SIZE(PK%XDG,2)
 !
 ZWORK(:) = 0.0
 IF(OMEB_LITTER)THEN
@@ -1698,7 +1681,7 @@ IF(OMEB_LITTER)THEN
 
    DO JL=1,INL
       DO JJ=1,INJ
-         PTGL(JJ,JL+1)        = PEK%XTG(JJ,JL)
+         PTGL(JJ,JL+1)        = PEK%XTG(JJ,MIN(JL,SIZE(PEK%XTG,2)))
          PSOILHCAPL(JJ,JL+1)  = PSOILHCAPZ(JJ,JL)
          PSOILCONDL(JJ,JL+1)  = PSOILCONDZ(JJ,JL)
          PWSATL(JJ,JL+1)      = KK%XWSAT(JJ,JL)
@@ -1786,8 +1769,11 @@ IF (LHOOK) CALL DR_HOOK('ISBA_MEB:ICE_LITTER',0,ZHOOK_HANDLE)
 ! Initialization:
 ! ---------------
 !
-!
-INL = MAXVAL(KWG_LAYER(:))
+IF (SIZE(KWG_LAYER)>0) THEN
+  INL = MAXVAL(KWG_LAYER(:))
+ELSE
+  INL = SIZE(PEK%XWG,2)
+ENDIF
 !
 ZEXCESS(:)  = 0.0
 ZPHASEC(:)  = 0.0

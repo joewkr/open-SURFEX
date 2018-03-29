@@ -172,7 +172,7 @@ IF(HISBA =='DIF')THEN
         ZROOTFRACN = PK%XROOTFRAC(JJ,JL) - PK%XROOTFRAC(JJ,JL-1)
 !
 !       Calculate the soil water stress factor for each layer:
-        PF2WGHT(JJ,JL) = (PEK%XWG(JJ,JL)-KK%XWWILT(JJ,1))/(KK%XWFC(JJ,1)-KK%XWWILT(JJ,1))
+        PF2WGHT(JJ,JL) = (PEK%XWG(JJ,JL)-KK%XWWILT(JJ,JL))/(KK%XWFC(JJ,JL)-KK%XWWILT(JJ,JL))
 !
 !       Normalize the transpiration weights by root fraction:
         PF2WGHT(JJ,JL) = ZROOTFRACN*MAX(0.0,MIN(1.0,PF2WGHT(JJ,JL)))

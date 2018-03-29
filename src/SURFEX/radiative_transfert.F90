@@ -63,11 +63,12 @@ USE MODD_CSTS,           ONLY : XI0                              ! Solar constan
 USE MODD_CO2V_PAR,       ONLY : XPARCF, XLAI_SHADE,            &
                                 XXB_SUP, XXB_INF,              & ! sigma parameter in clumping (Table 1, eq4)
                                 XSSA_SUP, XSSA_INF,            & ! single scatering albedo (PAR)
-                                XSSA_SUP_PIR, XSSA_INF_PIR       ! single scatering albedo (NIR)
+                                XSSA_SUP_PIR, XSSA_INF_PIR,    & ! single scatering albedo (NIR)
+                                ITRANSFERT_ESG
 !
 USE MODD_DATA_COVER_PAR, ONLY : NVT_C3, NVT_C4, &
                                 NVT_IRR, NVT_GRAS, &
-                                NVT_C3W, NVT_C3S
+                                NVT_C3W, NVT_C3S, NVEGTYPE, NVEGTYPE_ECOSG
 !
 USE MODD_SURF_PAR,       ONLY : XUNDEF
 !
@@ -124,7 +125,7 @@ REAL, DIMENSION(SIZE(PLAI)) :: ZIA, ZLAI, ZLAI_EFF, ZXMUS, ZFD_SKY
 !                                ZXMUS = cosine of solar zenith angle
 !                                ZFD_SKY = fraction of diffuse radiation in sky
 REAL,    DIMENSION(SIZE(PLAI)) :: ZB_INF, ZB_SUP
-INTEGER, DIMENSION(1)          :: IDMAX
+INTEGER, DIMENSION(1)          :: IDMAX, IDMAX2
 REAL                           :: ZTAU, ZRATIO
 !                               ZTAU = exp(-aerosol optical depth taken as 0.1)
 !                               ZRATIO = clearness index K_t eq.1 from Carrer et al
@@ -146,12 +147,13 @@ OSHADE(:)= .TRUE.
 DO JJ = 1, SIZE(PLAI)
 ! CD value calculated for patch with largest fraction ?
   IDMAX = MAXLOC(PVEGTYPE(JJ,:))
-  IF(OAGRI_TO_GRASS.AND. &
-      (IDMAX(1)==NVT_C3 .OR. IDMAX(1)==NVT_C3W .OR. IDMAX(1)==NVT_C3S .OR. IDMAX(1)==NVT_C4 .OR. IDMAX(1)==NVT_IRR)) &
-        IDMAX(1)=NVT_GRAS
-  IF (PLAI(JJ).LT.XLAI_SHADE(IDMAX(1))) OSHADE(JJ) = .FALSE.
-  ZB_INF(JJ) = XXB_INF(IDMAX(1))
-  ZB_SUP(JJ) = XXB_SUP(IDMAX(1))
+  IF(OAGRI_TO_GRASS.AND. (IDMAX(1)==NVT_C3 .OR. IDMAX(1)==NVT_C3W .OR. &
+        IDMAX(1)==NVT_C3S .OR. IDMAX(1)==NVT_C4 .OR. IDMAX(1)==NVT_IRR)) IDMAX(1) = NVT_GRAS
+  IDMAX2(1) = IDMAX(1)
+  IF (NVEGTYPE==NVEGTYPE_ECOSG) IDMAX2(1) = ITRANSFERT_ESG(IDMAX(1))
+  IF (PLAI(JJ).LT.XLAI_SHADE(IDMAX2(1))) OSHADE(JJ) = .FALSE.
+  ZB_INF(JJ) = XXB_INF(IDMAX2(1))
+  ZB_SUP(JJ) = XXB_SUP(IDMAX2(1))
 ENDDO
 !
 !to consider all the tickness of the canopy

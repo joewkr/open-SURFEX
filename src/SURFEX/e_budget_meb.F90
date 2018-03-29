@@ -632,7 +632,6 @@ ZCOEFD_TC(:) =(PFLXC_N_C(:)*PTHRMA_TN(:)*PEK%XPSN(:)*(1.0-PPSNA(:)) +           
 
 !-  Canopy air q coefs, where : QC = COEFA_QC + COEFB_QC*TV + COEFC_QC*TG + COEFD_QC*TN
 
-
 ZWORK(:)       = PFLXC_C_A(:) *(1.-ZPEQ_A_COEF_P(:))*ZPSNAG(:)                                      &
                    + PFLXC_V_C(:)* ZHVS(:)                                                          &
                    + PFLXC_G_C(:) *ZHN(:) *(1.0-PEK%XPSN(:))                                       &
@@ -665,17 +664,17 @@ ZRNET_N_DTNN(:) = PLWNET_N_DTN(:)            *ZWORK(:)
 ZRNET_N_DTGN(:) = PLWNET_N_DTG(:)            *ZWORK(:)
 ZRNET_N_DTVN(:) = PLWNET_N_DTV(:)            *ZWORK(:)
 
-
 ! Tv coefs, where TV = BETA_V + ALPHA_V*TG + GAMMA_V*TN
 
+!
 ZWORK(:)    =   (PCHEATV(:)/PTSTEP) - PLWNET_V_DTV(:)                                               &
-              + PFLXC_V_C(:)*(PTHRMA_TV(:) - PTHRMA_TC(:)*ZCOEFB_TC(:)                              &
+              + PFLXC_V_C(:) * ( PTHRMA_TV(:) - PTHRMA_TC(:)*ZCOEFB_TC(:)                           &
               + PLTT(:)*ZHVS(:)*(PDQSAT_V(:) - ZCOEFB_QC(:)) )
 
 ZBETA_V(:)  = ( (PCHEATV(:)/PTSTEP)*ZTVO(:) + DEK%XLWNET_V(:) + DEK%XSWNET_V(:)                  &
-              - PLWNET_V_DTV(:)*ZTVO(:) - PLWNET_V_DTG(:)*ZTGO(:,1) - PLWNET_V_DTN(:)*ZTNO(:,1)     &
-              - PFLXC_V_C(:)*( PTHRMB_TV(:)-PTHRMB_TC(:)-PTHRMA_TC(:)*ZCOEFA_TC(:)                  &
-              + PLTT(:)*ZHVS(:)*(PQSAT_V(:) - PDQSAT_V(:)*ZTVO(:)                                     &
+              - PLWNET_V_DTV(:)*ZTVO(:) - PLWNET_V_DTG(:)*ZTGO(:,1) - PLWNET_V_DTN(:)*ZTNO(:,1)  &
+              - PFLXC_V_C(:)*( PTHRMB_TV(:)-PTHRMB_TC(:)-PTHRMA_TC(:)*ZCOEFA_TC(:)               &
+              + PLTT(:)*ZHVS(:)*(PQSAT_V(:) - PDQSAT_V(:)*ZTVO(:)                                &
               - ZCOEFA_QC(:)) ) )/ZWORK(:)
 
 ZALPHA_V(:) = (PLWNET_V_DTG(:) + PFLXC_V_C(:)*(PTHRMA_TC(:)*ZCOEFC_TC(:)                            &
@@ -816,7 +815,6 @@ ELSEWHERE ! snow free canopy-understory case:
 !   ZRESTOREN(:)  = 0.0
 
 END WHERE
-!
 !
 !*       8.     Solve for sub-surface test snow temperature profile
 !               -----------------------------------------------------------------------------

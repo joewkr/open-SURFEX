@@ -58,15 +58,12 @@ CONTAINS
 !*    0.     DECLARATION
 !            -----------
 !
-USE MODD_SURF_PAR,       ONLY : XUNDEF
+USE MODD_SURF_PAR,       ONLY : XUNDEF, NUNDEF
 USE MODD_DATA_COVER_PAR, ONLY : NVT_TEBD, NVT_BONE, NVT_TRBE, NVT_TRBD, NVT_TEBE,  &
                                 NVT_TENE, NVT_BOBD, NVT_BOND, NVT_SHRB, NVEGTYPE,  &
                                 XCDREF
-
 !
 USE MODI_VEGTYPE_TO_PATCH
-!
-!
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
@@ -261,9 +258,14 @@ SELECT CASE (HATYPE)
         JP= PATCH_LIST(JV)
         IF (JP/=KPATCH) CYCLE
         IMASK = KMASK(JJ)
-        ZCOUNT(NINT(PDATA(IMASK,JV))) = ZCOUNT(NINT(PDATA(IMASK,JV))) + ZWEIGHT(JJ,JV)
+        IF (NINT(PDATA(IMASK,JV))/=NUNDEF) &
+                ZCOUNT(NINT(PDATA(IMASK,JV))) = ZCOUNT(NINT(PDATA(IMASK,JV))) + ZWEIGHT(JJ,JV)
       ENDDO
-      ZWORK(JJ) = FLOAT(MAXLOC(ZCOUNT,1))
+      IF (ALL(ZCOUNT(:)==0.)) THEN
+        ZWORK(JJ) = NUNDEF
+      ELSE
+        ZWORK(JJ) = FLOAT(MAXLOC(ZCOUNT,1))
+      ENDIF
     END DO
 !
 !-------------------------------------------------------------------------------

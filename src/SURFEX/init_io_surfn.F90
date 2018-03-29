@@ -72,6 +72,9 @@ USE MODI_INIT_IO_SURF_TXT_n
 #ifdef SFX_MNH
 USE MODI_MNHINIT_IO_SURF_n
 #endif
+#ifdef SFX_ARO
+USE MODI_AROINIT_IO_SURF_n
+#endif
 !
 #ifdef WXIOS
 USE MODD_XIOS, ONLY : YXIOS_DOMAIN
@@ -82,9 +85,6 @@ USE PARKIND1  ,ONLY : JPRB
 !
 IMPLICIT NONE
 !
-#ifdef SFX_ARO
-#include "aroinit_io_surf_n.h"
-#endif
 !
 !*       0.1   Declarations of arguments
 !              -------------------------

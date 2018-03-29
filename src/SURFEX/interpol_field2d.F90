@@ -172,7 +172,7 @@ IF (IERR2>0) THEN
   !
   IF (.NOT.PRESENT(PDEF) .OR. (INEAR_NBR<U%NDIM_FULL .AND. IERR2/=IERR0)) &
           CALL ABOR1_SFX('Some points lack data and are too far away from other points. &
-               &Please define a higher halo value in NAM_IO_OFFLINE.')
+                Please define a higher halo value in NAM_IO_OFFLINE.')
   !
 ENDIF
 !

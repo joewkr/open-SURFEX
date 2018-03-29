@@ -216,13 +216,14 @@ IF (NRANK==NPIO) THEN
     ENDDO
     ALLOCATE(ZWORK(IDIMLEN(1)*IDIMLEN(2)))
     !
+    ALLOCATE(ISTART(INDIMS))
+    ALLOCATE(ICOUNT(INDIMS))
+    !
     ! 2. Get variable
     !----------------------------
     IF  (LPARTR) THEN
       ! write partially a time-matrix.
       ! Have to find which of the dimension is the time dimension
-      ALLOCATE(ISTART(INDIMS))
-      ALLOCATE(ICOUNT(INDIMS))
       ALLOCATE(ISTRIDE(INDIMS))
       DO  JDIM=1,INDIMS
         IRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),NAME=YOUT)
@@ -247,20 +248,26 @@ IF (NRANK==NPIO) THEN
         DEALLOCATE(ZTAB_1D4)
       ENDIF
 
-      DEALLOCATE(ISTART)
-      DEALLOCATE(ICOUNT)
       DEALLOCATE(ISTRIDE)
 
     ELSE
+
+      ISTART(:) = 1
+      ICOUNT(1:INDIMS) = IDIMLEN(1:INDIMS)
+
       IF (ITYPE==NF90_DOUBLE) THEN
-        IRET(1)=NF90_GET_VAR(IFILE_ID,IVAR_ID,ZWORK)
+        IRET(1)=NF90_GET_VAR(IFILE_ID,IVAR_ID,ZWORK,ISTART,ICOUNT)
       ELSEIF (ITYPE==NF90_FLOAT) THEN
         ALLOCATE(ZTAB_1D4(IDIMLEN(1)*IDIMLEN(2)))
-        IRET(1)=NF90_GET_VAR(IFILE_ID,IVAR_ID,ZTAB_1D4)
+        IRET(1)=NF90_GET_VAR(IFILE_ID,IVAR_ID,ZTAB_1D4,ISTART,ICOUNT)
         ZWORK(:) = ZTAB_1D4(:)
         DEALLOCATE(ZTAB_1D4)
       ENDIF
+
     ENDIF
+    !
+    DEALLOCATE(ISTART)
+    DEALLOCATE(ICOUNT)
     !
   ENDIF
   !
@@ -379,13 +386,14 @@ IF (NRANK==NPIO) THEN
       JRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
     ENDDO
     !
+    ALLOCATE(ISTART(INDIMS))
+    ALLOCATE(ICOUNT(INDIMS))
+    !
     ! 2. Get variable
     !----------------------------
     IF (LPARTR) THEN
       ! write partially a time-matrix.
       ! Have to find which of the dimension is the time dimension
-      ALLOCATE(ISTART(INDIMS))
-      ALLOCATE(ICOUNT(INDIMS))
       ICOUNT(:) = 1.
       ALLOCATE(ISTRIDE(INDIMS))
       DO JDIM=1,INDIMS
@@ -411,11 +419,13 @@ IF (NRANK==NPIO) THEN
         ZWORK2(:,:) = ZTAB_2D4(:,:)
         DEALLOCATE(ZTAB_2D4)
       ENDIF
-      DEALLOCATE(ISTART)
-      DEALLOCATE(ICOUNT)
       DEALLOCATE(ISTRIDE)
 
     ELSE
+
+      ISTART(:) = 1
+      ICOUNT(1:INDIMS) = IDIMLEN(1:INDIMS)
+
       ALLOCATE(ZWORK2(PRODUCT(IDIMLEN(1:INDIMS-1)),IDIMLEN(INDIMS)))
       IF (ITYPE==NF90_DOUBLE) THEN
         IRET(2)=NF90_GET_VAR(IFILE_ID,IVAR_ID,ZWORK2)
@@ -426,6 +436,9 @@ IF (NRANK==NPIO) THEN
         DEALLOCATE(ZTAB_2D4)
       ENDIF
     ENDIF
+
+    DEALLOCATE(ISTART)
+    DEALLOCATE(ICOUNT)
 
   ENDIF
 
@@ -542,13 +555,14 @@ IF (NRANK==NPIO) THEN
       JRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),LEN=IDIMLEN(JDIM))
     ENDDO
     !
+    ALLOCATE(ISTART(INDIMS))
+    ALLOCATE(ICOUNT(INDIMS))
+    !
     ! 2. Get variable
     !----------------------------
     IF (LPARTR) THEN
       ! write partially a time-matrix.
       ! Have to find which of the dimension is the time dimension
-      ALLOCATE(ISTART(INDIMS))
-      ALLOCATE(ICOUNT(INDIMS))
       ALLOCATE(ISTRIDE(INDIMS))
       DO  JDIM=1,INDIMS
         IRET=NF90_INQUIRE_DIMENSION(IFILE_ID,IDIMIDS(JDIM),NAME=YOUT)
@@ -574,11 +588,13 @@ IF (NRANK==NPIO) THEN
         ZWORK3(:,:,:) = ZTAB_3D4(:,:,:)
         DEALLOCATE(ZTAB_3D4)
       ENDIF
-      DEALLOCATE(ISTART)
-      DEALLOCATE(ICOUNT)
       DEALLOCATE(ISTRIDE)
       !
     ELSE
+
+      ISTART(:) = 1
+      ICOUNT(1:INDIMS) = IDIMLEN(1:INDIMS)
+
       ALLOCATE(ZWORK3(IDIMLEN(1),IDIMLEN(2),IDIMLEN(3)))
       IF (ITYPE==NF90_DOUBLE) THEN
         IRET(2)=NF90_GET_VAR(IFILE_ID,IVAR_ID,ZWORK3)
@@ -588,7 +604,11 @@ IF (NRANK==NPIO) THEN
         ZWORK3(:,:,:) = ZTAB_3D4(:,:,:)
         DEALLOCATE(ZTAB_3D4)
       ENDIF
+
     ENDIF
+    !
+    DEALLOCATE(ISTART)
+    DEALLOCATE(ICOUNT)
     !
   ENDIF
   !

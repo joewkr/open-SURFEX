@@ -176,7 +176,7 @@ ENDIF
 !*       2.    Presence of snow fields in the file
 !              -----------------------------------
 !
-IF (KPATCH>0.AND.GDIM) THEN
+IF (KPATCH>0.AND.GDIM2) THEN
   WRITE(YPAT,'(I2)') KPATCH
   YPAT = "P"//ADJUSTL(YPAT)
   IPAT_LEN = LEN_TRIM(ADJUSTL(YPAT))

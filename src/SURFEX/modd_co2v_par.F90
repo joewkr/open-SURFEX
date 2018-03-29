@@ -51,6 +51,8 @@
 !                           *** First, CO2 parameters ***
 !                               ---------------------
 !
+USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE_OLD, NVEGTYPE_ECOSG
+!
 IMPLICIT NONE
 !
 REAL, PARAMETER                      :: XSPIN_CO2 = 0.1
@@ -205,7 +207,7 @@ REAL, PARAMETER               :: XCOEFF_MAINT_RESP_ZERO = 1.19E-4/86400.
 REAL, PARAMETER               :: XSLOPE_MAINT_RESP = 0.16
 !                                slope for maintenance respiration for temperature dependance (1/C)
 !
-REAL, PARAMETER, DIMENSION(19) :: XTAU_WOOD = &
+REAL, PARAMETER, DIMENSION(NVEGTYPE_OLD) :: XTAU_WOOD = &
         (/ 0., 0., 0., 40.*365.*86400., 50.*365.*86400., 30.*365.*86400., 0., 0., 0., 0., &
            0., 0., 40.*365.*86400., 40.*365.*86400., 50.*365.*86400., 40.*365.*86400.,    &
            50.*365.*86400., 0., 40.*365.*86400. /)
@@ -249,20 +251,20 @@ REAL, PARAMETER                      :: XXSI_SUP = 2.  ! hight/diameter ratio of
 REAL, PARAMETER                      :: XK_INF   = 1.  ! k_sup = 2*tan(zc); where zc is the crown angle
 REAL, PARAMETER                      :: XXSI_INF = 7.  ! height/diameter ratio of the crown
 !
-REAL, PARAMETER, DIMENSION(19) :: XLAI_SHADE = &       ! above this value shading is activated
+REAL, PARAMETER, DIMENSION(NVEGTYPE_OLD) :: XLAI_SHADE = &       ! above this value shading is activated
            (/ 0., 0., 0., 2., 3., 6., 2., 2., 2., 2., 2., 2., 2., 2., 3., 2., 3., 2., 2. /)
-REAL, PARAMETER, DIMENSION(19) :: XXB_SUP = &       ! b_sup = 1/omega_sup(zs=0) -1 calibration avec omega_sup(zs=0)=0.5
+REAL, PARAMETER, DIMENSION(NVEGTYPE_OLD) :: XXB_SUP = &       ! b_sup = 1/omega_sup(zs=0) -1 calibration avec omega_sup(zs=0)=0.5
            (/ 1., 1., 1., 1., 2., 3., 2., 2., 2., 2., 2., 2., 1., 1., 2., 1., 2., 2., 1. /)
-REAL, PARAMETER, DIMENSION(19) :: XXB_INF = &       ! b_sup = 1/omega_sup(zs=0) -1 calibration avec omega_sup(zs=0)=0.5
+REAL, PARAMETER, DIMENSION(NVEGTYPE_OLD) :: XXB_INF = &       ! b_sup = 1/omega_sup(zs=0) -1 calibration avec omega_sup(zs=0)=0.5
            (/ 1., 1., 1., 4., 2., 4., 1., 1.5, 1.5, 1., 1., 1., 4., 4., 2., 4., 2., 1., 4. /)
 !
 ! (Calvet et al. 2008) coefs for ratio of biomass to LAI with representation of nitrogen dilution fct of CO2
-REAL, PARAMETER, DIMENSION(19) :: XPARAM = &
-(/ 0., 0., 0., 2.56, 1.81, 1.81, 1.48, 1.48, 1.48, 1.81, 1.81, 1.81, 2.56, 2.56, 1.81, 2.56, &
-  1.81, 1.81, 2.56 /)
+!REAL, PARAMETER, DIMENSION(NVEGTYPE_OLD) :: XPARAM = &
+!(/ 0., 0., 0., 2.56, 1.81, 1.81, 1.48, 1.48, 1.48, 1.81, 1.81, 1.81, 2.56, 2.56, 1.81, 2.56, &
+!  1.81, 1.81, 2.56 /)
 !
 ! Kronecker flag for nitrogen dilution hypothesis (based on Yin et al., 2002)
-REAL, PARAMETER, DIMENSION(19) :: XDILUDEC = &
+REAL, PARAMETER, DIMENSION(NVEGTYPE_OLD) :: XDILUDEC = &
 (/ 0., 0., 0., 1., 0., 0., 1., 1., 1., 1., 1., 0., 1., 0., 0., 1., 1., 0., 1. /)
 !
 ! Maximum Leaf photosynthetic capacity (kgCO2 m-2 s-1)
@@ -270,10 +272,13 @@ REAL, PARAMETER, DIMENSION(19) :: XDILUDEC = &
 ! For C3 PFTs : Ammax = Vcmax / 2.     (Jacobs, p 150)
 ! For C4 PFTs : Ammax = Vcmax
 ! Units : [Vcmax]=micromols_CO2 m-2 s-1, [Ammax]=kgCO2 m-2 s-1 --> [Ammax] = [Vcmax] * 44e-3 * 1e-6
-REAL, PARAMETER, DIMENSION(19) :: XAMAX   = &
+REAL, PARAMETER, DIMENSION(NVEGTYPE_OLD) :: XAMAX   = &
 (/ 1., 1., 1., 1.3E-6, 1.4E-6, 0.484E-6, 2.2E-6, 1.7E-6, 1.7E-6, 1.7E-6, 1.7E-6, 1.7E-6, &
    0.9E-6, 1.3E-6, 1.4E-6, 1.3E-6, 0.9E-6, 1.7E-6, 1.2E-6/)
 !
+INTEGER, PARAMETER, DIMENSION(NVEGTYPE_ECOSG) :: ITRANSFERT_ESG = &
+        (/1,2,3,16,4,13,14,6,5,15,17,19,18,10,11,7,7,8,4,12/)
+
 END MODULE MODD_CO2V_PAR
 
 

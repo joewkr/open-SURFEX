@@ -51,15 +51,16 @@ USE MODI_CLOSE_WRITE_COVER_TEX_LFI
 #ifdef SFX_MNH
 USE MODI_MNHCLOSE_WRITE_COVER_TEX
 #endif
+#ifdef SFX_ARO
+USE MODI_AROCLOSE_WRITE_COVER_TEX
+#endif
+
 !
 USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
 USE PARKIND1  ,ONLY : JPRB
 !
 IMPLICIT NONE
 !
-#ifdef SFX_ARO
-#include "aroclose_write_cover_tex.h"
-#endif
 !
 !*    0.1    Declaration of arguments
 !            ------------------------
