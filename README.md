@@ -27,12 +27,19 @@ To build Open-SURFEX with bundled NetCDF and GRIB API libraries use the followin
 > cmake --build .
 ```
 
+To speed-up the compilation process on a multi-core machine, the required flags could be passed in the following form:
+```shell
+> # In case of cmake 'Unix Makefiles' generator.
+> cmake --build . -- -j<number parallel make processes>
+```
+
 To build Open-SURFEX using system-provided NetCDF and GRIB API libraries:
 ```shell
 > mkdir build && cd build
 > cmake .. -DBUILD_NETCDF=OFF -DBUILD_GRIB_API=OFF
 > cmake --build .
 ```
+
 If NetCDF and GRIB API libraries are installed in non-standard locations, e.g. when Environment Modules are used, this information should be provided to `cmake` in the following form:
 ```shell
 cmake .. -DBUILD_NETCDF=OFF -DBUILD_GRIB_API=OFF -DNETCDF_DIR=<path to NetCDF> -DGRIB_API_DIR=<path to GRIB API>
