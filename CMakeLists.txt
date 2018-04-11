@@ -174,5 +174,5 @@ foreach(item ${FORTRAN_PROGRAMS})
   add_executable(${current} "${item}")
   set_target_properties(${current} PROPERTIES OUTPUT_NAME "${program_name}")
   target_link_libraries(${current} surfex-static)
-
+  install(TARGETS ${current} DESTINATION bin)
 endforeach(item)
