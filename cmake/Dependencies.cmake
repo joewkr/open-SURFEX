@@ -1,6 +1,25 @@
 
 include(ExternalProject)
 
+function(generate_install_targets)
+    cmake_parse_arguments(PARSED_ARGS "" "" "EXTERNAL_PROJECTS" ${ARGN})
+    foreach(item ${PARSED_ARGS_EXTERNAL_PROJECTS})
+        ExternalProject_get_property(${item} binary_dir)
+        ExternalProject_get_property(${item} source_dir)
+
+        ExternalProject_add_Step(${item} final_install
+            COMMAND
+                ${CMAKE_COMMAND} -E chdir ${binary_dir}
+                ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/surfex ${source_dir}
+            COMMAND ${CMAKE_COMMAND} --build ${binary_dir} --target install
+            EXCLUDE_FROM_MAIN YES
+            )
+        ExternalProject_add_StepTargets(${item} final_install)
+
+        install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} --build . --target ${item}-final_install)")
+    endforeach(item)
+endfunction(generate_install_targets)
+
 if(${ENABLE_MPI})
     find_package(MPI REQUIRED COMPONENTS Fortran)
 endif(${ENABLE_MPI})
@@ -70,6 +89,7 @@ if(${BUILD_NETCDF})
     set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
         INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
 
+    generate_install_targets(EXTERNAL_PROJECTS HDF5 NetCDF_C NetCDF_Fortran)
 else(${BUILD_NETCDF})
     find_package(NetCDF REQUIRED COMPONENTS F90)
 endif(${BUILD_NETCDF})
@@ -105,6 +125,8 @@ if(${BUILD_GRIB_API})
         IMPORTED_LOCATION "${install_dir}/lib/libgrib_api_f90.so")
     set_property(TARGET grib_api::grib_api_Fortran PROPERTY
         INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
+
+    generate_install_targets(EXTERNAL_PROJECTS grib_api)
 else(${BUILD_GRIB_API})
     find_package(grib_api REQUIRED)
 endif(${BUILD_GRIB_API})

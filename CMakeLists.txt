@@ -37,6 +37,8 @@ else()
   message(FATAL_ERROR "Unable to load config ${CONFIG_FILE}")
 endif()
 
+include(GNUInstallDirs)
+
 include(Dependencies)
 include(InspectSources)
 
@@ -175,4 +177,6 @@ foreach(item ${FORTRAN_PROGRAMS})
   set_target_properties(${current} PROPERTIES OUTPUT_NAME "${program_name}")
   target_link_libraries(${current} surfex-static)
   install(TARGETS ${current} DESTINATION bin)
+  set_property(TARGET ${current} APPEND PROPERTY
+            INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/surfex/lib")
 endforeach(item)
