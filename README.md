@@ -30,7 +30,7 @@ To build Open-SURFEX with bundled NetCDF and GRIB API libraries use the followin
 To speed-up the compilation process on a multi-core machine, the required flags could be passed in the following form:
 ```shell
 > # In case of cmake 'Unix Makefiles' generator.
-> cmake --build . -- -j<number parallel make processes>
+> cmake --build . -- -j<number of parallel make processes>
 ```
 
 To build Open-SURFEX using system-provided NetCDF and GRIB API libraries:
