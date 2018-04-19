@@ -51,7 +51,8 @@ configuration stage:
 * `-DENABLE_OMP=ON` compile Open-SURFEX with OpenMP multiprocessing;
 * `-DENABLE_MPI=ON` compile Open-SURFEX with MPI support, requires installed MPI libraries;
 * `-DINSPECT_MASTER_SOURCES=ON` check code for subroutines and functions that are placed outside Fortran modules;
-* `-DUSER_SOURCES_DIR=<path to user sources>` add sources from the provided directory to the list of SURFEX' source files. This option reproduces the `VER_USER` functionality of the original build system and could be used to modify some source files without changing them in the original source tree.
+* `-DUSER_SOURCES_DIR=<path to user sources>` add sources from the provided directory to the list of SURFEX' source files. This option reproduces the `VER_USER` functionality of the original build system and could be used to modify some source files without changing them in the original source tree;
+* `-DMANGLE_SURFEX_BINARIES=ON` decorate compiled binaries to produce unique file name based on the current build environment. This option could be used to compile a number of different configurations of Open-SURFEX and install all of them under the same directory.
 
 ## How to build Open-SURFEX with original build system
 

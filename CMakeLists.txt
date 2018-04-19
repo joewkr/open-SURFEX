@@ -4,6 +4,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 project(surfex)
 enable_language(Fortran)
 
+set(SURFEX_VERSION_MAJOR 8)
+set(SURFEX_VERSION_BUGFIX 1)
+
 option(INSPECT_MASTER_SOURCES "check main source files tree for top-level routines" OFF)
 
 option(ENABLE_MPI "enable MPI" OFF)
@@ -16,6 +19,7 @@ endif()
 if(ENABLE_XIOS)
   message(FATAL_ERROR "Not implemented yet")
 endif()
+option(MANGLE_SURFEX_BINARIES "add to executables a suffix based on build configuration" OFF)
 
 option(BUILD_GRIB_API "build a copy of grib_api library provided with SURFEX" ON)
 option(BUILD_NETCDF "build a copy of netcdf library provided with SURFEX" ON)
@@ -109,6 +113,26 @@ function(merge_user_sources master user)
   set(${master} "${result}" PARENT_SCOPE)
 endfunction()
 
+function(get_mangled_name base_name mangled_name)
+  set(output "${base_name}-V${SURFEX_VERSION_MAJOR}-${SURFEX_VERSION_BUGFIX}")
+  if(USER_SOURCES_DIR)
+    get_filename_component(user_sources_id "${USER_SOURCES_DIR}" NAME)
+    set(output "${output}-${user_sources_id}")
+  else()
+    set(output "${output}-MASTER")
+  endif()
+  set(output "${output}-${CMAKE_BUILD_TYPE}-${CMAKE_Fortran_COMPILER_ID}")
+  if(ENABLE_OMP)
+    set(output "${output}-OMP")
+  endif()
+  if(ENABLE_MPI)
+    set(output "${output}-MPI")
+  endif()
+
+  string(TOUPPER "${output}" output)
+  set(${mangled_name} "${output}" PARENT_SCOPE)
+endfunction()
+
 build_sources_master(FORTRAN_SOURCES FORTRAN_PROGRAMS)
 
 # Check source files for top-level routines in the master tree
@@ -171,7 +195,11 @@ target_link_libraries(surfex-static PUBLIC grib_api::grib_api_Fortran)
 
 foreach(item ${FORTRAN_PROGRAMS})
   get_filename_component(current "${item}" NAME_WE)
-  string(TOUPPER "${current}" program_name)
+  if(MANGLE_SURFEX_BINARIES)
+    get_mangled_name("${current}" program_name)
+  else()
+    string(TOUPPER "${current}" program_name)
+  endif()
 
   add_executable(${current} "${item}")
   set_target_properties(${current} PROPERTIES OUTPUT_NAME "${program_name}")
