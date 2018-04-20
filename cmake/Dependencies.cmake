@@ -13,6 +13,7 @@ function(generate_install_targets)
                 ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/surfex ${source_dir}
             COMMAND ${CMAKE_COMMAND} --build ${binary_dir} --target install
             EXCLUDE_FROM_MAIN YES
+            ALWAYS YES
             )
         ExternalProject_add_StepTargets(${item} final_install)
 
