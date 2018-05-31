@@ -20,11 +20,12 @@ original `makefile`-based build. It also contains a number of minor bug fixes.
 
 Clone Open-SURFEX repository to your machine and navigate into the cloned source directory.
 
-To build Open-SURFEX with bundled NetCDF and GRIB API libraries use the following commands:
+To build Open-SURFEX with bundled NetCDF and GRIB API libraries and install under the specified directory use the following commands:
 ```shell
 > mkdir build && cd build
-> cmake ..
+> cmake .. -DCMAKE_INSTALL_PREFIX=<path to the installation directory>
 > cmake --build .
+> cmake --build . --target install
 ```
 
 To speed-up the compilation process on a multi-core machine, the required flags could be passed in the following form:
