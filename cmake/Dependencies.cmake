@@ -119,6 +119,7 @@ if(${BUILD_GRIB_API})
             -DENABLE_PYTHON=OFF
             -DENABLE_EXAMPLES=OFF
             -DENABLE_TESTS=OFF
+            -DDISABLE_OS_CHECK=ON
         CMAKE_CACHE_ARGS
             "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
         BUILD_BYPRODUCTS
