@@ -1,6 +1,11 @@
 
 include(ExternalProject)
 
+set(shared_lib_dir "lib")
+if(CYGWIN)
+    set(shared_lib_dir "bin")
+endif()
+
 function(generate_install_targets)
     cmake_parse_arguments(PARSED_ARGS "" "" "EXTERNAL_PROJECTS" ${ARGN})
     foreach(item ${PARSED_ARGS_EXTERNAL_PROJECTS})
@@ -76,7 +81,7 @@ if(${BUILD_NETCDF})
         CMAKE_CACHE_ARGS
             "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
         BUILD_BYPRODUCTS
-            "auxiliary/lib/libnetcdff.so"
+            "auxiliary/${shared_lib_dir}/${CMAKE_SHARED_LIBRARY_PREFIX}netcdff${CMAKE_SHARED_LIBRARY_SUFFIX}"
         )
 
     ExternalProject_get_property(NetCDF_Fortran install_dir)
@@ -88,7 +93,11 @@ if(${BUILD_NETCDF})
 
     add_library(NetCDF::NetCDF_Fortran SHARED IMPORTED)
     set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
-        IMPORTED_LOCATION "${install_dir}/lib/libnetcdff.so")
+        IMPORTED_LOCATION "${install_dir}/${shared_lib_dir}/${CMAKE_SHARED_LIBRARY_PREFIX}netcdff${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    if(WIN32 OR CYGWIN OR MINGW)
+        set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
+            IMPORTED_IMPLIB "${install_dir}/lib/${CMAKE_IMPORT_LIBRARY_PREFIX}netcdff${CMAKE_IMPORT_LIBRARY_SUFFIX}")
+    endif()
     set_property(TARGET NetCDF::NetCDF_Fortran PROPERTY
         INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
 
@@ -113,7 +122,7 @@ if(${BUILD_GRIB_API})
         CMAKE_CACHE_ARGS
             "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
         BUILD_BYPRODUCTS
-            "auxiliary/lib/libgrib_api_f90.so"
+            "auxiliary/${shared_lib_dir}/${CMAKE_SHARED_LIBRARY_PREFIX}grib_api_f90${CMAKE_SHARED_LIBRARY_SUFFIX}"
         )
 
     ExternalProject_get_property(grib_api install_dir)
@@ -125,7 +134,11 @@ if(${BUILD_GRIB_API})
 
     add_library(grib_api::grib_api_Fortran SHARED IMPORTED)
     set_property(TARGET grib_api::grib_api_Fortran PROPERTY
-        IMPORTED_LOCATION "${install_dir}/lib/libgrib_api_f90.so")
+        IMPORTED_LOCATION "${install_dir}/${shared_lib_dir}/${CMAKE_SHARED_LIBRARY_PREFIX}grib_api_f90${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    if(WIN32 OR CYGWIN OR MINGW)
+        set_property(TARGET grib_api::grib_api_Fortran PROPERTY
+            IMPORTED_IMPLIB "${install_dir}/lib/${CMAKE_IMPORT_LIBRARY_PREFIX}grib_api_f90${CMAKE_IMPORT_LIBRARY_SUFFIX}")
+    endif()
     set_property(TARGET grib_api::grib_api_Fortran PROPERTY
         INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
 

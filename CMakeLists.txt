@@ -47,7 +47,10 @@ include(Dependencies)
 include(InspectSources)
 
 function(list_sources dir sources)
-  set(endings "*.F90" "*.f90" "*.F" "*.f")
+  set(endings "*.F90" "*.F")
+  if(NOT WIN32 AND NOT CYGWIN AND NOT MINGW)
+    list(APPEND endings "*.f90" "*.f")
+  endif()
 
   set(result ${${sources}})
   foreach(item ${endings})
