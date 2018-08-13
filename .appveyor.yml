@@ -19,10 +19,9 @@ install:
           $env:CMAKE_ZIP = "C:\cmake-3.12.0.tar.gz"
           (New-Object System.Net.WebClient).DownloadFile($env:CMAKE_URL, $env:CMAKE_ZIP)
         }
-  - cmd: set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
   - cmd: set PATH=C:\cygwin64\bin;%PATH%
   - cmd: bash -lc "[[ -d /cygdrive/c/cmk ]] || tar -xzf /cygdrive/c/cmake-3.12.0.tar.gz"
-  - cmd: bash -lc "[[ -d /cygdrive/c/cmk ]] || { cd cmake-3.12.0 && ./bootstrap --prefix=/cygdrive/c/cmk && make && make install; }"
+  - cmd: bash -lc "[[ -d /cygdrive/c/cmk ]] || { cd cmake-3.12.0 && ./bootstrap --prefix=/cygdrive/c/cmk && make -j2 && make install; }"
 
 build_script:
   - cmd: cd %APPVEYOR_BUILD_FOLDER%
@@ -30,8 +29,6 @@ build_script:
   - cmd: cd build
   - cmd: set PATH=C:\cygwin64\bin;%PATH%
   - cmd: echo %PATH%
-  - cmd: set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
-  - cmd: set CMAKE_PREFIX_PATH=C:\cygwin64
   - cmd: bash -lc "export PATH=/cygdrive/c/cmk/bin:$PATH; cd $APPVEYOR_BUILD_FOLDER/build && cmake -G 'Unix Makefiles' ..;"
   - cmd: bash -lc "export PATH=/cygdrive/c/cmk/bin:$PATH; cd $APPVEYOR_BUILD_FOLDER/build && cmake --build . -- -j2;"
 
