@@ -26,15 +26,15 @@ function(generate_install_targets)
     endforeach(item)
 endfunction(generate_install_targets)
 
-if(${ENABLE_MPI})
+if(ENABLE_MPI)
     find_package(MPI REQUIRED COMPONENTS Fortran)
-endif(${ENABLE_MPI})
+endif(ENABLE_MPI)
 
-if(${ENABLE_OMP})
+if(ENABLE_OMP)
     find_package(OpenMP REQUIRED)
-endif(${ENABLE_OMP})
+endif(ENABLE_OMP)
 
-if(${BUILD_NETCDF})
+if(BUILD_NETCDF)
     ExternalProject_add(HDF5
         URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/hdf5-1.8.19.tar.bz2
         INSTALL_DIR ${CMAKE_BINARY_DIR}/auxiliary
@@ -102,11 +102,11 @@ if(${BUILD_NETCDF})
         INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
 
     generate_install_targets(EXTERNAL_PROJECTS HDF5 NetCDF_C NetCDF_Fortran)
-else(${BUILD_NETCDF})
+else(BUILD_NETCDF)
     find_package(NetCDF REQUIRED COMPONENTS F90)
-endif(${BUILD_NETCDF})
+endif(BUILD_NETCDF)
 
-if(${BUILD_GRIB_API})
+if(BUILD_GRIB_API)
     ExternalProject_add(grib_api
         URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/grib_api-1.23.0-Source.tar.gz
         INSTALL_DIR ${CMAKE_BINARY_DIR}/auxiliary
@@ -144,11 +144,11 @@ if(${BUILD_GRIB_API})
         INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
 
     generate_install_targets(EXTERNAL_PROJECTS grib_api)
-else(${BUILD_GRIB_API})
+else(BUILD_GRIB_API)
     find_package(grib_api REQUIRED)
-endif(${BUILD_GRIB_API})
+endif(BUILD_GRIB_API)
 
-if(${ENABLE_OASIS})
+if(ENABLE_OASIS)
     if(NOT BUILD_NETCDF)
         set(oasis_netcdf_dir "-DNETCDF_DIR=${NETCDF_DIR}")
     endif()
