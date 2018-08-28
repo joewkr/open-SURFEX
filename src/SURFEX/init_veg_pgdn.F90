@@ -56,7 +56,7 @@ USE MODD_AGRI_n, ONLY : AGRI_t
 USE MODD_SURF_ATM,       ONLY : LCPL_ARP
 USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE
 USE MODD_SURF_PAR,       ONLY : XUNDEF, NUNDEF
-USE MODD_CSTS,           ONLY : XCPD, XLVTT, XLSTT
+USE MODD_CSTS,           ONLY : XCPD, XLVTT, XLSTT, XDAY
 USE MODD_SNOW_PAR,       ONLY : XEMISSN
 USE MODD_ISBA_PAR,       ONLY : XTAU_ICE
 !
@@ -124,9 +124,11 @@ REAL, DIMENSION(:), INTENT(IN) :: PRHOA
 !*       0.2   Declarations of local variables
 !              -------------------------------
 !
+REAL, DIMENSION(KI,IO%NGROUND_LAYER) :: ZCONDSAT
+!
 INTEGER :: JPATCH  ! loop counter on tiles
 INTEGER :: JILU,JP, JMAXLOC    ! loop increment
-INTEGER :: JL  ! loop counter on layers
+INTEGER :: JL, JI  ! loop counter on layers
 !
 INTEGER :: IABC
 !
@@ -218,7 +220,17 @@ IF (.NOT.ASSOCIATED(K%XMPOTSAT)) THEN
     ALLOCATE(K%XWD0   (KI,IO%NGROUND_LAYER))
     ALLOCATE(K%XKANISO(KI,IO%NGROUND_LAYER))
     !
-    IF(IO%CISBA=='DIF')THEN
+    IF (DTI%LDATA_WFC.OR.DTI%LDATA_WSAT) THEN
+      IF (DTI%LDATA_CONDSAT) THEN
+        ZCONDSAT(:,:) = DTI%XPAR_CONDSAT(:,:)
+      ELSE
+        DO JL = 1,IO%NGROUND_LAYER
+          ZCONDSAT(:,JL) = HYDCONDSAT_FUNC(K%XCLAY(:,JL),K%XSAND(:,JL),IO%CPEDOTF)
+        ENDDO
+      ENDIF
+      K%XWD0(:,:) = K%XWSAT(:,:) * ((0.0001/XDAY)/ZCONDSAT(:,:))**(1./(2.*K%XBCOEF(:,:)+3.))
+      print*,'wd0 ',minval(K%XWD0),maxval(K%XWD0)
+    ELSEIF(IO%CISBA=='DIF')THEN
       K%XWD0(:,:) = WFC_FUNC(K%XCLAY(:,:),K%XSAND(:,:),IO%CPEDOTF)
     ELSE
       K%XWD0(:,:) = K%XWWILT(:,:)
@@ -471,6 +483,7 @@ ELSE
     PK%XCONDSAT(:,JL) = HYDCONDSAT_FUNC(KK%XCLAY(:,JL),KK%XSAND(:,JL),IO%CPEDOTF)
   END DO
 ENDIF
+!
 PK%XTAUICE(:) = XTAU_ICE
 !
 IF (IO%CISBA=='2-L' .OR. IO%CISBA=='3-L') THEN

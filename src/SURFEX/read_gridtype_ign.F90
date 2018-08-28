@@ -76,8 +76,8 @@ REAL, DIMENSION(KLU)              :: ZY       ! Y  Lambert coordinate of grid me
 REAL, DIMENSION(KLU)              :: ZDX      ! X grid mesh size
 REAL, DIMENSION(KLU)              :: ZDY      ! Y grid mesh size
 !
-REAL, DIMENSION(KLU*3)            :: ZXALL    ! maximum domain X coordinate of grid mesh
-REAL, DIMENSION(KLU*3)            :: ZYALL    ! maximum domain Y coordinate of grid mesh
+REAL, DIMENSION(KLU*5)            :: ZXALL    ! maximum domain X coordinate of grid mesh
+REAL, DIMENSION(KLU*5)            :: ZYALL    ! maximum domain Y coordinate of grid mesh
 INTEGER                           :: IDIMX    ! maximum domain length in X
 INTEGER                           :: IDIMY    ! maximum domain length in Y
 INTEGER                           :: ILUOUT

@@ -6,7 +6,7 @@
 MODULE MODI_HORIBL_SURF_INIT
 CONTAINS
     SUBROUTINE HORIBL_SURF_INIT(PILA1,PILO1,PILA2,PILO2,KINLA,KINLO,KOLEN,&
-                           PXOUT,PYOUT,OINTERP,OGLOBLON,OGLOBN,OGLOBS,&
+                           PXOUT,PYOUT,OINTERP,OGAUSS,OGLOBLON,OGLOBN,OGLOBS,&
                            KO,KINLO_OUT,POLA,POLO,PILO1_OUT,&
                            PILO2_OUT,PLA,PILATARRAY )
 !   ###########################################################################
@@ -123,6 +123,7 @@ INTEGER,                   INTENT(IN)  :: KOLEN   ! size of output array
 REAL,    DIMENSION(:), INTENT(IN)  :: PXOUT   ! X (lon.) of output points
 REAL,    DIMENSION(:), INTENT(IN)  :: PYOUT   ! Y (lat.) of output points
 LOGICAL, DIMENSION(:), INTENT(IN)  :: OINTERP ! .true. where physical value is needed
+LOGICAL, INTENT(IN) :: OGAUSS
 !
 LOGICAL, INTENT(OUT)  :: OGLOBLON  ! True if the map is circular
 LOGICAL, INTENT(OUT)  :: OGLOBN    ! True if the map has the north pole
@@ -145,12 +146,14 @@ REAL, DIMENSION(:), ALLOCATABLE    :: ZIDLAT   ! Deltai latitude
 REAL                               :: ZIDLA    ! Delta latitude
 REAL                               :: ZSOUTHPOLE! south pole latitude (-90 or  90)
 REAL                               :: ZNORTHPOLE! north pole latitude ( 90 or -90)
+REAL                               :: ZB1, ZB2
 !
 ! Variables implied in the extension procedure
 !
 INTEGER                            :: IOFFSET   ! Offset in map
 INTEGER                            :: IINLA     ! Number of parallel
  ! Loop counters
+INTEGER                            :: JLAT0, IOS_SAVE
 INTEGER                            :: JOPOS     ! Output position
 INTEGER                            :: JL, JL2   ! Dummy counter
 !
@@ -262,6 +265,7 @@ END IF
 POLA(:) = 0.
 POLO(:) = 0.
 !
+IOS_SAVE = 1
 DO JL = 1, KOLEN
   !
   IF (.NOT. OINTERP(JL)) CYCLE
@@ -275,17 +279,36 @@ DO JL = 1, KOLEN
   ! 3.1.1. find positions of latitudes
   IF (PRESENT(PILATARRAY)) THEN
     !
-    DO JL2 = 1,KINLA
-      IF((POLA(JL)>=PILATARRAY(JL2)-ZIDLAT(JL2)/2..AND.POLA(JL)<PILATARRAY(JL2)+ZIDLAT(JL2+1)/2.).OR.&
-         (POLA(JL)<=PILATARRAY(JL2)-ZIDLAT(JL2)/2..AND.POLA(JL)>PILATARRAY(JL2)+ZIDLAT(JL2+1)/2.)) THEN
-        KO(JL,3) = JL2
-        EXIT
-      ELSEIF (POLA(JL)>MAXVAL(PILATARRAY(:))) THEN
-        KO(JL,3) = MAXLOC(PILATARRAY,1)
-      ELSEIF (POLA(JL)<MINVAL(PILATARRAY(:))) THEN
-        KO(JL,3) = MINLOC(PILATARRAY,1)
-      ENDIF
-    ENDDO
+    IF (POLA(JL)>MAXVAL(PILATARRAY(:))) THEN
+      KO(JL,3) = MAXLOC(PILATARRAY,1)
+    ELSEIF (POLA(JL)<MINVAL(PILATARRAY(:))) THEN
+      KO(JL,3) = MINLOC(PILATARRAY,1)
+    ELSE
+      DO JLAT0 = 1,KINLA
+        JL2 = MOD(JLAT0+IOS_SAVE-1,KINLA)
+        IF (JL2==0) JL2 = KINLA
+        IF (OGAUSS) THEN
+          IF (POLA(JL)>=PILATARRAY(JL2).AND.POLA(JL)<PILATARRAY(JL2+1)) THEN
+            KO(JL,3) = JL2
+            EXIT
+          ELSEIF (POLA(JL)<=PILATARRAY(JL2).AND.POLA(JL)>PILATARRAY(JL2+1)) THEN
+            KO(JL,3) = JL2
+            EXIT
+          ENDIF
+        ELSE
+          IF (POLA(JL)>=PILATARRAY(JL2)-ZIDLAT(JL2)/2..AND.POLA(JL)<PILATARRAY(JL2)+ZIDLAT(JL2+1)/2.) THEN
+            KO(JL,3) = JL2
+            EXIT
+          ELSEIF (POLA(JL)<=PILATARRAY(JL2)-ZIDLAT(JL2)/2..AND.POLA(JL)>PILATARRAY(JL2)+ZIDLAT(JL2+1)/2.) THEN
+            KO(JL,3) = JL2
+            EXIT
+          ENDIF
+        ENDIF
+
+      ENDDO
+    ENDIF
+    IOS_SAVE = KO(JL,3)
+    !
     PLA(JL,3) = PILATARRAY(KO(JL,3))
     !
   ELSE
@@ -311,7 +334,7 @@ DO JL = 1, KOLEN
     ELSE
       PLA(JL,2) = PILATARRAY(KO(JL,3)+1)
     ENDIF
-    IF (KO(JL,3)>=KINLA) THEN
+    IF (KO(JL,3)>=KINLA-1) THEN
       PLA(JL,1) = PILATARRAY(KINLA) + 2.*ZIDLAT(KINLA)
     ELSE
       PLA(JL,1) = PILATARRAY(KO(JL,3)+2)

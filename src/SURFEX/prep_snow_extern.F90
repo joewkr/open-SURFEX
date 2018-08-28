@@ -97,6 +97,7 @@ REAL, DIMENSION(:),   ALLOCATABLE :: ZD           ! total snow depth
 REAL, DIMENSION(:,:), ALLOCATABLE :: ZDEPTH       ! thickness of each layer (m)
 REAL, DIMENSION(:,:), ALLOCATABLE :: ZGRID        ! normalized input grid
 !
+REAL, DIMENSION(:), ALLOCATABLE    :: ZMASK
 INTEGER, DIMENSION(:), ALLOCATABLE :: IMASK_P
 !
 LOGICAL                           :: GTOWN          ! town variables written in the file
@@ -106,7 +107,7 @@ INTEGER                           :: IVERSION_PGD, IVERSION_PREP       ! SURFEX 
 LOGICAL                           :: GOLD_NAME      ! old name flag
 INTEGER                           :: IBUGFIX_PGD, IBUGFIX_PREP        ! SURFEX bug version
 INTEGER                           :: IVEGTYPE       ! actual number of vegtypes
-INTEGER                           :: JL         ! loop on snow vertical grids
+INTEGER                           :: JV, JL         ! loop on snow vertical grids
 INTEGER                           :: JI             ! loop on pts
 INTEGER                           :: INI
 CHARACTER(LEN=8)                  :: YAREA          ! area treated ('ROOF','ROAD','VEG ')
@@ -160,6 +161,18 @@ GOLD_NAME=(IVERSION_PGD<7 .OR. (IVERSION_PGD==7 .AND. IBUGFIX_PGD<3))
 CALL CLOSE_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE)
 !
 CALL OPEN_AUX_IO_SURF(HFILEPGD,HFILEPGDTYPE,YMASK)
+!
+ALLOCATE(ZMASK(INI))
+IF (IVERSION_PGD>=7) THEN
+  IF (YAREA(1:4)=='VEG ') THEN
+    YRECFM='FRAC_NATURE'
+  ELSE
+    YRECFM='FRAC_TOWN'
+  ENDIF
+  CALL READ_SURF(HFILEPGDTYPE,YRECFM,ZMASK,IRESP,HDIR='A')
+ELSE
+  ZMASK(:) = 1.
+ENDIF
 !
 IF (YAREA(1:4)=='VEG ') THEN
   YRECFM = 'PATCH_NUMBER'
@@ -375,6 +388,14 @@ DO JP = 1,IPATCH
 ENDDO
 !
 DEALLOCATE(IMASK_P)
+!
+DO JV = 1,SIZE(PFIELD,3)
+  DO JL = 1,SIZE(PFIELD,2)
+    WHERE (ZMASK(:)==0.) PFIELD(:,JL,JV) = XUNDEF
+  ENDDO
+ENDDO
+!
+DEALLOCATE(ZMASK)
 !
 !-------------------------------------------------------------------------------------
 !

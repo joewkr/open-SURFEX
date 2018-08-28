@@ -5,7 +5,7 @@
 !     #########
 MODULE MODI_ICE_SOILDIF
 CONTAINS
-      SUBROUTINE ICE_SOILDIF(KK, PK, PEK, PTSTEP, PKSFC_IVEG, PLEGI, PSOILHCAPZ, PWGI_EXCESS)
+      SUBROUTINE ICE_SOILDIF(KK, PK, PEK, PTSTEP, PKSFC_IVEG, PLEGI, PSOILHCAPZ, PWGI_EXCESS, PPHASE)
 !     ##########################################################################
 !
 !!****  *ICE_SOILDIF*
@@ -105,6 +105,9 @@ REAL, DIMENSION(:,:), INTENT(IN)    :: PSOILHCAPZ
 REAL, DIMENSION(:), INTENT(OUT)     :: PWGI_EXCESS
 !                                      PWGI_EXCESS = Soil ice excess water content
 !
+REAL, DIMENSION(:,:), INTENT(OUT)   :: PPHASE
+!                                      PPHASE = total phase change energy (just a diagnostic) (J/m3)
+!
 !*      0.2    declarations of local variables
 !
 INTEGER                             :: JJ, JL   ! loop control
@@ -118,7 +121,7 @@ REAL, DIMENSION(SIZE(PEK%XTG,1),SIZE(PEK%XTG,2)) :: ZK, ZEXCESSFC
 REAL, DIMENSION(SIZE(PEK%XTG,1))             :: ZEXCESS
 !
 REAL                                     :: ZWGMAX, ZPSIMAX, ZPSI, ZDELTAT,  &
-                                            ZPHASE, ZTGM, ZWGM, ZWGIM, ZLOG, &
+                                            ZTGM, ZWGM, ZWGIM, ZLOG,         &
                                             ZEFFIC, ZPHASEM, ZPHASEF, ZWORK, &
                                             ZAPPHEATCAP
 !
@@ -148,6 +151,7 @@ ZK(:,1) = PKSFC_IVEG(:)
 ! 2. Soil ice evolution computation:
 !    -------------------------------
 !
+PPHASE(:,:) = 0.
 DO JL=1,INL
   DO JJ=1,INI
     IDEPTH=PK%NWG_LAYER(JJ)
@@ -202,12 +206,14 @@ DO JL=1,INL
       PEK%XTG(JJ,JL) = ZTGM + (ZPHASEF - ZPHASEM)/(PSOILHCAPZ(JJ,JL)+ZAPPHEATCAP)
 !
 !     Get estimate of actual total phase change (J/m3) for equivalent soil water changes:
-      ZPHASE = (PSOILHCAPZ(JJ,JL)+ZAPPHEATCAP)*(PEK%XTG(JJ,JL)-ZTGM)
+      PPHASE(JJ,JL)   = (PSOILHCAPZ(JJ,JL)+ZAPPHEATCAP)*(PEK%XTG(JJ,JL)-ZTGM)
 !
 !     Adjust ice and liquid water conents (m3/m3) accordingly :
-      PEK%XWGI(JJ,JL) = ZWGIM + ZPHASE/(XLMTT*XRHOLW)
-      PEK%XWG(JJ,JL) = ZWGM  - ZPHASE/(XLMTT*XRHOLW)
+      PEK%XWGI(JJ,JL) = ZWGIM + PPHASE(JJ,JL)/(XLMTT*XRHOLW)
+      PEK%XWG(JJ,JL)  = ZWGM  - PPHASE(JJ,JL)/(XLMTT*XRHOLW)
 !
+!     Final unit conversion (W m-2):
+      PPHASE(JJ,JL)   =  PPHASE(JJ,JL)*PK%XDZG(JJ,JL)/PTSTEP
     ENDIF
   ENDDO
 ENDDO
@@ -259,15 +265,17 @@ ENDDO
 ! and conserve energy:
 !
 DO JL=1,INL
-  DO JJ=1,INI
-    IDEPTH=PK%NWG_LAYER(JJ)
-    IF(JL<=IDEPTH.AND.PEK%XWGI(JJ,JL)>0.0.AND.PEK%XWGI(JJ,JL)<1.0E-6)THEN
-      PEK%XWG   (JJ,JL)  = PEK%XWG(JJ,JL) + PEK%XWGI(JJ,JL)
-      ZEXCESSFC(JJ,JL) = ZEXCESSFC(JJ,JL) + PEK%XWGI(JJ,JL)
-      PEK%XWGI(JJ,JL) = 0.0
-    ENDIF
-    PEK%XTG(JJ,JL) = PEK%XTG(JJ,JL) - ZEXCESSFC(JJ,JL)*XLMTT*XRHOLW/PSOILHCAPZ(JJ,JL)
-  ENDDO
+   DO JJ=1,INI
+      IDEPTH=PK%NWG_LAYER(JJ)
+      IF(JL<=IDEPTH.AND.PEK%XWGI(JJ,JL)>0.0.AND.PEK%XWGI(JJ,JL)<1.0E-6)THEN
+         ZWGIM           = PEK%XWGI(JJ,JL)
+         PEK%XWG(JJ,JL)  = PEK%XWG(JJ,JL) + ZWGIM
+         PEK%XWGI(JJ,JL) = 0.0
+         ZPHASEM         = ZWGIM*XLMTT*XRHOLW                             ! J m-3
+         PEK%XTG(JJ,JL)  = PEK%XTG(JJ,JL) - ZPHASEM/PSOILHCAPZ(JJ,JL)     ! K
+         PPHASE(JJ,JL)   = PPHASE(JJ,JL)  - ZPHASEM*PK%XDZG(JJ,JL)/PTSTEP ! W m-2
+      ENDIF
+   ENDDO
 ENDDO
 !
 !

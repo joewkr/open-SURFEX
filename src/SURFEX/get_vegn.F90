@@ -75,9 +75,9 @@ REAL, DIMENSION(KI), INTENT(OUT) :: PLAI
 !
 TYPE(ISBA_P_t), POINTER :: PK
 TYPE(ISBA_PE_t), POINTER :: PEK
-INTEGER                               :: JI,JJ           ! loop index over tiles
+INTEGER                               :: JI, JJ           ! loop index over tiles
 INTEGER                               :: ILUOUT       ! unit numberi
-REAL, DIMENSION(U%NSIZE_NATURE)    :: ZH_TREE, ZLAI,ZWORK
+REAL, DIMENSION(U%NSIZE_NATURE)    :: ZH_TREE, ZLAI, ZWORK
 INTEGER:: IPATCH_TRBE, IPATCH_TRBD, IPATCH_TEBE, IPATCH_TEBD, IPATCH_TENE, &
           IPATCH_BOBD, IPATCH_BONE, IPATCH_BOND, IMASK, JP
 !
@@ -102,12 +102,13 @@ IPATCH_BONE = VEGTYPE_TO_PATCH(NVT_BONE, IO%NPATCH)
 IPATCH_BOND = VEGTYPE_TO_PATCH(NVT_BOND, IO%NPATCH)
 
 
-ZWORK(:) = S%XVEGTYPE(:,NVT_TRBE) + S%XVEGTYPE(:,NVT_TRBD) + S%XVEGTYPE(:,NVT_TEBE) + &
-           S%XVEGTYPE(:,NVT_TEBD) + S%XVEGTYPE(:,NVT_TENE) + S%XVEGTYPE(:,NVT_BOBD) + &
-           S%XVEGTYPE(:,NVT_BONE) + S%XVEGTYPE(:,NVT_BOND)
+!ZWORK(:) = S%XVEGTYPE(:,NVT_TRBE) + S%XVEGTYPE(:,NVT_TRBD) + S%XVEGTYPE(:,NVT_TEBE) + &
+!           S%XVEGTYPE(:,NVT_TEBD) + S%XVEGTYPE(:,NVT_TENE) + S%XVEGTYPE(:,NVT_BOBD) + &
+!           S%XVEGTYPE(:,NVT_BONE) + S%XVEGTYPE(:,NVT_BOND)
 
 ZH_TREE(:) = 0.
 ZLAI(:) = 0.
+ZWORK(:) = 0.
 !
 DO JP = 1,IO%NPATCH
   !
@@ -121,11 +122,13 @@ DO JP = 1,IO%NPATCH
       !
       IMASK = PK%NR_P(JJ)
       !
-      IF (S%XVEGTYPE(IMASK,JP)/=0) THEN
+      IF (PK%XH_TREE(JJ)/=XUNDEF) THEN
         !
         ZH_TREE(IMASK) = ZH_TREE(IMASK) + PK%XH_TREE(JJ) * PK%XPATCH(JJ)
         !
         ZLAI(IMASK)  = ZLAI(IMASK) + PEK%XLAI(JJ) * PK%XPATCH(JJ)
+        !
+        ZWORK(IMASK) = ZWORK(IMASK) + PK%XPATCH(JJ)
         !
       ENDIF
       !
@@ -140,7 +143,9 @@ WHERE(ZWORK(:)/=0.)
   ZLAI(:) = ZLAI(:)/ZWORK(:)
 END WHERE
 !
-ZLAI(:) = U%XNATURE(:) * ZLAI(:)
+!DO JJ = 1,SIZE(ZLAI)
+!  ZLAI(JJ) = U%XNATURE(U%NR_NATURE(JJ)) * ZLAI(JJ)
+!ENDDO
 !
 !*       2. Envoi les variables vers mesonH
 !             ------------------------------

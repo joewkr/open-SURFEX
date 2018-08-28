@@ -230,8 +230,8 @@ IF (HDIR/='H') THEN
   !*       7.    maximum domain lengths
   !              ----------------------
   !
-  ALLOCATE(ZXALL(KL*3))
-  ALLOCATE(ZYALL(KL*3))
+  ALLOCATE(ZXALL(KL*5))
+  ALLOCATE(ZYALL(KL*5))
   CALL GET_XYALL_IGN(ZX,ZY,ZDX,ZDY,ZXALL,ZYALL,IDIMX,IDIMY)
   !
   !---------------------------------------------------------------------------

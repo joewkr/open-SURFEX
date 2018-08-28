@@ -63,14 +63,14 @@ IF (CTYPE_SEAFLX=="NETCDF") THEN
   YFILENAME=TRIM(CFILE_SEAFLX)
   YNCVARNAME="depth"
   CALL READ_DIM_CDF(YFILENAME,YNCVARNAME,JDIMENSION)
-  NOCKMAX=JDIMENSION
-  ALLOCATE(XZHOC(0:JDIMENSION))
+  NOCKMAX=JDIMENSION-1
+  ALLOCATE(XZHOC(0:NOCKMAX))
   XZHOC(0)=0.
 !
 !*    2.      Read the array in the netcdf file
 !             ---------------------------------
-  CALL READ_Z1D_CDF(YFILENAME,YNCVARNAME,XZHOC(1:JDIMENSION))
-  IF (XZHOC(2)>0) XZHOC(:)=-XZHOC(:)
+  CALL READ_Z1D_CDF(YFILENAME,YNCVARNAME,XZHOC(0:NOCKMAX))
+  IF (XZHOC(1)>0) XZHOC(:)=-XZHOC(:)
 !  WRITE(0,*) 'Oceanic vertical grid readed in netcdf file'
 !  WRITE(0,*) 'Number of level',NOCKMAX+1
 !  WRITE(0,*) 'Depth of vertical level',XZHOC(:)

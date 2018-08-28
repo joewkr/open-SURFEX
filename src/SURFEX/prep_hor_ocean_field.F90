@@ -5,7 +5,7 @@
 !     #########
 MODULE MODI_PREP_HOR_OCEAN_FIELD
 CONTAINS
-SUBROUTINE PREP_HOR_OCEAN_FIELD (DTCO, UG, U, GCP, O, OR, KLAT, HPROGRAM,   &
+SUBROUTINE PREP_HOR_OCEAN_FIELD (DTCO, UG, U, GCP, O, OR, KLAT, PSEABATHY, HPROGRAM,   &
                                  HFILE,HFILETYPE,KLUOUT,OUNIF,   &
                                  HSURF,HNCVARNAME                )
 !     #######################################################
@@ -44,8 +44,8 @@ USE MODD_OCEAN_REL_n, ONLY : OCEAN_REL_t
 !
 USE MODD_CSTS,           ONLY : XTT
 USE MODD_SURF_PAR,       ONLY : XUNDEF
-USE MODD_OCEAN_GRID,   ONLY : NOCKMIN,NOCKMAX
-USE MODD_PREP,           ONLY : CINGRID_TYPE, CINTERP_TYPE
+USE MODD_OCEAN_GRID,   ONLY : NOCKMIN,NOCKMAX,XZHOC
+USE MODD_PREP,           ONLY : CINGRID_TYPE, CINTERP_TYPE, LINTERP
 !
 USE MODI_PREP_OCEAN_UNIF
 USE MODI_PREP_OCEAN_NETCDF
@@ -69,6 +69,7 @@ TYPE(GRID_CONF_PROJ_t),INTENT(INOUT) :: GCP
 TYPE(OCEAN_t), INTENT(INOUT) :: O
 TYPE(OCEAN_REL_t), INTENT(INOUT) :: OR
 INTEGER, INTENT(IN) :: KLAT
+REAL, DIMENSION(:), INTENT(IN) :: PSEABATHY
 !
  CHARACTER(LEN=6),   INTENT(IN)  :: HPROGRAM  ! program calling surf. schemes
  CHARACTER(LEN=28),  INTENT(IN)  :: HFILE     ! file name
@@ -85,7 +86,7 @@ REAL, POINTER, DIMENSION(:,:,:)    ::ZFIELDIN=>NULL()!field to interpolate horiz
 REAL, POINTER, DIMENSION(:,:)      ::ZFIELD=>NULL()  !field to interpolate horizontally
 REAL, ALLOCATABLE, DIMENSION(:,:,:)::ZFIELDOUT!field interpolated horizontally
 !
-INTEGER                       :: JLEV    ! loop on oceanic vertical level
+INTEGER                       :: JLEV, JLEV2    ! loop on oceanic vertical level
 INTEGER                       :: IK1
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !----------------------------------------------------------------------------
@@ -115,9 +116,12 @@ END IF
 ALLOCATE(ZFIELDOUT  (KLAT,SIZE(ZFIELDIN,2),SIZE(ZFIELDIN,3)) )
 ALLOCATE(ZFIELD(SIZE(ZFIELDIN,1),SIZE(ZFIELDIN,3)))
 !
-DO JLEV=1,SIZE(ZFIELDIN,2)
-  ZFIELD(:,:)=ZFIELDIN(:,JLEV,:)
-  CALL HOR_INTERPOL(DTCO, U, GCP, KLUOUT,ZFIELD,ZFIELDOUT(:,JLEV,:))
+DO JLEV=NOCKMIN,NOCKMAX
+  JLEV2 = JLEV - NOCKMIN + 1
+  WHERE (PSEABATHY(:)-XZHOC(JLEV)>0.) LINTERP(:) = .FALSE.
+  ZFIELD(:,:)=ZFIELDIN(:,JLEV2,:)
+  CALL HOR_INTERPOL(DTCO, U, GCP, KLUOUT,ZFIELD,ZFIELDOUT(:,JLEV2,:))
+  LINTERP(:) = .TRUE.
 ENDDO
 !
 !*      5.     Return to historical variable

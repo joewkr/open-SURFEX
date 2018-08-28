@@ -204,9 +204,10 @@ REAL, DIMENSION(SIZE(PVEG))    :: ZWGI_EXCESS, ZF2
 REAL, DIMENSION(SIZE(PEK%XWG,1),SIZE(PEK%XWG,2)) :: ZQSAT, ZQSATI, ZTI, ZPS
 !                                           For specific humidity at saturation computation (ISBA-DIF)
 !
-REAL, DIMENSION(SIZE(PEK%XWG,1),SIZE(PEK%XWG,2)) :: ZWGI0
+REAL, DIMENSION(SIZE(PEK%XWG,1),SIZE(PEK%XWG,2)) :: ZWGI0, ZPHASE
 !                                      ZWGI0 = initial soil ice content (m3 m-3) before update
 !                                              for budget diagnostics
+!                                      ZPHASE= phase change (freeze-thaw) energy (W/m2) by layer
 !
 !*      0.3    declarations of local parameters
 !
@@ -255,7 +256,8 @@ PDELPHASEG(:)    = 0.0
 PDELPHASEG_SFC(:)= 0.0
 ZWGI0(:,:)       = 0.0
 !
-ZF2(:) = MAX(XDENOM_MIN,PF2(:))
+ZF2(:)           = MAX(XDENOM_MIN,PF2(:))
+ZPHASE(:,:)      = 0.0
 !
 ! Initialize evaporation components: variable definitions
 ! depend on snow or explicit canopy scheme:
@@ -492,25 +494,24 @@ IF (IO%CISBA=='DIF') THEN
                        PF2WGHT, PPS, ZQSAT, ZQSATI, ZDRAIN, ZHORTON, INL, ZQSB )
 !
 
-    CALL ICE_SOILDIF(KK, PK, PEK, ZTSTEP, ZKSFC_IVEG, ZLEGI, PSOILHCAPZ, ZWGI_EXCESS )
+    CALL ICE_SOILDIF(KK, PK, PEK, ZTSTEP, ZKSFC_IVEG, ZLEGI, PSOILHCAPZ, ZWGI_EXCESS, ZPHASE )
 !
     DEK%XDRAIN(:) = DEK%XDRAIN(:) + (ZDRAIN(:)+ZQSB(:)+ZWGI_EXCESS(:))/REAL(INDT)
     DEK%XQSB  (:) = DEK%XQSB  (:) + ZQSB   (:)/REAL(INDT)
     DEK%XHORT (:) = DEK%XHORT (:) + ZHORTON(:)/REAL(INDT)
-!
-! Output diagnostics:
-! Compute latent heating from phase change only in surface layer and total soil column,
-! then adjust surface and total soil heat content to maintain balance.
-!
-    PDELPHASEG_SFC(:) = (PEK%XWGI(:,1)-ZWGI0(:,1))*(XLMTT*XRHOLW/PTSTEP)*PK%XDZG(:,1) + &
-                         ZLEGI(:)*(XRHOLW*XLSTT)
-    PDELPHASEG(:)     = PDELPHASEG_SFC(:)
-    DO JL=2,INL
-      DO JJ=1,INJ
-        PDELPHASEG(JJ) = PDELPHASEG(JJ) + (PEK%XWGI(JJ,JL)-ZWGI0(JJ,JL))*&
-                           (XLMTT*XRHOLW/PTSTEP)*PK%XDZG(JJ,JL)
+
+! Compute latent heating from phase change only in surface layer and total soil column
+
+    PDELPHASEG_SFC(:)    = PDELPHASEG_SFC(:) + ZPHASE(:,1)/REAL(INDT)
+    DO JL=1,INL
+       DO JJ=1,INJ
+          PDELPHASEG(JJ) = PDELPHASEG(JJ)    + ZPHASE(JJ,JL)/REAL(INDT)
       ENDDO
     ENDDO
+
+! Output diagnostics:
+! Adjust surface and total soil heat content to maintain balance.
+
     PDELHEATG_SFC(:)     = PDELHEATG_SFC(:) + PDELPHASEG_SFC(:)
     PDELHEATG(:)         = PDELHEATG(:)     + PDELPHASEG(:)
 

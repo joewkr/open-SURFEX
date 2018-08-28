@@ -91,25 +91,25 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 IF (LHOOK) CALL DR_HOOK('PREP_HOR_OCEAN_FIELDS',0,ZHOOK_HANDLE)
 YSURF='TEMP_OC'
 YNCVARNAME='temperature'
- CALL PREP_HOR_OCEAN_FIELD(DTCO, UG, U, GCP, O, OR, KLAT, &
+ CALL PREP_HOR_OCEAN_FIELD(DTCO, UG, U, GCP, O, OR, KLAT, PSEABATHY, &
                            HPROGRAM,HFILE,HFILETYPE,KLUOUT,OUNIF,YSURF,YNCVARNAME)
 !---------------------------------------------------------------------------
 !
 !*      4.     Treatment of oceanic salinity
 YSURF='SALT_OC'
 YNCVARNAME='salinity'
- CALL PREP_HOR_OCEAN_FIELD(DTCO, UG, U, GCP, O, OR, KLAT, &
+ CALL PREP_HOR_OCEAN_FIELD(DTCO, UG, U, GCP, O, OR, KLAT, PSEABATHY, &
                            HPROGRAM,HFILE,HFILETYPE,KLUOUT,OUNIF,YSURF,YNCVARNAME)
 !---------------------------------------------------------------------------
 !
 !*      5.     Treatment of oceanic current
 YSURF='UCUR_OC'
 YNCVARNAME='u'
- CALL PREP_HOR_OCEAN_FIELD(DTCO, UG, U, GCP, O, OR, KLAT, &
+ CALL PREP_HOR_OCEAN_FIELD(DTCO, UG, U, GCP, O, OR, KLAT, PSEABATHY, &
                            HPROGRAM,HFILE,HFILETYPE,KLUOUT,OUNIF,YSURF,YNCVARNAME)
 YSURF='VCUR_OC'
 YNCVARNAME='v'
- CALL PREP_HOR_OCEAN_FIELD(DTCO, UG, U, GCP, O, OR, KLAT, &
+ CALL PREP_HOR_OCEAN_FIELD(DTCO, UG, U, GCP, O, OR, KLAT, PSEABATHY, &
                            HPROGRAM,HFILE,HFILETYPE,KLUOUT,OUNIF,YSURF,YNCVARNAME)
 !---------------------------------------------------------------------------
 !
@@ -157,6 +157,20 @@ IF (IL/=0) THEN
         OR%XSEAU_REL(J,JLEV)  = XUNDEF
         OR%XSEAV_REL(J,JLEV)  = XUNDEF
         !
+      ELSEIF (O%XSEAT(J,JLEV)==XUNDEF) THEN
+        O%XSEAT(J,JLEV) = O%XSEAT(J,JLEV-1)
+        OR%XSEAT_REL(J,JLEV) = OR%XSEAT_REL(J,JLEV-1)
+      ELSEIF (O%XSEAS(J,JLEV)==XUNDEF) THEN
+        O%XSEAS(J,JLEV) = O%XSEAS(J,JLEV-1)
+        OR%XSEAS_REL(J,JLEV) = OR%XSEAS_REL(J,JLEV-1)
+      ELSEIF (O%XSEAE(J,JLEV)==XUNDEF) THEN
+        O%XSEAE(J,JLEV) = O%XSEAE(J,JLEV-1)
+      ELSEIF (O%XSEAU(J,JLEV)==XUNDEF) THEN
+        O%XSEAU(J,JLEV) = O%XSEAU(J,JLEV-1)
+        OR%XSEAU_REL(J,JLEV) = OR%XSEAU_REL(J,JLEV-1)
+      ELSEIF (O%XSEAV(J,JLEV)==XUNDEF) THEN
+        O%XSEAV(J,JLEV) = O%XSEAV(J,JLEV-1)
+        OR%XSEAV_REL(J,JLEV) = OR%XSEAV_REL(J,JLEV-1)
       ENDIF
     ENDDO
   ENDDO

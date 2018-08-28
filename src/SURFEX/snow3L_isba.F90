@@ -477,8 +477,6 @@ IF (PEK%TSNOW%SCHEME=='3-L' .OR. IO%CISBA == 'DIF' .OR. PEK%TSNOW%SCHEME == 'CRO
                            - DMK%XSNOWHMASS(:)/PTSTEP
     ZGRNDFLUXN(:)       = (ZSNOWH(:)+DMK%XSNOWHMASS(:))/PTSTEP + DMK%XGFLUXSNOW(:)
     ZWORK(:)            = PTSTEP * ZPSN(:) * (ZGRNDFLUXN(:) - PGRNDFLUX(:) - PFLSN_COR(:))
-    PTG(:,1)            = PTG(:,1) + ZWORK(:)*(1.-ZWGHT(:))*PCT(:)
-    PTG(:,2)            = PTG(:,2) + ZWORK(:)*    ZWGHT(:) *ZC2(:)
     ZWORK(:)            = ZWORK(:) / PTSTEP
     PDELHEATG(:)        = PDELHEATG(:)     + ZWORK(:)
     PDELHEATG_SFC(:)    = PDELHEATG_SFC(:) + ZWORK(:)
