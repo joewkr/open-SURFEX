@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-project(surfex)
-enable_language(Fortran)
+project(surfex LANGUAGES Fortran)
 
 set(SURFEX_VERSION_MAJOR 8)
 set(SURFEX_VERSION_BUGFIX 1)
