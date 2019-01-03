@@ -109,7 +109,7 @@ macro (NetCDF_check_interface lang header libs)
             ${NETCDF_${lang}_LIBRARY})
         try_compile(_netcdf_test_compiled
           ${CMAKE_BINARY_DIR}
-          ${CMAKE_CURRENT_SOURCE_DIR}/cmake/test_netcdf.${lang}
+          ${CMAKE_CURRENT_LIST_DIR}/test_netcdf.${lang}
           LINK_LIBRARIES NetCDF::NetCDF_${lang}
           OUTPUT_VARIABLE out)
 

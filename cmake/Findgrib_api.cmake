@@ -143,7 +143,7 @@ if(NOT grib_api_FOUND AND NOT NO_GRIB_API_BINARIES)
 
     try_compile(_test_grib_api_compiled
       ${CMAKE_BINARY_DIR}
-      ${CMAKE_CURRENT_SOURCE_DIR}/cmake/test_grib_api.F90
+      ${CMAKE_CURRENT_LIST_DIR}/test_grib_api.F90
       LINK_LIBRARIES grib_api::grib_api_Fortran
       OUTPUT_VARIABLE out)
 
