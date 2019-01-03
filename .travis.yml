@@ -25,6 +25,13 @@ matrix:
       env:
         - BUILD_TYPE=DEBUG
         - CMAKE_VERSION=3.13.0
+    - os: linux
+      dist: trusty
+      env:
+        - BUILD_TYPE=DEBUG
+        - AUXILIARY_LIBRARIES=SYSTEM
+        - ECCODES_VERSION=2.10.0
+        - CMAKE_VERSION=3.13.0
 
 install:
   - sudo apt-get update -qq
@@ -35,6 +42,12 @@ install:
      sudo apt-get install libgrib-api-tools libgrib-api-dev
     fi
   - cd ${TRAVIS_BUILD_DIR}
+  - |
+    if [[ ! -z $ECCODES_VERSION ]]; then
+      ECCODES_NAME="eccodes-${ECCODES_VERSION}-Source"
+      wget https://confluence.ecmwf.int/download/attachments/45757960/${ECCODES_NAME}.tar.gz
+      tar -xf ${ECCODES_NAME}.tar.gz
+    fi
   - CMAKE_NAME="cmake-${CMAKE_VERSION}-Linux-x86_64"
   - CMAKE_VERSION_DIR=v`echo ${CMAKE_VERSION} | grep -Po '\d+\.\d+'`
   - wget https://cmake.org/files/${CMAKE_VERSION_DIR}/${CMAKE_NAME}.tar.gz
@@ -42,6 +55,19 @@ install:
   - CMAKE_EXE=${TRAVIS_BUILD_DIR}/${CMAKE_NAME}/bin/cmake
 
 before_script:
+  - |
+    if [[ ! -z $ECCODES_VERSION ]]; then
+      ECCODES_BUILD_DIR=${TRAVIS_BUILD_DIR}/${ECCODES_NAME}/build
+      mkdir -p "${ECCODES_BUILD_DIR}"
+      cd ${ECCODES_BUILD_DIR}
+      ${CMAKE_EXE} -DCMAKE_INSTALL_PREFIX=${TRAVIS_BUILD_DIR}/eccodes-install -DENABLE_FORTRAN=ON -DENABLE_JPG=OFF ..
+      ${CMAKE_EXE} --build . -- -j2
+      ${CMAKE_EXE} --build . --target install
+
+      eccodes_DIR=${TRAVIS_BUILD_DIR}/eccodes-install/share/eccodes/cmake/
+      CMAKE_OPTIONS="${CMAKE_OPTIONS} -DUSE_ECCODES=ON"
+      CMAKE_OPTIONS="${CMAKE_OPTIONS} -Deccodes_DIR=${eccodes_DIR}"
+    fi
   - SURFEX_BUILD_DIR="${TRAVIS_BUILD_DIR}/build"
   - mkdir -p "${SURFEX_BUILD_DIR}"
   - cd "${SURFEX_BUILD_DIR}"
