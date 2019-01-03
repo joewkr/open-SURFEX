@@ -106,47 +106,56 @@ else(BUILD_NETCDF)
     find_package(NetCDF REQUIRED COMPONENTS F90)
 endif(BUILD_NETCDF)
 
-if(BUILD_GRIB_API)
-    ExternalProject_add(grib_api
-        URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/grib_api-1.23.0-Source.tar.gz
-        INSTALL_DIR ${CMAKE_BINARY_DIR}/auxiliary
-        CMAKE_ARGS
-            -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-            -DCMAKE_INSTALL_LIBDIR:PATH=lib
-            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-            -DENABLE_FORTRAN=ON
-            -DENABLE_NETCDF=OFF
-            -DENABLE_PYTHON=OFF
-            -DENABLE_EXAMPLES=OFF
-            -DENABLE_TESTS=OFF
-            -DDISABLE_OS_CHECK=ON
-        CMAKE_CACHE_ARGS
-            "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
-        BUILD_BYPRODUCTS
-            "auxiliary/${shared_lib_dir}/${CMAKE_SHARED_LIBRARY_PREFIX}grib_api_f90${CMAKE_SHARED_LIBRARY_SUFFIX}"
-        )
+if(USE_ECCODES)
+    find_package(eccodes REQUIRED NO_MODULE)
+    add_library(eccodes::eccodes INTERFACE IMPORTED)
+    target_include_directories(eccodes::eccodes INTERFACE ${ECCODES_INCLUDE_DIRS})
+    target_link_libraries(eccodes::eccodes INTERFACE eccodes)
+    add_library(eccodes::eccodes_Fortran INTERFACE IMPORTED)
+    target_link_libraries(eccodes::eccodes_Fortran INTERFACE eccodes::eccodes eccodes_f90)
+else(USE_ECCODES)
+    if(BUILD_GRIB_API)
+        ExternalProject_add(grib_api
+            URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/grib_api-1.23.0-Source.tar.gz
+            INSTALL_DIR ${CMAKE_BINARY_DIR}/auxiliary
+            CMAKE_ARGS
+                -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+                -DCMAKE_INSTALL_LIBDIR:PATH=lib
+                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+                -DENABLE_FORTRAN=ON
+                -DENABLE_NETCDF=OFF
+                -DENABLE_PYTHON=OFF
+                -DENABLE_EXAMPLES=OFF
+                -DENABLE_TESTS=OFF
+                -DDISABLE_OS_CHECK=ON
+            CMAKE_CACHE_ARGS
+                "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
+            BUILD_BYPRODUCTS
+                "auxiliary/${shared_lib_dir}/${CMAKE_SHARED_LIBRARY_PREFIX}grib_api_f90${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            )
 
-    ExternalProject_get_property(grib_api install_dir)
+        ExternalProject_get_property(grib_api install_dir)
 
-    set(LOCAL_GRIB_API grib_api)
+        set(LOCAL_GRIB_API grib_api)
 
-    # Hack to suppress error in INTERFACE_INCLUDE_DIRECTORIES
-    file(MAKE_DIRECTORY "${install_dir}/include")
+        # Hack to suppress error in INTERFACE_INCLUDE_DIRECTORIES
+        file(MAKE_DIRECTORY "${install_dir}/include")
 
-    add_library(grib_api::grib_api_Fortran SHARED IMPORTED)
-    set_property(TARGET grib_api::grib_api_Fortran PROPERTY
-        IMPORTED_LOCATION "${install_dir}/${shared_lib_dir}/${CMAKE_SHARED_LIBRARY_PREFIX}grib_api_f90${CMAKE_SHARED_LIBRARY_SUFFIX}")
-    if(WIN32 OR CYGWIN OR MINGW)
+        add_library(grib_api::grib_api_Fortran SHARED IMPORTED)
         set_property(TARGET grib_api::grib_api_Fortran PROPERTY
-            IMPORTED_IMPLIB "${install_dir}/lib/${CMAKE_IMPORT_LIBRARY_PREFIX}grib_api_f90${CMAKE_IMPORT_LIBRARY_SUFFIX}")
-    endif()
-    set_property(TARGET grib_api::grib_api_Fortran PROPERTY
-        INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
+            IMPORTED_LOCATION "${install_dir}/${shared_lib_dir}/${CMAKE_SHARED_LIBRARY_PREFIX}grib_api_f90${CMAKE_SHARED_LIBRARY_SUFFIX}")
+        if(WIN32 OR CYGWIN OR MINGW)
+            set_property(TARGET grib_api::grib_api_Fortran PROPERTY
+                IMPORTED_IMPLIB "${install_dir}/lib/${CMAKE_IMPORT_LIBRARY_PREFIX}grib_api_f90${CMAKE_IMPORT_LIBRARY_SUFFIX}")
+        endif()
+        set_property(TARGET grib_api::grib_api_Fortran PROPERTY
+            INTERFACE_INCLUDE_DIRECTORIES "${install_dir}/include")
 
-    generate_install_targets(EXTERNAL_PROJECTS grib_api)
-else(BUILD_GRIB_API)
-    find_package(grib_api REQUIRED)
-endif(BUILD_GRIB_API)
+        generate_install_targets(EXTERNAL_PROJECTS grib_api)
+    else(BUILD_GRIB_API)
+        find_package(grib_api REQUIRED)
+    endif(BUILD_GRIB_API)
+endif(USE_ECCODES)
 
 if(ENABLE_OASIS)
     if(NOT BUILD_NETCDF)
