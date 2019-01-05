@@ -2,26 +2,21 @@ os: Visual Studio 2017
 platform: x64
 
 environment:
-    CC:  C:/cygwin64/bin/gcc
-    CXX: C:/cygwin64/bin/g++
-    FC:  C:/cygwin64/bin/gfortran
+    CC:  /cygdrive/c/cygwin64/bin/gcc
+    CXX: /cygdrive/c/cygwin64/bin/g++
+    FC:  /cygdrive/c/cygwin64/bin/gfortran
     SHELL: C:\cygwin64\bin\bash
 
-cache:
-  - C:\cmk -> .appveyor.yml
-
-
 install:
-  - cmd: C:\cygwin64\setup-x86_64.exe -q -P gcc-core,gcc-g++,gcc-fortran,libncurses-devel,zlib-devel
+  - cmd: C:\cygwin64\setup-x86_64.exe -q -P gcc-core,gcc-g++,gcc-fortran,libncurses-devel,zlib-devel,libuv1,librhash0,libuuid1,libjsoncpp19,libarchive13
   - ps: |
         if (-Not (Test-Path "C:\cmk" -PathType Container) ) {
-          $env:CMAKE_URL = "https://cmake.org/files/v3.12/cmake-3.12.0.tar.gz"
-          $env:CMAKE_ZIP = "C:\cmake-3.12.0.tar.gz"
+          $env:CMAKE_URL = "http://cygwin.mirror.constant.com/x86_64/release/cmake/cmake-3.13.1-1.tar.xz"
+          $env:CMAKE_ZIP = "C:\cmake-3.13.1-1.tar.xz"
           (New-Object System.Net.WebClient).DownloadFile($env:CMAKE_URL, $env:CMAKE_ZIP)
         }
   - cmd: set PATH=C:\cygwin64\bin;%PATH%
-  - cmd: bash -lc "[[ -d /cygdrive/c/cmk ]] || tar -xzf /cygdrive/c/cmake-3.12.0.tar.gz"
-  - cmd: bash -lc "[[ -d /cygdrive/c/cmk ]] || { cd cmake-3.12.0 && ./bootstrap --prefix=/cygdrive/c/cmk && make -j2 && make install; }"
+  - cmd: bash -lc "cd / && tar -xf /cygdrive/c/cmake-3.13.1-1.tar.xz"
 
 build_script:
   - cmd: cd %APPVEYOR_BUILD_FOLDER%
@@ -29,8 +24,8 @@ build_script:
   - cmd: cd build
   - cmd: set PATH=C:\cygwin64\bin;%PATH%
   - cmd: echo %PATH%
-  - cmd: bash -lc "export PATH=/cygdrive/c/cmk/bin:$PATH; cd $APPVEYOR_BUILD_FOLDER/build && cmake -G 'Unix Makefiles' ..;"
-  - cmd: bash -lc "export PATH=/cygdrive/c/cmk/bin:$PATH; cd $APPVEYOR_BUILD_FOLDER/build && cmake --build . -- -j2;"
+  - cmd: bash -lc "cd $APPVEYOR_BUILD_FOLDER/build && cmake -G 'Unix Makefiles' ..;"
+  - cmd: bash -lc "cd $APPVEYOR_BUILD_FOLDER/build && cmake --build . -- -j2;"
 
 #test_script:
 #  - ps: $env:CMAKE --build . --target install
