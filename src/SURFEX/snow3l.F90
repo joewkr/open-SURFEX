@@ -547,7 +547,7 @@ ZSNOWTEMPO1(:) = ZSNOWTEMP(:,1) ! save surface snow temperature before update
 !
 ZGRNDFLUXI(:)  = ZGRNDFLUX(:)
 !
- CALL SNOW3LSOLVT(OMEB,PTSTEP,XSNOWDZMIN,PSNOWDZ,ZSCOND,ZSCAP,PTG,              &
+CALL SNOW3LSOLVT(OMEB,PTSTEP,XSNOWDZMIN,PSNOWDZ,ZSCOND,ZSCAP,PTG,              &
                    PSOILCOND,PD_G,ZRADSINK,ZCT,ZTSTERM1,ZTSTERM2,              &
                    ZPET_A_COEF_T,ZPEQ_A_COEF_T,ZPET_B_COEF_T,ZPEQ_B_COEF_T,    &
                    ZTA_IC,ZQA_IC,ZGRNDFLUX,ZGRNDFLUXO,ZSNOWTEMP,PSNOWFLUX      )
@@ -1119,7 +1119,7 @@ IF(OMEB)THEN
 
 ! Diagnose surface layer coef (should be very close/identical to ZCOEF(:,1) computed above)
 
-   ZCOEF(:,1)           = 1.0 - PSWNETSNOWS(:)/MAX(1.E-4,PSWNETSNOW(:))
+   ZCOEF(:,1)           = (PSWNETSNOW(:)-PSWNETSNOWS(:))/MAX(1.E-4,PSW_RAD(:))
 
 ELSE
 

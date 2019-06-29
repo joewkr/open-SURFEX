@@ -54,7 +54,7 @@ SUBROUTINE PREPS_FOR_MEB_EBUD_RAD(PPS,                                         &
 USE MODD_SNOW_PAR,            ONLY : XRHOSMAX_ES, XRHOSMIN_ES, XEMISSN, XSNOWDMIN, &
                                      XSNOWTHRMCOND1
 !
-USE MODD_CSTS,                ONLY : XTT, XLMTT, XRHOLW
+USE MODD_CSTS,                ONLY : XTT, XLMTT, XRHOLW, XCI
 !
 USE MODD_SURF_PAR,            ONLY : XUNDEF
 !
@@ -105,17 +105,21 @@ IF (LHOOK) CALL DR_HOOK('PREPS_FOR_MEB_EBUD_RAD',0,ZHOOK_HANDLE)
 INI             = SIZE(PSNOWRHO,1)
 INLVLS          = SIZE(PSNOWRHO,2)
 !
-WHERE(PSNOWRHO(:,:)==XUNDEF)
-   PSNOWRHO(:,:) = XRHOSMIN_ES           ! arbitrary...will be correctly set if snow present
-ENDWHERE
+! Initialize some output variables:
+! where snow depth below threshold, set to non-snow values
 !
-PSNOWDZ(:,:)     = PSNOWSWE(:,:)/PSNOWRHO(:,:)
-PHEATCAPS(:,:)   = SNOW3LSCAP(PSNOWRHO)
-PSCOND(:,:)      = XSNOWTHRMCOND1        ! arbitrary...will be correctly set if snow present
-PSNOWTEMP(:,:)   = XTT
-PSNOWLIQ(:,:)    = 0.0
+PSNOWTEMP(:,:)      = XTT
+PSNOWLIQ (:,:)      = 0.0
+PSCOND   (:,:)      = XSNOWTHRMCOND1
+PHEATCAPS(:,:)      = XRHOSMIN_ES*XCI
 !
 ! Test variables to check for existance of snow:
+!
+WHERE(PSNOWRHO(:,:)==XUNDEF)
+   PSNOWDZ(:,:)     = 0.
+ELSEWHERE
+   PSNOWDZ(:,:)     = PSNOWSWE(:,:)/PSNOWRHO(:,:)
+ENDWHERE
 !
 ZSNOWFALL(:)     = PSR(:)*PTSTEP/XRHOSMAX_ES
 !
@@ -204,7 +208,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
 !----------------------------------------------------------------
 !
-IF (LHOOK) CALL DR_HOOK('SNOW3L_ISBA:CALL_MODEL',0,ZHOOK_HANDLE)
+IF (LHOOK) CALL DR_HOOK('PREPS_FOR_MEB_EBUD_RAD:CALL_SNOW_ROUTINES',0,ZHOOK_HANDLE)
 !
 ! pack the variables
 !
@@ -284,6 +288,8 @@ DO JWRK=1,KSIZE2
       PHEATCAPS(JI,JWRK) = ZP_HEATCAPS(JJ,JWRK)
    ENDDO
 ENDDO
+!
+IF (LHOOK) CALL DR_HOOK('PREPS_FOR_MEB_EBUD_RAD:CALL_SNOW_ROUTINES',1,ZHOOK_HANDLE)
 !
 END SUBROUTINE CALL_SNOW_ROUTINES
 !================================================================

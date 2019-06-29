@@ -82,7 +82,7 @@ CONTAINS
 !!    -------------
 !!      Original    22/01/11
 !!                  10/10/14 (A. Boone) Removed understory vegetation
-!!
+!!                  13/09/18 (A. Boone) Add litter layer option to test-Tg computation
 !-------------------------------------------------------------------------------
 !
 !*       0.     DECLARATIONS
@@ -94,14 +94,14 @@ USE MODD_DIAG_n, ONLY : DIAG_t
 USE MODD_DIAG_EVAP_ISBA_n, ONLY : DIAG_EVAP_ISBA_t
 USE MODD_DIAG_MISC_ISBA_n, ONLY : DIAG_MISC_ISBA_t
 !
-USE MODD_CSTS,                    ONLY : XLVTT, XLSTT, XTT, XCPD, XCPV, XCL, &
+USE MODD_CSTS,                    ONLY : XLVTT, XLSTT, XTT, XCPD, XCPV, XCL,  &
                                          XDAY, XPI, XLMTT, XRHOLW
 USE MODD_SURF_ATM,                ONLY : LCPL_ARP
 USE MODD_SURF_PAR,                ONLY : XUNDEF
 USE MODD_SNOW_METAMO,             ONLY : XSNOWDZMIN
-!
+
 USE MODE_THERMOS
-USE MODE_MEB,                     ONLY : SFC_HEATCAP_VEG
+USE MODE_MEB,                     ONLY : SFC_HEATCAP_VEG, MEBLITTER_THRM
 USE MODE_SNOW3L,                  ONLY : SNOW3LHOLD
 !
 USE MODI_TRIDIAG_GROUND_RM_COEFS
@@ -310,7 +310,7 @@ REAL, DIMENSION(SIZE(DMK%XSNOWDZ,1),SIZE(DMK%XSNOWDZ,2)):: ZSNOW_COEF_A, ZSNOW_C
 !
 REAL, DIMENSION(SIZE(DMK%XSNOWDZ,1),SIZE(DMK%XSNOWDZ,2)):: ZWHOLDMAX
 !
-REAL, DIMENSION(SIZE(PD_G,1),SIZE(PD_G,2)+SIZE(DMK%XSNOWDZ,2)) :: ZD, ZT, ZHCAPZ, ZCONDZ,         &
+REAL, DIMENSION(SIZE(PD_G,1),SIZE(PD_G,2)+SIZE(DMK%XSNOWDZ,2)+1) :: ZD, ZT, ZHCAPZ, ZCONDZ,       &
                                              ZCOEF_A, ZCOEF_B, ZSOURCE
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
@@ -345,8 +345,15 @@ ZSOIL_COEF_A(:,:) = 0.0
 ZSOIL_COEF_B(:,:) = 0.0
 ZSNOW_COEF_A(:,:) = 0.0
 ZSNOW_COEF_B(:,:) = 0.0
-
-!-------------------------------------------------------------------------------
+!
+ZD(:,:)           = 0.0
+ZT(:,:)           = 0.0
+ZHCAPZ(:,:)       = 0.0
+ZCONDZ(:,:)       = 0.0
+ZSOURCE(:,:)      = 0.0
+ZCOEF_A(:,:)      = 0.0
+ZCOEF_B(:,:)      = 0.0
+!
 !
 !*       1.     Some variables/coefficients needed for coupling or solution
 !               -----------------------------------------------------------
@@ -448,6 +455,13 @@ IF(IO%CISBA == 'DIF')THEN
          ZSOURCE(JJ,JL)   = DEK%XSWNET_NS(JJ)*(PTAU_N(JJ,JK-1)-PTAU_N(JJ,JK))
       ENDDO
    ENDDO
+   IF(IO%LMEB_LITTER)THEN
+      JL                  = JL + 1
+      ZD(:,JL)            = PEK%XGNDLITTER(:)
+      ZT(:,JL)            = PEK%XTL(:)
+      CALL MEBLITTER_THRM(PEK%XWRL,PEK%XWRLI,PEK%XGNDLITTER,ZHCAPZ(:,JL),ZCONDZ(:,JL))
+      ZSOURCE(:,JL)       = 0.
+   ENDIF
    JL                     = JL + 1
    ZD(:,JL)               = PD_G(:,1)
    ZT(:,JL)               = ZTGO(:,1)
@@ -467,8 +481,9 @@ IF(IO%CISBA == 'DIF')THEN
 !
 ! Get coefficients from upward sweep (starting from soil base to snow surface):
 !
-   CALL TRIDIAG_GROUND_RM_COEFS(PTSTEP, ZD, ZT, ZHCAPZ, ZCONDZ, ZSOURCE, &
-                                PTDEEP_A, KK%XTDEEP, ZTCONDA_DELZ_N, ZCOEF_A, ZCOEF_B)
+   CALL TRIDIAG_GROUND_RM_COEFS(PTSTEP, ZD(:,1:JL), ZT(:,1:JL), ZHCAPZ(:,1:JL), ZCONDZ(:,1:JL), &
+                                ZSOURCE(:,1:JL),PTDEEP_A, KK%XTDEEP, ZTCONDA_DELZ_N,            &
+                                ZCOEF_A(:,1:JL), ZCOEF_B(:,1:JL))
 !
    ZSNOW_COEF_A(:,2)  = ZCOEF_A(:,2)
    ZSNOW_COEF_B(:,2)  = ZCOEF_B(:,2)

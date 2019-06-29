@@ -615,13 +615,15 @@ WHERE(PSW_RAD(:) > ZSWRAD_MIN) ! Sun is up...approx
 !
 ELSEWHERE
 
-! Sun is down:
+! Sun is down: (below threshold)
+! radiation amounts quite small, so make a simple approximation here:
 
-   DK%XALBT(:)                = 1.0
-   ZSWUP(:)                   = PSW_RAD(:)
+   DK%XALBT(:)                = ZALBV(:)
+   ZSWUP(:)                   = DK%XALBT(:)*PSW_RAD(:)
+
    DEK%XSWDOWN_GN(:)          = 0.
    DEK%XSWNET_G(:)            = 0.
-   DEK%XSWNET_V(:)            = 0.
+   DEK%XSWNET_V(:)            = (1.-DK%XALBT(:))*PSW_RAD(:)
    DEK%XSWNET_N(:)            = 0.
    DEK%XSWNET_NS(:)           = 0.
    ZTAU_N(:,SIZE(PEK%TSNOW%WSNOW,2)) = 0.
@@ -906,7 +908,7 @@ ZVEGFACT(:) = ZSIGMA_F(:)*(1.0-PPALPHAN(:)*PEK%XPSN(:))
 ! snowpack and part falling onto snow-free understory.
 !
 !
- CALL HYDRO_VEG(IO%CRAIN, PTSTEP, KK%XMUF, ZRR, DEK%XLEV_CV, DEK%XLETR_CV,          &
+ CALL HYDRO_VEG(IO%CRAIN, PTSTEP, KK%XMUF, ZRR, DEK%XLEV_CV, DEK%XLETR_CV,        &
                 ZVEGFACT, ZPSNCV, PEK%XWR, ZWRMAX, ZRRSFC, DEK%XDRIP, DEK%XRRVEG, &
                 PK%XLVTT  )
 !
@@ -915,15 +917,15 @@ ZVEGFACT(:) = ZSIGMA_F(:)*(1.0-PPALPHAN(:)*PEK%XPSN(:))
 !*      10.0    Explicit snow scheme (MEB: impose surface fluxes as upper BC)
 !              ----------------------------------------------------------------
 !
- CALL SNOW3L_ISBA(IO, G, PK, PEK, DK, DEK, DMK, OMEB, HIMPLICIT_WIND,       &
-                  TPTIME, PTSTEP, PK%XVEGTYPE_PATCH,  ZTGL, ZCTSFC,         &
-                  ZSOILHCAPZ, ZSOILCONDZ(:,1), PPS, PTA, PSW_RAD, PQA,      &
-                  PVMOD, PLW_RAD, ZRRSFC, DEK%XSR_GN, PRHOA, ZUREF, PEXNS,  &
-                  PEXNA, PDIRCOSZW, ZZREF, ZALBG, ZD_G, ZDZG, PPEW_A_COEF,  &
-                  PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF,       &
-                  PPEQ_B_COEF, PSNOW_THRUFAL, PGRNDFLUX, PFLSN_COR,         &
-                  PRESTOREN, PEVAPCOR, DEK%XLES, DEK%XLESL, ZEVAP3L, PSNOWSFCH, &
-                  PDELHEATN, PDELHEATN_SFC, PRISNOW, PZENITH, PDELHEATG,    &
+ CALL SNOW3L_ISBA(IO, G, PK, PEK, DK, DEK, DMK, OMEB, HIMPLICIT_WIND,                   &
+                  TPTIME, PTSTEP, PK%XVEGTYPE_PATCH,  ZTGL, ZCTSFC,                     &
+                  ZSOILHCAPZ, ZSOILCONDZ(:,1), PPS, PEK%XTC, DEK%XSWDOWN_GN, PEK%XQC,   &
+                  PVMOD, PLW_RAD, ZRRSFC, DEK%XSR_GN, PRHOA, ZUREF, PEXNS,              &
+                  PEXNA, PDIRCOSZW, ZZREF, ZALBG, ZD_G, ZDZG, PPEW_A_COEF,              &
+                  PPEW_B_COEF, PPET_A_COEF, PPEQ_A_COEF, PPET_B_COEF,                   &
+                  PPEQ_B_COEF, PSNOW_THRUFAL, PGRNDFLUX, PFLSN_COR,                     &
+                  PRESTOREN, PEVAPCOR, DEK%XLES, DEK%XLESL, ZEVAP3L, PSNOWSFCH,         &
+                  PDELHEATN, PDELHEATN_SFC, PRISNOW, PZENITH, PDELHEATG,                &
                   PDELHEATG_SFC, PQSNOW     )
 !
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1615,8 +1617,11 @@ SUBROUTINE PREP_MEB_SOIL(OMEB_LITTER,PSOILHCAPZ,PSOILCONDZ,KK,PK,PEK,PD_GL,&
                          PDZGL,PTGL,PSOILHCAPL,PSOILCONDL,PWSATL,PWFCL,PWSFC,&
                          PWISFC,PCTSFC,PCT,PFROZEN1,PFROZEN1SFC)
 !
-USE MODD_CSTS,       ONLY : XRHOLW,XRHOLI, XCL, XCI
-USE MODD_ISBA_PAR,   ONLY : XWGMIN, XOMSPH
+USE MODD_CSTS,       ONLY : XRHOLW, XCL
+USE MODD_ISBA_PAR,   ONLY : XWGMIN
+USE MODD_MEB_PAR,    ONLY : XLITTER_HYD_Z4, XLITTER_HYD_Z5
+!
+USE MODE_MEB,        ONLY : MEBLITTER_THRM
 !
 IMPLICIT NONE
 !
@@ -1649,16 +1654,6 @@ INTEGER                               :: INJ, INL, JJ, JL
 !
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
-!*      0.3    declarations of local parameters
-!
-REAL, PARAMETER                       :: Z1 = 45.0       !litter bulk density (kg/m3)
-REAL, PARAMETER                       :: Z2 = 0.1        !coeff for litter conductivity (W/(mK))
-REAL, PARAMETER                       :: Z3 = 0.03       !coeff for litter conductivity
-REAL, PARAMETER                       :: Z4 = 0.95       !litter porosity       (m3/m3)
-REAL, PARAMETER                       :: Z5 = 0.12       !litter field capacity (m3/m3)
-!
-REAL, DIMENSION(SIZE(PEK%XWG,1))      :: ZWORK
-!
 !-------------------------------------------------------------------------------
 !
 IF (LHOOK) CALL DR_HOOK('ISBA_MEB:PREP_MEB_SOIL',0,ZHOOK_HANDLE)
@@ -1666,14 +1661,11 @@ IF (LHOOK) CALL DR_HOOK('ISBA_MEB:PREP_MEB_SOIL',0,ZHOOK_HANDLE)
 INJ  = SIZE(PK%XDG,1)
 INL  = SIZE(PK%XDG,2)
 !
-ZWORK(:) = 0.0
 IF(OMEB_LITTER)THEN
    PTGL(:,1)                  = PEK%XTL(:)
-   ZWORK(:)                   = PEK%XWRL(:)/(XRHOLW*PEK%XGNDLITTER(:))
-   PSOILHCAPL(:,1)            = XOMSPH*Z1 + (XCL*XRHOLW)*ZWORK(:) + (XCI*XRHOLI/XRHOLW)*PEK%XWRLI(:)/PEK%XGNDLITTER(:)
-   PSOILCONDL(:,1)            = Z2 + Z3 * ZWORK(:)
-   PWSATL(:,1)                = Z4
-   PWFCL(:,1)                 = Z5
+   CALL MEBLITTER_THRM(PEK%XWRL,PEK%XWRLI,PEK%XGNDLITTER,PSOILHCAPL(:,1),PSOILCONDL(:,1))
+   PWSATL(:,1)                = XLITTER_HYD_Z4
+   PWFCL(:,1)                 = XLITTER_HYD_Z5
    PD_GL(:,1)                 = PEK%XGNDLITTER(:)
    PDZGL(:,1)                 = PEK%XGNDLITTER(:)
    PCTSFC(:)                  = 1. / (PSOILHCAPL(:,1) * PEK%XGNDLITTER(:))

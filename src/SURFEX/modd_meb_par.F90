@@ -24,6 +24,8 @@
 !!    MODIFICATIONS
 !!    -------------
 !!      Original       09/2013
+!!      13/09/18 (A. Boone) Added Litter thermal and hydrological parameters
+!!                          herein
 !-------------------------------------------------------------------------------
 !
 !*       0.   DECLARATIONS
@@ -55,6 +57,15 @@ INTEGER, PARAMETER   :: NSPB_MEB     = 2      ! number of bands (below)
 REAL,    PARAMETER   :: XSW_WGHT_VIS = 0.48
 !
 REAL,    PARAMETER   :: XSW_WGHT_NIR = 0.52
+!
+! Litter thermal (THRM) and hydrological (HYD) properties
+! -------------------------------------------------------
+!
+REAL,    PARAMETER   :: XLITTER_THRM_Z1 = 45.00   !litter bulk density (kg/m3)
+REAL,    PARAMETER   :: XLITTER_THRM_Z2 =  0.10   !coeff for litter conductivity (W/(mK))
+REAL,    PARAMETER   :: XLITTER_THRM_Z3 =  0.03   !coeff for litter conductivity
+REAL,    PARAMETER   :: XLITTER_HYD_Z4  =  0.95   !litter porosity       (m3/m3)
+REAL,    PARAMETER   :: XLITTER_HYD_Z5  =  0.12   !litter field capacity (m3/m3)
 !
 !-------------------------------------------------------------------------------
 !

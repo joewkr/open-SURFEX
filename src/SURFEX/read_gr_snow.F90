@@ -227,8 +227,8 @@ IF (IVERSION >= 7 .AND. HSURFTYPE=='VEG'.AND.KPATCH==1)  &
 !-------------------------------------------------------------------------------
 !
 !
-!*       5.    Snow reservoir
-!              --------------
+!*       5.    Snow reservoir and Snow density
+!              -------------------------------
 !
 ALLOCATE(ZWORK(KLU,INPATCH))
 !
@@ -245,7 +245,7 @@ IF (TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' &
   CALL READ_LAYERS(GVERSION,TPSNOW%NLAYER,YDIR,HPREFIX,YFMT,"WSNOW",HSURFTYPE,TPSNOW%WSNOW)
   CALL READ_LAYERS(GVERSION,TPSNOW%NLAYER,YDIR,HPREFIX,YFMT,"RSNOW",HSURFTYPE,TPSNOW%RHO)
   !
-  !*       7.    Snow temperature
+  !*       6.    Snow temperature
   !              ----------------
   !
   IF (TPSNOW%SCHEME=='1-L') THEN
@@ -254,19 +254,23 @@ IF (TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' &
     !
   ENDIF
   !
-  !*       8.    Heat content
+  !*       7.    Heat content
   !              ------------
   !
   IF (TPSNOW%SCHEME=='3-L' .OR. TPSNOW%SCHEME=='CRO') THEN
     !
     CALL READ_LAYERS(GVERSION,TPSNOW%NLAYER,YDIR,HPREFIX,YFMT,"HSNOW",HSURFTYPE,TPSNOW%HEAT)
     !
+    !
+    !*       8.    Historical parameter
+    !              -------------------
+
     IF (TPSNOW%SCHEME=='CRO') THEN
       !
       CALL READ_LAYERS(GVERSION,TPSNOW%NLAYER,YDIR,HPREFIX,YFMT,"SHIST",HSURFTYPE,TPSNOW%HIST)
       !
-      !*       9.    Snow Gran1
-      !              ------------
+      !*       9.    Snow Gran1 and  Snow Gran2
+      !              ----------------------------
       !
       IF (GVERSION) THEN
         YFMT = "(A2,A1"//YFMT0//')'
@@ -279,10 +283,10 @@ IF (TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' &
       !
     ENDIF
     !
+    !*       10.    Age parameter
+    !              -------------------
+    !
     IF ((TPSNOW%SCHEME=='3-L'.AND.IVERSION>=8) .OR. TPSNOW%SCHEME=='CRO') THEN
-      !*       12.    Age parameter
-      !              -------------------
-      !
       IF (GVERSION) THEN
         YFMT = "(A3"//YFMT0//')'
       ELSE
@@ -305,8 +309,15 @@ IF (TPSNOW%SCHEME=='1-L' .OR. TPSNOW%SCHEME=='D95' .OR. TPSNOW%SCHEME=='EBA' &
     !
   ENDIF
   !
-  WRITE(YFMT,'(A5,I1,A2,I1,A1)') '(A4,A',ISURFTYPE_LEN,',A',IPAT_LEN,')'
-  WRITE(YRECFM,YFMT) 'ASN_',ADJUSTL(HSURFTYPE(:LEN_TRIM(HSURFTYPE))),ADJUSTL(YPAT)
+  !*       11.    Albedo
+  !              --------
+  IF (IVERSION<7 .OR. IVERSION==7 .AND. IBUGFIX<3) THEN
+    WRITE(YFMT,'(A5,I1,A2,I1,A1)')     '(A6,A',ISURFTYPE_LEN,',A',IPAT_LEN,')'
+    WRITE(YRECFM,YFMT) 'ASNOW_',ADJUSTL(HSURFTYPE(:LEN_TRIM(HSURFTYPE))),ADJUSTL(YPAT)
+  ELSE
+    WRITE(YFMT,'(A5,I1,A2,I1,A1)')     '(A4,A',ISURFTYPE_LEN,',A',IPAT_LEN,')'
+    WRITE(YRECFM,YFMT) 'ASN_',ADJUSTL(HSURFTYPE(:LEN_TRIM(HSURFTYPE))),ADJUSTL(YPAT)
+  ENDIF
   IF (GVERSION) YRECFM=ADJUSTL(HPREFIX//YRECFM)
   IF (GDIM2) THEN
     CALL READ_SURF(HPROGRAM,YRECFM,ZWORK(:,1),IRESP,HDIR=YDIR)

@@ -32,6 +32,7 @@
 !!    MODIFICATIONS
 !!    -------------
 !!      Original        18/01/11
+!!                      13/09/18 Added litter thermal computations here
 !-----------------------------------------------------------------------------
 !
 !*       0.    DECLARATIONS
@@ -68,9 +69,222 @@ INTERFACE MEB_SHIELD_FACTOR
    MODULE PROCEDURE MEB_SHIELD_FACTOR_0D
 END INTERFACE
 !
+INTERFACE MEBLITTER_THRM
+   MODULE PROCEDURE MEBLITTER_THRM_2D
+   MODULE PROCEDURE MEBLITTER_THRM_1D
+   MODULE PROCEDURE MEBLITTER_THRM_0D
+END INTERFACE
+!
 !-------------------------------------------------------------------------------
 CONTAINS
 !
+!####################################################################
+!####################################################################
+!####################################################################
+      SUBROUTINE MEBLITTER_THRM_2D(PWRL,PWRLI,PGNDLITTER,PHCAP,PCOND)
+!
+!!    PURPOSE
+!!    -------
+!     Calculation of litter thermal properties (based on Napoly et al., 2017)
+!
+!!    REFERENCE
+!!    ---------
+!!      Napoly et al., 2017: GMD
+!!
+!!    AUTHOR
+!!    ------
+!!!     A. Boone                 * Meteo-France/CNRS *
+!!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original        13/09/18
+!
+!-----------------------------------------------------------------------------
+!
+USE MODD_MEB_PAR,                 ONLY : XLITTER_THRM_Z1, XLITTER_THRM_Z2,   &
+                                         XLITTER_THRM_Z3
+USE MODD_ISBA_PAR,                ONLY : XOMSPH
+USE MODD_CSTS,                    ONLY : XRHOLW, XRHOLI, XCI, XCL
+
+
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1    declarations of arguments
+!
+REAL, DIMENSION(:,:), INTENT(IN)   :: PWRL, PWRLI, PGNDLITTER
+!                                     PWRL  = litter liquid water content (kg/m2)
+!                                     PWRLI = litter liquid water equivalent ice content (kg/m2)
+!                                     PGNDLITTER = litter layer thickness (m)
+!
+REAL, DIMENSION(:,:), INTENT(OUT)  :: PHCAP, PCOND
+!                                     PHCAP = litter heat capacity [J/(m3 K)]
+!                                     PCOND = litter thermal conductivity [W/(m K)]
+!
+!*      0.2    declaration of local variables
+!
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+REAL, DIMENSION(SIZE(PGNDLITTER,1),SIZE(PGNDLITTER,2))  :: ZWORK
+!
+!-------------------------------------------------------------------------------
+IF (LHOOK) CALL DR_HOOK('MODE_MEB:MEBLITTER_THRM_2D',0,ZHOOK_HANDLE)
+!
+ZWORK(:,:)  = PWRL(:,:)/(XRHOLW*PGNDLITTER(:,:))
+!
+! Litter heat capacity:
+!
+PHCAP(:,:)  = XOMSPH*XLITTER_THRM_Z1 + ( (XCL*XRHOLW)*ZWORK(:,:) +    &
+              (XCI*XRHOLI/XRHOLW)*PWRLI(:,:)/PGNDLITTER(:,:) )
+!
+! Litter thermal conductivity:
+!
+PCOND(:,:)  = XLITTER_THRM_Z2 + ( XLITTER_THRM_Z3 * ZWORK(:,:) )
+!
+IF (LHOOK) CALL DR_HOOK('MODE_MEB:MEBLITTER_THRM_2D',1,ZHOOK_HANDLE)
+!-------------------------------------------------------------------------------
+!
+END SUBROUTINE MEBLITTER_THRM_2D
+!####################################################################
+!####################################################################
+!####################################################################
+      SUBROUTINE MEBLITTER_THRM_1D(PWRL,PWRLI,PGNDLITTER,PHCAP,PCOND)
+!
+!!    PURPOSE
+!!    -------
+!     Calculation of litter thermal properties (based on Napoly et al., 2017)
+!
+!!    REFERENCE
+!!    ---------
+!!      Napoly et al., 2017: GMD
+!!
+!!    AUTHOR
+!!    ------
+!!!     A. Boone                 * Meteo-France/CNRS *
+!!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original        13/09/18
+!
+!-----------------------------------------------------------------------------
+!
+USE MODD_MEB_PAR,                 ONLY : XLITTER_THRM_Z1, XLITTER_THRM_Z2,   &
+                                         XLITTER_THRM_Z3
+USE MODD_ISBA_PAR,                ONLY : XOMSPH
+USE MODD_CSTS,                    ONLY : XRHOLW, XRHOLI, XCI, XCL
+
+
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1    declarations of arguments
+!
+REAL, DIMENSION(:), INTENT(IN)     :: PWRL, PWRLI, PGNDLITTER
+!                                     PWRL  = litter liquid water content (kg/m2)
+!                                     PWRLI = litter liquid water equivalent ice content (kg/m2)
+!                                     PGNDLITTER = litter layer thickness (m)
+!
+REAL, DIMENSION(:), INTENT(OUT)    :: PHCAP, PCOND
+!                                     PHCAP = litter heat capacity [J/(m3 K)]
+!                                     PCOND = litter thermal conductivity [W/(m K)]
+!
+!*      0.2    declaration of local variables
+!
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+REAL, DIMENSION(SIZE(PGNDLITTER))  :: ZWORK
+!
+!-------------------------------------------------------------------------------
+IF (LHOOK) CALL DR_HOOK('MODE_MEB:MEBLITTER_THRM_1D',0,ZHOOK_HANDLE)
+!
+ZWORK(:)  = PWRL(:)/(XRHOLW*PGNDLITTER(:))
+!
+! Litter heat capacity:
+!
+PHCAP(:)  = XOMSPH*XLITTER_THRM_Z1 + ( (XCL*XRHOLW)*ZWORK(:) +    &
+            (XCI*XRHOLI/XRHOLW)*PWRLI(:)/PGNDLITTER(:) )
+!
+! Litter thermal conductivity:
+!
+PCOND(:)  = XLITTER_THRM_Z2 + ( XLITTER_THRM_Z3 * ZWORK(:) )
+!
+IF (LHOOK) CALL DR_HOOK('MODE_MEB:MEBLITTER_THRM_1D',1,ZHOOK_HANDLE)
+!-------------------------------------------------------------------------------
+!
+END SUBROUTINE MEBLITTER_THRM_1D
+!####################################################################
+!####################################################################
+!####################################################################
+      SUBROUTINE MEBLITTER_THRM_0D(PWRL,PWRLI,PGNDLITTER,PHCAP,PCOND)
+!
+!!    PURPOSE
+!!    -------
+!     Calculation of litter thermal properties (based on Napoly et al., 2017)
+!
+!!    REFERENCE
+!!    ---------
+!!      Napoly et al., 2017: GMD
+!!
+!!    AUTHOR
+!!    ------
+!!!     A. Boone                 * Meteo-France/CNRS *
+!!!
+!!    MODIFICATIONS
+!!    -------------
+!!      Original        13/09/18
+!
+!-----------------------------------------------------------------------------
+!
+USE MODD_MEB_PAR,                 ONLY : XLITTER_THRM_Z1, XLITTER_THRM_Z2,   &
+                                         XLITTER_THRM_Z3
+USE MODD_ISBA_PAR,                ONLY : XOMSPH
+USE MODD_CSTS,                    ONLY : XRHOLW, XRHOLI, XCI, XCL
+
+
+USE YOMHOOK   ,ONLY : LHOOK,   DR_HOOK
+USE PARKIND1  ,ONLY : JPRB
+!
+IMPLICIT NONE
+!
+!*      0.1    declarations of arguments
+!
+REAL,               INTENT(IN)     :: PWRL, PWRLI, PGNDLITTER
+!                                     PWRL  = litter liquid water content (kg/m2)
+!                                     PWRLI = litter liquid water equivalent ice content (kg/m2)
+!                                     PGNDLITTER = litter layer thickness (m)
+!
+REAL,               INTENT(OUT)    :: PHCAP, PCOND
+!                                     PHCAP = litter heat capacity [J/(m3 K)]
+!                                     PCOND = litter thermal conductivity [W/(m K)]
+!
+!*      0.2    declaration of local variables
+!
+REAL(KIND=JPRB) :: ZHOOK_HANDLE
+!
+REAL                               :: ZWORK
+!
+!-------------------------------------------------------------------------------
+IF (LHOOK) CALL DR_HOOK('MODE_MEB:MEBLITTER_THRM_0D',0,ZHOOK_HANDLE)
+!
+ZWORK  = PWRL/(XRHOLW*PGNDLITTER)
+!
+! Litter heat capacity:
+!
+PHCAP  = XOMSPH*XLITTER_THRM_Z1 +  (XCL*XRHOLW)*ZWORK +    &
+            (XCI*XRHOLI/XRHOLW)*PWRLI/PGNDLITTER
+!
+! Litter thermal conductivity:
+!
+PCOND  = XLITTER_THRM_Z2 + XLITTER_THRM_Z3 * ZWORK
+!
+IF (LHOOK) CALL DR_HOOK('MODE_MEB:MEBLITTER_THRM_0D',1,ZHOOK_HANDLE)
+!-------------------------------------------------------------------------------
+!
+END SUBROUTINE MEBLITTER_THRM_0D
 !####################################################################
 !####################################################################
 !####################################################################
