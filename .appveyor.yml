@@ -8,7 +8,7 @@ environment:
     SHELL: C:\cygwin64\bin\bash
 
 install:
-  - cmd: C:\cygwin64\setup-x86_64.exe -q -P gcc-core,gcc-g++,gcc-fortran,libncurses-devel,zlib-devel,libuv1,librhash0,libuuid1,libjsoncpp19,libarchive13
+  - cmd: C:\cygwin64\setup-x86_64.exe -q -P binutils,gcc-core,gcc-g++,gcc-fortran,libncurses-devel,zlib-devel,libuv1,librhash0,libuuid1,libjsoncpp19,libarchive13
   - ps: |
         if (-Not (Test-Path "C:\cmk" -PathType Container) ) {
           $env:CMAKE_URL = "http://cygwin.mirror.constant.com/x86_64/release/cmake/cmake-3.13.1-1.tar.xz"
