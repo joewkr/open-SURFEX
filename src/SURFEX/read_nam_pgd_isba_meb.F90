@@ -45,7 +45,7 @@ CONTAINS
 USE MODI_OPEN_NAMELIST
 USE MODI_CLOSE_NAMELIST
 !
-USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE_ECOSG
+USE MODD_DATA_COVER_PAR, ONLY : NVEGTYPE
 !
 USE MODE_POS_SURF
 !
@@ -77,7 +77,7 @@ LOGICAL                           :: GFOUND    ! flag when namelist is present
 !*    0.3    Declaration of namelists
 !            ------------------------
 !
-LOGICAL, DIMENSION(NVEGTYPE_ECOSG) :: LMEB_PATCH
+LOGICAL, DIMENSION(NVEGTYPE) :: LMEB_PATCH
 LOGICAL                :: LFORC_MEASURE
 LOGICAL                :: LMEB_LITTER
 LOGICAL                :: LMEB_GNDRES
