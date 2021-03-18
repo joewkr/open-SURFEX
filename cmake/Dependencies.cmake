@@ -69,6 +69,11 @@ if(BUILD_NETCDF)
             "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
         )
 
+    if (CMAKE_Fortran_COMPILER_ID MATCHES "GNU")
+        if (CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL "10.0")
+            set(netcdf_gfortran_tweaks "-fallow-argument-mismatch")
+        endif()
+    endif()
     ExternalProject_add(NetCDF_Fortran
         DEPENDS NetCDF_C
         URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/netcdf-fortran-4.4.4.tar.gz
@@ -80,6 +85,7 @@ if(BUILD_NETCDF)
             -DENABLE_TESTS=OFF
         CMAKE_CACHE_ARGS
             "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
+            "-DCMAKE_Fortran_FLAGS:STRING=${netcdf_gfortran_tweaks}"
         BUILD_BYPRODUCTS
             "auxiliary/${shared_lib_dir}/${CMAKE_SHARED_LIBRARY_PREFIX}netcdff${CMAKE_SHARED_LIBRARY_SUFFIX}"
         )
@@ -115,6 +121,11 @@ if(USE_ECCODES)
     target_link_libraries(eccodes::eccodes_Fortran INTERFACE eccodes::eccodes eccodes_f90)
 else(USE_ECCODES)
     if(BUILD_GRIB_API)
+        if (CMAKE_Fortran_COMPILER_ID MATCHES "GNU")
+            if (CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL "10.0")
+                set(grib_api_gfortran_tweaks "-fallow-argument-mismatch")
+            endif()
+        endif()
         ExternalProject_add(grib_api
             URL ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary/grib_api-1.23.0-Source.tar.gz
             INSTALL_DIR ${CMAKE_BINARY_DIR}/auxiliary
@@ -130,6 +141,7 @@ else(USE_ECCODES)
                 -DDISABLE_OS_CHECK=ON
             CMAKE_CACHE_ARGS
                 "-DCMAKE_Fortran_COMPILER:FILEPATH=${CMAKE_Fortran_COMPILER}"
+                "-DCMAKE_Fortran_FLAGS:STRING=${grib_api_gfortran_tweaks}"
             BUILD_BYPRODUCTS
                 "auxiliary/${shared_lib_dir}/${CMAKE_SHARED_LIBRARY_PREFIX}grib_api_f90${CMAKE_SHARED_LIBRARY_SUFFIX}"
             )
