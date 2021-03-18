@@ -1,0 +1,20 @@
+--- eccodes-targets.cmake	2020-01-16 11:19:57.000000000 +0100
++++ eccodes-targets.cmake	2021-03-18 21:17:30.354106260 +0100
+@@ -196,7 +196,7 @@
+ add_library(eccodes_f90 SHARED IMPORTED)
+ 
+ set_target_properties(eccodes_f90 PROPERTIES
+-  INTERFACE_INCLUDE_DIRECTORIES "/usr/include/x86_64-linux-gnu;/usr/include/x86_64-linux-gnu"
++  INTERFACE_INCLUDE_DIRECTORIES "/usr/lib/x86_64-linux-gnu/fortran/gfortran-mod-15"
+   INTERFACE_LINK_LIBRARIES "eccodes"
+ )
+ 
+@@ -204,7 +204,7 @@
+ add_library(eccodes_f90_static STATIC IMPORTED)
+ 
+ set_target_properties(eccodes_f90_static PROPERTIES
+-  INTERFACE_INCLUDE_DIRECTORIES "/usr/include/x86_64-linux-gnu"
++  INTERFACE_INCLUDE_DIRECTORIES "/usr/lib/x86_64-linux-gnu/fortran/gfortran-mod-15"
+   INTERFACE_LINK_LIBRARIES "eccodes"
+ )
+ 

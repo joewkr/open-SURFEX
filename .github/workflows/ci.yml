@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master,devel]
+
+jobs:
+  build:
+    name: ${{ matrix.os }} / cmake ${{ matrix.cmake }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        cmake:
+          - "3.11.0"
+          - "3.16.0"
+        build-type: ["debug", "release"]
+        include:
+          - os: ubuntu-latest
+            build-type: "release"
+            auxiliary-libraries: "system"
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Dependencies
+      env:
+        AUXILIARY_LIBRARIES: ${{ matrix.auxiliary-libraries }}
+        CMAKE_VERSION: ${{ matrix.cmake }}
+        ECCODES_CMAKE_CONFIG: "/usr/lib/x86_64-linux-gnu/cmake/eccodes/eccodes-targets.cmake"
+      run: |
+        sudo apt update
+        sudo apt install gfortran
+        if [[ "${AUXILIARY_LIBRARIES}" == "system" ]]; then
+          sudo apt install netcdf-bin libnetcdf-dev libnetcdff-dev
+          sudo apt install libeccodes-tools libeccodes-dev libopenjp2-7-dev
+          sudo patch ${ECCODES_CMAKE_CONFIG} ${GITHUB_WORKSPACE}/.github/workflows/ubuntu-20.04.eccodes-targets.patch
+        fi
+        if [[ ! -z $CMAKE_VERSION ]]; then
+          CMAKE_NAME="cmake-${CMAKE_VERSION}-Linux-x86_64"
+          CMAKE_VERSION_DIR=v`echo ${CMAKE_VERSION} | grep -Po '\d+\.\d+'`
+          wget https://cmake.org/files/${CMAKE_VERSION_DIR}/${CMAKE_NAME}.tar.gz
+          tar -xf ${CMAKE_NAME}.tar.gz
+          CMAKE_EXE=${GITHUB_WORKSPACE}/${CMAKE_NAME}/bin/cmake
+        else
+          sudo apt-get install cmake
+          CMAKE_EXE=cmake
+        fi
+        echo "CMAKE_EXE=${CMAKE_EXE}" >> $GITHUB_ENV
+
+    - name: Configure
+      env:
+        BUILD_TYPE: ${{ matrix.build-type }}
+        AUXILIARY_LIBRARIES: ${{ matrix.auxiliary-libraries }}
+        ECCODES_DIR: "/usr/lib/x86_64-linux-gnu/cmake"
+      run: |
+        SURFEX_BUILD_DIR="${GITHUB_WORKSPACE}/build"
+        echo "SURFEX_BUILD_DIR=${SURFEX_BUILD_DIR}" >> $GITHUB_ENV
+        mkdir -p "${SURFEX_BUILD_DIR}"
+        cd "${SURFEX_BUILD_DIR}"
+        CMAKE_OPTIONS="${CMAKE_OPTIONS} -DCMAKE_BUILD_TYPE=${BUILD_TYPE}"
+        CMAKE_OPTIONS="${CMAKE_OPTIONS} -DINSPECT_MASTER_SOURCES=ON"
+        if [[ "${AUXILIARY_LIBRARIES}" == "system" ]]; then
+          CMAKE_OPTIONS="${CMAKE_OPTIONS} -DBUILD_NETCDF=OFF"
+          CMAKE_OPTIONS="${CMAKE_OPTIONS} -DBUILD_GRIB_API=OFF"
+          CMAKE_OPTIONS="${CMAKE_OPTIONS} -DUSE_ECCODES=ON"
+          CMAKE_OPTIONS="${CMAKE_OPTIONS} -Deccodes_DIR=${ECCODES_DIR}"
+        fi
+        ${CMAKE_EXE} ${CMAKE_OPTIONS} ..
+
+    - name: Build
+      run: |
+        cd "${SURFEX_BUILD_DIR}"
+        ${CMAKE_EXE} --build . -- -j2
+
