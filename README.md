@@ -1,5 +1,5 @@
 # Open-SURFEX
-[![Build Status](https://travis-ci.org/joewkr/open-SURFEX.svg?branch=master)](https://travis-ci.org/joewkr/open-SURFEX)
+[![CI](https://github.com/joewkr/open-SURFEX/actions/workflows/ci.yml/badge.svg)](https://github.com/joewkr/open-SURFEX/actions/workflows/ci.yml)
 [![Build status](https://ci.appveyor.com/api/projects/status/mu09s8ivcr1v2041/branch/master?svg=true)](https://ci.appveyor.com/project/joewkr/open-surfex/branch/master)
 
 [SURFEX](http://www.cnrm-game-meteo.fr/surfex) (SURFace EXternalisée) is a modelling platform that parametrizes land and water surfaces. SURFEX is being developed by Météo-France and Open-SURFEX is
