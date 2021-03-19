@@ -14,7 +14,7 @@ original `makefile`-based build. It also contains a number of minor bug fixes.
 
 ### Required tools
 
-* cmake version 3.10 or newer
+* cmake version 3.11 or newer
 * Fortran compiler (configuration files are available for GNU, Intel and Cray Fortran compilers)
 
 ### Build instructions
