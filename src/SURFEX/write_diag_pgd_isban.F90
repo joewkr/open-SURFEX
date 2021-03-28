@@ -301,9 +301,9 @@ IF(IO%CISBA=='DIF')THEN
   !* Root fraction for each patch
   !
   ALLOCATE(ZWORK1(ILU))
-  DO JP = 1,IO%NPATCH
-    PK => NP%AL(JP)
-    DO JL=1,SIZE(PK%XROOTFRAC,2)
+  DO JL=1,SIZE(PK%XROOTFRAC,2)
+    DO JP = 1,IO%NPATCH
+      PK => NP%AL(JP)
       IF (JL<10) THEN
         WRITE(YRECFM,FMT='(A8,I1)') 'ROOTFRAC',JL
       ELSE
