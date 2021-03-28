@@ -323,6 +323,9 @@ FUNDEFS += -UNOMPI -USFX_MPI
 ifneq "$(VER_MPI)" "NOMPI"
 FPPFLAGS += -DSFX_MPI
 endif
+ifneq "$(VER_OMP)" "NOOMP"
+FPPFLAGS +=-DSFX_OMP
+endif
 #
 ifndef VER_MPI
 VER_MPI=MPIVIDE
@@ -500,6 +503,7 @@ ifneq "$(VER_CDF)" "NONE"
 #
 ifeq "$(VER_CDF)" "CDFAUTO"
 #
+DIR_M4?=${SRC_SURFEX}/src/LIB/netcdf4/m4-${VERSION_M4}
 DIR_CURL?=${SRC_SURFEX}/src/LIB/netcdf4/curl-${VERSION_CURL}
 DIR_ZLIB?=${SRC_SURFEX}/src/LIB/netcdf4/zlib-${VERSION_ZLIB}
 DIR_SZIP?=${SRC_SURFEX}/src/LIB/netcdf4/szip-${VERSION_SZIP}
@@ -507,6 +511,7 @@ DIR_HDF5?=${SRC_SURFEX}/src/LIB/netcdf4/hdf5-${VERSION_HDF5}
 DIR_CDF?=${SRC_SURFEX}/src/LIB/netcdf4/netcdf-${VERSION_CDF}
 DIR_CDFF?=${SRC_SURFEX}/src/LIB/netcdf4/netcdf-fortran-${VERSION_CDFF}
 #RJ: avoid non standard libs! Can create non conforming outputs
+M4_PATH?=${DIR_M4}-${ARCH}-${VER_MPI}
 CURL_PATH?=${DIR_CURL}-${ARCH}-${VER_MPI}
 ZLIB_PATH?=${DIR_ZLIB}-${ARCH}-${VER_MPI}
 SZIP_PATH?=${DIR_SZIP}-${ARCH}-${VER_MPI}
@@ -514,6 +519,7 @@ HDF5_PATH?=${DIR_HDF5}-${ARCH}-${VER_MPI}
 CDF_PATH?=${DIR_CDF}-${ARCH}-${VER_MPI}
 CDFF_PATH?=${DIR_CDFF}-${ARCH}-${VER_MPI}
 #
+M4_BIN?=${M4_PATH}/bin/m4
 CURL_LIB?=${CURL_PATH}/lib/libcurl.a
 ZLIB_LIB?=${ZLIB_PATH}/lib/libz.a
 SZIP_LIB?=${SZIP_PATH}/lib/libsz.a
@@ -526,8 +532,8 @@ CDFF_INC?=${CDFF_PATH}/include/netcdf.mod
 
 INC_NETCDF?= -I${CDFF_PATH}/include -I${CDF_PATH}/include -I${HDF5_PATH}/include -I${SZIP_PATH}/include -I${ZLIB_PATH}/include -I${CURL_PATH}/include
 #
-LIB_NETCDF     ?= -L${CDFF_PATH}/lib -lnetcdff -L${CDF_PATH}/lib -lnetcdf -L${HDF5_PATH}/lib -lhdf5_hl -lhdf5 \
-		  -L${SZIP_PATH}/lib -lsz -L${ZLIB_PATH}/lib -lz -L${CURL_PATH}/lib -lcurl
+LIB_NETCDF?= -L${CDFF_PATH}/lib -lnetcdff -L${CDF_PATH}/lib -lnetcdf -L${HDF5_PATH}/lib -lhdf5_hl -lhdf5 \
+	     -L${SZIP_PATH}/lib -lsz -L${ZLIB_PATH}/lib -lz -L${CURL_PATH}/lib -lcurl
 #
 XIOS_CDF_OPT   = netcdf4_par
 #

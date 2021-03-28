@@ -108,6 +108,8 @@ IF (LHOOK) CALL DR_HOOK('INIT_OUTFN_FLAKE_N',0,ZHOOK_HANDLE)
 ! 4. Create output file for fluxes values
 !----------------------------------------------------------
 !
+YATT_TITLE(1)='units'
+!
 YFILE='FLAKE_DIAGNOSTICS.OUT.nc'
  CALL CREATE_FILE(YFILE,IDIMS,YNAME_DIM,IFILE_ID,IDDIM)
 JRET=NF90_REDEF(IFILE_ID)

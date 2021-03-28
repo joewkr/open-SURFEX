@@ -413,7 +413,7 @@ endif
 #RJ: fix issue with mixed compilers by clearing some env flags: LDFLAGS,CFLAGS,CPPFLAGS
 ifeq "$(VER_CDF)" "CDFAUTO"
 #
-NETCDF_OPTS ?= FC="$(F90)" CC="$(CC) "
+NETCDF_OPTS ?= FC="$(F90)" CC="$(CC)"
 #
 ifneq "$(VER_MPI)" "NOMPI"
 HDF5_OPTS= --enable-fortran --enable-parallel
@@ -442,7 +442,12 @@ LIBSCDF= -L/opt/softs/intel/impi/5.1.2.150/intel64/lib -L/opt/softs/intel/compil
 
 CPPFLAGSCDFF= -I${ZLIB_PATH}/include -I${SZIP_PATH}/include -I${HDF5_PATH}/include -I${CDF_PATH}/include
 LDFLAGSCDFF= -Wl,-rpath,/opt/softs/intel/impi/5.1.2.150/intel64/lib:/opt/softs/intel/compilers_and_libraries_2016.1.150/linux/compiler/lib/intel64:${CDF_PATH}/lib:${HDF5_PATH}/lib:${SZIP_PATH}/lib:${ZLIB_PATH}/lib -L/opt/softs/intel/impi/5.1.2.150/intel64/lib -L/opt/softs/intel/compilers_and_libraries_2016.1.150/linux/compiler/lib/intel64 -L${CDF_PATH}/lib -L${HDF5_PATH}/lib -L${ZLIB_PATH}/lib -L${SZIP_PATH}/lib
-LIBSCDFF= -netcdf -lhdf5_hl -lhdf5 -ldl -lm -lz -L/opt/softs/intel/impi/5.1.2.150/intel64/lib -L/opt/softs/intel/compilers_and_libraries_2016.1.150/linux/compiler/lib/intel64 -L${CDF_PATH}/lib -L${HDF5_PATH}/lib -L${ZLIB_PATH}/lib -L${SZIP_PATH}/lib
+LIBSCDFF= -lnetcdf -lhdf5_hl -lhdf5 -ldl -lm -lz -L/opt/softs/intel/impi/5.1.2.150/intel64/lib -L/opt/softs/intel/compilers_and_libraries_2016.1.150/linux/compiler/lib/intel64 -L${CDF_PATH}/lib -L${HDF5_PATH}/lib -L${ZLIB_PATH}/lib -L${SZIP_PATH}/lib
+
+$(M4_BIN):
+	cd $(DIR_M4) && ./configure --prefix=${M4_PATH} && $(MAKE) -j 1 clean && \
+	$(MAKE) -j 1 && $(MAKE) -j install &&  \
+	ln -sf ${M4_PATH}/bin/m4 ${SRC_SURFEX}/bin/m4
 
 $(SZIP_LIB) :
 	 cd $(DIR_SZIP) && ./configure --prefix=${SZIP_PATH} CC="$(CC)" && \
@@ -466,7 +471,7 @@ $(HDF5_LIB) : $(ZLIB_LIB) $(SZIP_LIB)
          CPPFLAGS="$(AM_CPPFLAGSHDF5)" LDFLAGS="$(H5_LDFLAGSHDF5)" LIBS="$(LIBSHDF5)" && \
 	 $(MAKE) -j 1 clean && $(MAKE) -j 1 && $(MAKE) -j 1 install && $(MAKE) -j 1 clean
 #
-$(CDF_LIB) : $(LIB_HDF5)
+$(CDF_LIB) : $(M4_BIN) $(LIB_HDF5)
 	 cd $(DIR_CDF) && \
 	./configure --with-hdf5=${HDF5_PATH} $(CDF_OPTS) --prefix=${CDF_PATH} \
 	 CC="$(CC)" CFLAGS="$(CFLAGSHDF5CDF)" FC="$(F90)" FCFLAGS="$(FCFLAGSHDF5CDF)" \
@@ -474,7 +479,7 @@ $(CDF_LIB) : $(LIB_HDF5)
 	 $(MAKE) -j 1 clean && $(MAKE) -j 1 && $(MAKE) -j 1 install && $(MAKE) -j 1 clean
 #
 cdf : $(CDFF_INC)
-$(CDFF_INC) : $(ZLIB_LIB) $(SZIP_LIB) $(CURL_LIB) $(HDF5_LIB) $(CDF_LIB)
+$(CDFF_INC) : $(M4_BIN) $(ZLIB_LIB) $(SZIP_LIB) $(CURL_LIB) $(HDF5_LIB) $(CDF_LIB)
 	 cd $(DIR_CDFF) && \
          ./configure --prefix=${CDFF_PATH} \
 	 CC="$(CC)" CFLAGS="$(CFLAGSHDF5CDF)" FC="$(F90)" FCFLAGS="$(FCFLAGSHDF5CDF)" \
@@ -527,7 +532,7 @@ endif
 
 ADD_OASIS=""
 ifeq "$(VER_OASIS)" "mct"
-  ADD_OASIS="--use_oasis oasis3_mct"
+  ADD_OASIS=--use_oasis oasis3_mct
 endif
 
 ifeq "$(VER_XIOS)" "2"
@@ -536,7 +541,7 @@ ifneq "$(XIOS_CDF_OPT)" ""
 #
 xios : $(XIOS_KEY)
 $(XIOS_KEY) : $(CDFF_INC)
-	@echo "export Surfex_CC=\"$(CC) $(CFLAGS_OMP)\"" > $(DIR_XIOS)/arch/arch-Surfex.env
+	@echo "export Surfex_CC=\"$(CC) $(CFLAGS) $(CFLAGS_OMP)\"" > $(DIR_XIOS)/arch/arch-Surfex.env
 	@echo "export Surfex_F90=\"$(F90) $(F90FLAGS)\"" >> $(DIR_XIOS)/arch/arch-Surfex.env
 	#
 	@echo "OASIS_INCDIR=\"$(INC_OASIS)\"" > $(DIR_XIOS)/arch/arch-Surfex.path
@@ -598,11 +603,11 @@ $(PROG_LIST) : OBJ_PROG=$(shell find -L $(PROG_DIR) -type f -iname "spll_*.f*" \
 #RJ: added hack when linking user if no master was linked
 $(PROG_LIST) :  $(LIB_MNH)  $(LIB_GRIBEX)
 ifeq "$(DO_COMP_USER)" "YES"
-	$(F90) $(LDFLAGS) -o $(OBJDIR)/$@ \
+	$(F90) -o $(OBJDIR)/$@ \
 	  $(shell ([ -e $(OBJ_PROG) ] && echo $(OBJ_PROG)) || echo $(OBJ_PROG) | sed -e 's@/MASTER/spll_@/$(VER_USER)/spll_@') \
-	  $(LIB_MNH) $(LIBS)
+	  $(LIB_MNH) $(LIBS) $(LDFLAGS)
 else
-	$(F90) $(LDFLAGS) -o $(OBJDIR)/$@ $(OBJ_PROG) $(LIB_MNH) $(LIBS)
+	$(F90) -o $(OBJDIR)/$@ $(OBJ_PROG) $(LIB_MNH) $(LIBS) $(LDFLAGS)
 endif
 
 ifeq "$(DO_COMP_USER)" "YES"

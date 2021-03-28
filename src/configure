@@ -7,6 +7,7 @@ export VERSION_MASTER=${VERSION_MASTER:-SFX-V8-1}
 export VERSION_BUG=${VERSION_BUG:-1}
 export VERSION_XYZ=${VERSION_MASTER}-${VERSION_BUG}
 export VERSION_DATE=${VERSION_DATE:-"27/03/2012"}
+export VERSION_M4=${VERSION_M4:-"1.4.18"}
 export VERSION_CURL=${VERSION_CURL:-"7.50.1"}
 export VERSION_ZLIB=${VERSION_ZLIB:-"1.2.8"}
 export VERSION_SZIP=${VERSION_SZIP:-"2.1"}
@@ -201,7 +202,7 @@ export LIB_GRIBAPI='${GRIB_API_LIB}'
 
                 export     ARCH=${ARCH:-LXgfortran}
                 export  VER_MPI=${VER_MPI:-MPIAUTO}
-		export  VER_XIOS=${VER_XIOS:-2}
+		export  VER_XIOS=${VER_XIOS:-0}
                 export OPTLEVEL=${OPTLEVEL:-O2}
                 export MVWORK=${MVWORK:-NO}
                 export VER_CDF=${VER_CDF:-CDFCTI}
@@ -468,6 +469,9 @@ fi
 #  Install CDF if VER_CDF=CDFAUTO
 #
 if [ "x${VER_CDF}" = "xCDFAUTO" ] ; then
+if [ ! -d "$LOCAL/src/LIB/netcdf4"/"m4-${VERSION_M4}" ] ; then
+  ( cd "$LOCAL/src/LIB/netcdf4" ; tar xvfz m4-${VERSION_M4}.tar.gz )
+fi
 if [ ! -d "$LOCAL/src/LIB/netcdf4"/"curl-${VERSION_CURL}" ] ; then
   ( cd "$LOCAL/src/LIB/netcdf4" ; tar xvfz curl-${VERSION_CURL}.tar.gz )
 fi

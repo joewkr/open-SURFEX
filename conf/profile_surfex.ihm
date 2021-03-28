@@ -70,6 +70,7 @@ export CONF_DOLLAR=${CONF_DOLLAR}
 # Version of NETCDF
 #
 export VER_CDF=${VER_CDF}
+export VERSION_M4=${VERSION_M4}
 export VERSION_CURL=${VERSION_CURL}
 export VERSION_ZLIB=${VERSION_ZLIB}
 export VERSION_SZIP=${VERSION_SZIP}
@@ -120,6 +121,7 @@ export XYZ="-\${ARCH}\${MNH_INT}-\${VERSION_XYZ}-\${VER_MPI}-\${VER_OMP}-\${OPTL
 export BIN_TOOLS=${BIN_TOOLS}
 export PATH=.:\$SRC_SURFEX/bin:\$SRC_SURFEX/exe:\$SRC_SURFEX/bin_tools/\${BIN_TOOLS}:\$PATH
 #
+export LIB_PATH=\$SRC_SURFEX/LIB/netcdf4/curl-${VERSION_CURL}-${ARCH}/lib:\$SRC_SURFEX/LIB/netcdf4/szip-${VERSION_SZIP}-${ARCH}/lib:\$SRC_SURFEX/LIB/netcdf4/zlib-${VERSION_ZLIB}-${ARCH}/lib:\$SRC_SURFEX/LIB/netcdf4/hdf5-${VERSION_HDF5}-${ARCH}/lib:\$SRC_SURFEX/LIB/netcdf4/netcdf-${VERSION_CDF}-${ARCH}/lib:\$SRC_SURFEX/LIB/netcdf4/netcdf-fortran-${VERSION_CDFF}-${ARCH}/lib
 export LD_LIBRARY_PATH=${LIB_PATH}:${LD_LIBRARY_PATH}
 #
 # NCARG_ROOT : for use of graphic tools : diaprog

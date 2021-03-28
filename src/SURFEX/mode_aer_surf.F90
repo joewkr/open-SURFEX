@@ -215,6 +215,7 @@ REAL,DIMENSION(JPMODE*3)                           :: ZMMIN
 !
 REAL,DIMENSION(NSP+NCARB+NSOA)                     :: ZFAC     ! M3 / mass conversion factor
 REAL, PARAMETER                                    :: ZDEN2MOL = 1E-6 * 6.0221367E+23  / 28.9644E-3
+REAL                                               :: ZEMISRADIUSI, ZEMISRADIUSJ
 INTEGER                                            :: JJ, JN   ! [idx] loop counters
 REAL(KIND=JPRB) :: ZHOOK_HANDLE
 !
@@ -227,6 +228,23 @@ DO JJ=1, SIZE(PSVT,2)
   ZSV(:,JJ) =  PSVT(:,JJ) * ZDEN2MOL * PRHODREF(:)
   ZSV(:,JJ) = MAX(ZSV(:,JJ),1E-40 * ZDEN2MOL * PRHODREF(:))
 ENDDO
+!Get minimum values possible for aerosols moments
+IF (CRGUNIT=="MASS") THEN
+  ZEMISRADIUSI = XEMISRADIUSI * EXP(-3.*(LOG(XEMISSIGI))**2)
+  ZEMISRADIUSJ = XEMISRADIUSJ * EXP(-3.*(LOG(XEMISSIGJ))**2)
+ELSE
+  ZEMISRADIUSI = XEMISRADIUSI
+  ZEMISRADIUSJ = XEMISRADIUSJ
+END IF
+
+ZMMIN(1) = XSURF_TINY
+ZMMIN(2) = ZMMIN(1) * (ZEMISRADIUSI**3)*EXP(4.5 * LOG(XEMISSIGI)**2)
+ZMMIN(3) = ZMMIN(1) * (ZEMISRADIUSI**6)*EXP(18. * LOG(XEMISSIGI)**2)
+
+ZMMIN(4) = XSURF_TINY
+ZMMIN(5) = ZMMIN(4) * (ZEMISRADIUSJ**3)*EXP(4.5 * LOG(XEMISSIGJ)**2)
+ZMMIN(6) = ZMMIN(4) * (ZEMISRADIUSJ**6)*EXP(18. * LOG(XEMISSIGJ)**2)
+
 !
  CALL INIT_VAR(ZSV,ZFAC,ZCTOTA)
 !
