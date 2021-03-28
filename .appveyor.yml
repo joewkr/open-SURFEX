@@ -11,7 +11,7 @@ install:
   - cmd: C:\cygwin64\setup-x86_64.exe -q -P binutils,gcc-core,gcc-g++,gcc-fortran,libncurses-devel,zlib-devel,libuv1,librhash0,libuuid1,libjsoncpp19,libarchive13
   - ps: |
       if (-Not (Test-Path "C:\cmk" -PathType Container) ) {
-        $env:CMAKE_URL = "http://cygwin.mirror.constant.com/x86_64/release/cmake/cmake-3.14.5-1.tar.xz"
+        $env:CMAKE_URL = "http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/64bit/2021/03/02/123248/release/cmake/cmake-3.14.5-1.tar.xz"
         $env:CMAKE_ZIP = "C:\cmake-3.14.5-1.tar.xz"
         (New-Object System.Net.WebClient).DownloadFile($env:CMAKE_URL, $env:CMAKE_ZIP)
       }
