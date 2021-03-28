@@ -24,7 +24,7 @@ build_script:
   - cmd: cd build
   - cmd: set PATH=C:\cygwin64\bin;C:\cygwin64\usr\bin;%PATH%
   - cmd: echo %PATH%
-  - cmd: C:\cygwin64\bin\bash.exe -lc "cd $APPVEYOR_BUILD_FOLDER/build && FFLAGS=-fallow-argument-mismatch cmake -G 'Unix Makefiles' ..;"
+  - cmd: C:\cygwin64\bin\bash.exe -lc "cd $APPVEYOR_BUILD_FOLDER/build && FFLAGS=-fallow-argument-mismatch cmake -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=Debug ..;"
   - cmd: C:\cygwin64\bin\bash.exe -lc "cd $APPVEYOR_BUILD_FOLDER/build && cmake --build . -- -j2;"
 
 #test_script:
